@@ -11,6 +11,9 @@ vendor.post_boot.parsed=1s
 # Device
 ro.product.mod_device=garnet_global
 
+# Display
+debug.sf.frame_rate_multiple_threshold=120
+
 # IMS Debugging
 persist.vendor.ims.disableADBLogs=1
 persist.vendor.ims.disableDebugLogs=1
