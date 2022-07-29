@@ -24,6 +24,9 @@ debug.graphics.game_default_frame_rate.disabled=true
 debug.sf.frame_rate_multiple_threshold=120
 debug.sf.predict_hwc_composition_strategy=0
 
+# LMK
+ro.config.low_ram=false
+
 # Log
 persist.log.tag.ACDB-LOADER=S
 persist.log.tag.CamX=S
