@@ -135,7 +135,9 @@ on property:ro.boot.product.hardware.sku=JP
     enable qti_esepowermanager_service_1_1
 
 on property:sys.boot_completed=1
-
+    # Only owner can acces this node
+    chmod 440 /proc/net/unix
+    
 service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
     override
     class hal
