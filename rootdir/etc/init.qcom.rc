@@ -75,6 +75,7 @@ on init
 on post-fs
 
 on early-boot
+    write /dev/ipa 1
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
     exec u:r:vendor_qti_init_shell:s0 -- /vendor/bin/init.qcom.early_boot.sh
