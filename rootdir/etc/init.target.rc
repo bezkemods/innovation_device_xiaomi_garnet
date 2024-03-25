@@ -599,3 +599,6 @@ on property:sys.volume.stream.music.device.bluetooth=*
 
 on property:sys.volume.stream.bluetoothsco=*
     setprop vendor.volume.stream.bluetoothsco ${sys.volume.stream.bluetoothsco}
+    
+# Disable statsd service to prevent additional battery drain
+    stop statsd
