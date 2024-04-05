@@ -51,6 +51,7 @@ vendor.audio.volume.headset.gain.depcal=true
 vendor.audio_hal.period_size=240
 vendor.qc2audio.per_frame.flac.dec.enabled=true
 vendor.qc2audio.suspend.enabled=true
+vendor.audio.feature.compr_voip.enable=false
 
 # Bluetooth
 bluetooth.profile.a2dp.source.enabled=true
