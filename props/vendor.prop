@@ -187,6 +187,7 @@ vendor.pasr.activemode.enabled=false
 
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
+ro.vendor.perf.scroll_opt=true
 
 # Qcomd
 persist.vendor.qcomsysd.enabled=1
