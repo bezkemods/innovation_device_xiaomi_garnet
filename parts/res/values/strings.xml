@@ -511,6 +511,7 @@
     <string name="refresh_default">Default</string>
     <string name="refresh_standard">60Hz</string>
     <string name="refresh_extreme">120Hz</string>
+    <string name="refresh_land">60Hz on Landscape</string>   
     
     <!-- Welcome XiaomiParts -->
     <string name="xiaomi_parts_title">XiaomiParts</string>
