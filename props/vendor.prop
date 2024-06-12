@@ -295,6 +295,7 @@ TapInterval=1ms
 TapSlop=1px
 
 # USB
+ro.usb.uvc.enabled=true
 sys.usb.mtp.batchcancel=1
 vendor.usb.diag.func.name=ffs
 vendor.usb.dpl.inst.name=dpl
