@@ -59,3 +59,14 @@ ro.config.dha_lmk_scale=0.545
 ro.config.dha_th_rate=2.3
 ro.config.sdha_apps_bg_max=64
 ro.config.sdha_apps_bg_min=8
+
+# RIL Powersaving
+persist.radio.add_power_save=1
+pm.sleep_mode=1
+ro.ril.disable.power.collapse=0
+ro.ril.fast.dormancy.rule=1
+ro.ril.fast.dormancy.timeout=3
+ro.mot.eri.losalert.delay=100
+ro.vendor.use_data_netmgrd=true
+ro.vold.umsdirtyratio=20
+power.saving.mode=1
