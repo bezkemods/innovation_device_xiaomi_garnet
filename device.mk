@@ -236,6 +236,10 @@ PRODUCT_PACKAGES += \
 
 $(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
 
+# Logging
+SPAMMY_LOG_TAGS := \Add commentMore actions
+    SensorService
+
 # Media
 PRODUCT_COPY_FILES += \
     $(AUDIO_HAL_DIR)/configs/common/codec2/service/1.0/c2audio.vendor.base-arm.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/c2audio.vendor.base-arm.policy \
