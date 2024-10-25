@@ -128,6 +128,10 @@ on property:sys.boot_completed=1
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
     
+    on property:persist.sys.device_provisioned=1 && property:sys.boot_completed=1
+    # Cap dex2oat cpu utilization
+    write /dev/cpuctl/dex2oat/cpu.uclamp.max 60
+    
 service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
     override
     class hal
