@@ -13,6 +13,11 @@ persist.vendor.ims.disableQXDMLogs=1
 # QTI
 ro.vendor.qti.va_aosp.support=1
 
+# QTI Mem Optimisation
+persist.vendor.sys.memplus.enable=false
+ro.vendor.qti.sys.fw.bg_apps_limit=30
+ro.vendor.qti.sys.fw.bservice_limit=60
+ 
 # Radio
 DEVICE_PROVISIONED=1
 persist.vendor.data.mode=concurrent
