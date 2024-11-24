@@ -17,6 +17,9 @@ vendor.post_boot.parsed=1s
 # Device
 ro.product.mod_device=garnet_global
 
+# Disbale FPS capping for games
+debug.graphics.game_default_frame_rate.disabled=true
+
 # Display
 debug.sf.frame_rate_multiple_threshold=120
 
