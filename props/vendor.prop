@@ -151,7 +151,7 @@ persist.sys.fuse.passthrough.enable=true
 vendor.gatekeeper.disable_spu=true
 
 # Graphics
-debug.sf.disable_client_composition_cache=1
+debug.sf.disable_client_composition_cache=0
 debug.sf.early.app.duration=7666666
 debug.sf.early.sf.duration=6333333
 debug.sf.earlyGl.app.duration=7666666
