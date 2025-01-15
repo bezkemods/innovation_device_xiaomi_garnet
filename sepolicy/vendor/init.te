@@ -1,2 +1,4 @@
 set_prop(vendor_init, vendor_fp_prop)
 set_prop(vendor_init, vendor_qcc_prop)
+allow init vendor_sysfs_battery_supply:file { open read getattr setattr};Add commentMore actions
+allow init sysfs_fastcharge:file { setattr };
