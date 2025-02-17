@@ -188,6 +188,7 @@ ro.config.avoid_gfx_accel=true
 ro.hwui.render_ahead=10
 debug.hwui.use_hint_manager=true
 debug.hwui.target_cpu_time_percent=30
+debug.sf.enable_adpf_cpu_hint=true
 persist.sys.ui.hw=1
 persist.sys.ui.hw2=1
 persist.sys.ui.render=1
