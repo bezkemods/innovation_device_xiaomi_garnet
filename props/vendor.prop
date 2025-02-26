@@ -86,6 +86,9 @@ ro.hardware.camera=xiaomi
 # Chipset
 ro.soc.manufacturer=QTI
 
+# Disable vsync for cpu rendered apps
+debug.cpurend.vsync=false
+
 # Display
 ro.vendor.display.sensortype=2
 ro.vendor.display.svi=1
