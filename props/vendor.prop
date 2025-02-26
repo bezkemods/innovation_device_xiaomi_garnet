@@ -173,6 +173,7 @@ ro.surface_flinger.clear_slots_with_set_layer_buffer=true
 ro.surface_flinger.support_kernel_idle_timer=true
 vendor.gralloc.disable_ubwc=0
 debug.sdm.support_writeback=0
+ro.config.avoid_gfx_accel=true
 
 # HWUI
 debug.hwui.use_hint_manager=true
