@@ -300,7 +300,8 @@ PRODUCT_PACKAGES += \
 
 # Parts
 PRODUCT_PACKAGES += \
-    XiaomiParts
+    XiaomiParts \
+    XiaomiVoIPFix
 
 # Power
 PRODUCT_PACKAGES += \
