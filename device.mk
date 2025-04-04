@@ -122,6 +122,8 @@ PRODUCT_PACKAGES += \
 # Call the MiuiCamera setup
 $(call inherit-product-if-exists, device/xiaomi/miuicamera-garnet/device.mk)
 
+TARGET_BUILD_DEVICE_AS_WEBCAM := true
+
 PRODUCT_PACKAGES += \
     libcamera2ndk_vendor
 
