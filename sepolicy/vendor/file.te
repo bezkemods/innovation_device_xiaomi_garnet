@@ -10,6 +10,7 @@ type vendor_sysfs_displayfeature, fs_type, sysfs_type;
 
 # Fastcharge
 type sysfs_fastcharge, sysfs_type, fs_type;
+type vendor_sysfs_power_supply, fs_type, sysfs_type;
 
 # Fingerprint
 type sysfs_tp_fodstatus, fs_type, sysfs_type;

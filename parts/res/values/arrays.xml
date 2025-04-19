@@ -169,6 +169,20 @@
         <item>3000</item>
         <item>5000</item>
     </string-array>
+    
+    <!-- Turbo Charging Modes -->
+    <string-array name="turbo_modes_entries">
+        <item>18W</item>
+        <item>33W</item>
+        <item>47W</item>
+        <item>67W</item>
+    </string-array>
+    <string-array name="turbo_modes_values">
+        <item>1800000</item>
+        <item>3300000</item>
+        <item>4700000</item>
+        <item>6700000</item>
+    </string-array>
 
     <!-- GPU Frequency Options -->
     <string-array name="gpu_frequency_entries" translatable="false">

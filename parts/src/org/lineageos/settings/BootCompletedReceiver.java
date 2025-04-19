@@ -36,6 +36,7 @@ import org.lineageos.settings.dirac.DiracUtils;
 import org.lineageos.settings.powertools.PowerProfileTileService;
 import org.lineageos.settings.thermal.ThermalUtils;
 import org.lineageos.settings.thermal.ThermalTileService;
+import org.lineageos.settings.turbocharging.TurboChargingService;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
@@ -50,7 +51,11 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         if (!intent.getAction().equals(Intent.ACTION_LOCKED_BOOT_COMPLETED)) {
             return;
         }
-
+        
+        // Start TurboChargingService
+        Intent turboChargingIntent = new Intent(context, TurboChargingService.class);
+        context.startService(turboChargingIntent);
+        
         // Start Thermal Management Services
         ThermalUtils.getInstance(context).startService();
         context.startServiceAsUser(new Intent(context, ThermalTileService.class), UserHandle.CURRENT);

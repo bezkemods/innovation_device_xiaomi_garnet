@@ -36,6 +36,10 @@ on boot
     chown system system /sys/class/power_supply/battery/temp
     chmod 0660 /sys/class/power_supply/battery/temp
 
+    # Allow system to modify charging current
+    chown system system /sys/class/power_supply/battery/constant_charge_current
+    chmod 0664 /sys/class/power_supply/battery/constant_charge_current
+    
     # GPU 
     chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
     chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_clock_mhz
@@ -234,3 +238,7 @@ on property:persist.sys.parts.cpu.prime.max_frequency=*
     write /sys/devices/system/cpu/cpufreq/policy7/scaling_max_freq ${persist.sys.parts.cpu.prime.max_frequency}
 on property:persist.sys.parts.cpu.prime.governor=*
     write /sys/devices/system/cpu/cpufreq/policy7/scaling_governor ${persist.sys.parts.cpu.prime.governor}
+    
+# Monitor and apply Turbo Charging value via system property persist.sys.turbo_charge_current
+on property:persist.sys.turbo_charge_current=*
+    write /sys/class/power_supply/battery/constant_charge_current ${persist.sys.turbo_charge_current}
