@@ -249,6 +249,8 @@ $(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
      libsensor-parseRGB \
      libsensor-ssccalapi \
      sensors \
+     TextView \
+     PerformanceBooster \
      vendor.qti.hardware.display.composer-service \
      vendor.xiaomi.sensor.citsensorservice@2.0-service
 
