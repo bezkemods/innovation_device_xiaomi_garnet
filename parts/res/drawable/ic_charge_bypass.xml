@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?android:attr/colorControlNormal">
+    
+    <!-- Akkumulátor körvonal -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M15.67,4H14V2H10V4H8.33A1.33,1.33 0 0,0 7,5.33V20.67C7,21.4 7.6,22 8.33,22H15.67C16.4,22 17,21.4 17,20.67V5.33A1.33,1.33 0 0,0 15.67,4M15,20H9V6H15V20Z"/>
+    
+    <!-- Bypass nyíl (körbeforduló) -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M19,13C19,13.55 18.55,14 18,14C17.45,14 17,13.55 17,13C17,9.69 14.31,7 11,7V9L8,6L11,3V5C15.42,5 19,8.58 19,13Z"/>
+    
+    <!-- Villám szimbólum (töltés jelölése) -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M11.5,9L10,13H12L11,17L14,11H12L11.5,9Z"/>
+    
+    <!-- Második bypass nyíl (másik irányba) -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M5,11C5,10.45 5.45,10 6,10C6.55,10 7,10.45 7,11C7,14.31 9.69,17 13,17V15L16,18L13,21V19C8.58,19 5,15.42 5,11Z"/>
+</vector>

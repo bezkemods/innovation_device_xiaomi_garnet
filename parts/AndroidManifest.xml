@@ -433,5 +433,15 @@
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
         
+        <!-- Charge Bypass -->
+        <activity
+            android:name=".charge.ChargeActivity"
+            android:label="@string/charge_bypass_title"
+            android:icon="@drawable/ic_charge_bypass"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+        
     </application>
 </manifest>

@@ -69,6 +69,13 @@
             android:summary="@string/core_control_summary"
             android:icon="@drawable/ic_core_control"
             app:iconSpaceReserved="true" />
+        <!-- Charge Bypass -->
+        <Preference
+            android:key="charge_bypass"
+            android:title="@string/charge_bypass_title"
+            android:summary="@string/charge_bypass_summary"
+            android:icon="@drawable/ic_charge_bypass"
+            app:iconSpaceReserved="true" />
         <!-- Turbo Charging -->
         <Preference
             android:key="turbo_charging"
