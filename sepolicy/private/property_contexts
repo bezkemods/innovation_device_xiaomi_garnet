@@ -10,3 +10,6 @@ ro.miui.cust_device                u:object_r:exported_system_prop:s0
 
 persist.camera.aiasd.isovalue      u:object_r:vendor_persist_camera_prop:s0
 persist.vendor.low.cutoff          u:object_r:vendor_persist_camera_prop:s0
+
+# XiaomiParts
+sys.perf_mode_active                         u:object_r:exported_system_prop:s0
