@@ -985,4 +985,207 @@
          running in WAL mode.
          Choices are: FULL, NORMAL, OFF. -->
     <string name="db_wal_sync_mode" translatable="false">OFF</string>
+    
+         
+     <!-- Vibration Patterns for system events. These additional patterns enhance the tactile 
+     feedback system by providing distinct vibration responses for more system events, improving 
+     the overall user experience through better haptic differentiation. -->
+
+    <!-- Vibrator pattern for feedback about a long screen/key press -->
+    <integer-array name="config_longPressVibePattern">
+        <item>0</item>
+        <item>1</item>
+        <item>20</item>
+        <item>21</item>
+    </integer-array>
+
+    <!-- Vibrator pattern for feedback about touching a virtual key -->
+    <integer-array name="config_virtualKeyVibePattern">
+        <item>0</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </integer-array>
+
+    <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
+    <integer-array name="config_keyboardTapVibePattern">
+        <item>40</item>
+    </integer-array>
+
+    <!-- Vibrator pattern for feedback when selecting an hour/minute tick of a Clock -->
+    <integer-array name="config_clockTickVibePattern">
+        <item>125</item>
+        <item>30</item>
+    </integer-array>
+
+    <!-- Vibrator pattern for feedback when selecting a day/month/year date of a Calendar -->
+    <integer-array name="config_calendarDateVibePattern">
+        <item>125</item>
+        <item>30</item>
+    </integer-array>
+
+    <!-- Vibrator pattern for feedback about booting with safe mode enabled -->
+    <integer-array name="config_safeModeEnabledVibePattern">
+        <item>0</item>
+        <item>1</item>
+        <item>20</item>
+        <item>21</item>
+        <item>500</item>
+        <item>600</item>
+    </integer-array>
+
+    <!-- Vibrator pattern for feedback about hitting a scroll barrier -->
+    <integer-array name="config_scrollBarrierVibePattern">
+        <item>0</item>
+        <item>15</item>
+        <item>10</item>
+        <item>10</item>
+    </integer-array>
+
+     <!-- Incoming notifications -->
+     <integer-array name="config_notificationVibePattern">
+     <item>0</item>
+     <item>100</item>
+     <item>50</item>
+     <item>100</item>
+     </integer-array>
+
+     <!-- Low battery warning -->
+     <integer-array name="config_batteryLowVibePattern">
+     <item>0</item>
+     <item>200</item>
+     <item>500</item>
+     </integer-array>
+
+     <!-- Power connected -->
+     <integer-array name="config_powerConnectedVibePattern">
+     <item>0</item>
+     <item>30</item>
+     <item>30</item>
+     <item>30</item>
+     </integer-array>
+
+     <!-- Power disconnected -->
+     <integer-array name="config_powerDisconnectedVibePattern">
+     <item>0</item>
+     <item>500</item>
+     </integer-array>
+
+     <!-- Fingerprint success -->
+     <integer-array name="config_fingerprintSuccessVibePattern">
+     <item>0</item>
+     <item>20</item>
+     </integer-array>
+
+     <!-- Fingerprint error -->
+     <integer-array name="config_fingerprintErrorVibePattern">
+     <item>0</item>
+     <item>20</item>
+     <item>30</item>
+     <item>20</item>
+     </integer-array>
+
+     <!-- Double-tap gesture -->
+     <integer-array name="config_doubleTapVibePattern">
+     <item>0</item>
+     <item>50</item>
+     <item>50</item>
+     <item>50</item>
+     </integer-array>
+
+     <!-- Screen off -->
+     <integer-array name="config_screenOffVibePattern">
+     <item>0</item>
+     <item>10</item>
+     </integer-array>
+
+     <!-- Screenshot taken -->
+     <integer-array name="config_screenshotVibePattern">
+     <item>0</item>
+     <item>30</item>
+     <item>40</item>
+     </integer-array>
+
+     <!-- NFC tag detected -->
+     <integer-array name="config_nfcDetectedVibePattern">
+     <item>0</item>
+     <item>60</item>
+     </integer-array>
+
+     <!-- Headset connected -->
+     <integer-array name="config_headsetConnectedVibePattern">
+     <item>0</item>
+     <item>25</item>
+     <item>25</item>
+     <item>25</item>
+     </integer-array>
+
+     <!-- Headset disconnected -->
+     <integer-array name="config_headsetDisconnectedVibePattern">
+     <item>0</item>
+     <item>80</item>
+     </integer-array>
+
+     <!-- Alarm firing -->
+     <integer-array name="config_alarmVibePattern">
+     <item>0</item>
+     <item>500</item>
+     <item>200</item>
+     <item>500</item>
+     </integer-array>
+
+     <!-- Call connected -->
+     <integer-array name="config_callConnectedVibePattern">
+     <item>0</item>
+     <item>100</item>
+     <item>100</item>
+     <item>100</item>
+     <item>100</item>
+     <item>100</item>
+     </integer-array>
+
+     <!-- Call ended -->
+     <integer-array name="config_callEndedVibePattern">
+     <item>0</item>
+     <item>300</item>
+     </integer-array>
+
+     <!-- SMS sent -->
+     <integer-array name="config_smsSentVibePattern">
+     <item>0</item>
+     <item>50</item>
+     <item>150</item>
+     <item>50</item>
+     </integer-array>
+
+     <!-- Error dialog -->
+     <integer-array name="config_errorDialogVibePattern">
+     <item>0</item>
+     <item>100</item>
+     <item>100</item>
+     <item>100</item>
+     <item>100</item>
+     </integer-array>
+
+     <!-- Camera shutter -->
+     <integer-array name="config_cameraShutterVibePattern">
+     <item>0</item>
+     <item>10</item>
+     <item>30</item>
+     <item>10</item>
+     </integer-array>
+
+     <!-- Airplane-mode toggle -->
+     <integer-array name="config_airplaneModeVibePattern">
+     <item>0</item>
+     <item>150</item>
+     </integer-array>
+
+     <!-- Do-Not-Disturb on/off -->
+     <integer-array name="config_dndToggleVibePattern">
+     <item>0</item>
+     <item>50</item>
+     <item>50</item>
+     <item>50</item>
+     </integer-array>
 </resources>
