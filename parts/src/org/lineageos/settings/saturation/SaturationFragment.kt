@@ -28,6 +28,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -51,7 +54,6 @@ class SaturationFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.saturation, rootKey)
-        setHasOptionsMenu(true)
 
         val preview = findPreference<LayoutPreference>(Constants.KEY_SATURATION_PREVIEW)
         preview?.let { addViewPager(it) }
@@ -64,8 +66,30 @@ class SaturationFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
         updateSaturation(seekBarValue)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.saturation_menu, menu)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
+        // Menü beállítása az új módszerrel
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.saturation_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return if (menuItem.itemId == R.id.add_tile) {
+                    TileUtils.requestAddTileService(
+                        context,
+                        SaturationTileService::class.java,
+                        R.string.saturation_title,
+                        R.drawable.ic_saturation_tile
+                    )
+                    true
+                } else {
+                    false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
@@ -75,20 +99,6 @@ class SaturationFragment : PreferenceFragmentCompat(), Preference.OnPreferenceCh
             return true
         }
         return false
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.add_tile) {
-            TileUtils.requestAddTileService(
-                context,
-                SaturationTileService::class.java,
-                R.string.saturation_title,
-                R.drawable.ic_saturation_tile
-            )
-            true
-        } else {
-            super.onOptionsItemSelected(item)
-        }
     }
 
     private fun updateSaturation(seekBarValue: Int) {
