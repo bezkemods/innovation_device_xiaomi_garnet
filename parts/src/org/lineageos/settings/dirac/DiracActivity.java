@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The LineageOS Project
+ * Copyright (C) 2018 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.autohbm;
+package org.lineageos.settings.dirac;
 
 import android.os.Bundle;
 
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 
-public class AutoHbmActivity extends CollapsingToolbarBaseActivity {
+public class DiracActivity extends CollapsingToolbarBaseActivity {
 
-    private static final String TAG = "AutoHbm";
+    private static final String TAG_DIRAC = "dirac";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportFragmentManager().beginTransaction().replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame,
-                new AutoHbmFragment(), TAG).commit();
+        getFragmentManager().beginTransaction().replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame,
+                new DiracSettingsFragment(), TAG_DIRAC).commit();
     }
 }

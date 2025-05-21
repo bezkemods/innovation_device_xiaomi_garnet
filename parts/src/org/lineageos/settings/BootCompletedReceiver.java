@@ -32,6 +32,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Display.HdrCapabilities;
 
+import org.lineageos.settings.dirac.DiracUtils;
 import org.lineageos.settings.powertools.PowerProfileTileService;
 import org.lineageos.settings.thermal.ThermalUtils;
 import org.lineageos.settings.thermal.ThermalTileService;
@@ -57,6 +58,14 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         // Start Power Profile Tile Service
         context.startServiceAsUser(new Intent(context, PowerProfileTileService.class), UserHandle.CURRENT);
 
+        // Try to initialize Dirac if present
+        Log.d(TAG, "Received boot completed intent");
+        try {
+            DiracUtils.getInstance(context);
+        } catch (Exception e) {
+            Log.d(TAG, "Dirac is not present in system");
+        }
+        
         // Enable HDR support
         try {
             final DisplayManager displayManager = context.getSystemService(DisplayManager.class);
