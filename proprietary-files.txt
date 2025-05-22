@@ -1567,10 +1567,10 @@ vendor/etc/media_profiles_parrot_v1.xml
 vendor/etc/media_profiles_parrot_v2.xml
 vendor/etc/media_profiles_ravelin.xml
 
-# Media (Dolby Vision)
+# Media (Dolby Vision) - from 2.0.10.0.VNRMIXM
 vendor/bin/hw/dolbycodec2
 vendor/etc/dolby_vision.cfg
-vendor/etc/init/vendor.dolbyvision.media.c2@1.0-service.rc
+vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc
 vendor/etc/vintf/manifest/c2_manifest_vendor.xml
 vendor/lib/c2.dolby.avc.dec.so
 vendor/lib/c2.dolby.avc.sec.dec.so
