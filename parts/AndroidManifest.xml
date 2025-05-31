@@ -41,11 +41,12 @@
         android:targetSdkVersion="35"/>
 
     <application
-        android:label="@string/device_settings_app_name"
+        android:label="@string/xiaomi_parts_title"
         android:persistent="true"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"
-        android:theme="@style/Theme.SubSettingsBase">
+        android:theme="@style/Theme.SubSettingsBase"
+        android:icon="@drawable/ic_xiaomiparts">
 
         <receiver android:name=".BootCompletedReceiver" android:exported="true">
             <intent-filter android:priority="1000">
@@ -68,34 +69,70 @@
             </intent-filter>
         </receiver>
 
+        <!-- Splash Screen Activity -->
         <activity
-            android:name=".thermal.ThermalSettingsActivity"
-            android:label="@string/thermal_title"
-            android:theme="@style/Theme.SubSettingsBase_v31.Thermal"
-            android:exported="true">
+            android:name=".xiaomiparts.SplashActivity"
+            android:label="@string/xiaomi_parts_title"
+            android:icon="@drawable/ic_xiaomiparts"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
             <meta-data
                 android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.battery" />
+                android:value="com.android.settings.category.ia.system" />
             <meta-data
                 android:name="com.android.settings.summary"
-                android:resource="@string/thermal_summary" />
+                android:resource="@string/xiaomi_parts_summary" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_xiaomiparts" />
         </activity>
 
+        <!-- XiaomiParts Main Activity -->
+        <activity
+            android:name=".xiaomiparts.XiaomiPartsActivity"
+            android:label="@string/xiaomi_parts_title"
+            android:icon="@drawable/ic_xiaomiparts"
+            android:exported="false"
+            android:theme="@android:style/Theme.DeviceDefault.Settings">
+        </activity>
+
+        <!-- Launcher alias -->
+        <activity-alias
+               android:name=".LauncherAlias"
+               android:targetActivity=".xiaomiparts.SplashActivity"
+               android:icon="@drawable/ic_launcher_icon"
+               android:label="@string/xiaomi_parts_launcher_title"
+               android:enabled="true"
+               android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Thermal Settings -->
+        <activity
+            android:name=".thermal.ThermalSettingsActivity"
+            android:label="@string/thermal_title"
+            android:icon="@drawable/ic_thermal"
+            android:theme="@style/Theme.SubSettingsBase_v31.Thermal"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+
+        <!-- Dirac Audio -->
         <activity
             android:name=".dirac.DiracActivity"
             android:exported="false"
             android:label="@string/dirac_title"
-            android:theme="@style/Theme.SubSettingsBase">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                       android:value="com.android.settings.category.ia.sound" />
-            <meta-data android:name="com.android.settings.summary"
-                       android:resource="@string/dirac_summary" />
+            android:icon="@drawable/ic_dirac"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
         
         <service
@@ -104,7 +141,6 @@
         </service>
         
         <!-- Thermal Profiles tile service -->
-        
         <service
             android:name=".thermal.ThermalTileService"
             android:label="@string/thermal_tile_label"
@@ -132,35 +168,44 @@
             android:value="true" />
         </service>
 
+        <!-- Clear Speaker -->
         <activity
             android:name=".speaker.ClearSpeakerActivity" 
             android:label="@string/clear_speaker_title"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.sound" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/clear_speaker_summary" />
+            android:icon="@drawable/ic_clear_speaker"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
+
+        <!-- Display Saturation -->
+        <activity
+            android:name=".saturation.SaturationActivity"
+            android:label="@string/saturation_title"
+            android:icon="@drawable/ic_display_saturation"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+
+        <!-- Display Saturation tile service -->
+        <service  
+            android:name=".saturation.SaturationTileService"
+            android:label="@string/saturation_title"
+            android:icon="@drawable/ic_saturation_tile"
+            android:exported="true"  
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
         <!-- Per-app refresh rate activity -->
         <activity
             android:name=".refreshrate.RefreshActivity"
             android:label="@string/refresh_title"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.display" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/refresh_summary" />
+            android:icon="@drawable/ic_qs_refresh_rate"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
 
         <service
@@ -176,40 +221,12 @@
             android:label="@string/refresh_title_tile_label"
             android:exported="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-            <meta-data
+        <intent-filter>
+        <action android:name="android.service.quicksettings.action.QS_TILE" />
+        </intent-filter>
+        <meta-data
             android:name="android.service.quicksettings.TOGGLEABLE_TILE"
             android:value="true" />
-        </service>
-        
-        <!-- Display Saturation activity -->
-        <activity
-            android:name=".saturation.SaturationActivity"
-            android:label="@string/saturation_title"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.display" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/saturation_summary" />
-        </activity>
-
-        <!-- Display Saturation tile service -->
-        <service  
-            android:name=".saturation.SaturationTileService"
-            android:label="@string/saturation_title"
-            android:icon="@drawable/ic_saturation_tile"
-            android:exported="true"  
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
         </service>
 
 	<!-- TileHandler activity -->
@@ -223,20 +240,13 @@
             </intent-filter>
         </activity>
 
-        <!-- Auto HBM activity -->
+        <!-- Auto HBM -->
         <activity
             android:name=".autohbm.AutoHbmActivity"
             android:label="@string/auto_hbm_title"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.display" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/auto_hbm_summary" />
+            android:icon="@drawable/ic_auto_hbm"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
 
         <!-- Auto HBM service -->
@@ -274,21 +284,14 @@
                 android:value="true" />
         </service>
 
-        <!-- GameBar Overlay -->
+        <!-- GameBar -->
         <activity
             android:name=".gamebar.GameBarSettingsActivity"
             android:label="@string/game_bar_title"
+            android:icon="@drawable/ic_gamebar_settings"
             android:theme="@style/Theme.SubSettingsBase"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.apps" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/game_bar_summary" />
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
 
         <!-- GameBar AppSelector -->
@@ -328,21 +331,14 @@
              </intent-filter>
         </receiver>
 
-        <!-- Powertools Activity -->
+        <!-- Powertools -->
         <activity
             android:name=".powertools.PowertoolsActivity"
             android:label="@string/Powertools_title"
+            android:icon="@drawable/ic_powertools"
             android:theme="@style/Theme.SubSettingsBase"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.battery" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/Powertools_summary" />
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
 
         <!-- Powertools Quick Settings Tile Service -->
@@ -375,19 +371,12 @@
         <!-- Turbo Charging -->
         <activity
             android:name=".turbocharging.TurboChargingActivity"
-            android:exported="true"
+            android:exported="false"
             android:enabled="true"
             android:label="@string/turbo_charge_title"
-            android:theme="@style/Theme.SubSettingsBase">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.battery" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/turbo_charge_summary" />
+            android:icon="@drawable/ic_turbo_charging"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
 
         <service
@@ -420,7 +409,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.default" />
              </intent-filter>
         </receiver>
         

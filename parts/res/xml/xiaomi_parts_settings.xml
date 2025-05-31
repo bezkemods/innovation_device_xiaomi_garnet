@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:divider="@null"
+    android:dividerHeight="0dp">
+      
+    <!-- Display Settings -->
+    <PreferenceCategory
+        android:key="display_category"
+        android:title="@string/display_title">
+
+        <!-- Saturation -->
+        <Preference
+            android:key="saturation_settings"
+            android:title="@string/saturation_title"
+            android:summary="@string/saturation_summary"
+            android:icon="@drawable/ic_display_saturation" />
+
+        <!-- Refresh Rate -->
+        <Preference
+            android:key="refresh_rate_settings"
+            android:title="@string/refresh_title"
+            android:summary="@string/refresh_summary"
+            android:icon="@drawable/ic_qs_refresh_rate" />
+
+        <!-- Auto HBM -->
+        <Preference
+            android:key="auto_hbm"
+            android:title="@string/auto_hbm_title"
+            android:summary="@string/auto_hbm_summary"
+            android:icon="@drawable/ic_auto_hbm" />
+    </PreferenceCategory>
+    
+    <!-- Sound Settings -->
+    <PreferenceCategory
+        android:key="sound_category"
+        android:title="@string/sound_title">
+
+        <!-- Dirac -->
+        <Preference
+            android:key="dirac_settings"
+            android:title="@string/dirac_title"
+            android:summary="@string/dirac_summary"
+            android:icon="@drawable/ic_dirac" />
+
+        <!-- Clear Speaker -->
+        <Preference
+            android:key="clear_speaker"
+            android:title="@string/clear_speaker_title"
+            android:summary="@string/clear_speaker_summary"
+            android:icon="@drawable/ic_clear_speaker" />
+    </PreferenceCategory>
+    
+    <!-- Power & Performance -->
+    <PreferenceCategory
+        android:key="power_category"
+        android:title="@string/power_title">
+
+        <!-- Thermal -->
+        <Preference
+            android:key="thermal_settings"
+            android:title="@string/thermal_title"
+            android:summary="@string/thermal_summary"
+            android:icon="@drawable/ic_thermal" />
+
+        <!-- Turbo Charging -->
+        <Preference
+            android:key="turbo_charging"
+            android:title="@string/turbo_charge_title"
+            android:summary="@string/turbo_charge_summary"
+            android:icon="@drawable/ic_turbo_charging" />
+
+        <!-- Powertools -->
+        <Preference
+            android:key="powertools"
+            android:title="@string/Powertools_title"
+            android:summary="@string/Powertools_summary"
+            android:icon="@drawable/ic_powertools" />
+    </PreferenceCategory>
+    
+    <!-- Gaming -->
+    <PreferenceCategory
+        android:key="gaming_category"
+        android:title="@string/gaming_title">
+
+        <!-- GameBar -->
+        <Preference
+            android:key="gamebar_settings"
+            android:title="@string/game_bar_title"
+            android:summary="@string/game_bar_summary"
+            android:icon="@drawable/ic_gamebar_settings" />
+    </PreferenceCategory>
+</PreferenceScreen>

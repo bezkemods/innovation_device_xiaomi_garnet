@@ -504,4 +504,15 @@
     <string name="refresh_standard">60Hz</string>
     <string name="refresh_extreme">120Hz</string>
     
+    <!-- Welcome XiaomiParts -->
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi Garnet special settings</string>
+    <string name="xiaomi_parts_summary">Xiaomi device-specific settings</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">Display</string>
+    <string name="sound_title">Sound</string>
+    <string name="power_title">Power</string>
+    <string name="gaming_title">Gaming and Perormance</string>
+    
 </resources>

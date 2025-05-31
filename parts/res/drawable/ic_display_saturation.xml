@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?android:attr/colorControlNormal">
+
+    <!-- Telefon keret -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M7,2h10c1.1,0 2,0.9 2,2v16c0,1.1 -0.9,2 -2,2H7c-1.1,0 -2,-0.9 -2,-2V4c0,-1.1 0.9,-2 2,-2zM7,20h10V4H7v16z" />
+
+    <!-- Kijelző – a belső tér -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,5h8v14H8z" />
+
+    <!-- Szaturáció sávok -->
+    <path
+        android:fillColor="#AAAAAA"
+        android:pathData="M9,7h1v10H9z" />
+    <path
+        android:fillColor="#777777"
+        android:pathData="M11,7h1v10h-1z" />
+    <path
+        android:fillColor="#444444"
+        android:pathData="M13,7h1v10h-1z" />
+
+</vector>
