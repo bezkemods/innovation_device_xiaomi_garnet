@@ -295,10 +295,6 @@
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
 
-        <!-- GameBar AppSelector -->
-        <activity android:name=".gamebar.GameBarAppSelectorActivity" />
-        <activity android:name=".gamebar.GameBarAppRemoverActivity" />
-
         <!-- GameBar Overlay Tile Service -->
         <service
             android:name=".gamebar.GameBarTileService"
@@ -490,5 +486,10 @@
                 android:value="true" />
         </service>
 
+        <activity
+            android:name=".gamebar.GameBarPerAppConfigActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SubSettingsBase" />    
+         
     </application>
 </manifest>

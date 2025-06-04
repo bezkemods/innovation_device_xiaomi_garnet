@@ -113,19 +113,10 @@ public class GameBarFragment extends PreferenceFragmentCompat {
         mSplitModePref      = findPreference("game_bar_split_mode");
         mOverlayFormatPref  = findPreference("game_bar_format");
 
-        Preference appSelectorPref = findPreference("game_bar_app_selector");
-        if (appSelectorPref != null) {
-            appSelectorPref.setOnPreferenceClickListener(pref -> {
-                Intent intent = new Intent(getContext(), GameBarAppSelectorActivity.class);
-                startActivity(intent);
-                return true;
-            });
-        }
-        Preference appRemoverPref = findPreference("game_bar_app_remover");
-        if (appRemoverPref != null) {
-            appRemoverPref.setOnPreferenceClickListener(pref -> {
-                Intent intent = new Intent(getContext(), GameBarAppRemoverActivity.class);
-                startActivity(intent);
+        Preference perAppConfigPref = findPreference("game_bar_per_app_config");
+        if (perAppConfigPref != null) {
+            perAppConfigPref.setOnPreferenceClickListener(pref -> {
+                startActivity(new android.content.Intent(getContext(), GameBarPerAppConfigActivity.class));
                 return true;
             });
         }
@@ -235,21 +226,21 @@ public class GameBarFragment extends PreferenceFragmentCompat {
         if (mCaptureStartPref != null) {
             mCaptureStartPref.setOnPreferenceClickListener(pref -> {
                 GameDataExport.getInstance().startCapture();
-                Toast.makeText(getContext(), R.string.game_bar_capture_start_toast, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Started logging Data", Toast.LENGTH_SHORT).show();
                 return true;
             });
         }
         if (mCaptureStopPref != null) {
             mCaptureStopPref.setOnPreferenceClickListener(pref -> {
                 GameDataExport.getInstance().stopCapture();
-                Toast.makeText(getContext(), R.string.game_bar_capture_stop_toast, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Stopped logging Data", Toast.LENGTH_SHORT).show();
                 return true;
             });
         }
         if (mCaptureExportPref != null) {
             mCaptureExportPref.setOnPreferenceClickListener(pref -> {
                 GameDataExport.getInstance().exportDataToCsv();
-                Toast.makeText(getContext(), R.string.game_bar_capture_export_toast, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Exported log data to file", Toast.LENGTH_SHORT).show();
                 return true;
             });
         }
