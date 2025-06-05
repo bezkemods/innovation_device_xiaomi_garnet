@@ -299,4 +299,8 @@ public final class RefreshUtils {
         }
         return state;
     }
+
+    public void clearAllPerAppSettings() {
+        mSharedPrefs.edit().remove(REFRESH_CONTROL).apply();
+    }
 }
