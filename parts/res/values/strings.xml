@@ -512,6 +512,8 @@
     <string name="refresh_standard">60Hz</string>
     <string name="refresh_extreme">120Hz</string>
     <string name="refresh_land">60Hz on Landscape</string>   
+    <string name="refresh_90">90Hz</string>
+    <string name="refresh_90_land">90Hz on Landscape</string>
     
     <!-- Welcome XiaomiParts -->
     <string name="xiaomi_parts_title">XiaomiParts</string>

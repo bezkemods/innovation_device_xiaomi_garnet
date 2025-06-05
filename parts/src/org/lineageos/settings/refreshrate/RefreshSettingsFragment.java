@@ -200,6 +200,10 @@ public class RefreshSettingsFragment extends PreferenceFragment
                 return R.drawable.ic_refresh_120;
             case RefreshUtils.STATE_LAND:
                 return R.drawable.ic_refresh_60;
+            case RefreshUtils.STATE_90:
+                return R.drawable.ic_refresh_90;
+            case RefreshUtils.STATE_90_LAND:
+                return R.drawable.ic_refresh_90;
             case RefreshUtils.STATE_DEFAULT:
             default:
                 return R.drawable.ic_refresh_default;
@@ -232,7 +236,9 @@ public class RefreshSettingsFragment extends PreferenceFragment
                 R.string.refresh_default,
                 R.string.refresh_standard,
                 R.string.refresh_extreme,
-                R.string.refresh_land
+                R.string.refresh_land,
+                R.string.refresh_90,
+                R.string.refresh_90_land
         };
 
         private ModeAdapter(Context context) {
