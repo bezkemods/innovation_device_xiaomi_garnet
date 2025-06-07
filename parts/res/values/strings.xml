@@ -320,6 +320,7 @@
     <string name="power_profile_mode_summary">%s</string>
     <string name="power_profile_applied">Power mode %1$s applied successfully!</string>
     <string name="thermal_mode_changed">Thermal mode set to %1$s: %2$b</string>
+    <string name="game_optimization_not_implemented">Game optimizations are currently not implemented</string>
 
     <!-- GPU Optimizer Section -->
     <string name="gpu_enable_title">Enable GPU Optimizer</string>

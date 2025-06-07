@@ -16,31 +16,22 @@
 
 package org.lineageos.settings.powertools;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.database.ContentObserver;
-import android.os.Handler;
 import android.os.PowerManager;
-import android.os.Process;
 import android.os.SystemProperties;
-import android.provider.Settings;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.R;
 import org.lineageos.settings.utils.FileUtils;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class PowerProfileUtil {
 
@@ -66,8 +57,6 @@ public class PowerProfileUtil {
     private Context mContext;
     private SharedPreferences mSharedPrefs;
     private NotificationManager mNotificationManager;
-    private List<String> mGamePackages;
-    private ContentObserver mBatterySaverObserver;
     private int mCurrentMode = MODE_BALANCE;
     private String[] mModes;
 
@@ -76,7 +65,6 @@ public class PowerProfileUtil {
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         Resources res = mContext.getResources();
-        mGamePackages = Arrays.asList(res.getStringArray(R.array.game_packages));
         mModes = new String[]{
                 mContext.getString(R.string.powerprofile_mode_balance),
                 mContext.getString(R.string.powerprofile_mode_gaming),
@@ -206,44 +194,7 @@ public class PowerProfileUtil {
     }
 
     private void optimizeGameLaunch() {
-        ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-        if (activityManager == null) return;
-
-        List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
-        if (runningApps == null) return;
-
-        for (ActivityManager.RunningAppProcessInfo processInfo : runningApps) {
-            if (mGamePackages.contains(processInfo.processName)) {
-                Process.setThreadPriority(Process.THREAD_PRIORITY_FOREGROUND);
-                Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_DISPLAY);
-
-                trimMemory(activityManager, ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW);
-
-                Log.d(TAG, "Optimizations applied to game package: " + processInfo.processName);
-            }
-        }
-
-        clearBackgroundProcesses(activityManager);
-    }
-
-    private void clearBackgroundProcesses(ActivityManager activityManager) {
-        List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
-        if (runningApps == null) return;
-
-        for (ActivityManager.RunningAppProcessInfo processInfo : runningApps) {
-            if (mGamePackages.contains(processInfo.processName)) continue;
-            if (processInfo.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                activityManager.killBackgroundProcesses(processInfo.processName);
-            }
-        }
-    }
-
-    private void trimMemory(ActivityManager activityManager, int level) {
-        try {
-            activityManager.getClass().getMethod("trimMemory", int.class).invoke(activityManager, level);
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to trim memory", e);
-        }
+        Log.d(TAG, "Gaming mode activated. Game optimizations are currently not implemented.");
     }
 
     private void enableBatterySaver(boolean enable) {
@@ -344,8 +295,6 @@ public class PowerProfileUtil {
     }
 
     public void cleanup() {
-        if (mBatterySaverObserver != null) {
-            mContext.getContentResolver().unregisterContentObserver(mBatterySaverObserver);
-        }
+        // No cleanup needed at the moment
     }
 }
