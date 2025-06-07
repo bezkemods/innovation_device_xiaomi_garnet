@@ -423,5 +423,15 @@
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
         
+        <!-- Core Control Activity -->
+        <activity
+            android:name=".corecontrol.CoreControlActivity"
+            android:label="@string/core_control_title"
+            android:icon="@drawable/ic_core_control"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+        
     </application>
 </manifest>

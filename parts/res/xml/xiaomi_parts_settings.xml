@@ -62,6 +62,13 @@
             android:summary="@string/thermal_summary"
             android:icon="@drawable/ic_thermal"
             app:iconSpaceReserved="true" />
+        <!-- Core Control -->
+        <Preference
+            android:key="core_control_settings"
+            android:title="@string/core_control_title"
+            android:summary="@string/core_control_summary"
+            android:icon="@drawable/ic_core_control"
+            app:iconSpaceReserved="true" />
         <!-- Turbo Charging -->
         <Preference
             android:key="turbo_charging"

@@ -18,6 +18,7 @@ import org.lineageos.settings.gamebar.GameBarSettingsActivity;
 import org.lineageos.settings.powertools.PowertoolsActivity;
 import org.lineageos.settings.turbocharging.TurboChargingActivity;
 import org.lineageos.settings.aboutme.AboutMeActivity;
+import org.lineageos.settings.corecontrol.CoreControlActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -31,7 +32,8 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_POWERTOOLS = "powertools";
     private static final String KEY_TURBO_CHARGING = "turbo_charging";
     private static final String KEY_ABOUTME = "about_me_settings";
-
+    private static final String KEY_CORE_CONTROL = "core_control_settings";
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +94,12 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
         if (turboChargingPref != null) {
             turboChargingPref.setOnPreferenceClickListener(this);
         }
-    }      
+               
+        Preference coreControlPref = findPreference(KEY_CORE_CONTROL);
+        if (coreControlPref != null) {
+            coreControlPref.setOnPreferenceClickListener(this);
+        }
+        
         Preference aboutMePref = findPreference(KEY_ABOUTME);
         if (aboutMePref != null) {
             aboutMePref.setOnPreferenceClickListener(preference -> {
@@ -136,6 +143,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             case KEY_TURBO_CHARGING:
                 intent = new Intent(this, TurboChargingActivity.class);
                 break;
+            case KEY_CORE_CONTROL:
+                intent = new Intent(this, CoreControlActivity.class);
+                break;
             case KEY_ABOUTME:
                 intent = new Intent(this, AboutMeActivity.class);
                 break;
@@ -149,4 +159,3 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
         return false;
     }
 }
-
