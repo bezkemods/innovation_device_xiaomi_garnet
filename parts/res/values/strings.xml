@@ -515,4 +515,15 @@
     <string name="power_title">Power</string>
     <string name="gaming_title">Gaming and Perormance</string>
     
+    <!-- About Me strings -->
+    <string name="about_me_title">About Me</string>
+    <string name="about_me_summary">Everything You need to know about InnOvaTioN</string>
+
+    <!-- Contact strings -->
+    <string name="about_me_contact_title">Contacts</string>
+    <string name="about_me_contact_summary">You can reach here</string>
+
+    <!-- Donate strings -->
+    <string name="about_me_donate_title">Donate Me</string>
+    <string name="about_me_donate_summary">Call me for a beer or a coffee</string>
 </resources>

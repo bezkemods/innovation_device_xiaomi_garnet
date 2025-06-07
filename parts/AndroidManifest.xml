@@ -412,6 +412,16 @@
                 <category android:name="android.intent.category.default" />
              </intent-filter>
         </receiver>
+
+        <!-- About Me -->
+        <activity
+            android:name=".aboutme.AboutMeActivity"
+            android:label="@string/about_me_title"
+            android:icon="@drawable/ic_about_me"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
         
     </application>
 </manifest>
