@@ -35,7 +35,7 @@ public class AboutMeActivity extends CollapsingToolbarBaseActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             // Ha főmenüként használod, akkor a xiaomi_parts_settings.xml-t használd
-            setPreferencesFromResource(R.xml.xiaomi_parts_settings, rootKey);
+            setPreferencesFromResource(R.xml.about_me_settings, rootKey);
             
             // Display Settings
             setupPreferenceIntent("saturation_settings", SaturationActivity.class);

@@ -17,6 +17,7 @@ import org.lineageos.settings.autohbm.AutoHbmActivity;
 import org.lineageos.settings.gamebar.GameBarSettingsActivity;
 import org.lineageos.settings.powertools.PowertoolsActivity;
 import org.lineageos.settings.turbocharging.TurboChargingActivity;
+import org.lineageos.settings.aboutme.AboutMeActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -29,6 +30,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_GAMEBAR = "gamebar_settings";
     private static final String KEY_POWERTOOLS = "powertools";
     private static final String KEY_TURBO_CHARGING = "turbo_charging";
+    private static final String KEY_ABOUTME = "about_me_settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +92,16 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
         if (turboChargingPref != null) {
             turboChargingPref.setOnPreferenceClickListener(this);
         }
-    }
+    }      
+        Preference aboutMePref = findPreference(KEY_ABOUTME);
+        if (aboutMePref != null) {
+            aboutMePref.setOnPreferenceClickListener(preference -> {
+                Intent intent = new Intent(this, AboutMeActivity.class);
+                startActivity(intent);
+                return true;
+            });
+        }
+   }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
@@ -124,6 +135,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 break;
             case KEY_TURBO_CHARGING:
                 intent = new Intent(this, TurboChargingActivity.class);
+                break;
+            case KEY_ABOUTME:
+                intent = new Intent(this, AboutMeActivity.class);
                 break;
         }
 
