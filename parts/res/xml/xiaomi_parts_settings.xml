@@ -102,19 +102,6 @@
             android:icon="@drawable/ic_about_me"
             app:iconSpaceReserved="true" />
 
-        <Preference
-            android:key="about_me_contact"
-            android:title="@string/about_me_contact_title"
-            android:summary="@string/about_me_contact_summary"
-            android:icon="@drawable/ic_contact"
-            app:iconSpaceReserved="true" />
-
-        <Preference
-            android:key="about_me_donate"
-            android:title="@string/about_me_donate_title"
-            android:summary="@string/about_me_donate_summary"
-            android:icon="@drawable/ic_donate"
-            app:iconSpaceReserved="true" />
     </PreferenceCategory>
         
 </PreferenceScreen>

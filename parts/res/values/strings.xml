@@ -520,8 +520,8 @@
     <string name="about_me_summary">Everything You need to know about InnOvaTioN</string>
 
     <!-- Contact strings -->
-    <string name="about_me_contact_title">Contacts</string>
-    <string name="about_me_contact_summary">You can reach here</string>
+    <string name="about_me_support_title">Support</string>
+    <string name="about_me_contact_summary">You can get help there</string>
 
     <!-- Donate strings -->
     <string name="about_me_donate_title">Donate Me</string>
