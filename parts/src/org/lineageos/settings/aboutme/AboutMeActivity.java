@@ -14,10 +14,11 @@ public class AboutMeActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(android.R.id.content, new AboutMeFragment())
-                .commit();
+        // A cím megmarad a toolbarban
+        setTitle(R.string.about_me_title);
+
+        // Saját layout használata, így a menüpontok a cím alatt jelennek meg
+        setContentView(R.layout.activity_about_me);
     }
 
     public static class AboutMeFragment extends PreferenceFragmentCompat {
@@ -50,4 +51,3 @@ public class AboutMeActivity extends CollapsingToolbarBaseActivity {
         }
     }
 }
-
