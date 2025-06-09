@@ -520,7 +520,7 @@
     <string name="about_me_summary">Everything You need to know about InnOvaTioN</string>
 
     <!-- Contact strings -->
-    <string name="about_me_support_title">Support</string>
+    <string name="about_me_contact_title">Support</string>
     <string name="about_me_contact_summary">You can get help there</string>
 
     <!-- Donate strings -->
@@ -531,6 +531,7 @@
     <string name="core_control_title">Core Control</string>
     <string name="core_control_summary">Manually enable or disable individual CPU cores</string>
     <string name="core_control_description">Advanced CPU control. Turning off cores may save battery or thermal load, but may affect performance and stability.\n\nAt least two little cores must remain online at all times.</string>
+    <string name="keep_little_cores_online">At least 2 little cores must remain online</string>
     <string name="core_0">Core 0 (Little)</string>
     <string name="core_1">Core 1 (Little)</string>
     <string name="core_2">Core 2 (Little)</string>Add commentMore actions

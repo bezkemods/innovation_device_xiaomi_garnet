@@ -14,20 +14,19 @@ public class AboutMeActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    // setTitle(R.string.about_me_title);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(android.R.id.content, new AboutMeFragment())
+                .commit();
+    }
 
-    getSupportFragmentManager()
-            .beginTransaction()
-            .replace(android.R.id.content, new AboutMeFragment())
-            .commit();
-}
     public static class AboutMeFragment extends PreferenceFragmentCompat {
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.about_me_settings, rootKey);
 
-            // Contact
+            // Contact preference
             Preference contactPreference = findPreference("about_me_contact");
             if (contactPreference != null) {
                 contactPreference.setOnPreferenceClickListener(preference -> {
@@ -38,7 +37,7 @@ public class AboutMeActivity extends CollapsingToolbarBaseActivity {
                 });
             }
 
-            // Donate
+            // Donate preference
             Preference donatePreference = findPreference("about_me_donate");
             if (donatePreference != null) {
                 donatePreference.setOnPreferenceClickListener(preference -> {
@@ -51,3 +50,4 @@ public class AboutMeActivity extends CollapsingToolbarBaseActivity {
         }
     }
 }
+
