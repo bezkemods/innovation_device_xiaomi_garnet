@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,7 +27,7 @@ public class TurboChargingUtil {
     private static final String PREF_TURBO_CURRENT = "turbo_current";
     private static final String PROP_TURBO_CURRENT = "persist.sys.turbo_charge_current";
     private static final String DEFAULT_OFF_VALUE = "4700000";
-    private static final String DEFAULT_ON_VALUE = "670000";
+    private static final String DEFAULT_ON_VALUE = "6700000";
 
     public static void applyTurboSetting(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

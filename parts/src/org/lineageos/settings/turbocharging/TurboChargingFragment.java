@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -81,7 +81,7 @@ public class TurboChargingFragment extends PreferenceFragment implements Prefere
             }
             mSportsMode.setEnabled(turboEnabled);
 
-            updateChargeCurrent();
+            updateChargeCurrent(turboEnabled);
             Toast.makeText(getActivity(),
                     turboEnabled ? getString(R.string.toast_turbo_on) : getString(R.string.toast_turbo_off),
                     Toast.LENGTH_SHORT).show();
@@ -107,7 +107,7 @@ public class TurboChargingFragment extends PreferenceFragment implements Prefere
                 updateSportsMode(false);
             }
 
-            updateChargeCurrent();
+            updateChargeCurrent(mTurboEnabled.isChecked());
 
             CharSequence entry = mTurboCurrent.getEntries()[mTurboCurrent.findIndexOfValue(value)];
             String entryStr = entry.toString();
@@ -122,9 +122,7 @@ public class TurboChargingFragment extends PreferenceFragment implements Prefere
         return false;
     }
 
-    private void updateChargeCurrent() {
-        boolean turboEnabled = PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .getBoolean(PREF_TURBO_ENABLED, false);
+    private void updateChargeCurrent(boolean turboEnabled) {
         String valueToSet = turboEnabled
                 ? PreferenceManager.getDefaultSharedPreferences(getActivity())
                         .getString(PREF_TURBO_CURRENT, DEFAULT_ON_VALUE)
