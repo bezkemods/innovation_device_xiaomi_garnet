@@ -577,8 +577,7 @@ on property:vold.decrypt=trigger_restart_framework
     chmod 0660 /sys/devices/system/cpu/cpu6/online
     chmod 0660 /sys/devices/system/cpu/cpu7/online
 
-on post-fs-data
-    # Charge Bypass
+    # Bypass Charging
     chown system system /sys/class/qcom-battery/input_suspend
     chmod 0660 /sys/class/qcom-battery/input_suspend
 

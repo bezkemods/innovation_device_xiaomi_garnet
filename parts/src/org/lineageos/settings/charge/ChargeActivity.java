@@ -29,9 +29,13 @@ public class ChargeActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction().replace(
-                com.android.settingslib.collapsingtoolbar.R.id.content_frame,
-                new ChargeSettingsFragment(), TAG_BYPASS_CHARGE).commit();
+        getFragmentManager()
+                .beginTransaction()
+                .replace(
+                        com.android.settingslib.collapsingtoolbar.R.id.content_frame,
+                        new ChargeSettingsFragment(),
+                        TAG_BYPASS_CHARGE)
+                .commit();
     }
 
     @Override

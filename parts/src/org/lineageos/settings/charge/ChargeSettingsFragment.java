@@ -17,26 +17,27 @@
 package org.lineageos.settings.charge;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
-import androidx.preference.SwitchPreference;
+import androidx.preference.TwoStatePreference;
 
 import org.lineageos.settings.R;
 
 public class ChargeSettingsFragment extends PreferenceFragment
-    implements Preference.OnPreferenceChangeListener {
+        implements Preference.OnPreferenceChangeListener {
 
     private static final String KEY_BYPASS_CHARGE = "bypass_charge";
-    private SwitchPreference mBypassChargePreference;
+    private TwoStatePreference mBypassChargePreference;
     private ChargeUtils mChargeUtils;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.charge_settings, rootKey);
-        
+
         mChargeUtils = new ChargeUtils(getActivity());
-        mBypassChargePreference = (SwitchPreference) findPreference(KEY_BYPASS_CHARGE);
+        mBypassChargePreference = (TwoStatePreference) findPreference(KEY_BYPASS_CHARGE);
 
         boolean bypassChargeSupported = mChargeUtils.isBypassChargeSupported();
 
@@ -54,21 +55,25 @@ public class ChargeSettingsFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         final String key = preference.getKey();
-        
+
         if (KEY_BYPASS_CHARGE.equals(key)) {
             boolean bypassValue = (Boolean) newValue;
             if (bypassValue) {
                 new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.charge_bypass_title)
-                    .setMessage(R.string.charge_bypass_warning)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        mChargeUtils.enableBypassCharge(true);
-                        mBypassChargePreference.setChecked(true);
-                    })
-                    .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                        mBypassChargePreference.setChecked(false);
-                    })
-                    .show();
+                        .setTitle(R.string.charge_bypass_title)
+                        .setMessage(R.string.charge_bypass_warning)
+                        .setPositiveButton(
+                                android.R.string.ok,
+                                (dialog, which) -> {
+                                    mChargeUtils.enableBypassCharge(true);
+                                    mBypassChargePreference.setChecked(true);
+                                })
+                        .setNegativeButton(
+                                android.R.string.cancel,
+                                (dialog, which) -> {
+                                    mBypassChargePreference.setChecked(false);
+                                })
+                        .show();
                 return false;
             } else {
                 mChargeUtils.enableBypassCharge(false);

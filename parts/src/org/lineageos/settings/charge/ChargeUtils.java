@@ -19,6 +19,7 @@ package org.lineageos.settings.charge;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.utils.FileUtils;
@@ -57,7 +58,7 @@ public class ChargeUtils {
             Log.e(TAG, "Failed to write bypass charge status", e);
         }
     }
-    
+
     public boolean isNodeAccessible(String node) {
         try {
             String value = FileUtils.readOneLine(node);
@@ -67,7 +68,7 @@ public class ChargeUtils {
             return false;
         }
     }
-    
+
     public boolean isBypassChargeSupported() {
         return isNodeAccessible(BYPASS_CHARGE_NODE);
     }

@@ -9,3 +9,17 @@ allow devicesettings_app vendor_sysfs_kgsl_gpuclk:file { read open getattr };
 
 allow devicesettings_app vendor_sysfs_power_supply:file w_file_perms;
 allow devicesettings_app sysfs_fastcharge:file rw_file_perms;
+
+# ZRAM property access
+allow devicesettings_app vendor_zram_prop:dir search;
+allow devicesettings_app vendor_zram_prop:file { getattr open read write };
+allow devicesettings_app vendor_default_prop:dir search;
+allow devicesettings_app vendor_default_prop:file { getattr open read write };
+
+# Core Control
+allow devicesettings_app vendor_sysfs_corecontrol:dir search;
+allow devicesettings_app vendor_sysfs_corecontrol:file { getattr open read write };
+
+# Bypass charging 
+allow devicesettings_app vendor_sysfs_battery_supply:dir search;
+allow devicesettings_app vendor_sysfs_battery_supply:file { getattr open read write };
