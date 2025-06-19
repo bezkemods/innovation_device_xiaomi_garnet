@@ -21,6 +21,7 @@ import org.lineageos.settings.aboutme.AboutMeActivity;
 import org.lineageos.settings.corecontrol.CoreControlActivity;
 import org.lineageos.settings.charge.ChargeActivity;
 import org.lineageos.settings.kernelmanager.KernelManagerActivity;
+import org.lineageos.settings.gpumanager.GpuManagerActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -37,7 +38,8 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_CORE_CONTROL = "core_control_settings";
     private static final String KEY_CHARGE_BYPASS = "charge_bypass";
     private static final String KEY_KERNEL_MANAGER = "kernel_manager";
-    
+    private static final String KEY_GPU_MANAGER = "gpu_manager";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +116,11 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             kernelManagerPref.setOnPreferenceClickListener(this);
         }
         
+        Preference gpuManagerPref = findPreference(KEY_GPU_MANAGER);
+        if (gpuManagerPref != null) {
+            gpuManagerPref.setOnPreferenceClickListener(this);
+        }
+        
         Preference aboutMePref = findPreference(KEY_ABOUTME);
         if (aboutMePref != null) {
             aboutMePref.setOnPreferenceClickListener(preference -> {
@@ -165,6 +172,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 break;
             case KEY_KERNEL_MANAGER:
                 intent = new Intent(this, KernelManagerActivity.class);
+                break;
+            case KEY_GPU_MANAGER:
+                intent = new Intent(this, GpuManagerActivity.class);
                 break;
             case KEY_ABOUTME:
                 intent = new Intent(this, AboutMeActivity.class);

@@ -184,7 +184,7 @@
         <item>6700000</item>
     </string-array>
 
-    <!-- GPU Frequency Options -->
+    <!-- GPU Frequency Options for Adreno 710 -->
     <string-array name="gpu_frequency_entries" translatable="false">
         <item>220MHz</item>
         <item>285MHz</item>
@@ -193,6 +193,10 @@
         <item>439MHz</item>
         <item>515MHz</item>
         <item>580MHz</item>
+        <item>650MHz</item>
+        <item>710MHz</item>
+        <item>800MHz</item>
+        <item>940MHz</item>
     </string-array>
 
     <string-array name="gpu_frequency_values" translatable="false">
@@ -203,6 +207,10 @@
         <item>439000000</item>
         <item>515000000</item>
         <item>580000000</item>
+        <item>650000000</item>
+        <item>710000000</item>
+        <item>800000000</item>
+        <item>940000000</item>
     </string-array>
 
     <!-- CPU Little Cluster Frequencies -->

@@ -453,6 +453,16 @@
             android:exported="false"
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
-    	    
+        
+	<!-- GPU Manager -->
+	<activity
+            android:name=".gpumanager.GpuManagerActivity"
+            android:label="@string/gpu_manager_title"
+            android:icon="@drawable/ic_gpu_manager"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+        
     </application>
 </manifest>

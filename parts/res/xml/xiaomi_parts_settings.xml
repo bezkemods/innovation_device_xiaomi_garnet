@@ -76,6 +76,12 @@
         android:summary="@string/kernel_manager_summary"
         android:icon="@drawable/ic_kernel_manager"   
         app:iconSpaceReserved="true" />
+        <!-- GPU manager -->
+        <Preference
+        android:key="gpu_manager"
+        android:title="@string/gpu_manager_title"
+        android:summary="@string/gpu_manager_summary"
+        android:icon="@drawable/ic_gpu_manager" />
         <!-- Charge Bypass -->
         <Preference
             android:key="charge_bypass"
