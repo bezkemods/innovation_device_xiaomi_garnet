@@ -20,6 +20,7 @@ import org.lineageos.settings.turbocharging.TurboChargingActivity;
 import org.lineageos.settings.aboutme.AboutMeActivity;
 import org.lineageos.settings.corecontrol.CoreControlActivity;
 import org.lineageos.settings.charge.ChargeActivity;
+import org.lineageos.settings.kernelmanager.KernelManagerActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -35,6 +36,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_ABOUTME = "about_me_settings";
     private static final String KEY_CORE_CONTROL = "core_control_settings";
     private static final String KEY_CHARGE_BYPASS = "charge_bypass";
+    private static final String KEY_KERNEL_MANAGER = "kernel_manager";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,11 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
         if (chargeBypassPref != null) {
             chargeBypassPref.setOnPreferenceClickListener(this);
         }
+
+        Preference kernelManagerPref = findPreference(KEY_KERNEL_MANAGER);
+        if (kernelManagerPref != null) {
+            kernelManagerPref.setOnPreferenceClickListener(this);
+        }
         
         Preference aboutMePref = findPreference(KEY_ABOUTME);
         if (aboutMePref != null) {
@@ -155,6 +162,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 break;
             case KEY_CHARGE_BYPASS:
                 intent = new Intent(this, ChargeActivity.class);
+                break;
+            case KEY_KERNEL_MANAGER:
+                intent = new Intent(this, KernelManagerActivity.class);
                 break;
             case KEY_ABOUTME:
                 intent = new Intent(this, AboutMeActivity.class);

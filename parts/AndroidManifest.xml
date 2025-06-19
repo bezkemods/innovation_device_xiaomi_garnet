@@ -444,5 +444,15 @@
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
         
+        <!-- Kernel Manager -->
+        <activity
+            android:name=".kernelmanager.KernelManagerActivity"
+            android:label="@string/kernel_manager_title"
+            android:icon="@drawable/ic_kernel_manager"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+    	    
     </application>
 </manifest>
