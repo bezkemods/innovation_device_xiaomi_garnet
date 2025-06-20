@@ -16,7 +16,7 @@ allow devicesettings_app vendor_zram_prop:file { getattr open read write };
 allow devicesettings_app vendor_default_prop:dir search;
 allow devicesettings_app vendor_default_prop:file { getattr open read write };
 
-# Core Control
+# Core Control (CPU core online/offline)
 allow devicesettings_app vendor_sysfs_corecontrol:dir search;
 allow devicesettings_app vendor_sysfs_corecontrol:file { getattr open read write };
 

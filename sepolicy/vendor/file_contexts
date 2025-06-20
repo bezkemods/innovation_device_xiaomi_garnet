@@ -39,6 +39,7 @@
 
 # Core Control
 /sys/devices/system/cpu/cpu[0-7]/online					       u:object_r:vendor_sysfs_corecontrol:s0
+#/sys/devices/system/cpu/cpu[0-9]+/online 					       u:object_r:sysfs_cpu_online:s0
 
 # Displayfeature
 /dev/mi_display/disp_feature u:object_r:vendor_displayfeature_device:s0

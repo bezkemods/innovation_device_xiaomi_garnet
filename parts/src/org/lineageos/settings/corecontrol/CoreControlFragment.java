@@ -19,13 +19,17 @@ package org.lineageos.settings.corecontrol;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.SwitchPreference;
 
 import org.lineageos.settings.R;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.InputStreamReader;
 
 public class CoreControlFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
     private static final String TAG = "CoreControlFragment";
@@ -65,12 +69,14 @@ public class CoreControlFragment extends PreferenceFragment implements Preferenc
     }
 
     private boolean isCoreOnline(int core) {
-        return new File("/sys/devices/system/cpu/cpu" + core + "/online").exists() &&
-               readFile("/sys/devices/system/cpu/cpu" + core + "/online").equals("1");
+        String path = "/sys/devices/system/cpu/cpu" + core + "/online";
+        String value = readFile(path);
+        return "1".equals(value);
     }
 
     private void setCoreState(int core, boolean online) {
-        writeFile("/sys/devices/system/cpu/cpu" + core + "/online", online ? "1" : "0");
+        String path = "/sys/devices/system/cpu/cpu" + core + "/online";
+        writeFileAsRoot(path, online ? "1" : "0");
     }
 
     private boolean canOffline(int core) {
@@ -85,19 +91,32 @@ public class CoreControlFragment extends PreferenceFragment implements Preferenc
     }
 
     private String readFile(String path) {
-        try {
-            return new String(java.nio.file.Files.readAllBytes(new File(path).toPath())).trim();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                new java.io.FileInputStream(path)))) {
+            return br.readLine().trim();
         } catch (Exception e) {
             Log.e(TAG, "Failed to read " + path, e);
             return "";
         }
     }
 
-    private void writeFile(String path, String value) {
+    private void writeFileAsRoot(String path, String value) {
+        Process suProcess = null;
+        DataOutputStream os = null;
         try {
-            java.nio.file.Files.write(new File(path).toPath(), value.getBytes());
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to write " + path, e);
+            suProcess = Runtime.getRuntime().exec("su");
+            os = new DataOutputStream(suProcess.getOutputStream());
+            os.writeBytes("echo " + value + " > " + path + "\n");
+            os.writeBytes("exit\n");
+            os.flush();
+            suProcess.waitFor();
+        } catch (Exception ex) {
+            Log.e(TAG, "Failed to write " + path, ex);
+        } finally {
+            try {
+                if (os != null) os.close();
+                if (suProcess != null) suProcess.destroy();
+            } catch (Exception ignored) {}
         }
     }
 }

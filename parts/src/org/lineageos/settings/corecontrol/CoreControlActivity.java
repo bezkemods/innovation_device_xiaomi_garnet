@@ -27,6 +27,7 @@ public class CoreControlActivity extends CollapsingToolbarBaseActivity {
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(
             com.android.settingslib.collapsingtoolbar.R.id.content_frame,
-            new CoreControlFragment(), TAG_CORECONTROL).commit();
+            new CoreControlFragment(), TAG_CORECONTROL
+        ).commit();
     }
 }

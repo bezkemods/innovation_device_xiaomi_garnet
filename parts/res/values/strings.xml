@@ -546,7 +546,7 @@
     <string name="core_4">Core 4 (Big)</string>
     <string name="core_5">Core 5 (Big)</string>
     <string name="core_6">Core 6 (Big)</string>
-    <string name="core_7">Core 7 (Prime)</string>
+    <string name="core_7">Core 7 (Big)</string>
 
     <!-- Charge bypass strings -->
     <string name="charge_bypass_title">Bypass charging</string>
