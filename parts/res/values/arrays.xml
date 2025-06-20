@@ -171,18 +171,16 @@
     </string-array>
     
     <!-- Turbo Charging Modes -->
-    <string-array name="turbo_modes_entries">
-        <item>8W</item>
+    <string-array name="turbo_current_entries">
         <item>18W</item>
+        <item>27W</item>
         <item>33W</item>
-        <item>47W</item>
         <item>67W</item>
     </string-array>
-    <string-array name="turbo_modes_values">
-        <item>800000</item>
+    <string-array name="turbo_current_values">
         <item>1800000</item>
+        <item>2700000</item>
         <item>3300000</item>
-        <item>4700000</item>
         <item>6700000</item>
     </string-array>
 

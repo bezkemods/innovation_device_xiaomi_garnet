@@ -76,6 +76,10 @@
 # Touchfeature
 /dev/xiaomi-touch u:object_r:touchfeature_device:s0
 
+# Turbo charging
+/sys/class/power_supply/battery/constant_charge_current u:object_r:sysfs_fastcharge:s0
+/sys/class/qcom-battery/sport_mode u:object_r:sysfs_fastcharge:s0
+
 # Process and system statistics files
 /proc/stat u:object_r:proc_stat:s0
 

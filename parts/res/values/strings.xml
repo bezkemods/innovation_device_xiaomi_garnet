@@ -480,21 +480,28 @@
     <string name="music_headset_scenario_vocal">Voice</string>
     
     <!-- Turbo Charging -->
+    <string name="pref_turbo_enable_title">Turbo Charging</string>
     <string name="turbo_charge_title">Turbo Charging</string>
+    <string name="pref_turbo_enable_summary">Enable faster charging (experimental)</string>
     <string name="turbo_enable_title">Enable Turbo Charging</string>
     <string name="turbo_charge_summary">Enable Turbo Charging for fast charging up to 67W</string>
+    <string name="pref_turbo_current_title">Charging Current</string>
     <string name="turbo_charge_current_pref_title">Charging Wattage</string>
+    <string name="pref_turbo_current_summary">Select charging current (mA)</string>
 
     <!-- Sports Mode -->
+    <string name="pref_sports_mode_title">Sports Mode</string>
     <string name="sports_mode_title">Sports Mode</string>
+    <string name="pref_sports_mode_summary">Maximum charging current, only in turbo mode</string>
     <string name="sports_mode_summary">Enable Sports Mode for fast charging via the dedicated node</string>
-    
+
     <!-- Toast messages -->
-    <string name="toast_wattage_set">Charging wattage set to %1$s</string>
-    <string name="toast_sports_on">Sports Mode turned ON</string>
-    <string name="toast_sports_off">Sports Mode turned OFF</string>
     <string name="toast_turbo_on">Turbo Charging turned ON</string>
     <string name="toast_turbo_off">Turbo Charging turned OFF</string>
+    <string name="toast_sports_on">Sports Mode turned ON</string>
+    <string name="toast_sports_off">Sports Mode turned OFF</string>
+    <string name="toast_wattage_set">Charging wattage set to %1$s</string>
+    <string name="toast_wattage_set_current">%1$s power selected</string>
     
     <!-- Per-app refresh rate -->
     <string name="refresh_title">Per-app refresh rate</string>

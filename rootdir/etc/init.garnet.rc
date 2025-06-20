@@ -36,9 +36,16 @@ on boot
     chown system system /sys/class/power_supply/battery/temp
     chmod 0660 /sys/class/power_supply/battery/temp
 
-    # Allow system to modify charging current
+    # Set permissions for charge current control
     chown system system /sys/class/power_supply/battery/constant_charge_current
     chmod 0664 /sys/class/power_supply/battery/constant_charge_current
+    
+    # Set permissions for sports mode
+    chown system system /sys/class/qcom-battery/sport_mode
+    chmod 0664 /sys/class/qcom-battery/sport_mode
+    
+    # Set default charge current
+    write /sys/class/power_supply/battery/constant_charge_current 4700000
     
     # GPU 
     chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
@@ -242,3 +249,7 @@ on property:persist.sys.parts.cpu.prime.governor=*
 # Monitor and apply Turbo Charging value via system property persist.sys.turbo_charge_current
 on property:persist.sys.turbo_charge_current=*
     write /sys/class/power_supply/battery/constant_charge_current ${persist.sys.turbo_charge_current}
+
+# Start turbo charging service when property is enabled
+on property:persist.sys.turbo_charge_current=* && property:sys.boot_completed=1
+    start turbocharging
