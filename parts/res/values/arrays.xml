@@ -469,4 +469,13 @@
         <item>2</item>
         <item>3</item>
     </string-array> 
+    
+    <!-- Values for Kernel Manager -->
+    <string-array name="kernel_manager_governors">
+        <item>schedutil</item>
+        <item>performance</item>Add commentMore actions
+        <item>powersave</item>
+        <item>ondemand</item>
+        <item>conservative</item>
+    </string-array>
 </resources>

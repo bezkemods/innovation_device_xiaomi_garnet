@@ -17,13 +17,12 @@ import java.io.IOException;
 
 public class KernelManagerUtils {
 
-    public static final int EFFICIENCY_CLUSTER = 0;  // Policy 0 - Little cores (A55)
-    public static final int PERFORMANCE_CLUSTER = 4; // Policy 4 - Big cores (A78)
-    public static final int PRIME_CLUSTER = 7;       // Policy 7 - Prime core (X1)
-    
-    private static final int[] POLICIES = {EFFICIENCY_CLUSTER, PERFORMANCE_CLUSTER, PRIME_CLUSTER};
+    public static final int EFFICIENCY_CLUSTER = 0;  // Policy 4 - Little cores (A55)
+    public static final int PERFORMANCE_CLUSTER = 4; // Policy 0 - Big cores (A78)
+
+    private static final int[] POLICIES = {EFFICIENCY_CLUSTER, PERFORMANCE_CLUSTER};
     private static final String DEFAULT_GOVERNOR = "schedutil";
-    
+
     // CPU frequency and governor paths
     private static final String CPU_BASE_PATH = "/sys/devices/system/cpu/cpufreq/policy";
     private static final String SCALING_GOVERNOR = "/scaling_governor";
@@ -88,71 +87,37 @@ public class KernelManagerUtils {
         for (int cluster : POLICIES) {
             try {
                 writeFile(CPU_BASE_PATH + cluster + SCALING_GOVERNOR, governor);
-            } catch (Exception e) {
-                // Continue with other clusters
-            }
+            } catch (Exception ignored) {}
         }
     }
 
-    public void setFrequencyRange(int cluster, String minFreq, String maxFreq) {
+    public void setMinFrequency(int cluster, String freq) {
         try {
-            // Set min frequency first
-            writeFile(CPU_BASE_PATH + cluster + SCALING_MIN_FREQ, minFreq);
-            // Then set max frequency
-            writeFile(CPU_BASE_PATH + cluster + SCALING_MAX_FREQ, maxFreq);
-        } catch (Exception e) {
-            // Ignore errors
-        }
+            writeFile(CPU_BASE_PATH + cluster + SCALING_MIN_FREQ, freq);
+        } catch (Exception ignored) {}
     }
 
-    // Cluster-specific helper methods
-    public void setEfficiencyClusterFrequency(String minFreq, String maxFreq) {
-        setFrequencyRange(EFFICIENCY_CLUSTER, minFreq, maxFreq);
-    }
-    
-    public void setPerformanceClusterFrequency(String minFreq, String maxFreq) {
-        setFrequencyRange(PERFORMANCE_CLUSTER, minFreq, maxFreq);
-    }
-    
-    public void setPrimeClusterFrequency(String minFreq, String maxFreq) {
-        setFrequencyRange(PRIME_CLUSTER, minFreq, maxFreq);
-    }
-
-    public void resetToDefaults() {
-        setGovernor(DEFAULT_GOVERNOR);
-        // Reset frequencies to available range
-        for (int cluster : POLICIES) {
-            String[] frequencies = getAvailableFrequencies(cluster);
-            if (frequencies != null && frequencies.length > 0) {
-                String minFreq = frequencies[0];
-                String maxFreq = frequencies[frequencies.length - 1];
-                setFrequencyRange(cluster, minFreq, maxFreq);
-            }
-        }
+    public void setMaxFrequency(int cluster, String freq) {
+        try {
+            writeFile(CPU_BASE_PATH + cluster + SCALING_MAX_FREQ, freq);
+        } catch (Exception ignored) {}
     }
 
     private String readFile(String path) throws IOException {
-        BufferedReader reader = null;
+        BufferedReader reader = new BufferedReader(new FileReader(path));
         try {
-            reader = new BufferedReader(new FileReader(path));
             return reader.readLine();
         } finally {
-            if (reader != null) {
-                reader.close();
-            }
+            reader.close();
         }
     }
 
     private void writeFile(String path, String value) throws IOException {
-        FileWriter writer = null;
+        FileWriter writer = new FileWriter(path);
         try {
-            writer = new FileWriter(path);
             writer.write(value);
-            writer.flush();
         } finally {
-            if (writer != null) {
-                writer.close();
-            }
+            writer.close();
         }
     }
 }

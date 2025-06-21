@@ -1,60 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/kernel_manager_title">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/cpu_governor_title">
-        <ListPreference
-            android:key="cpu_governor"
-            android:title="@string/cpu_governor_title"
-            android:summary="@string/cpu_governor_summary" />
-    </PreferenceCategory>
+    <ListPreference
+        android:key="cpu_governor"
+        android:title="@string/kernel_manager_governor"
+        android:summary="@string/kernel_manager_governor_summary"
+        android:entries="@array/kernel_manager_governors"
+        android:entryValues="@array/kernel_manager_governors"
+        android:defaultValue="schedutil" />
 
-    <!-- Efficiency Cluster -->
-    <PreferenceCategory android:title="@string/efficiency_cluster_title">
+    <PreferenceCategory android:title="@string/kernel_manager_efficiency_category">
         <ListPreference
             android:key="efficiency_min_freq"
-            android:title="@string/cpu_min_freq_title" />
+            android:title="@string/kernel_manager_min_freq"
+            android:summary="@string/kernel_manager_min_freq_summary"
+            android:defaultValue="" />
         <ListPreference
             android:key="efficiency_max_freq"
-            android:title="@string/cpu_max_freq_title" />
+            android:title="@string/kernel_manager_max_freq"
+            android:summary="@string/kernel_manager_max_freq_summary"
+            android:defaultValue="" />
     </PreferenceCategory>
-    
-    <!-- Performance Cluster -->
-    <PreferenceCategory android:title="@string/performance_cluster_title">
+
+    <PreferenceCategory android:title="@string/kernel_manager_performance_category">
         <ListPreference
             android:key="performance_min_freq"
-            android:title="@string/cpu_min_freq_title" />
+            android:title="@string/kernel_manager_min_freq"
+            android:summary="@string/kernel_manager_min_freq_summary"
+            android:defaultValue="" />
         <ListPreference
             android:key="performance_max_freq"
-            android:title="@string/cpu_max_freq_title" />
-    </PreferenceCategory>
-            
-    <!-- Prime Cluster -->
-    <PreferenceCategory android:title="@string/prime_cluster_title">
-        <ListPreference
-            android:key="prime_min_freq"
-            android:title="@string/cpu_min_freq_title" />
-        <ListPreference
-            android:key="prime_max_freq"
-            android:title="@string/cpu_max_freq_title" />
+            android:title="@string/kernel_manager_max_freq"
+            android:summary="@string/kernel_manager_max_freq_summary"
+            android:defaultValue="" />
     </PreferenceCategory>
 
-    <PreferenceCategory>
-        <Preference
-            android:key="apply_settings"
-            android:title="@string/apply_settings"
-            android:summary="Apply current frequency and governor settings" />
-        <Preference
-            android:key="reset_settings"
-            android:title="@string/reset_settings"
-            android:summary="Reset all settings to default values" />
-    </PreferenceCategory>
+    <!-- PRIME cluster section removed, as SM7435 does not have a prime core -->
 
-    <PreferenceCategory android:title="@string/kernel_info_category">
-        <Preference
-            android:title="@string/kernel_info_title"
-            android:summary="@string/kernel_info_summary"
-            android:selectable="false" />
-    </PreferenceCategory>
+    <Preference
+        android:key="apply_settings"
+        android:title="@string/kernel_manager_apply"
+        android:summary="@string/kernel_manager_apply_summary" />
+
+    <Preference
+        android:key="reset_settings"
+        android:title="@string/kernel_manager_reset"
+        android:summary="@string/kernel_manager_reset_summary" />
 
 </PreferenceScreen>
