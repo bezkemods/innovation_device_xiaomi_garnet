@@ -4,24 +4,25 @@
     android:viewportWidth="24"
     android:viewportHeight="24"
     android:tint="?android:attr/colorControlNormal">
-    
-    <!-- Akkumulátor körvonal -->
     <path
-        android:fillColor="@android:color/white"
-        android:pathData="M15.67,4H14V2H10V4H8.33A1.33,1.33 0 0,0 7,5.33V20.67C7,21.4 7.6,22 8.33,22H15.67C16.4,22 17,21.4 17,20.67V5.33A1.33,1.33 0 0,0 15.67,4M15,20H9V6H15V20Z"/>
-    
-    <!-- Bypass nyíl (körbeforduló) -->
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="1.5"
+        android:pathData="M9.14,1.5h5.73a1.91,1.91 0,0 1,1.91 1.91V9.14H7.23V3.41A1.91,1.91 0,0 1,9.14 1.5Z" />
     <path
-        android:fillColor="@android:color/white"
-        android:pathData="M19,13C19,13.55 18.55,14 18,14C17.45,14 17,13.55 17,13C17,9.69 14.31,7 11,7V9L8,6L11,3V5C15.42,5 19,8.58 19,13Z"/>
-    
-    <!-- Villám szimbólum (töltés jelölése) -->
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="1.5"
+        android:pathData="M9.14,1.5L14.87,1.5A1.91,1.91 0,0 1,16.78 3.41A1.91,1.91 0,0 1,14.87 5.32L9.14,5.32A1.91,1.91 0,0 1,7.23 3.41A1.91,1.91 0,0 1,9.14 1.5z" />
     <path
-        android:fillColor="@android:color/white"
-        android:pathData="M11.5,9L10,13H12L11,17L14,11H12L11.5,9Z"/>
-    
-    <!-- Második bypass nyíl (másik irányba) -->
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="1.5"
+        android:pathData="M6.27,9.14H17.73v6.68a2.86,2.86 0,0 1,-2.86 2.86H9.14a2.86,2.86 0,0 1,-2.86 -2.86V9.14Z" />
     <path
-        android:fillColor="@android:color/white"
-        android:pathData="M5,11C5,10.45 5.45,10 6,10C6.55,10 7,10.45 7,11C7,14.31 9.69,17 13,17V15L16,18L13,21V19C8.58,19 5,15.42 5,11Z"/>
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="1.5"
+        android:pathData="M10.09,18.68h3.82v3.82h-3.82z" />
 </vector>
+

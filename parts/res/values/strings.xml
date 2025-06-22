@@ -308,6 +308,7 @@
     <string name="powerprofile_mode_gaming">Gamer</string>
     <string name="powerprofile_mode_performance">Benchmark</string>
     <string name="powerprofile_mode_battery_saver">Battery Eco</string>
+    <string name="powerprofile_mode_unknown">Unknown</string>
     <string name="powerprofile_tile_disabled_subtitle">Unavailable (Per-app thermal profiles active)</string>
     <string name="perf_mode_title">Benchmark Mode</string>
     <string name="perf_mode_notification">Benchmark Mode activated! Max power for demanding tasks.</string>
@@ -582,7 +583,7 @@
     <string name="gpu_governor_title">GPU Governor</string>
     <string name="gpu_governor_summary">Current: %s</string>
     <string name="gpu_freq_title">GPU Frequencies</string>
-    <string name="gpu_min_freq_title">Minimum Frequency</string>Add commentMore actions
+    <string name="gpu_min_freq_title">Minimum Frequency</string>
     <string name="gpu_max_freq_title">Maximum Frequency</string>
     <string name="gpu_current_freq_title">Current Frequency</string>
     <string name="gpu_power_title">Power Settings</string>
@@ -609,5 +610,7 @@
     <string name="gpu_settings_category">GPU Settings</string>
     <string name="gpu_advanced_category">Advanced Settings</string>
     <string name="gpu_info_summary">Manage GPU frequency scaling and power settings. Changes may affect performance and battery life.</string>
+    <string name="apply_settings">Apply Settings</string>
+    <string name="reset_settings">Reset Settings</string>
 
 </resources>
