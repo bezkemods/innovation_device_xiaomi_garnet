@@ -157,12 +157,9 @@ PRODUCT_PACKAGES += \
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# EUICC (ESIM Support)
-PRODUCT_PACKAGES += \
-    EuiccGarnet
-
 # Euicc
 PRODUCT_PACKAGES += \
+    XiaomiEsimSwitcher \
     XiaomiEuicc
 
 # FastCharge

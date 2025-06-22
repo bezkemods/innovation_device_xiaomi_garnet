@@ -1075,4 +1075,5 @@
     
     <!-- Smart 5G -->
     <bool name="config_supportSmart5G">true</bool>
+   
 </resources>
