@@ -50,13 +50,13 @@ public class PowerProfileUtil {
     private static final String SYS_PROP = "sys.perf_mode_active";
     private static final int NOTIFICATION_ID_PERFORMANCE = 1001;
     private static final int NOTIFICATION_ID_GAMING = 1002;
-    private static final int NOTIFICATION_ID_BALANCE = 1003;
-    private static final int NOTIFICATION_ID_BATTERY_SAVER = 1004;
 
+    // Modes:
     public static final int MODE_BALANCE = 0;
     public static final int MODE_GAMING = 1;
     public static final int MODE_PERFORMANCE = 2;
     public static final int MODE_BATTERY_SAVER = 3;
+    public static final int MODE_UNKNOWN = 4;
 
     private static final int POWERPROFILE_BALANCE = 0;
     private static final int POWERPROFILE_GAMING = 10;
@@ -81,7 +81,8 @@ public class PowerProfileUtil {
                 mContext.getString(R.string.powerprofile_mode_balance),
                 mContext.getString(R.string.powerprofile_mode_gaming),
                 mContext.getString(R.string.powerprofile_mode_performance),
-                mContext.getString(R.string.powerprofile_mode_battery_saver)
+                mContext.getString(R.string.powerprofile_mode_battery_saver),
+                mContext.getString(R.string.powerprofile_mode_unknown)
         };
 
         if (!mSharedPrefs.contains(THERMAL_ENABLED_KEY)) {
@@ -89,13 +90,14 @@ public class PowerProfileUtil {
         }
 
         setupNotificationChannel();
+        registerBatterySaverObserver();
     }
 
     public int getCurrentMode() {
         String line = FileUtils.readOneLine(THERMAL_SCONFIG);
         if (line == null) {
             Log.e(TAG, "Failed to read thermal mode from " + THERMAL_SCONFIG);
-            return MODE_BALANCE;
+            return MODE_UNKNOWN;
         }
         try {
             int value = Integer.parseInt(line.trim());
@@ -109,11 +111,11 @@ public class PowerProfileUtil {
                 case POWERPROFILE_BATTERY_SAVER:
                     return MODE_BATTERY_SAVER;
                 default:
-                    return MODE_BALANCE;
+                    return MODE_UNKNOWN;
             }
         } catch (NumberFormatException e) {
             Log.e(TAG, "Error parsing thermal mode value: ", e);
-            return MODE_BALANCE;
+            return MODE_UNKNOWN;
         }
     }
 
@@ -145,30 +147,33 @@ public class PowerProfileUtil {
         }
 
         boolean success = FileUtils.writeLine(THERMAL_SCONFIG, String.valueOf(thermalValue));
-        Log.d(TAG, mContext.getString(R.string.thermal_mode_changed, mModes[mode], success));
-
-        cancelPerformanceNotification();
-        cancelGamingNotification();
-        mNotificationManager.cancel(NOTIFICATION_ID_BALANCE);
-        mNotificationManager.cancel(NOTIFICATION_ID_BATTERY_SAVER);
+        Log.d(TAG, "Thermal mode changed to " + mModes[mode] + ": " + success);
 
         if (mode == MODE_BATTERY_SAVER) {
             enableBatterySaver(true);
-            showBatterySaverNotification();
+            cancelPerformanceNotification();
+            cancelGamingNotification();
         } else {
             enableBatterySaver(false);
             if (mode == MODE_PERFORMANCE) {
                 showPerformanceNotification();
+                cancelGamingNotification();
             } else if (mode == MODE_GAMING) {
                 showGamingNotification();
-            } else if (mode == MODE_BALANCE) {
-                showBalanceNotification();
+                cancelPerformanceNotification();
+            } else {
+                cancelPerformanceNotification();
+                cancelGamingNotification();
             }
         }
     }
 
     public int getManagedMode() {
         mCurrentMode = getCurrentMode();
+        if (mCurrentMode == MODE_UNKNOWN) {
+            mCurrentMode = MODE_BALANCE;
+            setMode(mCurrentMode);
+        }
         return mCurrentMode;
     }
 
@@ -180,7 +185,7 @@ public class PowerProfileUtil {
         if (mCurrentMode >= 0 && mCurrentMode < mModes.length) {
             return mModes[mCurrentMode];
         }
-        return mModes[MODE_BALANCE];
+        return mModes[MODE_UNKNOWN];
     }
 
     public void toggleMode() {
@@ -300,36 +305,6 @@ public class PowerProfileUtil {
         mNotificationManager.notify(NOTIFICATION_ID_GAMING, notification);
     }
 
-    private void showBalanceNotification() {
-        Intent intent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        Notification notification = new Notification.Builder(mContext, TAG)
-                .setContentTitle(mContext.getString(R.string.powerprofile_mode_balance))
-                .setContentText(mContext.getString(R.string.balance_mode_notification))
-                .setSmallIcon(R.drawable.ic_thermal_balance)
-                .setContentIntent(pendingIntent)
-                .setOngoing(true)
-                .setFlag(Notification.FLAG_NO_CLEAR, true)
-                .build();
-        mNotificationManager.notify(NOTIFICATION_ID_BALANCE, notification);
-    }
-
-    private void showBatterySaverNotification() {
-        Intent intent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        Notification notification = new Notification.Builder(mContext, TAG)
-                .setContentTitle(mContext.getString(R.string.powerprofile_mode_battery_saver))
-                .setContentText(mContext.getString(R.string.battery_saver_mode_notification))
-                .setSmallIcon(R.drawable.ic_thermal_battery_saver)
-                .setContentIntent(pendingIntent)
-                .setOngoing(true)
-                .setFlag(Notification.FLAG_NO_CLEAR, true)
-                .build();
-        mNotificationManager.notify(NOTIFICATION_ID_BATTERY_SAVER, notification);
-    }
-
     private void cancelPerformanceNotification() {
         mNotificationManager.cancel(NOTIFICATION_ID_PERFORMANCE);
     }
@@ -341,6 +316,28 @@ public class PowerProfileUtil {
     private void setPerformanceModeActive(int mode) {
         SystemProperties.set(SYS_PROP, String.valueOf(mode));
         Log.d(TAG, "Performance mode active set to: " + mode);
+    }
+
+    private void registerBatterySaverObserver() {
+        mBatterySaverObserver = new ContentObserver(new Handler()) {
+            @Override
+            public void onChange(boolean selfChange) {
+                boolean isBatterySaverOn = Settings.Global.getInt(
+                        mContext.getContentResolver(),
+                        Settings.Global.LOW_POWER_MODE, 0) == 1;
+                if (isBatterySaverOn && (mCurrentMode == MODE_BALANCE || mCurrentMode == MODE_PERFORMANCE || mCurrentMode == MODE_GAMING)) {
+                    Log.d(TAG, "Battery saver enabled, switching to battery saver thermal mode.");
+                    mCurrentMode = MODE_BATTERY_SAVER;
+                    setMode(mCurrentMode);
+                }
+            }
+        };
+
+        mContext.getContentResolver().registerContentObserver(
+                Settings.Global.getUriFor(Settings.Global.LOW_POWER_MODE),
+                false,
+                mBatterySaverObserver
+        );
     }
 
     public void cleanup() {
