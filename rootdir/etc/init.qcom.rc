@@ -577,6 +577,16 @@ on post-fs-data
     chmod 0660 /sys/devices/system/cpu/cpu5/online
     chmod 0660 /sys/devices/system/cpu/cpu6/online
     chmod 0660 /sys/devices/system/cpu/cpu7/online
+
+on post-fs
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
     
     # Kernel Manager - SM7435 (Snapdragon 7s Gen 2)
 
