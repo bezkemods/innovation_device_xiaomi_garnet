@@ -110,6 +110,13 @@
             android:summary="@string/turbo_charge_summary"
             android:icon="@drawable/ic_turbo_charging"
             app:iconSpaceReserved="true" />
+        <!-- Charging Control -->
+        <Preference
+            android:key="charge_control"
+            android:title="@string/charge_control_title"
+            android:summary="@string/charge_control_summary"
+            android:icon="@drawable/ic_charge_control"
+            app:iconSpaceReserved="true" />
         <!-- Powertools -->
         <Preference
             android:key="powertools"

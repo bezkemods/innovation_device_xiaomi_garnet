@@ -47,6 +47,10 @@ on boot
     # Set default charge current
     write /sys/class/power_supply/battery/constant_charge_current 4700000
     
+    # Allow system to modify input_suspend
+    chown system system /sys/class/qcom-battery/input_suspend
+    chmod 0664 /sys/class/qcom-battery/input_suspend
+    
     # GPU 
     chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
     chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_clock_mhz

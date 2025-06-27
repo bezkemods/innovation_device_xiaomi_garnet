@@ -37,6 +37,7 @@ import org.lineageos.settings.refreshrate.RefreshUtils;
 import org.lineageos.settings.thermal.ThermalUtils;
 import org.lineageos.settings.thermal.ThermalTileService;
 import org.lineageos.settings.turbocharging.TurboChargingService;
+import org.lineageos.settings.chargecontrol.ChargeControlService;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
@@ -58,6 +59,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         // Start TurboChargingService
         Intent turboChargingIntent = new Intent(context, TurboChargingService.class);
         context.startService(turboChargingIntent);
+        
+        // Start Charge Control Service
+        context.startServiceAsUser(new Intent(context, ChargeControlService.class), UserHandle.CURRENT);
         
         // Start Thermal Management Services
         ThermalUtils.getInstance(context).startService();

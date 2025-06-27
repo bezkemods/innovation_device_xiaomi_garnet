@@ -39,6 +39,8 @@ import org.lineageos.settings.powertools.PowerProfileTileService;
 import org.lineageos.settings.powertools.PowertoolsActivity;
 import org.lineageos.settings.turbocharging.TurboChargingActivity;
 import org.lineageos.settings.turbocharging.TurboChargingTile;
+import org.lineageos.settings.chargecontrol.ChargeControlActivity;
+import org.lineageos.settings.chargecontrol.ChargeControlTileService;
 
 public final class TileHandlerActivity extends Activity {
     private static final String TAG = "TileHandlerActivity";
@@ -53,6 +55,7 @@ public final class TileHandlerActivity extends Activity {
         TILE_ACTIVITY_MAP.put(ThermalTileService.class.getName(), ThermalSettingsActivity.class);
         TILE_ACTIVITY_MAP.put(PowerProfileTileService.class.getName(), PowertoolsActivity.class);
         TILE_ACTIVITY_MAP.put(TurboChargingTile.class.getName(), TurboChargingActivity.class);
+        TILE_ACTIVITY_MAP.put(ChargeControlTileService.class.getName(), ChargeControlActivity.class);
     }
 
     @Override

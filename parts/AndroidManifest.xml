@@ -464,5 +464,31 @@
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
         
+        <!-- Charging control -->
+        <activity
+            android:name=".chargecontrol.ChargeControlActivity"
+            android:label="@string/charge_control_title"
+            android:icon="@drawable/ic_charge_control"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+        <service
+            android:name=".chargecontrol.ChargeControlService"
+            android:exported="false" />
+        <service
+            android:name=".chargecontrol.ChargeControlTileService"
+            android:label="@string/charge_control_tile_label"
+            android:icon="@drawable/ic_charge_control"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
+
     </application>
 </manifest>
