@@ -103,6 +103,13 @@
         android:summary="@string/ram_optimizer_summary"
         android:icon="@drawable/ic_ram_optimizer"
         app:iconSpaceReserved="true" />
+        <!-- Charging Control -->
+        <Preference
+        android:key="charge_control"
+        android:title="@string/charge_control_title"
+        android:summary="@string/charge_control_summary"
+        android:icon="@drawable/ic_charge_control"
+        app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
     <!-- Gaming & Logs -->

@@ -24,6 +24,7 @@ import android.util.Log;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 
+import org.lineageos.settings.chargecontrol.ChargeControlService;
 import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import org.lineageos.settings.gpumanager.GpuManagerUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
@@ -164,6 +165,14 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 org.lineageos.settings.refreshrate.RefreshUtils.startService(context);
             } catch (Exception e) {
                 Log.e(TAG, "RefreshService failed to start", e);
+            }
+
+            // Start Charge Control Service
+            try {
+                context.startServiceAsUser(new Intent(context, ChargeControlService.class), UserHandle.CURRENT);
+                Log.d(TAG, "ChargeControlService started");
+            } catch (Exception e) {
+                Log.e(TAG, "ChargeControlService failed to start", e);
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to start services", e);

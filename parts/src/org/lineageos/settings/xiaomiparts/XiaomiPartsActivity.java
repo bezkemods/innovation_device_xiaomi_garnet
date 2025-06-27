@@ -27,6 +27,7 @@ import org.lineageos.settings.performance.PerformanceActivity;
 import org.lineageos.settings.keyboxmanager.KeyboxManagerActivity;
 import org.lineageos.settings.ramoptimizer.RamOptimizerActivity;
 import org.lineageos.settings.refreshrate.RefreshActivity;
+import org.lineageos.settings.chargecontrol.ChargeControlActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -47,6 +48,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_RAM_OPTIMIZER = "ram_optimizer_settings";
     private static final String KEY_REFRESH_RATE = "refresh_rate_settings";
     private static final String KEY_THERMAL = "thermal_manager";
+    private static final String KEY_CHARGE_CONTROL = "charge_control";
       
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +129,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             setupPreference(KEY_RAM_OPTIMIZER);
             setupPreference(KEY_REFRESH_RATE);
             setupPreference(KEY_THERMAL);
+            setupPreference(KEY_CHARGE_CONTROL);
             
             // Logcat viewer - special handling
             setupLogcatViewer();
@@ -233,6 +236,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_THERMAL.equals(key)) {
                 startActivity(new Intent(this, org.lineageos.settings.thermal.ThermalSettingsActivity.class));
+                return true;
+            } else if (KEY_CHARGE_CONTROL.equals(key)) {
+                startActivity(new Intent(this, ChargeControlActivity.class));
                 return true;
             }
         } catch (Exception e) {

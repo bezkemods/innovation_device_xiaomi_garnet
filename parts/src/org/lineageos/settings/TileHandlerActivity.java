@@ -33,6 +33,8 @@ import org.lineageos.settings.autohbm.AutoHbmTileService;
 import org.lineageos.settings.autohbm.HbmTileService;
 import org.lineageos.settings.gamebar.GameBarSettingsActivity;
 import org.lineageos.settings.gamebar.GameBarTileService;
+import org.lineageos.settings.chargecontrol.ChargeControlActivity;
+import org.lineageos.settings.chargecontrol.ChargeControlTileService;
 
 public final class TileHandlerActivity extends Activity {
     private static final String TAG = "TileHandlerActivity";
@@ -44,6 +46,7 @@ public final class TileHandlerActivity extends Activity {
         TILE_ACTIVITY_MAP.put(AutoHbmTileService.class.getName(), AutoHbmActivity.class);
         TILE_ACTIVITY_MAP.put(HbmTileService.class.getName(), AutoHbmActivity.class);
         TILE_ACTIVITY_MAP.put(GameBarTileService.class.getName(), GameBarSettingsActivity.class);
+        TILE_ACTIVITY_MAP.put(ChargeControlTileService.class.getName(), ChargeControlActivity.class);
     }
 
     @Override
