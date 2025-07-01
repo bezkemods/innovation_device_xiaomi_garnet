@@ -542,7 +542,7 @@
     <string name="keep_little_cores_online">At least 2 little cores must remain online</string>
     <string name="core_0">Core 0 (Little)</string>
     <string name="core_1">Core 1 (Little)</string>
-    <string name="core_2">Core 2 (Little)</string>Add commentMore actions
+    <string name="core_2">Core 2 (Little)</string>
     <string name="core_3">Core 3 (Little)</string>
     <string name="core_4">Core 4 (Big)</string>
     <string name="core_5">Core 5 (Big)</string>
