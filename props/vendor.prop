@@ -224,11 +224,9 @@ ro.netflix.bsp_rev=Q6450-36256-1
 ro.vendor.nfc.debounce_field_on=1
 
 # PASR
-vendor.pasr.activemode.enabled=false
 vendor.perf.framepacing.enable=1
 
 # Perf
-ro.vendor.extension_library=libqti-perfd-client.so
 ro.vendor.perf.scroll_opt=true
 
 # Qcomd
