@@ -6,6 +6,19 @@ allow devicesettings_app vendor_sysfs_battery_supply:dir search;
 allow devicesettings_app vendor_sysfs_battery_supply:file r_file_perms;
 allow devicesettings_app proc_stat:file { read open getattr };
 allow devicesettings_app vendor_sysfs_kgsl_gpuclk:file { read open getattr };
+allow devicesettings_app self:netlink_kobject_uevent_socket { 
+    create 
+    read 
+    getattr 
+    setattr 
+    lock 
+    map 
+    bind 
+    connect 
+    getopt 
+    setopt 
+    shutdown 
+};
 
 allow devicesettings_app vendor_sysfs_power_supply:file w_file_perms;
 allow devicesettings_app sysfs_fastcharge:file rw_file_perms;

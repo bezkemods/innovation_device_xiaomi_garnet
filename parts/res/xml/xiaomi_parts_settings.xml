@@ -4,6 +4,20 @@
     android:divider="@null"
     android:dividerHeight="0dp">
       
+    <!-- Aboutme -->
+    <PreferenceCategory
+        android:key="about_category"
+        android:title="@string/about_me_title">
+
+    <Preference
+        android:key="about_me_settings"
+        android:title="@string/about_me_title"
+        android:summary="@string/about_me_summary"
+        android:icon="@drawable/ic_about_me"
+        app:iconSpaceReserved="true" />
+
+    </PreferenceCategory>
+    
     <!-- Display Settings -->
     <PreferenceCategory
         android:key="display_category"
@@ -117,18 +131,5 @@
             android:icon="@drawable/ic_gamebar_settings"
             app:iconSpaceReserved="true" />
     </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="about_category"
-        android:title="@string/about_me_title">
-
-        <Preference
-            android:key="about_me_settings"
-            android:title="@string/about_me_title"
-            android:summary="@string/about_me_summary"
-            android:icon="@drawable/ic_about_me"
-            app:iconSpaceReserved="true" />
-
-    </PreferenceCategory>
-        
+       
 </PreferenceScreen>
