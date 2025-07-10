@@ -44,6 +44,7 @@ public class AutoHbmService extends Service {
     private static final int FALLBACK_BRIGHTNESS = 200;
     private static boolean mAutoHbmActive = false;
     private ExecutorService mExecutorService;
+    private volatile boolean mServiceActive = false;
 
     private SensorManager mSensorManager;
     private Sensor mLightSensor;
@@ -54,15 +55,33 @@ public class AutoHbmService extends Service {
 
     public void activateLightSensorRead() {
         submit(() -> {
-            mSensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
-            mLightSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-            mSensorManager.registerListener(mSensorEventListener, mLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+            if (mServiceActive && mSensorManager == null) {
+                mSensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
+                if (mSensorManager != null) {
+                    mLightSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+                    if (mLightSensor != null) {
+                        boolean registered = mSensorManager.registerListener(
+                            mSensorEventListener, mLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+                        if (!registered) {
+                            android.util.Log.w("AutoHbmService", "Failed to register light sensor listener");
+                        }
+                    }
+                }
+            }
         });
     }
 
     public void deactivateLightSensorRead() {
         submit(() -> {
-            mSensorManager.unregisterListener(mSensorEventListener);
+            if (mSensorManager != null) {
+                try {
+                    mSensorManager.unregisterListener(mSensorEventListener);
+                } catch (Exception e) {
+                    android.util.Log.w("AutoHbmService", "Error unregistering sensor listener", e);
+                }
+                mSensorManager = null;
+                mLightSensor = null;
+            }
             mAutoHbmActive = false;
             restoreBrightness();
         });
@@ -154,19 +173,41 @@ public class AutoHbmService extends Service {
 
     @Override
     public void onCreate() {
-        mExecutorService = Executors.newSingleThreadExecutor();
+        super.onCreate();
+        mServiceActive = true;
+        
+        // Use named thread for better debugging
+        mExecutorService = Executors.newSingleThreadExecutor(r -> {
+            Thread t = new Thread(r, "AutoHbmService-Worker");
+            t.setDaemon(true); // Prevent blocking shutdown
+            return t;
+        });
+        
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(mScreenStateReceiver, screenStateFilter);
+        try {
+            registerReceiver(mScreenStateReceiver, screenStateFilter);
+        } catch (Exception e) {
+            android.util.Log.e("AutoHbmService", "Failed to register screen state receiver", e);
+        }
+        
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        if (pm.isInteractive()) {
+        if (pm != null && pm.isInteractive()) {
             activateLightSensorRead();
         }
     }
 
     private Future<?> submit(Runnable runnable) {
-        return mExecutorService.submit(runnable);
+        if (mExecutorService != null && !mExecutorService.isShutdown()) {
+            try {
+                return mExecutorService.submit(runnable);
+            } catch (Exception e) {
+                android.util.Log.e("AutoHbmService", "Failed to submit task", e);
+                return null;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -177,11 +218,35 @@ public class AutoHbmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mScreenStateReceiver);
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        if (pm.isInteractive()) {
-            deactivateLightSensorRead();
+        mServiceActive = false;
+        
+        // Unregister broadcast receiver
+        try {
+            unregisterReceiver(mScreenStateReceiver);
+        } catch (Exception e) {
+            android.util.Log.w("AutoHbmService", "Error unregistering screen state receiver", e);
         }
+        
+        // Clean up sensor
+        deactivateLightSensorRead();
+        
+        // Shutdown executor service
+        if (mExecutorService != null) {
+            mExecutorService.shutdown();
+            try {
+                if (!mExecutorService.awaitTermination(2, java.util.concurrent.TimeUnit.SECONDS)) {
+                    mExecutorService.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                mExecutorService.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+            mExecutorService = null;
+        }
+        
+        // Reset state
+        mAutoHbmActive = false;
+        mSharedPrefs = null;
     }
 
     @Override
