@@ -30,6 +30,7 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Display;
+import android.view.Display.HdrCapabilities;
 
 import org.lineageos.settings.dirac.DiracUtils;
 import org.lineageos.settings.powertools.PowerProfileTileService;
@@ -76,6 +77,26 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             DiracUtils.getInstance(context);
         } catch (Exception e) {
             Log.d(TAG, "Dirac is not present in system");
+        }
+        
+        // Enable HDR support
+        try {
+            final DisplayManager displayManager = context.getSystemService(DisplayManager.class);
+            if (displayManager != null) {
+                displayManager.overrideHdrTypes(Display.DEFAULT_DISPLAY,
+                        new int[] {
+                            HdrCapabilities.HDR_TYPE_HDR10,
+                            HdrCapabilities.HDR_TYPE_HLG,
+                            HdrCapabilities.HDR_TYPE_HDR10_PLUS
+                        });
+                if (DEBUG) {
+                    Log.d(TAG, "HDR types overridden successfully: HDR10, HLG, HDR10+");
+                }
+            } else {
+                Log.e(TAG, "DisplayManager is null, cannot override HDR types");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to override HDR types", e);
         }
     }
 }
