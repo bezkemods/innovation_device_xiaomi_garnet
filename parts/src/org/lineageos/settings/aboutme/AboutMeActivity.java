@@ -48,6 +48,18 @@ public class AboutMeActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 });
             }
+            
+            // Donate2 preference
+            Preference donate2Preference = findPreference("about_me_donate2");
+            if (donate2Preference != null) {
+                donate2Preference.setOnPreferenceClickListener(preference -> {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://buymeacoffee.com/bezke"));
+                    startActivity(intent);
+                    return true;
+                });
+            }
+            
         }
     }
 }

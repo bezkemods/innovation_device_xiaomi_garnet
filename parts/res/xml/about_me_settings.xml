@@ -35,6 +35,13 @@
             android:summary="@string/about_me_donate_summary"
             android:icon="@drawable/ic_donate"
             app:iconSpaceReserved="true" />
+            
+         <Preference
+            android:key="about_me_donate2"
+            android:title="@string/about_me_donate2_title"
+            android:summary="@string/about_me_donate2_summary"
+            android:icon="@drawable/ic_donate2"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>

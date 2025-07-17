@@ -525,8 +525,12 @@
     <string name="about_me_contact_summary">You can get help there</string>
 
     <!-- Donate strings -->
-    <string name="about_me_donate_title">Donate Me</string>
-    <string name="about_me_donate_summary">Call me for a beer or a coffee</string>
+    <string name="about_me_donate_title">Donate Me on paypal</string>
+    <string name="about_me_donate_summary">Support my work so I can keep building</string>
+    
+    <!-- Donate2 strings -->
+    <string name="about_me_donate2_title">Buymeacoffee</string>
+    <string name="about_me_donate2_summary">Call me for a beer or a coffee</string>
     
     <!-- Core Control -->
     <string name="core_control_title">Core Control</string>
