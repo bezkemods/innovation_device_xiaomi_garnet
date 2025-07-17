@@ -93,7 +93,7 @@ public class SplashActivity extends Activity {
        	 RelativeLayout.LayoutParams.WRAP_CONTENT);
 	creditParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 	creditParams.addRule(RelativeLayout.CENTER_HORIZONTAL); // Ez is segíthet
-	creditParams.bottomMargin = dpToPx(12);
+	creditParams.bottomMargin = dpToPx(38);
 	creditText.setLayoutParams(creditParams);
 	layout.addView(logoView);
 	layout.addView(titleText);

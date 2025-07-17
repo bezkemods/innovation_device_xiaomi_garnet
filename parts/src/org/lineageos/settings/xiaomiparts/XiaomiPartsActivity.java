@@ -12,7 +12,6 @@ import org.lineageos.settings.thermal.ThermalSettingsActivity;
 import org.lineageos.settings.dirac.DiracActivity;
 import org.lineageos.settings.speaker.ClearSpeakerActivity;
 import org.lineageos.settings.saturation.SaturationActivity;
-import org.lineageos.settings.refreshrate.RefreshActivity;
 import org.lineageos.settings.autohbm.AutoHbmActivity;
 import org.lineageos.settings.gamebar.GameBarSettingsActivity;
 import org.lineageos.settings.powertools.PowertoolsActivity;
@@ -30,7 +29,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_DIRAC = "dirac_settings";
     private static final String KEY_CLEAR_SPEAKER = "clear_speaker";
     private static final String KEY_SATURATION = "saturation_settings";
-    private static final String KEY_REFRESH_RATE = "refresh_rate_settings";
     private static final String KEY_AUTO_HBM = "auto_hbm";
     private static final String KEY_GAMEBAR = "gamebar_settings";
     private static final String KEY_POWERTOOLS = "powertools";
@@ -76,11 +74,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
         Preference saturationPref = findPreference(KEY_SATURATION);
         if (saturationPref != null) {
             saturationPref.setOnPreferenceClickListener(this);
-        }
-
-        Preference refreshRatePref = findPreference(KEY_REFRESH_RATE);
-        if (refreshRatePref != null) {
-            refreshRatePref.setOnPreferenceClickListener(this);
         }
 
         Preference autoHbmPref = findPreference(KEY_AUTO_HBM);
@@ -155,9 +148,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 break;
             case KEY_SATURATION:
                 intent = new Intent(this, SaturationActivity.class);
-                break;
-            case KEY_REFRESH_RATE:
-                intent = new Intent(this, RefreshActivity.class);
                 break;
             case KEY_AUTO_HBM:
                 intent = new Intent(this, AutoHbmActivity.class);

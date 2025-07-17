@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The LineageOS Project
+ * Copyright (C) 2020 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,61 +19,35 @@ package org.lineageos.settings.thermal;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.os.RemoteException;
-import android.os.SystemProperties;
 import android.os.UserHandle;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.os.RemoteException;
-import android.os.SystemProperties;
-import android.os.UserHandle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.telecom.DefaultDialerManager;
-import android.view.Display;
-import android.view.Surface;
-import android.view.WindowManager;
 
 import androidx.preference.PreferenceManager;
 
-import com.android.settingslib.applications.AppUtils;
-
 import org.lineageos.settings.utils.FileUtils;
-
-import java.util.List;
-import java.util.Map;
 
 public final class ThermalUtils {
 
-    private static final String TAG = "ThermalUtils";
-    private static final String THERMAL_CONTROL = "thermal_control_v2";
-    private static final String THERMAL_ENABLED = "thermal_enabled";
+    private static final String THERMAL_CONTROL = "thermal_control";
 
-    public static final int STATE_DEFAULT = 0;
-    public static final int STATE_BENCHMARK = 1;
-    public static final int STATE_BROWSER = 2;
-    public static final int STATE_CAMERA = 3;
-    public static final int STATE_DIALER = 4;
-    public static final int STATE_GAMING = 5;
-    public static final int STATE_NAVIGATION = 6;
-    public static final int STATE_STREAMING = 7;
-    public static final int STATE_VIDEO = 8;
+    protected static final int STATE_DEFAULT = 0;
+    protected static final int STATE_BENCHMARK = 1;
+    protected static final int STATE_BROWSER = 2;
+    protected static final int STATE_CAMERA = 3;
+    protected static final int STATE_DIALER = 4;
+    protected static final int STATE_GAMING = 5;
+    protected static final int STATE_NAVIGATION = 6;
+    protected static final int STATE_STREAMING = 7;
+    protected static final int STATE_VIDEO = 8;
 
-    private static final Map<Integer, String> THERMAL_STATE_MAP = Map.of(
-        STATE_DEFAULT, "0",
-        STATE_BENCHMARK, "10",
-        STATE_BROWSER, "11",
-        STATE_CAMERA, "12",
-        STATE_DIALER, "8",
-        STATE_GAMING, "13",
-        STATE_NAVIGATION, "19",
-        STATE_STREAMING, "4",
-        STATE_VIDEO, "21"
-    );
+    private static final String THERMAL_STATE_DEFAULT = "0";
+    private static final String THERMAL_STATE_BENCHMARK = "10";
+    private static final String THERMAL_STATE_BROWSER = "11";
+    private static final String THERMAL_STATE_CAMERA = "12";
+    private static final String THERMAL_STATE_DIALER = "8";
+    private static final String THERMAL_STATE_GAMING = "9";
+    private static final String THERMAL_STATE_NAVIGATION = "19";
+    private static final String THERMAL_STATE_STREAMING = "14";
+    private static final String THERMAL_STATE_VIDEO = "21";
 
     private static final String THERMAL_BENCHMARK = "thermal.benchmark=";
     private static final String THERMAL_BROWSER = "thermal.browser=";
@@ -83,68 +57,18 @@ public final class ThermalUtils {
     private static final String THERMAL_NAVIGATION = "thermal.navigation=";
     private static final String THERMAL_STREAMING = "thermal.streaming=";
     private static final String THERMAL_VIDEO = "thermal.video=";
-    private static final String THERMAL_DEFAULT = "thermal.default=";
 
     private static final String THERMAL_SCONFIG = "/sys/class/thermal/thermal_message/sconfig";
 
-    private static final String GMAPS_PACKAGE = "com.google.android.apps.maps";
-    private static final String GMEET_PACKAGE = "com.google.android.apps.tachyon";
-
-    private Context mContext;
-    private Display mDisplay;
     private SharedPreferences mSharedPrefs;
-    private Intent mServiceIntent;
 
-    private static ThermalUtils sInstance;
-
-    private ThermalUtils(Context context) {
-        mContext = context;
+    protected ThermalUtils(Context context) {
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-        WindowManager mWindowManager = context.getSystemService(WindowManager.class);
-        mDisplay = mWindowManager.getDefaultDisplay();
-        mServiceIntent = new Intent(context, ThermalService.class);
     }
 
-    public static synchronized ThermalUtils getInstance(Context context) {
-        if (sInstance == null) {
-            sInstance = new ThermalUtils(context);
-        }
-        return sInstance;
-    }
-
-    /**
-     * Returns the current enabled state always reading from shared preferences.
-     */
-    public boolean isEnabled() {
-        return mSharedPrefs.getBoolean(THERMAL_ENABLED, false);
-    }
-
-    /**
-     * Sets the thermal master switch enabled/disabled. It starts or stops the service as needed.
-     */
-    public void setEnabled(boolean enabled) {
-        // Write the value into SharedPreferences
-        mSharedPrefs.edit().putBoolean(THERMAL_ENABLED, enabled).apply();
-        dlog("setEnabled: " + enabled);
-        if (enabled) {
-            startService();
-        } else {
-            setDefaultThermalProfile();
-            stopService();
-        }
-    }
-
-    public void startService() {
-        if (isEnabled()) {
-            dlog("startService");
-            mContext.startServiceAsUser(mServiceIntent, UserHandle.CURRENT);
-        }
-    }
-
-    private void stopService() {
-        dlog("stopService");
-        mContext.stopService(mServiceIntent);
+    public static void startService(Context context) {
+        context.startServiceAsUser(new Intent(context, ThermalService.class),
+                UserHandle.CURRENT);
     }
 
     private void writeValue(String profiles) {
@@ -153,19 +77,20 @@ public final class ThermalUtils {
 
     private String getValue() {
         String value = mSharedPrefs.getString(THERMAL_CONTROL, null);
+
         if (value == null || value.isEmpty()) {
-            value = THERMAL_BENCHMARK + ":" + THERMAL_BROWSER + ":" + THERMAL_CAMERA + ":" +
-                    THERMAL_DIALER + ":" + THERMAL_GAMING + ":" + THERMAL_NAVIGATION + ":" +
-                    THERMAL_STREAMING + ":" + THERMAL_VIDEO + ":" + THERMAL_DEFAULT;
+            value = THERMAL_BENCHMARK + ":" + THERMAL_BROWSER + ":" + THERMAL_CAMERA + ":" + THERMAL_DIALER + ":" +
+                    THERMAL_GAMING + ":" + THERMAL_NAVIGATION + ":" + THERMAL_STREAMING + ":" + THERMAL_VIDEO;
             writeValue(value);
         }
         return value;
     }
 
-    public void writePackage(String packageName, int mode) {
+    protected void writePackage(String packageName, int mode) {
         String value = getValue();
         value = value.replace(packageName + ",", "");
         String[] modes = value.split(":");
+        String finalString;
 
         switch (mode) {
             case STATE_BENCHMARK:
@@ -192,22 +117,18 @@ public final class ThermalUtils {
             case STATE_VIDEO:
                 modes[7] = modes[7] + packageName + ",";
                 break;
-            case STATE_DEFAULT:
-                modes[8] = modes[8] + packageName + ",";
-                break;
         }
 
-        String finalString = modes[0] + ":" + modes[1] + ":" + modes[2] + ":" + modes[3] + ":" +
-                modes[4] + ":" + modes[5] + ":" + modes[6] + ":" + modes[7] + ":" + modes[8];
+        finalString = modes[0] + ":" + modes[1] + ":" + modes[2] + ":" + modes[3] + ":" +
+                modes[4] + ":" + modes[5] + ":" + modes[6] + ":" + modes[7];
 
         writeValue(finalString);
     }
 
-    public int getStateForPackage(String packageName) {
+    protected int getStateForPackage(String packageName) {
         String value = getValue();
         String[] modes = value.split(":");
         int state = STATE_DEFAULT;
-
         if (modes[0].contains(packageName + ",")) {
             state = STATE_BENCHMARK;
         } else if (modes[1].contains(packageName + ",")) {
@@ -224,78 +145,41 @@ public final class ThermalUtils {
             state = STATE_STREAMING;
         } else if (modes[7].contains(packageName + ",")) {
             state = STATE_VIDEO;
-        } else if (modes[8].contains(packageName + ",")) {
-            state = STATE_DEFAULT;
-        } else {
-            // derive a default state based on package name
-            state = getDefaultStateForPackage(packageName);
         }
 
         return state;
     }
 
-    public void setDefaultThermalProfile() {
-        FileUtils.writeLine(THERMAL_SCONFIG, THERMAL_STATE_MAP.get(STATE_DEFAULT));
+    protected void setDefaultThermalProfile() {
+        FileUtils.writeLine(THERMAL_SCONFIG, THERMAL_STATE_DEFAULT);
     }
 
-    public void setThermalProfile(String packageName) {
-        final int state = getStateForPackage(packageName);
-        FileUtils.writeLine(THERMAL_SCONFIG, THERMAL_STATE_MAP.get(state));
-    }
+    protected void setThermalProfile(String packageName) {
+        String value = getValue();
+        String modes[];
+        String state = THERMAL_STATE_DEFAULT;
 
-    private int getDefaultStateForPackage(String packageName) {
-        switch (packageName) {
-            case GMAPS_PACKAGE:
-                return STATE_NAVIGATION;
-            case GMEET_PACKAGE:
-                return STATE_STREAMING;
-        }
+        if (value != null) {
+            modes = value.split(":");
 
-        final PackageManager pm = mContext.getPackageManager();
-        final ApplicationInfo appInfo;
-        try {
-            appInfo = pm.getApplicationInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            return STATE_DEFAULT;
-        }
-
-        switch (appInfo.category) {
-            case ApplicationInfo.CATEGORY_GAME:
-                return STATE_GAMING;
-            case ApplicationInfo.CATEGORY_VIDEO:
-                return STATE_VIDEO;
-            case ApplicationInfo.CATEGORY_MAPS:
-                return STATE_NAVIGATION;
-        }
-
-        if (AppUtils.isBrowserApp(mContext, packageName, UserHandle.myUserId())) {
-            return STATE_BROWSER;
-        } else if (DefaultDialerManager.getDefaultDialerApplication(mContext).equals(packageName)) {
-            return STATE_DIALER;
-        } else if (isCameraApp(packageName)) {
-            return STATE_CAMERA;
-        } else {
-            return STATE_DEFAULT;
-        }
-    }
-
-    private boolean isCameraApp(String packageName) {
-        final Intent cameraIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)
-                .setPackage(packageName);
-
-        final List<ResolveInfo> list = mContext.getPackageManager().queryIntentActivitiesAsUser(
-                cameraIntent, PackageManager.MATCH_ALL, UserHandle.myUserId());
-        for (ResolveInfo info : list) {
-            if (info.activityInfo != null) {
-                return true;
+            if (modes[0].contains(packageName + ",")) {
+                state = THERMAL_STATE_BENCHMARK;
+            } else if (modes[1].contains(packageName + ",")) {
+                state = THERMAL_STATE_BROWSER;
+            } else if (modes[2].contains(packageName + ",")) {
+                state = THERMAL_STATE_CAMERA;
+            } else if (modes[3].contains(packageName + ",")) {
+                state = THERMAL_STATE_DIALER;
+            } else if (modes[4].contains(packageName + ",")) {
+                state = THERMAL_STATE_GAMING;
+            } else if (modes[5].contains(packageName + ",")) {
+                state = THERMAL_STATE_NAVIGATION;
+            } else if (modes[6].contains(packageName + ",")) {
+                state = THERMAL_STATE_STREAMING;
+            } else if (modes[7].contains(packageName + ",")) {
+                state = THERMAL_STATE_VIDEO;
             }
         }
-        return false;
-    }
-
-    private static void dlog(String msg) {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            Log.d(TAG, msg);
-        }
+        FileUtils.writeLine(THERMAL_SCONFIG, state);
     }
 }
