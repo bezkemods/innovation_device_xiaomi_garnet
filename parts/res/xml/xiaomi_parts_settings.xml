@@ -110,13 +110,6 @@
             android:summary="@string/charge_control_summary"
             android:icon="@drawable/ic_charge_control"
             app:iconSpaceReserved="true" />
-        <!-- Powertools -->
-        <Preference
-            android:key="powertools"
-            android:title="@string/Powertools_title"
-            android:summary="@string/Powertools_summary"
-            android:icon="@drawable/ic_powertools"
-            app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
     <!-- Gaming -->

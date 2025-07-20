@@ -32,7 +32,6 @@ import android.util.Log;
 import android.view.Display;
 
 import org.lineageos.settings.dirac.DiracUtils;
-import org.lineageos.settings.powertools.PowerProfileTileService;
 import org.lineageos.settings.thermal.ThermalUtils;
 import org.lineageos.settings.thermal.ThermalTileService;
 import org.lineageos.settings.turbocharging.TurboChargingService;
@@ -62,9 +61,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         // Start Thermal Management Services
         ThermalUtils.startService(context);
         context.startServiceAsUser(new Intent(context, ThermalTileService.class), UserHandle.CURRENT);
-
-        // Start Power Profile Tile Service
-        context.startServiceAsUser(new Intent(context, PowerProfileTileService.class), UserHandle.CURRENT);
 
         // Try to initialize Dirac if present
         Log.d(TAG, "Received boot completed intent");
