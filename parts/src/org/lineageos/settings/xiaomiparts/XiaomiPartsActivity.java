@@ -14,7 +14,6 @@ import org.lineageos.settings.speaker.ClearSpeakerActivity;
 import org.lineageos.settings.saturation.SaturationActivity;
 import org.lineageos.settings.autohbm.AutoHbmActivity;
 import org.lineageos.settings.gamebar.GameBarSettingsActivity;
-import org.lineageos.settings.powertools.PowertoolsActivity;
 import org.lineageos.settings.turbocharging.TurboChargingActivity;
 import org.lineageos.settings.aboutme.AboutMeActivity;
 import org.lineageos.settings.corecontrol.CoreControlActivity;
@@ -31,7 +30,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_SATURATION = "saturation_settings";
     private static final String KEY_AUTO_HBM = "auto_hbm";
     private static final String KEY_GAMEBAR = "gamebar_settings";
-    private static final String KEY_POWERTOOLS = "powertools";
     private static final String KEY_TURBO_CHARGING = "turbo_charging";
     private static final String KEY_ABOUTME = "about_me_settings";
     private static final String KEY_CORE_CONTROL = "core_control_settings";
@@ -84,11 +82,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
         Preference gamebarPref = findPreference(KEY_GAMEBAR);
         if (gamebarPref != null) {
             gamebarPref.setOnPreferenceClickListener(this);
-        }
-
-        Preference powertoolsPref = findPreference(KEY_POWERTOOLS);
-        if (powertoolsPref != null) {
-            powertoolsPref.setOnPreferenceClickListener(this);
         }
 
         Preference turboChargingPref = findPreference(KEY_TURBO_CHARGING);
@@ -154,9 +147,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 break;
             case KEY_GAMEBAR:
                 intent = new Intent(this, GameBarSettingsActivity.class);
-                break;
-            case KEY_POWERTOOLS:
-                intent = new Intent(this, PowertoolsActivity.class);
                 break;
             case KEY_TURBO_CHARGING:
                 intent = new Intent(this, TurboChargingActivity.class);

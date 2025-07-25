@@ -10,7 +10,9 @@
 
 package org.lineageos.settings.kernelmanager;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -32,11 +34,13 @@ public class KernelManagerFragment extends PreferenceFragment
     private ListPreference mGovernorPreference;
     private ListPreference mEfficiencyMinFreq, mEfficiencyMaxFreq;
     private ListPreference mPerformanceMinFreq, mPerformanceMaxFreq;
+    private SharedPreferences mSharedPrefs;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.kernel_manager_settings, rootKey);
         mKernelUtils = new KernelManagerUtils();
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         initializePreferences();
         loadCurrentSettings();
@@ -84,59 +88,108 @@ public class KernelManagerFragment extends PreferenceFragment
     private void loadCurrentSettings() {
         // Load current governor and frequencies for both clusters
         if (mGovernorPreference != null) {
-            mGovernorPreference.setValue(mKernelUtils.getCurrentGovernor(KernelManagerUtils.EFFICIENCY_CLUSTER));
+            // First try to load from saved preferences, then current system value
+            String savedGovernor = mSharedPrefs.getString(KEY_CPU_GOVERNOR, 
+                mKernelUtils.getCurrentGovernor(KernelManagerUtils.EFFICIENCY_CLUSTER));
+            mGovernorPreference.setValue(savedGovernor);
             mGovernorPreference.setEntries(mKernelUtils.getAvailableGovernors());
             mGovernorPreference.setEntryValues(mKernelUtils.getAvailableGovernors());
         }
+        
         if (mEfficiencyMinFreq != null) {
-            mEfficiencyMinFreq.setValue(mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER));
+            String savedFreq = mSharedPrefs.getString(KEY_EFFICIENCY_MIN_FREQ,
+                mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER));
+            mEfficiencyMinFreq.setValue(savedFreq);
             mEfficiencyMinFreq.setEntries(mKernelUtils.getAvailableFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER));
             mEfficiencyMinFreq.setEntryValues(mKernelUtils.getAvailableFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER));
         }
+        
         if (mEfficiencyMaxFreq != null) {
-            mEfficiencyMaxFreq.setValue(mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER));
+            String savedFreq = mSharedPrefs.getString(KEY_EFFICIENCY_MAX_FREQ,
+                mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER));
+            mEfficiencyMaxFreq.setValue(savedFreq);
             mEfficiencyMaxFreq.setEntries(mKernelUtils.getAvailableFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER));
             mEfficiencyMaxFreq.setEntryValues(mKernelUtils.getAvailableFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER));
         }
+        
         if (mPerformanceMinFreq != null) {
-            mPerformanceMinFreq.setValue(mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER));
+            String savedFreq = mSharedPrefs.getString(KEY_PERFORMANCE_MIN_FREQ,
+                mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER));
+            mPerformanceMinFreq.setValue(savedFreq);
             mPerformanceMinFreq.setEntries(mKernelUtils.getAvailableFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER));
             mPerformanceMinFreq.setEntryValues(mKernelUtils.getAvailableFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER));
         }
+        
         if (mPerformanceMaxFreq != null) {
-            mPerformanceMaxFreq.setValue(mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER));
+            String savedFreq = mSharedPrefs.getString(KEY_PERFORMANCE_MAX_FREQ,
+                mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER));
+            mPerformanceMaxFreq.setValue(savedFreq);
             mPerformanceMaxFreq.setEntries(mKernelUtils.getAvailableFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER));
             mPerformanceMaxFreq.setEntryValues(mKernelUtils.getAvailableFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER));
         }
     }
 
     private void applySettings() {
+        SharedPreferences.Editor editor = mSharedPrefs.edit();
+        
         if (mGovernorPreference != null) {
-            mKernelUtils.setGovernor(mGovernorPreference.getValue());
+            String governor = mGovernorPreference.getValue();
+            mKernelUtils.setGovernor(governor);
+            editor.putString(KEY_CPU_GOVERNOR, governor);
         }
+        
         if (mEfficiencyMinFreq != null) {
-            mKernelUtils.setMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, mEfficiencyMinFreq.getValue());
+            String freq = mEfficiencyMinFreq.getValue();
+            mKernelUtils.setMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, freq);
+            editor.putString(KEY_EFFICIENCY_MIN_FREQ, freq);
         }
+        
         if (mEfficiencyMaxFreq != null) {
-            mKernelUtils.setMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, mEfficiencyMaxFreq.getValue());
+            String freq = mEfficiencyMaxFreq.getValue();
+            mKernelUtils.setMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, freq);
+            editor.putString(KEY_EFFICIENCY_MAX_FREQ, freq);
         }
+        
         if (mPerformanceMinFreq != null) {
-            mKernelUtils.setMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, mPerformanceMinFreq.getValue());
+            String freq = mPerformanceMinFreq.getValue();
+            mKernelUtils.setMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, freq);
+            editor.putString(KEY_PERFORMANCE_MIN_FREQ, freq);
         }
+        
         if (mPerformanceMaxFreq != null) {
-            mKernelUtils.setMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, mPerformanceMaxFreq.getValue());
+            String freq = mPerformanceMaxFreq.getValue();
+            mKernelUtils.setMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, freq);
+            editor.putString(KEY_PERFORMANCE_MAX_FREQ, freq);
         }
+        
+        editor.apply(); // Save to SharedPreferences
         Toast.makeText(getContext(), R.string.settings_applied, Toast.LENGTH_SHORT).show();
     }
 
     private void resetSettings() {
-        // Not implemented, could restore default frequencies/governor
+        // Clear saved preferences and restore defaults
+        SharedPreferences.Editor editor = mSharedPrefs.edit();
+        editor.remove(KEY_CPU_GOVERNOR);
+        editor.remove(KEY_EFFICIENCY_MIN_FREQ);
+        editor.remove(KEY_EFFICIENCY_MAX_FREQ);
+        editor.remove(KEY_PERFORMANCE_MIN_FREQ);
+        editor.remove(KEY_PERFORMANCE_MAX_FREQ);
+        editor.apply();
+        
+        // Reload current system settings
+        loadCurrentSettings();
+        
         Toast.makeText(getContext(), R.string.kernel_manager_reset, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        // You can implement live update here
+        // Auto-save when preferences change
+        String key = preference.getKey();
+        SharedPreferences.Editor editor = mSharedPrefs.edit();
+        editor.putString(key, (String) newValue);
+        editor.apply();
+        
         return true;
     }
 }
