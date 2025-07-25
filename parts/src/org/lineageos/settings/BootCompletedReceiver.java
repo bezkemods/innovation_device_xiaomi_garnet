@@ -39,6 +39,7 @@ import org.lineageos.settings.thermal.ThermalTileService;
 import org.lineageos.settings.turbocharging.TurboChargingService;
 import org.lineageos.settings.chargecontrol.ChargeControlService;
 import org.lineageos.settings.kernelmanager.KernelManagerUtils;
+import org.lineageos.settings.gpumanager.GpuManagerUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
@@ -50,6 +51,16 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String KEY_EFFICIENCY_MAX_FREQ = "efficiency_max_freq";
     private static final String KEY_PERFORMANCE_MIN_FREQ = "performance_min_freq";
     private static final String KEY_PERFORMANCE_MAX_FREQ = "performance_max_freq";
+
+    // GPU Manager preference keys
+    private static final String KEY_GPU_GOVERNOR = "gpu_governor";
+    private static final String KEY_GPU_MIN_FREQ = "gpu_min_freq";
+    private static final String KEY_GPU_MAX_FREQ = "gpu_max_freq";
+    private static final String KEY_GPU_FORCE_CLK_ON = "gpu_force_clk_on";
+    private static final String KEY_GPU_FORCE_BUS_ON = "gpu_force_bus_on";
+    private static final String KEY_GPU_FORCE_RAIL_ON = "gpu_force_rail_on";
+    private static final String KEY_GPU_FORCE_NO_NAP = "gpu_force_no_nap";
+    private static final String KEY_GPU_BUS_SPLIT = "gpu_bus_split";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -74,6 +85,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         // Restore Kernel Manager settings
         restoreKernelSettings(context);
+
+        // Restore GPU Manager settings
+        restoreGpuSettings(context);
 
         // Try to initialize Dirac if present
         Log.d(TAG, "Received boot completed intent");
@@ -125,6 +139,64 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             Log.d(TAG, "Kernel settings restoration completed");
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore kernel settings", e);
+        }
+    }
+
+    private void restoreGpuSettings(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            GpuManagerUtils gpuUtils = new GpuManagerUtils();
+
+            // Restore GPU Governor
+            String savedGpuGovernor = prefs.getString(KEY_GPU_GOVERNOR, null);
+            if (savedGpuGovernor != null && !savedGpuGovernor.isEmpty()) {
+                gpuUtils.setGovernor(savedGpuGovernor);
+                Log.d(TAG, "Restored GPU governor: " + savedGpuGovernor);
+            }
+
+            // Restore GPU frequencies
+            String gpuMinFreq = prefs.getString(KEY_GPU_MIN_FREQ, null);
+            String gpuMaxFreq = prefs.getString(KEY_GPU_MAX_FREQ, null);
+            if (gpuMinFreq != null && !gpuMinFreq.isEmpty() && 
+                gpuMaxFreq != null && !gpuMaxFreq.isEmpty()) {
+                gpuUtils.setFrequencyRange(gpuMinFreq, gpuMaxFreq);
+                Log.d(TAG, "Restored GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq);
+            }
+
+            // Restore GPU power settings
+            if (prefs.contains(KEY_GPU_FORCE_CLK_ON)) {
+                boolean forceClkOn = prefs.getBoolean(KEY_GPU_FORCE_CLK_ON, false);
+                gpuUtils.setForceClkOn(forceClkOn);
+                Log.d(TAG, "Restored GPU force clk on: " + forceClkOn);
+            }
+
+            if (prefs.contains(KEY_GPU_FORCE_BUS_ON)) {
+                boolean forceBusOn = prefs.getBoolean(KEY_GPU_FORCE_BUS_ON, false);
+                gpuUtils.setForceBusOn(forceBusOn);
+                Log.d(TAG, "Restored GPU force bus on: " + forceBusOn);
+            }
+
+            if (prefs.contains(KEY_GPU_FORCE_RAIL_ON)) {
+                boolean forceRailOn = prefs.getBoolean(KEY_GPU_FORCE_RAIL_ON, false);
+                gpuUtils.setForceRailOn(forceRailOn);
+                Log.d(TAG, "Restored GPU force rail on: " + forceRailOn);
+            }
+
+            if (prefs.contains(KEY_GPU_FORCE_NO_NAP)) {
+                boolean forceNoNap = prefs.getBoolean(KEY_GPU_FORCE_NO_NAP, false);
+                gpuUtils.setForceNoNap(forceNoNap);
+                Log.d(TAG, "Restored GPU force no nap: " + forceNoNap);
+            }
+
+            if (prefs.contains(KEY_GPU_BUS_SPLIT)) {
+                boolean busSplit = prefs.getBoolean(KEY_GPU_BUS_SPLIT, false);
+                gpuUtils.setBusSplit(busSplit);
+                Log.d(TAG, "Restored GPU bus split: " + busSplit);
+            }
+
+            Log.d(TAG, "GPU settings restoration completed");
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore GPU settings", e);
         }
     }
 }
