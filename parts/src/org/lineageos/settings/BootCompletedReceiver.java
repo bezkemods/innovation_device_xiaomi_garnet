@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.hardware.display.DisplayManager;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.UserHandle;
 import android.preference.PreferenceManager;
@@ -68,34 +69,70 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             Log.d(TAG, "Received intent: " + intent.getAction());
         }
 
-        if (!intent.getAction().equals(Intent.ACTION_LOCKED_BOOT_COMPLETED)) {
-            return;
+        if (Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(intent.getAction())) {
+            // Start TurboChargingService
+            Intent turboChargingIntent = new Intent(context, TurboChargingService.class);
+            context.startService(turboChargingIntent);
+
+            // Start Charge Control Service
+            context.startServiceAsUser(new Intent(context, ChargeControlService.class), UserHandle.CURRENT);
+
+            // Start Thermal Management Services
+            ThermalUtils.startService(context);
+            context.startServiceAsUser(new Intent(context, ThermalTileService.class), UserHandle.CURRENT);
+
+            // Restore Kernel Manager settings
+            restoreKernelSettings(context);
+
+            // Restore GPU Manager settings
+            restoreGpuSettings(context);
+
+            // Dirac initialization REMOVED from here!
         }
-              
-        // Start TurboChargingService
-        Intent turboChargingIntent = new Intent(context, TurboChargingService.class);
-        context.startService(turboChargingIntent);
-        
-        // Start Charge Control Service
-        context.startServiceAsUser(new Intent(context, ChargeControlService.class), UserHandle.CURRENT);
-        
-        // Start Thermal Management Services
-        ThermalUtils.startService(context);
-        context.startServiceAsUser(new Intent(context, ThermalTileService.class), UserHandle.CURRENT);
 
-        // Restore Kernel Manager settings
-        restoreKernelSettings(context);
-
-        // Restore GPU Manager settings
-        restoreGpuSettings(context);
-
-        // Try to initialize Dirac if present
-        Log.d(TAG, "Received boot completed intent");
-        try {
-            DiracUtils.getInstance(context);
-        } catch (Exception e) {
-            Log.d(TAG, "Dirac is not present in system");
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            // Only initialize Dirac here (after user unlock)
+            initializeDirac(context);
         }
+    }
+
+    private void initializeDirac(final Context context) {
+        Log.d(TAG, "Initializing Dirac audio enhancement");
+
+        HandlerThread diracThread = new HandlerThread("DiracInitialization");
+        diracThread.start();
+        Handler diracHandler = new Handler(diracThread.getLooper());
+
+        diracHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Wait for audio system to be fully loaded
+                    Thread.sleep(3000);
+
+                    DiracUtils diracUtils = DiracUtils.getInstance(context);
+
+                    // Force reinitialize to ensure proper state after boot
+                    diracUtils.reinitialize();
+
+                    Log.d(TAG, "Dirac initialized successfully, enabled: " + diracUtils.isDiracEnabled());
+                } catch (Exception e) {
+                    Log.w(TAG, "Dirac is not present in system or failed to initialize", e);
+
+                    // Retry once after additional delay
+                    try {
+                        Thread.sleep(2000);
+                        DiracUtils diracUtils = DiracUtils.getInstance(context);
+                        diracUtils.reinitialize();
+                        Log.d(TAG, "Dirac initialization retry successful");
+                    } catch (Exception e2) {
+                        Log.e(TAG, "Dirac initialization failed after retry", e2);
+                    }
+                } finally {
+                    diracThread.quitSafely();
+                }
+            }
+        });
     }
 
     private void restoreKernelSettings(Context context) {

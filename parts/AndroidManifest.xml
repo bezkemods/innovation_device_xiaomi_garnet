@@ -36,6 +36,7 @@
     <uses-permission android:name="android.permission.READ_DEVICE_CONFIG" />
     <uses-permission android:name="android.permission.ACCESS_FPS_COUNTER" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-sdk
         android:minSdkVersion="33"
@@ -49,12 +50,14 @@
         android:theme="@style/Theme.SubSettingsBase"
         android:icon="@drawable/ic_xiaomiparts">
 
-        <receiver android:name=".BootCompletedReceiver" android:exported="true">
-            <intent-filter android:priority="1000">
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+    <receiver android:name=".BootCompletedReceiver"
+              android:exported="true"
+              android:directBootAware="true">
+        <intent-filter android:priority="1000">
+            <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+    </receiver>
 
         <provider
             android:name="androidx.startup.InitializationProvider"
