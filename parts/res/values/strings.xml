@@ -466,6 +466,9 @@
     <string name="pref_turbo_current_title">Charging Current</string>
     <string name="turbo_charge_current_pref_title">Charging Wattage</string>
     <string name="pref_turbo_current_summary">Select charging current (mA)</string>
+    <string name="turbo_charging_title">Turbo Charging</string>
+    <string name="turbo_on">ON</string>
+    <string name="turbo_off">OFF</string>
 
     <!-- Sports Mode -->
     <string name="pref_sports_mode_title">Sports Mode</string>

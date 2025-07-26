@@ -18,21 +18,14 @@
 package org.lineageos.settings;
 
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.database.ContentObserver;
-import android.hardware.display.DisplayManager;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.IBinder;
 import android.os.UserHandle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.Log;
-import android.view.Display;
 
 import org.lineageos.settings.dirac.DiracUtils;
 import org.lineageos.settings.thermal.ThermalUtils;
@@ -63,115 +56,193 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String KEY_GPU_FORCE_NO_NAP = "gpu_force_no_nap";
     private static final String KEY_GPU_BUS_SPLIT = "gpu_bus_split";
 
+    private HandlerThread mBackgroundThread;
+    private Handler mBackgroundHandler;
+
     @Override
     public void onReceive(final Context context, Intent intent) {
-        if (DEBUG) {
-            Log.d(TAG, "Received intent: " + intent.getAction());
+        if (context == null || intent == null) {
+            Log.w(TAG, "Context or intent is null");
+            return;
         }
 
-        if (Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(intent.getAction())) {
+        String action = intent.getAction();
+        if (DEBUG) {
+            Log.d(TAG, "Received intent: " + action);
+        }
+
+        if (Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(action)) {
+            handleLockedBootCompleted(context);
+        } else if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+            handleBootCompleted(context);
+        }
+    }
+
+    private void handleLockedBootCompleted(Context context) {
+        // Initialize background thread for heavy operations
+        initializeBackgroundThread();
+        
+        mBackgroundHandler.post(() -> {
+            try {
+                // Start services
+                startServices(context);
+                
+                // Restore settings
+                restoreKernelSettings(context);
+                restoreGpuSettings(context);
+                
+                Log.i(TAG, "Locked boot completed initialization finished");
+            } catch (Exception e) {
+                Log.e(TAG, "Error during locked boot initialization", e);
+            }
+        });
+    }
+
+    private void handleBootCompleted(Context context) {
+        if (mBackgroundHandler == null) {
+            initializeBackgroundThread();
+        }
+        
+        // Only initialize Dirac here (after user unlock)
+        mBackgroundHandler.post(() -> {
+            try {
+                initializeDirac(context);
+                Log.i(TAG, "Boot completed initialization finished");
+            } catch (Exception e) {
+                Log.e(TAG, "Error during boot completed initialization", e);
+            } finally {
+                // Clean up background thread after all operations
+                cleanupBackgroundThread();
+            }
+        });
+    }
+
+    private void initializeBackgroundThread() {
+        if (mBackgroundThread == null) {
+            mBackgroundThread = new HandlerThread("BootInitialization");
+            mBackgroundThread.start();
+            mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
+        }
+    }
+
+    private void cleanupBackgroundThread() {
+        if (mBackgroundThread != null) {
+            try {
+                mBackgroundThread.quitSafely();
+                mBackgroundThread.join(2000); // Wait up to 2 seconds
+            } catch (InterruptedException e) {
+                Log.w(TAG, "Thread interrupted during cleanup", e);
+                Thread.currentThread().interrupt();
+            } finally {
+                mBackgroundThread = null;
+                mBackgroundHandler = null;
+            }
+        }
+    }
+
+    private void startServices(Context context) {
+        try {
             // Start TurboChargingService
             Intent turboChargingIntent = new Intent(context, TurboChargingService.class);
             context.startService(turboChargingIntent);
+            Log.d(TAG, "TurboChargingService started");
 
             // Start Charge Control Service
-            context.startServiceAsUser(new Intent(context, ChargeControlService.class), UserHandle.CURRENT);
+            context.startServiceAsUser(
+                new Intent(context, ChargeControlService.class), 
+                UserHandle.CURRENT
+            );
+            Log.d(TAG, "ChargeControlService started");
 
             // Start Thermal Management Services
             ThermalUtils.startService(context);
-            context.startServiceAsUser(new Intent(context, ThermalTileService.class), UserHandle.CURRENT);
+            context.startServiceAsUser(
+                new Intent(context, ThermalTileService.class), 
+                UserHandle.CURRENT
+            );
+            Log.d(TAG, "Thermal services started");
 
-            // Restore Kernel Manager settings
-            restoreKernelSettings(context);
-
-            // Restore GPU Manager settings
-            restoreGpuSettings(context);
-
-            // Dirac initialization REMOVED from here!
-        }
-
-        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            // Only initialize Dirac here (after user unlock)
-            initializeDirac(context);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to start services", e);
         }
     }
 
     private void initializeDirac(final Context context) {
         Log.d(TAG, "Initializing Dirac audio enhancement");
 
-        HandlerThread diracThread = new HandlerThread("DiracInitialization");
-        diracThread.start();
-        Handler diracHandler = new Handler(diracThread.getLooper());
+        try {
+            // Wait for audio system to be fully loaded
+            Thread.sleep(3000);
 
-        diracHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Wait for audio system to be fully loaded
-                    Thread.sleep(3000);
-
-                    DiracUtils diracUtils = DiracUtils.getInstance(context);
-
-                    // Force reinitialize to ensure proper state after boot
-                    diracUtils.reinitialize();
-
-                    Log.d(TAG, "Dirac initialized successfully, enabled: " + diracUtils.isDiracEnabled());
-                } catch (Exception e) {
-                    Log.w(TAG, "Dirac is not present in system or failed to initialize", e);
-
-                    // Retry once after additional delay
-                    try {
-                        Thread.sleep(2000);
-                        DiracUtils diracUtils = DiracUtils.getInstance(context);
-                        diracUtils.reinitialize();
-                        Log.d(TAG, "Dirac initialization retry successful");
-                    } catch (Exception e2) {
-                        Log.e(TAG, "Dirac initialization failed after retry", e2);
-                    }
-                } finally {
-                    diracThread.quitSafely();
-                }
+            DiracUtils diracUtils = DiracUtils.getInstance(context);
+            if (diracUtils == null) {
+                Log.w(TAG, "DiracUtils instance is null");
+                return;
             }
-        });
+
+            // Force reinitialize to ensure proper state after boot
+            diracUtils.reinitialize();
+
+            Log.d(TAG, "Dirac initialized successfully, enabled: " + diracUtils.isDiracEnabled());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.w(TAG, "Dirac initialization interrupted", e);
+        } catch (Exception e) {
+            Log.w(TAG, "Dirac is not present in system or failed to initialize", e);
+
+            // Retry once after additional delay
+            try {
+                Thread.sleep(2000);
+                DiracUtils diracUtils = DiracUtils.getInstance(context);
+                if (diracUtils != null) {
+                    diracUtils.reinitialize();
+                    Log.d(TAG, "Dirac initialization retry successful");
+                }
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+                Log.w(TAG, "Dirac retry interrupted", ie);
+            } catch (Exception e2) {
+                Log.e(TAG, "Dirac initialization failed after retry", e2);
+            }
+        }
     }
 
-    private void restoreKernelSettings(Context context) {
+private void restoreKernelSettings(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (prefs == null) {
+                Log.w(TAG, "SharedPreferences is null for kernel settings");
+                return;
+            }
+
             KernelManagerUtils kernelUtils = new KernelManagerUtils();
+            if (kernelUtils == null) {
+                Log.w(TAG, "KernelManagerUtils is null");
+                return;
+            }
 
             // Restore CPU Governor
             String savedGovernor = prefs.getString(KEY_CPU_GOVERNOR, null);
             if (savedGovernor != null && !savedGovernor.isEmpty()) {
-                kernelUtils.setGovernor(savedGovernor);
-                Log.d(TAG, "Restored CPU governor: " + savedGovernor);
+                try {
+                    kernelUtils.setGovernor(savedGovernor);
+                    Log.d(TAG, "Restored CPU governor: " + savedGovernor);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore CPU governor: " + savedGovernor, e);
+                }
             }
 
             // Restore Efficiency cluster frequencies
-            String efficiencyMinFreq = prefs.getString(KEY_EFFICIENCY_MIN_FREQ, null);
-            if (efficiencyMinFreq != null && !efficiencyMinFreq.isEmpty()) {
-                kernelUtils.setMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, efficiencyMinFreq);
-                Log.d(TAG, "Restored efficiency min freq: " + efficiencyMinFreq);
-            }
-
-            String efficiencyMaxFreq = prefs.getString(KEY_EFFICIENCY_MAX_FREQ, null);
-            if (efficiencyMaxFreq != null && !efficiencyMaxFreq.isEmpty()) {
-                kernelUtils.setMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, efficiencyMaxFreq);
-                Log.d(TAG, "Restored efficiency max freq: " + efficiencyMaxFreq);
-            }
+            restoreClusterFrequencies(prefs, kernelUtils, 
+                KernelManagerUtils.EFFICIENCY_CLUSTER, 
+                KEY_EFFICIENCY_MIN_FREQ, KEY_EFFICIENCY_MAX_FREQ,
+                "efficiency");
 
             // Restore Performance cluster frequencies
-            String performanceMinFreq = prefs.getString(KEY_PERFORMANCE_MIN_FREQ, null);
-            if (performanceMinFreq != null && !performanceMinFreq.isEmpty()) {
-                kernelUtils.setMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, performanceMinFreq);
-                Log.d(TAG, "Restored performance min freq: " + performanceMinFreq);
-            }
-
-            String performanceMaxFreq = prefs.getString(KEY_PERFORMANCE_MAX_FREQ, null);
-            if (performanceMaxFreq != null && !performanceMaxFreq.isEmpty()) {
-                kernelUtils.setMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, performanceMaxFreq);
-                Log.d(TAG, "Restored performance max freq: " + performanceMaxFreq);
-            }
+            restoreClusterFrequencies(prefs, kernelUtils,
+                KernelManagerUtils.PERFORMANCE_CLUSTER,
+                KEY_PERFORMANCE_MIN_FREQ, KEY_PERFORMANCE_MAX_FREQ,
+                "performance");
 
             Log.d(TAG, "Kernel settings restoration completed");
         } catch (Exception e) {
@@ -179,61 +250,147 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         }
     }
 
+    private void restoreClusterFrequencies(SharedPreferences prefs, KernelManagerUtils kernelUtils,
+                                         int cluster, String minKey, String maxKey, String clusterName) {
+        try {
+            String minFreq = prefs.getString(minKey, null);
+            if (minFreq != null && !minFreq.isEmpty()) {
+                try {
+                    kernelUtils.setMinFrequency(cluster, minFreq);
+                    Log.d(TAG, "Restored " + clusterName + " min freq: " + minFreq);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore " + clusterName + " min freq: " + minFreq, e);
+                }
+            }
+
+            String maxFreq = prefs.getString(maxKey, null);
+            if (maxFreq != null && !maxFreq.isEmpty()) {
+                try {
+                    kernelUtils.setMaxFrequency(cluster, maxFreq);
+                    Log.d(TAG, "Restored " + clusterName + " max freq: " + maxFreq);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore " + clusterName + " max freq: " + maxFreq, e);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error restoring " + clusterName + " cluster frequencies", e);
+        }
+    }
+
     private void restoreGpuSettings(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (prefs == null) {
+                Log.w(TAG, "SharedPreferences is null for GPU settings");
+                return;
+            }
+
             GpuManagerUtils gpuUtils = new GpuManagerUtils();
+            if (gpuUtils == null) {
+                Log.w(TAG, "GpuManagerUtils is null");
+                return;
+            }
 
             // Restore GPU Governor
             String savedGpuGovernor = prefs.getString(KEY_GPU_GOVERNOR, null);
             if (savedGpuGovernor != null && !savedGpuGovernor.isEmpty()) {
-                gpuUtils.setGovernor(savedGpuGovernor);
-                Log.d(TAG, "Restored GPU governor: " + savedGpuGovernor);
+                try {
+                    gpuUtils.setGovernor(savedGpuGovernor);
+                    Log.d(TAG, "Restored GPU governor: " + savedGpuGovernor);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore GPU governor: " + savedGpuGovernor, e);
+                }
             }
 
             // Restore GPU frequencies
-            String gpuMinFreq = prefs.getString(KEY_GPU_MIN_FREQ, null);
-            String gpuMaxFreq = prefs.getString(KEY_GPU_MAX_FREQ, null);
-            if (gpuMinFreq != null && !gpuMinFreq.isEmpty() && 
-                gpuMaxFreq != null && !gpuMaxFreq.isEmpty()) {
-                gpuUtils.setFrequencyRange(gpuMinFreq, gpuMaxFreq);
-                Log.d(TAG, "Restored GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq);
-            }
+            restoreGpuFrequencies(prefs, gpuUtils);
 
             // Restore GPU power settings
-            if (prefs.contains(KEY_GPU_FORCE_CLK_ON)) {
-                boolean forceClkOn = prefs.getBoolean(KEY_GPU_FORCE_CLK_ON, false);
-                gpuUtils.setForceClkOn(forceClkOn);
-                Log.d(TAG, "Restored GPU force clk on: " + forceClkOn);
-            }
-
-            if (prefs.contains(KEY_GPU_FORCE_BUS_ON)) {
-                boolean forceBusOn = prefs.getBoolean(KEY_GPU_FORCE_BUS_ON, false);
-                gpuUtils.setForceBusOn(forceBusOn);
-                Log.d(TAG, "Restored GPU force bus on: " + forceBusOn);
-            }
-
-            if (prefs.contains(KEY_GPU_FORCE_RAIL_ON)) {
-                boolean forceRailOn = prefs.getBoolean(KEY_GPU_FORCE_RAIL_ON, false);
-                gpuUtils.setForceRailOn(forceRailOn);
-                Log.d(TAG, "Restored GPU force rail on: " + forceRailOn);
-            }
-
-            if (prefs.contains(KEY_GPU_FORCE_NO_NAP)) {
-                boolean forceNoNap = prefs.getBoolean(KEY_GPU_FORCE_NO_NAP, false);
-                gpuUtils.setForceNoNap(forceNoNap);
-                Log.d(TAG, "Restored GPU force no nap: " + forceNoNap);
-            }
-
-            if (prefs.contains(KEY_GPU_BUS_SPLIT)) {
-                boolean busSplit = prefs.getBoolean(KEY_GPU_BUS_SPLIT, false);
-                gpuUtils.setBusSplit(busSplit);
-                Log.d(TAG, "Restored GPU bus split: " + busSplit);
-            }
+            restoreGpuPowerSettings(prefs, gpuUtils);
 
             Log.d(TAG, "GPU settings restoration completed");
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore GPU settings", e);
+        }
+    }
+
+    private void restoreGpuFrequencies(SharedPreferences prefs, GpuManagerUtils gpuUtils) {
+        try {
+            String gpuMinFreq = prefs.getString(KEY_GPU_MIN_FREQ, null);
+            String gpuMaxFreq = prefs.getString(KEY_GPU_MAX_FREQ, null);
+            
+            if (gpuMinFreq != null && !gpuMinFreq.isEmpty() && 
+                gpuMaxFreq != null && !gpuMaxFreq.isEmpty()) {
+                try {
+                    gpuUtils.setFrequencyRange(gpuMinFreq, gpuMaxFreq);
+                    Log.d(TAG, "Restored GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq, e);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error restoring GPU frequencies", e);
+        }
+    }
+
+    private void restoreGpuPowerSettings(SharedPreferences prefs, GpuManagerUtils gpuUtils) {
+        try {
+            // Restore force clock on
+            if (prefs.contains(KEY_GPU_FORCE_CLK_ON)) {
+                boolean forceClkOn = prefs.getBoolean(KEY_GPU_FORCE_CLK_ON, false);
+                try {
+                    gpuUtils.setForceClkOn(forceClkOn);
+                    Log.d(TAG, "Restored GPU force clk on: " + forceClkOn);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore GPU force clk on: " + forceClkOn, e);
+                }
+            }
+
+            // Restore force bus on
+            if (prefs.contains(KEY_GPU_FORCE_BUS_ON)) {
+                boolean forceBusOn = prefs.getBoolean(KEY_GPU_FORCE_BUS_ON, false);
+                try {
+                    gpuUtils.setForceBusOn(forceBusOn);
+                    Log.d(TAG, "Restored GPU force bus on: " + forceBusOn);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore GPU force bus on: " + forceBusOn, e);
+                }
+            }
+
+            // Restore force rail on
+            if (prefs.contains(KEY_GPU_FORCE_RAIL_ON)) {
+                boolean forceRailOn = prefs.getBoolean(KEY_GPU_FORCE_RAIL_ON, false);
+                try {
+                    gpuUtils.setForceRailOn(forceRailOn);
+                    Log.d(TAG, "Restored GPU force rail on: " + forceRailOn);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore GPU force rail on: " + forceRailOn, e);
+                }
+            }
+
+            // Restore force no nap
+            if (prefs.contains(KEY_GPU_FORCE_NO_NAP)) {
+                boolean forceNoNap = prefs.getBoolean(KEY_GPU_FORCE_NO_NAP, false);
+                try {
+                    gpuUtils.setForceNoNap(forceNoNap);
+                    Log.d(TAG, "Restored GPU force no nap: " + forceNoNap);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore GPU force no nap: " + forceNoNap, e);
+                }
+            }
+
+            // Restore bus split
+            if (prefs.contains(KEY_GPU_BUS_SPLIT)) {
+                boolean busSplit = prefs.getBoolean(KEY_GPU_BUS_SPLIT, false);
+                try {
+                    gpuUtils.setBusSplit(busSplit);
+                    Log.d(TAG, "Restored GPU bus split: " + busSplit);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to restore GPU bus split: " + busSplit, e);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error restoring GPU power settings", e);
         }
     }
 }

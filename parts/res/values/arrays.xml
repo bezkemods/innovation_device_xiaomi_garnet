@@ -172,16 +172,33 @@
     
     <!-- Turbo Charging Modes -->
     <string-array name="turbo_current_entries">
-        <item>18W</item>
-        <item>27W</item>
-        <item>33W</item>
-        <item>67W</item>
+        <item>18W (Safe)</item>
+        <item>27W (Balanced)</item>
+        <item>33W (Fast)</item>
+        <item>67W (Maximum)</item>
     </string-array>
+
     <string-array name="turbo_current_values">
         <item>1800000</item>
         <item>2700000</item>
         <item>3300000</item>
         <item>6700000</item>
+    </string-array>
+
+    <!-- Turbo Charging Entry Keys (for consistency) -->
+    <string-array name="turbo_current_entry_keys">
+        <item>safe</item>
+        <item>balanced</item>
+        <item>fast</item>
+        <item>maximum</item>
+    </string-array>
+
+    <!-- Turbo Charging Summaries (optional, for better UX) -->
+    <string-array name="turbo_current_summaries">
+        <item>18W - Conservative charging, best for battery longevity</item>
+        <item>27W - Balanced speed and battery health</item>
+        <item>33W - Fast charging with moderate heat</item>
+        <item>67W - Maximum speed, may generate more heat</item>
     </string-array>
 
     <!-- GPU Frequency Options for Adreno 710 -->
