@@ -620,11 +620,23 @@ on post-fs
     write /sys/devices/system/cpu/cpu6/online 1
     write /sys/devices/system/cpu/cpu7/online 1
 
-
 on post-fs-data
-    # Bypass Charging
+    # Bypass Charging - Primary node
     chown system system /sys/class/qcom-battery/input_suspend
     chmod 0660 /sys/class/qcom-battery/input_suspend
+    
+    # Bypass Charging - Alternative nodes (for different device variants)
+    chown system system /sys/class/power_supply/battery/input_suspend
+    chmod 0660 /sys/class/power_supply/battery/input_suspend
+    
+    chown system system /sys/class/power_supply/battery/charging_enabled
+    chmod 0660 /sys/class/power_supply/battery/charging_enabled
+    
+    chown system system /sys/class/power_supply/usb/charging_enabled
+    chmod 0660 /sys/class/power_supply/usb/charging_enabled
+    
+    chown system system /sys/devices/platform/soc/soc:qcom,pmic_glink/soc:qcom,pmic_glink:qcom,battery_charger/power_supply/battery/input_suspend
+    chmod 0660 /sys/devices/platform/soc/soc:qcom,pmic_glink/soc:qcom,pmic_glink:qcom,battery_charger/power_supply/battery/input_suspend
 
     # GPU Manager
     chown system system /sys/class/kgsl/kgsl-3d0/devfreq/governor

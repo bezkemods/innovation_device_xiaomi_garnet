@@ -34,6 +34,7 @@ import org.lineageos.settings.turbocharging.TurboChargingService;
 import org.lineageos.settings.chargecontrol.ChargeControlService;
 import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import org.lineageos.settings.gpumanager.GpuManagerUtils;
+import org.lineageos.settings.charge.ChargeUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
@@ -55,6 +56,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String KEY_GPU_FORCE_RAIL_ON = "gpu_force_rail_on";
     private static final String KEY_GPU_FORCE_NO_NAP = "gpu_force_no_nap";
     private static final String KEY_GPU_BUS_SPLIT = "gpu_bus_split";
+
+    // Bypass Charge preference key
+    private static final String KEY_BYPASS_CHARGE = "bypass_charge";
 
     private HandlerThread mBackgroundThread;
     private Handler mBackgroundHandler;
@@ -90,6 +94,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 // Restore settings
                 restoreKernelSettings(context);
                 restoreGpuSettings(context);
+                restoreBypassCharge(context);
                 
                 Log.i(TAG, "Locked boot completed initialization finished");
             } catch (Exception e) {
@@ -207,7 +212,44 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         }
     }
 
-private void restoreKernelSettings(Context context) {
+    private void restoreBypassCharge(Context context) {
+        try {
+            ChargeUtils chargeUtils = new ChargeUtils(context);
+            
+            if (!chargeUtils.isBypassChargeSupported()) {
+                Log.d(TAG, "Bypass charge not supported on this device");
+                return;
+            }
+
+            // Get the saved preference
+            boolean shouldEnable = chargeUtils.getBypassChargePreference();
+            boolean currentState = chargeUtils.isBypassChargeEnabled();
+            
+            Log.d(TAG, "Bypass charge - saved preference: " + shouldEnable + ", current state: " + currentState);
+            
+            // Only change if needed
+            if (shouldEnable != currentState) {
+                boolean success = chargeUtils.enableBypassCharge(shouldEnable);
+                if (success) {
+                    Log.d(TAG, "Bypass charge restored to: " + shouldEnable);
+                } else {
+                    Log.w(TAG, "Failed to restore bypass charge to: " + shouldEnable);
+                }
+            } else {
+                Log.d(TAG, "Bypass charge already in correct state: " + currentState);
+            }
+            
+            // Log debug info for troubleshooting
+            if (DEBUG) {
+                Log.d(TAG, "Bypass charge debug info:\n" + chargeUtils.getDebugInfo());
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore bypass charge settings", e);
+        }
+    }
+
+    private void restoreKernelSettings(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs == null) {

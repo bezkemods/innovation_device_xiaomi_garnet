@@ -37,6 +37,7 @@
     <uses-permission android:name="android.permission.ACCESS_FPS_COUNTER" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
         android:minSdkVersion="33"
