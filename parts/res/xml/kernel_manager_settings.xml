@@ -47,4 +47,9 @@
         android:title="@string/kernel_manager_reset"
         android:summary="@string/kernel_manager_reset_summary" />
 
+    <com.android.settingslib.widget.FooterPreference
+        android:key="footer_preference"
+        android:title="@string/kernel_manager_footer"
+        android:selectable="false" />
+ 
 </PreferenceScreen>

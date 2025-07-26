@@ -549,6 +549,7 @@
     <string name="kernel_manager_reset_summary">Restore default CPU settings</string>
     <string name="settings_applied">Settings applied successfully</string>
     <string name="settings_reset">Settings reset to default</string>
+    <string name="kernel_manager_footer">CPU governors manage how your device adjusts CPU frequency to balance performance and power usage. Here\'s a quick overview:\n\n• walt: A Google-developed governor optimized for responsiveness and user interaction latency, mainly used in Pixel devices.\n• conservative: Gradually increases CPU frequency; saves battery but may reduce responsiveness.\n• powersave: Keeps CPU at the lowest frequency possible, prioritizing battery life over performance.\n• performance: Locks CPU at maximum frequency, ensuring maximum performance at the cost of battery.\n• schedhorizon: A scheduler-aware governor aiming for improved task migration and efficiency across cores.\n• schedutil: The default modern governor in many kernels; uses Linux\'s scheduler data to scale CPU frequency intelligently and efficiently.</string>
 
     <!-- GPU Manager -->
     <string name="gpu_manager_title">GPU Manager</string>
