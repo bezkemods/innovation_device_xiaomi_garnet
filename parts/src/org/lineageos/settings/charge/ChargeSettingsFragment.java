@@ -34,9 +34,11 @@ public class ChargeSettingsFragment extends PreferenceFragment
     private static final String TAG = "ChargeSettingsFragment";
     private static final String KEY_BYPASS_CHARGE = "bypass_charge";
     private static final String KEY_DEBUG_INFO = "debug_info";
+    private static final String KEY_TEST_NODES = "test_nodes";
     
     private TwoStatePreference mBypassChargePreference;
     private Preference mDebugInfoPreference;
+    private Preference mTestNodesPreference;
     private ChargeUtils mChargeUtils;
     private Handler mHandler;
 
@@ -53,41 +55,63 @@ public class ChargeSettingsFragment extends PreferenceFragment
     private void initializePreferences() {
         mBypassChargePreference = (TwoStatePreference) findPreference(KEY_BYPASS_CHARGE);
         mDebugInfoPreference = findPreference(KEY_DEBUG_INFO);
+        mTestNodesPreference = findPreference(KEY_TEST_NODES);
 
         boolean bypassChargeSupported = mChargeUtils.isBypassChargeSupported();
         Log.d(TAG, "Bypass charge supported: " + bypassChargeSupported);
 
-        if (mBypassChargePreference != null) {
-            mBypassChargePreference.setEnabled(bypassChargeSupported);
-            
-            if (bypassChargeSupported) {
-                updateBypassChargeState();
-                mBypassChargePreference.setOnPreferenceChangeListener(this);
-                
-                // Add summary with active node info
-                String activeNode = mChargeUtils.getActiveNode();
-                if (activeNode != null) {
-                    mBypassChargePreference.setSummary(
-                        getString(R.string.charge_bypass_summary) + "\n" +
-                        getString(R.string.charge_bypass_node, activeNode)
-                    );
-                }
-            } else {
-                mBypassChargePreference.setSummary(R.string.charge_bypass_unavailable);
-                mBypassChargePreference.setChecked(false);
-            }
-        }
+        setupBypassChargePreference(bypassChargeSupported);
+        setupDebugPreferences();
+    }
 
-        // Debug info preference (only show in development builds or when explicitly enabled)
+    private void setupBypassChargePreference(boolean supported) {
+        if (mBypassChargePreference == null) return;
+        
+        mBypassChargePreference.setEnabled(supported);
+        
+        if (supported) {
+            updateBypassChargeState();
+            mBypassChargePreference.setOnPreferenceChangeListener(this);
+            
+            // Add summary with active node info
+            String activeNode = mChargeUtils.getActiveNode();
+            if (activeNode != null) {
+                mBypassChargePreference.setSummary(
+                    getString(R.string.charge_bypass_summary) + "\n" +
+                    getString(R.string.charge_bypass_node, activeNode)
+                );
+            } else {
+                mBypassChargePreference.setSummary(R.string.charge_bypass_summary);
+            }
+        } else {
+            mBypassChargePreference.setSummary(R.string.charge_bypass_unavailable);
+            mBypassChargePreference.setChecked(false);
+        }
+    }
+
+    private void setupDebugPreferences() {
+        boolean isDebugBuild = android.os.Build.TYPE.equals("eng") || 
+                              android.os.Build.TYPE.equals("userdebug");
+        
+        // Debug info preference
         if (mDebugInfoPreference != null) {
-            if (android.os.Build.TYPE.equals("eng") || android.os.Build.TYPE.equals("userdebug")) {
-                mDebugInfoPreference.setVisible(true);
+            mDebugInfoPreference.setVisible(isDebugBuild);
+            if (isDebugBuild) {
                 mDebugInfoPreference.setOnPreferenceClickListener(preference -> {
                     showDebugInfo();
                     return true;
                 });
-            } else {
-                mDebugInfoPreference.setVisible(false);
+            }
+        }
+        
+        // Test nodes preference
+        if (mTestNodesPreference != null) {
+            mTestNodesPreference.setVisible(isDebugBuild);
+            if (isDebugBuild) {
+                mTestNodesPreference.setOnPreferenceClickListener(preference -> {
+                    showNodeTestResults();
+                    return true;
+                });
             }
         }
     }
@@ -142,27 +166,65 @@ public class ChargeSettingsFragment extends PreferenceFragment
     private void enableBypassCharge(boolean enable) {
         Log.d(TAG, "Attempting to " + (enable ? "enable" : "disable") + " bypass charge");
         
-        boolean success = mChargeUtils.enableBypassCharge(enable);
+        // Show progress dialog for better UX
+        AlertDialog progressDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.charge_bypass_title)
+                .setMessage(enable ? "Enabling bypass charge..." : "Disabling bypass charge...")
+                .setCancelable(false)
+                .create();
+        progressDialog.show();
         
-        if (success) {
-            // Update UI after a short delay to allow the system to process the change
-            mHandler.postDelayed(() -> {
-                updateBypassChargeState();
-                Log.d(TAG, "Bypass charge " + (enable ? "enabled" : "disabled") + " successfully");
-            }, 200);
-        } else {
-            // Reset to current state if operation failed
-            updateBypassChargeState();
-            Log.e(TAG, "Failed to " + (enable ? "enable" : "disable") + " bypass charge");
+        // Perform operation in background
+        new Thread(() -> {
+            boolean success = mChargeUtils.enableBypassCharge(enable);
             
-            // Show error message
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.error)
-                    .setMessage(R.string.charge_bypass_error)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .show();
-        }
+            // Update UI on main thread
+            mHandler.post(() -> {
+                progressDialog.dismiss();
+                
+                if (success) {
+                    // Update UI after a short delay to allow the system to process the change
+                    mHandler.postDelayed(() -> {
+                        updateBypassChargeState();
+                        Log.d(TAG, "Bypass charge " + (enable ? "enabled" : "disabled") + " successfully");
+                        
+                        // Show success message
+                        showStatusMessage(enable ? "Bypass charge enabled" : "Bypass charge disabled", false);
+                    }, 300);
+                } else {
+                    // Reset to current state if operation failed
+                    updateBypassChargeState();
+                    Log.e(TAG, "Failed to " + (enable ? "enable" : "disable") + " bypass charge");
+                    
+                    // Show error message with debug info
+                    showBypassChargeError();
+                }
+            });
+        }).start();
     }
+
+    private void showBypassChargeError() {
+        String debugInfo = mChargeUtils.getDebugInfo();
+        
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.error)
+                .setMessage(getString(R.string.charge_bypass_error) + "\n\nDebug info:\n" + debugInfo)
+                .setPositiveButton(android.R.string.ok, null)
+                .setNeutralButton("Refresh Nodes", (dialog, which) -> {
+                    mChargeUtils.refreshActiveNode();
+                    initializePreferences();
+                })
+                .show();
+    }
+
+    private void showStatusMessage(String message, boolean isError) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(isError ? getString(R.string.error) : "Status")
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
 
     private void showDebugInfo() {
         String debugInfo = mChargeUtils.getDebugInfo();
@@ -175,7 +237,39 @@ public class ChargeSettingsFragment extends PreferenceFragment
                     mChargeUtils.refreshActiveNode();
                     initializePreferences();
                 })
+                .setNegativeButton("Test Nodes", (dialog, which) -> {
+                    showNodeTestResults();
+                })
                 .show();
+    }
+
+    private void showNodeTestResults() {
+        // Show progress dialog
+        AlertDialog progressDialog = new AlertDialog.Builder(getActivity())
+                .setTitle("Testing Nodes")
+                .setMessage("Testing all bypass charge nodes...")
+                .setCancelable(false)
+                .create();
+        progressDialog.show();
+        
+        // Test nodes in background
+        new Thread(() -> {
+            String testResults = mChargeUtils.testAllNodes();
+            
+            mHandler.post(() -> {
+                progressDialog.dismiss();
+                
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Node Test Results")
+                        .setMessage(testResults)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .setNeutralButton("Refresh Nodes", (dialog, which) -> {
+                            mChargeUtils.refreshActiveNode();
+                            initializePreferences();
+                        })
+                        .show();
+            });
+        }).start();
     }
 
     @Override
@@ -185,5 +279,11 @@ public class ChargeSettingsFragment extends PreferenceFragment
         if (mChargeUtils.isBypassChargeSupported()) {
             updateBypassChargeState();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler = null;
     }
 }

@@ -212,38 +212,86 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         }
     }
 
-    private void restoreBypassCharge(Context context) {
+ private void restoreBypassCharge(Context context) {
         try {
             ChargeUtils chargeUtils = new ChargeUtils(context);
             
             if (!chargeUtils.isBypassChargeSupported()) {
                 Log.d(TAG, "Bypass charge not supported on this device");
+                if (DEBUG) {
+                    Log.d(TAG, "Bypass charge debug info:\n" + chargeUtils.getDebugInfo());
+                }
                 return;
             }
 
             // Get the saved preference
             boolean shouldEnable = chargeUtils.getBypassChargePreference();
+            
+            // Wait a bit for the system to stabilize
+            Thread.sleep(1000);
+            
             boolean currentState = chargeUtils.isBypassChargeEnabled();
             
             Log.d(TAG, "Bypass charge - saved preference: " + shouldEnable + ", current state: " + currentState);
             
-            // Only change if needed
-            if (shouldEnable != currentState) {
-                boolean success = chargeUtils.enableBypassCharge(shouldEnable);
-                if (success) {
-                    Log.d(TAG, "Bypass charge restored to: " + shouldEnable);
-                } else {
-                    Log.w(TAG, "Failed to restore bypass charge to: " + shouldEnable);
+            // Always try to restore the setting to ensure consistency
+            boolean success = chargeUtils.enableBypassCharge(shouldEnable);
+            if (success) {
+                Log.d(TAG, "Bypass charge restored to: " + shouldEnable);
+                
+                // Verify after a delay
+                Thread.sleep(500);
+                boolean verifyState = chargeUtils.isBypassChargeEnabled();
+                if (verifyState != shouldEnable) {
+                    Log.w(TAG, "Bypass charge verification failed. Expected: " + shouldEnable + ", Actual: " + verifyState);
+                    // Try once more with a different approach
+                    Thread.sleep(500);
+                    chargeUtils.refreshActiveNode(); // Refresh active node
+                    boolean retrySuccess = chargeUtils.enableBypassCharge(shouldEnable);
+                    if (retrySuccess) {
+                        Log.d(TAG, "Bypass charge retry successful");
+                    } else {
+                        Log.e(TAG, "Bypass charge retry failed");
+                    }
                 }
             } else {
-                Log.d(TAG, "Bypass charge already in correct state: " + currentState);
+                Log.w(TAG, "Failed to restore bypass charge to: " + shouldEnable);
+                
+                // Try to find a different working node
+                chargeUtils.refreshActiveNode();
+                if (chargeUtils.isBypassChargeSupported()) {
+                    Log.d(TAG, "Found alternative node, retrying bypass charge restore");
+                    boolean retrySuccess = chargeUtils.enableBypassCharge(shouldEnable);
+                    if (retrySuccess) {
+                        Log.d(TAG, "Bypass charge restore successful with alternative node");
+                    } else {
+                        Log.e(TAG, "Bypass charge restore failed even with alternative node");
+                    }
+                }
             }
             
-            // Log debug info for troubleshooting
+            // Log final state and debug info for troubleshooting
             if (DEBUG) {
+                Thread.sleep(200);
+                boolean finalState = chargeUtils.isBypassChargeEnabled();
+                Log.d(TAG, "Final bypass charge state: " + finalState);
                 Log.d(TAG, "Bypass charge debug info:\n" + chargeUtils.getDebugInfo());
+                
+                // Start monitor service for debugging
+                try {
+                    Intent monitorIntent = new Intent();
+                    monitorIntent.setAction("start");
+                    monitorIntent.setComponent(new android.content.ComponentName("com.android.shell", 
+                        "bypass_charge_monitor"));
+                    context.sendBroadcast(monitorIntent);
+                } catch (Exception e) {
+                    Log.d(TAG, "Could not start bypass charge monitor: " + e.getMessage());
+                }
             }
             
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.w(TAG, "Bypass charge restore interrupted", e);
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore bypass charge settings", e);
         }

@@ -525,19 +525,25 @@
     <string name="core_6">Core 6 (Big)</string>
     <string name="core_7">Core 7 (Big)</string>
 
-    <!-- Charge bypass strings -->
-    <string name="charge_bypass_title">Bypass charging</string>
-    <string name="charge_bypass_summary">Enable direct charging, bypassing battery</string>
-    <string name="charge_bypass_warning">Warning: Bypass charging may cause increased device temperature or battery damage. Use with caution.</string>
+    <!-- Charge Bypass -->
+    <string name="charge_bypass_title">Bypass Charging</string>
+    <string name="charge_bypass_summary">Stop charging while keeping the device powered from the charger</string>
+    <string name="charge_bypass_warning">Enabling bypass charging will stop the battery from charging while the charger is connected. The device will be powered directly from the charger.\n\nThis feature is useful for reducing battery wear during extended use while plugged in.\n\nWarning: Ensure your charger can provide sufficient power for your device.</string>
     <string name="charge_bypass_unavailable">Bypass charging is not supported on this device</string>
-    <string name="charge_bypass_node">Active node: %1$s</string>
-    <string name="charge_bypass_error">Failed to change bypass charging state</string>
+    <string name="charge_bypass_error">Failed to change bypass charging state. Please check the debug information.</string>
+    <string name="charge_bypass_node">Active node: %s</string>
     
-    <!-- Debug preference (optional) -->
-    <string name="charge_debug_info_title">Debug information</string>
-    <string name="charge_debug_info_summary">Show technical details about bypass charging</string>
+    <!-- Charge Categories -->
+    <string name="charge_category_bypass">Bypass Charging</string>
+    <string name="charge_category_debug">Debug</string>
     
-    <!-- General error string -->
+    <!-- Debug preferences -->
+    <string name="charge_debug_info_title">Debug Information</string>
+    <string name="charge_debug_info_summary">Show detailed information about bypass charging</string>
+    <string name="charge_test_nodes_title">Test All Nodes</string>
+    <string name="charge_test_nodes_summary">Test accessibility of all bypass charging nodes</string>
+    
+    <!-- General -->
     <string name="error">Error</string>
 
     <!-- Kernel Manager categories and preferences -->
