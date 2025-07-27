@@ -569,6 +569,42 @@
     <string name="settings_reset">Settings reset to default</string>
     <string name="kernel_manager_footer">CPU governors manage how your device adjusts CPU frequency to balance performance and power usage. Here\'s a quick overview:\n\n• walt: A Google-developed governor optimized for responsiveness and user interaction latency, mainly used in Pixel devices.\n• conservative: Gradually increases CPU frequency; saves battery but may reduce responsiveness.\n• powersave: Keeps CPU at the lowest frequency possible, prioritizing battery life over performance.\n• performance: Locks CPU at maximum frequency, ensuring maximum performance at the cost of battery.\n• schedhorizon: A scheduler-aware governor aiming for improved task migration and efficiency across cores.\n• schedutil: The default modern governor in many kernels; uses Linux\'s scheduler data to scale CPU frequency intelligently and efficiently.</string>
 
+    <!-- NEW: CPU Monitoring strings -->
+    <string name="kernel_manager_cpu_monitor">CPU Core Monitoring</string>
+    <string name="kernel_manager_core_online">Online</string>
+    <string name="kernel_manager_core_offline">Offline</string>
+    <string name="kernel_manager_loading">Loading...</string>
+    <string name="kernel_manager_enable_monitoring">Real-time Monitoring</string>
+    <string name="kernel_manager_enable_monitoring_summary">Continuously update CPU core status</string>
+    <string name="kernel_manager_update_interval">Update Frequency</string>
+    <string name="kernel_manager_update_interval_summary">How often to refresh the data</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Efficiency Cluster Summary</string>
+    <string name="kernel_manager_performance_cluster_summary">Performance Cluster Summary</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d cores online | Range: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    
+    <!-- Update interval options -->
+    <string name="update_interval_500ms">0.5 seconds</string>
+    <string name="update_interval_1000ms">1 second</string>
+    <string name="update_interval_2000ms">2 seconds</string>
+    <string name="update_interval_5000ms">5 seconds</string>
+    
+    <!-- CPU core status indicators -->
+    <string name="cpu_core_status_online">🟢 %1$s - Online</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - Offline</string>
+    
+    <!-- Enhanced summaries with current values -->
+    <string name="kernel_manager_governor_current">%1$s (Current: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Current: %2$s)</string>
+    
+    <!-- Monitoring disabled message -->
+    <string name="kernel_manager_monitoring_disabled">Real-time monitoring is disabled. Enable it to see live CPU core frequencies and status.</string>
+    
+    <!-- Error messages -->
+    <string name="kernel_manager_error_read">Unable to read CPU information</string>
+    <string name="kernel_manager_error_write">Unable to apply CPU settings. Root access may be required.</string>
+    <string name="kernel_manager_error_permission">Permission denied. Root access is required to modify CPU settings.</string>
+
     <!-- GPU Manager -->
     <string name="gpu_manager_title">GPU Manager</string>
     <string name="gpu_manager_summary">Manage GPU frequencies and power settings</string>
