@@ -35,6 +35,7 @@ import org.lineageos.settings.chargecontrol.ChargeControlService;
 import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import org.lineageos.settings.gpumanager.GpuManagerUtils;
 import org.lineageos.settings.charge.ChargeUtils;
+import org.lineageos.settings.corecontrol.CoreControlUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
@@ -59,6 +60,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     // Bypass Charge preference key
     private static final String KEY_BYPASS_CHARGE = "bypass_charge";
+
+    // Core Control preference key
+    private static final String KEY_CORE_CONTROL_ENABLED = "core_control_enabled";
 
     private HandlerThread mBackgroundThread;
     private Handler mBackgroundHandler;
@@ -95,6 +99,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 restoreKernelSettings(context);
                 restoreGpuSettings(context);
                 restoreBypassCharge(context);
+                restoreCoreControlSettings(context);
                 
                 Log.i(TAG, "Locked boot completed initialization finished");
             } catch (Exception e) {
@@ -294,6 +299,47 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             Log.w(TAG, "Bypass charge restore interrupted", e);
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore bypass charge settings", e);
+        }
+    }
+
+    private void restoreCoreControlSettings(Context context) {
+        try {
+            if (!CoreControlUtils.isSupported()) {
+                Log.d(TAG, "Core control not supported on this device");
+                return;
+            }
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean coreControlEnabled = prefs.getBoolean(KEY_CORE_CONTROL_ENABLED, false);
+            
+            if (!coreControlEnabled) {
+                Log.d(TAG, "Core control disabled, skipping restore");
+                return;
+            }
+
+            // Wait a bit for the system to stabilize
+            Thread.sleep(2000);
+            
+            Log.d(TAG, "Restoring core control settings");
+            CoreControlUtils.restoreCorePreferences(context);
+            
+            // Log current state for debugging
+            if (DEBUG) {
+                CoreControlUtils.CoreStats stats = CoreControlUtils.getCoreStatistics();
+                Log.d(TAG, "Core control restored - " + stats.toString());
+                
+                // Log individual core states
+                for (int i = 0; i < 8; i++) {
+                    boolean online = CoreControlUtils.isCoreOnline(i);
+                    Log.d(TAG, "Core " + i + ": " + (online ? "online" : "offline"));
+                }
+            }
+            
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.w(TAG, "Core control restore interrupted", e);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore core control settings", e);
         }
     }
 

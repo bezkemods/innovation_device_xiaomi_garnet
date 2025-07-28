@@ -1,35 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreference
-        android:key="core_0"
-        android:title="CPU Core 0"
-        android:summary="Enable or disable CPU Core 0" />
-    <SwitchPreference
-        android:key="core_1"
-        android:title="CPU Core 1"
-        android:summary="Enable or disable CPU Core 1" />
-    <SwitchPreference
-        android:key="core_2"
-        android:title="CPU Core 2"
-        android:summary="Enable or disable CPU Core 2" />
-    <SwitchPreference
-        android:key="core_3"
-        android:title="CPU Core 3"
-        android:summary="Enable or disable CPU Core 3" />
-    <SwitchPreference
-        android:key="core_4"
-        android:title="CPU Core 4"
-        android:summary="Enable or disable CPU Core 4" />
-    <SwitchPreference
-        android:key="core_5"
-        android:title="CPU Core 5"
-        android:summary="Enable or disable CPU Core 5" />
-    <SwitchPreference
-        android:key="core_6"
-        android:title="CPU Core 6"
-        android:summary="Enable or disable CPU Core 6" />
-    <SwitchPreference
-        android:key="core_7"
-        android:title="CPU Core 7"
-        android:summary="Enable or disable CPU Core 7" />
+<!--
+     Copyright (C) 2025 The LineageOS Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/core_control_title">
+
+    <!-- Description -->
+    <Preference
+        android:key="core_control_description"
+        android:title="@string/core_control_title"
+        android:summary="@string/core_control_description"
+        android:selectable="false" />
+
+    <!-- Statistics Category (will be added programmatically) -->
+    <PreferenceCategory
+        android:key="core_stats_category"
+        android:title="Core Statistics" />
+
+    <!-- Little Cores Category -->
+    <PreferenceCategory
+        android:title="Little Cores (0-3)"
+        android:key="little_cores_category">
+
+        <SwitchPreference
+            android:key="core_0"
+            android:title="@string/core_0"
+            android:summary="Boot core - cannot be disabled"
+            android:defaultValue="true" />
+
+        <SwitchPreference
+            android:key="core_1"
+            android:title="@string/core_1"
+            android:defaultValue="true" />
+
+        <SwitchPreference
+            android:key="core_2"
+            android:title="@string/core_2"
+            android:defaultValue="true" />
+
+        <SwitchPreference
+            android:key="core_3"
+            android:title="@string/core_3"
+            android:defaultValue="true" />
+
+    </PreferenceCategory>
+
+    <!-- Big Cores Category -->
+    <PreferenceCategory
+        android:title="Big Cores (4-6)"
+        android:key="big_cores_category">
+
+        <SwitchPreference
+            android:key="core_4"
+            android:title="@string/core_4"
+            android:defaultValue="true" />
+
+        <SwitchPreference
+            android:key="core_5"
+            android:title="@string/core_5"
+            android:defaultValue="true" />
+
+        <SwitchPreference
+            android:key="core_6"
+            android:title="@string/core_6"
+            android:defaultValue="true" />
+
+    </PreferenceCategory>
+
+    <!-- Prime Core Category -->
+    <PreferenceCategory
+        android:title="Prime Core (7)"
+        android:key="prime_core_category">
+
+        <SwitchPreference
+            android:key="core_7"
+            android:title="@string/core_7"
+            android:defaultValue="true" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
