@@ -25,6 +25,7 @@ public class LogcatReader {
             return;
         }
         
+        // Always use application context to prevent memory leaks
         context = ctx.getApplicationContext();
         isRunning.set(true);
         
@@ -55,6 +56,9 @@ public class LogcatReader {
             process.destroy();
             process = null;
         }
+        
+        // Clear context reference to prevent memory leaks
+        context = null;
         
         Log.d(TAG, "LogcatReader stopped");
     }
@@ -109,9 +113,13 @@ public class LogcatReader {
     
     private static void broadcastLogLine(String line) {
         if (context != null) {
-            Intent intent = new Intent(ACTION_LOGCAT_UPDATE);
-            intent.putExtra(EXTRA_LOGCAT_LINE, line);
-            context.sendBroadcast(intent);
+            try {
+                Intent intent = new Intent(ACTION_LOGCAT_UPDATE);
+                intent.putExtra(EXTRA_LOGCAT_LINE, line);
+                context.sendBroadcast(intent);
+            } catch (Exception e) {
+                Log.e(TAG, "Error broadcasting log line", e);
+            }
         }
     }
     
@@ -123,6 +131,9 @@ public class LogcatReader {
                 Log.d(TAG, "Logcat cleared");
             } catch (IOException | InterruptedException e) {
                 Log.e(TAG, "Failed to clear logcat", e);
+                if (e instanceof InterruptedException) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }).start();
     }

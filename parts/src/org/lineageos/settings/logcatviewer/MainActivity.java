@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -58,9 +60,11 @@ public class MainActivity extends Activity {
     private char currentMinLevel = 'V';
     private boolean isAutoScroll = true;
     private boolean isPaused = false;
+    private boolean isReceiverRegistered = false;
     
     private Handler uiHandler;
     private Runnable updateRunnable;
+    private Menu currentMenu;
     
     private final BroadcastReceiver logcatReceiver = new BroadcastReceiver() {
         @Override
@@ -85,9 +89,11 @@ public class MainActivity extends Activity {
         setupFilter();
         setupUI();
         
+        // Check notification permission for Android 13+
+        checkNotificationPermission();
+        
         // Register receiver for logcat updates
-        IntentFilter filter = new IntentFilter(LogcatReader.ACTION_LOGCAT_UPDATE);
-        ContextCompat.registerReceiver(this, logcatReceiver, filter, ContextCompat.RECEIVER_EXPORTED);
+        registerLogcatReceiver();
         
         // Start background service
         Intent serviceIntent = new Intent(this, LogcatBackgroundService.class);
@@ -98,6 +104,42 @@ public class MainActivity extends Activity {
         startUIUpdates();
         
         updateStatusText("Started - Capturing logs...");
+    }
+    
+    private void checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, 
+                    android.Manifest.permission.POST_NOTIFICATIONS) 
+                    != PackageManager.PERMISSION_GRANTED) {
+                Log.w(TAG, "Notification permission not granted");
+                // For system apps, this might not be needed, but good to check
+            }
+        }
+    }
+    
+    private void registerLogcatReceiver() {
+        if (!isReceiverRegistered) {
+            try {
+                IntentFilter filter = new IntentFilter(LogcatReader.ACTION_LOGCAT_UPDATE);
+                ContextCompat.registerReceiver(this, logcatReceiver, filter, ContextCompat.RECEIVER_EXPORTED);
+                isReceiverRegistered = true;
+                Log.d(TAG, "Logcat receiver registered");
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to register logcat receiver", e);
+            }
+        }
+    }
+    
+    private void unregisterLogcatReceiver() {
+        if (isReceiverRegistered) {
+            try {
+                unregisterReceiver(logcatReceiver);
+                isReceiverRegistered = false;
+                Log.d(TAG, "Logcat receiver unregistered");
+            } catch (Exception e) {
+                Log.e(TAG, "Error unregistering receiver", e);
+            }
+        }
     }
     
     private void initializeViews() {
@@ -227,15 +269,24 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.logcat_menu, menu);
+        this.currentMenu = menu;
         updateMenuItems(menu);
         return true;
     }
     
     private void updateMenuItems(Menu menu) {
+        if (menu == null) return;
+        
         MenuItem autoScrollItem = menu.findItem(R.id.action_autoscroll);
         if (autoScrollItem != null) {
             autoScrollItem.setTitle(isAutoScroll ? 
                 R.string.logcat_autoscroll_on : R.string.logcat_autoscroll_off);
+        }
+        
+        MenuItem pauseItem = menu.findItem(R.id.action_pause);
+        if (pauseItem != null) {
+            pauseItem.setTitle(isPaused ? 
+                R.string.logcat_resume : R.string.logcat_pause);
         }
     }
     
@@ -248,19 +299,26 @@ public class MainActivity extends Activity {
             return true;
         } else if (id == R.id.action_autoscroll) {
             toggleAutoScroll();
-            updateMenuItems(getMenu());
+            updateMenuItems(currentMenu);
             return true;
         } else if (id == R.id.action_clear) {
             clearLogs();
+            return true;
+        } else if (id == R.id.action_pause) {
+            togglePause();
+            updateMenuItems(currentMenu);
+            return true;
+        } else if (id == R.id.action_share) {
+            shareLogcat();
             return true;
         }
         
         return super.onOptionsItemSelected(item);
     }
     
-    private Menu getMenu() {
-        // Helper method to get current menu for updates
-        return null; // This would need to be stored from onCreateOptionsMenu
+    private void togglePause() {
+        isPaused = !isPaused;
+        updateStatusText(isPaused ? "Paused" : "Running");
     }
     
     private void toggleAutoScroll() {
@@ -282,6 +340,29 @@ public class MainActivity extends Activity {
         
         // Also clear system logcat
         LogcatReader.clearLogs();
+    }
+    
+    private void shareLogcat() {
+        if (allLogEntries.isEmpty()) {
+            Toast.makeText(this, "No logs to share", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        StringBuilder logText = new StringBuilder();
+        for (LogEntry entry : filteredEntries) {
+            logText.append(entry.rawLine).append("\n");
+        }
+        
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, logText.toString());
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Logcat Export");
+        
+        try {
+            startActivity(Intent.createChooser(shareIntent, "Share logcat"));
+        } catch (Exception e) {
+            Toast.makeText(this, "Failed to share logs", Toast.LENGTH_SHORT).show();
+        }
     }
     
     private void saveLogcat() {
@@ -321,7 +402,7 @@ public class MainActivity extends Activity {
             } catch (IOException e) {
                 Log.e(TAG, "Failed to save logcat", e);
                 runOnUiThread(() -> {
-                    Toast.makeText(MainActivity.this, R.string.logcat_save_failed, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Failed to save logs", Toast.LENGTH_SHORT).show();
                 });
             }
         }).start();
@@ -338,21 +419,24 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         isPaused = false;
-        updateStatusText("Active - Capturing logs...");
+        updateStatusText("Running");
+        
+        // Re-register receiver if needed
+        registerLogcatReceiver();
     }
     
     @Override
     protected void onDestroy() {
         super.onDestroy();
         
+        // Stop UI updates
         if (uiHandler != null && updateRunnable != null) {
             uiHandler.removeCallbacks(updateRunnable);
         }
         
-        try {
-            unregisterReceiver(logcatReceiver);
-        } catch (Exception e) {
-            Log.e(TAG, "Error unregistering receiver", e);
-        }
+        // Unregister receiver
+        unregisterLogcatReceiver();
+        
+        Log.d(TAG, "MainActivity destroyed");
     }
 }

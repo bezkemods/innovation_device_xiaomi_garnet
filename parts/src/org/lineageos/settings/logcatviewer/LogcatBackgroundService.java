@@ -6,10 +6,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import org.lineageos.settings.R;
 
 public class LogcatBackgroundService extends Service {
@@ -21,6 +23,17 @@ public class LogcatBackgroundService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Service created");
+        
+        // Check notification permission for Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, 
+                    android.Manifest.permission.POST_NOTIFICATIONS) 
+                    != PackageManager.PERMISSION_GRANTED) {
+                Log.w(TAG, "Notification permission not granted");
+                // For system apps, this might not be needed, but good to check
+            }
+        }
+        
         createNotificationChannel();
         startForeground(NOTIFICATION_ID, createNotification());
     }

@@ -38,7 +38,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_KERNEL_MANAGER = "kernel_manager";
     private static final String KEY_GPU_MANAGER = "gpu_manager";
     private static final String KEY_CHARGE_CONTROL = "charge_control";
-    private static final String KEY_LOGCAT_VIEWER = "logcat_viewer";
+    private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer"; // Javított key
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +116,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             gpuManagerPref.setOnPreferenceClickListener(this);
         }
         
+        // Javított logcat viewer preference setup
         Preference logcatViewerPref = findPreference(KEY_LOGCAT_VIEWER);
         if (logcatViewerPref != null) {
             logcatViewerPref.setOnPreferenceClickListener(this);
@@ -182,8 +183,13 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
         }
 
         if (intent != null) {
-            startActivity(intent);
-            return true;
+            try {
+                startActivity(intent);
+                return true;
+            } catch (Exception e) {
+                android.util.Log.e("XiaomiParts", "Failed to start activity: " + key, e);
+                return false;
+            }
         }
 
         return false;
