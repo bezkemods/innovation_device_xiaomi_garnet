@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="auto_start_logcat"
+        android:title="@string/logcat_autostart"
+        android:summary="@string/logcat_autostart_summary"
+        android:defaultValue="false"
+        android:icon="@drawable/ic_logcat" />
+    <Preference
+        android:key="logcat_viewer"
+        android:title="@string/logcat_viewer_title"
+        android:summary="@string/logcat_viewer_summary"
+        android:icon="@drawable/ic_logcat" />
+</PreferenceScreen>

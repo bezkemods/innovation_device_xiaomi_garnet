@@ -112,7 +112,7 @@
             app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
-    <!-- Gaming -->
+    <!-- Gaming & Logs -->
     <PreferenceCategory
         android:key="gaming_category"
         android:title="@string/gaming_title">
@@ -123,6 +123,12 @@
             android:summary="@string/game_bar_summary"
             android:icon="@drawable/ic_gamebar_settings"
             app:iconSpaceReserved="true" />
+        <!-- Logcat -->
+        <Preference
+        android:key="logcat_viewer"
+        android:title="@string/logcat_viewer_title"
+        android:summary="View and filter system logs"
+        android:icon="@drawable/ic_logcat" />
     </PreferenceCategory>
        
 </PreferenceScreen>

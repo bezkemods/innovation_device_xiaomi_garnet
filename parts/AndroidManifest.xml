@@ -41,8 +41,8 @@
     <uses-permission android:name="android.permission.ACCESS_FPS_COUNTER" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    
     <uses-sdk
         android:minSdkVersion="33"
         android:targetSdkVersion="35"/>
@@ -303,7 +303,22 @@
                 <category android:name="android.intent.category.DEFAULT" />
              </intent-filter>
         </receiver>
-       
+
+        <!-- Logcat Viewer Activity -->
+        <activity
+            android:name=".logcatviewer.MainActivity"
+            android:label="@string/logcat_viewer_title"
+            android:icon="@drawable/ic_logcat"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="true"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+
+        <!-- Logcat Background Service -->
+        <service
+            android:name=".logcatviewer.LogcatBackgroundService"
+            android:exported="true" />
+               
         <!-- Turbo Charging -->
         <activity
             android:name=".turbocharging.TurboChargingActivity"

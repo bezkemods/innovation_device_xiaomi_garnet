@@ -21,6 +21,7 @@ import org.lineageos.settings.charge.ChargeActivity;
 import org.lineageos.settings.kernelmanager.KernelManagerActivity;
 import org.lineageos.settings.gpumanager.GpuManagerActivity;
 import org.lineageos.settings.chargecontrol.ChargeControlActivity;
+import org.lineageos.settings.logcatviewer.MainActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -37,6 +38,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_KERNEL_MANAGER = "kernel_manager";
     private static final String KEY_GPU_MANAGER = "gpu_manager";
     private static final String KEY_CHARGE_CONTROL = "charge_control";
+    private static final String KEY_LOGCAT_VIEWER = "logcat_viewer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,11 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             gpuManagerPref.setOnPreferenceClickListener(this);
         }
         
+        Preference logcatViewerPref = findPreference(KEY_LOGCAT_VIEWER);
+        if (logcatViewerPref != null) {
+            logcatViewerPref.setOnPreferenceClickListener(this);
+        }
+
         Preference aboutMePref = findPreference(KEY_ABOUTME);
         if (aboutMePref != null) {
             aboutMePref.setOnPreferenceClickListener(preference -> {
@@ -165,6 +172,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 break;
             case KEY_GPU_MANAGER:
                 intent = new Intent(this, GpuManagerActivity.class);
+                break;
+            case KEY_LOGCAT_VIEWER:
+                intent = new Intent(this, MainActivity.class);
                 break;
             case KEY_ABOUTME:
                 intent = new Intent(this, AboutMeActivity.class);

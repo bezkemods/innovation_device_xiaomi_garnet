@@ -36,6 +36,7 @@ import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import org.lineageos.settings.gpumanager.GpuManagerUtils;
 import org.lineageos.settings.charge.ChargeUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
+import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
@@ -63,6 +64,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     // Core Control preference key
     private static final String KEY_CORE_CONTROL_ENABLED = "core_control_enabled";
+
+    // Logcat preference key
+    private static final String KEY_AUTO_START_LOGCAT = "auto_start_logcat";
 
     private HandlerThread mBackgroundThread;
     private Handler mBackgroundHandler;
@@ -100,6 +104,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 restoreGpuSettings(context);
                 restoreBypassCharge(context);
                 restoreCoreControlSettings(context);
+                restoreLogcatService(context);
                 
                 Log.i(TAG, "Locked boot completed initialization finished");
             } catch (Exception e) {
@@ -174,6 +179,20 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         } catch (Exception e) {
             Log.e(TAG, "Failed to start services", e);
+        }
+    }
+
+    private void restoreLogcatService(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean autoStart = prefs.getBoolean(KEY_AUTO_START_LOGCAT, false);
+            if (autoStart) {
+                Intent serviceIntent = new Intent(context, LogcatBackgroundService.class);
+                context.startService(serviceIntent);
+                Log.d(TAG, "LogcatBackgroundService started on boot");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to start LogcatBackgroundService", e);
         }
     }
 

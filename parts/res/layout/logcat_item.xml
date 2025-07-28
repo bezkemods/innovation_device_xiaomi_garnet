@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="4dp"
+    android:minHeight="24dp">
+
+    <!-- Log Level Indicator -->
+    <View
+        android:id="@+id/level_indicator"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="8dp"
+        android:background="#FFFFFF" />
+
+    <!-- Log Text -->
+    <TextView
+        android:id="@+id/log_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="11sp"
+        android:fontFamily="monospace"
+        android:textIsSelectable="true"
+        android:lineSpacingMultiplier="1.1" />
+
+</LinearLayout>
