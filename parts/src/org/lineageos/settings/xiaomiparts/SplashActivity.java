@@ -83,7 +83,7 @@ public class SplashActivity extends Activity {
 
         // Alsó credit szöveg (designeg by bezke®)
 	creditText = new TextView(this);
-	creditText.setText("designed by bezke®");
+	creditText.setText("Fine-tune Your Experience. Unleash the Power");
 	creditText.setTextColor(Color.WHITE);
 	creditText.setTextSize(14);
 	creditText.setTypeface(Typeface.DEFAULT_BOLD);
@@ -156,7 +156,7 @@ public class SplashActivity extends Activity {
 
     private void startCreditHighlightAnimation() {
         // Fénysugár animáció designed by bezke® feliratra
-        final String credit = "designed by bezke®";
+        final String credit = "developed by bezke®";
         final TextView textView = creditText;
 
         final ValueAnimator shimmerAnimator = ValueAnimator.ofFloat(0, 1);
