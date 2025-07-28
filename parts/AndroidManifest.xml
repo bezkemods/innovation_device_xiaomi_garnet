@@ -42,7 +42,9 @@
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-    
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
     <uses-sdk
         android:minSdkVersion="33"
         android:targetSdkVersion="35"/>
@@ -317,8 +319,9 @@
         <!-- Logcat Background Service -->
         <service
             android:name=".logcatviewer.LogcatBackgroundService"
-            android:exported="true" />
-               
+            android:exported="true"
+            android:foregroundServiceType="dataSync" />    
+        
         <!-- Turbo Charging -->
         <activity
             android:name=".turbocharging.TurboChargingActivity"
