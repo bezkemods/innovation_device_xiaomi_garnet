@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -41,15 +42,18 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainActivity extends Activity {
     private static final String TAG = "LogcatViewer";
-    private static final int MAX_LOG_LINES = 5000;
-    private static final int UPDATE_INTERVAL_MS = 100;
+    private static final int MAX_LOG_LINES = 3000; // Csökkentve
+    private static final int UPDATE_INTERVAL_MS = 500; // Lassítva 100ms-ról 500ms-ra
     
     private ListView logcatListView;
     private EditText filterEditText;
     private Spinner levelSpinner;
     private TextView logCountText;
     private TextView statusText;
-    private TextView autoScrollStatusText;
+    private Button pauseButton;
+    private Button autoScrollButton;
+    private Button saveButton;
+    private Button clearButton;
     
     private LogcatAdapter logcatAdapter;
     private List<LogEntry> allLogEntries;
@@ -64,7 +68,6 @@ public class MainActivity extends Activity {
     
     private Handler uiHandler;
     private Runnable updateRunnable;
-    private Menu currentMenu;
     
     private final BroadcastReceiver logcatReceiver = new BroadcastReceiver() {
         @Override
@@ -87,6 +90,7 @@ public class MainActivity extends Activity {
         setupLists();
         setupSpinner();
         setupFilter();
+        setupButtons();
         setupUI();
         
         // Check notification permission for Android 13+
@@ -112,7 +116,6 @@ public class MainActivity extends Activity {
                     android.Manifest.permission.POST_NOTIFICATIONS) 
                     != PackageManager.PERMISSION_GRANTED) {
                 Log.w(TAG, "Notification permission not granted");
-                // For system apps, this might not be needed, but good to check
             }
         }
     }
@@ -148,7 +151,12 @@ public class MainActivity extends Activity {
         levelSpinner = findViewById(R.id.level_spinner);
         logCountText = findViewById(R.id.log_count);
         statusText = findViewById(R.id.status_text);
-        autoScrollStatusText = findViewById(R.id.autoscroll_status);
+        
+        // Find buttons
+        pauseButton = findViewById(R.id.pause_button);
+        autoScrollButton = findViewById(R.id.autoscroll_button);
+        saveButton = findViewById(R.id.save_button);
+        clearButton = findViewById(R.id.clear_button);
     }
     
     private void setupLists() {
@@ -195,8 +203,23 @@ public class MainActivity extends Activity {
         });
     }
     
+    private void setupButtons() {
+        // Pause/Resume button
+        pauseButton.setOnClickListener(v -> togglePause());
+        
+        // Auto scroll button
+        autoScrollButton.setOnClickListener(v -> toggleAutoScroll());
+        
+        // Save button
+        saveButton.setOnClickListener(v -> saveLogcat());
+        
+        // Clear button
+        clearButton.setOnClickListener(v -> clearLogs());
+    }
+    
     private void setupUI() {
-        updateAutoScrollStatus();
+        updateAutoScrollButton();
+        updatePauseButton();
         updateLogCount();
     }
     
@@ -204,7 +227,9 @@ public class MainActivity extends Activity {
         updateRunnable = new Runnable() {
             @Override
             public void run() {
-                processPendingLines();
+                if (!isPaused) {
+                    processPendingLines();
+                }
                 if (!isDestroyed()) {
                     uiHandler.postDelayed(this, UPDATE_INTERVAL_MS);
                 }
@@ -216,12 +241,15 @@ public class MainActivity extends Activity {
     private void processPendingLines() {
         boolean hasNewLines = false;
         String line;
+        int processedCount = 0;
         
-        while ((line = pendingLines.poll()) != null) {
+        // Limit processing to prevent UI blocking
+        while ((line = pendingLines.poll()) != null && processedCount < 50) {
             LogEntry entry = LogEntry.parse(line);
             if (entry != null) {
                 allLogEntries.add(entry);
                 hasNewLines = true;
+                processedCount++;
                 
                 // Keep only recent logs to prevent memory issues
                 if (allLogEntries.size() > MAX_LOG_LINES) {
@@ -258,72 +286,33 @@ public class MainActivity extends Activity {
         logCountText.setText(countText);
     }
     
-    private void updateAutoScrollStatus() {
-        autoScrollStatusText.setText(isAutoScroll ? "AutoScroll: ON" : "AutoScroll: OFF");
+    private void updateAutoScrollButton() {
+        autoScrollButton.setText(isAutoScroll ? "AutoScroll: ON" : "AutoScroll: OFF");
+        autoScrollButton.setBackgroundColor(isAutoScroll ? 0xFF4CAF50 : 0xFF757575);
+    }
+    
+    private void updatePauseButton() {
+        pauseButton.setText(isPaused ? "RESUME" : "PAUSE");
+        pauseButton.setBackgroundColor(isPaused ? 0xFF4CAF50 : 0xFFFF9800);
     }
     
     private void updateStatusText(String status) {
         statusText.setText(status);
     }
     
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.logcat_menu, menu);
-        this.currentMenu = menu;
-        updateMenuItems(menu);
-        return true;
-    }
-    
-    private void updateMenuItems(Menu menu) {
-        if (menu == null) return;
-        
-        MenuItem autoScrollItem = menu.findItem(R.id.action_autoscroll);
-        if (autoScrollItem != null) {
-            autoScrollItem.setTitle(isAutoScroll ? 
-                R.string.logcat_autoscroll_on : R.string.logcat_autoscroll_off);
-        }
-        
-        MenuItem pauseItem = menu.findItem(R.id.action_pause);
-        if (pauseItem != null) {
-            pauseItem.setTitle(isPaused ? 
-                R.string.logcat_resume : R.string.logcat_pause);
-        }
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        
-        if (id == R.id.action_save_log) {
-            saveLogcat();
-            return true;
-        } else if (id == R.id.action_autoscroll) {
-            toggleAutoScroll();
-            updateMenuItems(currentMenu);
-            return true;
-        } else if (id == R.id.action_clear) {
-            clearLogs();
-            return true;
-        } else if (id == R.id.action_pause) {
-            togglePause();
-            updateMenuItems(currentMenu);
-            return true;
-        } else if (id == R.id.action_share) {
-            shareLogcat();
-            return true;
-        }
-        
-        return super.onOptionsItemSelected(item);
-    }
-    
     private void togglePause() {
         isPaused = !isPaused;
-        updateStatusText(isPaused ? "Paused" : "Running");
+        updatePauseButton();
+        updateStatusText(isPaused ? "Paused - Ready to save" : "Running - Capturing logs");
+        
+        // Enable/disable save button based on pause state
+        saveButton.setEnabled(isPaused);
+        saveButton.setAlpha(isPaused ? 1.0f : 0.5f);
     }
     
     private void toggleAutoScroll() {
         isAutoScroll = !isAutoScroll;
-        updateAutoScrollStatus();
+        updateAutoScrollButton();
         
         if (isAutoScroll && !filteredEntries.isEmpty()) {
             logcatListView.setSelection(filteredEntries.size() - 1);
@@ -340,10 +329,82 @@ public class MainActivity extends Activity {
         
         // Also clear system logcat
         LogcatReader.clearLogs();
+        
+        Toast.makeText(this, "All logs cleared", Toast.LENGTH_SHORT).show();
+    }
+    
+    private void saveLogcat() {
+        if (allLogEntries.isEmpty()) {
+            Toast.makeText(this, "No logs to save", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        // Show immediate feedback
+        Toast.makeText(this, "Saving logs...", Toast.LENGTH_SHORT).show();
+        
+        new Thread(() -> {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
+                String timestamp = sdf.format(new Date());
+                String fileName = "logcat_" + timestamp + ".txt";
+                
+                File dir = new File(Environment.getExternalStorageDirectory(), "Logcat");
+                if (!dir.exists() && !dir.mkdirs()) {
+                    runOnUiThread(() -> {
+                        Toast.makeText(MainActivity.this, "Failed to create directory", Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+                
+                File file = new File(dir, fileName);
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    // Save filtered logs if filter is active, otherwise all logs
+                    List<LogEntry> logsToSave = currentFilter.isEmpty() && currentMinLevel == 'V' 
+                        ? allLogEntries : filteredEntries;
+                    
+                    for (LogEntry entry : logsToSave) {
+                        writer.write(entry.rawLine);
+                        writer.newLine();
+                    }
+                    
+                    runOnUiThread(() -> {
+                        Toast.makeText(MainActivity.this, 
+                            "Saved " + logsToSave.size() + " logs to " + fileName, 
+                            Toast.LENGTH_LONG).show();
+                        updateStatusText("Logs saved to " + fileName);
+                    });
+                }
+                
+            } catch (IOException e) {
+                Log.e(TAG, "Failed to save logcat", e);
+                runOnUiThread(() -> {
+                    Toast.makeText(MainActivity.this, "Failed to save logs: " + e.getMessage(), 
+                        Toast.LENGTH_SHORT).show();
+                });
+            }
+        }).start();
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logcat_menu, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        
+        if (id == R.id.action_share) {
+            shareLogcat();
+            return true;
+        }
+        
+        return super.onOptionsItemSelected(item);
     }
     
     private void shareLogcat() {
-        if (allLogEntries.isEmpty()) {
+        if (filteredEntries.isEmpty()) {
             Toast.makeText(this, "No logs to share", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -365,62 +426,15 @@ public class MainActivity extends Activity {
         }
     }
     
-    private void saveLogcat() {
-        if (allLogEntries.isEmpty()) {
-            Toast.makeText(this, "No logs to save", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        
-        new Thread(() -> {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
-                String timestamp = sdf.format(new Date());
-                String fileName = "logcat_" + timestamp + ".txt";
-                
-                File dir = new File(Environment.getExternalStorageDirectory(), "Logcat");
-                if (!dir.exists() && !dir.mkdirs()) {
-                    runOnUiThread(() -> {
-                        Toast.makeText(MainActivity.this, "Failed to create directory", Toast.LENGTH_SHORT).show();
-                    });
-                    return;
-                }
-                
-                File file = new File(dir, fileName);
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                    for (LogEntry entry : allLogEntries) {
-                        writer.write(entry.rawLine);
-                        writer.newLine();
-                    }
-                    
-                    runOnUiThread(() -> {
-                        Toast.makeText(MainActivity.this, 
-                            "Saved to " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
-                        updateStatusText("Logs saved to " + fileName);
-                    });
-                }
-                
-            } catch (IOException e) {
-                Log.e(TAG, "Failed to save logcat", e);
-                runOnUiThread(() -> {
-                    Toast.makeText(MainActivity.this, "Failed to save logs", Toast.LENGTH_SHORT).show();
-                });
-            }
-        }).start();
-    }
-    
     @Override
     protected void onPause() {
         super.onPause();
-        isPaused = true;
-        updateStatusText("Paused");
+        // Don't auto-pause when activity goes to background
     }
     
     @Override
     protected void onResume() {
         super.onResume();
-        isPaused = false;
-        updateStatusText("Running");
-        
         // Re-register receiver if needed
         registerLogcatReceiver();
     }
