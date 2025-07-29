@@ -3,7 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:paddingTop="40dp">
+
+    <!-- Title and Status -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Logcat Viewer"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Starting..."
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
 
     <!-- Filter and Level Selection Row -->
     <LinearLayout
@@ -96,13 +123,12 @@
         android:layout_marginBottom="8dp">
 
         <TextView
-            android:id="@+id/status_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Starting..."
-            android:textSize="12sp"
-            android:textColor="@android:color/holo_green_dark"
+            android:text="Long press any log entry to copy to clipboard"
+            android:textSize="11sp"
+            android:textColor="@android:color/darker_gray"
             android:layout_marginEnd="8dp" />
 
         <TextView

@@ -16,8 +16,6 @@ import org.lineageos.settings.R;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class LogcatAdapter extends ArrayAdapter<LogEntry> {
     private final LayoutInflater inflater;
@@ -31,12 +29,6 @@ public class LogcatAdapter extends ArrayAdapter<LogEntry> {
     private static final int COLOR_WARN = 0xFFFF8800;     // Orange
     private static final int COLOR_ERROR = 0xFFFF0000;    // Red
     private static final int COLOR_FATAL = 0xFF8B0000;    // Dark Red
-    
-    private static final int COLOR_VERBOSE_BG = 0xFF404040;
-    private static final int COLOR_DEBUG_BG = 0xFF000040;
-    private static final int COLOR_INFO_BG = 0xFF004000;
-    private static final int COLOR_WARN_BG = 0xFF404000;
-    private static final int COLOR_ERROR_BG = 0xFF400000;
     
     public LogcatAdapter(Context context, List<LogEntry> logs) {
         super(context, R.layout.logcat_item, logs);
@@ -59,6 +51,15 @@ public class LogcatAdapter extends ArrayAdapter<LogEntry> {
             holder.logText = convertView.findViewById(R.id.log_text);
             holder.levelIndicator = convertView.findViewById(R.id.level_indicator);
             convertView.setTag(holder);
+            
+            // Add long press visual feedback
+            convertView.setOnLongClickListener(v -> {
+                // Visual feedback - briefly highlight the item
+                v.setBackgroundColor(0x33FFFFFF);
+                v.postDelayed(() -> v.setBackgroundColor(Color.TRANSPARENT), 200);
+                return false; // Let the ListView handle the long click
+            });
+            
         } else {
             holder = (ViewHolder) convertView.getTag();
         }

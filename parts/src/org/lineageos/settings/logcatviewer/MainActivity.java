@@ -2,6 +2,8 @@ package org.lineageos.settings.logcatviewer;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -164,6 +166,16 @@ public class MainActivity extends Activity {
         filteredEntries = new ArrayList<>();
         logcatAdapter = new LogcatAdapter(this, filteredEntries);
         logcatListView.setAdapter(logcatAdapter);
+        
+        // Set up long click listener for copying logs to clipboard
+        logcatListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            if (position >= 0 && position < filteredEntries.size()) {
+                LogEntry entry = filteredEntries.get(position);
+                copyToClipboard(entry);
+                return true;
+            }
+            return false;
+        });
     }
     
     private void setupSpinner() {
@@ -423,6 +435,36 @@ public class MainActivity extends Activity {
             startActivity(Intent.createChooser(shareIntent, "Share logcat"));
         } catch (Exception e) {
             Toast.makeText(this, "Failed to share logs", Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    private void copyToClipboard(LogEntry entry) {
+        try {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            
+            // Create detailed clipboard content
+            String clipText = String.format(
+                "Time: %s\nLevel: %c\nTag: %s\nPID: %s\nMessage: %s\n\nFull line:\n%s",
+                entry.timestamp.isEmpty() ? "N/A" : entry.timestamp,
+                entry.level,
+                entry.tag.isEmpty() ? "N/A" : entry.tag,
+                entry.pid.isEmpty() ? "N/A" : entry.pid,
+                entry.message.isEmpty() ? entry.rawLine : entry.message,
+                entry.rawLine
+            );
+            
+            ClipData clip = ClipData.newPlainText("Logcat Entry", clipText);
+            clipboard.setPrimaryClip(clip);
+            
+            // Show confirmation with log details
+            String toastMsg = String.format("Copied log entry: %c/%s", 
+                entry.level, 
+                entry.tag.isEmpty() ? "Unknown" : entry.tag);
+            Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to copy to clipboard", e);
+            Toast.makeText(this, "Failed to copy to clipboard", Toast.LENGTH_SHORT).show();
         }
     }
     
