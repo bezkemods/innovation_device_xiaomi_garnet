@@ -44,8 +44,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainActivity extends Activity {
     private static final String TAG = "LogcatViewer";
-    private static final int MAX_LOG_LINES = 3000; // Csökkentve
-    private static final int UPDATE_INTERVAL_MS = 500; // Lassítva 100ms-ról 500ms-ra
+    private static final int UPDATE_INTERVAL_MS = 250; // Faster updates for better UX
+    private static final int MAX_UI_LOGS = 5000; // Only limit what we show in UI, not what we collect
     
     private ListView logcatListView;
     private EditText filterEditText;
@@ -71,14 +71,21 @@ public class MainActivity extends Activity {
     private Handler uiHandler;
     private Runnable updateRunnable;
     
+    private long totalLogCount = 0; // Total logs processed by background service
+    
     private final BroadcastReceiver logcatReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (LogcatReader.ACTION_LOGCAT_UPDATE.equals(intent.getAction())) {
+            String action = intent.getAction();
+            
+            if (LogcatReader.ACTION_LOGCAT_UPDATE.equals(action)) {
                 String line = intent.getStringExtra(LogcatReader.EXTRA_LOGCAT_LINE);
                 if (line != null && !isPaused) {
                     pendingLines.offer(line);
                 }
+            } else if (LogcatReader.ACTION_LOG_COUNT_UPDATE.equals(action)) {
+                totalLogCount = intent.getLongExtra(LogcatReader.EXTRA_LOG_COUNT, 0);
+                runOnUiThread(() -> updateLogCount());
             }
         }
     };
@@ -101,15 +108,25 @@ public class MainActivity extends Activity {
         // Register receiver for logcat updates
         registerLogcatReceiver();
         
-        // Start background service
-        Intent serviceIntent = new Intent(this, LogcatBackgroundService.class);
-        startService(serviceIntent);
+        // Start background service if not already running
+        if (!LogcatBackgroundService.isServiceRunning()) {
+            Intent serviceIntent = new Intent(this, LogcatBackgroundService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(serviceIntent);
+            } else {
+                startService(serviceIntent);
+            }
+        }
+        
+        // Get current state from background service
+        totalLogCount = LogcatReader.getLogCount();
         
         // Start UI update handler
         uiHandler = new Handler(Looper.getMainLooper());
         startUIUpdates();
         
-        updateStatusText("Started - Capturing logs...");
+        updateStatusText(LogcatBackgroundService.isLogging() ? 
+            "Connected - Background logging active" : "Connected - Background logging stopped");
     }
     
     private void checkNotificationPermission() {
@@ -125,7 +142,9 @@ public class MainActivity extends Activity {
     private void registerLogcatReceiver() {
         if (!isReceiverRegistered) {
             try {
-                IntentFilter filter = new IntentFilter(LogcatReader.ACTION_LOGCAT_UPDATE);
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(LogcatReader.ACTION_LOGCAT_UPDATE);
+                filter.addAction(LogcatReader.ACTION_LOG_COUNT_UPDATE);
                 ContextCompat.registerReceiver(this, logcatReceiver, filter, ContextCompat.RECEIVER_EXPORTED);
                 isReceiverRegistered = true;
                 Log.d(TAG, "Logcat receiver registered");
@@ -163,7 +182,7 @@ public class MainActivity extends Activity {
     
     private void setupLists() {
         allLogEntries = new ArrayList<>();
-        filteredEntries = new ArrayList<>();
+        filteredEntries = new ArrayList<>(); 
         logcatAdapter = new LogcatAdapter(this, filteredEntries);
         logcatListView.setAdapter(logcatAdapter);
         
@@ -216,7 +235,7 @@ public class MainActivity extends Activity {
     }
     
     private void setupButtons() {
-        // Pause/Resume button
+        // Pause/Resume button - this only pauses UI updates, not background logging
         pauseButton.setOnClickListener(v -> togglePause());
         
         // Auto scroll button
@@ -255,16 +274,17 @@ public class MainActivity extends Activity {
         String line;
         int processedCount = 0;
         
-        // Limit processing to prevent UI blocking
-        while ((line = pendingLines.poll()) != null && processedCount < 50) {
+        // Process batches to prevent UI blocking
+        while ((line = pendingLines.poll()) != null && processedCount < 100) {
             LogEntry entry = LogEntry.parse(line);
             if (entry != null) {
                 allLogEntries.add(entry);
                 hasNewLines = true;
                 processedCount++;
                 
-                // Keep only recent logs to prevent memory issues
-                if (allLogEntries.size() > MAX_LOG_LINES) {
+                // Keep only recent logs in UI to prevent memory issues
+                // Background service keeps unlimited logs
+                if (allLogEntries.size() > MAX_UI_LOGS) {
                     allLogEntries.remove(0);
                 }
             }
@@ -293,8 +313,8 @@ public class MainActivity extends Activity {
     }
     
     private void updateLogCount() {
-        String countText = String.format(Locale.US, "%d/%d logs", 
-            filteredEntries.size(), allLogEntries.size());
+        String countText = String.format(Locale.US, "UI: %d/%d | Total: %d", 
+            filteredEntries.size(), allLogEntries.size(), totalLogCount);
         logCountText.setText(countText);
     }
     
@@ -304,7 +324,7 @@ public class MainActivity extends Activity {
     }
     
     private void updatePauseButton() {
-        pauseButton.setText(isPaused ? "RESUME" : "PAUSE");
+        pauseButton.setText(isPaused ? "RESUME UI" : "PAUSE UI");
         pauseButton.setBackgroundColor(isPaused ? 0xFF4CAF50 : 0xFFFF9800);
     }
     
@@ -315,11 +335,8 @@ public class MainActivity extends Activity {
     private void togglePause() {
         isPaused = !isPaused;
         updatePauseButton();
-        updateStatusText(isPaused ? "Paused - Ready to save" : "Running - Capturing logs");
-        
-        // Enable/disable save button based on pause state
-        saveButton.setEnabled(isPaused);
-        saveButton.setAlpha(isPaused ? 1.0f : 0.5f);
+        updateStatusText(isPaused ? "UI Paused (background still logging)" : 
+            "UI Active (background logging continues)");
     }
     
     private void toggleAutoScroll() {
@@ -332,33 +349,35 @@ public class MainActivity extends Activity {
     }
     
     private void clearLogs() {
+        // Clear UI logs
         allLogEntries.clear();
         filteredEntries.clear();
         pendingLines.clear();
         logcatAdapter.notifyDataSetChanged();
         updateLogCount();
-        updateStatusText("Logs cleared");
+        updateStatusText("UI logs cleared");
         
-        // Also clear system logcat
+        // Also clear background logcat
         LogcatReader.clearLogs();
+        totalLogCount = 0;
         
-        Toast.makeText(this, "All logs cleared", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "All logs cleared (UI and background)", Toast.LENGTH_SHORT).show();
     }
     
     private void saveLogcat() {
         if (allLogEntries.isEmpty()) {
-            Toast.makeText(this, "No logs to save", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No logs to save in UI buffer", Toast.LENGTH_SHORT).show();
             return;
         }
         
         // Show immediate feedback
-        Toast.makeText(this, "Saving logs...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Saving UI logs...", Toast.LENGTH_SHORT).show();
         
         new Thread(() -> {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
                 String timestamp = sdf.format(new Date());
-                String fileName = "logcat_" + timestamp + ".txt";
+                String fileName = "logcat_ui_" + timestamp + ".txt";
                 
                 File dir = new File(Environment.getExternalStorageDirectory(), "Logcat");
                 if (!dir.exists() && !dir.mkdirs()) {
@@ -370,7 +389,7 @@ public class MainActivity extends Activity {
                 
                 File file = new File(dir, fileName);
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                    // Save filtered logs if filter is active, otherwise all logs
+                    // Save filtered logs if filter is active, otherwise all UI logs
                     List<LogEntry> logsToSave = currentFilter.isEmpty() && currentMinLevel == 'V' 
                         ? allLogEntries : filteredEntries;
                     
@@ -381,9 +400,9 @@ public class MainActivity extends Activity {
                     
                     runOnUiThread(() -> {
                         Toast.makeText(MainActivity.this, 
-                            "Saved " + logsToSave.size() + " logs to " + fileName, 
+                            "Saved " + logsToSave.size() + " UI logs to " + fileName, 
                             Toast.LENGTH_LONG).show();
-                        updateStatusText("Logs saved to " + fileName);
+                        updateStatusText("UI logs saved to " + fileName);
                     });
                 }
                 
@@ -471,7 +490,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        // Don't auto-pause when activity goes to background
+        // Don't stop anything when activity goes to background
+        // Background service continues running
     }
     
     @Override
@@ -479,6 +499,14 @@ public class MainActivity extends Activity {
         super.onResume();
         // Re-register receiver if needed
         registerLogcatReceiver();
+        
+        // Update status based on background service state
+        updateStatusText(LogcatBackgroundService.isLogging() ? 
+            "Connected - Background logging active" : "Connected - Background logging stopped");
+        
+        // Get latest count from background service
+        totalLogCount = LogcatReader.getLogCount();
+        updateLogCount();
     }
     
     @Override
@@ -493,6 +521,8 @@ public class MainActivity extends Activity {
         // Unregister receiver
         unregisterLogcatReceiver();
         
-        Log.d(TAG, "MainActivity destroyed");
+        // DON'T stop the background service - let it continue running
+        
+        Log.d(TAG, "MainActivity destroyed - background logging continues");
     }
 }

@@ -11,6 +11,7 @@ import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -21,11 +22,21 @@ public class LogcatBackgroundService extends Service {
     private static final String TAG = "LogcatBackgroundService";
     private static final String CHANNEL_ID = "logcat_channel";
     private static final int NOTIFICATION_ID = 101;
+    
+    // Actions for notification buttons
+    public static final String ACTION_START_LOGGING = "org.lineageos.settings.logcatviewer.START_LOGGING";
+    public static final String ACTION_STOP_LOGGING = "org.lineageos.settings.logcatviewer.STOP_LOGGING";
+    public static final String ACTION_OPEN_VIEWER = "org.lineageos.settings.logcatviewer.OPEN_VIEWER";
+    
+    private static boolean isServiceRunning = false;
+    private static int logCount = 0;
+    private static boolean isLogging = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Service created");
+        isServiceRunning = true;
 
         // Check notification permission for Android 13+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -33,15 +44,64 @@ public class LogcatBackgroundService extends Service {
                     android.Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
                 Log.w(TAG, "Notification permission not granted");
-                // For system apps, this might not be needed, but good to check
             }
         }
 
         createNotificationChannel();
+        startForegroundWithNotification();
+    }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "Service started with intent: " + (intent != null ? intent.getAction() : "null"));
+
+        if (intent != null) {
+            String action = intent.getAction();
+            if (ACTION_START_LOGGING.equals(action)) {
+                startLogging();
+            } else if (ACTION_STOP_LOGGING.equals(action)) {
+                stopLogging();
+            } else if (ACTION_OPEN_VIEWER.equals(action)) {
+                openViewer();
+            }
+        } else {
+            // Default behavior - start logging if not already running
+            if (!LogcatReader.isRunning()) {
+                startLogging();
+            }
+        }
+
+        return START_STICKY; // Restart if killed
+    }
+
+    private void startLogging() {
+        if (!LogcatReader.isRunning()) {
+            LogcatReader.start(this);
+            isLogging = true;
+            updateNotification();
+            Log.d(TAG, "Logcat logging started");
+        }
+    }
+
+    private void stopLogging() {
+        if (LogcatReader.isRunning()) {
+            LogcatReader.stop();
+            isLogging = false;
+            updateNotification();
+            Log.d(TAG, "Logcat logging stopped");
+        }
+    }
+
+    private void openViewer() {
+        Intent viewerIntent = new Intent(this, MainActivity.class);
+        viewerIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(viewerIntent);
+    }
+
+    private void startForegroundWithNotification() {
         Notification notification = createNotification();
 
-        // ✅ Correct foreground service type specification
+        // Start foreground service with proper type
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) { // API 34+
             startForeground(NOTIFICATION_ID, notification,
                     ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
@@ -54,20 +114,9 @@ public class LogcatBackgroundService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "Service started");
-
-        if (!LogcatReader.isRunning()) {
-            LogcatReader.start(this);
-            updateNotification("Logcat logging active");
-        }
-
-        return START_STICKY; // Restart if killed
-    }
-
-    @Override
     public void onDestroy() {
         Log.d(TAG, "Service destroyed");
+        isServiceRunning = false;
         LogcatReader.stop();
         super.onDestroy();
     }
@@ -84,7 +133,7 @@ public class LogcatBackgroundService extends Service {
                     "Logcat Background Service",
                     NotificationManager.IMPORTANCE_LOW
             );
-            channel.setDescription("Background logcat logging service");
+            channel.setDescription("Background logcat logging service with controls");
             channel.setShowBadge(false);
 
             NotificationManager manager = getSystemService(NotificationManager.class);
@@ -95,35 +144,87 @@ public class LogcatBackgroundService extends Service {
     }
 
     private Notification createNotification() {
-        return createNotification("Logcat logging starting...");
-    }
+        // Create custom notification layout
+        RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_logcat);
+        
+        // Update the content based on current state
+        String statusText = isLogging ? "Logging: " + logCount + " entries" : "Stopped";
+        notificationLayout.setTextViewText(R.id.notification_status, statusText);
+        
+        // Set button text based on current state
+        notificationLayout.setTextViewText(R.id.notification_toggle_button, 
+            isLogging ? "STOP" : "START");
 
-    private Notification createNotification(String contentText) {
-        Intent mainIntent = new Intent(this, MainActivity.class);
-        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                this, 0, mainIntent,
+        // Create pending intents for buttons
+        PendingIntent toggleIntent = PendingIntent.getService(
+                this, 0,
+                new Intent(this, LogcatBackgroundService.class)
+                        .setAction(isLogging ? ACTION_STOP_LOGGING : ACTION_START_LOGGING),
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
                         PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT
         );
 
+        PendingIntent openIntent = PendingIntent.getService(
+                this, 1,
+                new Intent(this, LogcatBackgroundService.class)
+                        .setAction(ACTION_OPEN_VIEWER),
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
+                        PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        // Set click listeners
+        notificationLayout.setOnClickPendingIntent(R.id.notification_toggle_button, toggleIntent);
+        notificationLayout.setOnClickPendingIntent(R.id.notification_open_button, openIntent);
+
+        // Create the main notification
         return new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Logcat Viewer")
-                .setContentText(contentText)
                 .setSmallIcon(R.drawable.ic_logcat)
-                .setContentIntent(pendingIntent)
+                .setCustomContentView(notificationLayout)
                 .setOngoing(true)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
+                .setShowWhen(false)
                 .build();
     }
 
-    private void updateNotification(String contentText) {
+    public void updateNotification() {
         NotificationManager manager = getSystemService(NotificationManager.class);
         if (manager != null) {
-            manager.notify(NOTIFICATION_ID, createNotification(contentText));
+            manager.notify(NOTIFICATION_ID, createNotification());
         }
+    }
+
+    // Static methods to update log count from LogcatReader
+    public static void incrementLogCount() {
+        logCount++;
+        // Update notification every 50 logs to avoid too frequent updates
+        if ((logCount % 50) == 0) {
+            updateNotificationStatic();
+        }
+    }
+
+    public static void resetLogCount() {
+        logCount = 0;
+        updateNotificationStatic();
+    }
+
+    private static void updateNotificationStatic() {
+        // This will be called from LogcatReader, so we need a way to update notification
+        // We'll use a broadcast intent to update the service
+        // Implementation depends on your app architecture
+    }
+
+    public static boolean isServiceRunning() {
+        return isServiceRunning;
+    }
+
+    public static boolean isLogging() {
+        return isLogging;
+    }
+
+    public static int getLogCount() {
+        return logCount;
     }
 
     @Override

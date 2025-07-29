@@ -8,15 +8,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class LogcatReader {
     private static final String TAG = "LogcatReader";
     public static final String ACTION_LOGCAT_UPDATE = "org.lineageos.settings.logcatviewer.LOGCAT_UPDATE";
+    public static final String ACTION_LOG_COUNT_UPDATE = "org.lineageos.settings.logcatviewer.LOG_COUNT_UPDATE";
     public static final String EXTRA_LOGCAT_LINE = "logcat_line";
+    public static final String EXTRA_LOG_COUNT = "log_count";
     
     private static Process process;
     private static Thread readerThread;
     private static final AtomicBoolean isRunning = new AtomicBoolean(false);
+    private static final AtomicLong logCount = new AtomicLong(0);
     private static Context context;
     
     public static synchronized void start(Context ctx) {
@@ -30,6 +34,7 @@ public class LogcatReader {
         isRunning.set(true);
         
         readerThread = new Thread(LogcatReader::readLogcat, "LogcatReader");
+        readerThread.setDaemon(true); // Make it a daemon thread so it doesn't prevent app from closing
         readerThread.start();
         Log.d(TAG, "LogcatReader started");
     }
@@ -67,6 +72,15 @@ public class LogcatReader {
         return isRunning.get();
     }
     
+    public static long getLogCount() {
+        return logCount.get();
+    }
+    
+    public static void resetLogCount() {
+        logCount.set(0);
+        broadcastLogCount();
+    }
+    
     private static void readLogcat() {
         BufferedReader reader = null;
         try {
@@ -81,7 +95,13 @@ public class LogcatReader {
             String line;
             while (isRunning.get() && (line = reader.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
+                    long currentCount = logCount.incrementAndGet();
                     broadcastLogLine(line);
+                    
+                    // Broadcast count update every 100 logs to avoid too many broadcasts
+                    if (currentCount % 100 == 0) {
+                        broadcastLogCount();
+                    }
                 }
             }
             
@@ -92,7 +112,7 @@ public class LogcatReader {
                 try {
                     Thread.sleep(2000);
                     if (isRunning.get()) {
-                        readLogcat();
+                        readLogcat(); // Recursive restart
                     }
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
@@ -123,11 +143,24 @@ public class LogcatReader {
         }
     }
     
+    private static void broadcastLogCount() {
+        if (context != null) {
+            try {
+                Intent intent = new Intent(ACTION_LOG_COUNT_UPDATE);
+                intent.putExtra(EXTRA_LOG_COUNT, logCount.get());
+                context.sendBroadcast(intent);
+            } catch (Exception e) {
+                Log.e(TAG, "Error broadcasting log count", e);
+            }
+        }
+    }
+    
     public static void clearLogs() {
         new Thread(() -> {
             try {
                 Process clearProcess = Runtime.getRuntime().exec("logcat -c");
                 clearProcess.waitFor();
+                resetLogCount(); // Reset our internal counter
                 Log.d(TAG, "Logcat cleared");
             } catch (IOException | InterruptedException e) {
                 Log.e(TAG, "Failed to clear logcat", e);
