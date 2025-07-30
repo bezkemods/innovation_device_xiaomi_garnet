@@ -44,8 +44,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainActivity extends Activity {
     private static final String TAG = "LogcatViewer";
-    private static final int UPDATE_INTERVAL_MS = 250; // Faster updates for better UX
-    private static final int MAX_UI_LOGS = 5000; // Only limit what we show in UI, not what we collect
+    private static final int UPDATE_INTERVAL_MS = 500;
+    private static final int MAX_UI_LOGS = 10000; // Increased limit for UI display
     
     private ListView logcatListView;
     private EditText filterEditText;
@@ -241,7 +241,9 @@ public class MainActivity extends Activity {
         // Auto scroll button
         autoScrollButton.setOnClickListener(v -> toggleAutoScroll());
         
-        // Save button
+        // Save button - enable it
+        saveButton.setEnabled(true);
+        saveButton.setAlpha(1.0f);
         saveButton.setOnClickListener(v -> saveLogcat());
         
         // Clear button
@@ -261,6 +263,11 @@ public class MainActivity extends Activity {
                 if (!isPaused) {
                     processPendingLines();
                 }
+                
+                // Update total log count from background service
+                totalLogCount = LogcatReader.getLogCount();
+                updateLogCount();
+                
                 if (!isDestroyed()) {
                     uiHandler.postDelayed(this, UPDATE_INTERVAL_MS);
                 }
@@ -275,17 +282,21 @@ public class MainActivity extends Activity {
         int processedCount = 0;
         
         // Process batches to prevent UI blocking
-        while ((line = pendingLines.poll()) != null && processedCount < 100) {
+        while ((line = pendingLines.poll()) != null && processedCount < 200) {
             LogEntry entry = LogEntry.parse(line);
             if (entry != null) {
                 allLogEntries.add(entry);
                 hasNewLines = true;
                 processedCount++;
                 
-                // Keep only recent logs in UI to prevent memory issues
-                // Background service keeps unlimited logs
+                // Keep only recent logs in UI display to prevent UI slowdown
+                // But allow more than before
                 if (allLogEntries.size() > MAX_UI_LOGS) {
-                    allLogEntries.remove(0);
+                    // Remove older entries in batches for better performance
+                    int removeCount = MAX_UI_LOGS / 10; // Remove 10%
+                    for (int i = 0; i < removeCount && !allLogEntries.isEmpty(); i++) {
+                        allLogEntries.remove(0);
+                    }
                 }
             }
         }
@@ -313,9 +324,19 @@ public class MainActivity extends Activity {
     }
     
     private void updateLogCount() {
-        String countText = String.format(Locale.US, "UI: %d/%d | Total: %d", 
-            filteredEntries.size(), allLogEntries.size(), totalLogCount);
+        String countText = String.format(Locale.US, "UI: %d/%d | Total: %s", 
+            filteredEntries.size(), allLogEntries.size(), formatLogCount(totalLogCount));
         logCountText.setText(countText);
+    }
+    
+    private String formatLogCount(long count) {
+        if (count < 1000) {
+            return String.valueOf(count);
+        } else if (count < 1000000) {
+            return String.format(Locale.US, "%.1fK", count / 1000.0);
+        } else {
+            return String.format(Locale.US, "%.1fM", count / 1000000.0);
+        }
     }
     
     private void updateAutoScrollButton() {
@@ -441,14 +462,19 @@ public class MainActivity extends Activity {
         }
         
         StringBuilder logText = new StringBuilder();
-        for (LogEntry entry : filteredEntries) {
-            logText.append(entry.rawLine).append("\n");
+        int maxLines = Math.min(filteredEntries.size(), 1000); // Limit shared logs
+        
+        for (int i = filteredEntries.size() - maxLines; i < filteredEntries.size(); i++) {
+            if (i >= 0) {
+                LogEntry entry = filteredEntries.get(i);
+                logText.append(entry.rawLine).append("\n");
+            }
         }
         
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, logText.toString());
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Logcat Export");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Logcat Export (" + maxLines + " recent entries)");
         
         try {
             startActivity(Intent.createChooser(shareIntent, "Share logcat"));

@@ -22,6 +22,7 @@ import org.lineageos.settings.kernelmanager.KernelManagerActivity;
 import org.lineageos.settings.gpumanager.GpuManagerActivity;
 import org.lineageos.settings.chargecontrol.ChargeControlActivity;
 import org.lineageos.settings.logcatviewer.MainActivity;
+import org.lineageos.settings.logcatviewer.LogcatSettingsPreference;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -38,7 +39,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_KERNEL_MANAGER = "kernel_manager";
     private static final String KEY_GPU_MANAGER = "gpu_manager";
     private static final String KEY_CHARGE_CONTROL = "charge_control";
-    private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer"; // Javított key
+    private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,10 +117,14 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             gpuManagerPref.setOnPreferenceClickListener(this);
         }
         
-        // Javított logcat viewer preference setup
+        // Logcat viewer preference setup - use special handler to prevent service restart
         Preference logcatViewerPref = findPreference(KEY_LOGCAT_VIEWER);
         if (logcatViewerPref != null) {
-            logcatViewerPref.setOnPreferenceClickListener(this);
+            logcatViewerPref.setOnPreferenceClickListener(preference -> {
+                // Use the special handler that doesn't restart the service
+                LogcatSettingsPreference.handleLogcatViewerClick(this);
+                return true;
+            });
         }
 
         Preference aboutMePref = findPreference(KEY_ABOUTME);
@@ -175,8 +180,10 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 intent = new Intent(this, GpuManagerActivity.class);
                 break;
             case KEY_LOGCAT_VIEWER:
-                intent = new Intent(this, MainActivity.class);
-                break;
+                // This case is now handled by the special preference click listener above
+                // But keep this for safety
+                LogcatSettingsPreference.handleLogcatViewerClick(this);
+                return true;
             case KEY_ABOUTME:
                 intent = new Intent(this, AboutMeActivity.class);
                 break;

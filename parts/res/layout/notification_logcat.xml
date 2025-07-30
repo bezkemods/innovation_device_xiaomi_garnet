@@ -4,74 +4,59 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:background="@android:color/transparent">
+    android:background="@android:color/black">
 
-    <!-- Icon -->
-    <ImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_logcat"
-        android:contentDescription="Logcat icon" />
-
-    <!-- Status text -->
+    <!-- Left side: Status and icon -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Logcat Viewer"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/notification_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Logging: 0 entries"
-            android:textSize="12sp"
-            android:textColor="@android:color/white" />
+            android:text="Stopped"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
-    <!-- Control buttons -->
+    <!-- Right side: Control buttons -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
 
         <Button
             android:id="@+id/notification_toggle_button"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="32dp"
-            android:layout_marginEnd="4dp"
             android:text="START"
             android:textSize="10sp"
             android:textColor="@android:color/white"
             android:background="@android:color/holo_green_dark"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:minWidth="60dp" />
+            android:layout_marginEnd="4dp" />
 
         <Button
             android:id="@+id/notification_open_button"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="32dp"
             android:text="OPEN"
             android:textSize="10sp"
             android:textColor="@android:color/white"
-            android:background="@android:color/holo_blue_dark"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:minWidth="60dp" />
+            android:background="@android:color/holo_blue_dark" />
 
     </LinearLayout>
 

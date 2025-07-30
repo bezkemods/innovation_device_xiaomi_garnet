@@ -29,7 +29,7 @@ public class LogcatBackgroundService extends Service {
     public static final String ACTION_OPEN_VIEWER = "org.lineageos.settings.logcatviewer.OPEN_VIEWER";
     
     private static boolean isServiceRunning = false;
-    private static int logCount = 0;
+    private static volatile long logCount = 0;
     private static boolean isLogging = false;
 
     @Override
@@ -65,9 +65,18 @@ public class LogcatBackgroundService extends Service {
                 openViewer();
             }
         } else {
-            // Default behavior - start logging if not already running
+            // Default behavior - only start logging if not already running and auto-start is enabled
             if (!LogcatReader.isRunning()) {
-                startLogging();
+                // Check if we should auto-start
+                boolean autoStart = LogcatSettingsPreference.isAutoStartEnabled(this);
+                if (autoStart) {
+                    startLogging();
+                }
+            } else {
+                // LogcatReader is already running, sync our state
+                isLogging = true;
+                logCount = LogcatReader.getLogCount();
+                updateNotification();
             }
         }
 
@@ -78,8 +87,15 @@ public class LogcatBackgroundService extends Service {
         if (!LogcatReader.isRunning()) {
             LogcatReader.start(this);
             isLogging = true;
+            logCount = 0; // Reset count when starting fresh
             updateNotification();
             Log.d(TAG, "Logcat logging started");
+        } else {
+            // Already running, just sync state
+            isLogging = true;
+            logCount = LogcatReader.getLogCount();
+            updateNotification();
+            Log.d(TAG, "Logcat already running, synced state");
         }
     }
 
@@ -148,7 +164,7 @@ public class LogcatBackgroundService extends Service {
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_logcat);
         
         // Update the content based on current state
-        String statusText = isLogging ? "Logging: " + logCount + " entries" : "Stopped";
+        String statusText = isLogging ? "Logging: " + formatLogCount(logCount) + " entries" : "Stopped";
         notificationLayout.setTextViewText(R.id.notification_status, statusText);
         
         // Set button text based on current state
@@ -161,7 +177,7 @@ public class LogcatBackgroundService extends Service {
                 new Intent(this, LogcatBackgroundService.class)
                         .setAction(isLogging ? ACTION_STOP_LOGGING : ACTION_START_LOGGING),
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
-                        PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT
+                        PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT : PendingIntent.FLAG_UPDATE_CURRENT
         );
 
         PendingIntent openIntent = PendingIntent.getService(
@@ -169,7 +185,7 @@ public class LogcatBackgroundService extends Service {
                 new Intent(this, LogcatBackgroundService.class)
                         .setAction(ACTION_OPEN_VIEWER),
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ?
-                        PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT
+                        PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT : PendingIntent.FLAG_UPDATE_CURRENT
         );
 
         // Set click listeners
@@ -191,15 +207,27 @@ public class LogcatBackgroundService extends Service {
     public void updateNotification() {
         NotificationManager manager = getSystemService(NotificationManager.class);
         if (manager != null) {
+            // Update log count from LogcatReader
+            logCount = LogcatReader.getLogCount();
             manager.notify(NOTIFICATION_ID, createNotification());
+        }
+    }
+
+    private String formatLogCount(long count) {
+        if (count < 1000) {
+            return String.valueOf(count);
+        } else if (count < 1000000) {
+            return String.format("%.1fK", count / 1000.0);
+        } else {
+            return String.format("%.1fM", count / 1000000.0);
         }
     }
 
     // Static methods to update log count from LogcatReader
     public static void incrementLogCount() {
         logCount++;
-        // Update notification every 50 logs to avoid too frequent updates
-        if ((logCount % 50) == 0) {
+        // Update notification every 100 logs to avoid too frequent updates
+        if ((logCount % 100) == 0) {
             updateNotificationStatic();
         }
     }
@@ -210,9 +238,8 @@ public class LogcatBackgroundService extends Service {
     }
 
     private static void updateNotificationStatic() {
-        // This will be called from LogcatReader, so we need a way to update notification
-        // We'll use a broadcast intent to update the service
-        // Implementation depends on your app architecture
+        // We can't directly update notification from static context
+        // LogcatReader will handle this through broadcasts
     }
 
     public static boolean isServiceRunning() {
@@ -223,7 +250,7 @@ public class LogcatBackgroundService extends Service {
         return isLogging;
     }
 
-    public static int getLogCount() {
+    public static long getLogCount() {
         return logCount;
     }
 
