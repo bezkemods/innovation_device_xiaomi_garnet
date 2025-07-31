@@ -45,7 +45,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class MainActivity extends Activity {
     private static final String TAG = "LogcatViewer";
     private static final int UPDATE_INTERVAL_MS = 500;
-    private static final int MAX_UI_LOGS = 10000; // Increased limit for UI display
+    private static final int MAX_UI_LOGS = 15000; // Increased limit for UI display
+    private static final int BATCH_REQUEST_INTERVAL = 1000; // Request batch every 1 second
     
     private ListView logcatListView;
     private EditText filterEditText;
@@ -70,6 +71,7 @@ public class MainActivity extends Activity {
     
     private Handler uiHandler;
     private Runnable updateRunnable;
+    private Runnable batchRequestRunnable;
     
     private long totalLogCount = 0; // Total logs processed by background service
     
@@ -78,14 +80,16 @@ public class MainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             
-            if (LogcatReader.ACTION_LOGCAT_UPDATE.equals(action)) {
-                String line = intent.getStringExtra(LogcatReader.EXTRA_LOGCAT_LINE);
-                if (line != null && !isPaused) {
-                    pendingLines.offer(line);
+            if (LogcatBackgroundService.ACTION_LOG_BATCH_RESPONSE.equals(action)) {
+                String[] batch = intent.getStringArrayExtra(LogcatBackgroundService.EXTRA_LOG_BATCH);
+                if (batch != null && !isPaused) {
+                    for (String line : batch) {
+                        if (line != null && !line.trim().isEmpty()) {
+                            pendingLines.offer(line);
+                        }
+                    }
+                    Log.d(TAG, "Received log batch with " + batch.length + " entries");
                 }
-            } else if (LogcatReader.ACTION_LOG_COUNT_UPDATE.equals(action)) {
-                totalLogCount = intent.getLongExtra(LogcatReader.EXTRA_LOG_COUNT, 0);
-                runOnUiThread(() -> updateLogCount());
             }
         }
     };
@@ -105,7 +109,7 @@ public class MainActivity extends Activity {
         // Check notification permission for Android 13+
         checkNotificationPermission();
         
-        // Register receiver for logcat updates
+        // Register receiver for log batch responses
         registerLogcatReceiver();
         
         // Start background service if not already running
@@ -124,6 +128,7 @@ public class MainActivity extends Activity {
         // Start UI update handler
         uiHandler = new Handler(Looper.getMainLooper());
         startUIUpdates();
+        startBatchRequests();
         
         updateStatusText(LogcatBackgroundService.isLogging() ? 
             "Connected - Background logging active" : "Connected - Background logging stopped");
@@ -143,11 +148,15 @@ public class MainActivity extends Activity {
         if (!isReceiverRegistered) {
             try {
                 IntentFilter filter = new IntentFilter();
-                filter.addAction(LogcatReader.ACTION_LOGCAT_UPDATE);
-                filter.addAction(LogcatReader.ACTION_LOG_COUNT_UPDATE);
-                ContextCompat.registerReceiver(this, logcatReceiver, filter, ContextCompat.RECEIVER_EXPORTED);
+                filter.addAction(LogcatBackgroundService.ACTION_LOG_BATCH_RESPONSE);
+                
+                // Use LocalBroadcastManager for better security and performance
+                androidx.localbroadcastmanager.content.LocalBroadcastManager
+                    .getInstance(this)
+                    .registerReceiver(logcatReceiver, filter);
+                    
                 isReceiverRegistered = true;
-                Log.d(TAG, "Logcat receiver registered");
+                Log.d(TAG, "Local logcat receiver registered");
             } catch (Exception e) {
                 Log.e(TAG, "Failed to register logcat receiver", e);
             }
@@ -157,13 +166,37 @@ public class MainActivity extends Activity {
     private void unregisterLogcatReceiver() {
         if (isReceiverRegistered) {
             try {
-                unregisterReceiver(logcatReceiver);
+                androidx.localbroadcastmanager.content.LocalBroadcastManager
+                    .getInstance(this)
+                    .unregisterReceiver(logcatReceiver);
                 isReceiverRegistered = false;
-                Log.d(TAG, "Logcat receiver unregistered");
+                Log.d(TAG, "Local logcat receiver unregistered");
             } catch (Exception e) {
                 Log.e(TAG, "Error unregistering receiver", e);
             }
         }
+    }
+    
+    private void startBatchRequests() {
+        batchRequestRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (!isPaused && LogcatBackgroundService.isServiceRunning()) {
+                    requestLogBatch();
+                }
+                
+                if (!isDestroyed()) {
+                    uiHandler.postDelayed(this, BATCH_REQUEST_INTERVAL);
+                }
+            }
+        };
+        uiHandler.postDelayed(batchRequestRunnable, BATCH_REQUEST_INTERVAL);
+    }
+    
+    private void requestLogBatch() {
+        Intent batchIntent = new Intent(this, LogcatBackgroundService.class);
+        batchIntent.setAction(LogcatBackgroundService.ACTION_GET_LOG_BATCH);
+        startService(batchIntent);
     }
     
     private void initializeViews() {
@@ -282,7 +315,7 @@ public class MainActivity extends Activity {
         int processedCount = 0;
         
         // Process batches to prevent UI blocking
-        while ((line = pendingLines.poll()) != null && processedCount < 200) {
+        while ((line = pendingLines.poll()) != null && processedCount < 300) {
             LogEntry entry = LogEntry.parse(line);
             if (entry != null) {
                 allLogEntries.add(entry);
@@ -290,7 +323,6 @@ public class MainActivity extends Activity {
                 processedCount++;
                 
                 // Keep only recent logs in UI display to prevent UI slowdown
-                // But allow more than before
                 if (allLogEntries.size() > MAX_UI_LOGS) {
                     // Remove older entries in batches for better performance
                     int removeCount = MAX_UI_LOGS / 10; // Remove 10%
@@ -540,8 +572,13 @@ public class MainActivity extends Activity {
         super.onDestroy();
         
         // Stop UI updates
-        if (uiHandler != null && updateRunnable != null) {
-            uiHandler.removeCallbacks(updateRunnable);
+        if (uiHandler != null) {
+            if (updateRunnable != null) {
+                uiHandler.removeCallbacks(updateRunnable);
+            }
+            if (batchRequestRunnable != null) {
+                uiHandler.removeCallbacks(batchRequestRunnable);
+            }
         }
         
         // Unregister receiver

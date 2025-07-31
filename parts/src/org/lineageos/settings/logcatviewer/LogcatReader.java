@@ -12,10 +12,15 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class LogcatReader {
     private static final String TAG = "LogcatReader";
-    public static final String ACTION_LOGCAT_UPDATE = "org.lineageos.settings.logcatviewer.LOGCAT_UPDATE";
-    public static final String ACTION_LOG_COUNT_UPDATE = "org.lineageos.settings.logcatviewer.LOG_COUNT_UPDATE";
+    
+    // Use LOCAL broadcasts with proper permissions
+    public static final String ACTION_LOGCAT_UPDATE = "org.lineageos.settings.logcatviewer.LOCAL_LOGCAT_UPDATE";
+    public static final String ACTION_LOG_COUNT_UPDATE = "org.lineageos.settings.logcatviewer.LOCAL_LOG_COUNT_UPDATE";
     public static final String EXTRA_LOGCAT_LINE = "logcat_line";
     public static final String EXTRA_LOG_COUNT = "log_count";
+    
+    // Use package-private permission for security
+    private static final String PERMISSION = "org.lineageos.settings.LOGCAT_PERMISSION";
     
     private static Process process;
     private static Thread readerThread;
@@ -23,7 +28,19 @@ public class LogcatReader {
     private static final AtomicLong logCount = new AtomicLong(0);
     private static Context context;
     
+    // Callback interface for direct communication
+    public interface LogcatCallback {
+        void onLogLine(String line);
+        void onLogCountUpdate(long count);
+    }
+    
+    private static LogcatCallback callback;
+    
     public static synchronized void start(Context ctx) {
+        start(ctx, null);
+    }
+    
+    public static synchronized void start(Context ctx, LogcatCallback cb) {
         if (isRunning.get()) {
             Log.d(TAG, "LogcatReader already running");
             return;
@@ -31,6 +48,7 @@ public class LogcatReader {
         
         // Always use application context to prevent memory leaks
         context = ctx.getApplicationContext();
+        callback = cb;
         isRunning.set(true);
         
         readerThread = new Thread(LogcatReader::readLogcat, "LogcatReader");
@@ -62,8 +80,9 @@ public class LogcatReader {
             process = null;
         }
         
-        // Clear context reference to prevent memory leaks
+        // Clear references to prevent memory leaks
         context = null;
+        callback = null;
         
         Log.d(TAG, "LogcatReader stopped");
     }
@@ -78,7 +97,11 @@ public class LogcatReader {
     
     public static void resetLogCount() {
         logCount.set(0);
-        broadcastLogCount();
+        notifyLogCount();
+    }
+    
+    public static void setCallback(LogcatCallback cb) {
+        callback = cb;
     }
     
     private static void readLogcat() {
@@ -96,11 +119,11 @@ public class LogcatReader {
             while (isRunning.get() && (line = reader.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
                     long currentCount = logCount.incrementAndGet();
-                    broadcastLogLine(line);
+                    notifyLogLine(line);
                     
-                    // Broadcast count update every 100 logs to avoid too many broadcasts
+                    // Notify count update every 100 logs to avoid too many updates
                     if (currentCount % 100 == 0) {
-                        broadcastLogCount();
+                        notifyLogCount();
                     }
                 }
             }
@@ -131,26 +154,58 @@ public class LogcatReader {
         }
     }
     
-    private static void broadcastLogLine(String line) {
+    private static void notifyLogLine(String line) {
+        // Primary method: Direct callback (faster, no broadcast overhead)
+        if (callback != null) {
+            try {
+                callback.onLogLine(line);
+            } catch (Exception e) {
+                Log.e(TAG, "Error in callback onLogLine", e);
+            }
+        }
+        
+        // Fallback method: Local broadcast with explicit permission
         if (context != null) {
             try {
                 Intent intent = new Intent(ACTION_LOGCAT_UPDATE);
                 intent.putExtra(EXTRA_LOGCAT_LINE, line);
-                context.sendBroadcast(intent);
+                intent.setPackage(context.getPackageName()); // Keep it within our package
+                
+                // Send as local broadcast to avoid system broadcast restrictions
+                androidx.localbroadcastmanager.content.LocalBroadcastManager
+                    .getInstance(context)
+                    .sendBroadcast(intent);
+                    
             } catch (Exception e) {
-                Log.e(TAG, "Error broadcasting log line", e);
+                Log.e(TAG, "Error sending local broadcast for log line", e);
             }
         }
     }
     
-    private static void broadcastLogCount() {
+    private static void notifyLogCount() {
+        // Primary method: Direct callback
+        if (callback != null) {
+            try {
+                callback.onLogCountUpdate(logCount.get());
+            } catch (Exception e) {
+                Log.e(TAG, "Error in callback onLogCountUpdate", e);
+            }
+        }
+        
+        // Fallback method: Local broadcast
         if (context != null) {
             try {
                 Intent intent = new Intent(ACTION_LOG_COUNT_UPDATE);
                 intent.putExtra(EXTRA_LOG_COUNT, logCount.get());
-                context.sendBroadcast(intent);
+                intent.setPackage(context.getPackageName()); // Keep it within our package
+                
+                // Send as local broadcast
+                androidx.localbroadcastmanager.content.LocalBroadcastManager
+                    .getInstance(context)
+                    .sendBroadcast(intent);
+                    
             } catch (Exception e) {
-                Log.e(TAG, "Error broadcasting log count", e);
+                Log.e(TAG, "Error sending local broadcast for log count", e);
             }
         }
     }

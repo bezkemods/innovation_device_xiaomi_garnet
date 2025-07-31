@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -18,7 +20,9 @@ import androidx.core.content.ContextCompat;
 
 import org.lineageos.settings.R;
 
-public class LogcatBackgroundService extends Service {
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+public class LogcatBackgroundService extends Service implements LogcatReader.LogcatCallback {
     private static final String TAG = "LogcatBackgroundService";
     private static final String CHANNEL_ID = "logcat_channel";
     private static final int NOTIFICATION_ID = 101;
@@ -28,15 +32,29 @@ public class LogcatBackgroundService extends Service {
     public static final String ACTION_STOP_LOGGING = "org.lineageos.settings.logcatviewer.STOP_LOGGING";
     public static final String ACTION_OPEN_VIEWER = "org.lineageos.settings.logcatviewer.OPEN_VIEWER";
     
+    // Internal actions for MainActivity communication
+    public static final String ACTION_GET_LOG_BATCH = "org.lineageos.settings.logcatviewer.GET_LOG_BATCH";
+    public static final String ACTION_LOG_BATCH_RESPONSE = "org.lineageos.settings.logcatviewer.LOG_BATCH_RESPONSE";
+    public static final String EXTRA_LOG_BATCH = "log_batch";
+    
     private static boolean isServiceRunning = false;
     private static volatile long logCount = 0;
     private static boolean isLogging = false;
+    
+    private Handler uiHandler;
+    private final ConcurrentLinkedQueue<String> logBuffer = new ConcurrentLinkedQueue<>();
+    private static final int MAX_BUFFER_SIZE = 5000;
+    
+    // Notification update throttling
+    private long lastNotificationUpdate = 0;
+    private static final long NOTIFICATION_UPDATE_INTERVAL = 2000; // 2 seconds
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Service created");
         isServiceRunning = true;
+        uiHandler = new Handler(Looper.getMainLooper());
 
         // Check notification permission for Android 13+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -63,6 +81,8 @@ public class LogcatBackgroundService extends Service {
                 stopLogging();
             } else if (ACTION_OPEN_VIEWER.equals(action)) {
                 openViewer();
+            } else if (ACTION_GET_LOG_BATCH.equals(action)) {
+                sendLogBatch();
             }
         } else {
             // Default behavior - only start logging if not already running and auto-start is enabled
@@ -76,7 +96,7 @@ public class LogcatBackgroundService extends Service {
                 // LogcatReader is already running, sync our state
                 isLogging = true;
                 logCount = LogcatReader.getLogCount();
-                updateNotification();
+                updateNotificationThrottled();
             }
         }
 
@@ -85,17 +105,20 @@ public class LogcatBackgroundService extends Service {
 
     private void startLogging() {
         if (!LogcatReader.isRunning()) {
-            LogcatReader.start(this);
+            // Set this service as the callback for LogcatReader
+            LogcatReader.start(this, this);
             isLogging = true;
             logCount = 0; // Reset count when starting fresh
-            updateNotification();
-            Log.d(TAG, "Logcat logging started");
+            logBuffer.clear(); // Clear buffer
+            updateNotificationThrottled();
+            Log.d(TAG, "Started logcat logging with direct callback");
         } else {
-            // Already running, just sync state
+            // Already running, just sync state and set callback
+            LogcatReader.setCallback(this);
             isLogging = true;
             logCount = LogcatReader.getLogCount();
-            updateNotification();
-            Log.d(TAG, "Logcat already running, synced state");
+            updateNotificationThrottled();
+            Log.d(TAG, "Logcat already running, synced state and set callback");
         }
     }
 
@@ -103,7 +126,7 @@ public class LogcatBackgroundService extends Service {
         if (LogcatReader.isRunning()) {
             LogcatReader.stop();
             isLogging = false;
-            updateNotification();
+            updateNotificationThrottled();
             Log.d(TAG, "Logcat logging stopped");
         }
     }
@@ -112,6 +135,50 @@ public class LogcatBackgroundService extends Service {
         Intent viewerIntent = new Intent(this, MainActivity.class);
         viewerIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(viewerIntent);
+    }
+    
+    private void sendLogBatch() {
+        // Send available logs to MainActivity
+        if (!logBuffer.isEmpty()) {
+            String[] batch = logBuffer.toArray(new String[0]);
+            
+            Intent responseIntent = new Intent(ACTION_LOG_BATCH_RESPONSE);
+            responseIntent.putExtra(EXTRA_LOG_BATCH, batch);
+            responseIntent.setPackage(getPackageName());
+            
+            // Send as local broadcast
+            androidx.localbroadcastmanager.content.LocalBroadcastManager
+                .getInstance(this)
+                .sendBroadcast(responseIntent);
+                
+            Log.d(TAG, "Sent log batch with " + batch.length + " entries");
+        }
+    }
+
+    // LogcatReader.LogcatCallback implementation
+    @Override
+    public void onLogLine(String line) {
+        // Add to buffer for MainActivity
+        logBuffer.offer(line);
+        
+        // Maintain buffer size
+        while (logBuffer.size() > MAX_BUFFER_SIZE) {
+            logBuffer.poll();
+        }
+        
+        // Increment count
+        logCount++;
+        
+        // Update notification periodically
+        if (logCount % 100 == 0) {
+            updateNotificationThrottled();
+        }
+    }
+    
+    @Override
+    public void onLogCountUpdate(long count) {
+        logCount = count;
+        updateNotificationThrottled();
     }
 
     private void startForegroundWithNotification() {
@@ -204,11 +271,17 @@ public class LogcatBackgroundService extends Service {
                 .build();
     }
 
+    private void updateNotificationThrottled() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastNotificationUpdate > NOTIFICATION_UPDATE_INTERVAL) {
+            lastNotificationUpdate = currentTime;
+            uiHandler.post(this::updateNotification);
+        }
+    }
+
     public void updateNotification() {
         NotificationManager manager = getSystemService(NotificationManager.class);
         if (manager != null) {
-            // Update log count from LogcatReader
-            logCount = LogcatReader.getLogCount();
             manager.notify(NOTIFICATION_ID, createNotification());
         }
     }
@@ -223,25 +296,7 @@ public class LogcatBackgroundService extends Service {
         }
     }
 
-    // Static methods to update log count from LogcatReader
-    public static void incrementLogCount() {
-        logCount++;
-        // Update notification every 100 logs to avoid too frequent updates
-        if ((logCount % 100) == 0) {
-            updateNotificationStatic();
-        }
-    }
-
-    public static void resetLogCount() {
-        logCount = 0;
-        updateNotificationStatic();
-    }
-
-    private static void updateNotificationStatic() {
-        // We can't directly update notification from static context
-        // LogcatReader will handle this through broadcasts
-    }
-
+    // Static methods for external access
     public static boolean isServiceRunning() {
         return isServiceRunning;
     }
