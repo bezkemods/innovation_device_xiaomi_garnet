@@ -23,6 +23,7 @@ import org.lineageos.settings.gpumanager.GpuManagerActivity;
 import org.lineageos.settings.chargecontrol.ChargeControlActivity;
 import org.lineageos.settings.logcatviewer.MainActivity;
 import org.lineageos.settings.logcatviewer.LogcatSettingsPreference;
+import org.lineageos.settings.adblocker.AdBlockerActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -40,6 +41,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_GPU_MANAGER = "gpu_manager";
     private static final String KEY_CHARGE_CONTROL = "charge_control";
     private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
+    private static final String KEY_ADBLOCKER = "adblocker_settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +129,11 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             });
         }
 
+        Preference adBlockerPref = findPreference(KEY_ADBLOCKER);
+        if (adBlockerPref != null) {
+            adBlockerPref.setOnPreferenceClickListener(this);
+        }
+        
         Preference aboutMePref = findPreference(KEY_ABOUTME);
         if (aboutMePref != null) {
             aboutMePref.setOnPreferenceClickListener(preference -> {
@@ -184,6 +191,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 // But keep this for safety
                 LogcatSettingsPreference.handleLogcatViewerClick(this);
                 return true;
+            case KEY_ADBLOCKER:
+                intent = new Intent(this, AdBlockerActivity.class);
+                break;
             case KEY_ABOUTME:
                 intent = new Intent(this, AboutMeActivity.class);
                 break;

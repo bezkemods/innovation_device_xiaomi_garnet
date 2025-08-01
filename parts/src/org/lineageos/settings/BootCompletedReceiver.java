@@ -37,6 +37,7 @@ import org.lineageos.settings.gpumanager.GpuManagerUtils;
 import org.lineageos.settings.charge.ChargeUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
 import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
+import org.lineageos.settings.adblocker.AdBlockerUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
@@ -67,6 +68,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     // Logcat preference key
     private static final String KEY_AUTO_START_LOGCAT = "auto_start_logcat";
+
+    // AdBlocker preference key
+    private static final String KEY_ADBLOCKER_ENABLED = "adblocker_enabled";
 
     private HandlerThread mBackgroundThread;
     private Handler mBackgroundHandler;
@@ -105,6 +109,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 restoreBypassCharge(context);
                 restoreCoreControlSettings(context);
                 restoreLogcatService(context);
+                restoreAdBlockerSettings(context);
                 
                 Log.i(TAG, "Locked boot completed initialization finished");
             } catch (Exception e) {
@@ -193,6 +198,61 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to start LogcatBackgroundService", e);
+        }
+    }
+
+    private void restoreAdBlockerSettings(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean adBlockerEnabled = prefs.getBoolean(KEY_ADBLOCKER_ENABLED, false);
+            
+            if (!adBlockerEnabled) {
+                Log.d(TAG, "AdBlocker disabled, skipping restore");
+                return;
+            }
+
+            AdBlockerUtils adBlockerUtils = new AdBlockerUtils(context);
+            
+            // Check if root access is available
+            if (!adBlockerUtils.hasRootAccess()) {
+                Log.w(TAG, "AdBlocker enabled but no root access available");
+                return;
+            }
+
+            // Wait a bit for the system to stabilize
+            Thread.sleep(3000);
+            
+            Log.d(TAG, "Restoring AdBlocker settings");
+            
+            // Check if we have a hosts file to restore
+            int blockedCount = adBlockerUtils.getBlockedDomainsCount();
+            if (blockedCount > 0) {
+                // AdBlocker was previously enabled and has data, ensure it stays enabled
+                boolean success = adBlockerUtils.enableAdBlocker();
+                if (success) {
+                    Log.d(TAG, "AdBlocker restored successfully - blocking " + blockedCount + " domains");
+                } else {
+                    Log.w(TAG, "Failed to restore AdBlocker settings");
+                }
+            } else {
+                Log.d(TAG, "AdBlocker enabled but no hosts data found, may need manual update");
+                // Still try to enable to ensure proper state
+                adBlockerUtils.enableAdBlocker();
+            }
+            
+            // Log current state for debugging
+            if (DEBUG) {
+                boolean currentState = adBlockerUtils.isEnabled();
+                String lastUpdate = adBlockerUtils.getLastUpdateTime();
+                Log.d(TAG, "AdBlocker restore completed - enabled: " + currentState + 
+                     ", blocked domains: " + blockedCount + ", last update: " + lastUpdate);
+            }
+            
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.w(TAG, "AdBlocker restore interrupted", e);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore AdBlocker settings", e);
         }
     }
 

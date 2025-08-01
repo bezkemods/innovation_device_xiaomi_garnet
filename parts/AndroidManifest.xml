@@ -44,7 +44,9 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
     <!-- Log broadcast permission -->
     <permission 
         android:name="org.lineageos.settings.LOGCAT_PERMISSION"
@@ -378,6 +380,16 @@
             android:name=".aboutme.AboutMeActivity"
             android:label="@string/about_me_title"
             android:icon="@drawable/ic_about_me"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+        
+        <!-- Mi AdBlocker -->
+        <activity
+            android:name=".adblocker.AdBlockerActivity"
+            android:label="@string/adblocker_title"
+            android:icon="@drawable/ic_adblocker"
             android:theme="@style/Theme.SubSettingsBase"
             android:exported="false"
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
