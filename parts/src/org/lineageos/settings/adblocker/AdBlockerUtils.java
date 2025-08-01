@@ -59,18 +59,65 @@ public class AdBlockerUtils {
 
     public boolean hasRootAccess() {
         try {
-            Process process = Runtime.getRuntime().exec("su -c 'id'");
+            Process process = Runtime.getRuntime().exec(new String[]{"su", "-c", "id"});
             process.waitFor();
-            return process.exitValue() == 0;
+            int exitValue = process.exitValue();
+            Log.d(TAG, "Root check exit value: " + exitValue);
+            return exitValue == 0;
         } catch (Exception e) {
             Log.e(TAG, "Root check failed", e);
             return false;
         }
     }
 
+    public boolean isSystemMounted() {
+        try {
+            Process process = Runtime.getRuntime().exec(new String[]{"su", "-c", "mount -o remount,rw /system"});
+            process.waitFor();
+            int exitValue = process.exitValue();
+            Log.d(TAG, "System mount exit value: " + exitValue);
+            return exitValue == 0;
+        } catch (Exception e) {
+            Log.e(TAG, "System mount check failed", e);
+            return false;
+        }
+    }
+
+    public boolean isValidHostsFile(String content) {
+        if (content == null || content.trim().isEmpty()) {
+            return false;
+        }
+        
+        // Check if it contains at least some host entries
+        String[] lines = content.split("\n");
+        int validEntries = 0;
+        
+        for (String line : lines) {
+            line = line.trim();
+            if (line.isEmpty() || line.startsWith("#")) {
+                continue;
+            }
+            
+            // Check for valid host entry format
+            if (line.matches("^(0\\.0\\.0\\.0|127\\.0\\.0\\.1)\\s+\\S+.*")) {
+                validEntries++;
+                if (validEntries >= 5) { // At least 5 valid entries
+                    return true;
+                }
+            }
+        }
+        
+        return validEntries > 0;
+    }
+
     public boolean enableAdBlocker() {
         if (!hasRootAccess()) {
             Log.e(TAG, "No root access");
+            return false;
+        }
+
+        if (!isSystemMounted()) {
+            Log.e(TAG, "System not writable");
             return false;
         }
 
@@ -91,6 +138,11 @@ public class AdBlockerUtils {
             return false;
         }
 
+        if (!isSystemMounted()) {
+            Log.e(TAG, "System not writable");
+            return false;
+        }
+
         try {
             restoreBackup();
             setEnabled(false);
@@ -102,32 +154,58 @@ public class AdBlockerUtils {
     }
 
     private void createBackup() throws Exception {
-        String[] commands = {
-            "su",
-            "-c",
-            "if [ ! -f " + HOSTS_BACKUP_PATH + " ]; then cp " + HOSTS_FILE_PATH + " " + HOSTS_BACKUP_PATH + "; fi"
-        };
+        Process process = Runtime.getRuntime().exec(new String[]{
+            "su", "-c", 
+            "if [ ! -f " + HOSTS_BACKUP_PATH + " ]; then " +
+            "cp " + HOSTS_FILE_PATH + " " + HOSTS_BACKUP_PATH + " && " +
+            "chmod 644 " + HOSTS_BACKUP_PATH + "; fi"
+        });
         
-        Process process = Runtime.getRuntime().exec(commands);
         process.waitFor();
+        int exitValue = process.exitValue();
+        Log.d(TAG, "Backup creation exit value: " + exitValue);
         
-        if (process.exitValue() != 0) {
-            throw new Exception("Failed to create backup");
+        if (exitValue != 0) {
+            // Read error output
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            StringBuilder errorOutput = new StringBuilder();
+            String line;
+            while ((line = errorReader.readLine()) != null) {
+                errorOutput.append(line).append("\n");
+            }
+            errorReader.close();
+            
+            Log.e(TAG, "Backup creation error: " + errorOutput.toString());
+            throw new Exception("Failed to create backup: " + errorOutput.toString());
         }
     }
 
     private void restoreBackup() throws Exception {
-        String[] commands = {
-            "su",
-            "-c",
-            "if [ -f " + HOSTS_BACKUP_PATH + " ]; then cp " + HOSTS_BACKUP_PATH + " " + HOSTS_FILE_PATH + "; fi"
-        };
+        Process process = Runtime.getRuntime().exec(new String[]{
+            "su", "-c",
+            "if [ -f " + HOSTS_BACKUP_PATH + " ]; then " +
+            "cp " + HOSTS_BACKUP_PATH + " " + HOSTS_FILE_PATH + " && " +
+            "chmod 644 " + HOSTS_FILE_PATH + "; " +
+            "else echo 'localhost' > " + HOSTS_FILE_PATH + " && " +
+            "chmod 644 " + HOSTS_FILE_PATH + "; fi"
+        });
         
-        Process process = Runtime.getRuntime().exec(commands);
         process.waitFor();
+        int exitValue = process.exitValue();
+        Log.d(TAG, "Backup restoration exit value: " + exitValue);
         
-        if (process.exitValue() != 0) {
-            throw new Exception("Failed to restore backup");
+        if (exitValue != 0) {
+            // Read error output
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            StringBuilder errorOutput = new StringBuilder();
+            String line;
+            while ((line = errorReader.readLine()) != null) {
+                errorOutput.append(line).append("\n");
+            }
+            errorReader.close();
+            
+            Log.e(TAG, "Backup restoration error: " + errorOutput.toString());
+            throw new Exception("Failed to restore backup: " + errorOutput.toString());
         }
     }
 
@@ -163,6 +241,11 @@ public class AdBlockerUtils {
                     return null;
                 }
 
+                if (!isSystemMounted()) {
+                    mError = "System partition not writable";
+                    return null;
+                }
+
                 // Download hosts file
                 String hostsContent = downloadHostsFile();
                 if (hostsContent == null) {
@@ -194,14 +277,18 @@ public class AdBlockerUtils {
         }
 
         private String downloadHostsFile() {
+            HttpURLConnection connection = null;
             try {
                 URL url = new URL(HOSTS_URL);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setConnectTimeout(10000);
+                connection.setConnectTimeout(15000);
                 connection.setReadTimeout(30000);
+                connection.setRequestProperty("User-Agent", "AdBlocker-LineageOS/1.0");
 
                 int responseCode = connection.getResponseCode();
+                Log.d(TAG, "HTTP response code: " + responseCode);
+                
                 if (responseCode != HttpURLConnection.HTTP_OK) {
                     Log.e(TAG, "HTTP error: " + responseCode);
                     return null;
@@ -217,40 +304,59 @@ public class AdBlockerUtils {
                 }
 
                 reader.close();
-                connection.disconnect();
-
-                return content.toString();
+                
+                String result = content.toString();
+                Log.d(TAG, "Downloaded " + result.length() + " characters");
+                return result;
+                
             } catch (Exception e) {
                 Log.e(TAG, "Download failed", e);
                 return null;
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
         }
 
         private String applyHostsFile(String hostsContent) throws Exception {
             // Count blocked domains
             mBlockedCount = countBlockedDomains(hostsContent);
+            Log.d(TAG, "Blocked domains count: " + mBlockedCount);
 
             // Create temporary file
             File tempFile = new File(mContext.getCacheDir(), "hosts_temp");
-            FileWriter writer = new FileWriter(tempFile);
-            writer.write(hostsContent);
-            writer.close();
+            try (FileWriter writer = new FileWriter(tempFile)) {
+                writer.write(hostsContent);
+            }
 
             // Copy to system hosts file with root
-            String[] commands = {
-                "su",
-                "-c",
-                "cp " + tempFile.getAbsolutePath() + " " + HOSTS_FILE_PATH + " && chmod 644 " + HOSTS_FILE_PATH
-            };
+            Process process = Runtime.getRuntime().exec(new String[]{
+                "su", "-c",
+                "cp " + tempFile.getAbsolutePath() + " " + HOSTS_FILE_PATH + " && " +
+                "chmod 644 " + HOSTS_FILE_PATH + " && " +
+                "chown root:root " + HOSTS_FILE_PATH
+            });
 
-            Process process = Runtime.getRuntime().exec(commands);
             process.waitFor();
+            int exitValue = process.exitValue();
+            Log.d(TAG, "Apply hosts file exit value: " + exitValue);
 
             // Clean up temp file
             tempFile.delete();
 
-            if (process.exitValue() != 0) {
-                throw new Exception("Failed to apply hosts file");
+            if (exitValue != 0) {
+                // Read error output
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                StringBuilder errorOutput = new StringBuilder();
+                String line;
+                while ((line = errorReader.readLine()) != null) {
+                    errorOutput.append(line).append("\n");
+                }
+                errorReader.close();
+                
+                Log.e(TAG, "Apply hosts file error: " + errorOutput.toString());
+                throw new Exception("Failed to apply hosts file: " + errorOutput.toString());
             }
 
             return "Success";
@@ -278,6 +384,11 @@ public class AdBlockerUtils {
             try {
                 if (!hasRootAccess()) {
                     mError = "Root access required";
+                    return null;
+                }
+
+                if (!isSystemMounted()) {
+                    mError = "System partition not writable";
                     return null;
                 }
 
@@ -312,28 +423,41 @@ public class AdBlockerUtils {
         private String applyHostsFile(String hostsContent) throws Exception {
             // Count blocked domains
             mBlockedCount = countBlockedDomains(hostsContent);
+            Log.d(TAG, "Manual update blocked domains count: " + mBlockedCount);
 
             // Create temporary file
-            File tempFile = new File(mContext.getCacheDir(), "hosts_temp");
-            FileWriter writer = new FileWriter(tempFile);
-            writer.write(hostsContent);
-            writer.close();
+            File tempFile = new File(mContext.getCacheDir(), "hosts_temp_manual");
+            try (FileWriter writer = new FileWriter(tempFile)) {
+                writer.write(hostsContent);
+            }
 
             // Copy to system hosts file with root
-            String[] commands = {
-                "su",
-                "-c",
-                "cp " + tempFile.getAbsolutePath() + " " + HOSTS_FILE_PATH + " && chmod 644 " + HOSTS_FILE_PATH
-            };
+            Process process = Runtime.getRuntime().exec(new String[]{
+                "su", "-c",
+                "cp " + tempFile.getAbsolutePath() + " " + HOSTS_FILE_PATH + " && " +
+                "chmod 644 " + HOSTS_FILE_PATH + " && " +
+                "chown root:root " + HOSTS_FILE_PATH
+            });
 
-            Process process = Runtime.getRuntime().exec(commands);
             process.waitFor();
+            int exitValue = process.exitValue();
+            Log.d(TAG, "Manual apply hosts file exit value: " + exitValue);
 
             // Clean up temp file
             tempFile.delete();
 
-            if (process.exitValue() != 0) {
-                throw new Exception("Failed to apply hosts file");
+            if (exitValue != 0) {
+                // Read error output
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                StringBuilder errorOutput = new StringBuilder();
+                String line;
+                while ((line = errorReader.readLine()) != null) {
+                    errorOutput.append(line).append("\n");
+                }
+                errorReader.close();
+                
+                Log.e(TAG, "Manual apply hosts file error: " + errorOutput.toString());
+                throw new Exception("Failed to apply hosts file: " + errorOutput.toString());
             }
 
             return "Success";
@@ -349,12 +473,14 @@ public class AdBlockerUtils {
             line = line.trim();
             if (!line.isEmpty() && !line.startsWith("#") && blockedPattern.matcher(line).matches()) {
                 // Skip localhost entries
-                if (!line.contains("localhost") && !line.contains("local")) {
+                if (!line.contains("localhost") && !line.contains("local") && 
+                    !line.contains("broadcasthost") && !line.contains("0.0.0.0 0.0.0.0")) {
                     count++;
                 }
             }
         }
         
+        Log.d(TAG, "Counted " + count + " blocked domains");
         return count;
     }
 }

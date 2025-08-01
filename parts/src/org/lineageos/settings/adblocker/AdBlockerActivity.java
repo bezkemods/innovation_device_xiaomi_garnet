@@ -146,6 +146,11 @@ public class AdBlockerActivity extends PreferenceActivity
             return;
         }
 
+        if (!mAdBlockerUtils.isSystemMounted()) {
+            Toast.makeText(this, "System partition is not writable", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.adblocker_confirm_title);
         builder.setMessage(enable ? 
@@ -174,7 +179,7 @@ public class AdBlockerActivity extends PreferenceActivity
                 updateUI();
             }
         } else {
-            Toast.makeText(this, R.string.adblocker_update_failed, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to enable AdBlocker. Check root access.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -183,13 +188,18 @@ public class AdBlockerActivity extends PreferenceActivity
             Toast.makeText(this, R.string.adblocker_disabled, Toast.LENGTH_SHORT).show();
             updateUI();
         } else {
-            Toast.makeText(this, R.string.adblocker_update_failed, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to disable AdBlocker. Check root access.", Toast.LENGTH_LONG).show();
         }
     }
 
     private void handleUpdate() {
         if (!mAdBlockerUtils.hasRootAccess()) {
             Toast.makeText(this, R.string.adblocker_root_required, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (!mAdBlockerUtils.isSystemMounted()) {
+            Toast.makeText(this, "System partition is not writable", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -225,8 +235,7 @@ public class AdBlockerActivity extends PreferenceActivity
             public void onUpdateError(String error) {
                 runOnUiThread(() -> {
                     Toast.makeText(AdBlockerActivity.this, 
-                        getString(R.string.adblocker_update_failed) + ": " + error, 
-                        Toast.LENGTH_LONG).show();
+                        "Update failed: " + error, Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Update error: " + error);
                 });
             }
@@ -236,6 +245,11 @@ public class AdBlockerActivity extends PreferenceActivity
     private void handleManualUpdate() {
         if (!mAdBlockerUtils.hasRootAccess()) {
             Toast.makeText(this, R.string.adblocker_root_required, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (!mAdBlockerUtils.isSystemMounted()) {
+            Toast.makeText(this, "System partition is not writable", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -268,6 +282,11 @@ public class AdBlockerActivity extends PreferenceActivity
     private void loadHostsFileFromUri(Uri uri) {
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
+            if (inputStream == null) {
+                Toast.makeText(this, "Cannot open selected file", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder content = new StringBuilder();
             String line;
@@ -281,7 +300,13 @@ public class AdBlockerActivity extends PreferenceActivity
 
             String hostsContent = content.toString();
             if (hostsContent.trim().isEmpty()) {
-                Toast.makeText(this, R.string.adblocker_file_not_found, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Selected file is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validate hosts file content
+            if (!mAdBlockerUtils.isValidHostsFile(hostsContent)) {
+                Toast.makeText(this, "Invalid hosts file format", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -299,7 +324,8 @@ public class AdBlockerActivity extends PreferenceActivity
                 public void onUpdateSuccess(int blockedCount) {
                     runOnUiThread(() -> {
                         Toast.makeText(AdBlockerActivity.this, 
-                            R.string.adblocker_update_success, Toast.LENGTH_SHORT).show();
+                            "Manual update successful. " + blockedCount + " domains blocked.", 
+                            Toast.LENGTH_SHORT).show();
                         updateUI();
                     });
                 }
@@ -308,8 +334,7 @@ public class AdBlockerActivity extends PreferenceActivity
                 public void onUpdateError(String error) {
                     runOnUiThread(() -> {
                         Toast.makeText(AdBlockerActivity.this, 
-                            getString(R.string.adblocker_update_failed) + ": " + error, 
-                            Toast.LENGTH_LONG).show();
+                            "Manual update failed: " + error, Toast.LENGTH_LONG).show();
                         Log.e(TAG, "Manual update error: " + error);
                     });
                 }
@@ -317,7 +342,7 @@ public class AdBlockerActivity extends PreferenceActivity
 
         } catch (Exception e) {
             Log.e(TAG, "Failed to load hosts file", e);
-            Toast.makeText(this, R.string.adblocker_file_not_found, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Failed to read file: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -325,6 +350,8 @@ public class AdBlockerActivity extends PreferenceActivity
         int blockedCount = mAdBlockerUtils.getBlockedDomainsCount();
         String lastUpdate = mAdBlockerUtils.getLastUpdateTime();
         boolean isEnabled = mAdBlockerUtils.isEnabled();
+        boolean hasRoot = mAdBlockerUtils.hasRootAccess();
+        boolean systemMounted = mAdBlockerUtils.isSystemMounted();
 
         StringBuilder info = new StringBuilder();
         info.append("Status: ").append(isEnabled ? "Enabled" : "Disabled").append("\n\n");
@@ -332,7 +359,8 @@ public class AdBlockerActivity extends PreferenceActivity
         info.append("Last update: ").append(lastUpdate).append("\n\n");
         info.append("Source: StevenBlack/hosts").append("\n");
         info.append("GitHub repository with regularly updated hosts file").append("\n\n");
-        info.append("Root access: ").append(mAdBlockerUtils.hasRootAccess() ? "Available" : "Not available");
+        info.append("Root access: ").append(hasRoot ? "Available" : "Not available").append("\n");
+        info.append("System writable: ").append(systemMounted ? "Yes" : "No");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("AdBlocker Information");
