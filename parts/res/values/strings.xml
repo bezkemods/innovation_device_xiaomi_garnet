@@ -492,7 +492,9 @@
     
     <!-- File picker -->
     <string name="adblocker_manual_file_title">Select hosts file</string>
-    
+    <string name="adblocker_github_title">AdBlocker GitHub</string>
+    <string name="adblocker_github_summary">Open the AdBlocker GitHub repository</string>
+
     <!-- Dirac settings -->
     <string name="dirac_enable">Enable Dirac</string>
     <string name="dirac_title">Dirac sound enhancer</string>

@@ -1,8 +1,10 @@
 package org.lineageos.settings.adblocker;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -31,6 +33,7 @@ public class AdBlockerActivity extends PreferenceActivity
     private static final String KEY_ADBLOCKER_MANUAL_UPDATE = "adblocker_manual_update";
     private static final String KEY_ADBLOCKER_INFO = "adblocker_info";
     private static final String KEY_ADBLOCKER_METHOD = "adblocker_method";
+    private static final String KEY_ADBLOCKER_GITHUB = "adblocker_github";
 
     private SwitchPreference mAdBlockerEnabled;
     private Preference mAdBlockerStatus;
@@ -39,6 +42,7 @@ public class AdBlockerActivity extends PreferenceActivity
     private Preference mManualUpdate;
     private Preference mInfo;
     private Preference mMethod;
+    private Preference mGithub;
 
     private AdBlockerUtils mAdBlockerUtils;
     private SharedPreferences mPrefs;
@@ -52,6 +56,12 @@ public class AdBlockerActivity extends PreferenceActivity
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         initializePreferences();
+        
+        // Initialize with built-in hosts if never updated
+        if (mAdBlockerUtils.getBlockedDomainsCount() == 0) {
+            mAdBlockerUtils.initializeBuiltInHosts();
+        }
+        
         updateUI();
     }
 
@@ -69,6 +79,7 @@ public class AdBlockerActivity extends PreferenceActivity
         mManualUpdate = findPreference(KEY_ADBLOCKER_MANUAL_UPDATE);
         mInfo = findPreference(KEY_ADBLOCKER_INFO);
         mMethod = findPreference(KEY_ADBLOCKER_METHOD);
+        mGithub = findPreference(KEY_ADBLOCKER_GITHUB);
 
         if (mAdBlockerEnabled != null) {
             mAdBlockerEnabled.setOnPreferenceChangeListener(this);
@@ -88,6 +99,10 @@ public class AdBlockerActivity extends PreferenceActivity
 
         if (mMethod != null) {
             mMethod.setOnPreferenceClickListener(this);
+        }
+
+        if (mGithub != null) {
+            mGithub.setOnPreferenceClickListener(this);
         }
     }
 
@@ -152,6 +167,9 @@ public class AdBlockerActivity extends PreferenceActivity
             case KEY_ADBLOCKER_METHOD:
                 showMethodDialog();
                 return true;
+            case KEY_ADBLOCKER_GITHUB:
+                openGithubLink();
+                return true;
         }
 
         return false;
@@ -180,13 +198,8 @@ public class AdBlockerActivity extends PreferenceActivity
 
     private void enableAdBlocker() {
         if (mAdBlockerUtils.enableAdBlocker()) {
-            // If we have never updated, trigger an automatic update
-            if (mAdBlockerUtils.getBlockedDomainsCount() == 0) {
-                performUpdate();
-            } else {
-                Toast.makeText(this, R.string.adblocker_enabled, Toast.LENGTH_SHORT).show();
-                updateUI();
-            }
+            Toast.makeText(this, R.string.adblocker_enabled, Toast.LENGTH_SHORT).show();
+            updateUI();
         } else {
             Toast.makeText(this, R.string.adblocker_update_failed, Toast.LENGTH_LONG).show();
         }
@@ -202,6 +215,16 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void handleUpdate() {
+        // Check network first
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        android.net.NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+        
+        if (!isConnected) {
+            Toast.makeText(this, "No internet connection available", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.adblocker_confirm_title);
         builder.setMessage(R.string.adblocker_confirm_update);
@@ -225,7 +248,8 @@ public class AdBlockerActivity extends PreferenceActivity
             public void onUpdateSuccess(int blockedCount) {
                 runOnUiThread(() -> {
                     Toast.makeText(AdBlockerActivity.this, 
-                        R.string.adblocker_update_success, Toast.LENGTH_SHORT).show();
+                        getString(R.string.adblocker_update_success) + " (" + blockedCount + " domains)", 
+                        Toast.LENGTH_SHORT).show();
                     updateUI();
                 });
             }
@@ -303,7 +327,8 @@ public class AdBlockerActivity extends PreferenceActivity
                 public void onUpdateSuccess(int blockedCount) {
                     runOnUiThread(() -> {
                         Toast.makeText(AdBlockerActivity.this, 
-                            R.string.adblocker_update_success, Toast.LENGTH_SHORT).show();
+                            getString(R.string.adblocker_update_success) + " (" + blockedCount + " domains)", 
+                            Toast.LENGTH_SHORT).show();
                         updateUI();
                     });
                 }
@@ -322,6 +347,17 @@ public class AdBlockerActivity extends PreferenceActivity
         } catch (Exception e) {
             Log.e(TAG, "Failed to load hosts file", e);
             Toast.makeText(this, R.string.adblocker_file_not_found, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openGithubLink() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://github.com/StevenBlack/hosts/blob/master/hosts"));
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to open GitHub link", e);
+            Toast.makeText(this, "Unable to open link", Toast.LENGTH_SHORT).show();
         }
     }
 

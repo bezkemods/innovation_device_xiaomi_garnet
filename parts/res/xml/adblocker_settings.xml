@@ -49,6 +49,11 @@
             android:title="@string/adblocker_manual_update_title"
             android:summary="@string/adblocker_manual_update_summary" />
 
+        <Preference
+            android:key="adblocker_github"
+            android:title="@string/adblocker_github_title"
+            android:summary="@string/adblocker_github_summary" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
