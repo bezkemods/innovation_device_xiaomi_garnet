@@ -38,7 +38,7 @@ public class AdBlockerActivity extends PreferenceActivity
     private Preference mManualUpdate;
     private Preference mInfo;
 
-    private SystemlessAdBlockerUtils mSystemlessAdBlockerUtils;
+    private AdBlockerUtils mAdBlockerUtils;
     private SharedPreferences mPrefs;
 
     @Override
@@ -46,7 +46,7 @@ public class AdBlockerActivity extends PreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.adblocker_settings);
 
-        mSystemlessAdBlockerUtils = new SystemlessAdBlockerUtils(this);
+        mAdBlockerUtils = new AdBlockerUtils(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         initializePreferences();
@@ -85,9 +85,9 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void updateUI() {
-        boolean isEnabled = mSystemlessAdBlockerUtils.isEnabled();
-        int blockedCount = mSystemlessAdBlockerUtils.getBlockedDomainsCount();
-        String lastUpdate = mSystemlessAdBlockerUtils.getLastUpdateTime();
+        boolean isEnabled = mAdBlockerUtils.isEnabled();
+        int blockedCount = mAdBlockerUtils.getBlockedDomainsCount();
+        String lastUpdate = mAdBlockerUtils.getLastUpdateTime();
 
         if (mAdBlockerEnabled != null) {
             mAdBlockerEnabled.setChecked(isEnabled);
@@ -141,12 +141,12 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void handleAdBlockerToggle(boolean enable) {
-        if (!mSystemlessAdBlockerUtils.hasRootAccess()) {
+        if (!mAdBlockerUtils.hasRootAccess()) {
             Toast.makeText(this, R.string.adblocker_root_required, Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (!mSystemlessAdBlockerUtils.isSystemMounted()) {
+        if (!mAdBlockerUtils.isSystemMounted()) {
             Toast.makeText(this, "System partition is not writable", Toast.LENGTH_LONG).show();
             return;
         }
@@ -170,9 +170,9 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void enableAdBlocker() {
-        if (mSystemlessAdBlockerUtils.enableAdBlocker()) {
+        if (mAdBlockerUtils.enableAdBlocker()) {
             // If we have never updated, trigger an automatic update
-            if (mSystemlessAdBlockerUtils.getBlockedDomainsCount() == 0) {
+            if (mAdBlockerUtils.getBlockedDomainsCount() == 0) {
                 performUpdate();
             } else {
                 Toast.makeText(this, R.string.adblocker_enabled, Toast.LENGTH_SHORT).show();
@@ -184,7 +184,7 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void disableAdBlocker() {
-        if (mSystemlessAdBlockerUtils.disableAdBlocker()) {
+        if (mAdBlockerUtils.disableAdBlocker()) {
             Toast.makeText(this, R.string.adblocker_disabled, Toast.LENGTH_SHORT).show();
             updateUI();
         } else {
@@ -193,12 +193,12 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void handleUpdate() {
-        if (!mSystemlessAdBlockerUtils.hasRootAccess()) {
+        if (!mAdBlockerUtils.hasRootAccess()) {
             Toast.makeText(this, R.string.adblocker_root_required, Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (!mSystemlessAdBlockerUtils.isSystemMounted()) {
+        if (!mAdBlockerUtils.isSystemMounted()) {
             Toast.makeText(this, "System partition is not writable", Toast.LENGTH_LONG).show();
             return;
         }
@@ -213,7 +213,7 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void performUpdate() {
-        mSystemlessAdBlockerUtils.updateHostsFile(new SystemlessAdBlockerUtils.UpdateCallback() {
+        mAdBlockerUtils.updateHostsFile(new AdBlockerUtils.UpdateCallback() {
             @Override
             public void onUpdateStart() {
                 runOnUiThread(() -> {
@@ -243,12 +243,12 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void handleManualUpdate() {
-        if (!mSystemlessAdBlockerUtils.hasRootAccess()) {
+        if (!mAdBlockerUtils.hasRootAccess()) {
             Toast.makeText(this, R.string.adblocker_root_required, Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (!mSystemlessAdBlockerUtils.isSystemMounted()) {
+        if (!mAdBlockerUtils.isSystemMounted()) {
             Toast.makeText(this, "System partition is not writable", Toast.LENGTH_LONG).show();
             return;
         }
@@ -305,13 +305,13 @@ public class AdBlockerActivity extends PreferenceActivity
             }
 
             // Validate hosts file content
-            if (!mSystemlessAdBlockerUtils.isValidHostsFile(hostsContent)) {
+            if (!mAdBlockerUtils.isValidHostsFile(hostsContent)) {
                 Toast.makeText(this, "Invalid hosts file format", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // Apply the loaded hosts file
-            mSystemlessAdBlockerUtils.updateHostsFileFromContent(hostsContent, new SystemlessAdBlockerUtils.UpdateCallback() {
+            mAdBlockerUtils.updateHostsFileFromContent(hostsContent, new AdBlockerUtils.UpdateCallback() {
                 @Override
                 public void onUpdateStart() {
                     runOnUiThread(() -> {
@@ -347,11 +347,11 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void showInfoDialog() {
-        int blockedCount = mSystemlessAdBlockerUtils.getBlockedDomainsCount();
-        String lastUpdate = mSystemlessAdBlockerUtils.getLastUpdateTime();
-        boolean isEnabled = mSystemlessAdBlockerUtils.isEnabled();
-        boolean hasRoot = mSystemlessAdBlockerUtils.hasRootAccess();
-        boolean systemMounted = mSystemlessAdBlockerUtils.isSystemMounted();
+        int blockedCount = mAdBlockerUtils.getBlockedDomainsCount();
+        String lastUpdate = mAdBlockerUtils.getLastUpdateTime();
+        boolean isEnabled = mAdBlockerUtils.isEnabled();
+        boolean hasRoot = mAdBlockerUtils.hasRootAccess();
+        boolean systemMounted = mAdBlockerUtils.isSystemMounted();
 
         StringBuilder info = new StringBuilder();
         info.append("Status: ").append(isEnabled ? "Enabled" : "Disabled").append("\n\n");
