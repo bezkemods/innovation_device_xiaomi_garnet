@@ -46,7 +46,11 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+
     <!-- Log broadcast permission -->
     <permission 
         android:name="org.lineageos.settings.LOGCAT_PERMISSION"
@@ -386,13 +390,16 @@
         </activity>
         
         <!-- Mi AdBlocker -->
-        <activity
+        <activity 
             android:name=".adblocker.AdBlockerActivity"
             android:label="@string/adblocker_title"
             android:icon="@drawable/ic_adblocker"
             android:theme="@style/Theme.SubSettingsBase"
             android:exported="false"
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".xiaomiparts.XiaomiPartsActivity" />
         </activity>
         
         <!-- Core Control Activity -->

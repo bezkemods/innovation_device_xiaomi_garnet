@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="adblocker_enabled"
+        android:title="@string/adblocker_enable_title"
+        android:summary="@string/adblocker_enable_summary"
+        android:defaultValue="false" />
 
     <PreferenceCategory
-        android:title="@string/adblocker_title">
-
-        <SwitchPreference
-            android:key="adblocker_enabled"
-            android:title="@string/adblocker_enable_title"
-            android:summary="@string/adblocker_enable_summary"
-            android:defaultValue="false" />
+        android:title="@string/adblocker_status_category">
 
         <Preference
             android:key="adblocker_status"
@@ -19,44 +17,37 @@
             android:selectable="false" />
 
         <Preference
+            android:key="adblocker_method"
+            android:title="@string/adblocker_method_title"
+            android:summary="@string/adblocker_method_summary"
+            android:selectable="true" />
+
+        <Preference
+            android:key="adblocker_info"
+            android:title="@string/adblocker_blocked_title"
+            android:summary="@string/adblocker_blocked_summary"
+            android:selectable="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/adblocker_update_category">
+
+        <Preference
             android:key="adblocker_last_update"
             android:title="@string/adblocker_last_update_title"
             android:summary="@string/adblocker_never_updated"
             android:selectable="false" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="Update Options">
-
         <Preference
             android:key="adblocker_update"
             android:title="@string/adblocker_update_title"
-            android:summary="@string/adblocker_update_summary"
-            android:icon="@drawable/ic_refresh" />
+            android:summary="@string/adblocker_update_summary" />
 
         <Preference
             android:key="adblocker_manual_update"
             android:title="@string/adblocker_manual_update_title"
-            android:summary="@string/adblocker_manual_update_summary"
-            android:icon="@drawable/ic_folder" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="Information">
-
-        <Preference
-            android:key="adblocker_info"
-            android:title="@string/adblocker_info_title"
-            android:summary="@string/adblocker_info_summary"
-            android:icon="@drawable/ic_info" />
-
-        <Preference
-            android:key="adblocker_source"
-            android:title="Source"
-            android:summary="@string/adblocker_source_url"
-            android:selectable="false" />
+            android:summary="@string/adblocker_manual_update_summary" />
 
     </PreferenceCategory>
 

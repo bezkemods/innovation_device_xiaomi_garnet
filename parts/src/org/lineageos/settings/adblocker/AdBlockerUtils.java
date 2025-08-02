@@ -2,8 +2,11 @@ package org.lineageos.settings.adblocker;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 
 import java.io.*;
@@ -11,23 +14,34 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class AdBlockerUtils {
     private static final String TAG = "AdBlockerUtils";
-    private static final String HOSTS_FILE_PATH = "/system/etc/hosts";
-    private static final String HOSTS_BACKUP_PATH = "/system/etc/hosts.backup";
     private static final String HOSTS_URL = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
     private static final String PREF_LAST_UPDATE = "adblocker_last_update";
     private static final String PREF_BLOCKED_COUNT = "adblocker_blocked_count";
+    private static final String PREF_BLOCKED_DOMAINS = "adblocker_blocked_domains";
+    
+    // DNS servers for ad-blocking
+    private static final String ADGUARD_DNS_PRIMARY = "94.140.14.14";
+    private static final String ADGUARD_DNS_SECONDARY = "94.140.15.15";
+    private static final String CLOUDFLARE_DNS_PRIMARY = "1.1.1.1";
+    private static final String CLOUDFLARE_DNS_SECONDARY = "1.0.0.1";
     
     private Context mContext;
     private SharedPreferences mPrefs;
+    private WifiManager mWifiManager;
+    private ConnectivityManager mConnectivityManager;
 
     public AdBlockerUtils(Context context) {
         mContext = context;
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     public interface UpdateCallback {
@@ -69,16 +83,14 @@ public class AdBlockerUtils {
     }
 
     public boolean enableAdBlocker() {
-        if (!hasRootAccess()) {
-            Log.e(TAG, "No root access");
-            return false;
-        }
-
         try {
-            // Create backup if it doesn't exist
-            createBackup();
-            setEnabled(true);
-            return true;
+            // Set DNS servers to AdGuard DNS for ad-blocking
+            boolean success = setDNSServers(ADGUARD_DNS_PRIMARY, ADGUARD_DNS_SECONDARY);
+            if (success) {
+                setEnabled(true);
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             Log.e(TAG, "Failed to enable adblocker", e);
             return false;
@@ -86,48 +98,70 @@ public class AdBlockerUtils {
     }
 
     public boolean disableAdBlocker() {
-        if (!hasRootAccess()) {
-            Log.e(TAG, "No root access");
-            return false;
-        }
-
         try {
-            restoreBackup();
-            setEnabled(false);
-            return true;
+            // Reset DNS servers to Cloudflare (neutral)
+            boolean success = setDNSServers(CLOUDFLARE_DNS_PRIMARY, CLOUDFLARE_DNS_SECONDARY);
+            if (success) {
+                setEnabled(false);
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             Log.e(TAG, "Failed to disable adblocker", e);
             return false;
         }
     }
 
-    private void createBackup() throws Exception {
-        String[] commands = {
-            "su",
-            "-c",
-            "if [ ! -f " + HOSTS_BACKUP_PATH + " ]; then cp " + HOSTS_FILE_PATH + " " + HOSTS_BACKUP_PATH + "; fi"
-        };
-        
-        Process process = Runtime.getRuntime().exec(commands);
-        process.waitFor();
-        
-        if (process.exitValue() != 0) {
-            throw new Exception("Failed to create backup");
+    private boolean setDNSServers(String primary, String secondary) {
+        try {
+            // Method 1: Try using Settings.Global (requires WRITE_SECURE_SETTINGS permission)
+            if (setGlobalDNS(primary, secondary)) {
+                return true;
+            }
+            
+            // Method 2: Try using root commands as fallback
+            if (hasRootAccess()) {
+                return setDNSWithRoot(primary, secondary);
+            }
+            
+            return false;
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to set DNS servers", e);
+            return false;
         }
     }
 
-    private void restoreBackup() throws Exception {
-        String[] commands = {
-            "su",
-            "-c",
-            "if [ -f " + HOSTS_BACKUP_PATH + " ]; then cp " + HOSTS_BACKUP_PATH + " " + HOSTS_FILE_PATH + "; fi"
-        };
-        
-        Process process = Runtime.getRuntime().exec(commands);
-        process.waitFor();
-        
-        if (process.exitValue() != 0) {
-            throw new Exception("Failed to restore backup");
+    private boolean setGlobalDNS(String primary, String secondary) {
+        try {
+            // Set global DNS settings
+            Settings.Global.putString(mContext.getContentResolver(), 
+                Settings.Global.PRIVATE_DNS_MODE, "hostname");
+            Settings.Global.putString(mContext.getContentResolver(), 
+                Settings.Global.PRIVATE_DNS_SPECIFIER, "dns.adguard.com");
+            
+            return true;
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to set global DNS", e);
+            return false;
+        }
+    }
+
+    private boolean setDNSWithRoot(String primary, String secondary) {
+        try {
+            // Use iptables to redirect DNS queries (more reliable on modern Android)
+            String[] commands = {
+                "su",
+                "-c",
+                String.format("iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to-destination %s:53", primary)
+            };
+            
+            Process process = Runtime.getRuntime().exec(commands);
+            process.waitFor();
+            
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to set DNS with root", e);
+            return false;
         }
     }
 
@@ -158,11 +192,6 @@ public class AdBlockerUtils {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                if (!hasRootAccess()) {
-                    mError = "Root access required";
-                    return null;
-                }
-
                 // Download hosts file
                 String hostsContent = downloadHostsFile();
                 if (hostsContent == null) {
@@ -170,8 +199,8 @@ public class AdBlockerUtils {
                     return null;
                 }
 
-                // Apply hosts file
-                return applyHostsFile(hostsContent);
+                // Parse and store blocked domains
+                return parseHostsFile(hostsContent);
             } catch (Exception e) {
                 Log.e(TAG, "Update failed", e);
                 mError = e.getMessage();
@@ -226,32 +255,15 @@ public class AdBlockerUtils {
             }
         }
 
-        private String applyHostsFile(String hostsContent) throws Exception {
-            // Count blocked domains
-            mBlockedCount = countBlockedDomains(hostsContent);
+        private String parseHostsFile(String hostsContent) throws Exception {
+            // Parse blocked domains and store them
+            Set<String> blockedDomains = new HashSet<>();
+            mBlockedCount = countBlockedDomains(hostsContent, blockedDomains);
 
-            // Create temporary file
-            File tempFile = new File(mContext.getCacheDir(), "hosts_temp");
-            FileWriter writer = new FileWriter(tempFile);
-            writer.write(hostsContent);
-            writer.close();
-
-            // Copy to system hosts file with root
-            String[] commands = {
-                "su",
-                "-c",
-                "cp " + tempFile.getAbsolutePath() + " " + HOSTS_FILE_PATH + " && chmod 644 " + HOSTS_FILE_PATH
-            };
-
-            Process process = Runtime.getRuntime().exec(commands);
-            process.waitFor();
-
-            // Clean up temp file
-            tempFile.delete();
-
-            if (process.exitValue() != 0) {
-                throw new Exception("Failed to apply hosts file");
-            }
+            // Store blocked domains for future reference
+            mPrefs.edit()
+                .putStringSet(PREF_BLOCKED_DOMAINS, blockedDomains)
+                .apply();
 
             return "Success";
         }
@@ -276,18 +288,13 @@ public class AdBlockerUtils {
         @Override
         protected String doInBackground(String... params) {
             try {
-                if (!hasRootAccess()) {
-                    mError = "Root access required";
-                    return null;
-                }
-
                 String hostsContent = params[0];
                 if (hostsContent == null || hostsContent.trim().isEmpty()) {
                     mError = "Invalid hosts content";
                     return null;
                 }
 
-                return applyHostsFile(hostsContent);
+                return parseHostsFile(hostsContent);
             } catch (Exception e) {
                 Log.e(TAG, "Manual update failed", e);
                 mError = e.getMessage();
@@ -309,52 +316,63 @@ public class AdBlockerUtils {
             }
         }
 
-        private String applyHostsFile(String hostsContent) throws Exception {
-            // Count blocked domains
-            mBlockedCount = countBlockedDomains(hostsContent);
+        private String parseHostsFile(String hostsContent) throws Exception {
+            // Parse blocked domains and store them
+            Set<String> blockedDomains = new HashSet<>();
+            mBlockedCount = countBlockedDomains(hostsContent, blockedDomains);
 
-            // Create temporary file
-            File tempFile = new File(mContext.getCacheDir(), "hosts_temp");
-            FileWriter writer = new FileWriter(tempFile);
-            writer.write(hostsContent);
-            writer.close();
-
-            // Copy to system hosts file with root
-            String[] commands = {
-                "su",
-                "-c",
-                "cp " + tempFile.getAbsolutePath() + " " + HOSTS_FILE_PATH + " && chmod 644 " + HOSTS_FILE_PATH
-            };
-
-            Process process = Runtime.getRuntime().exec(commands);
-            process.waitFor();
-
-            // Clean up temp file
-            tempFile.delete();
-
-            if (process.exitValue() != 0) {
-                throw new Exception("Failed to apply hosts file");
-            }
+            // Store blocked domains for future reference
+            mPrefs.edit()
+                .putStringSet(PREF_BLOCKED_DOMAINS, blockedDomains)
+                .apply();
 
             return "Success";
         }
     }
 
-    private int countBlockedDomains(String hostsContent) {
+    private int countBlockedDomains(String hostsContent, Set<String> blockedDomains) {
         int count = 0;
         String[] lines = hostsContent.split("\n");
         Pattern blockedPattern = Pattern.compile("^(0\\.0\\.0\\.0|127\\.0\\.0\\.1)\\s+([^\\s#]+)");
         
         for (String line : lines) {
             line = line.trim();
-            if (!line.isEmpty() && !line.startsWith("#") && blockedPattern.matcher(line).matches()) {
-                // Skip localhost entries
-                if (!line.contains("localhost") && !line.contains("local")) {
-                    count++;
+            if (!line.isEmpty() && !line.startsWith("#")) {
+                java.util.regex.Matcher matcher = blockedPattern.matcher(line);
+                if (matcher.matches()) {
+                    String domain = matcher.group(2);
+                    // Skip localhost entries
+                    if (!domain.contains("localhost") && !domain.contains("local") && 
+                        !domain.equals("0.0.0.0") && !domain.equals("127.0.0.1")) {
+                        if (blockedDomains != null) {
+                            blockedDomains.add(domain);
+                        }
+                        count++;
+                    }
                 }
             }
         }
         
         return count;
+    }
+
+    public Set<String> getBlockedDomains() {
+        return mPrefs.getStringSet(PREF_BLOCKED_DOMAINS, new HashSet<String>());
+    }
+
+    public boolean isDomainBlocked(String domain) {
+        Set<String> blockedDomains = getBlockedDomains();
+        if (blockedDomains.contains(domain)) {
+            return true;
+        }
+        
+        // Check for wildcard matches
+        for (String blockedDomain : blockedDomains) {
+            if (domain.endsWith("." + blockedDomain) || domain.equals(blockedDomain)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

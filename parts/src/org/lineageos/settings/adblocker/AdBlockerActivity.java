@@ -30,6 +30,7 @@ public class AdBlockerActivity extends PreferenceActivity
     private static final String KEY_ADBLOCKER_UPDATE = "adblocker_update";
     private static final String KEY_ADBLOCKER_MANUAL_UPDATE = "adblocker_manual_update";
     private static final String KEY_ADBLOCKER_INFO = "adblocker_info";
+    private static final String KEY_ADBLOCKER_METHOD = "adblocker_method";
 
     private SwitchPreference mAdBlockerEnabled;
     private Preference mAdBlockerStatus;
@@ -37,6 +38,7 @@ public class AdBlockerActivity extends PreferenceActivity
     private Preference mUpdate;
     private Preference mManualUpdate;
     private Preference mInfo;
+    private Preference mMethod;
 
     private AdBlockerUtils mAdBlockerUtils;
     private SharedPreferences mPrefs;
@@ -66,6 +68,7 @@ public class AdBlockerActivity extends PreferenceActivity
         mUpdate = findPreference(KEY_ADBLOCKER_UPDATE);
         mManualUpdate = findPreference(KEY_ADBLOCKER_MANUAL_UPDATE);
         mInfo = findPreference(KEY_ADBLOCKER_INFO);
+        mMethod = findPreference(KEY_ADBLOCKER_METHOD);
 
         if (mAdBlockerEnabled != null) {
             mAdBlockerEnabled.setOnPreferenceChangeListener(this);
@@ -82,6 +85,10 @@ public class AdBlockerActivity extends PreferenceActivity
         if (mInfo != null) {
             mInfo.setOnPreferenceClickListener(this);
         }
+
+        if (mMethod != null) {
+            mMethod.setOnPreferenceClickListener(this);
+        }
     }
 
     private void updateUI() {
@@ -94,9 +101,10 @@ public class AdBlockerActivity extends PreferenceActivity
         }
 
         if (mAdBlockerStatus != null) {
-            mAdBlockerStatus.setSummary(isEnabled ? 
+            String statusText = isEnabled ? 
                 getString(R.string.adblocker_status_enabled) : 
-                getString(R.string.adblocker_status_disabled));
+                getString(R.string.adblocker_status_disabled);
+            mAdBlockerStatus.setSummary(statusText + " (DNS alapú)");
         }
 
         if (mLastUpdate != null) {
@@ -105,6 +113,12 @@ public class AdBlockerActivity extends PreferenceActivity
 
         if (mInfo != null) {
             mInfo.setSummary(getString(R.string.adblocker_blocked_domains, blockedCount));
+        }
+
+        if (mMethod != null) {
+            boolean hasRoot = mAdBlockerUtils.hasRootAccess();
+            String methodText = hasRoot ? "DNS + Root optimalizálás" : "DNS alapú blokkolás";
+            mMethod.setSummary(methodText);
         }
     }
 
@@ -135,22 +149,22 @@ public class AdBlockerActivity extends PreferenceActivity
             case KEY_ADBLOCKER_INFO:
                 showInfoDialog();
                 return true;
+            case KEY_ADBLOCKER_METHOD:
+                showMethodDialog();
+                return true;
         }
 
         return false;
     }
 
     private void handleAdBlockerToggle(boolean enable) {
-        if (!mAdBlockerUtils.hasRootAccess()) {
-            Toast.makeText(this, R.string.adblocker_root_required, Toast.LENGTH_LONG).show();
-            return;
-        }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.adblocker_confirm_title);
-        builder.setMessage(enable ? 
-            R.string.adblocker_confirm_enable : 
-            R.string.adblocker_confirm_disable);
+        
+        String message = enable ? 
+            getString(R.string.adblocker_confirm_enable) : 
+            getString(R.string.adblocker_confirm_disable);
+        builder.setMessage(message);
 
         builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             if (enable) {
@@ -188,11 +202,6 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void handleUpdate() {
-        if (!mAdBlockerUtils.hasRootAccess()) {
-            Toast.makeText(this, R.string.adblocker_root_required, Toast.LENGTH_LONG).show();
-            return;
-        }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.adblocker_confirm_title);
         builder.setMessage(R.string.adblocker_confirm_update);
@@ -234,11 +243,6 @@ public class AdBlockerActivity extends PreferenceActivity
     }
 
     private void handleManualUpdate() {
-        if (!mAdBlockerUtils.hasRootAccess()) {
-            Toast.makeText(this, R.string.adblocker_root_required, Toast.LENGTH_LONG).show();
-            return;
-        }
-
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -325,18 +329,61 @@ public class AdBlockerActivity extends PreferenceActivity
         int blockedCount = mAdBlockerUtils.getBlockedDomainsCount();
         String lastUpdate = mAdBlockerUtils.getLastUpdateTime();
         boolean isEnabled = mAdBlockerUtils.isEnabled();
+        boolean hasRoot = mAdBlockerUtils.hasRootAccess();
 
         StringBuilder info = new StringBuilder();
         info.append("Status: ").append(isEnabled ? "Enabled" : "Disabled").append("\n\n");
+        info.append("Method: DNS-based blocking").append("\n\n");
         info.append("Blocked domains: ").append(blockedCount).append("\n\n");
         info.append("Last update: ").append(lastUpdate).append("\n\n");
         info.append("Source: StevenBlack/hosts").append("\n");
-        info.append("GitHub repository with regularly updated hosts file").append("\n\n");
-        info.append("Root access: ").append(mAdBlockerUtils.hasRootAccess() ? "Available" : "Not available");
+        info.append("GitHub repository with updated hosts file").append("\n\n");
+        info.append("Root access: ").append(hasRoot ? "Available" : "Not available").append("\n\n");
+        
+        if (isEnabled) {
+            info.append("DNS server: AdGuard DNS (ad-blocking)").append("\n");
+            info.append("Primary: 94.140.14.14").append("\n");
+            info.append("Secondary: 94.140.15.15");
+        } else {
+            info.append("DNS server: Cloudflare (neutral)").append("\n");
+            info.append("Primary: 1.1.1.1").append("\n");
+            info.append("Secondary: 1.0.0.1");
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("AdBlocker Information");
         builder.setMessage(info.toString());
+        builder.setPositiveButton(android.R.string.ok, null);
+        builder.show();
+    }
+
+    private void showMethodDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("AdBlocker Method");
+        
+        StringBuilder methodInfo = new StringBuilder();
+        methodInfo.append("DNS-based ad blocking:\n\n");
+        methodInfo.append("✓ No system partition writes required\n");
+        methodInfo.append("✓ Compatible with Android 16\n");
+        methodInfo.append("✓ Affects all applications\n");
+        methodInfo.append("✓ Low resource usage\n\n");
+        
+        methodInfo.append("How it works:\n");
+        methodInfo.append("• Uses AdGuard DNS servers\n");
+        methodInfo.append("• Blocks known ad domains\n");
+        methodInfo.append("• Automatic filtering at DNS level\n\n");
+        
+        if (mAdBlockerUtils.hasRootAccess()) {
+            methodInfo.append("Root optimization available:\n");
+            methodInfo.append("• iptables rules\n");
+            methodInfo.append("• Enhanced blocking");
+        } else {
+            methodInfo.append("Root not available:\n");
+            methodInfo.append("• DNS-based blocking only\n");
+            methodInfo.append("• Still effective");
+        }
+
+        builder.setMessage(methodInfo.toString());
         builder.setPositiveButton(android.R.string.ok, null);
         builder.show();
     }

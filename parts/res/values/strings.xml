@@ -439,46 +439,59 @@
 <string name="logcat_share_subject">Android Logcat Export</string>
 <string name="logcat_permission_required">Storage permission required to save logs</string>
 
-<!-- AdBlocker -->
-<string name="adblocker_title">Mi AdBlocker</string>
-<string name="adblocker_summary">Host file based ad blocking</string>
-<string name="adblocker_enable_title">Enable AdBlocker</string>
-<string name="adblocker_enable_summary">Block ads by modifying hosts file</string>
-<string name="adblocker_update_title">Update Hosts File</string>
-<string name="adblocker_update_summary">Download and apply latest hosts file</string>
-<string name="adblocker_manual_update_title">Manual Update</string>
-<string name="adblocker_manual_update_summary">Load custom hosts file</string>
-<string name="adblocker_status_title">Status</string>
-<string name="adblocker_status_enabled">AdBlocker is enabled</string>
-<string name="adblocker_status_disabled">AdBlocker is disabled</string>
-<string name="adblocker_last_update_title">Last Update</string>
-<string name="adblocker_info_title">Information</string>
-<string name="adblocker_info_summary">View blocked domains count</string>
-
-<!-- Messages -->
-<string name="adblocker_updating">Updating hosts file...</string>
-<string name="adblocker_update_success">Hosts file updated successfully</string>
-<string name="adblocker_update_failed">Failed to update hosts file</string>
-<string name="adblocker_enabled">AdBlocker enabled</string>
-<string name="adblocker_disabled">AdBlocker disabled</string>
-<string name="adblocker_root_required">Root access required</string>
-<string name="adblocker_backup_created">Backup created</string>
-<string name="adblocker_backup_restored">Original hosts file restored</string>
-<string name="adblocker_no_network">No network connection</string>
-<string name="adblocker_file_not_found">File not found</string>
-<string name="adblocker_permission_denied">Permission denied</string>
-
-<!-- Dialog -->
-<string name="adblocker_confirm_title">Confirm Action</string>
-<string name="adblocker_confirm_enable">Enable AdBlocker and update hosts file?</string>
-<string name="adblocker_confirm_disable">Disable AdBlocker and restore original hosts file?</string>
-<string name="adblocker_confirm_update">Download and apply new hosts file?</string>
-<string name="adblocker_manual_file_title">Select Hosts File</string>
-
-<!-- Info -->
-<string name="adblocker_blocked_domains">Blocked domains: %d</string>
-<string name="adblocker_never_updated">Never updated</string>
-<string name="adblocker_source_url">Source: StevenBlack/hosts</string>
+    <!-- AdBlocker -->
+    <string name="adblocker_title">AdBlocker</string>
+    
+    <!-- Enable/Disable -->
+    <string name="adblocker_enable_title">Enable AdBlocker</string>
+    <string name="adblocker_enable_summary">Toggle DNS-based ad blocking</string>
+    <string name="adblocker_summary">DNS-based ad blocking</string>
+    
+    <!-- Status -->
+    <string name="adblocker_status_category">Status</string>
+    <string name="adblocker_status_title">AdBlocker status</string>
+    <string name="adblocker_status_enabled">Enabled</string>
+    <string name="adblocker_status_disabled">Disabled</string>
+    
+    <!-- Method -->
+    <string name="adblocker_method_title">Blocking method</string>
+    <string name="adblocker_method_summary">DNS-based ad blocking</string>
+    
+    <!-- Blocked domains -->
+    <string name="adblocker_blocked_title">Blocked domains</string>
+    <string name="adblocker_blocked_summary">Tap for details</string>
+    <string name="adblocker_blocked_domains">%d domains blocked</string>
+    
+    <!-- Updates -->
+    <string name="adblocker_update_category">Updates</string>
+    <string name="adblocker_last_update_title">Last update</string>
+    <string name="adblocker_never_updated">Never updated</string>
+    
+    <string name="adblocker_update_title">Update list</string>
+    <string name="adblocker_update_summary">Download StevenBlack/hosts database</string>
+    
+    <string name="adblocker_manual_update_title">Manual update</string>
+    <string name="adblocker_manual_update_summary">Load custom hosts file</string>
+    
+    <!-- Dialogs and messages -->
+    <string name="adblocker_confirm_title">Confirmation</string>
+    <string name="adblocker_confirm_enable">Enable AdBlocker? This will use DNS-based blocking.</string>
+    <string name="adblocker_confirm_disable">Disable AdBlocker? This will restore original DNS settings.</string>
+    <string name="adblocker_confirm_update">Update the blocked domains list?</string>
+    
+    <!-- Toast messages -->
+    <string name="adblocker_enabled">AdBlocker enabled</string>
+    <string name="adblocker_disabled">AdBlocker disabled</string>
+    <string name="adblocker_updating">Updating...</string>
+    <string name="adblocker_update_success">Update successful</string>
+    <string name="adblocker_update_failed">Update failed</string>
+    
+    <!-- Errors -->
+    <string name="adblocker_root_required">Root access required for full functionality</string>
+    <string name="adblocker_file_not_found">File not found or invalid</string>
+    
+    <!-- File picker -->
+    <string name="adblocker_manual_file_title">Select hosts file</string>
     
     <!-- Dirac settings -->
     <string name="dirac_enable">Enable Dirac</string>
@@ -581,7 +594,7 @@
     <string name="display_title">Display</string>
     <string name="sound_title">Sound</string>
     <string name="power_title">Power</string>
-    <string name="gaming_title">Gaming and Logs</string>
+    <string name="gaming_title">Gaming and Utils</string>
     
     <!-- About Me strings -->
     <string name="about_me_title">About Me</string>
