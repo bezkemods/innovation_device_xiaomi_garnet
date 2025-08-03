@@ -446,7 +446,9 @@
     <string name="adblocker_enable_title">Enable AdBlocker</string>
     <string name="adblocker_enable_summary">Toggle DNS-based ad blocking</string>
     <string name="adblocker_summary">DNS-based ad blocking</string>
-    
+    <string name="adblocker_github_title">GitHub Project</string>
+    <string name="adblocker_github_summary">View the project or contribute via GitHub.</string>
+
     <!-- Status -->
     <string name="adblocker_status_category">Status</string>
     <string name="adblocker_status_title">AdBlocker status</string>
@@ -492,9 +494,7 @@
     
     <!-- File picker -->
     <string name="adblocker_manual_file_title">Select hosts file</string>
-    <string name="adblocker_github_title">AdBlocker GitHub</string>
-    <string name="adblocker_github_summary">Open the AdBlocker GitHub repository</string>
-
+    
     <!-- Dirac settings -->
     <string name="dirac_enable">Enable Dirac</string>
     <string name="dirac_title">Dirac sound enhancer</string>
