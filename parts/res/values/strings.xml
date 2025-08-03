@@ -439,61 +439,103 @@
 <string name="logcat_share_subject">Android Logcat Export</string>
 <string name="logcat_permission_required">Storage permission required to save logs</string>
 
-    <!-- AdBlocker -->
+    <!-- AdBlocker Titles -->
     <string name="adblocker_title">AdBlocker</string>
+    <string name="adblocker_enable_title">AdBlocker</string>
+    <string name="adblocker_enable_summary">DNS-based ad and tracker blocking</string>
+    <string name="adblocker_summary">Filter ads and DNS traffic with customizable settings.</string>
     
-    <!-- Enable/Disable -->
-    <string name="adblocker_enable_title">Enable AdBlocker</string>
-    <string name="adblocker_enable_summary">Toggle DNS-based ad blocking</string>
-    <string name="adblocker_summary">DNS-based ad blocking</string>
-    
-    <!-- Status -->
+    <!-- Status Category -->
     <string name="adblocker_status_category">Status</string>
-    <string name="adblocker_status_title">AdBlocker status</string>
+    <string name="adblocker_status_title">Current status</string>
     <string name="adblocker_status_enabled">Enabled</string>
     <string name="adblocker_status_disabled">Disabled</string>
     
     <!-- Method -->
     <string name="adblocker_method_title">Blocking method</string>
-    <string name="adblocker_method_summary">DNS-based ad blocking</string>
+    <string name="adblocker_method_summary">DNS-based filtering</string>
+    <string name="adblocker_method_dns_root">DNS + Root optimization</string>
     
-    <!-- Blocked domains -->
+    <!-- Blocked domains info -->
     <string name="adblocker_blocked_title">Blocked domains</string>
-    <string name="adblocker_blocked_summary">Tap for details</string>
+    <string name="adblocker_blocked_summary">Tap to view details</string>
     <string name="adblocker_blocked_domains">%d domains blocked</string>
     
-    <!-- Updates -->
+    <!-- Update Category -->
     <string name="adblocker_update_category">Updates</string>
     <string name="adblocker_last_update_title">Last update</string>
     <string name="adblocker_never_updated">Never updated</string>
     
-    <string name="adblocker_update_title">Update list</string>
-    <string name="adblocker_update_summary">Download StevenBlack/hosts database</string>
+    <string name="adblocker_update_title">Update hosts file</string>
+    <string name="adblocker_update_summary">Download latest blocked domains from GitHub</string>
     
     <string name="adblocker_manual_update_title">Manual update</string>
-    <string name="adblocker_manual_update_summary">Load custom hosts file</string>
+    <string name="adblocker_manual_update_summary">Load hosts file from device storage</string>
     
-    <!-- Dialogs and messages -->
-    <string name="adblocker_confirm_title">Confirmation</string>
-    <string name="adblocker_confirm_enable">Enable AdBlocker? This will use DNS-based blocking.</string>
-    <string name="adblocker_confirm_disable">Disable AdBlocker? This will restore original DNS settings.</string>
-    <string name="adblocker_confirm_update">Update the blocked domains list?</string>
+    <string name="adblocker_github_title">GitHub source</string>
+    <string name="adblocker_github_summary">Open StevenBlack/hosts repository</string>
+    
+    <!-- Confirmation dialogs -->
+    <string name="adblocker_confirm_title">Confirm action</string>
+    <string name="adblocker_confirm_enable">Enable DNS-based ad blocking? This will change your device\'s DNS settings to use AdGuard DNS servers.</string>
+    <string name="adblocker_confirm_disable">Disable ad blocking? This will reset your DNS settings to Cloudflare DNS.</string>
+    <string name="adblocker_confirm_update">Download the latest hosts file from GitHub? This requires an internet connection and may take a few minutes.</string>
     
     <!-- Toast messages -->
-    <string name="adblocker_enabled">AdBlocker enabled</string>
-    <string name="adblocker_disabled">AdBlocker disabled</string>
-    <string name="adblocker_updating">Updating...</string>
-    <string name="adblocker_update_success">Update successful</string>
-    <string name="adblocker_update_failed">Update failed</string>
+    <string name="adblocker_enabled_toast">AdBlocker enabled</string>
+    <string name="adblocker_disabled_toast">AdBlocker disabled</string>
+    <string name="adblocker_enable_failed">Failed to enable AdBlocker</string>
+    <string name="adblocker_disable_failed">Failed to disable AdBlocker</string>
     
-    <!-- Errors -->
-    <string name="adblocker_root_required">Root access required for full functionality</string>
-    <string name="adblocker_file_not_found">File not found or invalid</string>
+    <string name="adblocker_updating">Updating hosts file…</string>
+    <string name="adblocker_update_success">Hosts file updated successfully - %d domains</string>
+    <string name="adblocker_manual_update_success">Manual update completed - %d domains loaded</string>
+    <string name="adblocker_update_failed_with_error">Update failed: %s</string>
     
-    <!-- File picker -->
-    <string name="adblocker_manual_file_title">Select hosts file</string>
-    <string name="adblocker_github_title">AdBlocker GitHub</string>
-    <string name="adblocker_github_summary">Open the AdBlocker GitHub repository</string>
+    <!-- Network errors -->
+    <string name="adblocker_no_internet">No internet connection available</string>
+    <string name="adblocker_no_connectivity_manager">Unable to check network status</string>
+    
+    <!-- File handling -->
+    <string name="adblocker_select_hosts_file">Select hosts file</string>
+    <string name="adblocker_no_file_manager">Please install a file manager</string>
+    <string name="adblocker_file_read_error">Failed to read selected file</string>
+    <string name="adblocker_file_empty">Selected file is empty or invalid</string>
+    <string name="adblocker_link_open_failed">Unable to open link</string>
+    
+    <!-- Info Dialog -->
+    <string name="adblocker_info_dialog_title">AdBlocker Information</string>
+    <string name="adblocker_info_status">Status</string>
+    <string name="adblocker_info_method">Method</string>
+    <string name="adblocker_info_dns_method">DNS-based blocking</string>
+    <string name="adblocker_info_blocked_count">Blocked domains</string>
+    <string name="adblocker_info_last_update">Last update</string>
+    <string name="adblocker_info_source">Source</string>
+    <string name="adblocker_info_source_desc">GitHub repository with updated hosts file</string>
+    <string name="adblocker_info_root_access">Root access</string>
+    <string name="adblocker_info_root_available">Available</string>
+    <string name="adblocker_info_root_unavailable">Not available</string>
+    <string name="adblocker_info_dns_server">DNS server</string>
+    <string name="adblocker_info_primary_dns">Primary</string>
+    <string name="adblocker_info_secondary_dns">Secondary</string>
+    
+    <!-- Method Dialog -->
+    <string name="adblocker_method_dialog_title">AdBlocker Method</string>
+    <string name="adblocker_method_dns_title">DNS-based ad blocking</string>
+    <string name="adblocker_method_no_system_writes">No system partition writes required</string>
+    <string name="adblocker_method_android_compatible">Compatible with modern Android versions</string>
+    <string name="adblocker_method_all_apps">Affects all applications</string>
+    <string name="adblocker_method_low_resource">Low resource usage</string>
+    <string name="adblocker_method_how_works">How it works</string>
+    <string name="adblocker_method_uses_adguard">Uses AdGuard DNS servers</string>
+    <string name="adblocker_method_blocks_domains">Blocks known ad domains</string>
+    <string name="adblocker_method_dns_filtering">Automatic filtering at DNS level</string>
+    <string name="adblocker_method_root_available">Root optimization available</string>
+    <string name="adblocker_method_iptables">iptables rules</string>
+    <string name="adblocker_method_enhanced_blocking">Enhanced blocking</string>
+    <string name="adblocker_method_root_unavailable">Root not available</string>
+    <string name="adblocker_method_dns_only">DNS-based blocking only</string>
+    <string name="adblocker_method_still_effective">Still effective</string>
 
     <!-- Dirac settings -->
     <string name="dirac_enable">Enable Dirac</string>
