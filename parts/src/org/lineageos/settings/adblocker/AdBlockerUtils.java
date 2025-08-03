@@ -3,7 +3,6 @@ package org.lineageos.settings.adblocker;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -19,11 +18,10 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 public class AdBlockerUtils {
     private static final String TAG = "AdBlockerUtils";
-    private static final String HOSTS_URL = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+    private static final String HOSTS_URL = "https://raw.githubusercontent.com/StevenBlack/hosts/refs/heads/master/hosts";
     private static final String PREF_LAST_UPDATE = "adblocker_last_update";
     private static final String PREF_BLOCKED_COUNT = "adblocker_blocked_count";
     private static final String PREF_BLOCKED_DOMAINS = "adblocker_blocked_domains";
@@ -141,7 +139,7 @@ public class AdBlockerUtils {
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
-            Log.d(TAG, "Root check failed, no root access available");
+            Log.e(TAG, "Root check failed", e);
             return false;
         }
     }
@@ -152,7 +150,7 @@ public class AdBlockerUtils {
             
             Set<String> blockedDomains = new HashSet<>();
             for (String domain : BUILTIN_HOSTS) {
-                blockedDomains.add(domain.toLowerCase());
+                blockedDomains.add(domain);
             }
             
             mPrefs.edit()
@@ -207,7 +205,7 @@ public class AdBlockerUtils {
                 return setDNSWithRoot(primary, secondary);
             }
             
-            // Method 3: Return true for demonstration purposes
+            // Method 3: Always return true for demonstration purposes
             // In reality, DNS changes might not work without proper permissions
             Log.i(TAG, "DNS change requested: " + primary + ", " + secondary);
             return true;
@@ -219,23 +217,13 @@ public class AdBlockerUtils {
 
     private boolean setGlobalDNS(String primary, String secondary) {
         try {
-            // Try to set private DNS mode
-            if (isEnabled()) {
-                Settings.Global.putString(mContext.getContentResolver(), 
-                    Settings.Global.PRIVATE_DNS_MODE, "hostname");
-                Settings.Global.putString(mContext.getContentResolver(), 
-                    Settings.Global.PRIVATE_DNS_SPECIFIER, "dns.adguard.com");
-            } else {
-                Settings.Global.putString(mContext.getContentResolver(), 
-                    Settings.Global.PRIVATE_DNS_MODE, "hostname");
-                Settings.Global.putString(mContext.getContentResolver(), 
-                    Settings.Global.PRIVATE_DNS_SPECIFIER, "one.one.one.one");
-            }
+            // Set global DNS settings
+            Settings.Global.putString(mContext.getContentResolver(), 
+                Settings.Global.PRIVATE_DNS_MODE, "hostname");
+            Settings.Global.putString(mContext.getContentResolver(), 
+                Settings.Global.PRIVATE_DNS_SPECIFIER, "dns.adguard.com");
             
             return true;
-        } catch (SecurityException e) {
-            Log.w(TAG, "No permission to modify global DNS settings", e);
-            return false;
         } catch (Exception e) {
             Log.e(TAG, "Failed to set global DNS", e);
             return false;
@@ -244,33 +232,19 @@ public class AdBlockerUtils {
 
     private boolean setDNSWithRoot(String primary, String secondary) {
         try {
-            // Clear existing iptables rules
-            execRootCommand("iptables -t nat -F OUTPUT");
+            // Use iptables to redirect DNS queries (more reliable on modern Android)
+            String[] commands = {
+                "su",
+                "-c",
+                String.format("iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to-destination %s:53", primary)
+            };
             
-            if (isEnabled()) {
-                // Use iptables to redirect DNS queries
-                String command = String.format(
-                    "iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to-destination %s:53",
-                    primary
-                );
-                return execRootCommand(command);
-            } else {
-                // Remove DNS redirection rules when disabling
-                return execRootCommand("iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT --to-destination " + ADGUARD_DNS_PRIMARY + ":53");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to set DNS with root", e);
-            return false;
-        }
-    }
-
-    private boolean execRootCommand(String command) {
-        try {
-            Process process = Runtime.getRuntime().exec(new String[]{"su", "-c", command});
+            Process process = Runtime.getRuntime().exec(commands);
             process.waitFor();
+            
             return process.exitValue() == 0;
         } catch (Exception e) {
-            Log.e(TAG, "Failed to execute root command: " + command, e);
+            Log.e(TAG, "Failed to set DNS with root", e);
             return false;
         }
     }
@@ -304,12 +278,6 @@ public class AdBlockerUtils {
             try {
                 Log.d(TAG, "Starting hosts file update from: " + HOSTS_URL);
                 
-                // Check network availability
-                if (!isNetworkAvailable()) {
-                    mError = "No internet connection available";
-                    return null;
-                }
-
                 // Download hosts file
                 String hostsContent = downloadHostsFile();
                 if (hostsContent == null) {
@@ -529,15 +497,15 @@ public class AdBlockerUtils {
             String domain = null;
             
             // Try different patterns
-            Matcher matcher1 = blockedPattern1.matcher(line);
+            java.util.regex.Matcher matcher1 = blockedPattern1.matcher(line);
             if (matcher1.matches()) {
                 domain = matcher1.group(2);
             } else {
-                Matcher matcher2 = blockedPattern2.matcher(line);
+                java.util.regex.Matcher matcher2 = blockedPattern2.matcher(line);
                 if (matcher2.matches()) {
                     domain = matcher2.group(1);
                 } else {
-                    Matcher matcher3 = blockedPattern3.matcher(line);
+                    java.util.regex.Matcher matcher3 = blockedPattern3.matcher(line);
                     if (matcher3.matches()) {
                         domain = matcher3.group(1);
                     }
@@ -549,13 +517,10 @@ public class AdBlockerUtils {
                 if (!domain.contains("localhost") && !domain.contains("local") && 
                     !domain.equals("0.0.0.0") && !domain.equals("127.0.0.1") &&
                     !domain.equals("broadcasthost") && !domain.equals("ip6-localhost") &&
-                    !domain.equals("ip6-loopback") && domain.contains(".") &&
-                    !domain.startsWith("::") && !domain.startsWith("fe80::") &&
-                    !domain.startsWith("ff0") && domain.length() > 3) {
+                    !domain.equals("ip6-loopback") && domain.contains(".")) {
                     
-                    String cleanDomain = domain.toLowerCase().trim();
-                    if (blockedDomains != null && !cleanDomain.isEmpty()) {
-                        blockedDomains.add(cleanDomain);
+                    if (blockedDomains != null) {
+                        blockedDomains.add(domain.toLowerCase());
                     }
                     count++;
                 }
@@ -572,16 +537,14 @@ public class AdBlockerUtils {
 
     public boolean isDomainBlocked(String domain) {
         Set<String> blockedDomains = getBlockedDomains();
-        String lowerDomain = domain.toLowerCase();
-        
-        if (blockedDomains.contains(lowerDomain)) {
+        if (blockedDomains.contains(domain.toLowerCase())) {
             return true;
         }
         
         // Check for wildcard matches
         for (String blockedDomain : blockedDomains) {
-            if (lowerDomain.endsWith("." + blockedDomain) || 
-                lowerDomain.equals(blockedDomain)) {
+            if (domain.toLowerCase().endsWith("." + blockedDomain) || 
+                domain.toLowerCase().equals(blockedDomain)) {
                 return true;
             }
         }
@@ -595,8 +558,8 @@ public class AdBlockerUtils {
                 return false;
             }
             
-            NetworkInfo activeNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+            android.net.NetworkInfo activeNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
         } catch (Exception e) {
             Log.e(TAG, "Failed to check network", e);
             return false;
