@@ -18,7 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class AdBlockerActivity extends PreferenceActivity 
+public class AdBlockerActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final String TAG = "AdBlockerActivity";
@@ -49,7 +49,7 @@ public class AdBlockerActivity extends PreferenceActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate() called");
-        
+
         addPreferencesFromResource(R.xml.adblocker_settings);
 
         mAdBlockerUtils = new AdBlockerUtils(this);
@@ -57,7 +57,7 @@ public class AdBlockerActivity extends PreferenceActivity
 
         initializePreferences();
         updateUI();
-        
+
         Log.d(TAG, "onCreate() completed");
     }
 
@@ -70,7 +70,7 @@ public class AdBlockerActivity extends PreferenceActivity
 
     private void initializePreferences() {
         Log.d(TAG, "initializePreferences() called");
-        
+
         mAdBlockerEnabled = (SwitchPreference) findPreference(KEY_ADBLOCKER_ENABLED);
         mAdBlockerStatus = findPreference(KEY_ADBLOCKER_STATUS);
         mLastUpdate = findPreference(KEY_ADBLOCKER_LAST_UPDATE);
@@ -103,17 +103,17 @@ public class AdBlockerActivity extends PreferenceActivity
         if (mGitHub != null) {
             mGitHub.setOnPreferenceClickListener(this);
         }
-        
+
         Log.d(TAG, "All preferences initialized");
     }
 
     private void updateUI() {
         Log.d(TAG, "updateUI() called");
-        
+
         boolean isEnabled = mAdBlockerUtils.isEnabled();
         int blockedCount = mAdBlockerUtils.getBlockedDomainsCount();
         String lastUpdate = mAdBlockerUtils.getLastUpdateTime();
-        
+
         Log.d(TAG, "UI Update - Enabled: " + isEnabled + ", Blocked: " + blockedCount + ", LastUpdate: " + lastUpdate);
 
         if (mAdBlockerEnabled != null) {
@@ -121,10 +121,10 @@ public class AdBlockerActivity extends PreferenceActivity
         }
 
         if (mAdBlockerStatus != null) {
-            String statusText = isEnabled ? 
-                getString(R.string.adblocker_status_enabled) : 
+            String statusText = isEnabled ?
+                getString(R.string.adblocker_status_enabled) :
                 getString(R.string.adblocker_status_disabled);
-            mAdBlockerStatus.setSummary(statusText + " (DNS alapú)");
+            mAdBlockerStatus.setSummary(statusText + " (DNS-based)");
         }
 
         if (mLastUpdate != null) {
@@ -135,16 +135,16 @@ public class AdBlockerActivity extends PreferenceActivity
             if (blockedCount > 0) {
                 mInfo.setSummary(getString(R.string.adblocker_blocked_domains, blockedCount));
             } else {
-                mInfo.setSummary("Nincs betöltött hosts fájl - Kattints a frissítéshez!");
+                mInfo.setSummary("No hosts file loaded - Tap to update!");
             }
         }
 
         if (mMethod != null) {
             boolean hasRoot = mAdBlockerUtils.hasRootAccess();
-            String methodText = hasRoot ? "DNS + Root optimalizálás" : "DNS alapú blokkolás";
+            String methodText = hasRoot ? "DNS + Root optimization" : "DNS-based blocking";
             mMethod.setSummary(methodText);
         }
-        
+
         Log.d(TAG, "updateUI() completed");
     }
 
@@ -156,7 +156,7 @@ public class AdBlockerActivity extends PreferenceActivity
         if (KEY_ADBLOCKER_ENABLED.equals(key)) {
             boolean enabled = (Boolean) newValue;
             handleAdBlockerToggle(enabled);
-            return false; // Don't update immediately, wait for confirmation
+            return false;
         }
 
         return true;
@@ -190,12 +190,12 @@ public class AdBlockerActivity extends PreferenceActivity
 
     private void handleAdBlockerToggle(boolean enable) {
         Log.d(TAG, "handleAdBlockerToggle(" + enable + ")");
-        
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.adblocker_confirm_title);
-        
-        String message = enable ? 
-            getString(R.string.adblocker_confirm_enable) : 
+
+        String message = enable ?
+            getString(R.string.adblocker_confirm_enable) :
             getString(R.string.adblocker_confirm_disable);
         builder.setMessage(message);
 
@@ -213,11 +213,10 @@ public class AdBlockerActivity extends PreferenceActivity
 
     private void enableAdBlocker() {
         Log.d(TAG, "enableAdBlocker() called");
-        
+
         if (mAdBlockerUtils.enableAdBlocker()) {
-            // If we have never updated, trigger an automatic update
             if (mAdBlockerUtils.getBlockedDomainsCount() == 0) {
-                Toast.makeText(this, "AdBlocker engedélyezve, hosts fájl letöltése...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "AdBlocker enabled, downloading hosts file...", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "No hosts file found, triggering automatic update");
                 performUpdate();
             } else {
@@ -226,30 +225,29 @@ public class AdBlockerActivity extends PreferenceActivity
                 updateUI();
             }
         } else {
-            Toast.makeText(this, "AdBlocker engedélyezése sikertelen!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to enable AdBlocker!", Toast.LENGTH_LONG).show();
             Log.e(TAG, "Failed to enable AdBlocker");
         }
     }
 
     private void disableAdBlocker() {
         Log.d(TAG, "disableAdBlocker() called");
-        
+
         if (mAdBlockerUtils.disableAdBlocker()) {
             Toast.makeText(this, R.string.adblocker_disabled, Toast.LENGTH_SHORT).show();
             Log.d(TAG, "AdBlocker disabled successfully");
             updateUI();
         } else {
-            Toast.makeText(this, "AdBlocker letiltása sikertelen!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to disable AdBlocker!", Toast.LENGTH_LONG).show();
             Log.e(TAG, "Failed to disable AdBlocker");
         }
     }
 
     private void handleUpdate() {
         Log.d(TAG, "handleUpdate() called");
-        
-        // Ellenőrizzük az internet kapcsolatot
+
         if (!mAdBlockerUtils.isNetworkAvailable()) {
-            Toast.makeText(this, "Nincs internet kapcsolat!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No internet connection!", Toast.LENGTH_SHORT).show();
             Log.w(TAG, "No network connection available for update");
             return;
         }
@@ -265,14 +263,14 @@ public class AdBlockerActivity extends PreferenceActivity
 
     private void performUpdate() {
         Log.d(TAG, "performUpdate() called");
-        
+
         mAdBlockerUtils.updateHostsFile(new AdBlockerUtils.UpdateCallback() {
             @Override
             public void onUpdateStart() {
                 Log.d(TAG, "Update started");
                 runOnUiThread(() -> {
-                    Toast.makeText(AdBlockerActivity.this, 
-                        "Hosts fájl letöltése elkezdődött...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdBlockerActivity.this,
+                        "Starting hosts file download...", Toast.LENGTH_SHORT).show();
                 });
             }
 
@@ -280,8 +278,8 @@ public class AdBlockerActivity extends PreferenceActivity
             public void onUpdateSuccess(int blockedCount) {
                 Log.d(TAG, "Update successful, blocked count: " + blockedCount);
                 runOnUiThread(() -> {
-                    Toast.makeText(AdBlockerActivity.this, 
-                        "Sikeres frissítés! " + blockedCount + " domain blokkolva.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdBlockerActivity.this,
+                        "Update successful! " + blockedCount + " domains blocked.", Toast.LENGTH_LONG).show();
                     updateUI();
                 });
             }
@@ -290,12 +288,9 @@ public class AdBlockerActivity extends PreferenceActivity
             public void onUpdateError(String error) {
                 Log.e(TAG, "Update error: " + error);
                 runOnUiThread(() -> {
-                    Toast.makeText(AdBlockerActivity.this, 
-                        "Frissítési hiba: " + error, 
-                        Toast.LENGTH_LONG).show();
-                    
-                    // Show debug dialog
-                    showDebugDialog("Frissítési hiba részletei", error);
+                    Toast.makeText(AdBlockerActivity.this,
+                        "Update error: " + error, Toast.LENGTH_LONG).show();
+                    showDebugDialog("Update Error Details", error);
                 });
             }
         });
@@ -303,17 +298,17 @@ public class AdBlockerActivity extends PreferenceActivity
 
     private void handleManualUpdate() {
         Log.d(TAG, "handleManualUpdate() called");
-        
+
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        
+
         try {
             startActivityForResult(
-                Intent.createChooser(intent, getString(R.string.adblocker_manual_file_title)), 
+                Intent.createChooser(intent, getString(R.string.adblocker_manual_file_title)),
                 REQUEST_PICK_FILE);
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(this, "Kérlek telepíts egy fájlkezelőt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please install a file manager!", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "No file manager available");
         }
     }
@@ -321,7 +316,7 @@ public class AdBlockerActivity extends PreferenceActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult() - RequestCode: " + requestCode + ", ResultCode: " + resultCode);
-        
+
         if (requestCode == REQUEST_PICK_FILE && resultCode == RESULT_OK) {
             if (data != null) {
                 Uri uri = data.getData();
@@ -336,7 +331,7 @@ public class AdBlockerActivity extends PreferenceActivity
 
     private void loadHostsFileFromUri(Uri uri) {
         Log.d(TAG, "loadHostsFileFromUri() called with URI: " + uri);
-        
+
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -356,19 +351,18 @@ public class AdBlockerActivity extends PreferenceActivity
 
             String hostsContent = content.toString();
             if (hostsContent.trim().isEmpty()) {
-                Toast.makeText(this, "A fájl üres vagy nem olvasható!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "The file is empty or unreadable!", Toast.LENGTH_SHORT).show();
                 Log.w(TAG, "Empty hosts file selected");
                 return;
             }
 
-            // Apply the loaded hosts file
             mAdBlockerUtils.updateHostsFileFromContent(hostsContent, new AdBlockerUtils.UpdateCallback() {
                 @Override
                 public void onUpdateStart() {
                     Log.d(TAG, "Manual update started");
                     runOnUiThread(() -> {
-                        Toast.makeText(AdBlockerActivity.this, 
-                            "Hosts fájl feldolgozása...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdBlockerActivity.this,
+                            "Processing hosts file...", Toast.LENGTH_SHORT).show();
                     });
                 }
 
@@ -376,8 +370,8 @@ public class AdBlockerActivity extends PreferenceActivity
                 public void onUpdateSuccess(int blockedCount) {
                     Log.d(TAG, "Manual update successful, blocked count: " + blockedCount);
                     runOnUiThread(() -> {
-                        Toast.makeText(AdBlockerActivity.this, 
-                            "Manuális frissítés sikeres! " + blockedCount + " domain.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdBlockerActivity.this,
+                            "Manual update successful! " + blockedCount + " domains.", Toast.LENGTH_LONG).show();
                         updateUI();
                     });
                 }
@@ -386,56 +380,53 @@ public class AdBlockerActivity extends PreferenceActivity
                 public void onUpdateError(String error) {
                     Log.e(TAG, "Manual update error: " + error);
                     runOnUiThread(() -> {
-                        Toast.makeText(AdBlockerActivity.this, 
-                            "Manuális frissítési hiba: " + error, 
-                            Toast.LENGTH_LONG).show();
-                        
-                        // Show debug dialog
-                        showDebugDialog("Manuális frissítési hiba", error);
+                        Toast.makeText(AdBlockerActivity.this,
+                            "Manual update error: " + error, Toast.LENGTH_LONG).show();
+                        showDebugDialog("Manual Update Error", error);
                     });
                 }
             });
 
         } catch (Exception e) {
             Log.e(TAG, "Failed to load hosts file", e);
-            Toast.makeText(this, "Fájl olvasási hiba: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File read error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void openGitHubPage() {
         Log.d(TAG, "openGitHubPage() called");
-        
+
         String githubUrl = "https://github.com/StevenBlack/hosts";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl));
         try {
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(this, "Nem sikerült megnyitni a GitHub oldalt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Failed to open GitHub page", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Failed to open GitHub page", e);
         }
     }
 
     private void showDebugDialog(String title, String error) {
         String debugLog = mAdBlockerUtils.getDebugLog();
-        String fullMessage = "Hiba: " + error + "\n\n" + 
-                            "Debug információk:\n" + debugLog;
-        
+        String fullMessage = "Error: " + error + "\n\n" +
+                            "Debug information:\n" + debugLog;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(fullMessage);
         builder.setPositiveButton("OK", null);
-        builder.setNegativeButton("Debug törlése", (dialog, which) -> {
+        builder.setNegativeButton("Clear Debug Log", (dialog, which) -> {
             mAdBlockerUtils.clearDebugLog();
-            Toast.makeText(this, "Debug log törölve", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Debug log cleared", Toast.LENGTH_SHORT).show();
         });
-        
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     private void showInfoDialog() {
         Log.d(TAG, "showInfoDialog() called");
-        
+
         int blockedCount = mAdBlockerUtils.getBlockedDomainsCount();
         String lastUpdate = mAdBlockerUtils.getLastUpdateTime();
         boolean isEnabled = mAdBlockerUtils.isEnabled();
@@ -443,27 +434,27 @@ public class AdBlockerActivity extends PreferenceActivity
         boolean hasNetwork = mAdBlockerUtils.isNetworkAvailable();
 
         StringBuilder info = new StringBuilder();
-        info.append("Állapot: ").append(isEnabled ? "Engedélyezve" : "Letiltva").append("\n\n");
-        info.append("Módszer: DNS alapú blokkolás").append("\n\n");
-        info.append("Blokkolt domainek: ").append(blockedCount).append("\n\n");
-        info.append("Utolsó frissítés: ").append(lastUpdate).append("\n\n");
-        info.append("Forrás: StevenBlack/hosts").append("\n");
-        info.append("GitHub repository frissített hosts fájllal").append("\n\n");
-        info.append("Root hozzáférés: ").append(hasRoot ? "Elérhető" : "Nem elérhető").append("\n");
-        info.append("Internet kapcsolat: ").append(hasNetwork ? "Elérhető" : "Nem elérhető").append("\n\n");
-        
+        info.append("Status: ").append(isEnabled ? "Enabled" : "Disabled").append("\n\n");
+        info.append("Method: DNS-based blocking").append("\n\n");
+        info.append("Blocked domains: ").append(blockedCount).append("\n\n");
+        info.append("Last update: ").append(lastUpdate).append("\n\n");
+        info.append("Source: StevenBlack/hosts").append("\n");
+        info.append("GitHub repository with updated hosts file").append("\n\n");
+        info.append("Root access: ").append(hasRoot ? "Available" : "Not available").append("\n");
+        info.append("Internet connection: ").append(hasNetwork ? "Available" : "Not available").append("\n\n");
+
         if (isEnabled) {
-            info.append("DNS szerver: AdGuard DNS (ad-blocking)").append("\n");
-            info.append("Elsődleges: 94.140.14.14").append("\n");
-            info.append("Másodlagos: 94.140.15.15");
+            info.append("DNS server: AdGuard DNS (ad-blocking)").append("\n");
+            info.append("Primary: 94.140.14.14").append("\n");
+            info.append("Secondary: 94.140.15.15");
         } else {
-            info.append("DNS szerver: Cloudflare (semleges)").append("\n");
-            info.append("Elsődleges: 1.1.1.1").append("\n");
-            info.append("Másodlagos: 1.0.0.1");
+            info.append("DNS server: Cloudflare (neutral)").append("\n");
+            info.append("Primary: 1.1.1.1").append("\n");
+            info.append("Secondary: 1.0.0.1");
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("AdBlocker Információ");
+        builder.setTitle("AdBlocker Information");
         builder.setMessage(info.toString());
         builder.setPositiveButton("OK", null);
         builder.setNegativeButton("Debug Log", (dialog, which) -> {
@@ -474,30 +465,30 @@ public class AdBlockerActivity extends PreferenceActivity
 
     private void showMethodDialog() {
         Log.d(TAG, "showMethodDialog() called");
-        
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("AdBlocker Módszer");
-        
+        builder.setTitle("AdBlocker Method");
+
         StringBuilder methodInfo = new StringBuilder();
-        methodInfo.append("DNS alapú reklámblokkolás:\n\n");
-        methodInfo.append("✓ Nincs szükség rendszerpartíció írásra\n");
-        methodInfo.append("✓ Kompatibilis Android 16-tal\n");
-        methodInfo.append("✓ Minden alkalmazást érint\n");
-        methodInfo.append("✓ Alacsony erőforrásigény\n\n");
-        
-        methodInfo.append("Működés:\n");
-        methodInfo.append("• AdGuard DNS szervereket használ\n");
-        methodInfo.append("• Ismert reklámdomain-eket blokkolja\n");
-        methodInfo.append("• Automatikus szűrés DNS szinten\n\n");
-        
+        methodInfo.append("DNS-based ad blocking:\n\n");
+        methodInfo.append("✓ No system partition write required\n");
+        methodInfo.append("✓ Compatible with Android 16\n");
+        methodInfo.append("✓ Affects all applications\n");
+        methodInfo.append("✓ Low resource usage\n\n");
+
+        methodInfo.append("Operation:\n");
+        methodInfo.append("• Uses AdGuard DNS servers\n");
+        methodInfo.append("• Blocks known ad domains\n");
+        methodInfo.append("• Automatic filtering at DNS level\n\n");
+
         if (mAdBlockerUtils.hasRootAccess()) {
-            methodInfo.append("Root optimalizálás elérhető:\n");
-            methodInfo.append("• iptables szabályok\n");
-            methodInfo.append("• Fokozott blokkolás");
+            methodInfo.append("Root optimization available:\n");
+            methodInfo.append("• iptables rules\n");
+            methodInfo.append("• Enhanced blocking");
         } else {
-            methodInfo.append("Root nem elérhető:\n");
+            methodInfo.append("Root not available:\n");
             methodInfo.append("• DNS-based blocking only\n");
-            methodInfo.append("• Még mindig hatékony");
+            methodInfo.append("• Still effective");
         }
 
         builder.setMessage(methodInfo.toString());
