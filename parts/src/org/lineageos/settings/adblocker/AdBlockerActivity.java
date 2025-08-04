@@ -396,7 +396,7 @@ public class AdBlockerActivity extends PreferenceActivity
     private void openGitHubPage() {
         Log.d(TAG, "openGitHubPage() called");
 
-        String githubUrl = "https://github.com/StevenBlack/hosts";
+        String githubUrl = "https://github.com/StevenBlack/hosts/blob/master/hosts";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl));
         try {
             startActivity(intent);
