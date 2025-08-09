@@ -11,6 +11,11 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 # Inherit from proprietary files for miuicamera
 -include device/xiaomi/garnet-miuicamera/BoardConfig.mk
+TARGET_USES_QTI_CAMERA_DEVICE := true
+TARGET_CAMERA_BOOTTIME_TIMESTAMP := true
+TARGET_CAMERA_OVERRIDE_FORMAT_FROM_RESERVED := true
+MALLOC_SVELTE := true
+MALLOC_SVELTE_FOR_LIBC32 := true
 
 # A/B
 AB_OTA_PARTITIONS := \
