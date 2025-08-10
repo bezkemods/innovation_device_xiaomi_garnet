@@ -7,7 +7,7 @@
         android:summary="@string/kernel_manager_governor_summary"
         android:entries="@array/kernel_manager_governors"
         android:entryValues="@array/kernel_manager_governors"
-        android:defaultValue="schedutil" />
+        android:defaultValue="schedhorizon" />
 
     <PreferenceCategory android:title="@string/kernel_manager_efficiency_category">
         <ListPreference

@@ -292,6 +292,7 @@
  
     <!-- CPU Governor Options (for all clusters) -->
     <string-array name="cpu_governor_entries" translatable="false">
+         <item>schedhorizon</item>
          <item>walt</item>
          <item>conservative</item>
          <item>powersave</item>
@@ -299,6 +300,7 @@
          <item>schedutil</item>
     </string-array>
     <string-array name="cpu_governor_values" translatable="false">
+         <item>schedhorizon</item>
          <item>walt</item>
          <item>conservative</item>
          <item>powersave</item>
@@ -435,8 +437,9 @@
     
     <!-- Values for Kernel Manager -->
     <string-array name="kernel_manager_governors">
+        <item>schedhorizon</item>
         <item>schedutil</item>
-        <item>performance</item>Add commentMore actions
+        <item>performance</item>
         <item>powersave</item>
         <item>ondemand</item>
         <item>conservative</item>

@@ -25,7 +25,7 @@ public class KernelManagerUtils {
     public static final int PERFORMANCE_CLUSTER = 4; // Policy 4 - Big cores (A78)
 
     private static final int[] POLICIES = {EFFICIENCY_CLUSTER, PERFORMANCE_CLUSTER};
-    private static final String DEFAULT_GOVERNOR = "schedutil";
+    private static final String DEFAULT_GOVERNOR = "schedhorizon";
 
     // CPU frequency and governor paths
     private static final String CPU_BASE_PATH = "/sys/devices/system/cpu/cpufreq/policy";
@@ -67,7 +67,7 @@ public class KernelManagerUtils {
         }
         
         // Fallback governors if reading fails
-        return new String[]{"schedutil", "performance", "powersave", "ondemand", "conservative"};
+        return new String[]{"schedhorizon", "schedutil", "performance", "powersave", "ondemand", "conservative"};
     }
 
     public String[] getAvailableFrequencies(int cluster) {
