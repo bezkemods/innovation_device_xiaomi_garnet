@@ -39,6 +39,18 @@ public class KernelManagerUtils {
     private static final String CPUINFO_CUR_FREQ = "/cpuinfo_cur_freq";
     private static final String ONLINE = "/online";
 
+    // Fallback frequency values aligned with power profile
+    private static final String[] EFFICIENCY_CLUSTER_FREQUENCIES = {
+        "691200", "806400", "940800", "1113600", "1324800", 
+        "1497600", "1651200", "1804800", "1958400"
+    };
+    
+    private static final String[] PERFORMANCE_CLUSTER_FREQUENCIES = {
+        "691200", "960000", "1190400", "1344000", "1497600", 
+        "1651200", "1900800", "2054400", "2112000", "2208000", 
+        "2304000", "2400000"
+    };
+
     /**
      * Check if kernel manager functionality is available
      * @return true if basic CPU control files exist
@@ -66,7 +78,7 @@ public class KernelManagerUtils {
             Log.w(TAG, "Could not read available governors", e);
         }
         
-        // Fallback governors if reading fails
+        // Fallback governors if reading fails - aligned with arrays.xml
         return new String[]{"schedhorizon", "schedutil", "performance", "powersave", "ondemand", "conservative"};
     }
 
@@ -88,7 +100,16 @@ public class KernelManagerUtils {
         } catch (Exception e) {
             Log.w(TAG, "Could not read available frequencies for cluster " + cluster, e);
         }
-        return new String[]{"300000", "576000", "768000", "1017600", "1248000", "1324800", "1516800", "1612800"};
+        
+        // Return fallback frequencies aligned with power profile
+        if (cluster == EFFICIENCY_CLUSTER) {
+            return EFFICIENCY_CLUSTER_FREQUENCIES.clone();
+        } else if (cluster == PERFORMANCE_CLUSTER) {
+            return PERFORMANCE_CLUSTER_FREQUENCIES.clone();
+        }
+        
+        // Generic fallback for unknown clusters
+        return EFFICIENCY_CLUSTER_FREQUENCIES.clone();
     }
 
     public String getCurrentGovernor(int cluster) {
@@ -113,12 +134,12 @@ public class KernelManagerUtils {
             Log.w(TAG, "Could not read min frequency for cluster " + cluster, e);
         }
         
-        // Fallback: try to get the lowest available frequency
+        // Fallback: return the lowest available frequency for the cluster
         String[] frequencies = getAvailableFrequencies(cluster);
         if (frequencies != null && frequencies.length > 0) {
             return frequencies[0];
         }
-        return "0";
+        return "691200"; // Lowest frequency from power profile
     }
 
     public String getCurrentMaxFrequency(int cluster) {
@@ -131,12 +152,20 @@ public class KernelManagerUtils {
             Log.w(TAG, "Could not read max frequency for cluster " + cluster, e);
         }
         
-        // Fallback: try to get the highest available frequency
+        // Fallback: return the highest available frequency for the cluster
         String[] frequencies = getAvailableFrequencies(cluster);
         if (frequencies != null && frequencies.length > 0) {
             return frequencies[frequencies.length - 1];
         }
-        return "0";
+        
+        // Return appropriate max frequency based on cluster
+        if (cluster == EFFICIENCY_CLUSTER) {
+            return "1958400"; // Efficiency cluster max from power profile
+        } else if (cluster == PERFORMANCE_CLUSTER) {
+            return "2400000"; // Performance cluster max from power profile
+        }
+        
+        return "1958400";
     }
 
     /**
@@ -218,7 +247,7 @@ public class KernelManagerUtils {
      * @param coreId CPU core ID (0-7)
      * @return Policy ID or -1 if invalid
      */
-    private int getCpuPolicy(int coreId) {
+    public int getCpuPolicy(int coreId) {
         // Snapdragon 7s Gen 2 (SM7435) CPU core mapping:
         // CPU 0-3: Efficiency cluster (A55) - Policy 0
         // CPU 4-7: Performance cluster (A78) - Policy 4
@@ -265,6 +294,21 @@ public class KernelManagerUtils {
             return false;
         }
 
+        // Validate governor against available ones
+        String[] availableGovernors = getAvailableGovernors();
+        boolean isValid = false;
+        for (String availableGovernor : availableGovernors) {
+            if (governor.equals(availableGovernor)) {
+                isValid = true;
+                break;
+            }
+        }
+        
+        if (!isValid) {
+            Log.e(TAG, "Governor not available: " + governor);
+            return false;
+        }
+
         boolean success = true;
         for (int cluster : POLICIES) {
             try {
@@ -292,6 +336,12 @@ public class KernelManagerUtils {
             return false;
         }
 
+        // Validate frequency against available ones
+        if (!isFrequencyValid(cluster, freq)) {
+            Log.e(TAG, "Frequency not available for cluster " + cluster + ": " + freq);
+            return false;
+        }
+
         try {
             return writeFile(CPU_BASE_PATH + cluster + SCALING_MIN_FREQ, freq);
         } catch (Exception e) {
@@ -312,12 +362,36 @@ public class KernelManagerUtils {
             return false;
         }
 
+        // Validate frequency against available ones
+        if (!isFrequencyValid(cluster, freq)) {
+            Log.e(TAG, "Frequency not available for cluster " + cluster + ": " + freq);
+            return false;
+        }
+
         try {
             return writeFile(CPU_BASE_PATH + cluster + SCALING_MAX_FREQ, freq);
         } catch (Exception e) {
             Log.e(TAG, "Error setting max frequency for cluster " + cluster, e);
             return false;
         }
+    }
+
+    /**
+     * Check if a frequency is valid for a given cluster
+     * @param cluster Cluster ID
+     * @param freq Frequency to validate
+     * @return true if valid, false otherwise
+     */
+    private boolean isFrequencyValid(int cluster, String freq) {
+        String[] availableFreqs = getAvailableFrequencies(cluster);
+        if (availableFreqs != null) {
+            for (String availableFreq : availableFreqs) {
+                if (freq.equals(availableFreq)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -338,17 +412,9 @@ public class KernelManagerUtils {
             }
             
             // Check if frequencies are available
-            String[] availableFreqs = getAvailableFrequencies(cluster);
-            if (availableFreqs != null) {
-                boolean minFound = false, maxFound = false;
-                for (String freq : availableFreqs) {
-                    if (freq.equals(minFreq)) minFound = true;
-                    if (freq.equals(maxFreq)) maxFound = true;
-                }
-                
-                if (!minFound || !maxFound) {
-                    Log.w(TAG, "Frequency not found in available list - min: " + minFound + ", max: " + maxFound);
-                }
+            if (!isFrequencyValid(cluster, minFreq) || !isFrequencyValid(cluster, maxFreq)) {
+                Log.e(TAG, "One or both frequencies not available for cluster " + cluster);
+                return false;
             }
             
             return true;
@@ -356,6 +422,44 @@ public class KernelManagerUtils {
             Log.e(TAG, "Invalid frequency format", e);
             return false;
         }
+    }
+
+    /**
+     * Get cluster name for display purposes
+     * @param cluster Cluster ID
+     * @return Human-readable cluster name
+     */
+    public String getClusterName(int cluster) {
+        if (cluster == EFFICIENCY_CLUSTER) {
+            return "Efficiency (A55)";
+        } else if (cluster == PERFORMANCE_CLUSTER) {
+            return "Performance (A78)";
+        }
+        return "Unknown";
+    }
+
+    /**
+     * Get the number of cores in a cluster
+     * @param cluster Cluster ID
+     * @return Number of cores
+     */
+    public int getClusterCoreCount(int cluster) {
+        // Both clusters have 4 cores according to power profile
+        return 4;
+    }
+
+    /**
+     * Get all core IDs for a given cluster
+     * @param cluster Cluster ID
+     * @return Array of core IDs
+     */
+    public int[] getClusterCores(int cluster) {
+        if (cluster == EFFICIENCY_CLUSTER) {
+            return new int[]{0, 1, 2, 3};
+        } else if (cluster == PERFORMANCE_CLUSTER) {
+            return new int[]{4, 5, 6, 7};
+        }
+        return new int[0];
     }
 
     /**
@@ -421,21 +525,45 @@ public class KernelManagerUtils {
     public String getDebugInfo() {
         StringBuilder sb = new StringBuilder();
         sb.append("Kernel Manager Debug Info:\n");
-        sb.append("Supported: ").append(isKernelManagerSupported()).append("\n");
+        sb.append("============================\n");
+        sb.append("Supported: ").append(isKernelManagerSupported()).append("\n\n");
         
+        // Available governors
+        sb.append("Available Governors:\n");
+        String[] governors = getAvailableGovernors();
+        for (String governor : governors) {
+            sb.append("  - ").append(governor).append("\n");
+        }
+        sb.append("\n");
+        
+        // Cluster information
         for (int cluster : POLICIES) {
-            sb.append("Cluster ").append(cluster).append(":\n");
-            sb.append("  Governor: ").append(getCurrentGovernor(cluster)).append("\n");
-            sb.append("  Min Freq: ").append(getCurrentMinFrequency(cluster)).append("\n");
-            sb.append("  Max Freq: ").append(getCurrentMaxFrequency(cluster)).append("\n");
+            sb.append("Cluster ").append(cluster).append(" (").append(getClusterName(cluster)).append("):\n");
+            sb.append("  Current Governor: ").append(getCurrentGovernor(cluster)).append("\n");
+            sb.append("  Min Frequency: ").append(getCurrentMinFrequency(cluster)).append(" kHz\n");
+            sb.append("  Max Frequency: ").append(getCurrentMaxFrequency(cluster)).append(" kHz\n");
+            
+            sb.append("  Available Frequencies:\n");
+            String[] frequencies = getAvailableFrequencies(cluster);
+            for (String freq : frequencies) {
+                sb.append("    - ").append(freq).append(" kHz\n");
+            }
+            sb.append("\n");
         }
         
+        // CPU core information
         sb.append("CPU Cores:\n");
         for (int i = 0; i < 8; i++) {
-            sb.append("  CPU").append(i).append(": ");
+            int cluster = getCpuPolicy(i);
+            sb.append("  CPU").append(i).append(" (").append(getClusterName(cluster)).append("): ");
             sb.append(isCoreOnline(i) ? "Online" : "Offline");
             sb.append(" @ ").append(getCurrentCoreFrequency(i)).append(" kHz\n");
         }
+        
+        // Power profile alignment info
+        sb.append("\nPower Profile Alignment:\n");
+        sb.append("Efficiency Cluster Frequencies: ").append(EFFICIENCY_CLUSTER_FREQUENCIES.length).append(" steps\n");
+        sb.append("Performance Cluster Frequencies: ").append(PERFORMANCE_CLUSTER_FREQUENCIES.length).append(" steps\n");
         
         return sb.toString();
     }

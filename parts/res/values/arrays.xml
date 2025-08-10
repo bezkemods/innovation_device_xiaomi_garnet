@@ -230,82 +230,76 @@
         <item>940000000</item>
     </string-array>
 
-    <!-- CPU Little Cluster Frequencies -->
+    <!-- CPU Efficiency Cluster Frequencies - Aligned with Power Profile -->
     <string-array name="cpu_little_freq_entries" translatable="false">
         <item>691MHz</item>
         <item>806MHz</item>
-        <item>940MHz</item>
-        <item>1113MHz</item>
-        <item>1324MHz</item>
-        <item>1497MHz</item>
+        <item>941MHz</item>
+        <item>1114MHz</item>
+        <item>1325MHz</item>
+        <item>1498MHz</item>
         <item>1651MHz</item>
-        <item>1804MHz</item>
+        <item>1805MHz</item>
         <item>1958MHz</item>
     </string-array>
     <string-array name="cpu_little_freq_values" translatable="false">
         <item>691200</item>
         <item>806400</item>
         <item>940800</item>
-        <item>1113800</item>
+        <item>1113600</item>
         <item>1324800</item>
-        <item>1497800</item>
-        <item>1651000</item>
-        <item>1804200</item>
+        <item>1497600</item>
+        <item>1651200</item>
+        <item>1804800</item>
         <item>1958400</item>
     </string-array>
 
-    <!-- CPU Big Cluster Frequencies -->
+    <!-- CPU Performance Cluster Frequencies - Aligned with Power Profile -->
     <string-array name="cpu_big_freq_entries" translatable="false">
         <item>691MHz</item>
-        <item>883MHz</item>
-        <item>998MHz</item>
-        <item>1113MHz</item>
-        <item>1209MHz</item>
-        <item>1324MHz</item>
-        <item>1440MHz</item>
-        <item>1555MHz</item>
+        <item>960MHz</item>
+        <item>1190MHz</item>
+        <item>1344MHz</item>
+        <item>1498MHz</item>
         <item>1651MHz</item>
-        <item>1766MHz</item>
-        <item>1881MHz</item>
-        <item>1996MHz</item>
+        <item>1901MHz</item>
+        <item>2054MHz</item>
         <item>2112MHz</item>
-        <item>2227MHz</item>
+        <item>2208MHz</item>
+        <item>2304MHz</item>
         <item>2400MHz</item>
     </string-array>
     <string-array name="cpu_big_freq_values" translatable="false">
-        <item>691000</item>
-        <item>883200</item>
-        <item>998400</item>
-        <item>1113600</item>
-        <item>1209600</item>
-        <item>1324800</item>
-        <item>1440000</item>
-        <item>1555200</item>
+        <item>691200</item>
+        <item>960000</item>
+        <item>1190400</item>
+        <item>1344000</item>
+        <item>1497600</item>
         <item>1651200</item>
-        <item>1766400</item>
-        <item>1881600</item>
-        <item>1996800</item>
+        <item>1900800</item>
+        <item>2054400</item>
         <item>2112000</item>
-        <item>2227200</item>
+        <item>2208000</item>
+        <item>2304000</item>
         <item>2400000</item>
     </string-array>
  
     <!-- CPU Governor Options (for all clusters) -->
     <string-array name="cpu_governor_entries" translatable="false">
          <item>schedhorizon</item>
-         <item>walt</item>
-         <item>conservative</item>
-         <item>powersave</item>
-         <item>performance</item>
          <item>schedutil</item>
+         <item>performance</item>
+         <item>powersave</item>
+         <item>ondemand</item>
+         <item>conservative</item>
     </string-array>
     <string-array name="cpu_governor_values" translatable="false">
          <item>schedhorizon</item>
-         <item>walt</item>
-         <item>conservative</item>
-         <item>powersave</item>
-         <item>performance</item>
          <item>schedutil</item>
+         <item>performance</item>
+         <item>powersave</item>
+         <item>ondemand</item>
+         <item>conservative</item>
     </string-array>
 
     <!-- Power Profile Modes -->
@@ -435,7 +429,7 @@
         <item>3</item>
     </string-array> 
     
-    <!-- Values for Kernel Manager -->
+    <!-- Kernel Manager Governor Options - Aligned with Power Profile -->
     <string-array name="kernel_manager_governors">
         <item>schedhorizon</item>
         <item>schedutil</item>
@@ -443,5 +437,34 @@
         <item>powersave</item>
         <item>ondemand</item>
         <item>conservative</item>
+    </string-array>
+
+    <!-- Kernel Manager Efficiency Cluster Frequencies -->
+    <string-array name="kernel_manager_efficiency_frequencies">
+        <item>691200</item>
+        <item>806400</item>
+        <item>940800</item>
+        <item>1113600</item>
+        <item>1324800</item>
+        <item>1497600</item>
+        <item>1651200</item>
+        <item>1804800</item>
+        <item>1958400</item>
+    </string-array>
+
+    <!-- Kernel Manager Performance Cluster Frequencies -->
+    <string-array name="kernel_manager_performance_frequencies">
+        <item>691200</item>
+        <item>960000</item>
+        <item>1190400</item>
+        <item>1344000</item>
+        <item>1497600</item>
+        <item>1651200</item>
+        <item>1900800</item>
+        <item>2054400</item>
+        <item>2112000</item>
+        <item>2208000</item>
+        <item>2304000</item>
+        <item>2400000</item>
     </string-array>
 </resources>
