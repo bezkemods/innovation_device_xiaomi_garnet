@@ -83,6 +83,11 @@
         android:summary="@string/kernel_manager_summary"
         android:icon="@drawable/ic_kernel_manager"   
         app:iconSpaceReserved="true" />
+        <Preference
+        android:key="cpu_tile_settings"
+        android:title="@string/cpu_tile_settings_title"
+        android:summary="@string/cpu_tile_settings_summary"
+        android:icon="@drawable/ic_cpu_tile_settings" />
         <!-- GPU manager -->
         <Preference
         android:key="gpu_manager"

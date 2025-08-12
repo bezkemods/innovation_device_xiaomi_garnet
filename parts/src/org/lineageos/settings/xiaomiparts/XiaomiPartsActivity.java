@@ -42,6 +42,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_CHARGE_CONTROL = "charge_control";
     private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
     private static final String KEY_ADBLOCKER = "adblocker_settings";
+    private static final String KEY_CPU_TILE_SETTINGS = "cpu_tile_settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,11 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             gpuManagerPref.setOnPreferenceClickListener(this);
         }
         
+        Preference cpuTileSettingsPref = findPreference(KEY_CPU_TILE_SETTINGS);
+        if (cpuTileSettingsPref != null) {
+            cpuTileSettingsPref.setOnPreferenceClickListener(this);
+        }
+        
         // Logcat viewer preference setup - use special handler to prevent service restart
         Preference logcatViewerPref = findPreference(KEY_LOGCAT_VIEWER);
         if (logcatViewerPref != null) {
@@ -185,6 +191,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 break;
             case KEY_GPU_MANAGER:
                 intent = new Intent(this, GpuManagerActivity.class);
+                break;
+            case KEY_CPU_TILE_SETTINGS:
+                intent = new Intent(this, org.lineageos.settings.kernelmanager.CpuTileSettingsActivity.class);
                 break;
             case KEY_LOGCAT_VIEWER:
                 // This case is now handled by the special preference click listener above

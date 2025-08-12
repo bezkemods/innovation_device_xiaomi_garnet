@@ -495,6 +495,57 @@
     <!-- File picker -->
     <string name="adblocker_manual_file_title">Select hosts file</string>
     
+<!-- CPU Governor Tile Service -->
+<string name="cpu_tile_label">CPU Governor</string>
+<string name="cpu_tile_unavailable">CPU control unavailable</string>
+<string name="cpu_tile_error">CPU monitoring error</string>
+<string name="cpu_tile_unknown">Unknown</string>
+
+<!-- Governor names for tile -->
+<string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+<string name="cpu_tile_governor_schedutil">Schedutil</string>
+<string name="cpu_tile_governor_performance">Performance</string>
+<string name="cpu_tile_governor_powersave">Powersave</string>
+<string name="cpu_tile_governor_ondemand">OnDemand</string>
+<string name="cpu_tile_governor_conservative">Conservative</string>
+
+<!-- Tile display formats -->
+<string name="cpu_tile_usage_percent">%d%%</string>
+<string name="cpu_tile_freq_ghz">%.1f GHz</string>
+
+<!-- CPU Tile Settings -->
+<string name="cpu_tile_settings_title">CPU Tile Settings</string>
+<string name="cpu_tile_settings_summary">Configure CPU Governor Quick Settings tile appearance and behavior</string>
+<string name="cpu_tile_appearance_category">Appearance</string>
+<string name="cpu_tile_behavior_category">Behavior</string>
+
+<!-- Tile Size -->
+<string name="cpu_tile_size_title">Tile Icon Size</string>
+<string name="cpu_tile_size_summary">Choose the size of the CPU tile icon</string>
+
+<!-- Tile Style -->
+<string name="cpu_tile_style_title">Tile Style</string>
+<string name="cpu_tile_style_summary">Choose how CPU information is displayed</string>
+
+<!-- Show Percentage -->
+<string name="cpu_tile_show_percentage_title">Show Usage Percentage</string>
+<string name="cpu_tile_show_percentage_summary">Display CPU usage percentage instead of frequency</string>
+
+<!-- Update Speed -->
+<string name="cpu_tile_update_speed_title">Update Interval</string>
+<string name="cpu_tile_update_speed_summary">How often to refresh CPU information</string>
+<string name="cpu_tile_update_speed_fast">Fast (0.5s)</string>
+<string name="cpu_tile_update_speed_normal">Normal (1s)</string>
+<string name="cpu_tile_update_speed_slow">Slow (2s)</string>
+<string name="cpu_tile_update_speed_very_slow">Very Slow (5s)</string>
+
+<!-- Preview -->
+<string name="cpu_tile_preview_title">Preview Changes</string>
+<string name="cpu_tile_preview_summary">Tap to refresh the tile with current settings</string>
+
+<!-- Footer -->
+<string name="cpu_tile_footer">The CPU Governor tile allows quick switching between CPU governors and displays real-time CPU frequency and usage information. Tap the tile to cycle through available governors.</string>
+
     <!-- Dirac settings -->
     <string name="dirac_enable">Enable Dirac</string>
     <string name="dirac_title">Dirac sound enhancer</string>

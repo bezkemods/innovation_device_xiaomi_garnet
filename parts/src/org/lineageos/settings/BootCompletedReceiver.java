@@ -72,6 +72,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     // AdBlocker preference key
     private static final String KEY_ADBLOCKER_ENABLED = "adblocker_enabled";
 
+    // CPU Tile preference keys
+    private static final String KEY_CPU_TILE_ENABLED = "cpu_tile_enabled";
+
     private HandlerThread mBackgroundThread;
     private Handler mBackgroundHandler;
 
@@ -110,6 +113,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 restoreCoreControlSettings(context);
                 restoreLogcatService(context);
                 restoreAdBlockerSettings(context);
+                
+                // Initialize CPU Tile Service
+                initializeCpuTileService(context);
                 
                 Log.i(TAG, "Locked boot completed initialization finished");
             } catch (Exception e) {
@@ -184,6 +190,32 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         } catch (Exception e) {
             Log.e(TAG, "Failed to start services", e);
+        }
+    }
+
+    private void initializeCpuTileService(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean cpuTileEnabled = prefs.getBoolean(KEY_CPU_TILE_ENABLED, true);
+            
+            if (!cpuTileEnabled) {
+                Log.d(TAG, "CPU Tile Service disabled, skipping initialization");
+                return;
+            }
+
+            // Check if kernel manager is supported
+            KernelManagerUtils kernelUtils = new KernelManagerUtils();
+            if (!kernelUtils.isKernelManagerSupported()) {
+                Log.d(TAG, "Kernel manager not supported, CPU tile will show unavailable state");
+                return;
+            }
+
+            // CPU Tile Service doesn't need explicit initialization,
+            // it will auto-start when the tile is added to quick settings
+            Log.d(TAG, "CPU Tile Service ready for use");
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to initialize CPU Tile Service", e);
         }
     }
 

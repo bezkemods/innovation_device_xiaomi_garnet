@@ -435,6 +435,28 @@
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
         
+        <!-- CPU Governor tile service -->
+        <service
+            android:name=".kernelmanager.CpuGovernorTileService"
+            android:label="@string/cpu_tile_label"
+            android:icon="@drawable/ic_cpu_governor_active"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
+
+        <!-- CPU Tile Settings Activity -->
+        <activity
+            android:name=".kernelmanager.CpuTileSettingsActivity"
+            android:label="@string/cpu_tile_settings_title"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false" />
+            
 	<!-- GPU Manager -->
 	<activity
             android:name=".gpumanager.GpuManagerActivity"

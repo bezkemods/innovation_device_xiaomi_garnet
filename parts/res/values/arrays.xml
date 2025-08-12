@@ -467,4 +467,46 @@
         <item>2304000</item>
         <item>2400000</item>
     </string-array>
+    
+    <!-- CPU Tile Size Arrays -->
+<string-array name="cpu_tile_size_entries">
+    <item>Small (64px)</item>
+    <item>Medium (96px)</item>
+    <item>Large (128px)</item>
+</string-array>
+
+<string-array name="cpu_tile_size_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+
+<!-- CPU Tile Style Arrays -->
+<string-array name="cpu_tile_style_entries">
+    <item>Speedometer (Gauge with percentage)</item>
+    <item>Bar Chart (8 core bars)</item>
+    <item>Simple (Circle with text)</item>
+</string-array>
+
+<string-array name="cpu_tile_style_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+
+<!-- CPU Tile Update Speed Arrays -->
+<string-array name="cpu_tile_update_speed_entries">
+    <item>Fast (0.5 seconds)</item>
+    <item>Normal (1 second)</item>
+    <item>Slow (2 seconds)</item>
+    <item>Very Slow (5 seconds)</item>
+</string-array>
+
+<string-array name="cpu_tile_update_speed_values">
+    <item>500</item>
+    <item>1000</item>
+    <item>2000</item>
+    <item>5000</item>
+</string-array>
+
 </resources>
