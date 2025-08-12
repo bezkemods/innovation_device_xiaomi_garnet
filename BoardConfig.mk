@@ -9,8 +9,9 @@ DEVICE_PATH := device/xiaomi/garnet
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
-# Inherit from proprietary files for miuicamera
--include device/xiaomi/garnet-miuicamera/BoardConfig.mk
+# Inherit from proprietary files for Leica Camera
+-include vendor/xiaomi/garnet-leicacamera/products/board.mk
+
 TARGET_USES_QTI_CAMERA_DEVICE := true
 TARGET_CAMERA_BOOTTIME_TIMESTAMP := true
 TARGET_CAMERA_OVERRIDE_FORMAT_FROM_RESERVED := true

@@ -115,6 +115,7 @@ void vendor_load_properties() {
             fingerprint = "POCO/garnetp_in/garnet:14/UKQ1.231003.002/V816.0.8.0.UNRINXM/release-keys";
             marketname = "POCO X6 5G";
             model = "23122PCD1I";
+            property_override("ro.infinity.camera", "64MP + 8MP + 2MP");
         }
     } else if (region == "GL") {
         device = "garnet";
@@ -132,6 +133,7 @@ void vendor_load_properties() {
             fingerprint = "POCO/garnetp_global/garnet:15/AQ3A.240912.001/OS2.0.10.0.VNRMIXM:user/release-keys";
             marketname = "POCO X6 5G";
             model = "23122PCD1G";
+            property_override("ro.infinity.camera", "64MP + 8MP + 2MP");
         }
     } else if (region == "CN") {
         device = "garnet";

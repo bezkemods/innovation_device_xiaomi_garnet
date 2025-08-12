@@ -4,9 +4,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Call the MiuiCamera setup
-$(call inherit-product-if-exists, device/xiaomi/garnet-miuicamera/device.mk)
-
 # Enable virtual A/B OTA
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
 
@@ -117,7 +114,8 @@ PRODUCT_PACKAGES += \
 
 $(call soong_config_set, ufsbsg, ufsframework, bsg)
 
-# Camera
+# Call the Leica Camera setup
+$(call inherit-product-if-exists, vendor/xiaomi/garnet-leicacamera/products/miuicamera.mk)
 $(call soong_config_set,camera,override_format_from_reserved,true)
 
 PRODUCT_PACKAGES += \
