@@ -83,17 +83,13 @@
         android:summary="@string/kernel_manager_summary"
         android:icon="@drawable/ic_kernel_manager"   
         app:iconSpaceReserved="true" />
-        <Preference
-        android:key="cpu_tile_settings"
-        android:title="@string/cpu_tile_settings_title"
-        android:summary="@string/cpu_tile_settings_summary"
-        android:icon="@drawable/ic_cpu_tile_settings" />
         <!-- GPU manager -->
         <Preference
         android:key="gpu_manager"
         android:title="@string/gpu_manager_title"
         android:summary="@string/gpu_manager_summary"
-        android:icon="@drawable/ic_gpu_manager" />
+        android:icon="@drawable/ic_gpu_manager"
+        app:iconSpaceReserved="true" />
         <!-- Charge Bypass -->
         <Preference
             android:key="charge_bypass"
@@ -135,7 +131,7 @@
             android:summary="@string/adblocker_summary"
             android:icon="@drawable/ic_adblocker" 
             app:iconSpaceReserved="true" />       
-        <!-- Logcat - JAVÍTOTT KEY -->
+        <!-- Logcat -->
         <Preference
             android:key="open_logcat_viewer"
             android:title="@string/logcat_viewer_title"

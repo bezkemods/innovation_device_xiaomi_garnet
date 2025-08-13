@@ -6,6 +6,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.widget.ListView;
+import android.util.Log;
 
 import org.lineageos.settings.R;
 import org.lineageos.settings.thermal.ThermalSettingsActivity;
@@ -27,6 +28,8 @@ import org.lineageos.settings.adblocker.AdBlockerActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
+    private static final String TAG = "XiaomiPartsActivity";
+    
     private static final String KEY_THERMAL = "thermal_settings";
     private static final String KEY_DIRAC = "dirac_settings";
     private static final String KEY_CLEAR_SPEAKER = "clear_speaker";
@@ -42,182 +45,164 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_CHARGE_CONTROL = "charge_control";
     private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
     private static final String KEY_ADBLOCKER = "adblocker_settings";
-    private static final String KEY_CPU_TILE_SETTINGS = "cpu_tile_settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.xiaomi_parts_settings);
+        
+        try {
+            addPreferencesFromResource(R.xml.xiaomi_parts_settings);
 
-        // Remove dividers...
-        ListView listView = getListView();
-        listView.setDivider(null); 
-        listView.setDividerHeight(0);
+            // Remove dividers
+            ListView listView = getListView();
+            if (listView != null) {
+                listView.setDivider(null); 
+                listView.setDividerHeight(0);
+            }
 
-        setupPreferences();
+            setupPreferences();
+            
+            Log.d(TAG, "XiaomiPartsActivity created successfully");
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Error creating XiaomiPartsActivity", e);
+        }
     }
 
     private void setupPreferences() {
-        PreferenceScreen prefScreen = getPreferenceScreen();
+        try {
+            PreferenceScreen prefScreen = getPreferenceScreen();
+            if (prefScreen == null) {
+                Log.e(TAG, "PreferenceScreen is null");
+                return;
+            }
 
-        Preference thermalPref = findPreference(KEY_THERMAL);
-        if (thermalPref != null) {
-            thermalPref.setOnPreferenceClickListener(this);
+            setupPreference(KEY_THERMAL);
+            setupPreference(KEY_DIRAC);
+            setupPreference(KEY_CLEAR_SPEAKER);
+            setupPreference(KEY_SATURATION);
+            setupPreference(KEY_AUTO_HBM);
+            setupPreference(KEY_GAMEBAR);
+            setupPreference(KEY_TURBO_CHARGING);
+            setupPreference(KEY_CORE_CONTROL);
+            setupPreference(KEY_CHARGE_BYPASS);
+            setupPreference(KEY_CHARGE_CONTROL);
+            setupPreference(KEY_KERNEL_MANAGER);
+            setupPreference(KEY_GPU_MANAGER);
+            setupPreference(KEY_ADBLOCKER);
+            
+            // Logcat viewer - speciális kezelés
+            setupLogcatViewer();
+            
+            // About Me - speciális kezelés
+            setupAboutMe();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up preferences", e);
         }
+    }
 
-        Preference diracPref = findPreference(KEY_DIRAC);
-        if (diracPref != null) {
-            diracPref.setOnPreferenceClickListener(this);
+    private void setupPreference(String key) {
+        try {
+            Preference pref = findPreference(key);
+            if (pref != null) {
+                pref.setOnPreferenceClickListener(this);
+                Log.d(TAG, "Setup preference: " + key);
+            } else {
+                Log.w(TAG, "Preference not found: " + key);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up preference: " + key, e);
         }
-
-        Preference speakerPref = findPreference(KEY_CLEAR_SPEAKER);
-        if (speakerPref != null) {
-            speakerPref.setOnPreferenceClickListener(this);
+    }
+    
+    private void setupLogcatViewer() {
+        try {
+            Preference logcatViewerPref = findPreference(KEY_LOGCAT_VIEWER);
+            if (logcatViewerPref != null) {
+                logcatViewerPref.setOnPreferenceClickListener(preference -> {
+                    try {
+                        LogcatSettingsPreference.handleLogcatViewerClick(this);
+                        return true;
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error opening logcat viewer", e);
+                        return false;
+                    }
+                });
+                Log.d(TAG, "Logcat viewer preference setup complete");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up logcat viewer", e);
         }
-
-        Preference saturationPref = findPreference(KEY_SATURATION);
-        if (saturationPref != null) {
-            saturationPref.setOnPreferenceClickListener(this);
+    }
+    
+    private void setupAboutMe() {
+        try {
+            Preference aboutMePref = findPreference(KEY_ABOUTME);
+            if (aboutMePref != null) {
+                aboutMePref.setOnPreferenceClickListener(preference -> {
+                    try {
+                        Intent intent = new Intent(this, AboutMeActivity.class);
+                        startActivity(intent);
+                        return true;
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error starting About Me activity", e);
+                        return false;
+                    }
+                });
+                Log.d(TAG, "About Me preference setup complete");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up About Me", e);
         }
-
-        Preference autoHbmPref = findPreference(KEY_AUTO_HBM);
-        if (autoHbmPref != null) {
-            autoHbmPref.setOnPreferenceClickListener(this);
-        }
-
-        Preference gamebarPref = findPreference(KEY_GAMEBAR);
-        if (gamebarPref != null) {
-            gamebarPref.setOnPreferenceClickListener(this);
-        }
-
-        Preference turboChargingPref = findPreference(KEY_TURBO_CHARGING);
-        if (turboChargingPref != null) {
-            turboChargingPref.setOnPreferenceClickListener(this);
-        }
-               
-        Preference coreControlPref = findPreference(KEY_CORE_CONTROL);
-        if (coreControlPref != null) {
-            coreControlPref.setOnPreferenceClickListener(this);
-        }
-
-        Preference chargeBypassPref = findPreference(KEY_CHARGE_BYPASS);
-        if (chargeBypassPref != null) {
-            chargeBypassPref.setOnPreferenceClickListener(this);
-        }
-
-        Preference chargeControlPref = findPreference(KEY_CHARGE_CONTROL);
-        if (chargeControlPref != null) {
-            chargeControlPref.setOnPreferenceClickListener(this);
-        }
-
-        Preference kernelManagerPref = findPreference(KEY_KERNEL_MANAGER);
-        if (kernelManagerPref != null) {
-            kernelManagerPref.setOnPreferenceClickListener(this);
-        }
-        
-        Preference gpuManagerPref = findPreference(KEY_GPU_MANAGER);
-        if (gpuManagerPref != null) {
-            gpuManagerPref.setOnPreferenceClickListener(this);
-        }
-        
-        Preference cpuTileSettingsPref = findPreference(KEY_CPU_TILE_SETTINGS);
-        if (cpuTileSettingsPref != null) {
-            cpuTileSettingsPref.setOnPreferenceClickListener(this);
-        }
-        
-        // Logcat viewer preference setup - use special handler to prevent service restart
-        Preference logcatViewerPref = findPreference(KEY_LOGCAT_VIEWER);
-        if (logcatViewerPref != null) {
-            logcatViewerPref.setOnPreferenceClickListener(preference -> {
-                // Use the special handler that doesn't restart the service
-                LogcatSettingsPreference.handleLogcatViewerClick(this);
-                return true;
-            });
-        }
-
-        Preference adBlockerPref = findPreference(KEY_ADBLOCKER);
-        if (adBlockerPref != null) {
-            adBlockerPref.setOnPreferenceClickListener(this);
-        }
-        
-        Preference aboutMePref = findPreference(KEY_ABOUTME);
-        if (aboutMePref != null) {
-            aboutMePref.setOnPreferenceClickListener(preference -> {
-                Intent intent = new Intent(this, AboutMeActivity.class);
-                startActivity(intent);
-                return true;
-            });
-        }
-   }
+    }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
-        Intent intent = null;
-
-        switch (key) {
-            case KEY_THERMAL:
-                intent = new Intent(this, ThermalSettingsActivity.class);
-                break;
-            case KEY_DIRAC:
-                intent = new Intent(this, DiracActivity.class);
-                break;
-            case KEY_CLEAR_SPEAKER:
-                intent = new Intent(this, ClearSpeakerActivity.class);
-                break;
-            case KEY_SATURATION:
-                intent = new Intent(this, SaturationActivity.class);
-                break;
-            case KEY_AUTO_HBM:
-                intent = new Intent(this, AutoHbmActivity.class);
-                break;
-            case KEY_GAMEBAR:
-                intent = new Intent(this, GameBarSettingsActivity.class);
-                break;
-            case KEY_TURBO_CHARGING:
-                intent = new Intent(this, TurboChargingActivity.class);
-                break;
-            case KEY_CORE_CONTROL:
-                intent = new Intent(this, CoreControlActivity.class);
-                break;
-            case KEY_CHARGE_BYPASS:
-                intent = new Intent(this, ChargeActivity.class);
-                break;
-            case KEY_CHARGE_CONTROL:
-                intent = new Intent(this, ChargeControlActivity.class);
-                break;
-            case KEY_KERNEL_MANAGER:
-                intent = new Intent(this, KernelManagerActivity.class);
-                break;
-            case KEY_GPU_MANAGER:
-                intent = new Intent(this, GpuManagerActivity.class);
-                break;
-            case KEY_CPU_TILE_SETTINGS:
-                intent = new Intent(this, org.lineageos.settings.kernelmanager.CpuTileSettingsActivity.class);
-                break;
-            case KEY_LOGCAT_VIEWER:
-                // This case is now handled by the special preference click listener above
-                // But keep this for safety
-                LogcatSettingsPreference.handleLogcatViewerClick(this);
+        try {
+            if (KEY_THERMAL.equals(key)) {
+                startActivity(new Intent(this, ThermalSettingsActivity.class));
                 return true;
-            case KEY_ADBLOCKER:
-                intent = new Intent(this, AdBlockerActivity.class);
-                break;
-            case KEY_ABOUTME:
-                intent = new Intent(this, AboutMeActivity.class);
-                break;
-        }
-
-        if (intent != null) {
-            try {
-                startActivity(intent);
+            } else if (KEY_DIRAC.equals(key)) {
+                startActivity(new Intent(this, DiracActivity.class));
+            } else if (KEY_CLEAR_SPEAKER.equals(key)) {
+                startActivity(new Intent(this, ClearSpeakerActivity.class));
                 return true;
-            } catch (Exception e) {
-                android.util.Log.e("XiaomiParts", "Failed to start activity: " + key, e);
-                return false;
+            } else if (KEY_SATURATION.equals(key)) {
+                startActivity(new Intent(this, SaturationActivity.class));
+                return true;
+            } else if (KEY_AUTO_HBM.equals(key)) {
+                startActivity(new Intent(this, AutoHbmActivity.class));
+                return true;
+            } else if (KEY_GAMEBAR.equals(key)) {
+                startActivity(new Intent(this, GameBarSettingsActivity.class));
+                return true;
+            } else if (KEY_TURBO_CHARGING.equals(key)) {
+                startActivity(new Intent(this, TurboChargingActivity.class));
+                return true;
+            } else if (KEY_CORE_CONTROL.equals(key)) {
+                startActivity(new Intent(this, CoreControlActivity.class));
+                return true;
+            } else if (KEY_CHARGE_BYPASS.equals(key)) {
+                startActivity(new Intent(this, ChargeActivity.class));
+                return true;
+            } else if (KEY_CHARGE_CONTROL.equals(key)) {
+                startActivity(new Intent(this, ChargeControlActivity.class));
+                return true;
+            } else if (KEY_KERNEL_MANAGER.equals(key)) {
+                startActivity(new Intent(this, KernelManagerActivity.class));
+                return true;
+            } else if (KEY_GPU_MANAGER.equals(key)) {
+                startActivity(new Intent(this, GpuManagerActivity.class));
+                return true;
+            } else if (KEY_ADBLOCKER.equals(key)) {
+                startActivity(new Intent(this, AdBlockerActivity.class));
+                return true;
             }
+        } catch (Exception e) {
+            Log.e(TAG, "Error handling preference click for key: " + key, e);
         }
-
         return false;
     }
 }
