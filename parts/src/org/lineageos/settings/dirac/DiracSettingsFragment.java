@@ -19,6 +19,7 @@ package org.lineageos.settings.dirac;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Toast;
 import android.util.Log;
 
 import androidx.preference.ListPreference;
@@ -48,6 +49,7 @@ public class DiracSettingsFragment extends PreferenceFragment implements
     private ListPreference mScenes;
     private SwitchPreferenceCompat mHifi;
     private DiracUtils mDiracUtils;
+    private boolean mDiracSupported = false;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -55,63 +57,147 @@ public class DiracSettingsFragment extends PreferenceFragment implements
 
         try {
             mDiracUtils = DiracUtils.getInstance(getActivity());
+            mDiracSupported = mDiracUtils.isDiracSupported();
+            
+            if (!mDiracSupported) {
+                Log.w(TAG, "Dirac is not supported on this device");
+                showNotSupportedMessage();
+                return;
+            }
+            
+            Log.d(TAG, "Dirac is supported and initialized");
         } catch (Exception e) {
-            Log.d(TAG, "Dirac is not present in system");
+            Log.e(TAG, "Error initializing Dirac", e);
+            mDiracSupported = false;
+            showNotSupportedMessage();
+            return;
         }
 
-        boolean enhancerEnabled = mDiracUtils != null ? mDiracUtils.isDiracEnabled() : false;
+        setupPreferences();
+    }
+    
+    private void showNotSupportedMessage() {
+        // Show toast or disable preferences
+        if (getActivity() != null) {
+            Toast.makeText(getActivity(), "Dirac audio enhancement is not supported on this device", 
+                          Toast.LENGTH_LONG).show();
+        }
+        
+        // Disable all preferences
+        disableAllPreferences();
+    }
+    
+    private void disableAllPreferences() {
         mSwitchBar = (MainSwitchPreference) findPreference(PREF_ENABLE);
-        mSwitchBar.addOnSwitchChangeListener(this);
-        mSwitchBar.setChecked(enhancerEnabled);
+        if (mSwitchBar != null) {
+            mSwitchBar.setEnabled(false);
+            mSwitchBar.setSummary("Dirac audio enhancement is not supported on this device");
+        }
+        
+        mHeadsetType = (ListPreference) findPreference(PREF_HEADSET);
+        if (mHeadsetType != null) mHeadsetType.setEnabled(false);
+        
+        mPreset = (ListPreference) findPreference(PREF_PRESET);
+        if (mPreset != null) mPreset.setEnabled(false);
+        
+        mHifi = (SwitchPreferenceCompat) findPreference(PREF_HIFI);
+        if (mHifi != null) mHifi.setEnabled(false);
+        
+        mScenes = (ListPreference) findPreference(PREF_SCENE);
+        if (mScenes != null) mScenes.setEnabled(false);
+    }
+    
+    private void setupPreferences() {
+        boolean enhancerEnabled = false;
+        
+        try {
+            enhancerEnabled = mDiracUtils.isDiracEnabled();
+        } catch (Exception e) {
+            Log.w(TAG, "Error getting Dirac enabled state", e);
+            enhancerEnabled = false;
+        }
+        
+        mSwitchBar = (MainSwitchPreference) findPreference(PREF_ENABLE);
+        if (mSwitchBar != null) {
+            mSwitchBar.addOnSwitchChangeListener(this);
+            mSwitchBar.setChecked(enhancerEnabled);
+        }
 
         mHeadsetType = (ListPreference) findPreference(PREF_HEADSET);
-        mHeadsetType.setOnPreferenceChangeListener(this);
+        if (mHeadsetType != null) {
+            mHeadsetType.setOnPreferenceChangeListener(this);
+            mHeadsetType.setEnabled(enhancerEnabled);
+        }
 
         mPreset = (ListPreference) findPreference(PREF_PRESET);
-        mPreset.setOnPreferenceChangeListener(this);
+        if (mPreset != null) {
+            mPreset.setOnPreferenceChangeListener(this);
+            mPreset.setEnabled(enhancerEnabled);
+        }
 
         mHifi = (SwitchPreferenceCompat) findPreference(PREF_HIFI);
-        mHifi.setOnPreferenceChangeListener(this);
+        if (mHifi != null) {
+            mHifi.setOnPreferenceChangeListener(this);
+            mHifi.setEnabled(enhancerEnabled);
+        }
 
         mScenes = (ListPreference) findPreference(PREF_SCENE);
-        mScenes.setOnPreferenceChangeListener(this);
-
-        mHeadsetType.setEnabled(enhancerEnabled);
-        mPreset.setEnabled(enhancerEnabled);
-        mHifi.setEnabled(enhancerEnabled);
-        mScenes.setEnabled(enhancerEnabled);
+        if (mScenes != null) {
+            mScenes.setOnPreferenceChangeListener(this);
+            mScenes.setEnabled(enhancerEnabled);
+        }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (mDiracUtils == null) return false;
-        switch (preference.getKey()) {
-            case PREF_HEADSET:
-                mDiracUtils.setHeadsetType(Integer.parseInt(newValue.toString()));
-                return true;
-            case PREF_HIFI:
-                mDiracUtils.setHifiMode((Boolean) newValue ? 1 : 0);
-                return true;
-            case PREF_PRESET:
-                mDiracUtils.setLevel((String) newValue);
-                return true;
-            case PREF_SCENE:
-                mDiracUtils.setScenario(Integer.parseInt(newValue.toString()));
-                return true;
-            default:
-                return false;
+        if (!mDiracSupported || mDiracUtils == null) {
+            Log.w(TAG, "Dirac not supported, ignoring preference change");
+            return false;
+        }
+        
+        try {
+            switch (preference.getKey()) {
+                case PREF_HEADSET:
+                    mDiracUtils.setHeadsetType(Integer.parseInt(newValue.toString()));
+                    return true;
+                case PREF_HIFI:
+                    mDiracUtils.setHifiMode((Boolean) newValue ? 1 : 0);
+                    return true;
+                case PREF_PRESET:
+                    mDiracUtils.setLevel((String) newValue);
+                    return true;
+                case PREF_SCENE:
+                    mDiracUtils.setScenario(Integer.parseInt(newValue.toString()));
+                    return true;
+                default:
+                    return false;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error handling preference change for " + preference.getKey(), e);
+            return false;
         }
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        mSwitchBar.setChecked(isChecked);
+        if (mSwitchBar != null) {
+            mSwitchBar.setChecked(isChecked);
+        }
 
-        if (mDiracUtils == null) return;
-        mDiracUtils.setEnabled(isChecked);
-        mHifi.setEnabled(isChecked);
-        mHeadsetType.setEnabled(isChecked);
-        mPreset.setEnabled(isChecked);
-        mScenes.setEnabled(isChecked);
+        if (!mDiracSupported || mDiracUtils == null) {
+            Log.w(TAG, "Dirac not supported, ignoring switch change");
+            return;
+        }
+        
+        try {
+            mDiracUtils.setEnabled(isChecked);
+            
+            if (mHifi != null) mHifi.setEnabled(isChecked);
+            if (mHeadsetType != null) mHeadsetType.setEnabled(isChecked);
+            if (mPreset != null) mPreset.setEnabled(isChecked);
+            if (mScenes != null) mScenes.setEnabled(isChecked);
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting Dirac enabled state: " + isChecked, e);
+        }
     }
 }

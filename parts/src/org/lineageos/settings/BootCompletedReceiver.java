@@ -95,6 +95,16 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         } else if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
             handleBootCompleted(context);
         }
+        
+        // Try to initialize Dirac if present
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+            Log.d(TAG, "Received boot completed intent");
+            try {
+                DiracUtils.getInstance(context);
+            } catch (Exception e) {
+                Log.d(TAG, "Dirac is not present in system");
+            }
+        }
     }
 
     private void handleLockedBootCompleted(Context context) {
@@ -129,10 +139,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             initializeBackgroundThread();
         }
         
-        // Only initialize Dirac here (after user unlock)
+        // Clean up background thread after operations
         mBackgroundHandler.post(() -> {
             try {
-                initializeDirac(context);
                 Log.i(TAG, "Boot completed initialization finished");
             } catch (Exception e) {
                 Log.e(TAG, "Error during boot completed initialization", e);
@@ -288,47 +297,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         }
     }
 
-    private void initializeDirac(final Context context) {
-        Log.d(TAG, "Initializing Dirac audio enhancement");
-
-        try {
-            // Wait for audio system to be fully loaded
-            Thread.sleep(3000);
-
-            DiracUtils diracUtils = DiracUtils.getInstance(context);
-            if (diracUtils == null) {
-                Log.w(TAG, "DiracUtils instance is null");
-                return;
-            }
-
-            // Force reinitialize to ensure proper state after boot
-            diracUtils.reinitialize();
-
-            Log.d(TAG, "Dirac initialized successfully, enabled: " + diracUtils.isDiracEnabled());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            Log.w(TAG, "Dirac initialization interrupted", e);
-        } catch (Exception e) {
-            Log.w(TAG, "Dirac is not present in system or failed to initialize", e);
-
-            // Retry once after additional delay
-            try {
-                Thread.sleep(2000);
-                DiracUtils diracUtils = DiracUtils.getInstance(context);
-                if (diracUtils != null) {
-                    diracUtils.reinitialize();
-                    Log.d(TAG, "Dirac initialization retry successful");
-                }
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
-                Log.w(TAG, "Dirac retry interrupted", ie);
-            } catch (Exception e2) {
-                Log.e(TAG, "Dirac initialization failed after retry", e2);
-            }
-        }
-    }
-
- private void restoreBypassCharge(Context context) {
+    private void restoreBypassCharge(Context context) {
         try {
             ChargeUtils chargeUtils = new ChargeUtils(context);
             
