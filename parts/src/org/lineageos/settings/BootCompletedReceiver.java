@@ -38,10 +38,16 @@ import org.lineageos.settings.charge.ChargeUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
 import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 import org.lineageos.settings.adblocker.AdBlockerUtils;
+import org.lineageos.settings.utils.FileUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
     private static final String TAG = "XiaomiParts";
+
+    // Performance Mode paths
+    private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
+    private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
+    private static final String DEFAULT_GOVERNOR = "schedhorizon";
 
     // Kernel Manager preference keys
     private static final String KEY_CPU_GOVERNOR = "cpu_governor";
@@ -96,13 +102,20 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             handleBootCompleted(context);
         }
         
-        // Try to initialize Dirac if present
-        if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            Log.d(TAG, "Received boot completed intent");
-            try {
-                DiracUtils.getInstance(context);
-            } catch (Exception e) {
-                Log.d(TAG, "Dirac is not present in system");
+    // Try to initialize Dirac if present
+    if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+        Log.d(TAG, "Received boot completed intent");
+        try {
+            // Get the SharedPreferences to read the saved state
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean enabled = prefs.getBoolean("dirac_enabled", false);
+ 
+            // Get the DiracUtils instance and set its state
+            DiracUtils dirac = DiracUtils.getInstance(context);
+            dirac.setEnabled(enabled);
+            Log.d(TAG, "Restored Dirac state: " + enabled);
+        } catch (Exception e) {
+            Log.d(TAG, "Dirac is not present in system");
             }
         }
     }
@@ -115,6 +128,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             try {
                 // Start services
                 startServices(context);
+                
+                // Performance Mode - Ensure default governor on boot
+                ensureDefaultGovernor();
                 
                 // Restore settings
                 restoreKernelSettings(context);
@@ -150,6 +166,18 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 cleanupBackgroundThread();
             }
         });
+    }
+
+    private void ensureDefaultGovernor() {
+        try {
+            FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+            FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+            if (DEBUG) {
+                Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR);
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to set default governor", e);
+        }
     }
 
     private void initializeBackgroundThread() {

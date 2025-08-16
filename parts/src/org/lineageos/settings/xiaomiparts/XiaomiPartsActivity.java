@@ -25,6 +25,7 @@ import org.lineageos.settings.chargecontrol.ChargeControlActivity;
 import org.lineageos.settings.logcatviewer.MainActivity;
 import org.lineageos.settings.logcatviewer.LogcatSettingsPreference;
 import org.lineageos.settings.adblocker.AdBlockerActivity;
+import org.lineageos.settings.performance.PerformanceActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -45,6 +46,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_CHARGE_CONTROL = "charge_control";
     private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
     private static final String KEY_ADBLOCKER = "adblocker_settings";
+    private static final String KEY_PERFORMANCE = "performance";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             setupPreference(KEY_KERNEL_MANAGER);
             setupPreference(KEY_GPU_MANAGER);
             setupPreference(KEY_ADBLOCKER);
+            setupPreference(KEY_PERFORMANCE);
             
             // Logcat viewer - speciális kezelés
             setupLogcatViewer();
@@ -166,6 +169,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_DIRAC.equals(key)) {
                 startActivity(new Intent(this, DiracActivity.class));
+                return true;
             } else if (KEY_CLEAR_SPEAKER.equals(key)) {
                 startActivity(new Intent(this, ClearSpeakerActivity.class));
                 return true;
@@ -198,6 +202,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_ADBLOCKER.equals(key)) {
                 startActivity(new Intent(this, AdBlockerActivity.class));
+                return true;
+            } else if (KEY_PERFORMANCE.equals(key)) {
+                startActivity(new Intent(this, PerformanceActivity.class));
                 return true;
             }
         } catch (Exception e) {

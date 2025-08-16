@@ -193,6 +193,16 @@
             android:value="true" />
         </service>
 
+        <!-- Performance mode -->
+        <activity
+            android:name=".performance.PerformanceActivity"
+            android:label="@string/performance_mode_title"
+            android:icon="@drawable/ic_performance"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+    	    
         <!-- Clear Speaker -->
         <activity
             android:name=".speaker.ClearSpeakerActivity" 

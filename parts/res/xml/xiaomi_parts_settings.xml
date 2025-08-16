@@ -62,6 +62,12 @@
     <PreferenceCategory
         android:key="power_category"
         android:title="@string/power_title">
+       <!-- Performance -->
+       <Preference
+        android:key="performance"
+        android:title="@string/performance_mode_title"
+        android:summary="@string/performance_mode_summary"
+        android:icon="@drawable/ic_performance" />
         <!-- Thermal -->
         <Preference
             android:key="thermal_settings"
