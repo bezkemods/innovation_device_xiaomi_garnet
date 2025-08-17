@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 KamiKaonashi
+ * Copyright (C) 2025 bezke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,36 +18,37 @@ package org.lineageos.settings.performance;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
-import androidx.preference.TwoStatePreference;
 import org.lineageos.settings.R;
 
 public class PerformanceFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     private static final String TAG = "PerformanceFragment";
-    private static final String KEY_PERFORMANCE_MODE = "performance_mode";
+    private static final String KEY_PERFORMANCE_PROFILE = "performance_profile";
     
-    private TwoStatePreference mPerformanceModePreference;
+    private ListPreference mPerformanceProfilePreference;
     private PerformanceUtils mPerformanceUtils;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         try {
             setPreferencesFromResource(R.xml.performance_settings, rootKey);
-            mPerformanceUtils = new PerformanceUtils();
+            mPerformanceUtils = new PerformanceUtils(getContext());
 
-            mPerformanceModePreference = (TwoStatePreference) findPreference(KEY_PERFORMANCE_MODE);
-            if (mPerformanceModePreference != null) {
-                boolean isEnabled = mPerformanceUtils.isPerformanceModeEnabled();
-                mPerformanceModePreference.setChecked(isEnabled);
-                mPerformanceModePreference.setOnPreferenceChangeListener(this);
-                updateSummary(isEnabled);
+            mPerformanceProfilePreference = (ListPreference) findPreference(KEY_PERFORMANCE_PROFILE);
+            if (mPerformanceProfilePreference != null) {
+                int currentMode = mPerformanceUtils.getCurrentMode();
+                mPerformanceProfilePreference.setValue(String.valueOf(currentMode));
+                mPerformanceProfilePreference.setSummary(mPerformanceUtils.getModeLabel(currentMode));
+                mPerformanceProfilePreference.setOnPreferenceChangeListener(this);
                 
-                Log.d(TAG, "Performance mode preference initialized, current state: " + isEnabled);
+                Log.d(TAG, "Performance profile preference initialized, current mode: " + currentMode);
             } else {
-                Log.e(TAG, "Performance mode preference not found!");
+                Log.e(TAG, "Performance profile preference not found!");
             }
             
         } catch (Exception e) {
@@ -58,17 +59,27 @@ public class PerformanceFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         try {
-            if (KEY_PERFORMANCE_MODE.equals(preference.getKey())) {
-                boolean enabled = (Boolean) newValue;
-                Log.d(TAG, "Setting performance mode to: " + enabled);
+            if (KEY_PERFORMANCE_PROFILE.equals(preference.getKey())) {
+                int mode = Integer.parseInt((String) newValue);
+                Log.d(TAG, "Setting performance profile to: " + mode);
                 
-                boolean success = mPerformanceUtils.setPerformanceMode(enabled);
+                boolean success = mPerformanceUtils.setPerformanceMode(mode);
                 if (success) {
-                    updateSummary(enabled);
-                    Log.d(TAG, "Performance mode successfully set to: " + enabled);
+                    mPerformanceProfilePreference.setSummary(mPerformanceUtils.getModeLabel(mode));
+                    
+                    // Show toast message
+                    String modeLabel = mPerformanceUtils.getModeLabel(mode);
+                    Toast.makeText(getContext(), 
+                        getString(R.string.performance_profile_applied, modeLabel),
+                        Toast.LENGTH_SHORT).show();
+                    
+                    Log.d(TAG, "Performance profile successfully set to: " + mode);
                     return true;
                 } else {
-                    Log.e(TAG, "Failed to set performance mode to: " + enabled);
+                    Log.e(TAG, "Failed to set performance profile to: " + mode);
+                    Toast.makeText(getContext(), 
+                        R.string.performance_profile_failed,
+                        Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -78,31 +89,15 @@ public class PerformanceFragment extends PreferenceFragment
         return false;
     }
 
-    private void updateSummary(boolean enabled) {
-        if (mPerformanceModePreference != null) {
-            try {
-                String summary = enabled ? 
-                    getString(R.string.performance_mode_enabled_summary) :
-                    getString(R.string.performance_mode_disabled_summary);
-                mPerformanceModePreference.setSummary(summary);
-            } catch (Exception e) {
-                Log.e(TAG, "Error updating summary", e);
-                // Fallback summaries
-                mPerformanceModePreference.setSummary(enabled ? 
-                    "Performance mode is enabled" : "Performance mode is disabled");
-            }
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         try {
-            if (mPerformanceModePreference != null && mPerformanceUtils != null) {
+            if (mPerformanceProfilePreference != null && mPerformanceUtils != null) {
                 // Refresh state when returning to fragment
-                boolean currentState = mPerformanceUtils.isPerformanceModeEnabled();
-                mPerformanceModePreference.setChecked(currentState);
-                updateSummary(currentState);
+                int currentMode = mPerformanceUtils.getCurrentMode();
+                mPerformanceProfilePreference.setValue(String.valueOf(currentMode));
+                mPerformanceProfilePreference.setSummary(mPerformanceUtils.getModeLabel(currentMode));
             }
         } catch (Exception e) {
             Log.e(TAG, "Error in onResume", e);

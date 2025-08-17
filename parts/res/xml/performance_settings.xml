@@ -2,9 +2,19 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/performance_mode_title">
 
-    <SwitchPreferenceCompat
-        android:key="performance_mode"
-        android:title="@string/performance_mode_title"
-        android:summary="@string/performance_mode_summary"
-        android:defaultValue="false" />
+    <ListPreference
+        android:key="performance_profile"
+        android:title="@string/performance_profile_title"
+        android:summary="@string/performance_profile_summary"
+        android:entries="@array/performance_profile_entries"
+        android:entryValues="@array/performance_profile_values"
+        android:defaultValue="1" />
+
+    <!-- Footer text with mode descriptions -->
+    <Preference
+        android:key="performance_footer"
+        android:title="@string/performance_footer_title"
+        android:summary="@string/performance_footer_summary"
+        android:selectable="false" />
+
 </PreferenceScreen>

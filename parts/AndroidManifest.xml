@@ -52,6 +52,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- Log broadcast permission -->
     <permission
@@ -202,7 +203,22 @@
             android:exported="false"
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
-    	    
+    	
+    	<!-- Performance Quick Settings Tile -->
+        <service
+            android:name=".performance.PerformanceTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_performance_balanced"
+            android:label="@string/performance_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
+        </service>
+
         <!-- Clear Speaker -->
         <activity
             android:name=".speaker.ClearSpeakerActivity" 

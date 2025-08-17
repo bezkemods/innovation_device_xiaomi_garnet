@@ -60,6 +60,14 @@
 # Mlipay
 /(vendor|system/vendor)/bin/mlipayd@1.1 u:object_r:hal_mlipay_default_exec:s0
 
+# Performance mode
+/sys/devices/system/cpu/cpufreq/policy[0-9]+/scaling_governor u:object_r:sysfs_devices_system_cpu:s0
+/sys/class/kgsl/kgsl-3d0/max_clock_mhz u:object_r:sysfs_kgsl:s0
+/sys/class/kgsl/kgsl-3d0/min_clock_mhz u:object_r:sysfs_kgsl:s0
+/sys/class/kgsl/kgsl-3d0/default_pwrlevel u:object_r:sysfs_kgsl:s0
+/sys/class/kgsl/kgsl-3d0/force_clk_on u:object_r:sysfs_kgsl:s0
+/sys/class/kgsl/kgsl-3d0/force_rail_on u:object_r:sysfs_kgsl:s0
+
 # Sensors
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors-service\.xiaomi-multihal u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/sensor-notifier u:object_r:vendor_sensor_notifier_exec:s0

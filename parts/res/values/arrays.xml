@@ -509,4 +509,17 @@
     <item>5000</item>
 </string-array>
 
+    <!-- Performance mode Arrays -->
+    <string-array name="performance_profile_entries">
+        <item>Battery Saver</item>
+        <item>Balanced</item>
+        <item>Performance</item>
+    </string-array>
+    
+    <string-array name="performance_profile_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
 </resources>

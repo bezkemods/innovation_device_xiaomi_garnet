@@ -1,1 +1,6 @@
 allow system_app sysfs_thermal:file { rw_file_perms getattr write };
+
+# Performance mode
+allow system_app sysfs_devices_system_cpu:file rw_file_perms;
+allow system_app sysfs_kgsl:file rw_file_perms;
+allow system_app sysfs_kgsl:dir r_dir_perms;

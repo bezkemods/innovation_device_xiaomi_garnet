@@ -551,8 +551,35 @@
     <string name="performance_mode_summary">Force CPU and GPU to max for peak performance. Increases heat and battery drain.</string>
     <string name="performance_mode_enabled_summary">Performance mode is ON</string>
     <string name="performance_mode_disabled_summary">Performance mode is OFF</string>
+    <string name="performance_profile_title">Performance Profile</string>
+    <string name="performance_profile_summary">Select performance mode for optimal device behavior</string>
     
-        <!-- Dirac settings -->
+    <!-- Performance Modes -->
+    <string name="performance_mode_battery_saver">Battery Saver</string>
+    <string name="performance_mode_balanced">Balanced</string>
+    <string name="performance_mode_performance">Performance</string>
+    
+    <!-- Toast Messages -->
+    <string name="performance_profile_applied">Performance profile set to %s</string>
+    <string name="performance_profile_failed">Failed to apply performance profile</string>
+    
+    <!-- Quick Settings Tile -->
+    <string name="performance_tile_label">Performance</string>
+    
+    <!-- Notification Channel -->
+    <string name="performance_notification_channel_name">Performance Profiles</string>
+    <string name="performance_notification_channel_desc">Shows current performance profile status</string>
+    
+    <!-- Notification Messages -->
+    <string name="performance_notification_battery_saver">Battery saver mode is active - Extended battery life</string>
+    <string name="performance_notification_balanced">Balanced mode is active - Optimal performance and battery life</string>
+    <string name="performance_notification_performance">Performance mode is active - Maximum performance</string>
+    
+    <!-- Footer Information -->
+    <string name="performance_footer_title">Performance Profile Information</string>
+    <string name="performance_footer_summary">• Battery Saver: Extends battery life by reducing CPU and GPU performance. Ideal for light usage and maximum battery duration.\n\n• Balanced: Provides optimal balance between performance and battery life. Recommended for daily use.\n\n• Performance: Maximizes CPU and GPU performance for demanding tasks. Best for gaming, heavy apps, and intensive workloads. May reduce battery life.</string>
+    
+    <!-- Dirac settings -->
     <string name="dirac_enable">Enable Dirac</string>
     <string name="dirac_title">Dirac sound enhancer</string>
     <string name="dirac_summary">Optimize sound quality with Dirac, Hi-Fi</string>

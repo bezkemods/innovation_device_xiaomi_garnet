@@ -38,6 +38,7 @@ import org.lineageos.settings.charge.ChargeUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
 import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 import org.lineageos.settings.adblocker.AdBlockerUtils;
+import org.lineageos.settings.performance.PerformanceUtils;
 import org.lineageos.settings.utils.FileUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
@@ -65,6 +66,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String KEY_GPU_FORCE_RAIL_ON = "gpu_force_rail_on";
     private static final String KEY_GPU_FORCE_NO_NAP = "gpu_force_no_nap";
     private static final String KEY_GPU_BUS_SPLIT = "gpu_bus_split";
+
+    // Performance Profile preference key
+    private static final String KEY_PERFORMANCE_PROFILE = "current_performance_mode";
 
     // Bypass Charge preference key
     private static final String KEY_BYPASS_CHARGE = "bypass_charge";
@@ -129,10 +133,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 // Start services
                 startServices(context);
                 
-                // Performance Mode - Ensure default governor on boot
-                ensureDefaultGovernor();
+                // Performance Mode - Ensure default governor on boot (only if no profile is saved)
+                ensureDefaultGovernorIfNeeded(context);
                 
-                // Restore settings
+                // Restore Performance Profile settings first (has priority over individual settings)
+                restorePerformanceProfile(context);
+                
+                // Restore other settings
                 restoreKernelSettings(context);
                 restoreGpuSettings(context);
                 restoreBypassCharge(context);
@@ -168,15 +175,82 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         });
     }
 
-    private void ensureDefaultGovernor() {
+    private void ensureDefaultGovernorIfNeeded(Context context) {
         try {
-            FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-            FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-            if (DEBUG) {
-                Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            
+            // Check if performance profile is saved
+            boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
+            
+            if (!hasPerformanceProfile) {
+                // No performance profile saved, set default governor
+                FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                if (DEBUG) {
+                    Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR + " (no performance profile found)");
+                }
+            } else {
+                if (DEBUG) {
+                    Log.d(TAG, "Performance profile found, skipping default governor setup");
+                }
             }
         } catch (Exception e) {
             Log.w(TAG, "Failed to set default governor", e);
+        }
+    }
+
+    private void restorePerformanceProfile(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (!prefs.contains(KEY_PERFORMANCE_PROFILE)) {
+                Log.d(TAG, "No performance profile saved, skipping restore");
+                return;
+            }
+
+            int savedMode = prefs.getInt(KEY_PERFORMANCE_PROFILE, PerformanceUtils.MODE_BALANCED);
+            
+            // Wait a bit for the system to stabilize
+            Thread.sleep(1500);
+            
+            PerformanceUtils performanceUtils = new PerformanceUtils(context);
+            boolean success = performanceUtils.setPerformanceMode(savedMode);
+            
+            if (success) {
+                Log.d(TAG, "Performance profile restored to: " + performanceUtils.getModeLabel(savedMode));
+            } else {
+                Log.w(TAG, "Failed to restore performance profile to: " + savedMode);
+                
+                // Fallback to balanced mode
+                success = performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
+                if (success) {
+                    Log.d(TAG, "Performance profile fallback to balanced mode successful");
+                } else {
+                    Log.e(TAG, "Performance profile fallback also failed");
+                }
+            }
+            
+            // Verify the state after a short delay
+            if (DEBUG) {
+                Thread.sleep(500);
+                int currentMode = performanceUtils.getCurrentMode();
+                Log.d(TAG, "Performance profile verification - Expected: " + savedMode + 
+                     ", Current: " + currentMode + " (" + performanceUtils.getModeLabel(currentMode) + ")");
+            }
+            
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.w(TAG, "Performance profile restore interrupted", e);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore performance profile", e);
+            
+            // Try to set a safe default
+            try {
+                PerformanceUtils performanceUtils = new PerformanceUtils(context);
+                performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
+                Log.d(TAG, "Set performance profile to default balanced mode after error");
+            } catch (Exception fallbackException) {
+                Log.e(TAG, "Even fallback performance profile setting failed", fallbackException);
+            }
         }
     }
 
@@ -453,7 +527,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     private void restoreKernelSettings(Context context) {
         try {
+            // Check if performance profile is managing these settings
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
+            
+            if (hasPerformanceProfile) {
+                Log.d(TAG, "Performance profile active, skipping individual kernel settings restore");
+                return;
+            }
+
             if (prefs == null) {
                 Log.w(TAG, "SharedPreferences is null for kernel settings");
                 return;
@@ -523,7 +605,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     private void restoreGpuSettings(Context context) {
         try {
+            // Check if performance profile is managing these settings
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
+            
+            if (hasPerformanceProfile) {
+                Log.d(TAG, "Performance profile active, skipping individual GPU settings restore");
+                return;
+            }
+
             if (prefs == null) {
                 Log.w(TAG, "SharedPreferences is null for GPU settings");
                 return;

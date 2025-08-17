@@ -6,3 +6,5 @@ allow init vendor_sysfs_power_supply:file { setattr };
 r_dir_file(init, sysfs_batteryinfo)
 # Allow init to write to fastcharge sysfs nodes
 allow init sysfs_fastcharge:file write;
+
+allow init vendor_perf_prop:file { read write create setattr append unlink rename open };

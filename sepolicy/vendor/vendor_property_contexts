@@ -1,0 +1,3 @@
+# Performance mode
+vendor.performance.mode   u:object_r:vendor_perf_prop:s0
+vendor.performance.icon   u:object_r:vendor_perf_prop:s0
