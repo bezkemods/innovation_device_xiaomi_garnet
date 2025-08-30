@@ -100,3 +100,6 @@ power.saving.mode=1
 
 # Increase max cached processes
 activity_manager.max_cached_processes=64
+
+# Silence minksocket logs
+persist.log.tag.minksocket=S
