@@ -25,26 +25,6 @@
     <string name="tile_on">On</string>
     <string name="tile_off">Off</string>
  
-    <!-- Thermal profiles -->
-    <string name="thermal_title">Thermal profiles</string>
-    <string name="thermal_summary">Adjust per-app thermal profiles for optimum performance</string>
-    <string name="thermal_default">No optimization</string>
-    <string name="thermal_benchmark">Performance</string>
-    <string name="thermal_browser">Browser</string>
-    <string name="thermal_camera">Camera</string>
-    <string name="thermal_dialer">Dialer</string>
-    <string name="thermal_gaming">Gaming</string>
-    <string name="thermal_navigation">Navigation</string>
-    <string name="thermal_streaming">Streaming</string>
-    <string name="thermal_video">Video</string>
-
-    <!-- Thermal Tile Strings -->
-    <string name="thermal_tile_label">Thermal Mode</string>
-    <string name="thermal_mode_default">Default Mode</string>
-    <string name="thermal_mode_performance">Performance Mode</string>
-    <string name="thermal_mode_battery_saver">Battery Saver Mode</string>
-    <string name="thermal_mode_gaming">Gaming Mode</string>
-
     <!-- Clear Speaker -->
    <string name="clear_speaker_title">Clear speaker</string>
    <string name="clear_speaker_summary">Play a 30-second audio to clear the speaker</string>
@@ -439,7 +419,7 @@
 <string name="logcat_share_subject">Android Logcat Export</string>
 <string name="logcat_permission_required">Storage permission required to save logs</string>
 
-    <!-- AdBlocker -->
+<!-- AdBlocker -->
     <string name="adblocker_title">AdBlocker</string>
     
     <!-- Enable/Disable -->
@@ -447,8 +427,8 @@
     <string name="adblocker_enable_summary">Toggle DNS-based ad blocking</string>
     <string name="adblocker_summary">DNS-based ad blocking</string>
     <string name="adblocker_github_title">GitHub Project</string>
-    <string name="adblocker_github_summary">View the project or contribute via GitHub.</string>
-
+    <string name="adblocker_github_summary">View the project repository on GitHub</string>
+    
     <!-- Status -->
     <string name="adblocker_status_category">Status</string>
     <string name="adblocker_status_title">AdBlocker status</string>
@@ -457,7 +437,7 @@
     
     <!-- Method -->
     <string name="adblocker_method_title">Blocking method</string>
-    <string name="adblocker_method_summary">DNS-based ad blocking</string>
+    <string name="adblocker_method_summary">DNS-based ad blocking with manual hosts file</string>
     
     <!-- Blocked domains -->
     <string name="adblocker_blocked_title">Blocked domains</string>
@@ -465,35 +445,45 @@
     <string name="adblocker_blocked_domains">%d domains blocked</string>
     
     <!-- Updates -->
-    <string name="adblocker_update_category">Updates</string>
+    <string name="adblocker_update_category">Hosts File Management</string>
     <string name="adblocker_last_update_title">Last update</string>
     <string name="adblocker_never_updated">Never updated</string>
     
-    <string name="adblocker_update_title">Update list</string>
-    <string name="adblocker_update_summary">Download StevenBlack/hosts database</string>
+    <string name="adblocker_update_title">Update hosts file</string>
+    <string name="adblocker_update_summary">Download hosts file from GitHub manually</string>
     
-    <string name="adblocker_manual_update_title">Manual update</string>
-    <string name="adblocker_manual_update_summary">Load custom hosts file</string>
+    <string name="adblocker_manual_update_title">Load hosts file</string>
+    <string name="adblocker_manual_update_summary">Select a downloaded hosts file</string>
     
     <!-- Dialogs and messages -->
     <string name="adblocker_confirm_title">Confirmation</string>
-    <string name="adblocker_confirm_enable">Enable AdBlocker? This will use DNS-based blocking.</string>
-    <string name="adblocker_confirm_disable">Disable AdBlocker? This will restore original DNS settings.</string>
-    <string name="adblocker_confirm_update">Update the blocked domains list?</string>
+    <string name="adblocker_confirm_enable">Enable AdBlocker?\n\nThis will switch to AdGuard DNS servers for ad blocking.\n\nYou need to load a hosts file first if you haven\'t already.</string>
+    <string name="adblocker_confirm_disable">Disable AdBlocker?\n\nThis will restore neutral Cloudflare DNS settings.</string>
+    <string name="adblocker_confirm_update">Update the hosts file?\n\nThis will open GitHub where you can download the latest hosts file.</string>
     
     <!-- Toast messages -->
     <string name="adblocker_enabled">AdBlocker enabled</string>
     <string name="adblocker_disabled">AdBlocker disabled</string>
-    <string name="adblocker_updating">Updating...</string>
-    <string name="adblocker_update_success">Update successful</string>
-    <string name="adblocker_update_failed">Update failed</string>
+    <string name="adblocker_updating">Processing hosts file...</string>
+    <string name="adblocker_update_success">Hosts file loaded successfully</string>
+    <string name="adblocker_update_failed">Failed to load hosts file</string>
     
     <!-- Errors -->
-    <string name="adblocker_root_required">Root access required for full functionality</string>
-    <string name="adblocker_file_not_found">File not found or invalid</string>
+    <string name="adblocker_root_required">Root access available - enhanced blocking enabled</string>
+    <string name="adblocker_file_not_found">File not found or invalid hosts file format</string>
     
     <!-- File picker -->
     <string name="adblocker_manual_file_title">Select hosts file</string>
+    
+    <!-- New strings for manual process -->
+    <string name="adblocker_manual_process_title">Manual Hosts File Setup</string>
+    <string name="adblocker_manual_process_message">To use AdBlocker, you need to manually download and load a hosts file:\n\n1. Tap \'Download hosts file\' to open GitHub\n2. On the GitHub page, tap the \'Download raw file\' button (or right-click → Save as)\n3. Come back here and tap \'Load hosts file\'\n4. Select the downloaded \'hosts\' file from your Downloads folder\n\nThe hosts file contains a list of ad and tracker domains to block.</string>
+    <string name="adblocker_github_hosts_title">Download hosts file</string>
+    <string name="adblocker_github_hosts_summary">Opens GitHub page to download the latest hosts file</string>
+    
+    <!-- Instructions -->
+    <string name="adblocker_instructions_title">How to Update Hosts File</string>
+    <string name="adblocker_instructions_message">Follow these steps to update your hosts file:\n\n📱 Step 1: Download\n• Tap \'Download hosts file\' below\n• On GitHub page, tap \'Download raw file\'\n• File will be saved to Downloads folder\n\n📂 Step 2: Load\n• Come back to this app\n• Tap \'Load hosts file\'\n• Navigate to Downloads folder\n• Select the \'hosts\' file (no extension)\n\n✅ The app will process the file and show how many domains were loaded.\n\nUpdate monthly for best protection!</string>
     
 <!-- CPU Governor Tile Service -->
 <string name="cpu_tile_label">CPU Governor</string>
@@ -578,98 +568,6 @@
     <!-- Footer Information -->
     <string name="performance_footer_title">Performance Profile Information</string>
     <string name="performance_footer_summary">• Battery Saver: Extends battery life by reducing CPU and GPU performance. Ideal for light usage and maximum battery duration.\n\n• Balanced: Provides optimal balance between performance and battery life. Recommended for daily use.\n\n• Performance: Maximizes CPU and GPU performance for demanding tasks. Best for gaming, heavy apps, and intensive workloads. May reduce battery life.</string>
-    
-    <!-- Dirac settings -->
-    <string name="dirac_enable">Enable Dirac</string>
-    <string name="dirac_title">Dirac sound enhancer</string>
-    <string name="dirac_summary">Optimize sound quality with Dirac, Hi-Fi</string>
-    <string name="dirac_headset_title">Headset type</string>
-    <string name="dirac_hifi_enable_title">Enable Hi-Fi</string>
-    <string name="dirac_preset_title">Sound preset</string>
-
-    <string name="dirac_hifi_title">Hi-Fi</string>
-    <string name="dirac_hifi_summary">Decrease noise and Distortion and increase audio quality</string>
-    
-    <!-- Dirac settings: Headset types -->
-    <string name="dirac_headset_earbuds">Mi Earbuds</string>
-    <string name="dirac_headset_in_ear_2013">Mi In-Ear (2013)</string>
-    <string name="dirac_headset_piston_1">Mi Piston-1</string>
-    <string name="dirac_headset_general_inear">General In-Ear</string>
-    <string name="dirac_headset_piston_basic">Basic Edition</string>
-    <string name="dirac_headset_piston_2">Mi Piston-2</string>
-    <string name="dirac_headset_piston_standard">Standard Edition</string>
-    <string name="dirac_headset_piston_youth">Youth Edition</string>
-    <string name="dirac_headset_piston_color">Color Edition</string>
-    <string name="dirac_headset_in_ear">Mi In-Ear</string>
-    <string name="dirac_headset_capsule">Mi Capsule</string>
-    <string name="dirac_headset_in_ear_pro">Mi In-Ear Pro</string>
-    <string name="dirac_headset_comfort">Mi Comfort</string>
-    <string name="dirac_headset_reduction_noise">Mi Noise Cancelling Type-C</string>
-    <string name="dirac_headset_cancelling">Mi Noise Cancelling 3.5mm</string>
-    <string name="dirac_headset_half_in_ear">Mi Half In-Ear</string>
-    <string name="dirac_headset_in_ear2">Mi In-Ear 2</string>
-    <string name="dirac_headset_earphone_basic">Mi Earphones Basic</string>
-    <string name="dirac_headset_earphone">Mi Earphones</string>
-    <string name="dirac_headset_ear_four">Mi Quadruple Driver Earphones</string>
-    <string name="dirac_headset_piston_typec">Mi In-Ear Headphones (Type-C)</string>
-    <string name="dirac_headset_bluetooth_collar">Mi Bluetooth Neckband</string>
-    <string name="dirac_headset_bluetooth_linefree">Mi Bluetooth Earphones</string>
-    <string name="dirac_headset_redmi_earphones">Redmi Earphones</string>
-
-    <!-- Dirac settings: Equalizer presets -->
-    <string name="dirac_preset_live">Live</string>
-    <string name="dirac_preset_balanced">Balanced</string>
-    <string name="dirac_preset_bass_reduction">Bass Reduction</string>
-    <string name="dirac_preset_treble_reduction">Treble Reduction</string>
-    <string name="dirac_preset_soft_bass">Soft Bass</string>
-    <string name="dirac_preset_soft_treble">Soft Treble</string>
-    
-    <string name="dirac_preset_default">Default</string>
-    <string name="dirac_preset_rock">Rock</string>
-    <string name="dirac_preset_jazz">Jazz</string>
-    <string name="dirac_preset_pop">Pop</string>
-    <string name="dirac_preset_classical">Classical</string>
-    <string name="dirac_preset_hiphop">Hiphop</string>
-    <string name="dirac_preset_blues">Blues</string>
-    <string name="dirac_preset_electronic">Electronic</string>
-    <string name="dirac_preset_country">Country</string>
-    <string name="dirac_preset_dance">Dance</string>
-    <string name="dirac_preset_metal">Metal</string>
-    <string name="dirac_preset_bass_booster">Bass Booster</string>
-    
-    <!-- Scene Selection -->
-    <string name="music_headset_scenario_select">Select scene</string>
-    <string name="music_headset_scenario_intelligent">Smart</string>
-    <string name="music_headset_scenario_music">Music</string>
-    <string name="music_headset_scenario_video">Video</string>
-    <string name="music_headset_scenario_vocal">Voice</string>
-    
-    <!-- Turbo Charging -->
-    <string name="pref_turbo_enable_title">Turbo Charging</string>
-    <string name="turbo_charge_title">Turbo Charging</string>
-    <string name="pref_turbo_enable_summary">Enable faster charging (experimental)</string>
-    <string name="turbo_enable_title">Enable Turbo Charging</string>
-    <string name="turbo_charge_summary">Enable Turbo Charging for fast charging up to 67W</string>
-    <string name="pref_turbo_current_title">Charging Current</string>
-    <string name="turbo_charge_current_pref_title">Charging Wattage</string>
-    <string name="pref_turbo_current_summary">Select charging current (mA)</string>
-    <string name="turbo_charging_title">Turbo Charging</string>
-    <string name="turbo_on">ON</string>
-    <string name="turbo_off">OFF</string>
-
-    <!-- Sports Mode -->
-    <string name="pref_sports_mode_title">Sports Mode</string>
-    <string name="sports_mode_title">Sports Mode</string>
-    <string name="pref_sports_mode_summary">Maximum charging current, only in turbo mode</string>
-    <string name="sports_mode_summary">Enable Sports Mode for fast charging via the dedicated node</string>
-
-    <!-- Toast messages -->
-    <string name="toast_turbo_on">Turbo Charging turned ON</string>
-    <string name="toast_turbo_off">Turbo Charging turned OFF</string>
-    <string name="toast_sports_on">Sports Mode turned ON</string>
-    <string name="toast_sports_off">Sports Mode turned OFF</string>
-    <string name="toast_wattage_set">Charging wattage set to %1$s</string>
-    <string name="toast_wattage_set_current">%1$s power selected</string>
       
     <!-- Welcome XiaomiParts -->
     <string name="xiaomi_parts_title">XiaomiParts</string>
@@ -712,24 +610,6 @@
     <string name="core_6">Core 6 (Big)</string>
     <string name="core_7">Core 7 (Big)</string>
 
-    <!-- Charge Bypass -->
-    <string name="charge_bypass_title">Bypass Charging</string>
-    <string name="charge_bypass_summary">Stop charging while keeping the device powered from the charger</string>
-    <string name="charge_bypass_warning">Enabling bypass charging will stop the battery from charging while the charger is connected. The device will be powered directly from the charger.\n\nThis feature is useful for reducing battery wear during extended use while plugged in.\n\nWarning: Ensure your charger can provide sufficient power for your device.</string>
-    <string name="charge_bypass_unavailable">Bypass charging is not supported on this device</string>
-    <string name="charge_bypass_error">Failed to change bypass charging state. Please check the debug information.</string>
-    <string name="charge_bypass_node">Active node: %s</string>
-    
-    <!-- Charge Categories -->
-    <string name="charge_category_bypass">Bypass Charging</string>
-    <string name="charge_category_debug">Debug</string>
-    
-    <!-- Debug preferences -->
-    <string name="charge_debug_info_title">Debug Information</string>
-    <string name="charge_debug_info_summary">Show detailed information about bypass charging</string>
-    <string name="charge_test_nodes_title">Test All Nodes</string>
-    <string name="charge_test_nodes_summary">Test accessibility of all bypass charging nodes</string>
-    
     <!-- General -->
     <string name="error">Error</string>
 
@@ -828,17 +708,4 @@
     <string name="apply_settings">Apply Settings</string>
     <string name="reset_settings">Reset Settings</string>
 
-    <!-- Charging control -->
-    <string name="charge_control_title">Charging control</string>
-    <string name="charge_control_summary">Control when the device stops charging</string>
-    <string name="charge_control_main_switch_title">Enable charging control</string>
-    <string name="stop_charging_title">Stop charging level</string>
-    <string name="stop_charging_summary">Stop charging when the set percentage is reached</string>
-    <string name="charge_control_footer_summary">Charging control may interfere with adaptive charging.</string>
-    <string name="kernel_node_access_error">Kernel node not accessible</string>
-    <string name="stop_charging_set_to">Charging will stop at %1$d%%.</string>
-    <string name="charge_control_tile_label">Charge Control</string>
-    <string name="charge_control_tile_enabled">Enabled</string>
-    <string name="charge_control_tile_disabled">Disabled</string>
-    <string name="charge_control_tile_subtitle">Stop at %1$d%%</string>
 </resources>

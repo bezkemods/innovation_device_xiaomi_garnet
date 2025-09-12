@@ -11,8 +11,6 @@ import android.provider.Settings;
 import android.util.Log;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,15 +20,6 @@ import java.util.regex.Pattern;
 
 public class AdBlockerUtils {
     private static final String TAG = "AdBlockerUtils";
-
-    // Reliable hosts file sources
-    private static final String[] HOSTS_URLS = {
-        "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
-        "https://someonewhocares.org/hosts/zero/hosts",
-        "https://raw.githubusercontent.com/AdguardTeam/HostlistsRegistry/main/assets/filter_1.txt",
-        "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext",
-        "https://raw.githubusercontent.com/hectorm/hmirror/master/data/adaway.org/list.txt"
-    };
 
     private static final String PREF_LAST_UPDATE = "adblocker_last_update";
     private static final String PREF_BLOCKED_COUNT = "adblocker_blocked_count";
@@ -240,185 +229,12 @@ public class AdBlockerUtils {
         }
     }
 
-    public void updateHostsFile(UpdateCallback callback) {
-        logDebug("updateHostsFile() called");
-        new UpdateHostsTask(callback).execute();
-    }
+    // Removed automatic download methods - now only manual loading is supported
 
     public void updateHostsFileFromContent(String hostsContent, UpdateCallback callback) {
         logDebug("updateHostsFileFromContent() called, content length: " +
             (hostsContent != null ? hostsContent.length() : 0));
         new UpdateHostsFromContentTask(callback).execute(hostsContent);
-    }
-
-    private class UpdateHostsTask extends AsyncTask<Void, Void, String> {
-        private UpdateCallback mCallback;
-        private int mBlockedCount = 0;
-        private String mError = null;
-        private String mSuccessUrl = null;
-
-        public UpdateHostsTask(UpdateCallback callback) {
-            mCallback = callback;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            logDebug("UpdateHostsTask.onPreExecute()");
-            if (mCallback != null) {
-                mCallback.onUpdateStart();
-            }
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            logDebug("UpdateHostsTask.doInBackground() started");
-            if (!isNetworkAvailable()) {
-                mError = "No internet connection";
-                logDebug("No network available");
-                return null;
-            }
-
-            for (int i = 0; i < HOSTS_URLS.length; i++) {
-                String hostsUrl = HOSTS_URLS[i];
-                for (int attempt = 1; attempt <= 3; attempt++) {
-                    try {
-                        logDebug("Trying source " + (i + 1) + "/" + HOSTS_URLS.length + ", attempt " + attempt + ": " + hostsUrl);
-                        String hostsContent = downloadHostsFile(hostsUrl);
-                        if (hostsContent != null && !hostsContent.trim().isEmpty()) {
-                            logDebug("Successfully downloaded from: " + hostsUrl +
-                                " (length: " + hostsContent.length() + ")");
-                            mSuccessUrl = hostsUrl;
-                            return parseHostsFile(hostsContent);
-                        } else {
-                            logDebug("Empty or null content from: " + hostsUrl);
-                        }
-                    } catch (Exception e) {
-                        logDebug("Failed to download from " + hostsUrl + " on attempt " + attempt + ": " + e.getMessage());
-                        mError = "Error downloading from " + hostsUrl + ": " + e.getMessage();
-                        if (attempt == 3) {
-                            logDebug("All attempts failed for " + hostsUrl);
-                        }
-                        try {
-                            Thread.sleep(1000); // Wait 1 second before retry
-                        } catch (InterruptedException ie) {
-                            logDebug("Retry sleep interrupted: " + ie.getMessage());
-                        }
-                    }
-                }
-            }
-
-            if (mError == null) {
-                mError = "All hosts file sources are unreachable";
-            }
-            logDebug("All sources failed, final error: " + mError);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            logDebug("UpdateHostsTask.onPostExecute(), result: " + result);
-            if (result != null && mCallback != null) {
-                mPrefs.edit()
-                    .putLong(PREF_LAST_UPDATE, System.currentTimeMillis())
-                    .putInt(PREF_BLOCKED_COUNT, mBlockedCount)
-                    .apply();
-                logDebug("Update successful, blocked count: " + mBlockedCount +
-                    ", source: " + mSuccessUrl);
-                mCallback.onUpdateSuccess(mBlockedCount);
-            } else if (mCallback != null) {
-                logDebug("Update failed: " + (mError != null ? mError : "Unknown error"));
-                mCallback.onUpdateError(mError != null ? mError : "Unknown error");
-            }
-        }
-
-        private String downloadHostsFile(String hostsUrl) {
-            HttpURLConnection connection = null;
-            try {
-                logDebug("Starting download from: " + hostsUrl);
-                URL url = new URL(hostsUrl);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setConnectTimeout(15000); // Reduced to 15 seconds
-                connection.setReadTimeout(30000);    // Reduced to 30 seconds
-                connection.setInstanceFollowRedirects(true);
-
-                connection.setRequestProperty("User-Agent",
-                    "Mozilla/5.0 (Linux; Android 16; LineageOS) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36");
-                connection.setRequestProperty("Accept", "text/plain,text/html,*/*");
-                connection.setRequestProperty("Accept-Encoding", "identity");
-                connection.setRequestProperty("Connection", "close");
-
-                logDebug("Connecting to: " + hostsUrl);
-                int responseCode = connection.getResponseCode();
-                logDebug("HTTP Response Code: " + responseCode);
-
-                if (responseCode == HttpURLConnection.HTTP_MOVED_PERM ||
-                    responseCode == HttpURLConnection.HTTP_MOVED_TEMP ||
-                    responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
-                    String newUrl = connection.getHeaderField("Location");
-                    logDebug("Redirected to: " + newUrl);
-                    connection.disconnect();
-                    return downloadHostsFile(newUrl);
-                }
-
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    logDebug("HTTP error: " + responseCode + " " + connection.getResponseMessage());
-                    return null;
-                }
-
-                InputStream inputStream = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                StringBuilder content = new StringBuilder();
-                String line;
-                int lineCount = 0;
-
-                while ((line = reader.readLine()) != null) {
-                    content.append(line).append("\n");
-                    lineCount++;
-                    if (lineCount % 5000 == 0) {
-                        logDebug("Downloaded " + lineCount + " lines");
-                    }
-                    if (lineCount > 200000) {
-                        logDebug("Reached line limit (200k), stopping download");
-                        break;
-                    }
-                }
-
-                reader.close();
-                inputStream.close();
-                logDebug("Download completed: " + lineCount + " lines, " + content.length() + " chars");
-                return content.toString();
-
-            } catch (Exception e) {
-                logDebug("Download exception: " + e.getClass().getSimpleName() + ": " + e.getMessage());
-                return null;
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-        }
-
-        private String parseHostsFile(String hostsContent) throws Exception {
-            logDebug("Starting to parse hosts file, length: " + hostsContent.length());
-            Set<String> blockedDomains = new HashSet<>();
-            mBlockedCount = countBlockedDomains(hostsContent, blockedDomains);
-            logDebug("Parsed " + mBlockedCount + " blocked domains");
-
-            Set<String> limitedDomains = new HashSet<>();
-            int count = 0;
-            for (String domain : blockedDomains) {
-                if (count >= 5000) break;
-                limitedDomains.add(domain);
-                count++;
-            }
-
-            mPrefs.edit()
-                .putStringSet(PREF_BLOCKED_DOMAINS, limitedDomains)
-                .apply();
-            logDebug("Stored " + limitedDomains.size() + " domains in preferences");
-            return "Success";
-        }
     }
 
     private class UpdateHostsFromContentTask extends AsyncTask<String, Void, String> {
@@ -476,6 +292,7 @@ public class AdBlockerUtils {
             mBlockedCount = countBlockedDomains(hostsContent, blockedDomains);
             logDebug("Manually parsed " + mBlockedCount + " blocked domains");
 
+            // Store up to 5000 domains in preferences for quick access
             Set<String> limitedDomains = new HashSet<>();
             int count = 0;
             for (String domain : blockedDomains) {
@@ -580,14 +397,13 @@ public class AdBlockerUtils {
         int blockedCount = getBlockedDomainsCount();
         String lastUpdate = getLastUpdateTime();
         boolean hasRoot = hasRootAccess();
-        boolean hasNetwork = isNetworkAvailable();
 
         StringBuilder stats = new StringBuilder();
         stats.append("Status: ").append(isEnabled ? "Active" : "Inactive").append("\n");
         stats.append("Blocked domains: ").append(blockedCount).append("\n");
         stats.append("Last update: ").append(lastUpdate).append("\n");
         stats.append("Root: ").append(hasRoot ? "Yes" : "No").append("\n");
-        stats.append("Internet: ").append(hasNetwork ? "Available" : "Not available");
+        stats.append("Method: Manual hosts file loading");
 
         return stats.toString();
     }

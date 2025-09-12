@@ -9,19 +9,14 @@ import android.widget.ListView;
 import android.util.Log;
 
 import org.lineageos.settings.R;
-import org.lineageos.settings.thermal.ThermalSettingsActivity;
-import org.lineageos.settings.dirac.DiracActivity;
 import org.lineageos.settings.speaker.ClearSpeakerActivity;
 import org.lineageos.settings.saturation.SaturationActivity;
 import org.lineageos.settings.autohbm.AutoHbmActivity;
 import org.lineageos.settings.gamebar.GameBarSettingsActivity;
-import org.lineageos.settings.turbocharging.TurboChargingActivity;
 import org.lineageos.settings.aboutme.AboutMeActivity;
 import org.lineageos.settings.corecontrol.CoreControlActivity;
-import org.lineageos.settings.charge.ChargeActivity;
 import org.lineageos.settings.kernelmanager.KernelManagerActivity;
 import org.lineageos.settings.gpumanager.GpuManagerActivity;
-import org.lineageos.settings.chargecontrol.ChargeControlActivity;
 import org.lineageos.settings.logcatviewer.MainActivity;
 import org.lineageos.settings.logcatviewer.LogcatSettingsPreference;
 import org.lineageos.settings.adblocker.AdBlockerActivity;
@@ -31,19 +26,14 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
 
     private static final String TAG = "XiaomiPartsActivity";
     
-    private static final String KEY_THERMAL = "thermal_settings";
-    private static final String KEY_DIRAC = "dirac_settings";
     private static final String KEY_CLEAR_SPEAKER = "clear_speaker";
     private static final String KEY_SATURATION = "saturation_settings";
     private static final String KEY_AUTO_HBM = "auto_hbm";
     private static final String KEY_GAMEBAR = "gamebar_settings";
-    private static final String KEY_TURBO_CHARGING = "turbo_charging";
     private static final String KEY_ABOUTME = "about_me_settings";
     private static final String KEY_CORE_CONTROL = "core_control_settings";
-    private static final String KEY_CHARGE_BYPASS = "charge_bypass";
     private static final String KEY_KERNEL_MANAGER = "kernel_manager";
     private static final String KEY_GPU_MANAGER = "gpu_manager";
-    private static final String KEY_CHARGE_CONTROL = "charge_control";
     private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
     private static final String KEY_ADBLOCKER = "adblocker_settings";
     private static final String KEY_PERFORMANCE = "performance";
@@ -79,16 +69,11 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return;
             }
 
-            setupPreference(KEY_THERMAL);
-            setupPreference(KEY_DIRAC);
             setupPreference(KEY_CLEAR_SPEAKER);
             setupPreference(KEY_SATURATION);
             setupPreference(KEY_AUTO_HBM);
             setupPreference(KEY_GAMEBAR);
-            setupPreference(KEY_TURBO_CHARGING);
             setupPreference(KEY_CORE_CONTROL);
-            setupPreference(KEY_CHARGE_BYPASS);
-            setupPreference(KEY_CHARGE_CONTROL);
             setupPreference(KEY_KERNEL_MANAGER);
             setupPreference(KEY_GPU_MANAGER);
             setupPreference(KEY_ADBLOCKER);
@@ -164,13 +149,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
         try {
-            if (KEY_THERMAL.equals(key)) {
-                startActivity(new Intent(this, ThermalSettingsActivity.class));
-                return true;
-            } else if (KEY_DIRAC.equals(key)) {
-                startActivity(new Intent(this, DiracActivity.class));
-                return true;
-            } else if (KEY_CLEAR_SPEAKER.equals(key)) {
+            if (KEY_CLEAR_SPEAKER.equals(key)) {
                 startActivity(new Intent(this, ClearSpeakerActivity.class));
                 return true;
             } else if (KEY_SATURATION.equals(key)) {
@@ -182,17 +161,8 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             } else if (KEY_GAMEBAR.equals(key)) {
                 startActivity(new Intent(this, GameBarSettingsActivity.class));
                 return true;
-            } else if (KEY_TURBO_CHARGING.equals(key)) {
-                startActivity(new Intent(this, TurboChargingActivity.class));
-                return true;
             } else if (KEY_CORE_CONTROL.equals(key)) {
                 startActivity(new Intent(this, CoreControlActivity.class));
-                return true;
-            } else if (KEY_CHARGE_BYPASS.equals(key)) {
-                startActivity(new Intent(this, ChargeActivity.class));
-                return true;
-            } else if (KEY_CHARGE_CONTROL.equals(key)) {
-                startActivity(new Intent(this, ChargeControlActivity.class));
                 return true;
             } else if (KEY_KERNEL_MANAGER.equals(key)) {
                 startActivity(new Intent(this, KernelManagerActivity.class));

@@ -42,7 +42,7 @@ on early-init
 
   # Change ownership of sysfs power control node
     chown system graphics /sys/class/drm/card0/device/power/control
-	
+
     # Workarround for cache
     rm /data/resource-cache
     rm /data/system/package_cache
@@ -73,14 +73,41 @@ on init
     chmod 0660 /sys/fs/cgroup/memory/bg/tasks
 
 on post-fs
-
     # Start services for bootanim
     start surfaceflinger
     start bootanim
     start vendor.hwcomposer-2-1
     start vendor.configstore-hal
     start vendor.qti.hardware.display.allocator
+  
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+    
+    # GPU Manager
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/governor
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/force_clk_on
+    chown system system /sys/class/kgsl/kgsl-3d0/force_bus_on
+    chown system system /sys/class/kgsl/kgsl-3d0/force_rail_on
+    chown system system /sys/class/kgsl/kgsl-3d0/force_no_nap
+    chown system system /sys/class/kgsl/kgsl-3d0/bus_split
 
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/governor
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/force_clk_on
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/force_bus_on
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/force_rail_on
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/force_no_nap
+    chmod 0664 /sys/class/kgsl/kgsl-3d0/bus_split
+          
 on early-boot
     write /dev/ipa 1
     # set RLIMIT_MEMLOCK to 64MB
@@ -105,7 +132,7 @@ on early-boot
     chown system system /mnt/vendor/persist/data/pfm/licenses/store_4
     chmod 0664 /mnt/vendor/persist/data/pfm/licenses/store_4
     stop console
-
+    
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
@@ -232,6 +259,9 @@ on boot
     mkdir /persist/display 0770 system graphics
     mkdir /mnt/vendor/persist/display 0770 system graphics
 
+    # Disable unwanted services
+    setprop persist.service.unwantedapp.disable 1
+    
     # Create vpp directory
     mkdir /mnt/vendor/persist/vpp 0770 media media
 
@@ -250,7 +280,6 @@ on boot
 # msm specific files that need to be created on /data
 
 on post-fs-data
-
     mkdir /data/vendor/misc 01771 system system
 
     # Create directory used for dump collection
@@ -296,60 +325,21 @@ on post-fs-data
     chmod 0660 /sys/devices/system/cpu/cpu5/online
     chmod 0660 /sys/devices/system/cpu/cpu6/online
     chmod 0660 /sys/devices/system/cpu/cpu7/online
+    
+    # Kernel Manager - SM7435 (Snapdragon 7s Gen 2)
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq
 
-    # Bypass Charging nodes - add these lines to your existing post-fs-data section
-    # Create bypass charge directory for debugging
-    mkdir /data/vendor/bypass_charge 0770 system system
-    
-    # Set SELinux context for bypass charge nodes
-    restorecon_recursive /sys/class/qcom-battery/
-    restorecon_recursive /sys/class/power_supply/
-    restorecon_recursive /sys/devices/platform/soc/
-    
-    # Primary QCOM battery node (input_suspend type - 1=bypass, 0=normal)
-    chown system system /sys/class/qcom-battery/input_suspend
-    chmod 0664 /sys/class/qcom-battery/input_suspend
-    
-    # Alternative battery input suspend nodes
-    chown system system /sys/class/power_supply/battery/input_suspend
-    chmod 0664 /sys/class/power_supply/battery/input_suspend
-    
-    # Charging enabled nodes (0=bypass, 1=normal)
-    chown system system /sys/class/power_supply/battery/charging_enabled
-    chmod 0664 /sys/class/power_supply/battery/charging_enabled
-    
-    chown system system /sys/class/power_supply/usb/charging_enabled
-    chmod 0664 /sys/class/power_supply/usb/charging_enabled
-    
-    chown system system /sys/class/power_supply/main/charging_enabled
-    chmod 0664 /sys/class/power_supply/main/charging_enabled
-    
-    chown system system /sys/class/power_supply/battery/battery_charging_enabled
-    chmod 0664 /sys/class/power_supply/battery/battery_charging_enabled
-    
-    chown system system /sys/class/power_supply/bms/charging_enabled
-    chmod 0664 /sys/class/power_supply/bms/charging_enabled
-    
-    # Long PMIC glink path
-    chown system system /sys/devices/platform/soc/soc:qcom,pmic_glink/soc:qcom,pmic_glink:qcom,battery_charger/power_supply/battery/input_suspend
-    chmod 0664 /sys/devices/platform/soc/soc:qcom,pmic_glink/soc:qcom,pmic_glink:qcom,battery_charger/power_supply/battery/input_suspend
-    
-    # Additional Qualcomm specific paths
-    chown system system /sys/class/power_supply/usb/device/power_supply/usb/charging_enabled
-    chmod 0664 /sys/class/power_supply/usb/device/power_supply/usb/charging_enabled
-    
-    chown system system /sys/class/power_supply/ac/charging_enabled
-    chmod 0664 /sys/class/power_supply/ac/charging_enabled
-    
-    # Write initial values to ensure nodes are working
-    write /sys/class/qcom-battery/input_suspend 0
-    write /sys/class/power_supply/battery/input_suspend 0
-    write /sys/class/power_supply/battery/charging_enabled 1
-    write /sys/class/power_supply/usb/charging_enabled 1
-    write /sys/class/power_supply/main/charging_enabled 1
-    write /sys/class/power_supply/battery/battery_charging_enabled 1
-    write /sys/class/power_supply/bms/charging_enabled 1
-    write /sys/devices/platform/soc/soc:qcom,pmic_glink/soc:qcom,pmic_glink:qcom,battery_charger/power_supply/battery/input_suspend 0
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq
     
     #logturbo
     chmod 0666 /dev/mi_exception_log
@@ -482,9 +472,6 @@ on post-fs-data
     write /sys/block/dm-1/queue/read_ahead_kb 2048
     write /sys/block/dm-2/queue/read_ahead_kb 2048
 
-    # Disable unwanted services
-    setprop persist.service.unwantedapp.disable 1
-
     # Create vpp directory
     mkdir /data/vendor/vpp 0770 media media
 
@@ -580,6 +567,9 @@ on property:persist.vendor.ssr.enable_ramdumps=0
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
     write /sys/module/qcom_ramdump/parameters/enable_dump_collection 0
 
+on property:persist.vendor.sys.rawdump_copy=1
+    write /sys/kernel/dload/emmc_dload 1
+
 on property:persist.vendor.sys.rawdump_copy=0
     write /sys/kernel/dload/emmc_dload 0
 
@@ -602,18 +592,6 @@ on property:sys.boot_completed=1
     chown media audio /sys/kernel/aud_dev/state
     write /sys/devices/virtual/cvp/cvp/boot 1
 
-# Create bypass charge status logging service
-service bypass_charge_status /system/bin/sh /system/etc/bypass_charge_status.sh
-    class late_start
-    user system
-    group system
-    disabled
-    oneshot
-
-# Start status logging after boot completion
-on property:sys.boot_completed=1
-    start bypass_charge_status
-    
 on property:persist.vendor.radio.atfwd.start=false
     stop vendor.atfwd
 
@@ -645,52 +623,7 @@ service qcom-c_main-sh /vendor/bin/init.class_main.sh
 
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
-
-on post-fs
-    write /sys/devices/system/cpu/cpu0/online 1
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/devices/system/cpu/cpu4/online 1
-    write /sys/devices/system/cpu/cpu5/online 1
-    write /sys/devices/system/cpu/cpu6/online 1
-    write /sys/devices/system/cpu/cpu7/online 1
     
-    # Kernel Manager - SM7435 (Snapdragon 7s Gen 2)
-
-    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
-    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
-    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
-    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
-    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq
-    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq
-
-    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
-    chmod 0664 /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
-    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
-    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
-    chmod 0664 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq
-    chmod 0664 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq
-   
-    # GPU Manager
-    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/governor
-    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
-    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
-    chown system system /sys/class/kgsl/kgsl-3d0/force_clk_on
-    chown system system /sys/class/kgsl/kgsl-3d0/force_bus_on
-    chown system system /sys/class/kgsl/kgsl-3d0/force_rail_on
-    chown system system /sys/class/kgsl/kgsl-3d0/force_no_nap
-    chown system system /sys/class/kgsl/kgsl-3d0/bus_split
-
-    chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/governor
-    chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
-    chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
-    chmod 0664 /sys/class/kgsl/kgsl-3d0/force_clk_on
-    chmod 0664 /sys/class/kgsl/kgsl-3d0/force_bus_on
-    chmod 0664 /sys/class/kgsl/kgsl-3d0/force_rail_on
-    chmod 0664 /sys/class/kgsl/kgsl-3d0/force_no_nap
-    chmod 0664 /sys/class/kgsl/kgsl-3d0/bus_split
-
 service vendor.qrtr-ns /vendor/bin/qrtr-ns -f
     class core
     user vendor_qrtr
@@ -1130,7 +1063,7 @@ service surfaceflinger /system/bin/surfaceflinger
     group graphics drmrpc
     capabilities SYS_NICE
     writepid /dev/cpuset/system-background/tasks
-
+    
 service vendor.qti.hardware.display.composer /vendor/bin/hw/vendor.qti.hardware.display.composer-service
     override
     class hal animation
@@ -1143,8 +1076,4 @@ service vendor.qti.hardware.display.composer /vendor/bin/hw/vendor.qti.hardware.
     
 # Stop trying to kill my device after 3 days ugh
 on property:init.svc.statsd=running
-    stop statsddump_copy=1
-    write /sys/kernel/dload/emmc_dload 1
-
-on property:persist.vendor.sys.rawdump_copy=1
-    write /sys/kernel/dload/emmc_dload 1
+    stop statsd

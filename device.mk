@@ -154,10 +154,6 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_PACKAGES += \
     XiaomiEuicc
 
-# Fastcharge
-PRODUCT_PACKAGES += \
-    FastCharge
-
 # Fastbootd
 PRODUCT_PACKAGES += \
     fastbootd
@@ -306,7 +302,6 @@ PRODUCT_PACKAGES += \
     ApertureOverlayGarnet \
     CarrierConfigOverlayGarnet \
     DialerOverlayGarnet \
-    FastChargeGarnet \
     FrameworkOverlayGarnet \
     FrameworkOverlayGarnetGLEsim \
     FrameworkOverlayGarnetJPEsim \

@@ -27,14 +27,8 @@ import android.os.UserHandle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import org.lineageos.settings.dirac.DiracUtils;
-import org.lineageos.settings.thermal.ThermalUtils;
-import org.lineageos.settings.thermal.ThermalTileService;
-import org.lineageos.settings.turbocharging.TurboChargingService;
-import org.lineageos.settings.chargecontrol.ChargeControlService;
 import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import org.lineageos.settings.gpumanager.GpuManagerUtils;
-import org.lineageos.settings.charge.ChargeUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
 import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 import org.lineageos.settings.adblocker.AdBlockerUtils;
@@ -47,6 +41,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     // Performance Mode paths
     private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
+    private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
     private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
     private static final String DEFAULT_GOVERNOR = "schedhorizon";
 
@@ -69,9 +64,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     // Performance Profile preference key
     private static final String KEY_PERFORMANCE_PROFILE = "current_performance_mode";
-
-    // Bypass Charge preference key
-    private static final String KEY_BYPASS_CHARGE = "bypass_charge";
 
     // Core Control preference key
     private static final String KEY_CORE_CONTROL_ENABLED = "core_control_enabled";
@@ -105,25 +97,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         } else if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
             handleBootCompleted(context);
         }
-        
-    // Try to initialize Dirac if present
-    if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-        Log.d(TAG, "Received boot completed intent");
-        try {
-            // Get the SharedPreferences to read the saved state
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean enabled = prefs.getBoolean("dirac_enabled", false);
- 
-            // Get the DiracUtils instance and set its state
-            DiracUtils dirac = DiracUtils.getInstance(context);
-            dirac.setEnabled(enabled);
-            Log.d(TAG, "Restored Dirac state: " + enabled);
-        } catch (Exception e) {
-            Log.d(TAG, "Dirac is not present in system");
-            }
-        }
     }
-
+        
     private void handleLockedBootCompleted(Context context) {
         // Initialize background thread for heavy operations
         initializeBackgroundThread();
@@ -142,7 +117,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 // Restore other settings
                 restoreKernelSettings(context);
                 restoreGpuSettings(context);
-                restoreBypassCharge(context);
                 restoreCoreControlSettings(context);
                 restoreLogcatService(context);
                 restoreAdBlockerSettings(context);
@@ -175,6 +149,23 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         });
     }
 
+    private void startServices(Context context) {
+        try {
+            Log.d(TAG, "Starting necessary services");
+            
+            // Start any required services here
+            // For example, if there are background services that need to be started
+            
+            // Example: Starting a background service if needed
+            // Intent serviceIntent = new Intent(context, SomeBackgroundService.class);
+            // context.startService(serviceIntent);
+            
+            Log.d(TAG, "Services started successfully");
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to start services", e);
+        }
+    }
+
     private void ensureDefaultGovernorIfNeeded(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -185,6 +176,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             if (!hasPerformanceProfile) {
                 // No performance profile saved, set default governor
                 FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                FileUtils.writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
                 FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
                 if (DEBUG) {
                     Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR + " (no performance profile found)");
@@ -274,33 +266,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 mBackgroundThread = null;
                 mBackgroundHandler = null;
             }
-        }
-    }
-
-    private void startServices(Context context) {
-        try {
-            // Start TurboChargingService
-            Intent turboChargingIntent = new Intent(context, TurboChargingService.class);
-            context.startService(turboChargingIntent);
-            Log.d(TAG, "TurboChargingService started");
-
-            // Start Charge Control Service
-            context.startServiceAsUser(
-                new Intent(context, ChargeControlService.class), 
-                UserHandle.CURRENT
-            );
-            Log.d(TAG, "ChargeControlService started");
-
-            // Start Thermal Management Services
-            ThermalUtils.startService(context);
-            context.startServiceAsUser(
-                new Intent(context, ThermalTileService.class), 
-                UserHandle.CURRENT
-            );
-            Log.d(TAG, "Thermal services started");
-
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to start services", e);
         }
     }
 
@@ -396,91 +361,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             Log.w(TAG, "AdBlocker restore interrupted", e);
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore AdBlocker settings", e);
-        }
-    }
-
-    private void restoreBypassCharge(Context context) {
-        try {
-            ChargeUtils chargeUtils = new ChargeUtils(context);
-            
-            if (!chargeUtils.isBypassChargeSupported()) {
-                Log.d(TAG, "Bypass charge not supported on this device");
-                if (DEBUG) {
-                    Log.d(TAG, "Bypass charge debug info:\n" + chargeUtils.getDebugInfo());
-                }
-                return;
-            }
-
-            // Get the saved preference
-            boolean shouldEnable = chargeUtils.getBypassChargePreference();
-            
-            // Wait a bit for the system to stabilize
-            Thread.sleep(1000);
-            
-            boolean currentState = chargeUtils.isBypassChargeEnabled();
-            
-            Log.d(TAG, "Bypass charge - saved preference: " + shouldEnable + ", current state: " + currentState);
-            
-            // Always try to restore the setting to ensure consistency
-            boolean success = chargeUtils.enableBypassCharge(shouldEnable);
-            if (success) {
-                Log.d(TAG, "Bypass charge restored to: " + shouldEnable);
-                
-                // Verify after a delay
-                Thread.sleep(500);
-                boolean verifyState = chargeUtils.isBypassChargeEnabled();
-                if (verifyState != shouldEnable) {
-                    Log.w(TAG, "Bypass charge verification failed. Expected: " + shouldEnable + ", Actual: " + verifyState);
-                    // Try once more with a different approach
-                    Thread.sleep(500);
-                    chargeUtils.refreshActiveNode(); // Refresh active node
-                    boolean retrySuccess = chargeUtils.enableBypassCharge(shouldEnable);
-                    if (retrySuccess) {
-                        Log.d(TAG, "Bypass charge retry successful");
-                    } else {
-                        Log.e(TAG, "Bypass charge retry failed");
-                    }
-                }
-            } else {
-                Log.w(TAG, "Failed to restore bypass charge to: " + shouldEnable);
-                
-                // Try to find a different working node
-                chargeUtils.refreshActiveNode();
-                if (chargeUtils.isBypassChargeSupported()) {
-                    Log.d(TAG, "Found alternative node, retrying bypass charge restore");
-                    boolean retrySuccess = chargeUtils.enableBypassCharge(shouldEnable);
-                    if (retrySuccess) {
-                        Log.d(TAG, "Bypass charge restore successful with alternative node");
-                    } else {
-                        Log.e(TAG, "Bypass charge restore failed even with alternative node");
-                    }
-                }
-            }
-            
-            // Log final state and debug info for troubleshooting
-            if (DEBUG) {
-                Thread.sleep(200);
-                boolean finalState = chargeUtils.isBypassChargeEnabled();
-                Log.d(TAG, "Final bypass charge state: " + finalState);
-                Log.d(TAG, "Bypass charge debug info:\n" + chargeUtils.getDebugInfo());
-                
-                // Start monitor service for debugging
-                try {
-                    Intent monitorIntent = new Intent();
-                    monitorIntent.setAction("start");
-                    monitorIntent.setComponent(new android.content.ComponentName("com.android.shell", 
-                        "bypass_charge_monitor"));
-                    context.sendBroadcast(monitorIntent);
-                } catch (Exception e) {
-                    Log.d(TAG, "Could not start bypass charge monitor: " + e.getMessage());
-                }
-            }
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            Log.w(TAG, "Bypass charge restore interrupted", e);
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to restore bypass charge settings", e);
         }
     }
 

@@ -135,7 +135,7 @@ public class AdBlockerActivity extends PreferenceActivity
             if (blockedCount > 0) {
                 mInfo.setSummary(getString(R.string.adblocker_blocked_domains, blockedCount));
             } else {
-                mInfo.setSummary("No hosts file loaded - Tap to update!");
+                mInfo.setSummary("No hosts file loaded - Load manually!");
             }
         }
 
@@ -194,20 +194,44 @@ public class AdBlockerActivity extends PreferenceActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.adblocker_confirm_title);
 
-        String message = enable ?
-            getString(R.string.adblocker_confirm_enable) :
-            getString(R.string.adblocker_confirm_disable);
-        builder.setMessage(message);
-
-        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-            if (enable) {
-                enableAdBlocker();
-            } else {
-                disableAdBlocker();
-            }
-        });
+        if (enable) {
+            builder.setMessage(getString(R.string.adblocker_confirm_enable));
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                // Check if hosts file is loaded
+                if (mAdBlockerUtils.getBlockedDomainsCount() == 0) {
+                    showFirstTimeSetupDialog();
+                } else {
+                    enableAdBlocker();
+                }
+            });
+        } else {
+            builder.setMessage(getString(R.string.adblocker_confirm_disable));
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> disableAdBlocker());
+        }
 
         builder.setNegativeButton(android.R.string.cancel, null);
+        builder.show();
+    }
+
+    private void showFirstTimeSetupDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("First-time setup");
+        builder.setMessage("To use AdBlocker, you need to load a hosts file first.\n\n" +
+                "1. Tap 'Download hosts file' to open GitHub\n" +
+                "2. On GitHub page, tap the 'Download raw file' button\n" +
+                "3. Come back here and tap 'Load hosts file'\n" +
+                "4. Select the downloaded 'hosts' file\n\n" +
+                "Would you like to open GitHub now?");
+        
+        builder.setPositiveButton("Download hosts file", (dialog, which) -> {
+            openGitHubHostsFile();
+        });
+        
+        builder.setNegativeButton("Load hosts file", (dialog, which) -> {
+            handleManualUpdate();
+        });
+        
+        builder.setNeutralButton("Cancel", null);
         builder.show();
     }
 
@@ -215,15 +239,9 @@ public class AdBlockerActivity extends PreferenceActivity
         Log.d(TAG, "enableAdBlocker() called");
 
         if (mAdBlockerUtils.enableAdBlocker()) {
-            if (mAdBlockerUtils.getBlockedDomainsCount() == 0) {
-                Toast.makeText(this, "AdBlocker enabled, downloading hosts file...", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "No hosts file found, triggering automatic update");
-                performUpdate();
-            } else {
-                Toast.makeText(this, R.string.adblocker_enabled, Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "AdBlocker enabled with existing hosts file");
-                updateUI();
-            }
+            Toast.makeText(this, R.string.adblocker_enabled, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "AdBlocker enabled successfully");
+            updateUI();
         } else {
             Toast.makeText(this, "Failed to enable AdBlocker!", Toast.LENGTH_LONG).show();
             Log.e(TAG, "Failed to enable AdBlocker");
@@ -246,54 +264,25 @@ public class AdBlockerActivity extends PreferenceActivity
     private void handleUpdate() {
         Log.d(TAG, "handleUpdate() called");
 
-        if (!mAdBlockerUtils.isNetworkAvailable()) {
-            Toast.makeText(this, "No internet connection!", Toast.LENGTH_SHORT).show();
-            Log.w(TAG, "No network connection available for update");
-            return;
-        }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.adblocker_confirm_title);
-        builder.setMessage(R.string.adblocker_confirm_update);
+        builder.setTitle("Manual hosts file update");
+        builder.setMessage("To update the hosts file:\n\n" +
+                "1. Tap 'Download hosts file' to open GitHub\n" +
+                "2. On GitHub page, tap the 'Download raw file' button\n" +
+                "3. Come back here and tap 'Load hosts file'\n" +
+                "4. Select the downloaded 'hosts' file\n\n" +
+                "The hosts file blocks ads and trackers across your device.");
 
-        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> performUpdate());
-        builder.setNegativeButton(android.R.string.cancel, null);
-        builder.show();
-    }
-
-    private void performUpdate() {
-        Log.d(TAG, "performUpdate() called");
-
-        mAdBlockerUtils.updateHostsFile(new AdBlockerUtils.UpdateCallback() {
-            @Override
-            public void onUpdateStart() {
-                Log.d(TAG, "Update started");
-                runOnUiThread(() -> {
-                    Toast.makeText(AdBlockerActivity.this,
-                        "Starting hosts file download...", Toast.LENGTH_SHORT).show();
-                });
-            }
-
-            @Override
-            public void onUpdateSuccess(int blockedCount) {
-                Log.d(TAG, "Update successful, blocked count: " + blockedCount);
-                runOnUiThread(() -> {
-                    Toast.makeText(AdBlockerActivity.this,
-                        "Update successful! " + blockedCount + " domains blocked.", Toast.LENGTH_LONG).show();
-                    updateUI();
-                });
-            }
-
-            @Override
-            public void onUpdateError(String error) {
-                Log.e(TAG, "Update error: " + error);
-                runOnUiThread(() -> {
-                    Toast.makeText(AdBlockerActivity.this,
-                        "Update error: " + error, Toast.LENGTH_LONG).show();
-                    showDebugDialog("Update Error Details", error);
-                });
-            }
+        builder.setPositiveButton("Download hosts file", (dialog, which) -> {
+            openGitHubHostsFile();
         });
+
+        builder.setNegativeButton("Load hosts file", (dialog, which) -> {
+            handleManualUpdate();
+        });
+
+        builder.setNeutralButton("Cancel", null);
+        builder.show();
     }
 
     private void handleManualUpdate() {
@@ -371,8 +360,13 @@ public class AdBlockerActivity extends PreferenceActivity
                     Log.d(TAG, "Manual update successful, blocked count: " + blockedCount);
                     runOnUiThread(() -> {
                         Toast.makeText(AdBlockerActivity.this,
-                            "Manual update successful! " + blockedCount + " domains.", Toast.LENGTH_LONG).show();
+                            "Hosts file loaded successfully! " + blockedCount + " domains.", Toast.LENGTH_LONG).show();
                         updateUI();
+                        
+                        // If AdBlocker was not enabled yet, show option to enable it
+                        if (!mAdBlockerUtils.isEnabled()) {
+                            showEnableAfterLoadDialog();
+                        }
                     });
                 }
 
@@ -381,8 +375,8 @@ public class AdBlockerActivity extends PreferenceActivity
                     Log.e(TAG, "Manual update error: " + error);
                     runOnUiThread(() -> {
                         Toast.makeText(AdBlockerActivity.this,
-                            "Manual update error: " + error, Toast.LENGTH_LONG).show();
-                        showDebugDialog("Manual Update Error", error);
+                            "Hosts file error: " + error, Toast.LENGTH_LONG).show();
+                        showDebugDialog("Hosts File Load Error", error);
                     });
                 }
             });
@@ -390,6 +384,33 @@ public class AdBlockerActivity extends PreferenceActivity
         } catch (Exception e) {
             Log.e(TAG, "Failed to load hosts file", e);
             Toast.makeText(this, "File read error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showEnableAfterLoadDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Hosts file loaded");
+        builder.setMessage("The hosts file has been loaded successfully!\n\nWould you like to enable AdBlocker now?");
+        
+        builder.setPositiveButton("Enable AdBlocker", (dialog, which) -> {
+            enableAdBlocker();
+        });
+        
+        builder.setNegativeButton("Later", null);
+        builder.show();
+    }
+
+    private void openGitHubHostsFile() {
+        Log.d(TAG, "openGitHubHostsFile() called");
+
+        String githubUrl = "https://github.com/StevenBlack/hosts/blob/master/hosts";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl));
+        try {
+            startActivity(intent);
+            Toast.makeText(this, "On GitHub page, tap 'Download raw file' button", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Failed to open GitHub page", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Failed to open GitHub page", e);
         }
     }
 
@@ -431,7 +452,6 @@ public class AdBlockerActivity extends PreferenceActivity
         String lastUpdate = mAdBlockerUtils.getLastUpdateTime();
         boolean isEnabled = mAdBlockerUtils.isEnabled();
         boolean hasRoot = mAdBlockerUtils.hasRootAccess();
-        boolean hasNetwork = mAdBlockerUtils.isNetworkAvailable();
 
         StringBuilder info = new StringBuilder();
         info.append("Status: ").append(isEnabled ? "Enabled" : "Disabled").append("\n\n");
@@ -440,8 +460,7 @@ public class AdBlockerActivity extends PreferenceActivity
         info.append("Last update: ").append(lastUpdate).append("\n\n");
         info.append("Source: StevenBlack/hosts").append("\n");
         info.append("GitHub repository with updated hosts file").append("\n\n");
-        info.append("Root access: ").append(hasRoot ? "Available" : "Not available").append("\n");
-        info.append("Internet connection: ").append(hasNetwork ? "Available" : "Not available").append("\n\n");
+        info.append("Root access: ").append(hasRoot ? "Available" : "Not available").append("\n\n");
 
         if (isEnabled) {
             info.append("DNS server: AdGuard DNS (ad-blocking)").append("\n");
@@ -452,6 +471,11 @@ public class AdBlockerActivity extends PreferenceActivity
             info.append("Primary: 1.1.1.1").append("\n");
             info.append("Secondary: 1.0.0.1");
         }
+
+        info.append("\n\nHow to update hosts file:\n");
+        info.append("1. Go to GitHub (tap 'Update list')\n");
+        info.append("2. Download the raw hosts file\n");
+        info.append("3. Load it using 'Manual update'");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("AdBlocker Information");
@@ -479,7 +503,7 @@ public class AdBlockerActivity extends PreferenceActivity
         methodInfo.append("Operation:\n");
         methodInfo.append("• Uses AdGuard DNS servers\n");
         methodInfo.append("• Blocks known ad domains\n");
-        methodInfo.append("• Automatic filtering at DNS level\n\n");
+        methodInfo.append("• Manual hosts file loading\n\n");
 
         if (mAdBlockerUtils.hasRootAccess()) {
             methodInfo.append("Root optimization available:\n");
@@ -490,6 +514,12 @@ public class AdBlockerActivity extends PreferenceActivity
             methodInfo.append("• DNS-based blocking only\n");
             methodInfo.append("• Still effective");
         }
+
+        methodInfo.append("\n\nTo load hosts file:\n");
+        methodInfo.append("1. Tap 'Update list' → 'Download hosts file'\n");
+        methodInfo.append("2. On GitHub, tap 'Download raw file'\n");
+        methodInfo.append("3. Come back and tap 'Load hosts file'\n");
+        methodInfo.append("4. Select the downloaded file");
 
         builder.setMessage(methodInfo.toString());
         builder.setPositiveButton("OK", null);

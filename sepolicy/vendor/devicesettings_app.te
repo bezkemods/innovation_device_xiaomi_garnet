@@ -20,29 +20,9 @@ allow devicesettings_app self:netlink_kobject_uevent_socket {
     shutdown 
 };
 
-allow devicesettings_app vendor_sysfs_power_supply:file w_file_perms;
-allow devicesettings_app sysfs_fastcharge:file rw_file_perms;
-
 # Core Control (CPU core online/offline)
 allow devicesettings_app vendor_sysfs_corecontrol:dir search;
 allow devicesettings_app vendor_sysfs_corecontrol:file { getattr open read write };
-
-# Bypass charging 
-allow devicesettings_app vendor_sysfs_battery_supply:dir search;
-allow devicesettings_app vendor_sysfs_battery_supply:file { getattr open read write };
-
-# Turbo Charging
-allow devicesettings_app zygote:unix_stream_socket getopt;
-allow devicesettings_app sysfs_fastcharge:file rw_file_perms;
-allow devicesettings_app vendor_sysfs_battery_supply:dir { search };
-allow devicesettings_app vendor_sysfs_battery_supply:file rw_file_perms;
-allow devicesettings_app vendor_sysfs_power_supply:file { write setattr };
-
-# Allow apps to read/write fastcharge sysfs nodes
-allow devicesettings_app sysfs_fastcharge:file rw_file_perms;
-
-# Allow system apps to set system properties for turbo charging
-set_prop(system_app, system_prop)
 
 # Kernel Manager
 allow devicesettings_app sysfs_devices_system_cpu:file { open read write };

@@ -142,58 +142,6 @@
             </intent-filter>
         </activity-alias>
 
-        <!-- Thermal Settings -->
-        <activity
-            android:name=".thermal.ThermalSettingsActivity"
-            android:label="@string/thermal_title"
-            android:icon="@drawable/ic_thermal"
-            android:exported="false"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        </activity>
-        
-        <service
-            android:name=".thermal.ThermalService"
-            android:permission="ThermalService">
-        </service>
-        
-        <!-- Thermal Profiles tile service -->
-        <service
-            android:name=".thermal.ThermalTileService"
-            android:label="@string/thermal_tile_label"
-            android:icon="@drawable/ic_thermal_enabled"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
-                android:value="true" />
-        </service>
-
-        <!-- Dirac Audio -->
-        <activity
-            android:name=".dirac.DiracActivity"
-            android:exported="false"
-            android:label="@string/dirac_title"
-            android:icon="@drawable/ic_dirac"
-            android:theme="@style/Theme.SubSettingsBase"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        </activity>
-        
-        <service
-            android:name=".dirac.DiracTileService"
-            android:exported="true"
-            android:icon="@drawable/ic_headphone"
-            android:label="@string/dirac_title"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE"
-            android:value="true" />
-        </service>
-
         <!-- Performance mode -->
         <activity
             android:name=".performance.PerformanceActivity"
@@ -363,51 +311,6 @@
             android:exported="true"
             android:foregroundServiceType="dataSync" />    
         
-        <!-- Turbo Charging -->
-        <activity
-            android:name=".turbocharging.TurboChargingActivity"
-            android:exported="false"
-            android:enabled="true"
-            android:label="@string/turbo_charge_title"
-            android:icon="@drawable/ic_turbo_charging"
-            android:theme="@style/Theme.SubSettingsBase"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        </activity>
-
-        <service
-            android:name=".turbocharging.TurboChargingService"
-            android:exported="false"
-            android:permission="TurboChargingService">
-        </service>
-
-        <!-- Turbo Charging Tile Service -->
-        <service
-            android:name=".turbocharging.TurboChargingTile"
-            android:label="@string/turbo_charge_title"
-            android:icon="@drawable/ic_turbo_charging_tile"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-            <meta-data
-            android:name="android.service.quicksettings.TOGGLEABLE_TILE"
-            android:value="true" />
-        </service>
-
-        <!-- Turbo Charging BootReceiver -->
-        <receiver
-            android:name=".turbocharging.TurboChargingBootReceiver"
-            android:exported="true"
-            android:enabled="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-                <category android:name="android.intent.category.default" />
-             </intent-filter>
-        </receiver>
-
         <!-- About Me -->
         <activity
             android:name=".aboutme.AboutMeActivity"
@@ -440,17 +343,7 @@
             android:exported="false"
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
-        
-        <!-- Charge Bypass -->
-        <activity
-            android:name=".charge.ChargeActivity"
-            android:label="@string/charge_bypass_title"
-            android:icon="@drawable/ic_charge_bypass"
-            android:theme="@style/Theme.SubSettingsBase"
-            android:exported="false"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        </activity>
-        
+              
         <!-- Kernel Manager -->
         <activity
             android:name=".kernelmanager.KernelManagerActivity"
@@ -493,32 +386,6 @@
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
         
-        <!-- Charging control -->
-        <activity
-            android:name=".chargecontrol.ChargeControlActivity"
-            android:label="@string/charge_control_title"
-            android:icon="@drawable/ic_charge_control"
-            android:theme="@style/Theme.SubSettingsBase"
-            android:exported="false"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        </activity>
-        <service
-            android:name=".chargecontrol.ChargeControlService"
-            android:exported="false" />
-        <service
-            android:name=".chargecontrol.ChargeControlTileService"
-            android:label="@string/charge_control_tile_label"
-            android:icon="@drawable/ic_charge_control"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
-                android:value="true" />
-        </service>
-
         <activity
             android:name=".gamebar.GameBarPerAppConfigActivity"
             android:exported="false"

@@ -42,13 +42,6 @@
     <PreferenceCategory
         android:key="sound_category"
         android:title="@string/sound_title">
-        <!-- Dirac -->
-        <Preference
-            android:key="dirac_settings"
-            android:title="@string/dirac_title"
-            android:summary="@string/dirac_summary"
-            android:icon="@drawable/ic_dirac"
-            app:iconSpaceReserved="true" />
         <!-- Clear Speaker -->
         <Preference
             android:key="clear_speaker"
@@ -68,13 +61,6 @@
         android:title="@string/performance_mode_title"
         android:summary="@string/performance_mode_summary"
         android:icon="@drawable/ic_performance" />
-        <!-- Thermal -->
-        <Preference
-            android:key="thermal_settings"
-            android:title="@string/thermal_title"
-            android:summary="@string/thermal_summary"
-            android:icon="@drawable/ic_thermal"
-            app:iconSpaceReserved="true" />
         <!-- Core Control -->
         <Preference
             android:key="core_control_settings"
@@ -96,27 +82,6 @@
         android:summary="@string/gpu_manager_summary"
         android:icon="@drawable/ic_gpu_manager"
         app:iconSpaceReserved="true" />
-        <!-- Charge Bypass -->
-        <Preference
-            android:key="charge_bypass"
-            android:title="@string/charge_bypass_title"
-            android:summary="@string/charge_bypass_summary"
-            android:icon="@drawable/ic_charge_bypass"
-            app:iconSpaceReserved="true" />
-        <!-- Turbo Charging -->
-        <Preference
-            android:key="turbo_charging"
-            android:title="@string/turbo_charge_title"
-            android:summary="@string/turbo_charge_summary"
-            android:icon="@drawable/ic_turbo_charging"
-            app:iconSpaceReserved="true" />
-        <!-- Charging Control -->
-        <Preference
-            android:key="charge_control"
-            android:title="@string/charge_control_title"
-            android:summary="@string/charge_control_summary"
-            android:icon="@drawable/ic_charge_control"
-            app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
     <!-- Gaming & Logs -->
