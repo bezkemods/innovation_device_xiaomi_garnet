@@ -63,7 +63,7 @@ public class PerformanceUtils {
     // CPU Governors
     private static final String PERFORMANCE_GOVERNOR = "performance";
     private static final String POWERSAVE_GOVERNOR = "powersave";
-    private static final String DEFAULT_GOVERNOR = "schedhorizon";
+    private static final String DEFAULT_GOVERNOR = "walt";  // Módosítva walt-ra
 
     // GPU paths
     private static final String GPU_MAX_CLOCK_PATH = "/sys/class/kgsl/kgsl-3d0/max_clock_mhz";
@@ -176,6 +176,9 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
+            // Apply WALT settings (ha elérhetőek, különben skip)
+            applyWaltSettings();
+
             // Set GPU to lowest performance
             boolean gpuSuccess = true;
             try {
@@ -234,6 +237,9 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
+            // Apply WALT settings (ha elérhetőek, különben skip)
+            applyWaltSettings();
+
             // Set GPU to balanced settings
             boolean gpuSuccess = true;
             try {
@@ -266,7 +272,7 @@ public class PerformanceUtils {
         }
     }
 
-    private boolean setPerformanceMode() {
+private boolean setPerformanceMode() {
         try {
             // Set CPU governors to performance
             boolean cpuSuccess = true;
@@ -322,6 +328,68 @@ public class PerformanceUtils {
         } catch (Exception e) {
             Log.e(TAG, "Error setting performance mode", e);
             return false;
+        }
+    }
+
+    private void applyWaltSettings() {
+        String[] waltPathsCpu0 = {
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "940800",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load", "90",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_shift", "4",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_thresh", "1024",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/down_rate_limit_us", "20000",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/pl", "0",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/boost", "0",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_low_freq", "0",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq", "480000",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/up_rate_limit_us", "500",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_high_freq", "0"
+        };
+
+        String[] waltPathsCpu4 = {
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "960000",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_load", "90",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_shift", "4",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_thresh", "1024",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/down_rate_limit_us", "10000",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/pl", "0",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/boost", "-10",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_low_freq", "0",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/rtg_boost_freq", "0",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/up_rate_limit_us", "500",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_high_freq", "0"
+        };
+
+        // Apply for cpu0
+        for (int i = 0; i < waltPathsCpu0.length; i += 2) {
+            String path = waltPathsCpu0[i];
+            String value = waltPathsCpu0[i + 1];
+            if (fileExists(path)) {
+                try {
+                    writeLine(path, value);
+                    Log.d(TAG, "Applied WALT setting: " + path + " = " + value);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to apply WALT setting: " + path, e);
+                }
+            } else {
+                Log.d(TAG, "WALT path not found, skipping: " + path);
+            }
+        }
+
+        // Apply for cpu4
+        for (int i = 0; i < waltPathsCpu4.length; i += 2) {
+            String path = waltPathsCpu4[i];
+            String value = waltPathsCpu4[i + 1];
+            if (fileExists(path)) {
+                try {
+                    writeLine(path, value);
+                    Log.d(TAG, "Applied WALT setting: " + path + " = " + value);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to apply WALT setting: " + path, e);
+                }
+            } else {
+                Log.d(TAG, "WALT path not found, skipping: " + path);
+            }
         }
     }
 

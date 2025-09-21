@@ -25,7 +25,7 @@ public class KernelManagerUtils {
     public static final int PERFORMANCE_CLUSTER = 4; // Policy 4 - Big cores (A78)
 
     private static final int[] POLICIES = {EFFICIENCY_CLUSTER, PERFORMANCE_CLUSTER};
-    private static final String DEFAULT_GOVERNOR = "schedhorizon";
+    private static final String DEFAULT_GOVERNOR = "walt";
 
     // CPU frequency and governor paths
     private static final String CPU_BASE_PATH = "/sys/devices/system/cpu/cpufreq/policy";
@@ -39,7 +39,7 @@ public class KernelManagerUtils {
     private static final String CPUINFO_CUR_FREQ = "/cpuinfo_cur_freq";
     private static final String ONLINE = "/online";
 
-    // Fallback frequency values aligned with power profile
+    // Fallback frequency values aligned with power profile for SM7435
     private static final String[] EFFICIENCY_CLUSTER_FREQUENCIES = {
         "691200", "806400", "940800", "1113600", "1324800", 
         "1497600", "1651200", "1804800", "1958400"
@@ -49,6 +49,11 @@ public class KernelManagerUtils {
         "691200", "960000", "1190400", "1344000", "1497600", 
         "1651200", "1900800", "2054400", "2112000", "2208000", 
         "2304000", "2400000"
+    };
+
+    // Fallback governors if reading fails
+    private static final String[] FALLBACK_GOVERNORS = {
+        "walt", "schedutil", "performance", "powersave", "ondemand", "conservative"
     };
 
     /**
@@ -61,7 +66,9 @@ public class KernelManagerUtils {
             File efficiencyPolicy = new File(CPU_BASE_PATH + EFFICIENCY_CLUSTER);
             File performancePolicy = new File(CPU_BASE_PATH + PERFORMANCE_CLUSTER);
             
-            return efficiencyPolicy.exists() && performancePolicy.exists();
+            boolean supported = efficiencyPolicy.exists() && performancePolicy.exists();
+            Log.d(TAG, "Kernel manager supported: " + supported);
+            return supported;
         } catch (Exception e) {
             Log.e(TAG, "Error checking kernel manager support", e);
             return false;
@@ -72,14 +79,17 @@ public class KernelManagerUtils {
         try {
             String governors = readFile(CPU_BASE_PATH + EFFICIENCY_CLUSTER + SCALING_AVAILABLE_GOVERNORS);
             if (governors != null && !governors.isEmpty()) {
-                return governors.trim().split("\\s+");
+                String[] governorArray = governors.trim().split("\\s+");
+                Log.d(TAG, "Available governors: " + java.util.Arrays.toString(governorArray));
+                return governorArray;
             }
         } catch (Exception e) {
             Log.w(TAG, "Could not read available governors", e);
         }
         
-        // Fallback governors if reading fails - aligned with arrays.xml
-        return new String[]{"schedhorizon", "schedutil", "performance", "powersave", "ondemand", "conservative"};
+        // Fallback governors if reading fails
+        Log.d(TAG, "Using fallback governors");
+        return FALLBACK_GOVERNORS.clone();
     }
 
     public String[] getAvailableFrequencies(int cluster) {
@@ -95,6 +105,7 @@ public class KernelManagerUtils {
                         return a.compareTo(b);
                     }
                 });
+                Log.d(TAG, "Available frequencies for cluster " + cluster + ": " + freqArray.length + " frequencies");
                 return freqArray;
             }
         } catch (Exception e) {
@@ -102,6 +113,7 @@ public class KernelManagerUtils {
         }
         
         // Return fallback frequencies aligned with power profile
+        Log.d(TAG, "Using fallback frequencies for cluster " + cluster);
         if (cluster == EFFICIENCY_CLUSTER) {
             return EFFICIENCY_CLUSTER_FREQUENCIES.clone();
         } else if (cluster == PERFORMANCE_CLUSTER) {
@@ -116,11 +128,15 @@ public class KernelManagerUtils {
         try {
             String governor = readFile(CPU_BASE_PATH + cluster + SCALING_GOVERNOR);
             if (governor != null && !governor.isEmpty()) {
-                return governor.trim();
+                String currentGov = governor.trim();
+                Log.d(TAG, "Current governor for cluster " + cluster + ": " + currentGov);
+                return currentGov;
             }
         } catch (Exception e) {
             Log.w(TAG, "Could not read current governor for cluster " + cluster, e);
         }
+        
+        Log.d(TAG, "Returning default governor: " + DEFAULT_GOVERNOR);
         return DEFAULT_GOVERNOR;
     }
 
@@ -305,7 +321,8 @@ public class KernelManagerUtils {
         }
         
         if (!isValid) {
-            Log.e(TAG, "Governor not available: " + governor);
+            Log.e(TAG, "Governor not available: " + governor + ", available: " + 
+                java.util.Arrays.toString(availableGovernors));
             return false;
         }
 
@@ -315,11 +332,17 @@ public class KernelManagerUtils {
                 if (!writeFile(CPU_BASE_PATH + cluster + SCALING_GOVERNOR, governor)) {
                     success = false;
                     Log.e(TAG, "Failed to set governor for cluster " + cluster);
+                } else {
+                    Log.d(TAG, "Successfully set governor " + governor + " for cluster " + cluster);
                 }
             } catch (Exception e) {
                 success = false;
                 Log.e(TAG, "Error setting governor for cluster " + cluster, e);
             }
+        }
+        
+        if (success) {
+            Log.i(TAG, "Governor successfully set to: " + governor);
         }
         return success;
     }
@@ -343,7 +366,11 @@ public class KernelManagerUtils {
         }
 
         try {
-            return writeFile(CPU_BASE_PATH + cluster + SCALING_MIN_FREQ, freq);
+            boolean success = writeFile(CPU_BASE_PATH + cluster + SCALING_MIN_FREQ, freq);
+            if (success) {
+                Log.d(TAG, "Set min frequency for cluster " + cluster + " to " + freq);
+            }
+            return success;
         } catch (Exception e) {
             Log.e(TAG, "Error setting min frequency for cluster " + cluster, e);
             return false;
@@ -369,7 +396,11 @@ public class KernelManagerUtils {
         }
 
         try {
-            return writeFile(CPU_BASE_PATH + cluster + SCALING_MAX_FREQ, freq);
+            boolean success = writeFile(CPU_BASE_PATH + cluster + SCALING_MAX_FREQ, freq);
+            if (success) {
+                Log.d(TAG, "Set max frequency for cluster " + cluster + " to " + freq);
+            }
+            return success;
         } catch (Exception e) {
             Log.e(TAG, "Error setting max frequency for cluster " + cluster, e);
             return false;
@@ -566,5 +597,117 @@ public class KernelManagerUtils {
         sb.append("Performance Cluster Frequencies: ").append(PERFORMANCE_CLUSTER_FREQUENCIES.length).append(" steps\n");
         
         return sb.toString();
+    }
+
+    /**
+     * Reset all CPU settings to defaults
+     * @return true if successful, false otherwise
+     */
+    public boolean resetToDefaults() {
+        Log.d(TAG, "Resetting CPU settings to defaults");
+        boolean success = true;
+        
+        // Reset governor to default
+        if (!setGovernor(DEFAULT_GOVERNOR)) {
+            success = false;
+        }
+        
+        // Reset frequencies to full range for both clusters
+        for (int cluster : POLICIES) {
+            String[] frequencies = getAvailableFrequencies(cluster);
+            if (frequencies != null && frequencies.length > 0) {
+                String minFreq = frequencies[0];
+                String maxFreq = frequencies[frequencies.length - 1];
+                
+                if (!setMinFrequency(cluster, minFreq)) {
+                    success = false;
+                }
+                if (!setMaxFrequency(cluster, maxFreq)) {
+                    success = false;
+                }
+            }
+        }
+        
+        Log.d(TAG, "CPU settings reset to defaults " + (success ? "successful" : "partially failed"));
+        return success;
+    }
+
+    /**
+     * Get CPU statistics for monitoring
+     * @return CPU statistics object
+     */
+    public CpuStats getCpuStatistics() {
+        CpuStats stats = new CpuStats();
+        
+        // Count online cores per cluster
+        int[] efficiencyCores = getClusterCores(EFFICIENCY_CLUSTER);
+        int[] performanceCores = getClusterCores(PERFORMANCE_CLUSTER);
+        
+        for (int coreId : efficiencyCores) {
+            if (isCoreOnline(coreId)) {
+                stats.efficiencyOnline++;
+            }
+        }
+        
+        for (int coreId : performanceCores) {
+            if (isCoreOnline(coreId)) {
+                stats.performanceOnline++;
+            }
+        }
+        
+        stats.efficiencyTotal = efficiencyCores.length;
+        stats.performanceTotal = performanceCores.length;
+        stats.totalOnline = stats.efficiencyOnline + stats.performanceOnline;
+        stats.totalCores = stats.efficiencyTotal + stats.performanceTotal;
+        
+        return stats;
+    }
+
+    /**
+     * CPU statistics helper class
+     */
+    public static class CpuStats {
+        public int efficiencyOnline = 0;
+        public int efficiencyTotal = 0;
+        public int performanceOnline = 0;
+        public int performanceTotal = 0;
+        public int totalOnline = 0;
+        public int totalCores = 0;
+        
+        @Override
+        public String toString() {
+            return String.format("CPU Stats - Efficiency: %d/%d, Performance: %d/%d, Total: %d/%d",
+                efficiencyOnline, efficiencyTotal, 
+                performanceOnline, performanceTotal,
+                totalOnline, totalCores);
+        }
+    }
+
+    /**
+     * Check if a file exists and is readable
+     * @param path File path to check
+     * @return true if exists and readable, false otherwise
+     */
+    public boolean isFileReadable(String path) {
+        try {
+            File file = new File(path);
+            return file.exists() && file.canRead();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Check if a file exists and is writable
+     * @param path File path to check
+     * @return true if exists and writable, false otherwise
+     */
+    public boolean isFileWritable(String path) {
+        try {
+            File file = new File(path);
+            return file.exists() && file.canWrite();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

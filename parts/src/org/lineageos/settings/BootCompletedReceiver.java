@@ -43,7 +43,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
     private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
     private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
-    private static final String DEFAULT_GOVERNOR = "schedhorizon";
+    private static final String DEFAULT_GOVERNOR = "walt";  // Modified to walt
 
     // Kernel Manager preference keys
     private static final String KEY_CPU_GOVERNOR = "cpu_governor";
@@ -175,9 +175,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             
             if (!hasPerformanceProfile) {
                 // No performance profile saved, set default governor
-                FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                FileUtils.writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                if (FileUtils.isFileWritable(POLICY0_GOVERNOR_PATH)) {
+                    FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                }
+                if (FileUtils.isFileWritable(POLICY4_GOVERNOR_PATH)) {
+                    FileUtils.writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                }
+                if (FileUtils.isFileWritable(POLICY6_GOVERNOR_PATH)) {
+                    FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                }
                 if (DEBUG) {
                     Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR + " (no performance profile found)");
                 }
@@ -194,7 +200,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private void restorePerformanceProfile(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (!prefs.contains(KEY_PERFORMANCE_PROFILE)) {
+            if (!prefs.contains(KEY_PERFORMANCE_PROFILE) ) {
                 Log.d(TAG, "No performance profile saved, skipping restore");
                 return;
             }
@@ -239,73 +245,25 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             try {
                 PerformanceUtils performanceUtils = new PerformanceUtils(context);
                 performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
-                Log.d(TAG, "Set performance profile to default balanced mode after error");
-            } catch (Exception fallbackException) {
-                Log.e(TAG, "Even fallback performance profile setting failed", fallbackException);
+                Log.d(TAG, "Set safe default performance mode");
+            } catch (Exception ex) {
+                Log.e(TAG, "Failed to set safe default performance mode", ex);
             }
-        }
-    }
-
-    private void initializeBackgroundThread() {
-        if (mBackgroundThread == null) {
-            mBackgroundThread = new HandlerThread("BootInitialization");
-            mBackgroundThread.start();
-            mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
-        }
-    }
-
-    private void cleanupBackgroundThread() {
-        if (mBackgroundThread != null) {
-            try {
-                mBackgroundThread.quitSafely();
-                mBackgroundThread.join(2000); // Wait up to 2 seconds
-            } catch (InterruptedException e) {
-                Log.w(TAG, "Thread interrupted during cleanup", e);
-                Thread.currentThread().interrupt();
-            } finally {
-                mBackgroundThread = null;
-                mBackgroundHandler = null;
-            }
-        }
-    }
-
-    private void initializeCpuTileService(Context context) {
-        try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean cpuTileEnabled = prefs.getBoolean(KEY_CPU_TILE_ENABLED, true);
-            
-            if (!cpuTileEnabled) {
-                Log.d(TAG, "CPU Tile Service disabled, skipping initialization");
-                return;
-            }
-
-            // Check if kernel manager is supported
-            KernelManagerUtils kernelUtils = new KernelManagerUtils();
-            if (!kernelUtils.isKernelManagerSupported()) {
-                Log.d(TAG, "Kernel manager not supported, CPU tile will show unavailable state");
-                return;
-            }
-
-            // CPU Tile Service doesn't need explicit initialization,
-            // it will auto-start when the tile is added to quick settings
-            Log.d(TAG, "CPU Tile Service ready for use");
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to initialize CPU Tile Service", e);
         }
     }
 
     private void restoreLogcatService(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean autoStart = prefs.getBoolean(KEY_AUTO_START_LOGCAT, false);
-            if (autoStart) {
-                Intent serviceIntent = new Intent(context, LogcatBackgroundService.class);
-                context.startService(serviceIntent);
-                Log.d(TAG, "LogcatBackgroundService started on boot");
+            boolean autoStartLogcat = prefs.getBoolean(KEY_AUTO_START_LOGCAT, false);
+            
+            if (autoStartLogcat) {
+                Intent logcatIntent = new Intent(context, LogcatBackgroundService.class);
+                context.startServiceAsUser(logcatIntent, UserHandle.CURRENT);
+                Log.d(TAG, "Logcat service started");
             }
         } catch (Exception e) {
-            Log.e(TAG, "Failed to start LogcatBackgroundService", e);
+            Log.e(TAG, "Failed to restore logcat service", e);
         }
     }
 
@@ -314,51 +272,16 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             boolean adBlockerEnabled = prefs.getBoolean(KEY_ADBLOCKER_ENABLED, false);
             
-            if (!adBlockerEnabled) {
-                Log.d(TAG, "AdBlocker disabled, skipping restore");
-                return;
-            }
-
+            // Create instance of AdBlockerUtils
             AdBlockerUtils adBlockerUtils = new AdBlockerUtils(context);
             
-            // Check if root access is available
-            if (!adBlockerUtils.hasRootAccess()) {
-                Log.w(TAG, "AdBlocker enabled but no root access available");
-                return;
-            }
-
-            // Wait a bit for the system to stabilize
-            Thread.sleep(3000);
-            
-            Log.d(TAG, "Restoring AdBlocker settings");
-            
-            // Check if we have a hosts file to restore
-            int blockedCount = adBlockerUtils.getBlockedDomainsCount();
-            if (blockedCount > 0) {
-                // AdBlocker was previously enabled and has data, ensure it stays enabled
-                boolean success = adBlockerUtils.enableAdBlocker();
-                if (success) {
-                    Log.d(TAG, "AdBlocker restored successfully - blocking " + blockedCount + " domains");
-                } else {
-                    Log.w(TAG, "Failed to restore AdBlocker settings");
-                }
-            } else {
-                Log.d(TAG, "AdBlocker enabled but no hosts data found, may need manual update");
-                // Still try to enable to ensure proper state
+            if (adBlockerEnabled) {
                 adBlockerUtils.enableAdBlocker();
+                Log.d(TAG, "AdBlocker enabled");
+            } else {
+                adBlockerUtils.disableAdBlocker();
+                Log.d(TAG, "AdBlocker disabled");
             }
-            
-            // Log current state for debugging
-            if (DEBUG) {
-                boolean currentState = adBlockerUtils.isEnabled();
-                String lastUpdate = adBlockerUtils.getLastUpdateTime();
-                Log.d(TAG, "AdBlocker restore completed - enabled: " + currentState + 
-                     ", blocked domains: " + blockedCount + ", last update: " + lastUpdate);
-            }
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            Log.w(TAG, "AdBlocker restore interrupted", e);
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore AdBlocker settings", e);
         }
@@ -422,8 +345,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             }
 
             KernelManagerUtils kernelUtils = new KernelManagerUtils();
-            if (kernelUtils == null) {
-                Log.w(TAG, "KernelManagerUtils is null");
+            if (!kernelUtils.isKernelManagerSupported()) {
+                Log.w(TAG, "Kernel Manager not supported");
                 return;
             }
 
@@ -500,10 +423,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             }
 
             GpuManagerUtils gpuUtils = new GpuManagerUtils();
-            if (gpuUtils == null) {
-                Log.w(TAG, "GpuManagerUtils is null");
-                return;
-            }
 
             // Restore GPU Governor
             String savedGpuGovernor = prefs.getString(KEY_GPU_GOVERNOR, null);
@@ -605,6 +524,38 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             }
         } catch (Exception e) {
             Log.e(TAG, "Error restoring GPU power settings", e);
+        }
+    }
+
+    private void initializeBackgroundThread() {
+        mBackgroundThread = new HandlerThread("BackgroundThread");
+        mBackgroundThread.start();
+        mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
+    }
+
+    private void cleanupBackgroundThread() {
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeCallbacksAndMessages(null);
+        }
+        if (mBackgroundThread != null) {
+            mBackgroundThread.quitSafely();
+            mBackgroundThread = null;
+        }
+    }
+
+    private void initializeCpuTileService(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean cpuTileEnabled = prefs.getBoolean(KEY_CPU_TILE_ENABLED, false);
+            
+            if (cpuTileEnabled) {
+                // Start CPU Tile service if enabled
+                // Intent cpuTileIntent = new Intent(context, CpuTileService.class);
+                // context.startService(cpuTileIntent);
+                Log.d(TAG, "CPU Tile service initialized");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to initialize CPU Tile service", e);
         }
     }
 }
