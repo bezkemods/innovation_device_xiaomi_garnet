@@ -119,8 +119,6 @@ PRODUCT_PACKAGES += \
     android.hardware.boot-service.qti \
     android.hardware.boot-service.qti.recovery
 
-$(call soong_config_set, ufsbsg, ufsframework, bsg)
-
 # Call the Leica Camera setup
 $(call inherit-product-if-exists, vendor/xiaomi/garnet-leicacamera/products/miuicamera.mk)
 
