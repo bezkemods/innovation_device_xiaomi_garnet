@@ -1540,62 +1540,11 @@ vendor/lib64/libvideotxr.so
 vendor/lib64/qti.video.utils.videobufferlayout.so
 
 # Media Config
-vendor/etc/media_codecs.xml
 vendor/etc/media_codecs_c2_audio.xml
-vendor/etc/media_codecs_cape_vendor.xml
-vendor/etc/media_codecs_dolby_audio.xml
-vendor/etc/media_codecs_google_audio.xml
-vendor/etc/media_codecs_google_c2.xml
-vendor/etc/media_codecs_google_c2_audio.xml
-vendor/etc/media_codecs_google_c2_video.xml
-vendor/etc/media_codecs_google_telephony.xml
-vendor/etc/media_codecs_google_video.xml
-vendor/etc/media_codecs_google_video_le.xml
 vendor/etc/media_codecs_parrot_v0.xml
-vendor/etc/media_codecs_parrot_v1.xml
-vendor/etc/media_codecs_parrot_v2.xml
 vendor/etc/media_codecs_performance_parrot_v0.xml
 vendor/etc/media_parrot_v0/video_system_specs.json
-vendor/etc/media_codecs_performance_parrot_v1.xml
-vendor/etc/media_codecs_performance_parrot_v2.xml
-vendor/etc/media_codecs_performance_ravelin.xml
-vendor/etc/media_codecs_ravelin.xml
-vendor/etc/media_codecs_system_default.xml
-vendor/etc/media_codecs_taro_vendor.xml
-vendor/etc/media_codecs_vendor_audio.xml
-vendor/etc/media_codecs_with_dolby_taro.xml
-vendor/etc/media_profiles.xml
-vendor/etc/media_profiles_V1_0.xml
 vendor/etc/media_profiles_parrot_v0.xml
-vendor/etc/media_profiles_parrot_v1.xml
-vendor/etc/media_profiles_parrot_v2.xml
-vendor/etc/media_profiles_ravelin.xml
-
-# Media (Dolby Vision) - from 2.0.10.0.VNRMIXM
-vendor/bin/hw/dolbycodec2
-vendor/etc/dolby_vision.cfg
-vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc
-vendor/etc/vintf/manifest/c2_manifest_vendor.xml
-vendor/lib/c2.dolby.avc.dec.so
-vendor/lib/c2.dolby.avc.sec.dec.so
-vendor/lib/c2.dolby.client.so;DISABLE_CHECKELF
-vendor/lib/c2.dolby.egl.so
-vendor/lib/c2.dolby.hevc.dec.so
-vendor/lib/c2.dolby.hevc.enc.so
-vendor/lib/c2.dolby.hevc.sec.dec.so
-vendor/lib/c2.dolby.store.so
-vendor/lib/libdolbyottcameracontrol.so
-vendor/lib/libdolbyvision.so
-vendor/lib64/c2.dolby.avc.dec.so
-vendor/lib64/c2.dolby.avc.sec.dec.so
-vendor/lib64/c2.dolby.client.so;DISABLE_CHECKELF
-vendor/lib64/c2.dolby.egl.so
-vendor/lib64/c2.dolby.hevc.dec.so
-vendor/lib64/c2.dolby.hevc.enc.so
-vendor/lib64/c2.dolby.hevc.sec.dec.so
-vendor/lib64/c2.dolby.store.so
-vendor/lib64/libdolbyottcameracontrol.so
-vendor/lib64/libdolbyvision.so
 
 # Mlipay
 vendor/app/MipayService/MipayService.apk
