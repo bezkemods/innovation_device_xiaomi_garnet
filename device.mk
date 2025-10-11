@@ -116,7 +116,6 @@ $(call soong_config_set, ufsbsg, ufsframework, bsg)
 
 # Call the Leica Camera setup
 $(call inherit-product-if-exists, vendor/xiaomi/garnet-leicacamera/products/miuicamera.mk)
-$(call soong_config_set,camera,override_format_from_reserved,true)
 
 PRODUCT_PACKAGES += \
     libcamera2ndk_vendor
