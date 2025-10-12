@@ -36,6 +36,13 @@
             android:summary="@string/refresh_summary"
             android:icon="@drawable/ic_refresh_rate"
             app:iconSpaceReserved="true" />
+        <!-- Resolution -->
+        <Preference
+            android:key="resolution_settings"
+            android:title="@string/upscale_title"
+            android:summary="@string/upscale_summary"
+            android:icon="@drawable/ic_resolution"
+            app:iconSpaceReserved="true" />
         <!-- Auto HBM -->
         <Preference
             android:key="auto_hbm"

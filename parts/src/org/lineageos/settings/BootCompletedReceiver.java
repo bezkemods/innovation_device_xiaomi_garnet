@@ -32,6 +32,7 @@ import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 import org.lineageos.settings.performance.PerformanceUtils;
 import org.lineageos.settings.utils.FileUtils;
 import org.lineageos.settings.widget.XiaomiPartsWidget;
+import org.lineageos.settings.resolution.ResolutionUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false; // Disabled for production
@@ -173,6 +174,14 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 Log.d(TAG, "ChargeControlService started");
             } catch (Exception e) {
                 Log.e(TAG, "ChargeControlService failed to start", e);
+            }
+            
+            // Start Resolution Service
+            try {
+                ResolutionUtils.startService(context);
+                Log.d(TAG, "ResolutionService started");
+            } catch (Exception e) {
+                Log.e(TAG, "ResolutionService failed to start", e);
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to start services", e);

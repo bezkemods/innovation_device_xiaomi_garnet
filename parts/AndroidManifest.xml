@@ -239,6 +239,29 @@
             android:permission="RefreshService">
         </service>
                 
+        <!-- Resolution / Upscale -->
+        <activity
+            android:name=".resolution.ResolutionActivity"
+            android:label="@string/upscale_title"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+
+        <activity
+            android:name=".resolution.SystemResolutionActivity"
+            android:label="@string/system_resolution_title"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+
+        <service
+            android:name=".resolution.ResolutionService"
+            android:exported="true"
+            android:permission="ResolutionService">
+        </service>
+
         <!-- Auto HBM -->
         <activity
             android:name=".autohbm.AutoHbmActivity"
