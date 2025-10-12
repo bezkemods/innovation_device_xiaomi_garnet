@@ -238,7 +238,8 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/props/vendor.prop
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/props/phoneinfo.prop
 
 # Vendor security patch
-VENDOR_SECURITY_PATCH := 2025-09-01
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
