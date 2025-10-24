@@ -33,6 +33,7 @@ import org.lineageos.settings.corecontrol.CoreControlUtils;
 import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 import org.lineageos.settings.adblocker.AdBlockerUtils;
 import org.lineageos.settings.performance.PerformanceUtils;
+import org.lineageos.settings.videoenhancer.VideoEnhancerUtils;
 import org.lineageos.settings.utils.FileUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
@@ -43,7 +44,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
     private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
     private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
-    private static final String DEFAULT_GOVERNOR = "walt";  // Modified to walt
+    private static final String DEFAULT_GOVERNOR = "walt";
 
     // Kernel Manager preference keys
     private static final String KEY_CPU_GOVERNOR = "cpu_governor";
@@ -73,6 +74,12 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     // AdBlocker preference key
     private static final String KEY_ADBLOCKER_ENABLED = "adblocker_enabled";
+    
+    // Video Enhancer preference keys
+    private static final String KEY_VIDEO_ENHANCER_ENABLED = "video_enhancer_enabled";
+    private static final String KEY_MEMC_ENABLED = "memc_enabled";
+    private static final String KEY_SUPER_RESOLUTION_ENABLED = "super_resolution_enabled";
+    private static final String KEY_AI_HDR_ENABLED = "ai_hdr_enabled";
 
     // CPU Tile preference keys
     private static final String KEY_CPU_TILE_ENABLED = "cpu_tile_enabled";
@@ -120,6 +127,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 restoreCoreControlSettings(context);
                 restoreLogcatService(context);
                 restoreAdBlockerSettings(context);
+                restoreVideoEnhancerSettings(context);
                 
                 // Initialize CPU Tile Service
                 initializeCpuTileService(context);
@@ -200,7 +208,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private void restorePerformanceProfile(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (!prefs.contains(KEY_PERFORMANCE_PROFILE) ) {
+            if (!prefs.contains(KEY_PERFORMANCE_PROFILE)) {
                 Log.d(TAG, "No performance profile saved, skipping restore");
                 return;
             }
@@ -238,6 +246,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             Log.w(TAG, "Performance profile restore interrupted", e);
+            return;
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore performance profile", e);
             
@@ -249,41 +258,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             } catch (Exception ex) {
                 Log.e(TAG, "Failed to set safe default performance mode", ex);
             }
-        }
-    }
-
-    private void restoreLogcatService(Context context) {
-        try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean autoStartLogcat = prefs.getBoolean(KEY_AUTO_START_LOGCAT, false);
-            
-            if (autoStartLogcat) {
-                Intent logcatIntent = new Intent(context, LogcatBackgroundService.class);
-                context.startServiceAsUser(logcatIntent, UserHandle.CURRENT);
-                Log.d(TAG, "Logcat service started");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to restore logcat service", e);
-        }
-    }
-
-    private void restoreAdBlockerSettings(Context context) {
-        try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean adBlockerEnabled = prefs.getBoolean(KEY_ADBLOCKER_ENABLED, false);
-            
-            // Create instance of AdBlockerUtils
-            AdBlockerUtils adBlockerUtils = new AdBlockerUtils(context);
-            
-            if (adBlockerEnabled) {
-                adBlockerUtils.enableAdBlocker();
-                Log.d(TAG, "AdBlocker enabled");
-            } else {
-                adBlockerUtils.disableAdBlocker();
-                Log.d(TAG, "AdBlocker disabled");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to restore AdBlocker settings", e);
         }
     }
 
@@ -323,8 +297,44 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             Log.w(TAG, "Core control restore interrupted", e);
+            return;
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore core control settings", e);
+        }
+    }
+
+    private void restoreLogcatService(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean autoStartLogcat = prefs.getBoolean(KEY_AUTO_START_LOGCAT, false);
+            
+            if (autoStartLogcat) {
+                Intent logcatIntent = new Intent(context, LogcatBackgroundService.class);
+                context.startServiceAsUser(logcatIntent, UserHandle.CURRENT);
+                Log.d(TAG, "Logcat service started");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore logcat service", e);
+        }
+    }
+
+    private void restoreAdBlockerSettings(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean adBlockerEnabled = prefs.getBoolean(KEY_ADBLOCKER_ENABLED, false);
+            
+            // Create instance of AdBlockerUtils
+            AdBlockerUtils adBlockerUtils = new AdBlockerUtils(context);
+            
+            if (adBlockerEnabled) {
+                adBlockerUtils.enableAdBlocker();
+                Log.d(TAG, "AdBlocker enabled");
+            } else {
+                adBlockerUtils.disableAdBlocker();
+                Log.d(TAG, "AdBlocker disabled");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore AdBlocker settings", e);
         }
     }
 
@@ -524,6 +534,46 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             }
         } catch (Exception e) {
             Log.e(TAG, "Error restoring GPU power settings", e);
+        }
+    }
+
+    private void restoreVideoEnhancerSettings(Context context) {
+        try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (prefs == null) {
+                Log.w(TAG, "SharedPreferences is null for Video Enhancer");
+                return;
+            }
+
+            VideoEnhancerUtils videoUtils = new VideoEnhancerUtils(context);
+
+            boolean enabled = prefs.getBoolean(KEY_VIDEO_ENHANCER_ENABLED, false);
+            if (enabled) {
+                videoUtils.enableVideoEnhancer();
+                Log.d(TAG, "Restored Video Enhancer enabled state");
+            }
+
+            boolean memc = prefs.getBoolean(KEY_MEMC_ENABLED, false);
+            if (memc) {
+                videoUtils.setMemcEnabled(true);
+                Log.d(TAG, "Restored MEMC enabled");
+            }
+
+            boolean superRes = prefs.getBoolean(KEY_SUPER_RESOLUTION_ENABLED, false);
+            if (superRes) {
+                videoUtils.setSuperResolutionEnabled(true);
+                Log.d(TAG, "Restored Super Resolution enabled");
+            }
+
+            boolean aiHdr = prefs.getBoolean(KEY_AI_HDR_ENABLED, false);
+            if (aiHdr) {
+                videoUtils.setAiHdrEnabled(true);
+                Log.d(TAG, "Restored AI HDR enabled");
+            }
+
+            Log.d(TAG, "Video Enhancer settings restoration completed");
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore Video Enhancer settings", e);
         }
     }
 

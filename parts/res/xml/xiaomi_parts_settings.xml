@@ -36,6 +36,13 @@
             android:summary="@string/auto_hbm_summary"
             android:icon="@drawable/ic_auto_hbm"
             app:iconSpaceReserved="true" />
+        <!-- Video Enhancer -->
+        <Preference
+            android:key="video_enhancer_settings"
+            android:title="@string/video_enhancer_title"
+            android:summary="@string/video_enhancer_summary"
+            android:icon="@drawable/ic_video_enhancer"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
     <!-- Sound Settings -->
@@ -96,7 +103,7 @@
             android:icon="@drawable/ic_gamebar_settings"
             app:iconSpaceReserved="true" />
         <!-- Adblock -->
-               <Preference
+        <Preference
             android:key="adblocker_settings"
             android:title="@string/adblocker_title"
             android:summary="@string/adblocker_summary"

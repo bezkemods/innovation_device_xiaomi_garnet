@@ -21,6 +21,7 @@ import org.lineageos.settings.logcatviewer.MainActivity;
 import org.lineageos.settings.logcatviewer.LogcatSettingsPreference;
 import org.lineageos.settings.adblocker.AdBlockerActivity;
 import org.lineageos.settings.performance.PerformanceActivity;
+import org.lineageos.settings.videoenhancer.VideoEnhancerActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -37,6 +38,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
     private static final String KEY_ADBLOCKER = "adblocker_settings";
     private static final String KEY_PERFORMANCE = "performance";
+    private static final String KEY_VIDEO_ENHANCER = "video_enhancer_settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             setupPreference(KEY_GPU_MANAGER);
             setupPreference(KEY_ADBLOCKER);
             setupPreference(KEY_PERFORMANCE);
+            setupPreference(KEY_VIDEO_ENHANCER);
             
             // Logcat viewer - speciális kezelés
             setupLogcatViewer();
@@ -175,6 +178,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_PERFORMANCE.equals(key)) {
                 startActivity(new Intent(this, PerformanceActivity.class));
+                return true;
+            } else if (KEY_VIDEO_ENHANCER.equals(key)) {
+                startActivity(new Intent(this, VideoEnhancerActivity.class));
                 return true;
             }
         } catch (Exception e) {

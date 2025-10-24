@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <SwitchPreference
+        android:key="video_enhancer_enabled"
+        android:title="@string/video_enhancer_enable_title"
+        android:summary="@string/video_enhancer_enable_summary"
+        android:icon="@drawable/ic_video_enhancer_outline"
+        android:defaultValue="false" />
+    
+    <PreferenceCategory
+        android:title="@string/video_enhancer_features_category">
+        
+        <SwitchPreference
+            android:key="memc_enabled"
+            android:title="@string/memc_enable_title"
+            android:summary="@string/memc_enable_summary"
+            android:icon="@drawable/ic_memc"
+            android:defaultValue="false" />
+        
+        <SwitchPreference
+            android:key="super_resolution_enabled"
+            android:title="@string/super_resolution_enable_title"
+            android:summary="@string/super_resolution_enable_summary"
+            android:icon="@drawable/ic_super_resolution"
+            android:defaultValue="false" />
+        
+        <SwitchPreference
+            android:key="ai_hdr_enabled"
+            android:title="@string/ai_hdr_enable_title"
+            android:summary="@string/ai_hdr_enable_summary"
+            android:icon="@drawable/ic_ai_hdr"
+            android:defaultValue="false" />
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/video_enhancer_info_category">
+        
+        <Preference
+            android:key="video_enhancer_info"
+            android:title="@string/video_enhancer_info_title"
+            android:summary="@string/video_enhancer_info_summary"
+            android:icon="@drawable/ic_info"
+            android:selectable="true" />
+        
+    </PreferenceCategory>
+    
+</PreferenceScreen>
