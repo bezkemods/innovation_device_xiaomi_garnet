@@ -538,44 +538,76 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     }
 
     private void restoreVideoEnhancerSettings(Context context) {
-        try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (prefs == null) {
-                Log.w(TAG, "SharedPreferences is null for Video Enhancer");
-                return;
-            }
-
-            VideoEnhancerUtils videoUtils = new VideoEnhancerUtils(context);
-
-            boolean enabled = prefs.getBoolean(KEY_VIDEO_ENHANCER_ENABLED, false);
-            if (enabled) {
-                videoUtils.enableVideoEnhancer();
-                Log.d(TAG, "Restored Video Enhancer enabled state");
-            }
-
-            boolean memc = prefs.getBoolean(KEY_MEMC_ENABLED, false);
-            if (memc) {
-                videoUtils.setMemcEnabled(true);
-                Log.d(TAG, "Restored MEMC enabled");
-            }
-
-            boolean superRes = prefs.getBoolean(KEY_SUPER_RESOLUTION_ENABLED, false);
-            if (superRes) {
-                videoUtils.setSuperResolutionEnabled(true);
-                Log.d(TAG, "Restored Super Resolution enabled");
-            }
-
-            boolean aiHdr = prefs.getBoolean(KEY_AI_HDR_ENABLED, false);
-            if (aiHdr) {
-                videoUtils.setAiHdrEnabled(true);
-                Log.d(TAG, "Restored AI HDR enabled");
-            }
-
-            Log.d(TAG, "Video Enhancer settings restoration completed");
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to restore Video Enhancer settings", e);
+    try {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (prefs == null) {
+            Log.w(TAG, "SharedPreferences is null for Video Enhancer");
+            return;
         }
+
+        VideoEnhancerUtils videoUtils = new VideoEnhancerUtils(context);
+        
+        // Check if root access is available
+        if (!videoUtils.hasRootAccess()) {
+            Log.w(TAG, "No root access, skipping Video Enhancer restore");
+            return;
+        }
+
+        boolean enabled = prefs.getBoolean(KEY_VIDEO_ENHANCER_ENABLED, false);
+        if (!enabled) {
+            Log.d(TAG, "Video Enhancer disabled, skipping restore");
+            return;
+        }
+
+        // Wait a bit for the system to stabilize
+        Thread.sleep(1000);
+
+        // Enable Video Enhancer first
+        if (videoUtils.enableVideoEnhancer()) {
+            Log.d(TAG, "Video Enhancer enabled successfully");
+        } else {
+            Log.w(TAG, "Failed to enable Video Enhancer");
+            return; // Don't try to restore features if main toggle failed
+        }
+
+        // Restore individual features
+        boolean memc = prefs.getBoolean(KEY_MEMC_ENABLED, false);
+        boolean superRes = prefs.getBoolean(KEY_SUPER_RESOLUTION_ENABLED, false);
+        boolean aiHdr = prefs.getBoolean(KEY_AI_HDR_ENABLED, false);
+
+        if (memc) {
+            if (videoUtils.setMemcEnabled(true)) {
+                Log.d(TAG, "Restored MEMC enabled");
+            } else {
+                Log.w(TAG, "Failed to restore MEMC");
+            }
+        }
+
+        // Super Resolution can only be enabled if MEMC is off
+        if (superRes && !memc) {
+            if (videoUtils.setSuperResolutionEnabled(true)) {
+                Log.d(TAG, "Restored Super Resolution enabled");
+            } else {
+                Log.w(TAG, "Failed to restore Super Resolution");
+            }
+        }
+
+        if (aiHdr) {
+            if (videoUtils.setAiHdrEnabled(true)) {
+                Log.d(TAG, "Restored AI HDR enabled");
+            } else {
+                Log.w(TAG, "Failed to restore AI HDR");
+            }
+        }
+
+        Log.d(TAG, "Video Enhancer settings restoration completed");
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        Log.w(TAG, "Video Enhancer restore interrupted", e);
+    } catch (Exception e) {
+        Log.e(TAG, "Failed to restore Video Enhancer settings", e);
     }
+  }
 
     private void initializeBackgroundThread() {
         mBackgroundThread = new HandlerThread("BackgroundThread");

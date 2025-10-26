@@ -97,14 +97,18 @@ public class VideoEnhancerActivity extends PreferenceActivity
         if (mVideoEnhancerEnabled != null) {
             mVideoEnhancerEnabled.setChecked(isEnabled);
         }
+        
         if (mMemcEnabled != null) {
             mMemcEnabled.setChecked(isMemcEnabled);
             mMemcEnabled.setEnabled(isEnabled);
         }
+        
         if (mSuperResolutionEnabled != null) {
             mSuperResolutionEnabled.setChecked(isSuperResolutionEnabled);
-            mSuperResolutionEnabled.setEnabled(isEnabled && !isMemcEnabled); // Cannot be used with MEMC
+            // Super Resolution can only be enabled when Video Enhancer is on AND MEMC is off
+            mSuperResolutionEnabled.setEnabled(isEnabled && !isMemcEnabled);
         }
+        
         if (mAiHdrEnabled != null) {
             mAiHdrEnabled.setChecked(isAiHdrEnabled);
             mAiHdrEnabled.setEnabled(isEnabled);
@@ -121,27 +125,54 @@ public class VideoEnhancerActivity extends PreferenceActivity
         switch (key) {
             case KEY_VIDEO_ENHANCER_ENABLED:
                 handleVideoEnhancerToggle(enabled);
-                return true;
+                return false; // Don't allow automatic change, we handle it in the dialog
+                
             case KEY_MEMC_ENABLED:
-                if (enabled && mSuperResolutionEnabled.isChecked()) {
-                    Toast.makeText(this, R.string.memc_super_res_conflict, Toast.LENGTH_LONG).show();
-                    return false; // Prevent enabling if Super Res is on
+                if (!mVideoEnhancerEnabled.isChecked()) {
+                    Toast.makeText(this, R.string.video_enhancer_must_be_enabled, Toast.LENGTH_SHORT).show();
+                    return false;
                 }
-                mVideoEnhancerUtils.setMemcEnabled(enabled);
-                updateUI();
-                return true;
+                if (enabled && mSuperResolutionEnabled != null && mSuperResolutionEnabled.isChecked()) {
+                    Toast.makeText(this, R.string.memc_super_res_conflict, Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                if (mVideoEnhancerUtils.setMemcEnabled(enabled)) {
+                    updateUI();
+                    return true;
+                } else {
+                    Toast.makeText(this, "Failed to change MEMC setting", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                
             case KEY_SUPER_RESOLUTION_ENABLED:
-                if (enabled && mMemcEnabled.isChecked()) {
-                    Toast.makeText(this, R.string.memc_super_res_conflict, Toast.LENGTH_LONG).show();
-                    return false; // Prevent enabling if MEMC is on
+                if (!mVideoEnhancerEnabled.isChecked()) {
+                    Toast.makeText(this, R.string.video_enhancer_must_be_enabled, Toast.LENGTH_SHORT).show();
+                    return false;
                 }
-                mVideoEnhancerUtils.setSuperResolutionEnabled(enabled);
-                updateUI();
-                return true;
+                if (enabled && mMemcEnabled != null && mMemcEnabled.isChecked()) {
+                    Toast.makeText(this, R.string.memc_super_res_conflict, Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                if (mVideoEnhancerUtils.setSuperResolutionEnabled(enabled)) {
+                    updateUI();
+                    return true;
+                } else {
+                    Toast.makeText(this, "Failed to change Super Resolution setting", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                
             case KEY_AI_HDR_ENABLED:
-                mVideoEnhancerUtils.setAiHdrEnabled(enabled);
-                updateUI();
-                return true;
+                if (!mVideoEnhancerEnabled.isChecked()) {
+                    Toast.makeText(this, R.string.video_enhancer_must_be_enabled, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                if (mVideoEnhancerUtils.setAiHdrEnabled(enabled)) {
+                    updateUI();
+                    return true;
+                } else {
+                    Toast.makeText(this, "Failed to change AI HDR setting", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
         }
 
         return false;
@@ -173,10 +204,21 @@ public class VideoEnhancerActivity extends PreferenceActivity
             });
         } else {
             builder.setMessage(getString(R.string.video_enhancer_confirm_disable));
-            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> disableVideoEnhancer());
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                disableVideoEnhancer();
+            });
         }
 
-        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            // User cancelled, refresh UI to restore switch state
+            updateUI();
+        });
+        
+        builder.setOnCancelListener(dialog -> {
+            // Dialog was cancelled, refresh UI to restore switch state
+            updateUI();
+        });
+        
         builder.show();
     }
 
@@ -184,12 +226,16 @@ public class VideoEnhancerActivity extends PreferenceActivity
         Log.d(TAG, "enableVideoEnhancer() called");
 
         if (mVideoEnhancerUtils.enableVideoEnhancer()) {
+            // Save preference
+            mPrefs.edit().putBoolean(KEY_VIDEO_ENHANCER_ENABLED, true).apply();
             Toast.makeText(this, R.string.video_enhancer_enabled, Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Video Enhancer enabled successfully");
             updateUI();
         } else {
             Toast.makeText(this, "Failed to enable Video Enhancer!", Toast.LENGTH_LONG).show();
             Log.e(TAG, "Failed to enable Video Enhancer");
+            // Refresh UI to restore switch state
+            updateUI();
         }
     }
 
@@ -197,12 +243,16 @@ public class VideoEnhancerActivity extends PreferenceActivity
         Log.d(TAG, "disableVideoEnhancer() called");
 
         if (mVideoEnhancerUtils.disableVideoEnhancer()) {
+            // Save preference
+            mPrefs.edit().putBoolean(KEY_VIDEO_ENHANCER_ENABLED, false).apply();
             Toast.makeText(this, R.string.video_enhancer_disabled, Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Video Enhancer disabled successfully");
             updateUI();
         } else {
             Toast.makeText(this, "Failed to disable Video Enhancer!", Toast.LENGTH_LONG).show();
             Log.e(TAG, "Failed to disable Video Enhancer");
+            // Refresh UI to restore switch state
+            updateUI();
         }
     }
 
@@ -210,13 +260,31 @@ public class VideoEnhancerActivity extends PreferenceActivity
         Log.d(TAG, "showInfoDialog() called");
 
         StringBuilder info = new StringBuilder();
-        info.append("Video Enhancer features:\n\n");
-        info.append("MEMC: Adds frames to low frame rate videos for smoother playback.\n\n");
-        info.append("Super Resolution: Upscales ≤720p videos to higher resolution.\n\n");
-        info.append("AI HDR: Applies HDR effects using AI algorithms.\n\n");
-        info.append("Note: MEMC and Super Resolution cannot be enabled simultaneously.\n\n");
-        info.append("These features may require root access or specific system permissions.\n");
-        info.append("Supported on Xiaomi Redmi Note 13 Pro 5G (Garnet).");
+        info.append("AI Image Engine - Video Enhancer\n\n");
+        
+        info.append("⚡ MEMC (Motion Estimation & Motion Compensation)\n");
+        info.append("Creates smoother motion by inserting extra frames between original ones. ");
+        info.append("Perfect for sports, gaming replays, and action movies. ");
+        info.append("Eliminates judder and creates buttery smooth playback.\n\n");
+        
+        info.append("🎯 Super Resolution\n");
+        info.append("Uses AI algorithms to upscale and sharpen videos. ");
+        info.append("Transforms 720p content to near-1080p quality, bringing out finer details. ");
+        info.append("Ideal for streaming services, older footage, or compressed content.\n\n");
+        
+        info.append("🌈 AI HDR Enhancement\n");
+        info.append("Optimizes colors and contrast for more lifelike visuals. ");
+        info.append("Brings out vibrant details in highlights and shadows. ");
+        info.append("Perfect for videos shot in challenging lighting conditions.\n\n");
+        
+        info.append("⚠️ Important Notes:\n");
+        info.append("• MEMC and Super Resolution cannot run simultaneously\n");
+        info.append("• Features require root access for system property modification\n");
+        info.append("• May slightly increase battery usage when active\n");
+        info.append("• Works with YouTube, Netflix, Gallery, and most video apps\n");
+        info.append("• Best results with Vivid or Saturated color schemes\n\n");
+        
+        info.append("Supported on Xiaomi Redmi Note 13 Pro 5G (Garnet) with HyperOS.");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Video Enhancer Information");

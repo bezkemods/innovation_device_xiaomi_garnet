@@ -17,7 +17,13 @@ public class VideoEnhancerUtils {
     private static final String PREF_SUPER_RESOLUTION_ENABLED = "super_resolution_enabled";
     private static final String PREF_AI_HDR_ENABLED = "ai_hdr_enabled";
 
-    // System properties for video enhancements (based on typical MIUI/Xiaomi props; adjust as needed)
+    // System properties for video enhancements
+    // These properties control Xiaomi's AI Image Engine built into HyperOS
+    // MEMC: Motion Estimation and Motion Compensation - adds interpolated frames for smoother motion
+    // Super Resolution: AI-powered upscaling - enhances video quality from 720p to near-1080p
+    // AI HDR: High Dynamic Range enhancement - optimizes colors and contrast
+    // Note: Actual property names may vary by device and HyperOS version
+    // Compatible with: Redmi Note 13 Pro 5G (Garnet), Xiaomi 14/15 series, and other HyperOS devices
     private static final String PROP_MEMC = "persist.vendor.video.memc";
     private static final String PROP_SUPER_RESOLUTION = "persist.vendor.video.superres";
     private static final String PROP_AI_HDR = "persist.vendor.video.aihdr";
@@ -45,8 +51,11 @@ public class VideoEnhancerUtils {
     }
 
     public boolean setMemcEnabled(boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_MEMC_ENABLED, enabled).apply();
-        return setSystemProp(PROP_MEMC, enabled ? "1" : "0");
+        boolean success = setSystemProp(PROP_MEMC, enabled ? "1" : "0");
+        if (success) {
+            mPrefs.edit().putBoolean(PREF_MEMC_ENABLED, enabled).apply();
+        }
+        return success;
     }
 
     public boolean isSuperResolutionEnabled() {
@@ -54,8 +63,11 @@ public class VideoEnhancerUtils {
     }
 
     public boolean setSuperResolutionEnabled(boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_SUPER_RESOLUTION_ENABLED, enabled).apply();
-        return setSystemProp(PROP_SUPER_RESOLUTION, enabled ? "1" : "0");
+        boolean success = setSystemProp(PROP_SUPER_RESOLUTION, enabled ? "1" : "0");
+        if (success) {
+            mPrefs.edit().putBoolean(PREF_SUPER_RESOLUTION_ENABLED, enabled).apply();
+        }
+        return success;
     }
 
     public boolean isAiHdrEnabled() {
@@ -63,42 +75,57 @@ public class VideoEnhancerUtils {
     }
 
     public boolean setAiHdrEnabled(boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_AI_HDR_ENABLED, enabled).apply();
-        return setSystemProp(PROP_AI_HDR, enabled ? "1" : "0");
+        boolean success = setSystemProp(PROP_AI_HDR, enabled ? "1" : "0");
+        if (success) {
+            mPrefs.edit().putBoolean(PREF_AI_HDR_ENABLED, enabled).apply();
+        }
+        return success;
     }
 
     public boolean enableVideoEnhancer() {
         try {
             if (!hasRootAccess()) {
-                Log.w(TAG, "No root access, Video Enhancer may not work properly");
-                // Still allow enabling, but features won't work without root
+                Log.w(TAG, "No root access - Video Enhancer features require root to modify system properties");
+                Log.w(TAG, "Features will be marked as enabled but may not function without root access");
+                // Still allow enabling in preferences, but warn that it won't work
             }
             
             setEnabled(true);
             
             // Re-apply individual features if they were enabled
+            // Note: These features work best with:
+            // - Display color scheme set to "Vivid" or "Saturated"
+            // - Supported apps: YouTube, Netflix, Gallery, most video players
+            // - May increase battery usage during active video playback
             boolean allSuccess = true;
+            
             if (isMemcEnabled()) {
-                if (!setMemcEnabled(true)) {
+                if (!setSystemProp(PROP_MEMC, "1")) {
                     Log.w(TAG, "Failed to enable MEMC");
                     allSuccess = false;
+                    // Reset preference if system prop failed
+                    mPrefs.edit().putBoolean(PREF_MEMC_ENABLED, false).apply();
                 }
             }
+            
             if (isSuperResolutionEnabled()) {
-                if (!setSuperResolutionEnabled(true)) {
+                if (!setSystemProp(PROP_SUPER_RESOLUTION, "1")) {
                     Log.w(TAG, "Failed to enable Super Resolution");
                     allSuccess = false;
+                    mPrefs.edit().putBoolean(PREF_SUPER_RESOLUTION_ENABLED, false).apply();
                 }
             }
+            
             if (isAiHdrEnabled()) {
-                if (!setAiHdrEnabled(true)) {
+                if (!setSystemProp(PROP_AI_HDR, "1")) {
                     Log.w(TAG, "Failed to enable AI HDR");
                     allSuccess = false;
+                    mPrefs.edit().putBoolean(PREF_AI_HDR_ENABLED, false).apply();
                 }
             }
             
             Log.d(TAG, "Video Enhancer enabled" + (allSuccess ? "" : " (with some failures)"));
-            return true;
+            return allSuccess;
         } catch (Exception e) {
             Log.e(TAG, "Failed to enable Video Enhancer", e);
             setEnabled(false);
@@ -110,21 +137,31 @@ public class VideoEnhancerUtils {
         try {
             // Disable individual features
             boolean allSuccess = true;
-            if (!setMemcEnabled(false)) {
+            
+            if (!setSystemProp(PROP_MEMC, "0")) {
                 Log.w(TAG, "Failed to disable MEMC");
                 allSuccess = false;
+            } else {
+                mPrefs.edit().putBoolean(PREF_MEMC_ENABLED, false).apply();
             }
-            if (!setSuperResolutionEnabled(false)) {
+            
+            if (!setSystemProp(PROP_SUPER_RESOLUTION, "0")) {
                 Log.w(TAG, "Failed to disable Super Resolution");
                 allSuccess = false;
+            } else {
+                mPrefs.edit().putBoolean(PREF_SUPER_RESOLUTION_ENABLED, false).apply();
             }
-            if (!setAiHdrEnabled(false)) {
+            
+            if (!setSystemProp(PROP_AI_HDR, "0")) {
                 Log.w(TAG, "Failed to disable AI HDR");
                 allSuccess = false;
+            } else {
+                mPrefs.edit().putBoolean(PREF_AI_HDR_ENABLED, false).apply();
             }
+            
             setEnabled(false);
             Log.d(TAG, "Video Enhancer disabled" + (allSuccess ? "" : " (with some failures)"));
-            return true;
+            return allSuccess;
         } catch (Exception e) {
             Log.e(TAG, "Failed to disable Video Enhancer", e);
             return false;
