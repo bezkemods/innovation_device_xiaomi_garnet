@@ -708,32 +708,31 @@
     <string name="apply_settings">Apply Settings</string>
     <string name="reset_settings">Reset Settings</string>
 
-<!-- Video Enhancer -->
+<!-- Videoenhancer -->
 <string name="video_enhancer_title">Video Enhancer</string>
 <string name="video_enhancer_summary">AI-powered video enhancements for better playback</string>
 <string name="video_enhancer_enable_title">Enable Video Enhancer</string>
-<string name="video_enhancer_enable_summary">Activate AI Image Engine for video enhancement</string>
-<string name="video_enhancer_features_category">Enhancement Features</string>
-<string name="memc_enable_title">MEMC (Motion Smoothing)</string>
-<string name="memc_enable_summary">Insert extra frames for smoother motion playback</string>
-<string name="super_resolution_enable_title">Super Resolution</string>
-<string name="super_resolution_enable_summary">AI upscaling for sharper video quality</string>
-<string name="ai_hdr_enable_title">AI HDR Enhancement</string>
-<string name="ai_hdr_enable_summary">Optimize colors and contrast for lifelike visuals</string>
+<string name="video_enhancer_enable_summary">Toggle all video enhancement features</string>
+<string name="video_enhancer_features_category">Features</string>
+<string name="memc_enable_title">Enable MEMC</string>
+<string name="memc_enable_summary">Motion Estimation, Motion Compensation for smoother videos</string>
+<string name="super_resolution_enable_title">Enable Super Resolution</string>
+<string name="super_resolution_enable_summary">Upscale low-resolution videos for clearer images</string>
+<string name="ai_hdr_enable_title">Enable AI HDR</string>
+<string name="ai_hdr_enable_summary">Apply HDR effects using AI algorithms</string>
 <string name="video_enhancer_info_category">Information</string>
 <string name="video_enhancer_info_title">About Video Enhancer</string>
-<string name="video_enhancer_info_summary">Learn more about AI Image Engine features</string>
+<string name="video_enhancer_info_summary">Learn more about the features</string>
 <string name="video_enhancer_confirm_title">Confirm Action</string>
-<string name="video_enhancer_confirm_enable">Enable Video Enhancer?\n\nThis will activate AI-powered video enhancements.\n\n• Requires root access for system properties\n• May slightly increase battery usage\n• Works with YouTube, Netflix, Gallery, and most video apps\n• Best results with Vivid or Saturated color schemes</string>
-<string name="video_enhancer_confirm_disable">Disable Video Enhancer?\n\nAll enhancement features will be turned off.</string>
+<string name="video_enhancer_confirm_enable">Enable Video Enhancer? This may affect battery life.</string>
+<string name="video_enhancer_confirm_disable">Disable Video Enhancer? Features will be turned off.</string>
 <string name="video_enhancer_enabled">Video Enhancer enabled</string>
 <string name="video_enhancer_disabled">Video Enhancer disabled</string>
-<string name="video_enhancer_must_be_enabled">Video Enhancer must be enabled first</string>
-<string name="memc_super_res_conflict">MEMC and Super Resolution cannot be enabled simultaneously</string>
+<string name="memc_super_res_conflict">MEMC and Super Resolution cannot be enabled together</string>
 <string name="video_enhancer_enable_failed">Failed to enable Video Enhancer!</string>
 <string name="video_enhancer_disable_failed">Failed to disable Video Enhancer!</string>
-<string name="video_enhancer_feature_failed">Failed to apply setting. Root access required for system properties.</string>
-<string name="video_enhancer_info_dialog_title">AI Image Engine - Video Enhancer</string>
-<string name="video_enhancer_info_dialog_message">⚡ MEMC (Motion Estimation &amp; Motion Compensation)\nCreates smoother motion by inserting extra frames between original ones. Perfect for sports, gaming replays, and action movies. Eliminates judder and creates buttery smooth playback.\n\n🎯 Super Resolution\nUses AI algorithms to upscale and sharpen videos. Transforms 720p content to near-1080p quality, bringing out finer details. Ideal for streaming services, older footage, or compressed content.\n\n🌈 AI HDR Enhancement\nOptimizes colors and contrast for more lifelike visuals. Brings out vibrant details in highlights and shadows. Perfect for videos shot in challenging lighting conditions.\n\n⚠️ Important Notes:\n• MEMC and Super Resolution cannot run simultaneously\n• Features require root access for system property modification\n• May slightly increase battery usage when active\n• Works with YouTube, Netflix, Gallery, and most video apps\n• Best results with Vivid or Saturated color schemes\n\nSupported on Xiaomi Redmi Note 13 Pro 5G (Garnet) with HyperOS.</string>
+<string name="video_enhancer_feature_failed">Failed to apply setting. Root access may be required.</string>
+<string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+<string name="video_enhancer_info_dialog_message">Video Enhancer features:\n\n• MEMC: Adds frames to low frame rate videos for smoother playback.\n\n• Super Resolution: Upscales ≤720p videos to higher resolution.\n\n• AI HDR: Applies HDR effects using AI algorithms.\n\n⚠️ Note: MEMC and Super Resolution cannot be enabled simultaneously.\n\n📱 These features may require root access or specific system permissions.\n\nSupported on Xiaomi Redmi Note 13 Pro 5G (Garnet).</string>
 
 </resources>
