@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?android:attr/colorControlNormal">
+  <!-- Külső keret – egységes a teljes sorozathoz (ic_cpu, ic_gpu, ic_memory) -->
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M5,5H19V19H5V5ZM7,7V17H17V7H7Z"/>
+  <!-- Vulkan "V" motívum háromszöggel – hivatalos logó ihlette, letisztult -->
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M12,8L16,14H13V16H11V14H8L12,8Z"/>
+</vector>

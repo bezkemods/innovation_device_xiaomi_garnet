@@ -708,31 +708,68 @@
     <string name="apply_settings">Apply Settings</string>
     <string name="reset_settings">Reset Settings</string>
 
-<!-- Videoenhancer -->
+<!-- Video Enhancer -->
 <string name="video_enhancer_title">Video Enhancer</string>
-<string name="video_enhancer_summary">AI-powered video enhancements for better playback</string>
-<string name="video_enhancer_enable_title">Enable Video Enhancer</string>
-<string name="video_enhancer_enable_summary">Toggle all video enhancement features</string>
-<string name="video_enhancer_features_category">Features</string>
-<string name="memc_enable_title">Enable MEMC</string>
-<string name="memc_enable_summary">Motion Estimation, Motion Compensation for smoother videos</string>
-<string name="super_resolution_enable_title">Enable Super Resolution</string>
-<string name="super_resolution_enable_summary">Upscale low-resolution videos for clearer images</string>
-<string name="ai_hdr_enable_title">Enable AI HDR</string>
-<string name="ai_hdr_enable_summary">Apply HDR effects using AI algorithms</string>
+<string name="video_enhancer_summary">Display and performance optimizations</string>
+
+<!-- Display Features Category -->
+<string name="video_enhancer_display_category">Display Features</string>
+
+<!-- Smooth Motion -->
+<string name="smooth_motion_enable_title">Smooth Motion</string>
+<string name="smooth_motion_enable_summary">Hardware motion smoothing for videos</string>
+
+<!-- Optimize Refresh -->
+<string name="optimize_refresh_enable_title">Optimize Refresh Rate</string>
+<string name="optimize_refresh_enable_summary">Dynamic refresh rate optimization</string>
+
+<!-- Performance Category -->
+<string name="video_enhancer_performance_category">Performance Optimizations</string>
+
+<!-- Force Vulkan -->
+<string name="force_vulkan_title">Force Vulkan API</string>
+<string name="force_vulkan_summary">Use Vulkan for better GPU performance • Reboot required</string>
+
+<!-- Purgeable Assets -->
+<string name="purgeable_assets_title">Purgeable Assets</string>
+<string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+
+<!-- GFX Acceleration -->
+<string name="gfx_accel_title">Graphics Acceleration</string>
+<string name="gfx_accel_summary">Enable hardware graphics acceleration</string>
+
+<!-- ADPF CPU Hint -->
+<string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+<string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework CPU optimization</string>
+
+<!-- Renderer Category -->
+<string name="video_enhancer_renderer_category">Hardware Renderer</string>
+
+<!-- SkiaGL Renderer -->
+<string name="skiagl_renderer_title">SkiaGL Renderer</string>
+<string name="skiagl_renderer_summary">OpenGL-based renderer • Reboot required</string>
+
+<!-- SkiaVK Renderer -->
+<string name="skiavk_renderer_title">SkiaVK Renderer</string>
+<string name="skiavk_renderer_summary">Vulkan-based renderer • Reboot required</string>
+
+<!-- Information Category -->
 <string name="video_enhancer_info_category">Information</string>
 <string name="video_enhancer_info_title">About Video Enhancer</string>
 <string name="video_enhancer_info_summary">Learn more about the features</string>
-<string name="video_enhancer_confirm_title">Confirm Action</string>
-<string name="video_enhancer_confirm_enable">Enable Video Enhancer? This may affect battery life.</string>
-<string name="video_enhancer_confirm_disable">Disable Video Enhancer? Features will be turned off.</string>
-<string name="video_enhancer_enabled">Video Enhancer enabled</string>
-<string name="video_enhancer_disabled">Video Enhancer disabled</string>
-<string name="memc_super_res_conflict">MEMC and Super Resolution cannot be enabled together</string>
-<string name="video_enhancer_enable_failed">Failed to enable Video Enhancer!</string>
-<string name="video_enhancer_disable_failed">Failed to disable Video Enhancer!</string>
-<string name="video_enhancer_feature_failed">Failed to apply setting. Root access may be required.</string>
+
+<!-- Status Messages -->
+<string name="video_enhancer_feature_applied">Setting applied successfully</string>
+<string name="video_enhancer_feature_failed">Failed to apply setting</string>
+
+<!-- Reboot Required -->
+<string name="reboot_required_title">Reboot Required</string>
+<string name="reboot_required_message">Changes will take effect after device reboot.</string>
+<string name="reboot_now">Reboot Now</string>
+<string name="reboot_later">Later</string>
+
+<!-- Info Dialog -->
 <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
-<string name="video_enhancer_info_dialog_message">Video Enhancer features:\n\n• MEMC: Adds frames to low frame rate videos for smoother playback.\n\n• Super Resolution: Upscales ≤720p videos to higher resolution.\n\n• AI HDR: Applies HDR effects using AI algorithms.\n\n⚠️ Note: MEMC and Super Resolution cannot be enabled simultaneously.\n\n📱 These features may require root access or specific system permissions.\n\nSupported on Xiaomi Redmi Note 13 Pro 5G (Garnet).</string>
+<string name="video_enhancer_info_dialog_message">Video Enhancer features for Redmi Note 13 Pro 5G (Garnet):\n\n📹 DISPLAY FEATURES:\n\n• Smooth Motion: Hardware motion smoothing (vendor.display.use_smooth_motion). Provides smoother video playback.\n\n• Optimize Refresh: Dynamic refresh rate optimization (vendor.display.enable_optimize_refresh). Improves battery efficiency.\n\n⚡ PERFORMANCE OPTIMIZATIONS:\n\n• Force Vulkan: Forces Vulkan API usage (persist.sys.force_vulkan=1). Better GPU performance for modern apps and games.\n\n• Purgeable Assets: Allows system to free unused memory (persist.sys.purgeable_assets=1). Improves memory management.\n\n• Graphics Acceleration: Enables hardware acceleration (ro.config.avoid_gfx_accel=false). Better graphics performance.\n\n• ADPF CPU Hints: Enables Android Dynamic Performance Framework (debug.sf.enable_adpf_cpu_hint=true). Optimizes CPU usage dynamically.\n\n🎨 HARDWARE RENDERERS:\n\n• SkiaGL: OpenGL-based Skia renderer (debug.hwui.renderer=skiagl). Better compatibility with older apps.\n\n• SkiaVK: Vulkan-based Skia renderer (debug.hwui.renderer=skiavk). Better performance on modern hardware.\n\n⚠️ IMPORTANT NOTES:\n\n• Some changes require device REBOOT\n• Only ONE renderer can be active at a time\n• Selecting a renderer automatically disables the other\n• Based on actual device properties\n\n📱 Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)</string>
 
 </resources>

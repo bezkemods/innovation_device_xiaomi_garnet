@@ -1,0 +1,24 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?android:attr/colorControlNormal">
+  <!-- Külső keret, az eredeti ic_vulkan.xml mintájára -->
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M5,5H19V19H5V5ZM7,7V17H17V7H7Z"/>
+  <!-- Memória chip motívum: téglalap alaplap + belső rácsos chip + néhány "pin" alul -->
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="
+          M9,9h6v6h-6v-6z
+          M10,10v1h1v-1h-1z
+          M12,10v1h1v-1h-1z
+          M10,12v1h1v-1h-1z
+          M12,12v1h1v-1h-1z
+          M9.5,15.5h1v1h-1v-1z
+          M11,15.5h1v1h-1v-1z
+          M12.5,15.5h1v1h-1v-1z
+          M14,15.5h1v1h-1v-1z"/>
+</vector>

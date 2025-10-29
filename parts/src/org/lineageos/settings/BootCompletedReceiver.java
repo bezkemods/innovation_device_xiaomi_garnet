@@ -76,10 +76,14 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String KEY_ADBLOCKER_ENABLED = "adblocker_enabled";
     
     // Video Enhancer preference keys
-    private static final String KEY_VIDEO_ENHANCER_ENABLED = "video_enhancer_enabled";
-    private static final String KEY_MEMC_ENABLED = "memc_enabled";
-    private static final String KEY_SUPER_RESOLUTION_ENABLED = "super_resolution_enabled";
-    private static final String KEY_AI_HDR_ENABLED = "ai_hdr_enabled";
+    private static final String KEY_SMOOTH_MOTION_ENABLED = "smooth_motion_enabled";
+    private static final String KEY_OPTIMIZE_REFRESH_ENABLED = "optimize_refresh_enabled";
+    private static final String KEY_SKIAGL_RENDERER_ENABLED = "skiagl_renderer_enabled";
+    private static final String KEY_SKIAVK_RENDERER_ENABLED = "skiavk_renderer_enabled";
+    private static final String KEY_FORCE_VULKAN_ENABLED = "force_vulkan_enabled";
+    private static final String KEY_PURGEABLE_ASSETS_ENABLED = "purgeable_assets_enabled";
+    private static final String KEY_GFX_ACCEL_ENABLED = "gfx_accel_enabled";
+    private static final String KEY_ADPF_CPU_HINT_ENABLED = "adpf_cpu_hint_enabled";
 
     // CPU Tile preference keys
     private static final String KEY_CPU_TILE_ENABLED = "cpu_tile_enabled";
@@ -541,37 +545,31 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs == null) {
-                Log.w(TAG, "SharedPreferences is null for Video Enhancer");
+                Log.w(TAG, "SharedPreferences is null for Video Enhancer settings");
                 return;
             }
 
+            Log.d(TAG, "Restoring Video Enhancer settings...");
+            
+            // Várakozás a rendszer stabilizálódására
+            Thread.sleep(1000);
+            
             VideoEnhancerUtils videoUtils = new VideoEnhancerUtils(context);
-
-            boolean enabled = prefs.getBoolean(KEY_VIDEO_ENHANCER_ENABLED, false);
-            if (enabled) {
-                videoUtils.enableVideoEnhancer();
-                Log.d(TAG, "Restored Video Enhancer enabled state");
+            
+            // Ellenőrizzük, hogy van-e root
+            if (!videoUtils.isRootAvailable()) {
+                Log.w(TAG, "Root not available, skipping Video Enhancer restore");
+                return;
             }
+            
+            // Alkalmazzuk a mentett beállításokat
+            videoUtils.applyOnBoot();
 
-            boolean memc = prefs.getBoolean(KEY_MEMC_ENABLED, false);
-            if (memc) {
-                videoUtils.setMemcEnabled(true);
-                Log.d(TAG, "Restored MEMC enabled");
-            }
-
-            boolean superRes = prefs.getBoolean(KEY_SUPER_RESOLUTION_ENABLED, false);
-            if (superRes) {
-                videoUtils.setSuperResolutionEnabled(true);
-                Log.d(TAG, "Restored Super Resolution enabled");
-            }
-
-            boolean aiHdr = prefs.getBoolean(KEY_AI_HDR_ENABLED, false);
-            if (aiHdr) {
-                videoUtils.setAiHdrEnabled(true);
-                Log.d(TAG, "Restored AI HDR enabled");
-            }
-
-            Log.d(TAG, "Video Enhancer settings restoration completed");
+            Log.d(TAG, "Video Enhancer settings restored successfully");
+            
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.w(TAG, "Video Enhancer restore interrupted", e);
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore Video Enhancer settings", e);
         }

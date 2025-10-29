@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?android:attr/colorControlNormal">
+    
+    <!-- CPU package outline -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M5,5h14v14H5z"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1" />
+    
+    <!-- CPU cores (4 cores in 2x2 grid) -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M7,7h4v4H7z M13,7h4v4h-4z M7,13h4v4H7z M13,13h4v4h-4z" />
+    
+    <!-- Chip legs -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M2,7h3v1H2z M2,9h3v1H2z M2,11h3v1H2z M2,13h3v1H2z M2,15h3v1H2z
+                          M19,7h3v1h-3z M19,9h3v1h-3z M19,11h3v1h-3z M19,13h3v1h-3z M19,15h3v1h-3z
+                          M7,2v3h1V2z M9,2v3h1V2z M11,2v3h1V2z M13,2v3h1V2z M15,2v3h1V2z
+                          M7,19v3h1v-3z M9,19v3h1v-3z M11,19v3h1v-3z M13,19v3h1v-3z M15,19v3h1v-3z" />
+</vector>

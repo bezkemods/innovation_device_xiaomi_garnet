@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?android:attr/colorControlNormal">
+  <!-- Külső keret, az eredeti ikont követve -->
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M5,5H19V19H5V5ZM7,7V17H17V7H7Z"/>
+  <!-- Sima mozgás motívum: hullámzó nyíl, a gördülékeny mozgást szimbolizálva -->
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M8,12H10.5C10.5,11 11.5,10 12.5,10C13.5,10 14.5,11 14.5,12H16L13,15L10,12H8Z"/>
+</vector>

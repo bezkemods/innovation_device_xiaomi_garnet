@@ -3,6 +3,7 @@ package org.lineageos.settings.videoenhancer;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -17,211 +18,173 @@ public class VideoEnhancerActivity extends PreferenceActivity
 
     private static final String TAG = "VideoEnhancerActivity";
 
-    private static final String KEY_VIDEO_ENHANCER_ENABLED = "video_enhancer_enabled";
-    private static final String KEY_MEMC_ENABLED = "memc_enabled";
-    private static final String KEY_SUPER_RESOLUTION_ENABLED = "super_resolution_enabled";
-    private static final String KEY_AI_HDR_ENABLED = "ai_hdr_enabled";
+    private static final String KEY_SMOOTH_MOTION_ENABLED = "smooth_motion_enabled";
+    private static final String KEY_OPTIMIZE_REFRESH_ENABLED = "optimize_refresh_enabled";
+    private static final String KEY_FORCE_VULKAN_ENABLED = "force_vulkan_enabled";
+    private static final String KEY_PURGEABLE_ASSETS_ENABLED = "purgeable_assets_enabled";
+    private static final String KEY_GFX_ACCEL_ENABLED = "gfx_accel_enabled";
+    private static final String KEY_ADPF_CPU_HINT_ENABLED = "adpf_cpu_hint_enabled";
+    private static final String KEY_SKIAGL_RENDERER_ENABLED = "skiagl_renderer_enabled";
+    private static final String KEY_SKIAVK_RENDERER_ENABLED = "skiavk_renderer_enabled";
     private static final String KEY_VIDEO_ENHANCER_INFO = "video_enhancer_info";
 
-    private SwitchPreference mVideoEnhancerEnabled;
-    private SwitchPreference mMemcEnabled;
-    private SwitchPreference mSuperResolutionEnabled;
-    private SwitchPreference mAiHdrEnabled;
+    private SwitchPreference mSmoothMotionEnabled;
+    private SwitchPreference mOptimizeRefreshEnabled;
+    private SwitchPreference mForceVulkanEnabled;
+    private SwitchPreference mPurgeableAssetsEnabled;
+    private SwitchPreference mGfxAccelEnabled;
+    private SwitchPreference mAdpfCpuHintEnabled;
+    private SwitchPreference mSkiaGLRendererEnabled;
+    private SwitchPreference mSkiaVKRendererEnabled;
     private Preference mInfo;
 
     private VideoEnhancerUtils mVideoEnhancerUtils;
-    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate() called");
-
         addPreferencesFromResource(R.xml.video_enhancer_settings);
 
         mVideoEnhancerUtils = new VideoEnhancerUtils(this);
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         initializePreferences();
         updateUI();
 
-        Log.d(TAG, "onCreate() completed");
+        if (!mVideoEnhancerUtils.isRootAvailable()) {
+            Toast.makeText(this, "ROOT REQUIRED: Install Magisk & grant permission", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume() called");
         updateUI();
     }
 
     private void initializePreferences() {
-        Log.d(TAG, "initializePreferences() called");
-
-        mVideoEnhancerEnabled = (SwitchPreference) findPreference(KEY_VIDEO_ENHANCER_ENABLED);
-        mMemcEnabled = (SwitchPreference) findPreference(KEY_MEMC_ENABLED);
-        mSuperResolutionEnabled = (SwitchPreference) findPreference(KEY_SUPER_RESOLUTION_ENABLED);
-        mAiHdrEnabled = (SwitchPreference) findPreference(KEY_AI_HDR_ENABLED);
+        mSmoothMotionEnabled = (SwitchPreference) findPreference(KEY_SMOOTH_MOTION_ENABLED);
+        mOptimizeRefreshEnabled = (SwitchPreference) findPreference(KEY_OPTIMIZE_REFRESH_ENABLED);
+        mForceVulkanEnabled = (SwitchPreference) findPreference(KEY_FORCE_VULKAN_ENABLED);
+        mPurgeableAssetsEnabled = (SwitchPreference) findPreference(KEY_PURGEABLE_ASSETS_ENABLED);
+        mGfxAccelEnabled = (SwitchPreference) findPreference(KEY_GFX_ACCEL_ENABLED);
+        mAdpfCpuHintEnabled = (SwitchPreference) findPreference(KEY_ADPF_CPU_HINT_ENABLED);
+        mSkiaGLRendererEnabled = (SwitchPreference) findPreference(KEY_SKIAGL_RENDERER_ENABLED);
+        mSkiaVKRendererEnabled = (SwitchPreference) findPreference(KEY_SKIAVK_RENDERER_ENABLED);
         mInfo = findPreference(KEY_VIDEO_ENHANCER_INFO);
 
-        if (mVideoEnhancerEnabled != null) {
-            mVideoEnhancerEnabled.setOnPreferenceChangeListener(this);
-        }
-        if (mMemcEnabled != null) {
-            mMemcEnabled.setOnPreferenceChangeListener(this);
-        }
-        if (mSuperResolutionEnabled != null) {
-            mSuperResolutionEnabled.setOnPreferenceChangeListener(this);
-        }
-        if (mAiHdrEnabled != null) {
-            mAiHdrEnabled.setOnPreferenceChangeListener(this);
-        }
-        if (mInfo != null) {
-            mInfo.setOnPreferenceClickListener(this);
-        }
+        setListener(mSmoothMotionEnabled);
+        setListener(mOptimizeRefreshEnabled);
+        setListener(mForceVulkanEnabled);
+        setListener(mPurgeableAssetsEnabled);
+        setListener(mGfxAccelEnabled);
+        setListener(mAdpfCpuHintEnabled);
+        setListener(mSkiaGLRendererEnabled);
+        setListener(mSkiaVKRendererEnabled);
+        if (mInfo != null) mInfo.setOnPreferenceClickListener(this);
+    }
 
-        Log.d(TAG, "All preferences initialized");
+    private void setListener(SwitchPreference pref) {
+        if (pref != null) pref.setOnPreferenceChangeListener(this);
     }
 
     private void updateUI() {
-        Log.d(TAG, "updateUI() called");
-
-        boolean isEnabled = mVideoEnhancerUtils.isEnabled();
-        boolean isMemcEnabled = mVideoEnhancerUtils.isMemcEnabled();
-        boolean isSuperResolutionEnabled = mVideoEnhancerUtils.isSuperResolutionEnabled();
-        boolean isAiHdrEnabled = mVideoEnhancerUtils.isAiHdrEnabled();
-
-        Log.d(TAG, "UI Update - Enabled: " + isEnabled + ", MEMC: " + isMemcEnabled +
-                ", SuperRes: " + isSuperResolutionEnabled + ", AIHDR: " + isAiHdrEnabled);
-
-        if (mVideoEnhancerEnabled != null) {
-            mVideoEnhancerEnabled.setChecked(isEnabled);
-        }
-        if (mMemcEnabled != null) {
-            mMemcEnabled.setChecked(isMemcEnabled);
-            mMemcEnabled.setEnabled(isEnabled);
-        }
-        if (mSuperResolutionEnabled != null) {
-            mSuperResolutionEnabled.setChecked(isSuperResolutionEnabled);
-            mSuperResolutionEnabled.setEnabled(isEnabled && !isMemcEnabled); // Cannot be used with MEMC
-        }
-        if (mAiHdrEnabled != null) {
-            mAiHdrEnabled.setChecked(isAiHdrEnabled);
-            mAiHdrEnabled.setEnabled(isEnabled);
-        }
+        if (mSmoothMotionEnabled != null) mSmoothMotionEnabled.setChecked(mVideoEnhancerUtils.isSmoothMotionEnabled());
+        if (mOptimizeRefreshEnabled != null) mOptimizeRefreshEnabled.setChecked(mVideoEnhancerUtils.isOptimizeRefreshEnabled());
+        if (mForceVulkanEnabled != null) mForceVulkanEnabled.setChecked(mVideoEnhancerUtils.isForceVulkanEnabled());
+        if (mPurgeableAssetsEnabled != null) mPurgeableAssetsEnabled.setChecked(mVideoEnhancerUtils.isPurgeableAssetsEnabled());
+        if (mGfxAccelEnabled != null) mGfxAccelEnabled.setChecked(mVideoEnhancerUtils.isGfxAccelEnabled());
+        if (mAdpfCpuHintEnabled != null) mAdpfCpuHintEnabled.setChecked(mVideoEnhancerUtils.isAdpfCpuHintEnabled());
+        if (mSkiaGLRendererEnabled != null) mSkiaGLRendererEnabled.setChecked(mVideoEnhancerUtils.isSkiaGLRendererEnabled());
+        if (mSkiaVKRendererEnabled != null) mSkiaVKRendererEnabled.setChecked(mVideoEnhancerUtils.isSkiaVKRendererEnabled());
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
-        Log.d(TAG, "onPreferenceChange() - Key: " + key + ", Value: " + newValue);
-
         boolean enabled = (Boolean) newValue;
+        boolean needsReboot = false;
+        boolean success = false;
 
         switch (key) {
-            case KEY_VIDEO_ENHANCER_ENABLED:
-                handleVideoEnhancerToggle(enabled);
-                return true;
-            case KEY_MEMC_ENABLED:
-                if (enabled && mSuperResolutionEnabled.isChecked()) {
-                    Toast.makeText(this, R.string.memc_super_res_conflict, Toast.LENGTH_LONG).show();
-                    return false; // Prevent enabling if Super Res is on
+            case KEY_SMOOTH_MOTION_ENABLED:
+                success = mVideoEnhancerUtils.setSmoothMotionEnabled(enabled);
+                break;
+            case KEY_OPTIMIZE_REFRESH_ENABLED:
+                success = mVideoEnhancerUtils.setOptimizeRefreshEnabled(enabled);
+                break;
+            case KEY_FORCE_VULKAN_ENABLED:
+                success = mVideoEnhancerUtils.setForceVulkanEnabled(enabled);
+                needsReboot = true;
+                break;
+            case KEY_PURGEABLE_ASSETS_ENABLED:
+                success = mVideoEnhancerUtils.setPurgeableAssetsEnabled(enabled);
+                needsReboot = true;
+                break;
+            case KEY_GFX_ACCEL_ENABLED:
+                success = mVideoEnhancerUtils.setGfxAccelEnabled(enabled);
+                break;
+            case KEY_ADPF_CPU_HINT_ENABLED:
+                success = mVideoEnhancerUtils.setAdpfCpuHintEnabled(enabled);
+                break;
+            case KEY_SKIAGL_RENDERER_ENABLED:
+                if (enabled && mSkiaVKRendererEnabled.isChecked()) {
+                    mSkiaVKRendererEnabled.setChecked(false);
+                    mVideoEnhancerUtils.setSkiaVKRendererEnabled(false);
                 }
-                mVideoEnhancerUtils.setMemcEnabled(enabled);
-                updateUI();
-                return true;
-            case KEY_SUPER_RESOLUTION_ENABLED:
-                if (enabled && mMemcEnabled.isChecked()) {
-                    Toast.makeText(this, R.string.memc_super_res_conflict, Toast.LENGTH_LONG).show();
-                    return false; // Prevent enabling if MEMC is on
+                success = mVideoEnhancerUtils.setSkiaGLRendererEnabled(enabled);
+                needsReboot = true;
+                break;
+            case KEY_SKIAVK_RENDERER_ENABLED:
+                if (enabled && mSkiaGLRendererEnabled.isChecked()) {
+                    mSkiaGLRendererEnabled.setChecked(false);
+                    mVideoEnhancerUtils.setSkiaGLRendererEnabled(false);
                 }
-                mVideoEnhancerUtils.setSuperResolutionEnabled(enabled);
-                updateUI();
-                return true;
-            case KEY_AI_HDR_ENABLED:
-                mVideoEnhancerUtils.setAiHdrEnabled(enabled);
-                updateUI();
-                return true;
+                success = mVideoEnhancerUtils.setSkiaVKRendererEnabled(enabled);
+                needsReboot = true;
+                break;
         }
 
-        return false;
+        if (success) {
+            if (needsReboot) showRebootDialog();
+            else Toast.makeText(this, R.string.video_enhancer_feature_applied, Toast.LENGTH_SHORT).show();
+            updateUI();
+            return true;
+        } else {
+            if (!mVideoEnhancerUtils.isRootAvailable()) {
+                Toast.makeText(this, "ROOT REQUIRED: Install Magisk & grant permission", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, R.string.video_enhancer_feature_failed, Toast.LENGTH_LONG).show();
+            }
+            updateUI();
+            return false;
+        }
     }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        String key = preference.getKey();
-        Log.d(TAG, "onPreferenceClick() - Key: " + key);
-
-        if (KEY_VIDEO_ENHANCER_INFO.equals(key)) {
+        if (KEY_VIDEO_ENHANCER_INFO.equals(preference.getKey())) {
             showInfoDialog();
             return true;
         }
-
         return false;
     }
 
-    private void handleVideoEnhancerToggle(boolean enable) {
-        Log.d(TAG, "handleVideoEnhancerToggle(" + enable + ")");
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.video_enhancer_confirm_title);
-
-        if (enable) {
-            builder.setMessage(getString(R.string.video_enhancer_confirm_enable));
-            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                enableVideoEnhancer();
-            });
-        } else {
-            builder.setMessage(getString(R.string.video_enhancer_confirm_disable));
-            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> disableVideoEnhancer());
-        }
-
-        builder.setNegativeButton(android.R.string.cancel, null);
-        builder.show();
-    }
-
-    private void enableVideoEnhancer() {
-        Log.d(TAG, "enableVideoEnhancer() called");
-
-        if (mVideoEnhancerUtils.enableVideoEnhancer()) {
-            Toast.makeText(this, R.string.video_enhancer_enabled, Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Video Enhancer enabled successfully");
-            updateUI();
-        } else {
-            Toast.makeText(this, "Failed to enable Video Enhancer!", Toast.LENGTH_LONG).show();
-            Log.e(TAG, "Failed to enable Video Enhancer");
-        }
-    }
-
-    private void disableVideoEnhancer() {
-        Log.d(TAG, "disableVideoEnhancer() called");
-
-        if (mVideoEnhancerUtils.disableVideoEnhancer()) {
-            Toast.makeText(this, R.string.video_enhancer_disabled, Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Video Enhancer disabled successfully");
-            updateUI();
-        } else {
-            Toast.makeText(this, "Failed to disable Video Enhancer!", Toast.LENGTH_LONG).show();
-            Log.e(TAG, "Failed to disable Video Enhancer");
-        }
+    private void showRebootDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.reboot_required_title)
+                .setMessage(R.string.reboot_required_message)
+                .setPositiveButton(R.string.reboot_now, (d, w) -> {
+                    PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+                    pm.reboot(null);
+                })
+                .setNegativeButton(R.string.reboot_later, null)
+                .show();
     }
 
     private void showInfoDialog() {
-        Log.d(TAG, "showInfoDialog() called");
-
-        StringBuilder info = new StringBuilder();
-        info.append("Video Enhancer features:\n\n");
-        info.append("MEMC: Adds frames to low frame rate videos for smoother playback.\n\n");
-        info.append("Super Resolution: Upscales ≤720p videos to higher resolution.\n\n");
-        info.append("AI HDR: Applies HDR effects using AI algorithms.\n\n");
-        info.append("Note: MEMC and Super Resolution cannot be enabled simultaneously.\n\n");
-        info.append("These features may require root access or specific system permissions.\n");
-        info.append("Supported on Xiaomi Redmi Note 13 Pro 5G (Garnet).");
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Video Enhancer Information");
-        builder.setMessage(info.toString());
-        builder.setPositiveButton("OK", null);
-        builder.show();
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.video_enhancer_info_dialog_title)
+                .setMessage(R.string.video_enhancer_info_dialog_message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 }

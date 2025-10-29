@@ -1,35 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <SwitchPreference
-        android:key="video_enhancer_enabled"
-        android:title="@string/video_enhancer_enable_title"
-        android:summary="@string/video_enhancer_enable_summary"
-        android:icon="@drawable/ic_video_enhancer_outline"
-        android:defaultValue="false" />
+    <PreferenceCategory
+        android:title="@string/video_enhancer_display_category">
+        
+        <SwitchPreference
+            android:key="smooth_motion_enabled"
+            android:title="@string/smooth_motion_enable_title"
+            android:summary="@string/smooth_motion_enable_summary"
+            android:icon="@drawable/ic_smooth_motion"
+            android:defaultValue="false" />
+        
+        <SwitchPreference
+            android:key="optimize_refresh_enabled"
+            android:title="@string/optimize_refresh_enable_title"
+            android:summary="@string/optimize_refresh_enable_summary"
+            android:icon="@drawable/ic_optimize_refresh"
+            android:defaultValue="false" />
+        
+    </PreferenceCategory>
     
     <PreferenceCategory
-        android:title="@string/video_enhancer_features_category">
+        android:title="@string/video_enhancer_performance_category">
         
         <SwitchPreference
-            android:key="memc_enabled"
-            android:title="@string/memc_enable_title"
-            android:summary="@string/memc_enable_summary"
-            android:icon="@drawable/ic_memc"
+            android:key="force_vulkan_enabled"
+            android:title="@string/force_vulkan_title"
+            android:summary="@string/force_vulkan_summary"
+            android:icon="@drawable/ic_vulkan"
             android:defaultValue="false" />
         
         <SwitchPreference
-            android:key="super_resolution_enabled"
-            android:title="@string/super_resolution_enable_title"
-            android:summary="@string/super_resolution_enable_summary"
-            android:icon="@drawable/ic_super_resolution"
+            android:key="purgeable_assets_enabled"
+            android:title="@string/purgeable_assets_title"
+            android:summary="@string/purgeable_assets_summary"
+            android:icon="@drawable/ic_memory"
             android:defaultValue="false" />
         
         <SwitchPreference
-            android:key="ai_hdr_enabled"
-            android:title="@string/ai_hdr_enable_title"
-            android:summary="@string/ai_hdr_enable_summary"
-            android:icon="@drawable/ic_ai_hdr"
+            android:key="gfx_accel_enabled"
+            android:title="@string/gfx_accel_title"
+            android:summary="@string/gfx_accel_summary"
+            android:icon="@drawable/ic_gpu"
+            android:defaultValue="true" />
+        
+        <SwitchPreference
+            android:key="adpf_cpu_hint_enabled"
+            android:title="@string/adpf_cpu_hint_title"
+            android:summary="@string/adpf_cpu_hint_summary"
+            android:icon="@drawable/ic_cpu"
+            android:defaultValue="true" />
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/video_enhancer_renderer_category">
+        
+        <SwitchPreference
+            android:key="skiagl_renderer_enabled"
+            android:title="@string/skiagl_renderer_title"
+            android:summary="@string/skiagl_renderer_summary"
+            android:icon="@drawable/ic_renderer_gl"
+            android:defaultValue="false" />
+        
+        <SwitchPreference
+            android:key="skiavk_renderer_enabled"
+            android:title="@string/skiavk_renderer_title"
+            android:summary="@string/skiavk_renderer_summary"
+            android:icon="@drawable/ic_renderer_vk"
             android:defaultValue="false" />
         
     </PreferenceCategory>

@@ -106,11 +106,11 @@
             android:screenOrientation="portrait"
             android:noHistory="true">
             <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
+                <action android:name="com.android.settings.action.IA_MAIN" />
             </intent-filter>
             <meta-data
                 android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.system" />
+                android:value="com.android.settings.category.ia.homepage" />
             <meta-data
                 android:name="com.android.settings.summary"
                 android:resource="@string/xiaomi_parts_summary" />
