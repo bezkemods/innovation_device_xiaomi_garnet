@@ -119,33 +119,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 // Start services
                 startServices(context);
                 
-                // CRITICAL: Check if Performance Profile is enabled
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
+                // Performance Mode - Ensure default governor on boot (only if no profile is saved)
+                ensureDefaultGovernorIfNeeded(context);
                 
-                if (hasPerformanceProfile) {
-                    Log.d(TAG, "Performance Profile active - skipping individual kernel/GPU settings");
-                    
-                    // Wait for system to stabilize
-                    Thread.sleep(2000);
-                    
-                    // Restore ONLY Performance Profile
-                    restorePerformanceProfile(context);
-                } else {
-                    Log.d(TAG, "No Performance Profile - applying default governor and individual settings");
-                    
-                    // Set default governor first
-                    ensureDefaultGovernor();
-                    
-                    // Wait for system to stabilize
-                    Thread.sleep(1500);
-                    
-                    // Restore individual settings
-                    restoreKernelSettings(context);
-                    restoreGpuSettings(context);
-                }
+                // Restore Performance Profile settings first (has priority over individual settings)
+                restorePerformanceProfile(context);
                 
-                // Restore other settings (these don't conflict)
+                // Restore other settings
+                restoreKernelSettings(context);
+                restoreGpuSettings(context);
                 restoreCoreControlSettings(context);
                 restoreLogcatService(context);
                 restoreAdBlockerSettings(context);
@@ -155,9 +137,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 initializeCpuTileService(context);
                 
                 Log.i(TAG, "Locked boot completed initialization finished");
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                Log.w(TAG, "Boot initialization interrupted", e);
             } catch (Exception e) {
                 Log.e(TAG, "Error during locked boot initialization", e);
             }
@@ -185,25 +164,45 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private void startServices(Context context) {
         try {
             Log.d(TAG, "Starting necessary services");
-            // Add any required services here
+            
+            // Start any required services here
+            // For example, if there are background services that need to be started
+            
+            // Example: Starting a background service if needed
+            // Intent serviceIntent = new Intent(context, SomeBackgroundService.class);
+            // context.startService(serviceIntent);
+            
             Log.d(TAG, "Services started successfully");
         } catch (Exception e) {
             Log.e(TAG, "Failed to start services", e);
         }
     }
 
-    private void ensureDefaultGovernor() {
+    private void ensureDefaultGovernorIfNeeded(Context context) {
         try {
-            if (FileUtils.isFileWritable(POLICY0_GOVERNOR_PATH)) {
-                FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-            }
-            if (FileUtils.isFileWritable(POLICY4_GOVERNOR_PATH)) {
-                FileUtils.writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-            } else if (FileUtils.isFileWritable(POLICY6_GOVERNOR_PATH)) {
-                FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-            }
-            if (DEBUG) {
-                Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            
+            // Check if performance profile is saved
+            boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
+            
+            if (!hasPerformanceProfile) {
+                // No performance profile saved, set default governor
+                if (FileUtils.isFileWritable(POLICY0_GOVERNOR_PATH)) {
+                    FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                }
+                if (FileUtils.isFileWritable(POLICY4_GOVERNOR_PATH)) {
+                    FileUtils.writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                }
+                if (FileUtils.isFileWritable(POLICY6_GOVERNOR_PATH)) {
+                    FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                }
+                if (DEBUG) {
+                    Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR + " (no performance profile found)");
+                }
+            } else {
+                if (DEBUG) {
+                    Log.d(TAG, "Performance profile found, skipping default governor setup");
+                }
             }
         } catch (Exception e) {
             Log.w(TAG, "Failed to set default governor", e);
@@ -213,7 +212,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private void restorePerformanceProfile(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (!prefs.contains(KEY_PERFORMANCE_PROFILE)) {
+                Log.d(TAG, "No performance profile saved, skipping restore");
+                return;
+            }
+
             int savedMode = prefs.getInt(KEY_PERFORMANCE_PROFILE, PerformanceUtils.MODE_BALANCED);
+            
+            // Wait a bit for the system to stabilize
+            Thread.sleep(1500);
             
             PerformanceUtils performanceUtils = new PerformanceUtils(context);
             boolean success = performanceUtils.setPerformanceMode(savedMode);
@@ -221,23 +228,40 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             if (success) {
                 Log.d(TAG, "Performance profile restored to: " + performanceUtils.getModeLabel(savedMode));
             } else {
-                Log.w(TAG, "Failed to restore performance profile, using balanced mode");
-                performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
+                Log.w(TAG, "Failed to restore performance profile to: " + savedMode);
+                
+                // Fallback to balanced mode
+                success = performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
+                if (success) {
+                    Log.d(TAG, "Performance profile fallback to balanced mode successful");
+                } else {
+                    Log.e(TAG, "Performance profile fallback also failed");
+                }
             }
             
-            // Verify after short delay
+            // Verify the state after a short delay
             if (DEBUG) {
                 Thread.sleep(500);
                 int currentMode = performanceUtils.getCurrentMode();
                 Log.d(TAG, "Performance profile verification - Expected: " + savedMode + 
-                     ", Current: " + currentMode);
+                     ", Current: " + currentMode + " (" + performanceUtils.getModeLabel(currentMode) + ")");
             }
             
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             Log.w(TAG, "Performance profile restore interrupted", e);
+            return;
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore performance profile", e);
+            
+            // Try to set a safe default
+            try {
+                PerformanceUtils performanceUtils = new PerformanceUtils(context);
+                performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
+                Log.d(TAG, "Set safe default performance mode");
+            } catch (Exception ex) {
+                Log.e(TAG, "Failed to set safe default performance mode", ex);
+            }
         }
     }
 
@@ -266,11 +290,18 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             if (DEBUG) {
                 CoreControlUtils.CoreStats stats = CoreControlUtils.getCoreStatistics();
                 Log.d(TAG, "Core control restored - " + stats.toString());
+                
+                // Log individual core states
+                for (int i = 0; i < 8; i++) {
+                    boolean online = CoreControlUtils.isCoreOnline(i);
+                    Log.d(TAG, "Core " + i + ": " + (online ? "online" : "offline"));
+                }
             }
             
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             Log.w(TAG, "Core control restore interrupted", e);
+            return;
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore core control settings", e);
         }
@@ -296,6 +327,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             boolean adBlockerEnabled = prefs.getBoolean(KEY_ADBLOCKER_ENABLED, false);
             
+            // Create instance of AdBlockerUtils
             AdBlockerUtils adBlockerUtils = new AdBlockerUtils(context);
             
             if (adBlockerEnabled) {
@@ -312,7 +344,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     private void restoreKernelSettings(Context context) {
         try {
+            // Check if performance profile is managing these settings
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
+            
+            if (hasPerformanceProfile) {
+                Log.d(TAG, "Performance profile active, skipping individual kernel settings restore");
+                return;
+            }
+
             if (prefs == null) {
                 Log.w(TAG, "SharedPreferences is null for kernel settings");
                 return;
@@ -335,12 +375,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 }
             }
 
-            // Restore cluster frequencies
+            // Restore Efficiency cluster frequencies
             restoreClusterFrequencies(prefs, kernelUtils, 
                 KernelManagerUtils.EFFICIENCY_CLUSTER, 
                 KEY_EFFICIENCY_MIN_FREQ, KEY_EFFICIENCY_MAX_FREQ,
                 "efficiency");
 
+            // Restore Performance cluster frequencies
             restoreClusterFrequencies(prefs, kernelUtils,
                 KernelManagerUtils.PERFORMANCE_CLUSTER,
                 KEY_PERFORMANCE_MIN_FREQ, KEY_PERFORMANCE_MAX_FREQ,
@@ -381,7 +422,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     private void restoreGpuSettings(Context context) {
         try {
+            // Check if performance profile is managing these settings
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
+            
+            if (hasPerformanceProfile) {
+                Log.d(TAG, "Performance profile active, skipping individual GPU settings restore");
+                return;
+            }
+
             if (prefs == null) {
                 Log.w(TAG, "SharedPreferences is null for GPU settings");
                 return;
@@ -423,7 +472,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                     gpuUtils.setFrequencyRange(gpuMinFreq, gpuMaxFreq);
                     Log.d(TAG, "Restored GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq);
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU freq range", e);
+                    Log.w(TAG, "Failed to restore GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq, e);
                 }
             }
         } catch (Exception e) {
@@ -433,53 +482,58 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     private void restoreGpuPowerSettings(SharedPreferences prefs, GpuManagerUtils gpuUtils) {
         try {
+            // Restore force clock on
             if (prefs.contains(KEY_GPU_FORCE_CLK_ON)) {
                 boolean forceClkOn = prefs.getBoolean(KEY_GPU_FORCE_CLK_ON, false);
                 try {
                     gpuUtils.setForceClkOn(forceClkOn);
                     Log.d(TAG, "Restored GPU force clk on: " + forceClkOn);
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU force clk on", e);
+                    Log.w(TAG, "Failed to restore GPU force clk on: " + forceClkOn, e);
                 }
             }
 
+            // Restore force bus on
             if (prefs.contains(KEY_GPU_FORCE_BUS_ON)) {
                 boolean forceBusOn = prefs.getBoolean(KEY_GPU_FORCE_BUS_ON, false);
                 try {
                     gpuUtils.setForceBusOn(forceBusOn);
                     Log.d(TAG, "Restored GPU force bus on: " + forceBusOn);
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU force bus on", e);
+                    Log.w(TAG, "Failed to restore GPU force bus on: " + forceBusOn, e);
                 }
             }
 
+            // Restore force rail on
             if (prefs.contains(KEY_GPU_FORCE_RAIL_ON)) {
                 boolean forceRailOn = prefs.getBoolean(KEY_GPU_FORCE_RAIL_ON, false);
                 try {
                     gpuUtils.setForceRailOn(forceRailOn);
                     Log.d(TAG, "Restored GPU force rail on: " + forceRailOn);
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU force rail on", e);
+                    Log.w(TAG, "Failed to restore GPU force rail on: " + forceRailOn, e);
                 }
             }
 
+            // Restore force no nap
             if (prefs.contains(KEY_GPU_FORCE_NO_NAP)) {
                 boolean forceNoNap = prefs.getBoolean(KEY_GPU_FORCE_NO_NAP, false);
                 try {
                     gpuUtils.setForceNoNap(forceNoNap);
                     Log.d(TAG, "Restored GPU force no nap: " + forceNoNap);
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU force no nap", e);
+                    Log.w(TAG, "Failed to restore GPU force no nap: " + forceNoNap, e);
                 }
             }
 
+            // Restore bus split
             if (prefs.contains(KEY_GPU_BUS_SPLIT)) {
                 boolean busSplit = prefs.getBoolean(KEY_GPU_BUS_SPLIT, false);
                 try {
                     gpuUtils.setBusSplit(busSplit);
                     Log.d(TAG, "Restored GPU bus split: " + busSplit);
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU bus split", e);
+                    Log.w(TAG, "Failed to restore GPU bus split: " + busSplit, e);
                 }
             }
         } catch (Exception e) {
@@ -497,15 +551,18 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
             Log.d(TAG, "Restoring Video Enhancer settings...");
             
+            // Várakozás a rendszer stabilizálódására
             Thread.sleep(1000);
             
             VideoEnhancerUtils videoUtils = new VideoEnhancerUtils(context);
             
+            // Ellenőrizzük, hogy van-e root
             if (!videoUtils.isRootAvailable()) {
                 Log.w(TAG, "Root not available, skipping Video Enhancer restore");
                 return;
             }
             
+            // Alkalmazzuk a mentett beállításokat
             videoUtils.applyOnBoot();
 
             Log.d(TAG, "Video Enhancer settings restored successfully");
@@ -519,25 +576,17 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     }
 
     private void initializeBackgroundThread() {
-        if (mBackgroundThread == null) {
-            mBackgroundThread = new HandlerThread("BootReceiverBgThread");
-            mBackgroundThread.start();
-            mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
-        }
+        mBackgroundThread = new HandlerThread("BackgroundThread");
+        mBackgroundThread.start();
+        mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
     }
 
     private void cleanupBackgroundThread() {
         if (mBackgroundHandler != null) {
             mBackgroundHandler.removeCallbacksAndMessages(null);
-            mBackgroundHandler = null;
         }
         if (mBackgroundThread != null) {
             mBackgroundThread.quitSafely();
-            try {
-                mBackgroundThread.join(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
             mBackgroundThread = null;
         }
     }
@@ -548,6 +597,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             boolean cpuTileEnabled = prefs.getBoolean(KEY_CPU_TILE_ENABLED, false);
             
             if (cpuTileEnabled) {
+                // Start CPU Tile service if enabled
+                // Intent cpuTileIntent = new Intent(context, CpuTileService.class);
+                // context.startService(cpuTileIntent);
                 Log.d(TAG, "CPU Tile service initialized");
             }
         } catch (Exception e) {

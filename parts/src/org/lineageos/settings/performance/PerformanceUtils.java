@@ -49,8 +49,10 @@ public class PerformanceUtils {
     public static final int MODE_BALANCED = 1;
     public static final int MODE_PERFORMANCE = 2;
 
-    // Notification
-    private static final int NOTIFICATION_ID = 1001;
+    // Notification IDs
+    private static final int NOTIFICATION_ID_BATTERY_SAVER = 1001;
+    private static final int NOTIFICATION_ID_BALANCED = 1002;
+    private static final int NOTIFICATION_ID_PERFORMANCE = 1003;
     private static final String NOTIFICATION_CHANNEL_ID = "performance_profile_channel";
 
     // CPU paths
@@ -61,7 +63,7 @@ public class PerformanceUtils {
     // CPU Governors
     private static final String PERFORMANCE_GOVERNOR = "performance";
     private static final String POWERSAVE_GOVERNOR = "powersave";
-    private static final String DEFAULT_GOVERNOR = "walt";
+    private static final String DEFAULT_GOVERNOR = "walt";  // Módosítva walt-ra
 
     // GPU paths
     private static final String GPU_MAX_CLOCK_PATH = "/sys/class/kgsl/kgsl-3d0/max_clock_mhz";
@@ -75,9 +77,6 @@ public class PerformanceUtils {
     private static final String GPU_DEFAULT_POWER_LEVEL = "5";
     private static final String PERF_MODE_PROP = "sys.performance.mode";
     private static final String PREFS_KEY_CURRENT_MODE = "current_performance_mode";
-    
-    // Lock to prevent concurrent modifications
-    private static final Object sLock = new Object();
 
     public PerformanceUtils(Context context) {
         mContext = context;
@@ -105,160 +104,45 @@ public class PerformanceUtils {
     }
 
     public boolean setPerformanceMode(int mode) {
-        synchronized (sLock) {
-            try {
-                Log.d(TAG, "Setting performance mode to: " + mode);
-                
-                // Don't reapply the same mode
-                int currentMode = getCurrentMode();
-                if (currentMode == mode) {
-                    Log.d(TAG, "Mode already set to: " + mode);
-                    return true;
-                }
-                
-                // Vibrate on mode change
-                if (mVibrator != null && mVibrator.hasVibrator()) {
-                    mVibrator.vibrate(50); // Reduced from 100ms
-                }
+        try {
+            Log.d(TAG, "Setting performance mode to: " + mode);
+            
+            // Vibrate on mode change
+            if (mVibrator != null && mVibrator.hasVibrator()) {
+                mVibrator.vibrate(100);
+            }
 
-                boolean success = false;
+            boolean success = false;
 
-                switch (mode) {
-                    case MODE_BATTERY_SAVER:
-                        success = applyBatterySaverMode();
-                        break;
-                    case MODE_BALANCED:
-                        success = applyBalancedMode();
-                        break;
-                    case MODE_PERFORMANCE:
-                        success = applyPerformanceMode();
-                        break;
-                }
+            switch (mode) {
+                case MODE_BATTERY_SAVER:
+                    success = setBatterySaverMode();
+                    break;
+                case MODE_BALANCED:
+                    success = setBalancedMode();
+                    break;
+                case MODE_PERFORMANCE:
+                    success = setPerformanceMode();
+                    break;
+            }
 
-                if (success) {
-                    // Save current mode to preferences
-                    mSharedPrefs.edit().putInt(PREFS_KEY_CURRENT_MODE, mode).apply();
-                    
-                    // Set system property
-                    SystemProperties.set(PERF_MODE_PROP, String.valueOf(mode));
-                    
-                    // Update notification (single notification, not multiple)
-                    showNotification(mode);
-                    
-                    Log.d(TAG, "Performance mode successfully set to: " + getModeLabel(mode));
-                    return true;
-                } else {
-                    Log.e(TAG, "Failed to set performance mode to: " + mode);
-                    return false;
-                }
+            if (success) {
+                // Save current mode to preferences
+                mSharedPrefs.edit().putInt(PREFS_KEY_CURRENT_MODE, mode).apply();
                 
-            } catch (Exception e) {
-                Log.e(TAG, "Error setting performance mode", e);
+                // Set system property
+                SystemProperties.set(PERF_MODE_PROP, String.valueOf(mode));
+                
+                // Update status bar icon and notification
+                updateStatusBarIcon(mode);
+                showNotification(mode);
+                
+                Log.d(TAG, "Performance mode successfully set to: " + getModeLabel(mode));
+                return true;
+            } else {
+                Log.e(TAG, "Failed to set performance mode to: " + mode);
                 return false;
             }
-        }
-    }
-
-    private boolean applyBatterySaverMode() {
-        try {
-            boolean success = true;
-            
-            // Set CPU governors to powersave
-            success &= setGovernor(POLICY0_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
-            
-            // Try policy4 first, then policy6
-            if (fileExists(POLICY4_GOVERNOR_PATH)) {
-                success &= setGovernor(POLICY4_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
-            } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
-                success &= setGovernor(POLICY6_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
-            }
-
-            // Apply WALT settings only for battery saver
-            applyWaltBatterySaverSettings();
-
-            // Set GPU to lowest performance
-            setGpuSetting(GPU_FORCE_CLK_ON_PATH, "0");
-            setGpuSetting(GPU_FORCE_RAIL_ON_PATH, "0");
-            setGpuSetting(GPU_DEFAULT_PWRLEVEL_PATH, "7"); // Lowest power level
-            setGpuSetting(GPU_MIN_CLOCK_PATH, GPU_MIN_FREQ_DEFAULT);
-
-            // Enable system battery saver
-            enableSystemBatterySaver(true);
-
-            return success;
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Error setting battery saver mode", e);
-            return false;
-        }
-    }
-
-    private boolean applyBalancedMode() {
-        try {
-            boolean success = true;
-            
-            // Set CPU governors to default
-            success &= setGovernor(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-            
-            // Try policy4 first, then policy6
-            if (fileExists(POLICY4_GOVERNOR_PATH)) {
-                success &= setGovernor(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-            } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
-                success &= setGovernor(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-            }
-
-            // Apply WALT settings for balanced mode
-            applyWaltBalancedSettings();
-
-            // Set GPU to balanced settings
-            setGpuSetting(GPU_FORCE_CLK_ON_PATH, "0");
-            setGpuSetting(GPU_FORCE_RAIL_ON_PATH, "0");
-            setGpuSetting(GPU_DEFAULT_PWRLEVEL_PATH, GPU_DEFAULT_POWER_LEVEL);
-            setGpuSetting(GPU_MIN_CLOCK_PATH, GPU_MIN_FREQ_DEFAULT);
-
-            // Disable system battery saver
-            enableSystemBatterySaver(false);
-
-            return success;
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Error setting balanced mode", e);
-            return false;
-        }
-    }
-
-    private boolean applyPerformanceMode() {
-        try {
-            boolean success = true;
-            
-            // Set CPU governors to performance
-            success &= setGovernor(POLICY0_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
-            
-            // Try policy4 first, then policy6
-            if (fileExists(POLICY4_GOVERNOR_PATH)) {
-                success &= setGovernor(POLICY4_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
-            } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
-                success &= setGovernor(POLICY6_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
-            }
-
-            // NO WALT settings for performance mode - let performance governor handle it
-
-            // Set GPU to maximum performance
-            setGpuSetting(GPU_FORCE_CLK_ON_PATH, "1");
-            setGpuSetting(GPU_FORCE_RAIL_ON_PATH, "1");
-            setGpuSetting(GPU_DEFAULT_PWRLEVEL_PATH, "0");
-            
-            if (fileExists(GPU_MIN_CLOCK_PATH) && fileExists(GPU_MAX_CLOCK_PATH)) {
-                String maxClock = readLine(GPU_MAX_CLOCK_PATH).trim();
-                if (!maxClock.isEmpty()) {
-                    setGpuSetting(GPU_MIN_CLOCK_PATH, maxClock);
-                }
-            }
-
-            // Disable system battery saver
-            enableSystemBatterySaver(false);
-
-            return success;
             
         } catch (Exception e) {
             Log.e(TAG, "Error setting performance mode", e);
@@ -266,85 +150,245 @@ public class PerformanceUtils {
         }
     }
 
-    private boolean setGovernor(String path, String governor) {
+    private boolean setBatterySaverMode() {
         try {
-            if (fileExists(path)) {
-                writeLine(path, governor);
-                Log.d(TAG, "Set " + path + " governor to " + governor);
-                return true;
-            } else {
-                Log.w(TAG, "Governor path not found: " + path);
-                return false;
+            // Set CPU governors to powersave
+            boolean cpuSuccess = true;
+            try {
+                writeLine(POLICY0_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
+                Log.d(TAG, "Set policy0 governor to powersave");
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to set policy0 governor to powersave", e);
+                cpuSuccess = false;
             }
+
+            // Try policy4 first, then policy6
+            try {
+                if (fileExists(POLICY4_GOVERNOR_PATH)) {
+                    writeLine(POLICY4_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
+                    Log.d(TAG, "Set policy4 governor to powersave");
+                } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
+                    writeLine(POLICY6_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
+                    Log.d(TAG, "Set policy6 governor to powersave");
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to set performance cluster governor to powersave", e);
+                cpuSuccess = false;
+            }
+
+            // Apply WALT settings (ha elérhetőek, különben skip)
+            applyWaltSettings();
+
+            // Set GPU to lowest performance
+            boolean gpuSuccess = true;
+            try {
+                if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
+                    writeLine(GPU_FORCE_CLK_ON_PATH, "0");
+                }
+                if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
+                    writeLine(GPU_FORCE_RAIL_ON_PATH, "0");
+                }
+                if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
+                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "7"); // Lowest power level
+                }
+                if (fileExists(GPU_MIN_CLOCK_PATH)) {
+                    writeLine(GPU_MIN_CLOCK_PATH, GPU_MIN_FREQ_DEFAULT);
+                }
+                Log.d(TAG, "GPU set to battery saver mode");
+            } catch (Exception e) {
+                Log.w(TAG, "Error setting GPU to battery saver mode", e);
+                gpuSuccess = false;
+            }
+
+            // Enable system battery saver
+            enableSystemBatterySaver(true);
+
+            return cpuSuccess || gpuSuccess;
+            
         } catch (Exception e) {
-            Log.w(TAG, "Failed to set governor " + governor + " on " + path, e);
+            Log.e(TAG, "Error setting battery saver mode", e);
             return false;
         }
     }
 
-    private void setGpuSetting(String path, String value) {
+    private boolean setBalancedMode() {
         try {
-            if (fileExists(path)) {
-                writeLine(path, value);
-                Log.d(TAG, "Set GPU setting: " + path + " = " + value);
+            // Set CPU governors to default
+            boolean cpuSuccess = true;
+            try {
+                writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                Log.d(TAG, "Set policy0 governor to default");
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to set policy0 governor to default", e);
+                cpuSuccess = false;
             }
+
+            // Try policy4 first, then policy6
+            try {
+                if (fileExists(POLICY4_GOVERNOR_PATH)) {
+                    writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                    Log.d(TAG, "Set policy4 governor to default");
+                } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
+                    writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                    Log.d(TAG, "Set policy6 governor to default");
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to set performance cluster governor to default", e);
+                cpuSuccess = false;
+            }
+
+            // Apply WALT settings (ha elérhetőek, különben skip)
+            applyWaltSettings();
+
+            // Set GPU to balanced settings
+            boolean gpuSuccess = true;
+            try {
+                if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
+                    writeLine(GPU_FORCE_CLK_ON_PATH, "0");
+                }
+                if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
+                    writeLine(GPU_FORCE_RAIL_ON_PATH, "0");
+                }
+                if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
+                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, GPU_DEFAULT_POWER_LEVEL);
+                }
+                if (fileExists(GPU_MIN_CLOCK_PATH)) {
+                    writeLine(GPU_MIN_CLOCK_PATH, GPU_MIN_FREQ_DEFAULT);
+                }
+                Log.d(TAG, "GPU set to balanced mode");
+            } catch (Exception e) {
+                Log.w(TAG, "Error setting GPU to balanced mode", e);
+                gpuSuccess = false;
+            }
+
+            // Disable system battery saver
+            enableSystemBatterySaver(false);
+
+            return cpuSuccess || gpuSuccess;
+            
         } catch (Exception e) {
-            Log.w(TAG, "Failed to set GPU setting: " + path, e);
+            Log.e(TAG, "Error setting balanced mode", e);
+            return false;
         }
     }
 
-    private void applyWaltBatterySaverSettings() {
-        // Conservative WALT settings for battery saver
-        String[][] settings = {
-            // CPU0
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "691200"},
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load", "95"},
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_shift", "6"},
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/down_rate_limit_us", "30000"},
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/up_rate_limit_us", "1000"},
-            // CPU4
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "691200"},
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_load", "95"},
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_shift", "6"},
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/down_rate_limit_us", "30000"},
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/up_rate_limit_us", "1000"}
-        };
-        
-        applyWaltSettingsArray(settings);
-    }
+private boolean setPerformanceMode() {
+        try {
+            // Set CPU governors to performance
+            boolean cpuSuccess = true;
+            try {
+                writeLine(POLICY0_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
+                Log.d(TAG, "Set policy0 governor to performance");
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to set policy0 governor to performance", e);
+                cpuSuccess = false;
+            }
 
-    private void applyWaltBalancedSettings() {
-        // Standard WALT settings for balanced mode
-        String[][] settings = {
-            // CPU0
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "940800"},
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load", "90"},
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_shift", "4"},
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/down_rate_limit_us", "20000"},
-            {"/sys/devices/system/cpu/cpu0/cpufreq/walt/up_rate_limit_us", "500"},
-            // CPU4
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "960000"},
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_load", "90"},
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_shift", "4"},
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/down_rate_limit_us", "10000"},
-            {"/sys/devices/system/cpu/cpu4/cpufreq/walt/up_rate_limit_us", "500"}
-        };
-        
-        applyWaltSettingsArray(settings);
-    }
+            // Try policy4 first, then policy6
+            try {
+                if (fileExists(POLICY4_GOVERNOR_PATH)) {
+                    writeLine(POLICY4_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
+                    Log.d(TAG, "Set policy4 governor to performance");
+                } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
+                    writeLine(POLICY6_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
+                    Log.d(TAG, "Set policy6 governor to performance");
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to set performance cluster governor to performance", e);
+                cpuSuccess = false;
+            }
 
-    private void applyWaltSettingsArray(String[][] settings) {
-        for (String[] setting : settings) {
-            String path = setting[0];
-            String value = setting[1];
+            // Set GPU to maximum performance
+            boolean gpuSuccess = true;
+            try {
+                if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
+                    writeLine(GPU_FORCE_CLK_ON_PATH, "1");
+                }
+                if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
+                    writeLine(GPU_FORCE_RAIL_ON_PATH, "1");
+                }
+                if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
+                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "0");
+                }
+                if (fileExists(GPU_MIN_CLOCK_PATH) && fileExists(GPU_MAX_CLOCK_PATH)) {
+                    String maxClock = readLine(GPU_MAX_CLOCK_PATH).trim();
+                    writeLine(GPU_MIN_CLOCK_PATH, maxClock);
+                }
+                Log.d(TAG, "GPU set to performance mode");
+            } catch (Exception e) {
+                Log.w(TAG, "Error setting GPU to performance mode", e);
+                gpuSuccess = false;
+            }
+
+            // Disable system battery saver
+            enableSystemBatterySaver(false);
+
+            return cpuSuccess || gpuSuccess;
             
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting performance mode", e);
+            return false;
+        }
+    }
+
+    private void applyWaltSettings() {
+        String[] waltPathsCpu0 = {
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "940800",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load", "90",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_shift", "4",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_thresh", "1024",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/down_rate_limit_us", "20000",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/pl", "0",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/boost", "0",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_low_freq", "0",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq", "480000",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/up_rate_limit_us", "500",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_high_freq", "0"
+        };
+
+        String[] waltPathsCpu4 = {
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "960000",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_load", "90",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_shift", "4",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_thresh", "1024",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/down_rate_limit_us", "10000",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/pl", "0",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/boost", "-10",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_low_freq", "0",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/rtg_boost_freq", "0",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/up_rate_limit_us", "500",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_high_freq", "0"
+        };
+
+        // Apply for cpu0
+        for (int i = 0; i < waltPathsCpu0.length; i += 2) {
+            String path = waltPathsCpu0[i];
+            String value = waltPathsCpu0[i + 1];
             if (fileExists(path)) {
                 try {
                     writeLine(path, value);
+                    Log.d(TAG, "Applied WALT setting: " + path + " = " + value);
                 } catch (Exception e) {
-                    // Silent failure - WALT settings are optional
-                    Log.d(TAG, "Skipped WALT setting: " + path);
+                    Log.w(TAG, "Failed to apply WALT setting: " + path, e);
                 }
+            } else {
+                Log.d(TAG, "WALT path not found, skipping: " + path);
+            }
+        }
+
+        // Apply for cpu4
+        for (int i = 0; i < waltPathsCpu4.length; i += 2) {
+            String path = waltPathsCpu4[i];
+            String value = waltPathsCpu4[i + 1];
+            if (fileExists(path)) {
+                try {
+                    writeLine(path, value);
+                    Log.d(TAG, "Applied WALT setting: " + path + " = " + value);
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to apply WALT setting: " + path, e);
+                }
+            } else {
+                Log.d(TAG, "WALT path not found, skipping: " + path);
             }
         }
     }
@@ -367,11 +411,10 @@ public class PerformanceUtils {
             NotificationChannel channel = new NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
                 mContext.getString(R.string.performance_notification_channel_name),
-                NotificationManager.IMPORTANCE_LOW // Changed from DEFAULT to LOW
+                NotificationManager.IMPORTANCE_DEFAULT
             );
             channel.setDescription(mContext.getString(R.string.performance_notification_channel_desc));
             channel.setBlockable(true);
-            channel.setShowBadge(false); // Don't show badge
             mNotificationManager.createNotificationChannel(channel);
         }
     }
@@ -379,24 +422,30 @@ public class PerformanceUtils {
     private void showNotification(int mode) {
         if (mNotificationManager == null) return;
 
+        // Cancel all other notifications first
+        cancelAllNotifications();
+
         String title, text;
-        int icon;
+        int icon, notificationId;
 
         switch (mode) {
             case MODE_BATTERY_SAVER:
                 title = mContext.getString(R.string.performance_mode_battery_saver);
                 text = mContext.getString(R.string.performance_notification_battery_saver);
                 icon = R.drawable.ic_performance_battery_saver;
+                notificationId = NOTIFICATION_ID_BATTERY_SAVER;
                 break;
             case MODE_BALANCED:
                 title = mContext.getString(R.string.performance_mode_balanced);
                 text = mContext.getString(R.string.performance_notification_balanced);
                 icon = R.drawable.ic_performance_balanced;
+                notificationId = NOTIFICATION_ID_BALANCED;
                 break;
             case MODE_PERFORMANCE:
                 title = mContext.getString(R.string.performance_mode_performance);
                 text = mContext.getString(R.string.performance_notification_performance);
                 icon = R.drawable.ic_performance_performance;
+                notificationId = NOTIFICATION_ID_PERFORMANCE;
                 break;
             default:
                 return;
@@ -413,10 +462,38 @@ public class PerformanceUtils {
                 .setSmallIcon(icon)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
-                .setOnlyAlertOnce(true) // Don't alert on updates
+                .setFlag(Notification.FLAG_NO_CLEAR, true)
                 .build();
 
-        mNotificationManager.notify(NOTIFICATION_ID, notification);
+        mNotificationManager.notify(notificationId, notification);
+    }
+
+    private void cancelAllNotifications() {
+        if (mNotificationManager != null) {
+            mNotificationManager.cancel(NOTIFICATION_ID_BATTERY_SAVER);
+            mNotificationManager.cancel(NOTIFICATION_ID_BALANCED);
+            mNotificationManager.cancel(NOTIFICATION_ID_PERFORMANCE);
+        }
+    }
+
+    private void updateStatusBarIcon(int mode) {
+        // Set system property for status bar icon
+        String iconMode;
+        switch (mode) {
+            case MODE_BATTERY_SAVER:
+                iconMode = "battery_saver";
+                break;
+            case MODE_BALANCED:
+                iconMode = "balanced";
+                break;
+            case MODE_PERFORMANCE:
+                iconMode = "performance";
+                break;
+            default:
+                iconMode = "balanced";
+                break;
+        }
+        SystemProperties.set("sys.performance.icon", iconMode);
     }
 
     // Helper methods for file operations
@@ -431,7 +508,7 @@ public class PerformanceUtils {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    // Ignore
+                    Log.w(TAG, "Error closing BufferedReader", e);
                 }
             }
         }
@@ -448,7 +525,7 @@ public class PerformanceUtils {
                 try {
                     fw.close();
                 } catch (IOException e) {
-                    // Ignore
+                    Log.w(TAG, "Error closing FileWriter", e);
                 }
             }
         }
@@ -457,7 +534,7 @@ public class PerformanceUtils {
     private static boolean fileExists(String path) {
         try {
             File file = new File(path);
-            return file.exists() && file.canRead() && file.canWrite();
+            return file.exists() && file.canRead();
         } catch (Exception e) {
             return false;
         }
