@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 KamiKaonashi
+ * Copyright (C) 2025 KamiKaonashi, Copilot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -7,6 +7,7 @@
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package org.lineageos.settings.gpumanager;
 
 import android.util.Log;
@@ -22,8 +23,15 @@ public class GpuManagerUtils
     private static final String GPU_BASE_PATH = "/sys/class/kgsl/kgsl-3d0";
     private static final String DEVFREQ_PATH = GPU_BASE_PATH + "/devfreq";
     private static final String DEFAULT_GOVERNOR = "msm-adreno-tz";
+    private static final String TURBO_GOVERNOR = "performance";
 
-    // GPU paths
+    // Adreno 710 gyári frekvenciák, max 940 MHz
+    private static final String[] FALLBACK_FREQUENCIES = {
+        "180000000", "265000000", "370000000", "465000000", "550000000",
+        "670000000", "800000000", "940000000" // Max 940 MHz
+    };
+
+    // Paths
     private static final String GPU_MODEL = "/gpu_model";
     private static final String GPU_AVAILABLE_FREQUENCIES = "/gpu_available_frequencies";
     private static final String GPU_CURRENT_FREQ = "/gpuclk";
@@ -39,26 +47,15 @@ public class GpuManagerUtils
     private static final String GPU_FORCE_RAIL_ON = "/force_rail_on";
     private static final String GPU_FORCE_NO_NAP = "/force_no_nap";
     private static final String GPU_BUS_SPLIT = "/bus_split";
+    private static final String GPU_RESET_COUNT = "/reset_count";
+    private static final String GPU_PREEMPT_COUNT = "/preempt_count";
+    private static final String GPU_PREEMPT = "/preempt";
     private static final String GPU_MAX_GPUCLK = "/max_gpuclk";
-    private static final String GPU_MIN_CLOCK_MHZ = "/min_clock_mhz";
-    private static final String GPU_MAX_CLOCK_MHZ = "/max_clock_mhz";
 
-    // Fallback frequencies (in Hz) for SM7435 Adreno 730
-    private static final String[] FALLBACK_FREQUENCIES = {
-        "180000000",  // 180 MHz
-        "265000000",  // 265 MHz
-        "370000000",  // 370 MHz
-        "465000000",  // 465 MHz
-        "550000000",  // 550 MHz
-        "670000000",  // 670 MHz
-        "800000000",  // 800 MHz
-        "920000000"   // 920 MHz
-    };
+    // Kamera/video boost: Powerhint trigger (gyári XML alapján)
+    private static final String POWERHINT_TRIGGER_PATH = "/proc/powerhint";
+    private static final String CAMERA_BOOST_HINT_ID = "0x00001340";
 
-    /**
-     * Check if GPU management is supported
-     * @return true if GPU control files exist
-     */
     public boolean isGpuManagerSupported()
     {
         try
@@ -79,12 +76,15 @@ public class GpuManagerUtils
         try
         {
             String model = readFile(GPU_BASE_PATH + GPU_MODEL);
-            return model != null ? model.trim() : "Adreno 730";
+            if (model != null && !model.trim().isEmpty())
+                return model.trim();
+            // Adreno 710 fallback
+            return "Adreno 710";
         }
         catch (Exception e)
         {
             Log.w(TAG, "Could not read GPU model", e);
-            return "Adreno 730"; // Default for SM7435
+            return "Adreno 710";
         }
     }
 
@@ -102,19 +102,16 @@ public class GpuManagerUtils
         {
             Log.w(TAG, "Could not read available governors", e);
         }
-        // Fallback governors for Adreno
         return new String[]{"msm-adreno-tz", "performance", "powersave", "simple_ondemand"};
     }
 
     public String[] getAvailableFrequencies()
     {
-        // Try multiple paths for frequencies
         String[] frequencyPaths = {
             GPU_BASE_PATH + GPU_AVAILABLE_FREQUENCIES,
             GPU_BASE_PATH + "/freq_table_mhz",
             GPU_BASE_PATH + "/devfreq/available_frequencies"
         };
-        
         for (String path : frequencyPaths)
         {
             try
@@ -123,16 +120,16 @@ public class GpuManagerUtils
                 if (frequencies != null && !frequencies.trim().isEmpty())
                 {
                     String[] freqArray = frequencies.trim().split("\\s+");
-                    // Sort frequencies in ascending order
+                    // Biztonság: max 940 MHz legyen a legnagyobb
+                    freqArray = java.util.Arrays.stream(freqArray)
+                        .filter(f -> {
+                            try { return Long.parseLong(f) <= 940000000; }
+                            catch (Exception e) { return false; }
+                        })
+                        .toArray(String[]::new);
                     java.util.Arrays.sort(freqArray, (a, b) -> {
-                        try
-                        {
-                            return Long.compare(Long.parseLong(a), Long.parseLong(b));
-                        }
-                        catch (NumberFormatException e)
-                        {
-                            return a.compareTo(b);
-                        }
+                        try { return Long.compare(Long.parseLong(a), Long.parseLong(b)); }
+                        catch (NumberFormatException e) { return a.compareTo(b); }
                     });
                     return freqArray;
                 }
@@ -142,9 +139,6 @@ public class GpuManagerUtils
                 Log.w(TAG, "Could not read frequencies from: " + path, e);
             }
         }
-        
-        // Return fallback frequencies
-        Log.d(TAG, "Using fallback frequencies");
         return FALLBACK_FREQUENCIES.clone();
     }
 
@@ -164,29 +158,24 @@ public class GpuManagerUtils
 
     public String getCurrentFrequency()
     {
-        // Try multiple paths for current frequency
         String[] frequencyPaths = {
             GPU_BASE_PATH + GPU_CURRENT_FREQ,
             GPU_BASE_PATH + "/devfreq/cur_freq",
             GPU_BASE_PATH + "/gpuclk"
         };
-        
         for (String path : frequencyPaths)
         {
             try
             {
                 String freq = readFile(path);
                 if (freq != null && !freq.trim().isEmpty() && !freq.equals("0"))
-                {
                     return freq.trim();
-                }
             }
             catch (Exception e)
             {
-                // Continue to next path
+                // Next path
             }
         }
-        
         Log.w(TAG, "Could not read current frequency from any path");
         return "0";
     }
@@ -228,9 +217,7 @@ public class GpuManagerUtils
     private String getHighestFrequency()
     {
         String[] frequencies = getAvailableFrequencies();
-        return (frequencies != null && frequencies.length > 0) ? 
-            frequencies[frequencies.length - 1] : 
-            FALLBACK_FREQUENCIES[FALLBACK_FREQUENCIES.length - 1];
+        return (frequencies != null && frequencies.length > 0) ? frequencies[frequencies.length - 1] : FALLBACK_FREQUENCIES[FALLBACK_FREQUENCIES.length - 1];
     }
 
     public String getGpuBusyPercentage()
@@ -239,9 +226,7 @@ public class GpuManagerUtils
         {
             String busy = readFile(GPU_BASE_PATH + GPU_BUSY_PERCENTAGE);
             if (busy != null && !busy.trim().isEmpty())
-            {
                 return busy.trim() + "%";
-            }
         }
         catch (Exception e)
         {
@@ -260,7 +245,6 @@ public class GpuManagerUtils
                 try
                 {
                     int tempMilliCelsius = Integer.parseInt(rawTemp.trim());
-                    // Convert millidegrees Celsius to degrees Celsius
                     double tempCelsius = tempMilliCelsius / 1000.0;
                     return String.format("%.1f", tempCelsius);
                 }
@@ -291,30 +275,67 @@ public class GpuManagerUtils
         }
     }
 
-    public boolean getForceClkOn()
+    public String getResetCount()
     {
-        return getBooleanValue(GPU_BASE_PATH + GPU_FORCE_CLK_ON);
+        try
+        {
+            String value = readFile(GPU_BASE_PATH + GPU_RESET_COUNT);
+            return value != null ? value.trim() : "0";
+        }
+        catch (Exception e)
+        {
+            Log.w(TAG, "Could not read GPU reset count", e);
+            return "0";
+        }
     }
 
-    public boolean getForceBusOn()
+    public String getPreemptCount()
     {
-        return getBooleanValue(GPU_BASE_PATH + GPU_FORCE_BUS_ON);
+        try
+        {
+            String value = readFile(GPU_BASE_PATH + GPU_PREEMPT_COUNT);
+            return value != null ? value.trim() : "0";
+        }
+        catch (Exception e)
+        {
+            Log.w(TAG, "Could not read GPU preempt count", e);
+            return "0";
+        }
     }
 
-    public boolean getForceRailOn()
+    public boolean getPreemptStatus()
     {
-        return getBooleanValue(GPU_BASE_PATH + GPU_FORCE_RAIL_ON);
+        return getBooleanValue(GPU_BASE_PATH + GPU_PREEMPT);
+    }
+    public boolean setPreempt(boolean enabled)
+    {
+        return setBooleanValue(GPU_BASE_PATH + GPU_PREEMPT, enabled);
     }
 
-    public boolean getForceNoNap()
+    public boolean setMaxGpuClk(String clk)
     {
-        return getBooleanValue(GPU_BASE_PATH + GPU_FORCE_NO_NAP);
+        try {
+            long value = Long.parseLong(clk);
+            if (value > 940000000) clk = "940000000"; // Biztonság: max 940 MHz
+        } catch (Exception e) {
+            clk = "940000000";
+        }
+        return writeFile(GPU_BASE_PATH + GPU_MAX_GPUCLK, clk);
+    }
+    public String getMaxGpuClk()
+    {
+        String clk = readFile(GPU_BASE_PATH + GPU_MAX_GPUCLK);
+        try {
+            if (clk != null && Long.parseLong(clk) > 940000000) return "940000000";
+        } catch (Exception e) { }
+        return clk;
     }
 
-    public boolean getBusSplit()
-    {
-        return getBooleanValue(GPU_BASE_PATH + GPU_BUS_SPLIT);
-    }
+    public boolean getForceClkOn() { return getBooleanValue(GPU_BASE_PATH + GPU_FORCE_CLK_ON); }
+    public boolean getForceBusOn() { return getBooleanValue(GPU_BASE_PATH + GPU_FORCE_BUS_ON); }
+    public boolean getForceRailOn() { return getBooleanValue(GPU_BASE_PATH + GPU_FORCE_RAIL_ON); }
+    public boolean getForceNoNap() { return getBooleanValue(GPU_BASE_PATH + GPU_FORCE_NO_NAP); }
+    public boolean getBusSplit() { return getBooleanValue(GPU_BASE_PATH + GPU_BUS_SPLIT); }
 
     private boolean getBooleanValue(String path)
     {
@@ -337,8 +358,6 @@ public class GpuManagerUtils
             Log.e(TAG, "Invalid governor: " + governor);
             return false;
         }
-
-        // Validate governor against available ones
         String[] availableGovernors = getAvailableGovernors();
         boolean isValid = false;
         for (String availableGovernor : availableGovernors)
@@ -349,13 +368,11 @@ public class GpuManagerUtils
                 break;
             }
         }
-        
         if (!isValid)
         {
             Log.e(TAG, "Governor not available: " + governor);
             return false;
         }
-
         try
         {
             return writeFile(GPU_BASE_PATH + GPU_GOVERNOR, governor);
@@ -374,41 +391,29 @@ public class GpuManagerUtils
             Log.e(TAG, "Invalid frequency values: min=" + minFreq + ", max=" + maxFreq);
             return false;
         }
-
         try
         {
             long min = Long.parseLong(minFreq);
             long max = Long.parseLong(maxFreq);
-            
             if (min > max)
             {
                 Log.e(TAG, "Min frequency (" + min + ") is higher than max frequency (" + max + ")");
                 return false;
             }
+            if (min > 940000000) minFreq = "940000000";
+            if (max > 940000000) maxFreq = "940000000";
         }
         catch (NumberFormatException e)
         {
             Log.e(TAG, "Invalid frequency format", e);
-            return false;
+            minFreq = "180000000";
+            maxFreq = "940000000";
         }
-
         boolean success = true;
-        
         try
         {
-            // Set max frequency first to avoid conflicts
-            if (!writeFile(GPU_BASE_PATH + GPU_MAX_FREQ, maxFreq))
-            {
-                Log.e(TAG, "Failed to set GPU max frequency: " + maxFreq);
-                success = false;
-            }
-            
-            if (!writeFile(GPU_BASE_PATH + GPU_MIN_FREQ, minFreq))
-            {
-                Log.e(TAG, "Failed to set GPU min frequency: " + minFreq);
-                success = false;
-            }
-            
+            if (!writeFile(GPU_BASE_PATH + GPU_MAX_FREQ, maxFreq)) success = false;
+            if (!writeFile(GPU_BASE_PATH + GPU_MIN_FREQ, minFreq)) success = false;
             Log.d(TAG, "GPU frequency range set: " + minFreq + " - " + maxFreq);
         }
         catch (Exception e)
@@ -416,34 +421,14 @@ public class GpuManagerUtils
             Log.e(TAG, "Error setting GPU frequency range", e);
             return false;
         }
-        
         return success;
     }
 
-    public boolean setForceClkOn(boolean enabled)
-    {
-        return setBooleanValue(GPU_BASE_PATH + GPU_FORCE_CLK_ON, enabled);
-    }
-
-    public boolean setForceBusOn(boolean enabled)
-    {
-        return setBooleanValue(GPU_BASE_PATH + GPU_FORCE_BUS_ON, enabled);
-    }
-
-    public boolean setForceRailOn(boolean enabled)
-    {
-        return setBooleanValue(GPU_BASE_PATH + GPU_FORCE_RAIL_ON, enabled);
-    }
-
-    public boolean setForceNoNap(boolean enabled)
-    {
-        return setBooleanValue(GPU_BASE_PATH + GPU_FORCE_NO_NAP, enabled);
-    }
-
-    public boolean setBusSplit(boolean enabled)
-    {
-        return setBooleanValue(GPU_BASE_PATH + GPU_BUS_SPLIT, enabled);
-    }
+    public boolean setForceClkOn(boolean enabled) { return setBooleanValue(GPU_BASE_PATH + GPU_FORCE_CLK_ON, enabled); }
+    public boolean setForceBusOn(boolean enabled) { return setBooleanValue(GPU_BASE_PATH + GPU_FORCE_BUS_ON, enabled); }
+    public boolean setForceRailOn(boolean enabled) { return setBooleanValue(GPU_BASE_PATH + GPU_FORCE_RAIL_ON, enabled); }
+    public boolean setForceNoNap(boolean enabled) { return setBooleanValue(GPU_BASE_PATH + GPU_FORCE_NO_NAP, enabled); }
+    public boolean setBusSplit(boolean enabled) { return setBooleanValue(GPU_BASE_PATH + GPU_BUS_SPLIT, enabled); }
 
     private boolean setBooleanValue(String path, boolean enabled)
     {
@@ -451,13 +436,9 @@ public class GpuManagerUtils
         {
             boolean success = writeFile(path, enabled ? "1" : "0");
             if (success)
-            {
                 Log.d(TAG, "Set " + path + " to " + enabled);
-            }
             else
-            {
                 Log.e(TAG, "Failed to set " + path + " to " + enabled);
-            }
             return success;
         }
         catch (Exception e)
@@ -467,44 +448,55 @@ public class GpuManagerUtils
         }
     }
 
+    public boolean triggerCameraBoost()
+    {
+        try
+        {
+            return writeFile(POWERHINT_TRIGGER_PATH, CAMERA_BOOST_HINT_ID);
+        }
+        catch (Exception e)
+        {
+            Log.e(TAG, "Camera boost trigger failed", e);
+            return false;
+        }
+    }
+
+    // TURBO PROFILE: performance governor, max freq, minden ON, preempt ON (max 940 MHz)
+    public boolean applyTurboPreset()
+    {
+        boolean success = true;
+        String maxFreq = "940000000";
+        String minFreq = "940000000";
+        if (!setGovernor(TURBO_GOVERNOR)) success = false;
+        if (!setFrequencyRange(minFreq, maxFreq)) success = false;
+        if (!setForceClkOn(true)) success = false;
+        if (!setForceBusOn(true)) success = false;
+        if (!setForceRailOn(true)) success = false;
+        if (!setForceNoNap(true)) success = false;
+        if (!setBusSplit(true)) success = false;
+        if (!setPreempt(true)) success = false;
+        Log.d(TAG, "Turbo preset enabled: " + (success ? "OK" : "FAILED"));
+        return success;
+    }
+
     public boolean resetToDefaults()
     {
         Log.d(TAG, "Resetting GPU to defaults");
         boolean success = true;
-        
-        // Reset governor
-        if (!setGovernor(DEFAULT_GOVERNOR))
-        {
-            success = false;
-        }
-        
-        // Reset frequency range
-        String[] frequencies = getAvailableFrequencies();
-        if (frequencies != null && frequencies.length > 0)
-        {
-            String minFreq = frequencies[0];
-            String maxFreq = frequencies[frequencies.length - 1];
-            if (!setFrequencyRange(minFreq, maxFreq))
-            {
-                success = false;
-            }
-        }
-        
-        // Reset power settings
+        if (!setGovernor(DEFAULT_GOVERNOR)) success = false;
+        String minFreq = "180000000";
+        String maxFreq = "940000000";
+        if (!setFrequencyRange(minFreq, maxFreq)) success = false;
         if (!setForceClkOn(false)) success = false;
         if (!setForceBusOn(false)) success = false;
         if (!setForceRailOn(false)) success = false;
         if (!setForceNoNap(false)) success = false;
         if (!setBusSplit(false)) success = false;
-        
+        if (!setPreempt(false)) success = false;
         Log.d(TAG, "GPU reset to defaults " + (success ? "successful" : "partially failed"));
         return success;
     }
 
-    /**
-     * Get debug information for troubleshooting
-     * @return Debug information string
-     */
     public String getDebugInfo()
     {
         StringBuilder sb = new StringBuilder();
@@ -512,32 +504,29 @@ public class GpuManagerUtils
         sb.append("======================\n");
         sb.append("Supported: ").append(isGpuManagerSupported()).append("\n");
         sb.append("GPU Model: ").append(getGpuModel()).append("\n\n");
-        
         sb.append("Current Settings:\n");
         sb.append("Governor: ").append(getCurrentGovernor()).append("\n");
         sb.append("Current Freq: ").append(getCurrentFrequency()).append(" Hz\n");
         sb.append("Min Freq: ").append(getCurrentMinFrequency()).append(" Hz\n");
         sb.append("Max Freq: ").append(getCurrentMaxFrequency()).append(" Hz\n");
+        sb.append("Max GPUCLK: ").append(getMaxGpuClk()).append(" Hz\n");
         sb.append("Temperature: ").append(getGpuTemperature()).append("°C\n");
         sb.append("Busy: ").append(getGpuBusyPercentage()).append("\n");
-        sb.append("Thermal Level: ").append(getThermalPowerLevel()).append("\n\n");
-        
+        sb.append("Thermal Level: ").append(getThermalPowerLevel()).append("\n");
+        sb.append("Reset Count: ").append(getResetCount()).append("\n");
+        sb.append("Preempt Count: ").append(getPreemptCount()).append("\n\n");
         sb.append("Power Settings:\n");
         sb.append("Force CLK On: ").append(getForceClkOn()).append("\n");
         sb.append("Force BUS On: ").append(getForceBusOn()).append("\n");
         sb.append("Force Rail On: ").append(getForceRailOn()).append("\n");
         sb.append("Force No Nap: ").append(getForceNoNap()).append("\n");
-        sb.append("Bus Split: ").append(getBusSplit()).append("\n\n");
-        
+        sb.append("Bus Split: ").append(getBusSplit()).append("\n");
+        sb.append("Preemption: ").append(getPreemptStatus()).append("\n\n");
         sb.append("Available Governors:\n");
         String[] governors = getAvailableGovernors();
         for (String governor : governors)
-        {
             sb.append("  - ").append(governor).append("\n");
-        }
-        sb.append("\n");
-        
-        sb.append("Available Frequencies:\n");
+        sb.append("\nAvailable Frequencies:\n");
         String[] frequencies = getAvailableFrequencies();
         for (String freq : frequencies)
         {
@@ -552,81 +541,61 @@ public class GpuManagerUtils
                 sb.append("  - ").append(freq).append(" Hz\n");
             }
         }
-        
         return sb.toString();
     }
 
-    /**
-     * Read content from a file
-     * @param path File path to read
-     * @return File content as string, null if error
-     */
-    private String readFile(String path) throws IOException
+    private String readFile(String path)
     {
-        File file = new File(path);
-        if (!file.exists() || !file.canRead())
-        {
-            throw new IOException("Cannot read file: " + path);
-        }
-
-        BufferedReader reader = null;
         try
         {
-            reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-            return line;
-        }
-        finally
-        {
-            if (reader != null)
+            File file = new File(path);
+            if (!file.exists() || !file.canRead())
+                return null;
+            BufferedReader reader = null;
+            try
             {
-                try
-                {
-                    reader.close();
-                }
-                catch (IOException e)
-                {
-                    Log.w(TAG, "Error closing reader", e);
-                }
+                reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                return line;
             }
+            finally
+            {
+                if (reader != null)
+                    try { reader.close(); } catch (IOException e) { Log.w(TAG, "Error closing reader", e); }
+            }
+        }
+        catch (Exception e)
+        {
+            Log.w(TAG, "readFile error: " + path, e);
+            return null;
         }
     }
 
-    /**
-     * Write content to a file
-     * @param path File path to write
-     * @param value Content to write
-     * @return true if successful, false otherwise
-     */
-    private boolean writeFile(String path, String value) throws IOException
+    private boolean writeFile(String path, String value)
     {
-        File file = new File(path);
-        if (!file.exists() || !file.canWrite())
-        {
-            throw new IOException("Cannot write to file: " + path);
-        }
-
-        FileWriter writer = null;
         try
         {
-            writer = new FileWriter(file);
-            writer.write(value);
-            writer.flush();
-            return true;
-        }
-        finally
-        {
-            if (writer != null)
+            File file = new File(path);
+            if (!file.exists() || !file.canWrite())
+                throw new IOException("Cannot write to file: " + path);
+            FileWriter writer = null;
+            try
             {
-                try
-                {
-                    writer.close();
-                }
-                catch (IOException e)
-                {
-                    Log.w(TAG, "Error closing writer", e);
-                }
+                writer = new FileWriter(file);
+                writer.write(value);
+                writer.flush();
+                return true;
             }
+            finally
+            {
+                if (writer != null)
+                    try { writer.close(); } catch (IOException e) { Log.w(TAG, "Error closing writer", e); }
+            }
+        }
+        catch (Exception e)
+        {
+            Log.e(TAG, "writeFile error: " + path, e);
+            return false;
         }
     }
 }

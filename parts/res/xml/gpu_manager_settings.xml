@@ -4,91 +4,38 @@
 
     <!-- GPU Information -->
     <PreferenceCategory android:title="@string/gpu_info_category">
-        <Preference
-            android:key="gpu_model"
-            android:title="@string/gpu_model_title"
-            android:selectable="false" />
-        <Preference
-            android:key="gpu_current_freq"
-            android:title="@string/gpu_current_freq_title"
-            android:selectable="false" />
-        <Preference
-            android:key="gpu_busy_percentage"
-            android:title="@string/gpu_busy_percentage_title"
-            android:selectable="false" />
-        <Preference
-            android:key="gpu_temperature"
-            android:title="@string/gpu_temp_title"
-            android:selectable="false" />
+        <Preference android:key="gpu_model" android:title="@string/gpu_model_title" android:selectable="false" />
+        <Preference android:key="gpu_current_freq" android:title="@string/gpu_current_freq_title" android:selectable="false" />
+        <Preference android:key="gpu_busy_percentage" android:title="@string/gpu_busy_percentage_title" android:selectable="false" />
+        <Preference android:key="gpu_temperature" android:title="@string/gpu_temp_title" android:selectable="false" />
+        <Preference android:key="gpu_thermal_pwrlevel" android:title="@string/gpu_thermal_pwrlevel_title" android:selectable="false" />
+        <Preference android:key="gpu_reset_count" android:title="@string/gpu_reset_count_title" android:selectable="false" />
+        <Preference android:key="gpu_preempt_count" android:title="@string/gpu_preempt_count_title" android:selectable="false" />
     </PreferenceCategory>
 
-    <!-- GPU Governor -->
-    <PreferenceCategory android:title="@string/gpu_governor_title">
-        <ListPreference
-            android:key="gpu_governor"
-            android:title="@string/gpu_governor_title"
-            android:summary="@string/gpu_governor_summary" />
-    </PreferenceCategory>
-
-    <!-- GPU Frequencies -->
+    <!-- GPU Governor & Freq -->
     <PreferenceCategory android:title="@string/gpu_freq_title">
-        <ListPreference
-            android:key="gpu_min_freq"
-            android:title="@string/gpu_min_freq_title" />
-        <ListPreference
-            android:key="gpu_max_freq"
-            android:title="@string/gpu_max_freq_title" />
+        <ListPreference android:key="gpu_governor" android:title="@string/gpu_governor_title" android:summary="@string/gpu_governor_summary" />
+        <ListPreference android:key="gpu_min_freq" android:title="@string/gpu_min_freq_title" />
+        <ListPreference android:key="gpu_max_freq" android:title="@string/gpu_max_freq_title" />
+        <ListPreference android:key="gpu_max_gpuclk" android:title="@string/gpu_max_gpuclk_title" android:summary="@string/gpu_max_gpuclk_summary" />
     </PreferenceCategory>
 
-    <!-- Power Settings -->
+    <!-- Power & Advanced -->
     <PreferenceCategory android:title="@string/gpu_power_title">
-        <SwitchPreference
-            android:key="gpu_force_clk_on"
-            android:title="@string/gpu_force_clk_on_title"
-            android:summary="@string/gpu_force_clk_on_summary" />
-        <SwitchPreference
-            android:key="gpu_force_bus_on"
-            android:title="@string/gpu_force_bus_on_title"
-            android:summary="@string/gpu_force_bus_on_summary" />
-        <SwitchPreference
-            android:key="gpu_force_rail_on"
-            android:title="@string/gpu_force_rail_on_title"
-            android:summary="@string/gpu_force_rail_on_summary" />
-        <SwitchPreference
-            android:key="gpu_force_no_nap"
-            android:title="@string/gpu_force_no_nap_title"
-            android:summary="@string/gpu_force_no_nap_summary" />
-        <SwitchPreference
-            android:key="gpu_bus_split"
-            android:title="@string/gpu_bus_split_title"
-            android:summary="@string/gpu_bus_split_summary" />
+        <SwitchPreference android:key="gpu_force_clk_on" android:title="@string/gpu_force_clk_on_title" android:summary="@string/gpu_force_clk_on_summary" />
+        <SwitchPreference android:key="gpu_force_bus_on" android:title="@string/gpu_force_bus_on_title" android:summary="@string/gpu_force_bus_on_summary" />
+        <SwitchPreference android:key="gpu_force_rail_on" android:title="@string/gpu_force_rail_on_title" android:summary="@string/gpu_force_rail_on_summary" />
+        <SwitchPreference android:key="gpu_force_no_nap" android:title="@string/gpu_force_no_nap_title" android:summary="@string/gpu_force_no_nap_summary" />
+        <SwitchPreference android:key="gpu_bus_split" android:title="@string/gpu_bus_split_title" android:summary="@string/gpu_bus_split_summary" />
+        <SwitchPreference android:key="gpu_preempt" android:title="@string/gpu_preempt_title" android:summary="@string/gpu_preempt_summary" />
+        <SwitchPreference android:key="gpu_camera_boost" android:title="@string/gpu_camera_boost_title" android:summary="@string/gpu_camera_boost_summary" />
     </PreferenceCategory>
 
-    <!-- Thermal Settings -->
-    <PreferenceCategory android:title="@string/gpu_thermal_title">
-        <Preference
-            android:key="gpu_thermal_pwrlevel"
-            android:title="@string/gpu_thermal_pwrlevel_title"
-            android:summary="@string/gpu_thermal_pwrlevel_summary"
-            android:selectable="false" />
-    </PreferenceCategory>
-
+    <!-- Apply/Reset -->
     <PreferenceCategory>
-        <Preference
-            android:key="apply_gpu_settings"
-            android:title="@string/apply_settings"
-            android:summary="Apply current GPU settings" />
-        <Preference
-            android:key="reset_gpu_settings"
-            android:title="@string/reset_settings"
-            android:summary="Reset all GPU settings to default values" />
+        <Preference android:key="apply_gpu_settings" android:title="@string/apply_settings" />
+        <Preference android:key="reset_gpu_settings" android:title="@string/reset_settings" />
+        <Preference android:key="gpu_turbo_preset" android:title="@string/gpu_turbo_preset_title" android:summary="@string/gpu_turbo_preset_summary" />
     </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/kernel_info_category">
-        <Preference
-            android:title="@string/gpu_info_title"
-            android:summary="@string/gpu_info_summary"
-            android:selectable="false" />
-    </PreferenceCategory>
-
 </PreferenceScreen>
