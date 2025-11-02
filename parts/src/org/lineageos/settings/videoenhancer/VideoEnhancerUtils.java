@@ -33,29 +33,32 @@ public class VideoEnhancerUtils {
     private static final String PREF_DISABLE_SCALER = "disable_scaler_enabled";
     private static final String PREF_MEDIA_CODEC_HW = "media_codec_hw_enabled";
 
-    // System properties - Display Features (FIXED)
+    // System properties - Display Features
+    // KRITIKUS: vendor.prop alapján a vendor.display.enable_optimize_refresh=0 a gyári alapértelmezett!
     private static final String PROP_SMOOTH_MOTION = "vendor.display.use_smooth_motion";
     private static final String PROP_OPTIMIZE_REFRESH = "vendor.display.enable_optimize_refresh";
     private static final String PROP_PEAK_REFRESH_RATE = "ro.surface_flinger.set_touch_timer_ms";
-    private static final String PROP_IDLE_TIMER = "debug.sf.set_idle_timer_ms"; // NEW: idle timer
+    private static final String PROP_IDLE_TIMER = "ro.surface_flinger.set_idle_timer_ms";
     
-    // System properties - Performance (FIXED)
-    private static final String PROP_HWUI_USE_VULKAN = "ro.hwui.use_vulkan"; // FIXED property name
+    // System properties - Performance
+    // KRITIKUS: persist.sys.force_vulkan=1 már be van állítva a vendor.prop-ban!
+    private static final String PROP_FORCE_VULKAN = "persist.sys.force_vulkan";
     private static final String PROP_PURGEABLE_ASSETS = "persist.sys.purgeable_assets";
     private static final String PROP_GFX_ACCEL = "ro.config.avoid_gfx_accel";
     private static final String PROP_ADPF_CPU_HINT = "debug.sf.enable_adpf_cpu_hint";
-    private static final String PROP_GPU_SCHEDULING = "persist.sys.gpu.scheduling";
+    private static final String PROP_GPU_SCHEDULING = "vendor.perf.framepacing.enable";
     
     // System properties - Renderer
+    // KRITIKUS: debug.hwui.renderer=skiavk már be van állítva a vendor.prop-ban!
     private static final String PROP_HWUI_RENDERER = "debug.hwui.renderer";
     
     // System properties - Advanced
-    private static final String PROP_HWUI_FORCE_GPU = "persist.sys.ui.hw";
-    private static final String PROP_HWUI_DISABLE_VSYNC = "debug.hwui.disable_vsync";
+    private static final String PROP_HWUI_FORCE_GPU = "debug.sf.hw";
+    private static final String PROP_HWUI_DISABLE_VSYNC = "debug.cpurend.vsync";
     private static final String PROP_DISABLE_SCALER = "vendor.display.disable_scaler";
-    private static final String PROP_MEDIA_CODEC_HW = "debug.stagefright.c2-poolmask";
+    private static final String PROP_MEDIA_CODEC_HW = "debug.stagefright.c2inputsurface";
     
-    // NEW: Frame pacing properties
+    // Frame pacing properties (gyári értékek a vendor.prop-ból)
     private static final String PROP_DISABLE_CLIENT_COMP_CACHE = "debug.sf.disable_client_composition_cache";
     private static final String PROP_ENABLE_GL_BACKPRESSURE = "debug.sf.enable_gl_backpressure";
 
@@ -119,7 +122,7 @@ public class VideoEnhancerUtils {
                 return false;
             }
             
-            Thread.sleep(200); // FIXED: 150ms -> 200ms
+            Thread.sleep(300); // Növelt delay a biztonság kedvéért
             
             verifyProcess = Runtime.getRuntime().exec("su");
             verifyOs = new DataOutputStream(verifyProcess.getOutputStream());
@@ -185,6 +188,7 @@ public class VideoEnhancerUtils {
     
     public boolean setOptimizeRefreshEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_OPTIMIZE_REFRESH_ENABLED, enabled).apply();
+        // vendor.prop alapján: vendor.display.enable_optimize_refresh=0 az alapértelmezett
         boolean result = setSystemProp(PROP_OPTIMIZE_REFRESH, enabled ? "1" : "0");
         Log.d(TAG, "setOptimizeRefreshEnabled(" + enabled + ") = " + result);
         return result;
@@ -196,10 +200,10 @@ public class VideoEnhancerUtils {
     
     public boolean setPeakRefreshRateEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_PEAK_REFRESH_RATE, enabled).apply();
-        // FIXED: 500ms -> 200ms (factory value)
-        // FIXED: idle timer also set
+        // vendor.prop: ro.surface_flinger.set_touch_timer_ms=200 (gyári érték)
+        // vendor.prop: ro.surface_flinger.set_idle_timer_ms=4000 (gyári érték)
         boolean result1 = setSystemProp(PROP_PEAK_REFRESH_RATE, enabled ? "200" : "0");
-        boolean result2 = setSystemProp(PROP_IDLE_TIMER, enabled ? "1100" : "0");
+        boolean result2 = setSystemProp(PROP_IDLE_TIMER, enabled ? "4000" : "0");
         boolean result = result1 && result2;
         Log.d(TAG, "setPeakRefreshRateEnabled(" + enabled + ") = " + result);
         return result;
@@ -213,8 +217,8 @@ public class VideoEnhancerUtils {
     
     public boolean setForceVulkanEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_FORCE_VULKAN_ENABLED, enabled).apply();
-        // FIXED: ro.hwui.use_vulkan usage (per build.prop)
-        boolean result = setSystemProp(PROP_HWUI_USE_VULKAN, enabled ? "true" : "");
+        // vendor.prop: persist.sys.force_vulkan=1 már be van állítva!
+        boolean result = setSystemProp(PROP_FORCE_VULKAN, enabled ? "1" : "0");
         Log.d(TAG, "setForceVulkanEnabled(" + enabled + ") = " + result);
         return result;
     }
@@ -225,6 +229,7 @@ public class VideoEnhancerUtils {
     
     public boolean setPurgeableAssetsEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_PURGEABLE_ASSETS_ENABLED, enabled).apply();
+        // vendor.prop: persist.sys.purgeable_assets=1 már be van állítva!
         boolean result = setSystemProp(PROP_PURGEABLE_ASSETS, enabled ? "1" : "0");
         Log.d(TAG, "setPurgeableAssetsEnabled(" + enabled + ") = " + result);
         return result;
@@ -236,7 +241,7 @@ public class VideoEnhancerUtils {
     
     public boolean setGfxAccelEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_GFX_ACCEL_ENABLED, enabled).apply();
-        // Note: this property is inverted (avoid = disable)
+        // vendor.prop: ro.config.avoid_gfx_accel=false (inverted logic!)
         boolean result = setSystemProp(PROP_GFX_ACCEL, enabled ? "false" : "true");
         Log.d(TAG, "setGfxAccelEnabled(" + enabled + ") = " + result);
         return result;
@@ -248,6 +253,7 @@ public class VideoEnhancerUtils {
     
     public boolean setAdpfCpuHintEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_ADPF_CPU_HINT_ENABLED, enabled).apply();
+        // vendor.prop: debug.sf.enable_adpf_cpu_hint=true
         boolean result = setSystemProp(PROP_ADPF_CPU_HINT, enabled ? "true" : "false");
         Log.d(TAG, "setAdpfCpuHintEnabled(" + enabled + ") = " + result);
         return result;
@@ -259,6 +265,7 @@ public class VideoEnhancerUtils {
     
     public boolean setGpuSchedulingEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_GPU_SCHEDULING, enabled).apply();
+        // vendor.prop: vendor.perf.framepacing.enable=1
         boolean result = setSystemProp(PROP_GPU_SCHEDULING, enabled ? "1" : "0");
         Log.d(TAG, "setGpuSchedulingEnabled(" + enabled + ") = " + result);
         return result;
@@ -280,7 +287,8 @@ public class VideoEnhancerUtils {
             Log.d(TAG, "setSkiaGLRendererEnabled(true) = " + success);
             return success;
         } else {
-            boolean success = setSystemProp(PROP_HWUI_RENDERER, "");
+            // vendor.prop: debug.hwui.renderer=skiavk az alapértelmezett!
+            boolean success = setSystemProp(PROP_HWUI_RENDERER, "skiavk");
             if (success) {
                 mPrefs.edit().putBoolean(PREF_SKIAGL_RENDERER_ENABLED, false).apply();
             }
@@ -303,7 +311,8 @@ public class VideoEnhancerUtils {
             Log.d(TAG, "setSkiaVKRendererEnabled(true) = " + success);
             return success;
         } else {
-            boolean success = setSystemProp(PROP_HWUI_RENDERER, "");
+            // vendor.prop: debug.hwui.renderer=skiavk az alapértelmezett!
+            boolean success = setSystemProp(PROP_HWUI_RENDERER, "skiavk");
             if (success) {
                 mPrefs.edit().putBoolean(PREF_SKIAVK_RENDERER_ENABLED, false).apply();
             }
@@ -320,6 +329,7 @@ public class VideoEnhancerUtils {
     
     public boolean setHwuiForceGpuEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_HWUI_FORCE_GPU, enabled).apply();
+        // vendor.prop: debug.sf.hw=0 az alapértelmezett
         boolean result = setSystemProp(PROP_HWUI_FORCE_GPU, enabled ? "1" : "0");
         Log.d(TAG, "setHwuiForceGpuEnabled(" + enabled + ") = " + result);
         return result;
@@ -331,7 +341,8 @@ public class VideoEnhancerUtils {
     
     public boolean setHwuiDisableVsyncEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_HWUI_DISABLE_VSYNC, enabled).apply();
-        // WARNING: This can cause screen tearing!
+        // vendor.prop: debug.cpurend.vsync=false (VSync letiltva CPU rendereléshez)
+        // KRITIKUS: Ez fordított logika! false = VSync engedélyezve, true = VSync letiltva
         boolean result = setSystemProp(PROP_HWUI_DISABLE_VSYNC, enabled ? "true" : "false");
         Log.d(TAG, "setHwuiDisableVsyncEnabled(" + enabled + ") = " + result);
         return result;
@@ -343,6 +354,7 @@ public class VideoEnhancerUtils {
     
     public boolean setDisableScalerEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_DISABLE_SCALER, enabled).apply();
+        // vendor.prop: vendor.display.disable_scaler=0 az alapértelmezett
         boolean result = setSystemProp(PROP_DISABLE_SCALER, enabled ? "1" : "0");
         Log.d(TAG, "setDisableScalerEnabled(" + enabled + ") = " + result);
         return result;
@@ -354,8 +366,9 @@ public class VideoEnhancerUtils {
     
     public boolean setMediaCodecHwEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(PREF_MEDIA_CODEC_HW, enabled).apply();
-        // 0x1f = all hardware codecs enabled, 0x0 = software only
-        boolean result = setSystemProp(PROP_MEDIA_CODEC_HW, enabled ? "0x1f" : "0x0");
+        // vendor.prop: debug.stagefright.c2inputsurface=-1 az alapértelmezett
+        // -1 = auto, 1 = force HW, 0 = force SW
+        boolean result = setSystemProp(PROP_MEDIA_CODEC_HW, enabled ? "-1" : "0");
         Log.d(TAG, "setMediaCodecHwEnabled(" + enabled + ") = " + result);
         return result;
     }
@@ -370,9 +383,9 @@ public class VideoEnhancerUtils {
         
         Log.i(TAG, "=== Applying Video Enhancer settings on boot ===");
         
-        // NEW: Essential frame pacing settings (per build.prop)
+        // Frame pacing settings (gyári értékek a vendor.prop-ból)
         setSystemProp(PROP_DISABLE_CLIENT_COMP_CACHE, "1");
-        setSystemProp(PROP_ENABLE_GL_BACKPRESSURE, "1");
+        setSystemProp(PROP_ENABLE_GL_BACKPRESSURE, "0"); // vendor.prop: 0 az alapértelmezett!
         
         // Display Features
         if (isSmoothMotionEnabled()) {
@@ -453,54 +466,54 @@ public class VideoEnhancerUtils {
     // ==================== RESET TO DEFAULTS ====================
 
     public void resetToDefaults() {
-        Log.i(TAG, "Resetting all Video Enhancer settings to defaults");
+        Log.i(TAG, "Resetting all Video Enhancer settings to factory defaults (vendor.prop values)");
         
         SharedPreferences.Editor editor = mPrefs.edit();
         
-        // Display Features - OFF by default (factory settings)
+        // Display Features - Gyári alapértelmezések
         editor.putBoolean(PREF_SMOOTH_MOTION_ENABLED, false);
         editor.putBoolean(PREF_OPTIMIZE_REFRESH_ENABLED, false);
         editor.putBoolean(PREF_PEAK_REFRESH_RATE, false);
         
-        // Performance - Conservative defaults
-        editor.putBoolean(PREF_FORCE_VULKAN_ENABLED, false);
-        editor.putBoolean(PREF_PURGEABLE_ASSETS_ENABLED, false);
-        editor.putBoolean(PREF_GFX_ACCEL_ENABLED, true);
-        editor.putBoolean(PREF_ADPF_CPU_HINT_ENABLED, true);
-        editor.putBoolean(PREF_GPU_SCHEDULING, false);
+        // Performance - Gyári alapértelmezések (vendor.prop alapján)
+        editor.putBoolean(PREF_FORCE_VULKAN_ENABLED, true); // persist.sys.force_vulkan=1
+        editor.putBoolean(PREF_PURGEABLE_ASSETS_ENABLED, true); // persist.sys.purgeable_assets=1
+        editor.putBoolean(PREF_GFX_ACCEL_ENABLED, true); // ro.config.avoid_gfx_accel=false
+        editor.putBoolean(PREF_ADPF_CPU_HINT_ENABLED, true); // debug.sf.enable_adpf_cpu_hint=true
+        editor.putBoolean(PREF_GPU_SCHEDULING, true); // vendor.perf.framepacing.enable=1
         
-        // Renderer - No custom renderer
+        // Renderer - Gyári alapértelmezett (vendor.prop)
         editor.putBoolean(PREF_SKIAGL_RENDERER_ENABLED, false);
-        editor.putBoolean(PREF_SKIAVK_RENDERER_ENABLED, false);
+        editor.putBoolean(PREF_SKIAVK_RENDERER_ENABLED, true); // debug.hwui.renderer=skiavk
         
-        // Advanced - OFF by default (VSync ALWAYS enabled!)
-        editor.putBoolean(PREF_HWUI_FORCE_GPU, false);
-        editor.putBoolean(PREF_HWUI_DISABLE_VSYNC, false); // VSync should NEVER be disabled by default!
-        editor.putBoolean(PREF_DISABLE_SCALER, false);
-        editor.putBoolean(PREF_MEDIA_CODEC_HW, true);
+        // Advanced - Gyári alapértelmezések
+        editor.putBoolean(PREF_HWUI_FORCE_GPU, false); // debug.sf.hw=0
+        editor.putBoolean(PREF_HWUI_DISABLE_VSYNC, false); // debug.cpurend.vsync=false
+        editor.putBoolean(PREF_DISABLE_SCALER, false); // vendor.display.disable_scaler=0
+        editor.putBoolean(PREF_MEDIA_CODEC_HW, true); // debug.stagefright.c2inputsurface=-1
         
         editor.apply();
         
-        // Apply default settings
+        // Apply factory defaults
         setSmoothMotionEnabled(false);
         setOptimizeRefreshEnabled(false);
         setPeakRefreshRateEnabled(false);
-        setForceVulkanEnabled(false);
-        setPurgeableAssetsEnabled(false);
-        setGfxAccelEnabled(true);
-        setAdpfCpuHintEnabled(true);
-        setGpuSchedulingEnabled(false);
+        setForceVulkanEnabled(true); // vendor.prop default
+        setPurgeableAssetsEnabled(true); // vendor.prop default
+        setGfxAccelEnabled(true); // vendor.prop default
+        setAdpfCpuHintEnabled(true); // vendor.prop default
+        setGpuSchedulingEnabled(true); // vendor.prop default
         setSkiaGLRendererEnabled(false);
-        setSkiaVKRendererEnabled(false);
+        setSkiaVKRendererEnabled(true); // vendor.prop default
         setHwuiForceGpuEnabled(false);
         setHwuiDisableVsyncEnabled(false);
         setDisableScalerEnabled(false);
         setMediaCodecHwEnabled(true);
         
-        // NEW: Restore factory frame pacing settings
+        // Restore factory frame pacing settings (vendor.prop)
         setSystemProp(PROP_DISABLE_CLIENT_COMP_CACHE, "1");
-        setSystemProp(PROP_ENABLE_GL_BACKPRESSURE, "1");
+        setSystemProp(PROP_ENABLE_GL_BACKPRESSURE, "0"); // vendor.prop: 0 az alapértelmezett!
         
-        Log.i(TAG, "Reset to defaults completed");
+        Log.i(TAG, "Reset to factory defaults completed");
     }
 }
