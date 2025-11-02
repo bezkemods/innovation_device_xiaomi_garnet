@@ -63,7 +63,7 @@ public class PerformanceUtils {
     // CPU Governors
     private static final String PERFORMANCE_GOVERNOR = "performance";
     private static final String POWERSAVE_GOVERNOR = "powersave";
-    private static final String DEFAULT_GOVERNOR = "walt";  // Módosítva walt-ra
+    private static final String DEFAULT_GOVERNOR = "walt";
 
     // GPU paths
     private static final String GPU_MAX_CLOCK_PATH = "/sys/class/kgsl/kgsl-3d0/max_clock_mhz";
@@ -176,7 +176,7 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Apply WALT settings (ha elérhetőek, különben skip)
+            // Apply WALT settings
             applyWaltSettings();
 
             // Set GPU to lowest performance
@@ -237,7 +237,7 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Apply WALT settings (ha elérhetőek, különben skip)
+            // Apply WALT settings
             applyWaltSettings();
 
             // Set GPU to balanced settings
@@ -272,7 +272,7 @@ public class PerformanceUtils {
         }
     }
 
-private boolean setPerformanceMode() {
+    private boolean setPerformanceMode() {
         try {
             // Set CPU governors to performance
             boolean cpuSuccess = true;
@@ -451,8 +451,10 @@ private boolean setPerformanceMode() {
                 return;
         }
 
-        Intent intent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // Open XiaomiParts instead of battery settings
+        Intent intent = new Intent();
+        intent.setClassName("org.lineageos.settings", "org.lineageos.settings.xiaomiparts.XiaomiPartsActivity");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 
             PendingIntent.FLAG_IMMUTABLE);
 
