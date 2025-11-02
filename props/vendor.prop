@@ -108,7 +108,7 @@ ro.vendor.display.sensortype=2
 ro.vendor.display.svi=1
 vendor.display.comp_mask=0
 vendor.display.use_layer_ext=0
-vendor.display.use_smooth_motion=1
+vendor.display.use_smooth_motion=0
 vendor.display.disable_3d_adaptive_tm=0
 vendor.display.disable_excl_rect=0
 vendor.display.disable_excl_rect_partial_fb=1
@@ -126,7 +126,7 @@ vendor.display.enable_async_powermode=1
 vendor.display.enable_async_vds_creation=1
 vendor.display.enable_dpps_dynamic_fps=0
 vendor.display.enable_hdr10_gpu_target=0
-vendor.display.enable_optimize_refresh=1
+vendor.display.enable_optimize_refresh=0
 vendor.display.idle_time=0
 vendor.display.override_doze_mode=1
 vendor.display.vds_allow_hwc=0
@@ -197,7 +197,7 @@ ro.surface_flinger.clear_slots_with_set_layer_buffer=true
 ro.surface_flinger.support_kernel_idle_timer=true
 vendor.gralloc.disable_ubwc=0
 debug.sdm.support_writeback=0
-ro.config.avoid_gfx_accel=false
+ro.config.avoid_gfx_accel=true
 
 # HWUI
 ro.hwui.render_ahead=10

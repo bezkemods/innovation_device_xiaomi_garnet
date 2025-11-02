@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 KamiKaonashi
+ * Copyright (C) 2025 bezke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -193,10 +193,7 @@ public class KernelManagerFragment extends PreferenceFragment
         for (int i = 0; i < 8; i++) {
             mCpuCorePreferences[i] = new Preference(getContext());
             mCpuCorePreferences[i].setKey("cpu_core_" + i);
-            
-            // Determine core type based on power profile cluster mapping
             String coreType = mKernelUtils.getClusterName(mKernelUtils.getCpuPolicy(i));
-            
             mCpuCorePreferences[i].setTitle("CPU " + i + " (" + coreType + ")");
             mCpuCorePreferences[i].setSummary(getString(R.string.kernel_manager_loading));
             mCpuCorePreferences[i].setSelectable(false);
@@ -208,11 +205,9 @@ public class KernelManagerFragment extends PreferenceFragment
 
     private void updateMonitoringVisibility() {
         boolean visible = mMonitoringEnabled;
-        
         mUpdateIntervalPreference.setVisible(visible);
         mClusterSummaryEfficiency.setVisible(visible);
         mClusterSummaryPerformance.setVisible(visible);
-        
         for (Preference pref : mCpuCorePreferences) {
             if (pref != null) {
                 pref.setVisible(visible);
@@ -228,25 +223,18 @@ public class KernelManagerFragment extends PreferenceFragment
     }
 
     private void loadCurrentSettings() {
-        // Load current governor and frequencies for both clusters
         if (mGovernorPreference != null) {
             String savedGovernor = mSharedPrefs.getString(KEY_CPU_GOVERNOR, 
                 mKernelUtils.getCurrentGovernor(KernelManagerUtils.EFFICIENCY_CLUSTER));
             mGovernorPreference.setValue(savedGovernor);
-            
-            // Set available governors
             String[] availableGovernors = mKernelUtils.getAvailableGovernors();
             mGovernorPreference.setEntries(createHumanReadableGovernorNames(availableGovernors));
             mGovernorPreference.setEntryValues(availableGovernors);
             updateGovernorSummary();
         }
-        
         loadFrequencySettings();
     }
 
-    /**
-     * Create human-readable governor names for display
-     */
     private String[] createHumanReadableGovernorNames(String[] governors) {
         String[] humanReadable = new String[governors.length];
         for (int i = 0; i < governors.length; i++) {
@@ -277,9 +265,6 @@ public class KernelManagerFragment extends PreferenceFragment
         return humanReadable;
     }
 
-    /**
-     * Create human-readable frequency names for display
-     */
     private String[] createHumanReadableFrequencyNames(String[] frequencies) {
         String[] humanReadable = new String[frequencies.length];
         for (int i = 0; i < frequencies.length; i++) {
@@ -293,40 +278,33 @@ public class KernelManagerFragment extends PreferenceFragment
             String savedFreq = mSharedPrefs.getString(KEY_EFFICIENCY_MIN_FREQ,
                 mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER));
             mEfficiencyMinFreq.setValue(savedFreq);
-            
             String[] availableFreqs = mKernelUtils.getAvailableFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER);
             mEfficiencyMinFreq.setEntries(createHumanReadableFrequencyNames(availableFreqs));
             mEfficiencyMinFreq.setEntryValues(availableFreqs);
             updateFrequencySummary(mEfficiencyMinFreq, KernelManagerUtils.EFFICIENCY_CLUSTER, true);
         }
-        
         if (mEfficiencyMaxFreq != null) {
             String savedFreq = mSharedPrefs.getString(KEY_EFFICIENCY_MAX_FREQ,
                 mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER));
             mEfficiencyMaxFreq.setValue(savedFreq);
-            
             String[] availableFreqs = mKernelUtils.getAvailableFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER);
             mEfficiencyMaxFreq.setEntries(createHumanReadableFrequencyNames(availableFreqs));
             mEfficiencyMaxFreq.setEntryValues(availableFreqs);
             updateFrequencySummary(mEfficiencyMaxFreq, KernelManagerUtils.EFFICIENCY_CLUSTER, false);
         }
-        
         if (mPerformanceMinFreq != null) {
             String savedFreq = mSharedPrefs.getString(KEY_PERFORMANCE_MIN_FREQ,
                 mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER));
             mPerformanceMinFreq.setValue(savedFreq);
-            
             String[] availableFreqs = mKernelUtils.getAvailableFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER);
             mPerformanceMinFreq.setEntries(createHumanReadableFrequencyNames(availableFreqs));
             mPerformanceMinFreq.setEntryValues(availableFreqs);
             updateFrequencySummary(mPerformanceMinFreq, KernelManagerUtils.PERFORMANCE_CLUSTER, true);
         }
-        
         if (mPerformanceMaxFreq != null) {
             String savedFreq = mSharedPrefs.getString(KEY_PERFORMANCE_MAX_FREQ,
                 mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER));
             mPerformanceMaxFreq.setValue(savedFreq);
-            
             String[] availableFreqs = mKernelUtils.getAvailableFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER);
             mPerformanceMaxFreq.setEntries(createHumanReadableFrequencyNames(availableFreqs));
             mPerformanceMaxFreq.setEntryValues(availableFreqs);
@@ -348,12 +326,10 @@ public class KernelManagerFragment extends PreferenceFragment
             String currentFreq = isMin ? 
                 mKernelUtils.getCurrentMinFrequency(cluster) : 
                 mKernelUtils.getCurrentMaxFrequency(cluster);
-            
             String freqMHz = formatFrequency(currentFreq);
             String baseSummary = isMin ? 
                 getString(R.string.kernel_manager_min_freq_summary) :
                 getString(R.string.kernel_manager_max_freq_summary);
-            
             pref.setSummary(getString(R.string.kernel_manager_freq_current, baseSummary, freqMHz));
         }
     }
@@ -362,7 +338,6 @@ public class KernelManagerFragment extends PreferenceFragment
         if (mUpdateRunnable != null) {
             mUpdateHandler.removeCallbacks(mUpdateRunnable);
         }
-        
         mUpdateRunnable = new Runnable() {
             @Override
             public void run() {
@@ -383,9 +358,7 @@ public class KernelManagerFragment extends PreferenceFragment
             if (mCpuCorePreferences[i] != null) {
                 String currentFreq = mKernelUtils.getCurrentCoreFrequency(i);
                 String freqMHz = formatFrequency(currentFreq);
-                
                 boolean isOnline = mKernelUtils.isCoreOnline(i);
-                
                 if (isOnline) {
                     mCpuCorePreferences[i].setSummary(getString(R.string.cpu_core_status_online, freqMHz));
                 } else {
@@ -396,7 +369,6 @@ public class KernelManagerFragment extends PreferenceFragment
     }
 
     private void updateClusterSummaries() {
-        // Efficiency cluster summary (CPU 0-3)
         int[] efficiencyCores = mKernelUtils.getClusterCores(KernelManagerUtils.EFFICIENCY_CLUSTER);
         int onlineEfficiency = 0;
         for (int coreId : efficiencyCores) {
@@ -404,14 +376,11 @@ public class KernelManagerFragment extends PreferenceFragment
                 onlineEfficiency++;
             }
         }
-        
         mClusterSummaryEfficiency.setSummary(getString(R.string.kernel_manager_cluster_status,
             onlineEfficiency, efficiencyCores.length,
             formatFrequency(mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER)),
             formatFrequency(mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER))
         ));
-
-        // Performance cluster summary (CPU 4-7)
         int[] performanceCores = mKernelUtils.getClusterCores(KernelManagerUtils.PERFORMANCE_CLUSTER);
         int onlinePerformance = 0;
         for (int coreId : performanceCores) {
@@ -419,7 +388,6 @@ public class KernelManagerFragment extends PreferenceFragment
                 onlinePerformance++;
             }
         }
-        
         mClusterSummaryPerformance.setSummary(getString(R.string.kernel_manager_cluster_status,
             onlinePerformance, performanceCores.length,
             formatFrequency(mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER)),
@@ -438,7 +406,6 @@ public class KernelManagerFragment extends PreferenceFragment
         if (freqKHz == null || freqKHz.equals("0")) {
             return getString(R.string.kernel_manager_frequency_na);
         }
-        
         try {
             long freq = Long.parseLong(freqKHz);
             if (freq >= 1000000) {
@@ -456,12 +423,9 @@ public class KernelManagerFragment extends PreferenceFragment
             Toast.makeText(getContext(), R.string.kernel_manager_error_read, Toast.LENGTH_LONG).show();
             return;
         }
-
         SharedPreferences.Editor editor = mSharedPrefs.edit();
         boolean allSuccess = true;
         StringBuilder errorMessage = new StringBuilder();
-        
-        // Validate frequency ranges before applying
         if (mEfficiencyMinFreq != null && mEfficiencyMaxFreq != null) {
             String minFreq = mEfficiencyMinFreq.getValue();
             String maxFreq = mEfficiencyMaxFreq.getValue();
@@ -472,7 +436,6 @@ public class KernelManagerFragment extends PreferenceFragment
                 }
             }
         }
-        
         if (mPerformanceMinFreq != null && mPerformanceMaxFreq != null) {
             String minFreq = mPerformanceMinFreq.getValue();
             String maxFreq = mPerformanceMaxFreq.getValue();
@@ -483,13 +446,10 @@ public class KernelManagerFragment extends PreferenceFragment
                 }
             }
         }
-        
         if (!allSuccess) {
             Toast.makeText(getContext(), errorMessage.toString().trim(), Toast.LENGTH_LONG).show();
             return;
         }
-        
-        // Apply governor
         if (mGovernorPreference != null) {
             String governor = mGovernorPreference.getValue();
             if (governor != null) {
@@ -501,8 +461,6 @@ public class KernelManagerFragment extends PreferenceFragment
                 }
             }
         }
-        
-        // Apply efficiency cluster frequencies
         if (mEfficiencyMinFreq != null) {
             String freq = mEfficiencyMinFreq.getValue();
             if (freq != null) {
@@ -514,7 +472,6 @@ public class KernelManagerFragment extends PreferenceFragment
                 }
             }
         }
-        
         if (mEfficiencyMaxFreq != null) {
             String freq = mEfficiencyMaxFreq.getValue();
             if (freq != null) {
@@ -526,8 +483,6 @@ public class KernelManagerFragment extends PreferenceFragment
                 }
             }
         }
-        
-        // Apply performance cluster frequencies
         if (mPerformanceMinFreq != null) {
             String freq = mPerformanceMinFreq.getValue();
             if (freq != null) {
@@ -539,7 +494,6 @@ public class KernelManagerFragment extends PreferenceFragment
                 }
             }
         }
-        
         if (mPerformanceMaxFreq != null) {
             String freq = mPerformanceMaxFreq.getValue();
             if (freq != null) {
@@ -551,9 +505,7 @@ public class KernelManagerFragment extends PreferenceFragment
                 }
             }
         }
-        
         editor.apply();
-        
         if (allSuccess) {
             Toast.makeText(getContext(), R.string.settings_applied, Toast.LENGTH_SHORT).show();
         } else {
@@ -572,7 +524,6 @@ public class KernelManagerFragment extends PreferenceFragment
         editor.remove(KEY_PERFORMANCE_MIN_FREQ);
         editor.remove(KEY_PERFORMANCE_MAX_FREQ);
         editor.apply();
-        
         loadCurrentSettings();
         Toast.makeText(getContext(), R.string.kernel_manager_reset, Toast.LENGTH_SHORT).show();
     }
@@ -583,8 +534,6 @@ public class KernelManagerFragment extends PreferenceFragment
         SharedPreferences.Editor editor = mSharedPrefs.edit();
         editor.putString(key, (String) newValue);
         editor.apply();
-        
-        // Update summary immediately for better UX
         if (preference instanceof ListPreference) {
             ListPreference listPref = (ListPreference) preference;
             int index = listPref.findIndexOfValue((String) newValue);
@@ -593,7 +542,6 @@ public class KernelManagerFragment extends PreferenceFragment
                 listPref.setSummary(summary);
             }
         }
-        
         return true;
     }
 
