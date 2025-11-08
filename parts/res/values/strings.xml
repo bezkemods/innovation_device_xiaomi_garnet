@@ -822,9 +822,9 @@
 📺 Display: 120Hz AMOLED (1220×2712)\n
 💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 📹 DISPLAY FEATURES\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 🎬 Smooth Motion\n
 └─ Hardware motion smoothing technology\n
@@ -846,9 +846,9 @@
 └─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
 └─ Property: debug.sf.set_idle_timer_ms=1100\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 ⚡ PERFORMANCE OPTIMIZATIONS\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 🔺 Force Vulkan API\n
 └─ Use Vulkan instead of OpenGL ES\n
@@ -881,9 +881,9 @@
 └─ Reduced latency\n
 └─ Property: persist.sys.gpu.scheduling=1\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 🎨 HARDWARE RENDERERS\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 🟢 SkiaGL Renderer\n
 └─ OpenGL ES-based Skia renderer\n
@@ -899,9 +899,9 @@
 └─ Property: debug.hwui.renderer=skiavk\n
 └─ ⚠️ Only ONE can be active at a time!\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 🔧 ADVANCED FEATURES\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 💪 Force GPU Rendering\n
 └─ All 2D drawing on GPU\n
@@ -930,9 +930,9 @@
 └─ Property: debug.stagefright.c2-poolmask=0x1f\n
 └─ 0x1f = all HW codecs enabled\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 ⚠️ IMPORTANT NOTES\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 🔄 Most changes require device REBOOT\n
 🎨 Only ONE renderer can be active at a time\n
@@ -941,9 +941,9 @@
 💾 Settings are automatically restored on boot\n
 📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 💡 RECOMMENDED SETTINGS\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 🎮 For Gaming:\n
 ├─ Force Vulkan: ON\n
@@ -973,9 +973,9 @@
 ├─ Smooth Motion: OPTIONAL\n
 └─ Others: default\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 🐛 TROUBLESHOOTING\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 ❓ Videos vibrate/stutter/tear?\n
 └─ VSync: ENABLE IT!\n
@@ -993,9 +993,9 @@
 └─ SkiaVK: TURN OFF!\n
 └─ Use default OpenGL\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 📱 DEVICE INFORMATION\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
 Codename: garnet\n
@@ -1005,9 +1005,9 @@ Display: 6.67\" AMOLED, 120Hz, 1220×2712\n
 Android: 14 / HyperOS 2.0 / LineageOS 21+\n
 Requirement: Root access (Magisk recommended)\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 🔗 PROPERTY REFERENCE\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 Display:\n
 • vendor.display.use_smooth_motion\n
@@ -1035,9 +1035,9 @@ Frame Pacing:\n
 • debug.sf.disable_client_composition_cache\n
 • debug.sf.enable_gl_backpressure\n\n
 
-═══════════════════════════════════\n
+═══════════════════════════════\n
 ⚠️ DISCLAIMER\n
-═══════════════════════════════════\n\n
+═══════════════════════════════\n\n
 
 This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
 
