@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/keybox_manager_title">
+
+    <!-- Current Status Category -->
+    <PreferenceCategory android:title="@string/keybox_status_category">
+        
+        <Preference
+            android:key="keybox_status"
+            android:title="@string/keybox_status_title"
+            android:summary="@string/keybox_status_not_installed"
+            android:selectable="false"
+            android:icon="@android:drawable/ic_dialog_info" />
+        
+        <Preference
+            android:key="keybox_device_id"
+            android:title="@string/keybox_device_id_title"
+            android:summary="@string/keybox_device_id_summary"
+            android:selectable="false"
+            android:icon="@android:drawable/ic_menu_myplaces" />
+        
+        <Preference
+            android:key="keybox_cert_count"
+            android:title="@string/keybox_cert_count_title"
+            android:summary="@string/keybox_cert_count_summary"
+            android:selectable="false"
+            android:icon="@android:drawable/ic_menu_view" />
+        
+    </PreferenceCategory>
+
+    <!-- Keybox Actions Category -->
+    <PreferenceCategory android:title="@string/keybox_actions_category">
+        
+        <Preference
+            android:key="keybox_generate"
+            android:title="@string/keybox_generate_title"
+            android:summary="@string/keybox_generate_summary"
+            android:icon="@android:drawable/ic_menu_add" />
+        
+        <Preference
+            android:key="keybox_search"
+            android:title="@string/keybox_search_title"
+            android:summary="@string/keybox_search_summary"
+            android:icon="@android:drawable/ic_menu_search" />
+        
+        <Preference
+            android:key="keybox_import"
+            android:title="@string/keybox_import_title"
+            android:summary="@string/keybox_import_summary"
+            android:icon="@android:drawable/ic_menu_upload" />
+        
+        <Preference
+            android:key="keybox_export"
+            android:title="@string/keybox_export_title"
+            android:summary="@string/keybox_export_summary"
+            android:icon="@android:drawable/ic_menu_save" />
+        
+        <Preference
+            android:key="keybox_verify"
+            android:title="@string/keybox_verify_title"
+            android:summary="@string/keybox_verify_summary"
+            android:icon="@android:drawable/ic_menu_preferences" />
+        
+        <Preference
+            android:key="keybox_reset"
+            android:title="@string/keybox_reset_title"
+            android:summary="@string/keybox_reset_summary"
+            android:icon="@android:drawable/ic_menu_delete" />
+        
+    </PreferenceCategory>
+
+    <!-- Information Category -->
+    <PreferenceCategory android:title="@string/keybox_info_category">
+        
+        <Preference
+            android:key="keybox_info"
+            android:title="@string/keybox_info_title"
+            android:summary="@string/keybox_info_summary"
+            android:icon="@android:drawable/ic_menu_info_details" />
+        
+    </PreferenceCategory>
+
+</PreferenceScreen>

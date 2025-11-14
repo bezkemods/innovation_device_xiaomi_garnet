@@ -1,0 +1,8 @@
+# Sysfs ZRAM files
+type sysfs_zram_comp, fs_type, sysfs_type;
+
+# VM proc types
+type proc_sysvm, fs_type, proc_type;
+
+# ZRAM block device
+type zram_device, dev_type;

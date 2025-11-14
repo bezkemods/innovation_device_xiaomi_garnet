@@ -52,3 +52,24 @@ prebuilt_etc {
     sub_dir: "init",
     vendor: true,
 }
+
+prebuilt_etc {
+    name: "setup_zram.sh",
+    src: "bin/setup_zram.sh",
+    sub_dir: "bin",
+    owner: "lineage",
+}
+
+prebuilt_etc {
+    name: "restore_ramoptimizer.sh",
+    src: "bin/restore_ramoptimizer.sh",
+    sub_dir: "bin",
+    owner: "lineage",
+}
+
+prebuilt_etc {
+    name: "init.zram.rc",
+    src: "etc/init.zram.rc",
+    sub_dir: "init",
+    owner: "lineage",
+}

@@ -31,3 +31,68 @@ allow devicesettings_app sysfs_devices_system_cpu:dir search;
 # GPU Manager
 allow devicesettings_app vendor_sysfs_kgsl_gpuclk:dir search;
 allow devicesettings_app vendor_sysfs_kgsl:lnk_file read;
+
+############################################
+# RAM Optimizer – Property Zugriff
+############################################
+allow devicesettings_app vendor_zram_prop:property_service set;
+get_prop(devicesettings_app, vendor_zram_prop)
+
+
+############################################
+# RAM Optimizer – ZRAM sysfs Zugriff
+############################################
+allow devicesettings_app sysfs_zram:dir { search read open getattr };
+allow devicesettings_app sysfs_zram:file { getattr open read write };
+allow devicesettings_app sysfs_zram:lnk_file { read getattr };
+
+
+############################################
+# RAM Optimizer – Memory info Zugriff
+############################################
+allow devicesettings_app proc_meminfo:file { getattr open read };
+allow devicesettings_app proc_vmstat:file { getattr open read };
+
+
+############################################
+# RAM Optimizer – Package Manager (Binder)
+############################################
+allow devicesettings_app system_server:binder call;
+allow devicesettings_app package_native_service:service_manager find;
+
+
+############################################
+# RAM Optimizer – Usage Stats Zugriff
+############################################
+allow devicesettings_app usagestats_service:service_manager find;
+
+
+############################################
+# RAM Optimizer – VM / sysctl Zugriff
+############################################
+allow devicesettings_app proc_sysvm:dir search;
+allow devicesettings_app proc_sysvm:file { getattr open read write };
+
+
+############################################
+# RAM Optimizer – Lowmemorykiller sysfs
+############################################
+allow devicesettings_app sysfs_lowmemorykiller:dir search;
+allow devicesettings_app sysfs_lowmemorykiller:file { getattr open read write };
+
+
+############################################
+# External Storage Zugriff (engedett)
+############################################
+allow devicesettings_app media_rw_data_file:dir { search read write add_name remove_name };
+allow devicesettings_app media_rw_data_file:file { getattr read write unlink };
+
+allow devicesettings_app sdcard_type:dir { search read write add_name remove_name };
+allow devicesettings_app sdcard_type:file { getattr read write unlink };
+
+
+############################################
+# Temporary files (engedett, nem sért neverallow-t)
+############################################
+allow devicesettings_app tmpfs:dir { search read write add_name remove_name };
+allow devicesettings_app tmpfs:file { getattr unlink };

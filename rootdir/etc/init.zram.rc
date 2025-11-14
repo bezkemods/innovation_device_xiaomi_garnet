@@ -1,0 +1,83 @@
+# init.zram.rc
+# Combined zRAM and RAM Optimizer init script
+# Place in: device/xiaomi/YOUR_DEVICE/rootdir/etc/init.zram.rc
+
+on early-boot
+    # Create zRAM device node if kernel supports it
+    # Most kernels create this automatically
+    
+on post-fs-data
+    # Create directory for RAM optimizer settings
+    mkdir /data/vendor/ramoptimizer 0770 system system
+    chown system system /data/vendor/ramoptimizer
+    chmod 0770 /data/vendor/ramoptimizer
+
+on boot
+    # Set proper permissions for zRAM sysfs nodes
+    chown system system /sys/block/zram0/disksize
+    chown system system /sys/block/zram0/reset
+    chown system system /sys/block/zram0/comp_algorithm
+    chown system system /sys/block/zram0/max_comp_streams
+    chown system system /sys/block/zram0/initstate
+    chown system system /sys/block/zram0/mem_used_total
+    chown system system /sys/block/zram0/orig_data_size
+    chown system system /sys/block/zram0/compr_data_size
+    
+    chmod 0664 /sys/block/zram0/disksize
+    chmod 0664 /sys/block/zram0/reset
+    chmod 0664 /sys/block/zram0/comp_algorithm
+    chmod 0664 /sys/block/zram0/max_comp_streams
+    chmod 0664 /sys/block/zram0/initstate
+    chmod 0444 /sys/block/zram0/mem_used_total
+    chmod 0444 /sys/block/zram0/orig_data_size
+    chmod 0444 /sys/block/zram0/compr_data_size
+    
+    # Set permissions for zRAM block device
+    chown system system /dev/block/zram0
+    chmod 0660 /dev/block/zram0
+    
+    # Set permissions for VM control
+    chown system system /proc/sys/vm/swappiness
+    chown system system /proc/sys/vm/drop_caches
+    chown system system /proc/sys/vm/vfs_cache_pressure
+    
+    chmod 0664 /proc/sys/vm/swappiness
+    chmod 0664 /proc/sys/vm/drop_caches
+    chmod 0664 /proc/sys/vm/vfs_cache_pressure
+    
+    # Set default VM parameters
+    write /proc/sys/vm/swappiness 60
+    write /proc/sys/vm/vfs_cache_pressure 100
+    
+    # Set permissions for lowmemorykiller (if exists)
+    chown system system /sys/module/lowmemorykiller/parameters/minfree
+    chown system system /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
+    chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
+    chmod 0664 /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
+
+# Restore RAM Optimizer settings after boot completes
+on property:sys.boot_completed=1
+    # Small delay to ensure system is ready
+    exec_background - system system -- /system/bin/restore_ramoptimizer.sh
+
+# Service for manual zRAM restore/setup
+service ramoptimizer-restore /system/bin/restore_ramoptimizer.sh
+    class late_start
+    user system
+    group system
+    oneshot
+    disabled
+    seclabel u:r:system_app:s0
+
+# Trigger restore when zRAM is explicitly enabled via property
+on property:persist.vendor.zram.enabled=1
+    start ramoptimizer-restore
+
+# Optional: Quick zRAM setup service (can be called from adb)
+service zram-setup /system/bin/setup_zram.sh enable 1024 60
+    class late_start
+    user system
+    group system
+    oneshot
+    disabled
+    seclabel u:r:system_app:s0

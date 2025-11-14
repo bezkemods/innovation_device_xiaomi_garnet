@@ -18,3 +18,6 @@ vendor_public_prop(vendor_sno_prop)
 
 # Thermal
 vendor_public_prop(vendor_thermal_normal_prop)
+
+# ZRAM - vendor public property
+vendor_public_prop(vendor_zram_prop)

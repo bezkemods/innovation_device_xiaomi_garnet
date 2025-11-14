@@ -89,6 +89,13 @@
         android:summary="@string/gpu_manager_summary"
         android:icon="@drawable/ic_gpu_manager"
         app:iconSpaceReserved="true" />
+         <!-- RamOptimizer -->
+        <Preference
+        android:key="ram_optimizer_settings"
+        android:title="@string/ram_optimizer_title"
+        android:summary="@string/ram_optimizer_summary"
+        android:icon="@drawable/ic_ram_optimizer"
+        app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
     <!-- Gaming & Logs -->
@@ -115,6 +122,19 @@
             android:title="@string/logcat_viewer_title"
             android:summary="@string/logcat_viewer_summary"
             android:icon="@drawable/ic_logcat"
+            app:iconSpaceReserved="true" />
+    </PreferenceCategory>
+
+    <!-- Security & Attestation -->
+    <PreferenceCategory
+        android:key="security_category"
+        android:title="@string/security_title">
+        <!-- Keybox Manager -->
+        <Preference
+            android:key="keybox_manager"
+            android:title="@string/keybox_manager_title"
+            android:summary="@string/keybox_manager_summary"
+            android:icon="@drawable/ic_keybox_manager"
             app:iconSpaceReserved="true" />
     </PreferenceCategory>
        

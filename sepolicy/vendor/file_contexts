@@ -93,3 +93,24 @@
 /data/vendor/mac_addr(/.*)? u:object_r:vendor_mac_vendor_data_file:s0
 /data/vendor/wlan_logs(/.*)? u:object_r:vendor_wifi_vendor_data_file:s0
 /vendor/bin/nv_mac u:object_r:vendor_wcnss_service_exec:s0
+
+# ZRAM sysfs nodes
+/sys/block/zram0(/.*)?    u:object_r:sysfs_zram:s0
+/sys/block/zram0/disksize u:object_r:sysfs_zram:s0
+/sys/block/zram0/reset    u:object_r:sysfs_zram:s0
+/sys/block/zram0/comp_algorithm u:object_r:sysfs_zram:s0
+/sys/block/zram0/max_comp_streams u:object_r:sysfs_zram:s0
+/sys/block/zram0/mem_used_total u:object_r:sysfs_zram:s0
+/sys/block/zram0/orig_data_size u:object_r:sysfs_zram:s0
+/sys/block/zram0/compr_data_size u:object_r:sysfs_zram:s0
+/sys/block/zram0/initstate u:object_r:sysfs_zram:s0
+
+# VM és swap control
+/proc/sys/vm/swappiness         u:object_r:proc_sysvm:s0
+/proc/sys/vm/drop_caches       u:object_r:proc_sysvm:s0
+/proc/sys/vm/vfs_cache_pressure u:object_r:proc_sysvm:s0
+
+# Lowmemorykiller
+/sys/module/lowmemorykiller(/.*)?                         u:object_r:sysfs_lowmemorykiller:s0
+/sys/module/lowmemorykiller/parameters/minfree            u:object_r:sysfs_lowmemorykiller:s0
+/sys/module/lowmemorykiller/parameters/enable_adaptive_lmk u:object_r:sysfs_lowmemorykiller:s0

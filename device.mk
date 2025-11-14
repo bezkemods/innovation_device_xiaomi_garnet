@@ -509,3 +509,9 @@ PRODUCT_COPY_FILES += \
 
 # Vendor
 $(call inherit-product, vendor/xiaomi/garnet/garnet-vendor.mk)
+
+# ZRAM
+PRODUCT_PACKAGES += \
+    setup_zram.sh \
+    restore_ramoptimizer.sh \
+    init.zram.rc

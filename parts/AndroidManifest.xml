@@ -53,6 +53,20 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.DELETE_CACHE_FILES" />
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.STORAGE_INTERNAL" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
+    
+    <!-- Root operations -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    
+    <!-- System features -->
+    <uses-feature android:name="android.hardware.ram" android:required="false" />
 
     <!-- Log broadcast permission -->
     <permission
@@ -326,6 +340,44 @@
         android:name=".videoenhancer.VideoEnhancerActivity"
         android:label="@string/video_enhancer_title"
         android:icon="@drawable/ic_video_enhancer"
+        android:theme="@style/Theme.SubSettingsBase"
+        android:exported="false"
+        android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".xiaomiparts.XiaomiPartsActivity" />
+        </activity>
+
+        <!-- Ramoptimizer -->
+        <activity
+        android:name=".ramoptimizer.RamOptimizerActivity"
+        android:label="@string/ram_optimizer_title"
+        android:icon="@drawable/ic_ram_optimizer"  
+        android:theme="@style/Theme.SubSettingsBase"
+        android:exported="false"
+        android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".xiaomiparts.XiaomiPartsActivity" />
+        </activity>
+
+        <!-- Ramoptimizer Boot Receiver -->
+        <receiver
+        android:name="org.lineageos.settings.ramoptimizer.RamOptimizerBootReceiver"
+        android:enabled="true"
+        android:exported="false"
+        android:directBootAware="true">
+        <intent-filter android:priority="1000">
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+        </intent-filter>
+        </receiver>
+    
+        <!-- Keybox Manager -->
+        <activity 
+        android:name=".keyboxmanager.KeyboxManagerActivity"
+        android:label="@string/keybox_manager_title"
+        android:icon="@drawable/ic_keybox_manager"
         android:theme="@style/Theme.SubSettingsBase"
         android:exported="false"
         android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
