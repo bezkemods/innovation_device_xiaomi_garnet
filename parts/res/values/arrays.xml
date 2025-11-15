@@ -396,4 +396,32 @@
         <item>30</item>
     </string-array>
  
+ <string-array name="zram_algorithms" translatable="false">
+        <item>LZ4</item>
+        <item>LZO</item>
+        <item>LZO-RLE</item>
+        <item>ZSTD</item>
+    </string-array>
+
+    <string-array name="zram_algorithm_values" translatable="false">
+        <item>lz4</item>
+        <item>lzo</item>
+        <item>lzo-rle</item>
+        <item>zstd</item>
+    </string-array>
+
+    <string-array name="lmk_profiles" translatable="false">
+        <item>Disabled</item>
+        <item>Basic</item>
+        <item>Balanced</item>
+        <item>Aggressive</item>
+    </string-array>
+
+    <string-array name="lmk_profile_values" translatable="false">
+        <item>disabled</item>
+        <item>basic</item>
+        <item>balanced</item>
+        <item>aggressive</item>
+    </string-array>
+    
 </resources>

@@ -20,31 +20,26 @@ import android.util.Log;
  * Boot receiver to restore RAM Optimizer settings after device boot
  */
 public class RamOptimizerBootReceiver extends BroadcastReceiver {
-    
     private static final String TAG = "RamOptimizerBoot";
     private static final int RESTORE_DELAY_MS = 10000; // 10 seconds delay
-    
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent == null || context == null) {
-            return;
-        }
-        
+        if (intent == null || context == null) return;
+
         String action = intent.getAction();
-        if (!Intent.ACTION_BOOT_COMPLETED.equals(action) && 
+        if (!Intent.ACTION_BOOT_COMPLETED.equals(action) &&
             !Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(action)) {
             return;
         }
-        
+
         Log.i(TAG, "Boot completed, scheduling RAM Optimizer restore");
-        
-        // Check if supported
+
         if (!RamOptimizerUtils.isSupported()) {
             Log.w(TAG, "RAM Optimizer not supported on this device");
             return;
         }
-        
-        // Restore settings with delay to allow system to stabilize
+
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(() -> {
             try {

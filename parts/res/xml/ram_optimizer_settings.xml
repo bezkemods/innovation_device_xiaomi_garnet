@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2025 The LineageOS Project
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-         http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Copyright (C) 2025 The LineageOS Project
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 -->
-
-<PreferenceScreen 
+<PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/ram_optimizer_title">
 
-    <!-- Description Header -->
     <Preference
         android:key="ram_optimizer_description"
         android:title="@string/ram_optimizer_title"
@@ -28,16 +23,14 @@
         android:selectable="false"
         android:icon="@drawable/ic_info_outline" />
 
-    <!-- RAM Statistics Category -->
     <PreferenceCategory
         android:key="ram_stats_category"
         android:title="RAM Statistics">
         
-        <!-- Stats preference will be added dynamically in Fragment -->
-        
-    </PreferenceCategory>
+        <!-- RAM Usage info will be added here programmatically -->
 
-    <!-- zRAM Compression Category -->
+    </PreferenceCategory> <!-- ram_stats_category -->
+
     <PreferenceCategory
         android:key="zram_category"
         android:title="@string/zram_category_title">
@@ -71,9 +64,39 @@
             app:showSeekBarValue="true"
             app:adjustable="true" />
 
-    </PreferenceCategory>
+        <androidx.preference.ListPreference
+            android:key="zram_compression_algorithm"
+            android:title="Compression Algorithm"
+            android:summary="Choose the zRAM compression algorithm"
+            android:dependency="zram_enable"
+            android:entries="@array/zram_algorithms"
+            android:entryValues="@array/zram_algorithm_values"
+            android:defaultValue="lzo" />
 
-    <!-- App Hibernation Category -->
+        <Preference
+            android:key="zram_algorithm_info"
+            android:title="@string/zram_algorithm_info_title"
+            android:summary="@string/zram_algorithm_info_summary"
+            android:dependency="zram_enable" />
+
+    </PreferenceCategory> <!-- zram_category -->
+
+
+    <PreferenceCategory
+        android:key="lmk_category"
+        android:title="Low Memory Killer">
+
+        <androidx.preference.ListPreference
+            android:key="lmk_profile"
+            android:title="LMK Profile"
+            android:summary="Adjust memory killer aggressiveness"
+            android:entries="@array/lmk_profiles"
+            android:entryValues="@array/lmk_profile_values"
+            android:defaultValue="balanced" />
+
+    </PreferenceCategory> <!-- lmk_category -->
+
+
     <PreferenceCategory
         android:key="app_hibernation_category"
         android:title="@string/app_hibernation_category_title">
@@ -85,9 +108,9 @@
             android:defaultValue="false"
             android:icon="@drawable/ic_sleep" />
 
-    </PreferenceCategory>
+    </PreferenceCategory> <!-- app_hibernation_category -->
 
-    <!-- Storage Cleaner Category -->
+
     <PreferenceCategory
         android:key="storage_cleaner_category"
         android:title="@string/storage_cleaner_category_title">
@@ -158,9 +181,9 @@
             android:summary="@string/clean_all_summary"
             android:icon="@drawable/ic_delete_sweep" />
 
-    </PreferenceCategory>
+    </PreferenceCategory> <!-- storage_cleaner_category -->
 
-    <!-- Advanced Options -->
+
     <PreferenceCategory
         android:key="advanced_category"
         android:title="@string/advanced_category_title">
@@ -187,6 +210,6 @@
             android:summary="@string/analyze_storage_summary"
             android:icon="@drawable/ic_analytics" />
 
-    </PreferenceCategory>
+    </PreferenceCategory> <!-- advanced_category -->
 
 </PreferenceScreen>

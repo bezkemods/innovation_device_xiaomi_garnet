@@ -8,7 +8,7 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS.
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -28,14 +28,14 @@ import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
  * Displays the RamOptimizerFragment within a collapsing toolbar layout.
  */
 public class RamOptimizerActivity extends CollapsingToolbarBaseActivity {
-    
+
     private static final String TAG = "RamOptimizerActivity";
     private static final String FRAGMENT_TAG = "ramoptimizer_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         try {
             initializeFragment(savedInstanceState);
             Log.d(TAG, "RamOptimizerActivity created successfully");
@@ -51,15 +51,14 @@ public class RamOptimizerActivity extends CollapsingToolbarBaseActivity {
         // Only create fragment if this is the first creation
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            
             RamOptimizerFragment fragment = new RamOptimizerFragment();
-            
+
             fragmentManager.beginTransaction()
                     .replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame,
                             fragment,
                             FRAGMENT_TAG)
                     .commit();
-            
+
             Log.d(TAG, "RamOptimizerFragment attached");
         } else {
             Log.d(TAG, "Fragment already exists, skipping recreation");
