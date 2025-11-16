@@ -29,6 +29,13 @@
             android:summary="@string/saturation_summary"
             android:icon="@drawable/ic_display_saturation"
             app:iconSpaceReserved="true" />
+        <!-- Refresh Rate -->
+        <Preference
+            android:key="refresh_rate_settings"
+            android:title="@string/refresh_title"
+            android:summary="@string/refresh_summary"
+            android:icon="@drawable/ic_refresh_rate"
+            app:iconSpaceReserved="true" />
         <!-- Auto HBM -->
         <Preference
             android:key="auto_hbm"

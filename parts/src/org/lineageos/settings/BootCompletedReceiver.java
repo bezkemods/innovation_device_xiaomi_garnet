@@ -97,6 +97,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         mBackgroundHandler.post(() -> {
             try {
                 startServices(context);
+                Log.d(TAG, "Starting RefreshService");
+                org.lineageos.settings.refreshrate.RefreshUtils.startService(context);
                 ensureDefaultGovernorIfNeeded(context);
                 restorePerformanceProfile(context);
                 restoreKernelSettings(context);
