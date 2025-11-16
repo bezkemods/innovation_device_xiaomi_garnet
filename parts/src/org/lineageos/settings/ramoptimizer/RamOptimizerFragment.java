@@ -41,7 +41,8 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     private static final String ZRAM_ALGO_KEY = "zram_compression_algorithm";
     private static final String LMK_PROFILE_KEY = "lmk_profile";
     private static final String APP_HIBERNATION_KEY = "app_hibernation";
-
+    private static final String IO_SCHEDULER_KEY = "io_scheduler";
+    
     // Storage cleaner keys
     private static final String STORAGE_STATS_KEY = "storage_stats";
     private static final String CLEAN_APP_CACHE_KEY = "clean_app_cache";
@@ -68,6 +69,7 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     private ListPreference mZramAlgoPref;
     private ListPreference mLmkProfilePref;
     private SwitchPreference mAppHibernationPref;
+    private ListPreference mIoSchedulerPref;
 
     // Storage cleaner preferences
     private Preference mStorageStatsPref;
@@ -170,6 +172,20 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
             mLmkProfilePref.setOnPreferenceChangeListener(this);
             String currentProfile = RamOptimizerUtils.getLmkProfile(requireContext());
             mLmkProfilePref.setValue(currentProfile);
+        }
+
+        // I/O Scheduler preferences
+        mIoSchedulerPref = findPreference(IO_SCHEDULER_KEY);
+        if (mIoSchedulerPref != null) {
+            mIoSchedulerPref.setOnPreferenceChangeListener(this);
+            String currentScheduler = RamOptimizerUtils.getIoScheduler();
+            mIoSchedulerPref.setValue(currentScheduler);
+        }
+
+        // I/O Scheduler Info
+        Preference mIoSchedulerInfoPref = findPreference("io_scheduler_info");
+        if (mIoSchedulerInfoPref != null) {
+            mIoSchedulerInfoPref.setOnPreferenceClickListener(this);
         }
 
         // App hibernation
@@ -284,6 +300,9 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
             mAppHibernationPref.setChecked(
                     RamOptimizerUtils.isAppHibernationEnabled(requireContext()));
         }
+        if (mIoSchedulerPref != null) {
+            mIoSchedulerPref.setValue(RamOptimizerUtils.getIoScheduler());
+        }
         updateRamStatistics();
         updateStorageStats();
 
@@ -321,6 +340,8 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                     return handleAutoCleanChange((Boolean) newValue);
                 case AUTO_CLEAN_INTERVAL_KEY:
                     return handleAutoCleanIntervalChange((String) newValue);
+                case IO_SCHEDULER_KEY:
+                    return handleIoSchedulerChange((String) newValue);
             }
         } catch (Exception e) {
             Log.e(TAG, "Error handling preference change for " + key, e);
@@ -408,11 +429,31 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         return success;
     }
 
+    private boolean handleIoSchedulerChange(String scheduler) {
+        boolean success = RamOptimizerUtils.setIoScheduler(scheduler);
+        if (success) {
+            showToast("I/O Scheduler set to " + scheduler.toUpperCase());
+        } else {
+            showToast("Failed to set I/O scheduler");
+        }
+        return success;
+    }
+
     private void showAlgorithmInfo() {
         String infoText = getString(R.string.zram_algorithms_comparison);
         
         new AlertDialog.Builder(requireContext())
             .setTitle(R.string.zram_algorithms_comparison_title)
+            .setMessage(infoText)
+            .setPositiveButton("OK", null)
+            .show();
+    }
+
+    private void showIoSchedulerInfo() {
+        String infoText = getString(R.string.io_scheduler_info_text);
+    
+        new AlertDialog.Builder(requireContext())
+            .setTitle(R.string.io_scheduler_info_title)
             .setMessage(infoText)
             .setPositiveButton("OK", null)
             .show();
@@ -471,6 +512,9 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
             case "zram_algorithm_info":
                 showAlgorithmInfo();
                 return true;
+            case "io_scheduler_info":
+                showIoSchedulerInfo();
+                return true;
         }
         return true;
     }
@@ -526,25 +570,33 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         try {
             RamOptimizerUtils.RamStats stats = RamOptimizerUtils.getRamStatistics();
             RamOptimizerUtils.ZramStats zramStats = stats.zramStats;
-            
+        
             // Get current algorithm and LMK profile
             String currentAlgo = RamOptimizerUtils.getZramCompressionAlgorithm().toUpperCase();
             String currentLmk = RamOptimizerUtils.getLmkProfile(requireContext()).toUpperCase();
-            
-            String statsText = String.format(
+        
+            // Build the stats text
+            StringBuilder statsBuilder = new StringBuilder();
+            statsBuilder.append(String.format(
                 "Total: %d MB | Used: %d MB | Free: %d MB\n" +
                 "Available: %d MB | Cached: %d MB\n" +
-                "zRAM: %s (%d MB)" +
-                (zramStats.compressionRatio > 0 ? " | Ratio: %s" : "") + "\n" +
-                "Algorithm: %s | LMK: %s",
+                "zRAM: %s (%d MB)",
                 stats.totalRam, stats.usedRam, stats.freeRam,
                 stats.availableRam, stats.cachedRam,
-                stats.zramEnabled ? "On" : "Off", stats.zramSize,
-                zramStats.getCompressionRatioString(),
-                currentAlgo, currentLmk
-            );
-            
-            mStatsPreference.setSummary(statsText);
+                stats.zramEnabled ? "On" : "Off", stats.zramSize
+            ));
+        
+            // Add compression ratio if available
+            if (zramStats.compressionRatio > 0) {
+                statsBuilder.append(" | Ratio: ").append(zramStats.getCompressionRatioString());
+            }
+        
+            // Add algorithm and LMK on new line
+            statsBuilder.append("\n");
+            statsBuilder.append("Algorithm: ").append(currentAlgo);
+            statsBuilder.append(" | LMK: ").append(currentLmk);
+        
+            mStatsPreference.setSummary(statsBuilder.toString());
         } catch (Exception e) {
             Log.e(TAG, "Failed to update RAM statistics", e);
             mStatsPreference.setSummary("Error retrieving stats");

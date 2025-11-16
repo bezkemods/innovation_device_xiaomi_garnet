@@ -96,6 +96,25 @@ limitations under the License.
 
     </PreferenceCategory> <!-- lmk_category -->
 
+    <PreferenceCategory
+        android:key="io_scheduler_category"
+        android:title="I/O Scheduler">
+
+        <androidx.preference.ListPreference
+            android:key="io_scheduler"
+            android:title="I/O Scheduler"
+            android:summary="Select disk I/O scheduling algorithm"
+            android:entries="@array/io_scheduler_entries"
+            android:entryValues="@array/io_scheduler_values"
+            android:defaultValue="cfq" />
+
+        <Preference
+            android:key="io_scheduler_info"
+            android:title="I/O Scheduler Info"
+            android:summary="View comparison of schedulers" />
+
+    </PreferenceCategory> <!-- io_scheduler_category -->
+
 
     <PreferenceCategory
         android:key="app_hibernation_category"

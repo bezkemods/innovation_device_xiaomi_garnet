@@ -54,6 +54,10 @@ public class RamOptimizerUtils {
     private static final String LMK_MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     private static final String LMK_ADAPTIVE_PATH = "/sys/module/lowmemorykiller/parameters/enable_adaptive_lmk";
 
+    // I/O Scheduler paths
+    private static final String IO_SCHEDULER_PATH = "/sys/block/mmcblk0/queue/scheduler";
+    private static final String PREF_IO_SCHEDULER = "io_scheduler";
+    
     // Preference keys
     private static final String PREF_ZRAM_ENABLED = "zram_enable";
     private static final String PREF_ZRAM_SIZE = "zram_size";
@@ -400,6 +404,60 @@ public class RamOptimizerUtils {
             return success;
         } catch (Exception e) {
             Log.e(TAG, "Failed to set LMK profile", e);
+            return false;
+        }
+    }
+
+/**
+ * Get current I/O scheduler
+ */
+public static String getIoScheduler() {
+    try {
+        String value = readFile(IO_SCHEDULER_PATH);
+        if (value == null) return "cfq";
+        
+        // Parse format: "noop deadline [cfq]"
+        String[] parts = value.split("\\s+");
+        for (String part : parts) {
+            if (part.startsWith("[") && part.endsWith("]")) {
+                return part.substring(1, part.length() - 1);
+            }
+        }
+        return "cfq";
+    } catch (Exception e) {
+        Log.e(TAG, "Failed to get I/O scheduler", e);
+        return "cfq";
+    }
+}
+
+    /**
+     * Set I/O scheduler
+     */
+    public static boolean setIoScheduler(String scheduler) {
+        try {
+            // Try common block device paths
+            String[] devicePaths = {
+                "/sys/block/mmcblk0/queue/scheduler",
+                "/sys/block/sda/queue/scheduler",
+                "/sys/block/sdb/queue/scheduler",
+                "/sys/block/nvme0n1/queue/scheduler"
+            };
+        
+            boolean success = false;
+            for (String path : devicePaths) {
+                File schedulerFile = new File(path);
+                if (schedulerFile.exists()) {
+                    String command = "echo " + scheduler + " > " + path + "\n";
+                    if (executeRootCommand(command)) {
+                        Log.d(TAG, "I/O scheduler set to " + scheduler + " for " + path);
+                        success = true;
+                    }
+                }
+            }
+        
+            return success;
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to set I/O scheduler", e);
             return false;
         }
     }
@@ -961,6 +1019,7 @@ public class RamOptimizerUtils {
             editor.putInt(PREF_ZRAM_SWAPPINESS, getZramSwappiness());
             editor.putString(PREF_ZRAM_ALGO, getZramCompressionAlgorithm());
             editor.putString(PREF_LMK_PROFILE, getLmkProfile(context));
+            editor.putString(PREF_IO_SCHEDULER, getIoScheduler());
 
             editor.apply();
             Log.d(TAG, "Preferences saved");
@@ -1003,6 +1062,12 @@ public class RamOptimizerUtils {
             if (prefs.contains(PREF_LMK_PROFILE)) {
                 String profile = prefs.getString(PREF_LMK_PROFILE, "balanced");
                 setLmkProfile(context, profile);
+            }
+
+            // Restore I/O Scheduler
+            if (prefs.contains(PREF_IO_SCHEDULER)) {
+                String scheduler = prefs.getString(PREF_IO_SCHEDULER, "cfq");
+                setIoScheduler(scheduler);
             }
 
             Log.d(TAG, "Preferences restored");

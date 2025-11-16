@@ -26,6 +26,13 @@
             android:selectable="false"
             android:icon="@android:drawable/ic_menu_view" />
         
+        <Preference
+            android:key="keybox_expiry"
+            android:title="@string/keybox_expiry_title"
+            android:summary="@string/keybox_expiry_summary"
+            android:selectable="false"
+            android:icon="@android:drawable/ic_menu_recent_history" />
+        
     </PreferenceCategory>
 
     <!-- Keybox Actions Category -->
@@ -66,6 +73,41 @@
             android:title="@string/keybox_reset_title"
             android:summary="@string/keybox_reset_summary"
             android:icon="@android:drawable/ic_menu_delete" />
+        
+    </PreferenceCategory>
+
+    <!-- Advanced Tools Category -->
+    <PreferenceCategory android:title="@string/keybox_advanced_category">
+        
+        <Preference
+            android:key="keybox_analyze"
+            android:title="@string/keybox_analyze_title"
+            android:summary="@string/keybox_analyze_summary"
+            android:icon="@android:drawable/ic_menu_manage" />
+        
+        <Preference
+            android:key="keybox_check_api"
+            android:title="@string/keybox_check_api_title"
+            android:summary="@string/keybox_check_api_summary"
+            android:icon="@android:drawable/ic_menu_compass" />
+        
+        <Preference
+            android:key="keybox_compare"
+            android:title="@string/keybox_compare_title"
+            android:summary="@string/keybox_compare_summary"
+            android:icon="@android:drawable/ic_menu_sort_by_size" />
+        
+        <Preference
+            android:key="keybox_extract_certs"
+            android:title="@string/keybox_extract_certs_title"
+            android:summary="@string/keybox_extract_certs_summary"
+            android:icon="@android:drawable/ic_menu_gallery" />
+        
+        <Preference
+            android:key="keybox_batch_verify"
+            android:title="@string/keybox_batch_verify_title"
+            android:summary="@string/keybox_batch_verify_summary"
+            android:icon="@android:drawable/ic_menu_agenda" />
         
     </PreferenceCategory>
 
