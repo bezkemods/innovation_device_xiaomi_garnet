@@ -45,7 +45,8 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_KEYBOX_MANAGER = "keybox_manager";
     private static final String KEY_RAM_OPTIMIZER = "ram_optimizer_settings";
     private static final String KEY_REFRESH_RATE = "refresh_rate_settings";
-    
+    private static final String KEY_THERMAL = "thermal_manager";
+      
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +91,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             setupPreference(KEY_KEYBOX_MANAGER);
             setupPreference(KEY_RAM_OPTIMIZER);
             setupPreference(KEY_REFRESH_RATE);
+            setupPreference(KEY_THERMAL);
             
             // Logcat viewer - special handling
             setupLogcatViewer();
@@ -199,6 +201,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_REFRESH_RATE.equals(key)) {
                 startActivity(new Intent(this, RefreshActivity.class));
+                return true;
+            } else if (KEY_THERMAL.equals(key)) {
+                startActivity(new Intent(this, org.lineageos.settings.thermal.ThermalSettingsActivity.class));
                 return true;
             }
         } catch (Exception e) {

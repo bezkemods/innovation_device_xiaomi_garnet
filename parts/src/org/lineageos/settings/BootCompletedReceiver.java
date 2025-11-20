@@ -130,21 +130,44 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         });
     }
 
-    private void startServices(Context context) {
+private void startServices(Context context) {
+    try {
+        Log.d(TAG, "Starting necessary services");
+        
+        // Start Thermal services
         try {
-            Log.d(TAG, "Starting necessary services");
-            try {
-                Intent thermalIntent = new Intent(context, org.lineageos.settings.thermal.ThermalMonitorService.class);
-                context.startService(thermalIntent);
-                Log.d(TAG, "ThermalMonitorService started");
-            } catch (Exception e) {
-                Log.e(TAG, "ThermalMonitorService failed to start", e);
+            // Start ThermalMonitorService for background monitoring
+            Intent thermalMonitorIntent = new Intent(context, 
+                    org.lineageos.settings.thermal.ThermalMonitorService.class);
+            context.startService(thermalMonitorIntent);
+            Log.d(TAG, "ThermalMonitorService started");
+            
+            // Start ThermalService if enabled
+            org.lineageos.settings.thermal.ThermalUtils thermalUtils = 
+                    org.lineageos.settings.thermal.ThermalUtils.getInstance(context);
+            if (thermalUtils.isEnabled()) {
+                thermalUtils.startService();
+                Log.d(TAG, "ThermalService started (enabled)");
+            } else {
+                Log.d(TAG, "ThermalService not started (disabled)");
             }
-            Log.d(TAG, "Services started successfully");
         } catch (Exception e) {
-            Log.e(TAG, "Failed to start services", e);
+            Log.e(TAG, "Thermal services failed to start", e);
         }
+        
+        // Start RefreshService
+        try {
+            Log.d(TAG, "Starting RefreshService");
+            org.lineageos.settings.refreshrate.RefreshUtils.startService(context);
+        } catch (Exception e) {
+            Log.e(TAG, "RefreshService failed to start", e);
+        }
+        
+        Log.d(TAG, "Services started successfully");
+    } catch (Exception e) {
+        Log.e(TAG, "Failed to start services", e);
     }
+}
 
     private void ensureDefaultGovernorIfNeeded(Context context) {
         try {

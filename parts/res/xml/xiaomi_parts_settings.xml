@@ -96,6 +96,13 @@
         android:summary="@string/gpu_manager_summary"
         android:icon="@drawable/ic_gpu_manager"
         app:iconSpaceReserved="true" />
+        <!-- Thermal Profiles -->
+        <Preference
+        android:key="thermal_manager"
+        android:title="@string/thermal_title"
+        android:summary="@string/thermal_summary"
+        android:icon="@drawable/ic_thermal"
+        app:iconSpaceReserved="true" />
          <!-- RamOptimizer -->
         <Preference
         android:key="ram_optimizer_settings"

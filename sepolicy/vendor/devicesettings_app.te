@@ -31,6 +31,15 @@ allow devicesettings_app sysfs_devices_system_cpu:dir search;
 # GPU Manager
 allow devicesettings_app vendor_sysfs_kgsl_gpuclk:dir search;
 allow devicesettings_app vendor_sysfs_kgsl:lnk_file read;
+allow devicesettings_app vendor_sysfs_kgsl:dir { search read open };
+allow devicesettings_app vendor_sysfs_kgsl:file { getattr open read write setattr };
+allow devicesettings_app vendor_sysfs_kgsl:lnk_file read;
+
+# Thermal control
+allow devicesettings_app sysfs_thermal:file rw_file_perms;
+allow devicesettings_app sysfs_kgsl:file r_file_perms;
+allow devicesettings_app sysfs_thermal:dir search;
+allow devicesettings_app sysfs_thermal:file { w_file_perms getattr open read };
 
 ############################################
 # RAM Optimizer – Property Zugriff

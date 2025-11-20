@@ -282,6 +282,37 @@
                 android:value="true" />
         </service>
 
+        <!-- Thermal Service -->
+        <activity
+            android:name=".thermal.ThermalSettingsActivity"
+            android:label="@string/thermal_title"
+            android:icon="@drawable/ic_thermal"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".xiaomiparts.XiaomiPartsActivity" />
+        </activity>
+
+        <service
+            android:name=".thermal.ThermalService"
+            android:exported="false" />
+        
+        <service
+            android:name=".thermal.ThermalTileService"
+            android:label="@string/thermal_tile_label"
+            android:icon="@drawable/ic_thermal"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
+        
         <!-- GameBar -->
         <activity
             android:name=".gamebar.GameBarSettingsActivity"
