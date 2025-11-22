@@ -25,12 +25,20 @@ public class AdBlockerUtils {
     private static final String PREF_BLOCKED_COUNT = "adblocker_blocked_count";
     private static final String PREF_BLOCKED_DOMAINS = "adblocker_blocked_domains";
     private static final String PREF_DEBUG_LOG = "adblocker_debug_log";
+    private static final String PREF_DNS_MODE = "adblocker_dns_mode";
 
     // DNS servers for ad-blocking
-    private static final String ADGUARD_DNS_PRIMARY = "94.140.14.14";
-    private static final String ADGUARD_DNS_SECONDARY = "94.140.15.15";
-    private static final String CLOUDFLARE_DNS_PRIMARY = "1.1.1.1";
-    private static final String CLOUDFLARE_DNS_SECONDARY = "1.0.0.1";
+    private static final String ADGUARD_DNS_HOSTNAME = "dns.adguard-dns.com";
+    private static final String CLOUDFLARE_DNS_HOSTNAME = "one.one.one.one";
+    
+    // VPN settings keys
+    private static final String PREF_VPN_ENABLED = "adblocker_vpn_enabled";
+    private static final String PREF_VPN_PROVIDER = "adblocker_vpn_provider";
+    
+    // Proxy settings keys
+    private static final String PREF_PROXY_ENABLED = "adblocker_proxy_enabled";
+    private static final String PREF_PROXY_HOST = "adblocker_proxy_host";
+    private static final String PREF_PROXY_PORT = "adblocker_proxy_port";
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -136,13 +144,14 @@ public class AdBlockerUtils {
     public boolean enableAdBlocker() {
         try {
             logDebug("enableAdBlocker() called");
-            boolean success = setDNSServers(ADGUARD_DNS_PRIMARY, ADGUARD_DNS_SECONDARY);
+            boolean success = setPrivateDNS(ADGUARD_DNS_HOSTNAME, true);
             if (success) {
                 setEnabled(true);
+                mPrefs.edit().putString(PREF_DNS_MODE, "adguard").apply();
                 logDebug("AdBlocker enabled successfully");
                 return true;
             } else {
-                logDebug("Failed to set DNS servers");
+                logDebug("Failed to set DNS");
                 return false;
             }
         } catch (Exception e) {
@@ -154,13 +163,14 @@ public class AdBlockerUtils {
     public boolean disableAdBlocker() {
         try {
             logDebug("disableAdBlocker() called");
-            boolean success = setDNSServers(CLOUDFLARE_DNS_PRIMARY, CLOUDFLARE_DNS_SECONDARY);
+            boolean success = setPrivateDNS(CLOUDFLARE_DNS_HOSTNAME, false);
             if (success) {
                 setEnabled(false);
+                mPrefs.edit().putString(PREF_DNS_MODE, "cloudflare").apply();
                 logDebug("AdBlocker disabled successfully");
                 return true;
             } else {
-                logDebug("Failed to reset DNS servers");
+                logDebug("Failed to reset DNS");
                 return false;
             }
         } catch (Exception e) {
@@ -169,67 +179,176 @@ public class AdBlockerUtils {
         }
     }
 
-    private boolean setDNSServers(String primary, String secondary) {
-        logDebug("setDNSServers(" + primary + ", " + secondary + ")");
+    private boolean setPrivateDNS(String hostname, boolean isAdguard) {
+        logDebug("setPrivateDNS(" + hostname + ", isAdguard=" + isAdguard + ")");
         try {
-            if (setGlobalDNS(primary, secondary)) {
-                logDebug("DNS set via Settings.Global");
-                return true;
-            }
+            // Set Private DNS mode to hostname mode
+            Settings.Global.putString(mContext.getContentResolver(),
+                Settings.Global.PRIVATE_DNS_MODE, "hostname");
+            
+            // Set the DNS hostname
+            Settings.Global.putString(mContext.getContentResolver(),
+                Settings.Global.PRIVATE_DNS_SPECIFIER, hostname);
+            
+            logDebug("Private DNS set to: " + hostname);
+            
+            // Additional root optimization if available
             if (hasRootAccess()) {
-                boolean rootSuccess = setDNSWithRoot(primary, secondary);
-                logDebug("DNS set via root: " + rootSuccess);
-                return rootSuccess;
+                setDNSWithRoot(isAdguard);
             }
-            logDebug("No DNS setting method available, but continuing anyway");
+            
             return true;
         } catch (Exception e) {
-            logDebug("setDNSServers() exception: " + e.getMessage());
-            return true;
+            logDebug("setPrivateDNS() failed: " + e.getMessage());
+            
+            // Fallback: try to set it anyway
+            try {
+                Settings.Global.putString(mContext.getContentResolver(),
+                    Settings.Global.PRIVATE_DNS_MODE, isAdguard ? "hostname" : "off");
+                if (isAdguard) {
+                    Settings.Global.putString(mContext.getContentResolver(),
+                        Settings.Global.PRIVATE_DNS_SPECIFIER, hostname);
+                }
+                logDebug("Private DNS set via fallback method");
+                return true;
+            } catch (Exception e2) {
+                logDebug("Fallback also failed: " + e2.getMessage());
+                return false;
+            }
         }
     }
 
-    private boolean setGlobalDNS(String primary, String secondary) {
-        try {
-            logDebug("Attempting to set global DNS...");
-            if (primary.equals(ADGUARD_DNS_PRIMARY)) {
-                Settings.Global.putString(mContext.getContentResolver(),
-                    Settings.Global.PRIVATE_DNS_MODE, "hostname");
-                Settings.Global.putString(mContext.getContentResolver(),
-                    Settings.Global.PRIVATE_DNS_SPECIFIER, "dns.adguard.com");
-                logDebug("Set DNS to AdGuard");
-            } else {
-                Settings.Global.putString(mContext.getContentResolver(),
-                    Settings.Global.PRIVATE_DNS_MODE, "off");
-                logDebug("Reset DNS to default");
-            }
-            return true;
-        } catch (Exception e) {
-            logDebug("setGlobalDNS() failed: " + e.getMessage());
-            return false;
-        }
-    }
-
-    private boolean setDNSWithRoot(String primary, String secondary) {
+    private boolean setDNSWithRoot(boolean isAdguard) {
         try {
             logDebug("Attempting to set DNS with root...");
+            
+            // Clear existing iptables rules
             String[] clearCommands = {"su", "-c", "iptables -t nat -F OUTPUT 2>/dev/null"};
             Process clearProcess = Runtime.getRuntime().exec(clearCommands);
             clearProcess.waitFor();
 
-            String[] commands = {"su", "-c",
-                String.format("iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to-destination %s:53", primary)};
-            Process process = Runtime.getRuntime().exec(commands);
-            int result = process.waitFor();
-            logDebug("iptables command result: " + result);
-            return result == 0;
+            if (isAdguard) {
+                // Add iptables rules for AdGuard DNS
+                String[] commands = {"su", "-c",
+                    "iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to-destination 94.140.14.14:53"};
+                Process process = Runtime.getRuntime().exec(commands);
+                int result = process.waitFor();
+                logDebug("iptables command result: " + result);
+                return result == 0;
+            } else {
+                logDebug("iptables rules cleared for neutral DNS");
+                return true;
+            }
         } catch (Exception e) {
             logDebug("setDNSWithRoot() failed: " + e.getMessage());
             return false;
         }
     }
 
-    // Removed automatic download methods - now only manual loading is supported
+    // VPN Management Methods
+    public boolean isVpnEnabled() {
+        return mPrefs.getBoolean(PREF_VPN_ENABLED, false);
+    }
+
+    public void setVpnEnabled(boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_VPN_ENABLED, enabled).apply();
+        logDebug("VPN enabled set to: " + enabled);
+    }
+
+    public String getVpnProvider() {
+        return mPrefs.getString(PREF_VPN_PROVIDER, "none");
+    }
+
+    public void setVpnProvider(String provider) {
+        mPrefs.edit().putString(PREF_VPN_PROVIDER, provider).apply();
+        logDebug("VPN provider set to: " + provider);
+    }
+
+    public boolean isVpnConnected() {
+        try {
+            NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
+            if (activeNetwork != null && activeNetwork.isConnected()) {
+                return activeNetwork.getType() == ConnectivityManager.TYPE_VPN;
+            }
+            return false;
+        } catch (Exception e) {
+            logDebug("VPN connection check failed: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Proxy Management Methods
+    public boolean isProxyEnabled() {
+        return mPrefs.getBoolean(PREF_PROXY_ENABLED, false);
+    }
+
+    public void setProxyEnabled(boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_PROXY_ENABLED, enabled).apply();
+        logDebug("Proxy enabled set to: " + enabled);
+    }
+
+    public String getProxyHost() {
+        return mPrefs.getString(PREF_PROXY_HOST, "");
+    }
+
+    public void setProxyHost(String host) {
+        mPrefs.edit().putString(PREF_PROXY_HOST, host).apply();
+        logDebug("Proxy host set to: " + host);
+    }
+
+    public int getProxyPort() {
+        return mPrefs.getInt(PREF_PROXY_PORT, 8080);
+    }
+
+    public void setProxyPort(int port) {
+        mPrefs.edit().putInt(PREF_PROXY_PORT, port).apply();
+        logDebug("Proxy port set to: " + port);
+    }
+
+    public boolean setGlobalProxy(String host, int port) {
+        if (!hasRootAccess()) {
+            logDebug("Root access required for global proxy settings");
+            return false;
+        }
+
+        try {
+            String command = String.format(
+                "settings put global http_proxy %s:%d",
+                host, port
+            );
+            
+            String[] rootCommand = {"su", "-c", command};
+            Process process = Runtime.getRuntime().exec(rootCommand);
+            int result = process.waitFor();
+            
+            boolean success = result == 0;
+            logDebug("Global proxy set: " + success);
+            return success;
+        } catch (Exception e) {
+            logDebug("Failed to set global proxy: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean clearGlobalProxy() {
+        if (!hasRootAccess()) {
+            logDebug("Root access required to clear global proxy");
+            return false;
+        }
+
+        try {
+            String[] clearCommand = {"su", "-c", "settings put global http_proxy :0"};
+            Process process = Runtime.getRuntime().exec(clearCommand);
+            int result = process.waitFor();
+            
+            boolean success = result == 0;
+            logDebug("Global proxy cleared: " + success);
+            return success;
+        } catch (Exception e) {
+            logDebug("Failed to clear global proxy: " + e.getMessage());
+            return false;
+        }
+    }
 
     public void updateHostsFileFromContent(String hostsContent, UpdateCallback callback) {
         logDebug("updateHostsFileFromContent() called, content length: " +
@@ -292,7 +411,6 @@ public class AdBlockerUtils {
             mBlockedCount = countBlockedDomains(hostsContent, blockedDomains);
             logDebug("Manually parsed " + mBlockedCount + " blocked domains");
 
-            // Store up to 5000 domains in preferences for quick access
             Set<String> limitedDomains = new HashSet<>();
             int count = 0;
             for (String domain : blockedDomains) {
@@ -397,14 +515,22 @@ public class AdBlockerUtils {
         int blockedCount = getBlockedDomainsCount();
         String lastUpdate = getLastUpdateTime();
         boolean hasRoot = hasRootAccess();
+        boolean vpnEnabled = isVpnEnabled();
+        boolean proxyEnabled = isProxyEnabled();
 
         StringBuilder stats = new StringBuilder();
         stats.append("Status: ").append(isEnabled ? "Active" : "Inactive").append("\n");
         stats.append("Blocked domains: ").append(blockedCount).append("\n");
         stats.append("Last update: ").append(lastUpdate).append("\n");
         stats.append("Root: ").append(hasRoot ? "Yes" : "No").append("\n");
-        stats.append("Method: Manual hosts file loading");
+        stats.append("VPN: ").append(vpnEnabled ? "Enabled" : "Disabled").append("\n");
+        stats.append("Proxy: ").append(proxyEnabled ? "Enabled" : "Disabled").append("\n");
+        stats.append("Method: DNS-based with manual hosts file");
 
         return stats.toString();
+    }
+
+    public String getCurrentDNSMode() {
+        return mPrefs.getString(PREF_DNS_MODE, "none");
     }
 }

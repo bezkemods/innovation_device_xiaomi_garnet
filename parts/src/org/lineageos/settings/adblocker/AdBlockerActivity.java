@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
+import android.text.InputType;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.lineageos.settings.R;
@@ -32,6 +36,15 @@ public class AdBlockerActivity extends PreferenceActivity
     private static final String KEY_ADBLOCKER_INFO = "adblocker_info";
     private static final String KEY_ADBLOCKER_METHOD = "adblocker_method";
     private static final String KEY_ADBLOCKER_GITHUB = "adblocker_github";
+    
+    // VPN & Proxy keys
+    private static final String KEY_VPN_CATEGORY = "vpn_category";
+    private static final String KEY_VPN_STATUS = "vpn_status";
+    private static final String KEY_VPN_SETTINGS = "vpn_settings";
+    private static final String KEY_PROXY_CATEGORY = "proxy_category";
+    private static final String KEY_PROXY_ENABLED = "proxy_enabled";
+    private static final String KEY_PROXY_HOST = "proxy_host";
+    private static final String KEY_PROXY_PORT = "proxy_port";
 
     private SwitchPreference mAdBlockerEnabled;
     private Preference mAdBlockerStatus;
@@ -41,6 +54,13 @@ public class AdBlockerActivity extends PreferenceActivity
     private Preference mInfo;
     private Preference mMethod;
     private Preference mGitHub;
+    
+    // VPN & Proxy preferences
+    private Preference mVpnStatus;
+    private Preference mVpnSettings;
+    private SwitchPreference mProxyEnabled;
+    private EditTextPreference mProxyHost;
+    private EditTextPreference mProxyPort;
 
     private AdBlockerUtils mAdBlockerUtils;
     private SharedPreferences mPrefs;
@@ -79,6 +99,13 @@ public class AdBlockerActivity extends PreferenceActivity
         mInfo = findPreference(KEY_ADBLOCKER_INFO);
         mMethod = findPreference(KEY_ADBLOCKER_METHOD);
         mGitHub = findPreference(KEY_ADBLOCKER_GITHUB);
+        
+        // VPN & Proxy preferences
+        mVpnStatus = findPreference(KEY_VPN_STATUS);
+        mVpnSettings = findPreference(KEY_VPN_SETTINGS);
+        mProxyEnabled = (SwitchPreference) findPreference(KEY_PROXY_ENABLED);
+        mProxyHost = (EditTextPreference) findPreference(KEY_PROXY_HOST);
+        mProxyPort = (EditTextPreference) findPreference(KEY_PROXY_PORT);
 
         if (mAdBlockerEnabled != null) {
             mAdBlockerEnabled.setOnPreferenceChangeListener(this);
@@ -103,6 +130,23 @@ public class AdBlockerActivity extends PreferenceActivity
         if (mGitHub != null) {
             mGitHub.setOnPreferenceClickListener(this);
         }
+        
+        // VPN & Proxy listeners
+        if (mVpnSettings != null) {
+            mVpnSettings.setOnPreferenceClickListener(this);
+        }
+        
+        if (mProxyEnabled != null) {
+            mProxyEnabled.setOnPreferenceChangeListener(this);
+        }
+        
+        if (mProxyHost != null) {
+            mProxyHost.setOnPreferenceChangeListener(this);
+        }
+        
+        if (mProxyPort != null) {
+            mProxyPort.setOnPreferenceChangeListener(this);
+        }
 
         Log.d(TAG, "All preferences initialized");
     }
@@ -124,7 +168,8 @@ public class AdBlockerActivity extends PreferenceActivity
             String statusText = isEnabled ?
                 getString(R.string.adblocker_status_enabled) :
                 getString(R.string.adblocker_status_disabled);
-            mAdBlockerStatus.setSummary(statusText + " (DNS-based)");
+            String dnsMode = mAdBlockerUtils.getCurrentDNSMode();
+            mAdBlockerStatus.setSummary(statusText + " (DNS: " + dnsMode + ")");
         }
 
         if (mLastUpdate != null) {
@@ -144,6 +189,30 @@ public class AdBlockerActivity extends PreferenceActivity
             String methodText = hasRoot ? "DNS + Root optimization" : "DNS-based blocking";
             mMethod.setSummary(methodText);
         }
+        
+        // Update VPN status
+        if (mVpnStatus != null) {
+            boolean vpnConnected = mAdBlockerUtils.isVpnConnected();
+            mVpnStatus.setSummary(vpnConnected ? "VPN Connected" : "VPN Not Connected");
+        }
+        
+        // Update Proxy settings
+        if (mProxyEnabled != null) {
+            boolean proxyEnabled = mAdBlockerUtils.isProxyEnabled();
+            mProxyEnabled.setChecked(proxyEnabled);
+        }
+        
+        if (mProxyHost != null) {
+            String host = mAdBlockerUtils.getProxyHost();
+            mProxyHost.setText(host);
+            mProxyHost.setSummary(host.isEmpty() ? "Not set" : host);
+        }
+        
+        if (mProxyPort != null) {
+            int port = mAdBlockerUtils.getProxyPort();
+            mProxyPort.setText(String.valueOf(port));
+            mProxyPort.setSummary(String.valueOf(port));
+        }
 
         Log.d(TAG, "updateUI() completed");
     }
@@ -157,6 +226,25 @@ public class AdBlockerActivity extends PreferenceActivity
             boolean enabled = (Boolean) newValue;
             handleAdBlockerToggle(enabled);
             return false;
+        } else if (KEY_PROXY_ENABLED.equals(key)) {
+            boolean enabled = (Boolean) newValue;
+            handleProxyToggle(enabled);
+            return true;
+        } else if (KEY_PROXY_HOST.equals(key)) {
+            String host = (String) newValue;
+            mAdBlockerUtils.setProxyHost(host);
+            mProxyHost.setSummary(host.isEmpty() ? "Not set" : host);
+            return true;
+        } else if (KEY_PROXY_PORT.equals(key)) {
+            try {
+                int port = Integer.parseInt((String) newValue);
+                mAdBlockerUtils.setProxyPort(port);
+                mProxyPort.setSummary(String.valueOf(port));
+                return true;
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Invalid port number", Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
 
         return true;
@@ -183,6 +271,9 @@ public class AdBlockerActivity extends PreferenceActivity
             case KEY_ADBLOCKER_GITHUB:
                 openGitHubPage();
                 return true;
+            case KEY_VPN_SETTINGS:
+                openVpnSettings();
+                return true;
         }
 
         return false;
@@ -197,7 +288,6 @@ public class AdBlockerActivity extends PreferenceActivity
         if (enable) {
             builder.setMessage(getString(R.string.adblocker_confirm_enable));
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                // Check if hosts file is loaded
                 if (mAdBlockerUtils.getBlockedDomainsCount() == 0) {
                     showFirstTimeSetupDialog();
                 } else {
@@ -211,6 +301,41 @@ public class AdBlockerActivity extends PreferenceActivity
 
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.show();
+    }
+    
+    private void handleProxyToggle(boolean enable) {
+        Log.d(TAG, "handleProxyToggle(" + enable + ")");
+        
+        if (enable) {
+            String host = mAdBlockerUtils.getProxyHost();
+            int port = mAdBlockerUtils.getProxyPort();
+            
+            if (host.isEmpty()) {
+                Toast.makeText(this, "Please set proxy host first", Toast.LENGTH_SHORT).show();
+                mProxyEnabled.setChecked(false);
+                return;
+            }
+            
+            if (mAdBlockerUtils.hasRootAccess()) {
+                boolean success = mAdBlockerUtils.setGlobalProxy(host, port);
+                if (success) {
+                    mAdBlockerUtils.setProxyEnabled(true);
+                    Toast.makeText(this, "Global proxy enabled", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Failed to set global proxy", Toast.LENGTH_LONG).show();
+                    mProxyEnabled.setChecked(false);
+                }
+            } else {
+                mAdBlockerUtils.setProxyEnabled(true);
+                Toast.makeText(this, "Proxy settings saved (root required for global proxy)", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            if (mAdBlockerUtils.hasRootAccess()) {
+                mAdBlockerUtils.clearGlobalProxy();
+            }
+            mAdBlockerUtils.setProxyEnabled(false);
+            Toast.makeText(this, "Proxy disabled", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showFirstTimeSetupDialog() {
@@ -363,7 +488,6 @@ public class AdBlockerActivity extends PreferenceActivity
                             "Hosts file loaded successfully! " + blockedCount + " domains.", Toast.LENGTH_LONG).show();
                         updateUI();
                         
-                        // If AdBlocker was not enabled yet, show option to enable it
                         if (!mAdBlockerUtils.isEnabled()) {
                             showEnableAfterLoadDialog();
                         }
@@ -426,6 +550,19 @@ public class AdBlockerActivity extends PreferenceActivity
             Log.e(TAG, "Failed to open GitHub page", e);
         }
     }
+    
+    private void openVpnSettings() {
+        Log.d(TAG, "openVpnSettings() called");
+        
+        try {
+            Intent intent = new Intent("android.net.vpn.SETTINGS");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(this, "Failed to open VPN settings", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Failed to open VPN settings", e);
+        }
+    }
 
     private void showDebugDialog(String title, String error) {
         String debugLog = mAdBlockerUtils.getDebugLog();
@@ -452,24 +589,26 @@ public class AdBlockerActivity extends PreferenceActivity
         String lastUpdate = mAdBlockerUtils.getLastUpdateTime();
         boolean isEnabled = mAdBlockerUtils.isEnabled();
         boolean hasRoot = mAdBlockerUtils.hasRootAccess();
+        boolean vpnConnected = mAdBlockerUtils.isVpnConnected();
+        boolean proxyEnabled = mAdBlockerUtils.isProxyEnabled();
 
         StringBuilder info = new StringBuilder();
         info.append("Status: ").append(isEnabled ? "Enabled" : "Disabled").append("\n\n");
         info.append("Method: DNS-based blocking").append("\n\n");
         info.append("Blocked domains: ").append(blockedCount).append("\n\n");
         info.append("Last update: ").append(lastUpdate).append("\n\n");
-        info.append("Source: StevenBlack/hosts").append("\n");
-        info.append("GitHub repository with updated hosts file").append("\n\n");
+        info.append("Source: StevenBlack/hosts\n");
+        info.append("GitHub repository with updated hosts file\n\n");
         info.append("Root access: ").append(hasRoot ? "Available" : "Not available").append("\n\n");
+        info.append("VPN: ").append(vpnConnected ? "Connected" : "Not connected").append("\n");
+        info.append("Proxy: ").append(proxyEnabled ? "Enabled" : "Disabled").append("\n\n");
 
         if (isEnabled) {
-            info.append("DNS server: AdGuard DNS (ad-blocking)").append("\n");
-            info.append("Primary: 94.140.14.14").append("\n");
-            info.append("Secondary: 94.140.15.15");
+            info.append("DNS: AdGuard DNS (ad-blocking)\n");
+            info.append("Hostname: dns.adguard-dns.com");
         } else {
-            info.append("DNS server: Cloudflare (neutral)").append("\n");
-            info.append("Primary: 1.1.1.1").append("\n");
-            info.append("Secondary: 1.0.0.1");
+            info.append("DNS: Cloudflare (neutral)\n");
+            info.append("Hostname: one.one.one.one");
         }
 
         info.append("\n\nHow to update hosts file:\n");
@@ -501,18 +640,20 @@ public class AdBlockerActivity extends PreferenceActivity
         methodInfo.append("✓ Low resource usage\n\n");
 
         methodInfo.append("Operation:\n");
-        methodInfo.append("• Uses AdGuard DNS servers\n");
-        methodInfo.append("• Blocks known ad domains\n");
-        methodInfo.append("• Manual hosts file loading\n\n");
+        methodInfo.append("• Uses Private DNS (DNS-over-TLS)\n");
+        methodInfo.append("• AdGuard DNS for ad blocking\n");
+        methodInfo.append("• Manual hosts file loading\n");
+        methodInfo.append("• Persistent after restart\n\n");
 
         if (mAdBlockerUtils.hasRootAccess()) {
             methodInfo.append("Root optimization available:\n");
-            methodInfo.append("• iptables rules\n");
+            methodInfo.append("• iptables DNS redirect\n");
+            methodInfo.append("• Global proxy support\n");
             methodInfo.append("• Enhanced blocking");
         } else {
             methodInfo.append("Root not available:\n");
             methodInfo.append("• DNS-based blocking only\n");
-            methodInfo.append("• Still effective");
+            methodInfo.append("• Still very effective");
         }
 
         methodInfo.append("\n\nTo load hosts file:\n");

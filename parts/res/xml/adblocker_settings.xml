@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
+    <!-- Main AdBlocker Switch -->
     <SwitchPreference
         android:key="adblocker_enabled"
         android:title="@string/adblocker_enable_title"
@@ -8,6 +9,7 @@
         android:icon="@drawable/ic_shield_outline"
         android:defaultValue="false" />
     
+    <!-- Status Category -->
     <PreferenceCategory
         android:title="@string/adblocker_status_category">
         
@@ -34,6 +36,7 @@
         
     </PreferenceCategory>
     
+    <!-- Hosts File Management -->
     <PreferenceCategory
         android:title="@string/adblocker_update_category">
         
@@ -61,6 +64,57 @@
             android:title="@string/adblocker_github_title"
             android:summary="@string/adblocker_github_summary"
             android:icon="@drawable/ic_github" />
+        
+    </PreferenceCategory>
+    
+    <!-- VPN Settings -->
+    <PreferenceCategory
+        android:key="vpn_category"
+        android:title="VPN Settings">
+        
+        <Preference
+            android:key="vpn_status"
+            android:title="VPN Status"
+            android:summary="VPN Not Connected"
+            android:icon="@drawable/ic_vpn"
+            android:selectable="false" />
+        
+        <Preference
+            android:key="vpn_settings"
+            android:title="Open VPN Settings"
+            android:summary="Configure VPN connection"
+            android:icon="@drawable/ic_settings" />
+        
+    </PreferenceCategory>
+    
+    <!-- Proxy Settings -->
+    <PreferenceCategory
+        android:key="proxy_category"
+        android:title="Proxy Settings">
+        
+        <SwitchPreference
+            android:key="proxy_enabled"
+            android:title="Enable Proxy"
+            android:summary="Use HTTP/HTTPS proxy (requires root for global proxy)"
+            android:icon="@drawable/ic_proxy"
+            android:defaultValue="false" />
+        
+        <EditTextPreference
+            android:key="proxy_host"
+            android:title="Proxy Host"
+            android:summary="Not set"
+            android:icon="@drawable/ic_server"
+            android:inputType="textUri"
+            android:dependency="proxy_enabled" />
+        
+        <EditTextPreference
+            android:key="proxy_port"
+            android:title="Proxy Port"
+            android:summary="8080"
+            android:icon="@drawable/ic_port"
+            android:inputType="number"
+            android:defaultValue="8080"
+            android:dependency="proxy_enabled" />
         
     </PreferenceCategory>
     
