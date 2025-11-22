@@ -38,7 +38,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
     private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
     private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
-    private static final String DEFAULT_GOVERNOR = "schedhorizon"; // N13Pro5G-hez SchedHorizon ajánlott
+    private static final String DEFAULT_GOVERNOR = "walt";
 
     // Preference keys
     private static final String KEY_CPU_GOVERNOR = "cpu_governor";
