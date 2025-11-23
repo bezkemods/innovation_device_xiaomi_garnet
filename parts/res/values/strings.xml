@@ -635,7 +635,7 @@
     <!-- Footer Information -->
     <string name="performance_footer_title">Performance Profile Information</string>
     <string name="performance_footer_summary">• Battery Saver: Extends battery life by reducing CPU and GPU performance. Ideal for light usage and maximum battery duration.\n\n• Balanced: Provides optimal balance between performance and battery life. Recommended for daily use.\n\n• Performance: Maximizes CPU and GPU performance for demanding tasks. Best for gaming, heavy apps, and intensive workloads. May reduce battery life.</string>
-            
+      
     <!-- Welcome XiaomiParts -->
     <string name="xiaomi_parts_title">XiaomiParts</string>
     <string name="xiaomi_parts_subtitle">Xiaomi Garnet special settings</string>
