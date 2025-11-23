@@ -427,35 +427,64 @@ private void startServices(Context context) {
     private void restoreGpuSettings(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            
+            // Ha a rendszer kezeli a teljesítmény profilt, ne írjuk felül manuálisan a GPU-t
             boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
             if (hasPerformanceProfile) {
                 Log.d(TAG, "Performance profile active, skipping individual GPU settings restore");
                 return;
             }
-            if (prefs == null) {
-                Log.w(TAG, "SharedPreferences is null for GPU settings");
+            
+            Log.d(TAG, "Restoring GPU settings...");
+            GpuManagerUtils gpuUtils = new GpuManagerUtils();
+            
+            if (!gpuUtils.isGpuManagerSupported()) {
+                Log.w(TAG, "GPU Manager not supported, skipping restore");
                 return;
             }
-            GpuManagerUtils gpuUtils = new GpuManagerUtils();
 
+            // Restore Governor
             String savedGpuGovernor = prefs.getString(KEY_GPU_GOVERNOR, null);
-            if (savedGpuGovernor != null && !savedGpuGovernor.isEmpty()) {
-                try {
-                    gpuUtils.setGovernor(savedGpuGovernor);
-                    Log.d(TAG, "Restored GPU governor: " + savedGpuGovernor);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU governor: " + savedGpuGovernor, e);
-                }
+            if (savedGpuGovernor != null) {
+                gpuUtils.setGovernor(savedGpuGovernor);
+                Log.d(TAG, "Restored GPU governor: " + savedGpuGovernor);
             }
-            restoreGpuFrequencies(prefs, gpuUtils);
-            restoreGpuPowerSettings(prefs, gpuUtils);
+
+            // Restore Frequencies
+            String gpuMinFreq = prefs.getString(KEY_GPU_MIN_FREQ, null);
+            String gpuMaxFreq = prefs.getString(KEY_GPU_MAX_FREQ, null);
+            if (gpuMinFreq != null && gpuMaxFreq != null) {
+                gpuUtils.setFrequencyRange(gpuMinFreq, gpuMaxFreq);
+                Log.d(TAG, "Restored GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq);
+            }
+            
+            // Restore Max GPUCLK Override
+            String gpuMaxClk = prefs.getString("gpu_max_gpuclk", null);
+            if (gpuMaxClk != null) {
+                gpuUtils.setMaxGpuClk(gpuMaxClk);
+                Log.d(TAG, "Restored GPU Max CLK: " + gpuMaxClk);
+            }
+
+            // Restore Power Settings
+            if (prefs.getBoolean(KEY_GPU_FORCE_CLK_ON, false)) gpuUtils.setForceClkOn(true);
+            if (prefs.getBoolean(KEY_GPU_FORCE_BUS_ON, false)) gpuUtils.setForceBusOn(true);
+            if (prefs.getBoolean(KEY_GPU_FORCE_RAIL_ON, false)) gpuUtils.setForceRailOn(true);
+            if (prefs.getBoolean(KEY_GPU_FORCE_NO_NAP, false)) gpuUtils.setForceNoNap(true);
+            if (prefs.getBoolean(KEY_GPU_BUS_SPLIT, false)) gpuUtils.setBusSplit(true);
+            
+            // Restore Preemption
+            if (prefs.contains("gpu_preempt")) {
+                boolean preempt = prefs.getBoolean("gpu_preempt", false);
+                gpuUtils.setPreempt(preempt);
+                Log.d(TAG, "Restored GPU preempt: " + preempt);
+            }
 
             Log.d(TAG, "GPU settings restoration completed");
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore GPU settings", e);
         }
     }
-
+    
     private void restoreGpuFrequencies(SharedPreferences prefs, GpuManagerUtils gpuUtils) {
         try {
             String gpuMinFreq = prefs.getString(KEY_GPU_MIN_FREQ, null);
