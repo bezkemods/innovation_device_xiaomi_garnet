@@ -368,11 +368,11 @@
 
     <!-- Performance mode Arrays -->
     <string-array name="performance_profile_entries">
-        <item>Battery Saver</item>
-        <item>Balanced</item>
-        <item>Performance</item>
+        <item>@string/performance_mode_battery_saver</item>
+        <item>@string/performance_mode_balanced</item>
+        <item>@string/performance_mode_performance</item>
     </string-array>
-    
+
     <string-array name="performance_profile_values">
         <item>0</item>
         <item>1</item>

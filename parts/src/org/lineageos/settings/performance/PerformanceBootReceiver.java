@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,28 +21,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+/**
+ * Legacy receiver.
+ * Logic has been moved to org.lineageos.settings.BootCompletedReceiver
+ * to unify boot processes and prevent conflicts.
+ * This class is kept to prevent ClassNotFoundException if referenced in Manifest.
+ */
 public class PerformanceBootReceiver extends BroadcastReceiver {
 
     private static final String TAG = "PerformanceBootReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent != null && Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            Log.d(TAG, "Boot completed, restoring performance profile");
-            
-            try {
-                PerformanceUtils performanceUtils = new PerformanceUtils(context);
-                int currentMode = performanceUtils.getCurrentMode();
-                
-                // Restore the saved performance mode
-                boolean success = performanceUtils.setPerformanceMode(currentMode);
-                
-                Log.d(TAG, "Performance profile restored to: " + 
-                    performanceUtils.getModeLabel(currentMode) + ", success: " + success);
-                
-            } catch (Exception e) {
-                Log.e(TAG, "Error restoring performance profile on boot", e);
-            }
-        }
+        // Do nothing intentionally.
+        // The restoration logic is now handled by BootCompletedReceiver.java
+        Log.d(TAG, "Legacy receiver triggered - skipping execution as logic is in BootCompletedReceiver");
     }
 }
