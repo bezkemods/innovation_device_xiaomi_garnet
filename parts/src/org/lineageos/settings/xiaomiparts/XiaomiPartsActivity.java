@@ -1,9 +1,12 @@
 package org.lineageos.settings.xiaomiparts;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.widget.ListView;
 import android.util.Log;
@@ -29,6 +32,7 @@ import org.lineageos.settings.refreshrate.RefreshActivity;
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
     private static final String TAG = "XiaomiPartsActivity";
+    private static final String PREF_ROOT_NOTICE_SHOWN = "root_notice_shown";
     
     private static final String KEY_CLEAR_SPEAKER = "clear_speaker";
     private static final String KEY_SATURATION = "saturation_settings";
@@ -63,10 +67,36 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
 
             setupPreferences();
             
+            // Show root notice dialog if not shown before
+            showRootNoticeIfNeeded();
+            
             Log.d(TAG, "XiaomiPartsActivity created successfully");
             
         } catch (Exception e) {
             Log.e(TAG, "Error creating XiaomiPartsActivity", e);
+        }
+    }
+
+    private void showRootNoticeIfNeeded() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean noticeShown = prefs.getBoolean(PREF_ROOT_NOTICE_SHOWN, false);
+        
+        if (!noticeShown) {
+            new AlertDialog.Builder(this)
+                .setTitle("Root Access Recommended")
+                .setMessage("Root access is recommended for full functionality of XiaomiParts.\n\n" +
+                           "We recommend downloading KSU Next and granting root permissions for the best experience.")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    // Save preference so dialog doesn't show again
+                    prefs.edit().putBoolean(PREF_ROOT_NOTICE_SHOWN, true).apply();
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Don't show again", (dialog, which) -> {
+                    prefs.edit().putBoolean(PREF_ROOT_NOTICE_SHOWN, true).apply();
+                    dialog.dismiss();
+                })
+                .setCancelable(false)
+                .show();
         }
     }
 
