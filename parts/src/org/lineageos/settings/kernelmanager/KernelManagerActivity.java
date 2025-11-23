@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package org.lineageos.settings.kernelmanager;
@@ -20,7 +20,8 @@ public class KernelManagerActivity extends CollapsingToolbarBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFragmentManager().beginTransaction().replace(
+        // AndroidX support
+        getSupportFragmentManager().beginTransaction().replace(
                 com.android.settingslib.collapsingtoolbar.R.id.content_frame,
                 new KernelManagerFragment(), TAG_KERNEL_MANAGER).commit();
     }

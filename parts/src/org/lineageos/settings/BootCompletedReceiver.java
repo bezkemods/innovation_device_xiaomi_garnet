@@ -361,38 +361,37 @@ private void startServices(Context context) {
     private void restoreKernelSettings(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
-            if (hasPerformanceProfile) {
-                Log.d(TAG, "Performance profile active, skipping individual kernel settings restore");
+            
+            if (prefs.contains(KEY_PERFORMANCE_PROFILE)) {
+                Log.d(TAG, "Performance profile active, skipping manual kernel restore");
                 return;
             }
-            if (prefs == null) {
-                Log.w(TAG, "SharedPreferences is null for kernel settings");
-                return;
-            }
+
             KernelManagerUtils kernelUtils = new KernelManagerUtils();
-            if (!kernelUtils.isKernelManagerSupported()) {
-                Log.w(TAG, "Kernel Manager not supported");
-                return;
+            if (!kernelUtils.isKernelManagerSupported()) return;
+
+            String savedGov = prefs.getString(KEY_CPU_GOVERNOR, null);
+            if (savedGov != null) {
+                kernelUtils.setGovernor(savedGov);
+                Log.d(TAG, "Restored governor: " + savedGov);
             }
-            String savedGovernor = prefs.getString(KEY_CPU_GOVERNOR, null);
-            if (savedGovernor != null && !savedGovernor.isEmpty()) {
-                try {
-                    kernelUtils.setGovernor(savedGovernor);
-                    Log.d(TAG, "Restored CPU governor: " + savedGovernor);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore CPU governor: " + savedGovernor, e);
-                }
+
+            String eMin = prefs.getString(KEY_EFFICIENCY_MIN_FREQ, null);
+            String eMax = prefs.getString(KEY_EFFICIENCY_MAX_FREQ, null);
+            if (eMin != null && eMax != null) {
+                kernelUtils.setFrequency(KernelManagerUtils.CLUSTER_LITTLE, eMax, false);
+                kernelUtils.setFrequency(KernelManagerUtils.CLUSTER_LITTLE, eMin, true);
             }
-            restoreClusterFrequencies(prefs, kernelUtils, 
-                KernelManagerUtils.EFFICIENCY_CLUSTER, 
-                KEY_EFFICIENCY_MIN_FREQ, KEY_EFFICIENCY_MAX_FREQ,
-                "efficiency");
-            restoreClusterFrequencies(prefs, kernelUtils,
-                KernelManagerUtils.PERFORMANCE_CLUSTER,
-                KEY_PERFORMANCE_MIN_FREQ, KEY_PERFORMANCE_MAX_FREQ,
-                "performance");
-            Log.d(TAG, "Kernel settings restoration completed");
+
+            String pMin = prefs.getString(KEY_PERFORMANCE_MIN_FREQ, null);
+            String pMax = prefs.getString(KEY_PERFORMANCE_MAX_FREQ, null);
+            if (pMin != null && pMax != null) {
+                kernelUtils.setFrequency(KernelManagerUtils.CLUSTER_BIG, pMax, false);
+                kernelUtils.setFrequency(KernelManagerUtils.CLUSTER_BIG, pMin, true);
+            }
+            
+            Log.d(TAG, "Kernel settings restored");
+
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore kernel settings", e);
         }
