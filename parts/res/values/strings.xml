@@ -738,30 +738,6 @@
     <string name="kernel_manager_error_read">Unable to read CPU information</string>
     <string name="kernel_manager_error_write">Unable to apply CPU settings. Root access may be required.</string>
     <string name="kernel_manager_error_permission">Permission denied. Root access is required to modify CPU settings.</string>
-    
-    <string-array name="kernel_manager_update_intervals">
-        <item>@string/update_interval_500ms</item>
-        <item>@string/update_interval_1000ms</item>
-        <item>@string/update_interval_2000ms</item>
-        <item>@string/update_interval_5000ms</item>
-    </string-array>
-
-    <string-array name="kernel_manager_update_interval_values">
-        <item>500</item>
-        <item>1000</item>
-        <item>2000</item>
-        <item>5000</item>
-    </string-array>
-
-    <string-array name="kernel_manager_governors">
-        <item>schedhorizon</item>
-        <item>schedutil</item>
-        <item>walt</item>
-        <item>performance</item>
-        <item>powersave</item>
-        <item>conservative</item>
-    </string-array>
-    
 
 <!-- GPU Manager -->
 <string name="gpu_manager_title">GPU Manager</string>

@@ -379,21 +379,6 @@
         <item>2</item>
     </string-array>
     
-    <!-- KernelManager Arrays -->
-    <string-array name="kernel_manager_update_intervals">
-        <item>@string/update_interval_500ms</item>
-        <item>@string/update_interval_1000ms</item>
-        <item>@string/update_interval_2000ms</item>
-        <item>@string/update_interval_5000ms</item>
-    </string-array>
-
-    <string-array name="kernel_manager_update_interval_values">
-        <item>500</item>
-        <item>1000</item>
-        <item>2000</item>
-        <item>5000</item>
-    </string-array>
-    
     <!-- Auto clean interval options -->
     <string-array name="auto_clean_intervals">
         <item>Daily</item>

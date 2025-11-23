@@ -1,70 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/kernel_manager_title">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory 
-        android:key="cpu_monitor_category"
-        android:title="@string/kernel_manager_cpu_monitor">
-        
-        <SwitchPreference
-            android:key="enable_monitoring"
-            android:title="@string/kernel_manager_enable_monitoring"
-            android:summary="@string/kernel_manager_enable_monitoring_summary"
-            android:defaultValue="true" />
-
-        <ListPreference
-            android:key="update_interval"
-            android:title="@string/kernel_manager_update_interval"
-            android:summary="@string/kernel_manager_update_interval_summary"
-            android:entries="@array/kernel_manager_update_intervals"
-            android:entryValues="@array/kernel_manager_update_interval_values"
-            android:defaultValue="1000"
-            android:dependency="enable_monitoring" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/kernel_manager_governor">
-        <ListPreference
-            android:key="cpu_governor"
-            android:title="@string/kernel_manager_governor"
-            android:summary="@string/kernel_manager_governor_summary" />
-    </PreferenceCategory>
+    <ListPreference
+        android:key="cpu_governor"
+        android:title="@string/kernel_manager_governor"
+        android:summary="@string/kernel_manager_governor_summary"
+        android:entries="@array/kernel_manager_governors"
+        android:entryValues="@array/kernel_manager_governors"
+        android:defaultValue="schedhorizon" />
 
     <PreferenceCategory android:title="@string/kernel_manager_efficiency_category">
         <ListPreference
             android:key="efficiency_min_freq"
             android:title="@string/kernel_manager_min_freq"
-            android:summary="@string/kernel_manager_min_freq_summary" />
+            android:summary="@string/kernel_manager_min_freq_summary"
+            android:defaultValue="" />
         <ListPreference
             android:key="efficiency_max_freq"
             android:title="@string/kernel_manager_max_freq"
-            android:summary="@string/kernel_manager_max_freq_summary" />
+            android:summary="@string/kernel_manager_max_freq_summary"
+            android:defaultValue="" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/kernel_manager_performance_category">
         <ListPreference
             android:key="performance_min_freq"
             android:title="@string/kernel_manager_min_freq"
-            android:summary="@string/kernel_manager_min_freq_summary" />
+            android:summary="@string/kernel_manager_min_freq_summary"
+            android:defaultValue="" />
         <ListPreference
             android:key="performance_max_freq"
             android:title="@string/kernel_manager_max_freq"
-            android:summary="@string/kernel_manager_max_freq_summary" />
+            android:summary="@string/kernel_manager_max_freq_summary"
+            android:defaultValue="" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/kernel_manager_apply">
-        <Preference
-            android:key="apply_settings"
-            android:title="@string/kernel_manager_apply"
-            android:summary="@string/kernel_manager_apply_summary" />
-        <Preference
-            android:key="reset_settings"
-            android:title="@string/kernel_manager_reset"
-            android:summary="@string/kernel_manager_reset_summary" />
-    </PreferenceCategory>
+    <!-- PRIME cluster section removed, as SM7435 does not have a prime core -->
+
+    <Preference
+        android:key="apply_settings"
+        android:title="@string/kernel_manager_apply"
+        android:summary="@string/kernel_manager_apply_summary" />
+
+    <Preference
+        android:key="reset_settings"
+        android:title="@string/kernel_manager_reset"
+        android:summary="@string/kernel_manager_reset_summary" />
 
     <com.android.settingslib.widget.FooterPreference
         android:key="footer_preference"
         android:title="@string/kernel_manager_footer"
         android:selectable="false" />
-
+ 
 </PreferenceScreen>
