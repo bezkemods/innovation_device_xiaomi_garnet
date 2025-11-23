@@ -5,17 +5,17 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/thermal_rv_view_container"
+        android:id="@+id/thermal_prefs_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/thermal_rv_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="72dp"
-            android:paddingBottom="16dp"
-            android:scrollbars="vertical" />
-    </FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/thermal_rv_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:scrollbars="vertical" />
+
 </LinearLayout>

@@ -81,13 +81,21 @@ public class ThermalSettingsFragment extends PreferenceFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
             Bundle savedInstanceState) {
         try {
+            // Betöltjük az új LinearLayout-os XML-t
             View view = inflater.inflate(R.layout.thermal_settings_fragment, 
                     container, false);
-            ViewGroup prefsContainer = view.findViewById(R.id.thermal_rv_view_container);
+            
+            // Megkeressük a kapcsolónak fenntartott helyet
+            ViewGroup prefsContainer = view.findViewById(R.id.thermal_prefs_container);
+            
+            // Létrehozzuk a kapcsolót (a PreferenceFragment alapértelmezett nézetét)
             View prefsView = super.onCreateView(inflater, prefsContainer, savedInstanceState);
-            if (prefsView != null) {
-                prefsContainer.addView(prefsView, 0); 
+            
+            // Belehelyezzük a kapcsolót a konténerbe
+            if (prefsView != null && prefsContainer != null) {
+                prefsContainer.addView(prefsView); 
             }
+            
             return view;
         } catch (Exception e) {
             Log.e(TAG, "Error in onCreateView", e);
@@ -312,7 +320,6 @@ public class ThermalSettingsFragment extends PreferenceFragment
                 holder.title.setText(entry.label);
                 holder.title.setOnClickListener(v -> holder.mode.performClick());
                 
-                // Ensure icon is loaded
                 if (mApplicationsState != null) {
                     mApplicationsState.ensureIcon(entry);
                 }
@@ -320,21 +327,17 @@ public class ThermalSettingsFragment extends PreferenceFragment
                     holder.icon.setImageDrawable(entry.icon);
                 }
 
-                // Remove previous listener to prevent unwanted callbacks
                 holder.mode.setOnItemSelectedListener(null); 
                 holder.mode.setAdapter(new ModeAdapter(mContext));
                 
-                // Get and set current thermal state
                 int packageState = mThermalUtils.getStateForPackage(entry.info.packageName);
                 holder.mode.setSelection(packageState, false);
                 holder.mode.setTag(entry);
                 
-                // Set state icon
                 if (holder.stateIcon != null) {
                     holder.stateIcon.setImageResource(getStateIcon(packageState));
                 }
                 
-                // Set new listener
                 holder.mode.setOnItemSelectedListener(this);
             } catch (Exception e) {
                 Log.e(TAG, "Error binding view holder at position " + position, e);
