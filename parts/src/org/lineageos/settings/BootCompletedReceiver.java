@@ -361,8 +361,7 @@ private void startServices(Context context) {
     private void restoreKernelSettings(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        
-            // Ha Performance Profile fut, ne nyúljunk a CPU-hoz
+            
             if (prefs.contains(KEY_PERFORMANCE_PROFILE)) {
                 Log.d(TAG, "Performance profile active, skipping manual kernel restore");
                 return;
@@ -371,35 +370,26 @@ private void startServices(Context context) {
             KernelManagerUtils kernelUtils = new KernelManagerUtils();
             if (!kernelUtils.isKernelManagerSupported()) return;
 
-            // Restore Governor (mindkét klaszterre érvényes)
             String savedGov = prefs.getString(KEY_CPU_GOVERNOR, null);
             if (savedGov != null) {
                 kernelUtils.setGovernor(savedGov);
                 Log.d(TAG, "Restored governor: " + savedGov);
             }
 
-            // Restore Efficiency Cluster (Policy 0) Frequencies
             String eMin = prefs.getString(KEY_EFFICIENCY_MIN_FREQ, null);
             String eMax = prefs.getString(KEY_EFFICIENCY_MAX_FREQ, null);
             if (eMin != null && eMax != null) {
-                // 1. MAX beállítása (ez kritikus!)
-                kernelUtils.setMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, eMax);
-                // 2. MIN beállítása
-                kernelUtils.setMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, eMin);
-                Log.d(TAG, "Restored Eff. freq range: " + eMin + " - " + eMax);
+                kernelUtils.setFrequency(KernelManagerUtils.CLUSTER_LITTLE, eMax, false);
+                kernelUtils.setFrequency(KernelManagerUtils.CLUSTER_LITTLE, eMin, true);
             }
 
-            // Restore Performance Cluster (Policy 4) Frequencies
             String pMin = prefs.getString(KEY_PERFORMANCE_MIN_FREQ, null);
             String pMax = prefs.getString(KEY_PERFORMANCE_MAX_FREQ, null);
             if (pMin != null && pMax != null) {
-                // 1. MAX beállítása (ez kritikus!)
-                kernelUtils.setMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, pMax);
-                // 2. MIN beállítása
-                kernelUtils.setMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, pMin);
-                Log.d(TAG, "Restored Perf. freq range: " + pMin + " - " + pMax);
+                kernelUtils.setFrequency(KernelManagerUtils.CLUSTER_BIG, pMax, false);
+                kernelUtils.setFrequency(KernelManagerUtils.CLUSTER_BIG, pMin, true);
             }
-        
+            
             Log.d(TAG, "Kernel settings restored");
 
         } catch (Exception e) {
