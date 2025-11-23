@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AdBlockerUtils {
@@ -69,15 +68,12 @@ public class AdBlockerUtils {
     private static final String PREF_SAVED_BANDWIDTH = "adblocker_saved_bandwidth";
     private static final String PREF_LAST_STATS_RESET = "adblocker_last_stats_reset";
     
-    // NEW PROXY LIST SOURCES (More reliable raw lists)
+    // Proxy list sources
     private static final String[] PROXY_SOURCES = {
-        "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt",
-        "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt",
-        "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt"
+        "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
+        "https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/http/data.txt",
+        "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt"
     };
-
-    // VPN Nodes URL
-    private static final String VPN_NODES_URL = "https://raw.githubusercontent.com/sharkDoor/vpn-free-nodes/main/node_list.txt";
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -91,6 +87,7 @@ public class AdBlockerUtils {
         mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         Log.d(TAG, "AdBlockerUtils initialized");
+        logDebug("AdBlockerUtils constructor called");
     }
 
     // Callback interfaces
@@ -107,11 +104,6 @@ public class AdBlockerUtils {
     
     public interface ProxyListCallback {
         void onListUpdated(int count);
-        void onError(String error);
-    }
-
-    public interface VpnListCallback {
-        void onVpnListFetched(List<String> nodes);
         void onError(String error);
     }
 
@@ -145,11 +137,14 @@ public class AdBlockerUtils {
 
     // Basic enable/disable
     public boolean isEnabled() {
-        return mPrefs.getBoolean("adblocker_enabled", false);
+        boolean enabled = mPrefs.getBoolean("adblocker_enabled", false);
+        logDebug("isEnabled() = " + enabled);
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
         mPrefs.edit().putBoolean("adblocker_enabled", enabled).apply();
+        logDebug("setEnabled(" + enabled + ")");
     }
 
     public String getLastUpdateTime() {
@@ -162,24 +157,34 @@ public class AdBlockerUtils {
     }
 
     public int getBlockedDomainsCount() {
-        return mPrefs.getInt(PREF_BLOCKED_COUNT, 0);
+        int count = mPrefs.getInt(PREF_BLOCKED_COUNT, 0);
+        logDebug("getBlockedDomainsCount() = " + count);
+        return count;
     }
 
     public boolean isNetworkAvailable() {
         try {
             NetworkInfo activeNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+            boolean available = activeNetworkInfo != null && activeNetworkInfo.isConnected();
+            logDebug("isNetworkAvailable() = " + available +
+                " (type: " + (activeNetworkInfo != null ? activeNetworkInfo.getTypeName() : "none") + ")");
+            return available;
         } catch (Exception e) {
+            logDebug("isNetworkAvailable() exception: " + e.getMessage());
             return false;
         }
     }
 
     public boolean hasRootAccess() {
         try {
+            logDebug("Checking root access...");
             Process process = Runtime.getRuntime().exec("su -c 'id'");
             int result = process.waitFor();
-            return result == 0;
+            boolean hasRoot = result == 0;
+            logDebug("hasRootAccess() = " + hasRoot + " (exit code: " + result + ")");
+            return hasRoot;
         } catch (Exception e) {
+            logDebug("Root check failed: " + e.getMessage());
             return false;
         }
     }
@@ -187,47 +192,67 @@ public class AdBlockerUtils {
     // DNS Management
     public boolean enableAdBlocker() {
         try {
+            logDebug("enableAdBlocker() called");
             String provider = getDnsProvider();
             String hostname = getDnsHostname(provider);
             boolean success = setPrivateDNS(hostname, true);
             if (success) {
                 setEnabled(true);
                 mPrefs.edit().putString(PREF_DNS_MODE, provider).apply();
+                logDebug("AdBlocker enabled successfully with " + provider);
                 return true;
+            } else {
+                logDebug("Failed to set DNS");
+                return false;
             }
-            return false;
         } catch (Exception e) {
+            logDebug("enableAdBlocker() exception: " + e.getMessage());
             return false;
         }
     }
 
     public boolean disableAdBlocker() {
         try {
+            logDebug("disableAdBlocker() called");
             boolean success = setPrivateDNS(CLOUDFLARE_DNS_HOSTNAME, false);
             if (success) {
                 setEnabled(false);
                 mPrefs.edit().putString(PREF_DNS_MODE, "cloudflare").apply();
+                logDebug("AdBlocker disabled successfully");
                 return true;
+            } else {
+                logDebug("Failed to reset DNS");
+                return false;
             }
-            return false;
         } catch (Exception e) {
+            logDebug("disableAdBlocker() exception: " + e.getMessage());
             return false;
         }
     }
 
     private boolean setPrivateDNS(String hostname, boolean isBlocking) {
+        logDebug("setPrivateDNS(" + hostname + ", isBlocking=" + isBlocking + ")");
         try {
+            // Set Private DNS mode to hostname mode
             Settings.Global.putString(mContext.getContentResolver(),
                 Settings.Global.PRIVATE_DNS_MODE, "hostname");
             
+            // Set the DNS hostname
             Settings.Global.putString(mContext.getContentResolver(),
                 Settings.Global.PRIVATE_DNS_SPECIFIER, hostname);
             
+            logDebug("Private DNS set to: " + hostname);
+            
+            // Additional root optimization if available
             if (hasRootAccess()) {
                 setDNSWithRoot(isBlocking);
             }
+            
             return true;
         } catch (Exception e) {
+            logDebug("setPrivateDNS() failed: " + e.getMessage());
+            
+            // Fallback: try to set it anyway
             try {
                 Settings.Global.putString(mContext.getContentResolver(),
                     Settings.Global.PRIVATE_DNS_MODE, isBlocking ? "hostname" : "off");
@@ -235,8 +260,10 @@ public class AdBlockerUtils {
                     Settings.Global.putString(mContext.getContentResolver(),
                         Settings.Global.PRIVATE_DNS_SPECIFIER, hostname);
                 }
+                logDebug("Private DNS set via fallback method");
                 return true;
             } catch (Exception e2) {
+                logDebug("Fallback also failed: " + e2.getMessage());
                 return false;
             }
         }
@@ -244,19 +271,27 @@ public class AdBlockerUtils {
 
     private boolean setDNSWithRoot(boolean isBlocking) {
         try {
+            logDebug("Attempting to set DNS with root...");
+            
+            // Clear existing iptables rules
             String[] clearCommands = {"su", "-c", "iptables -t nat -F OUTPUT 2>/dev/null"};
             Process clearProcess = Runtime.getRuntime().exec(clearCommands);
             clearProcess.waitFor();
 
             if (isBlocking) {
+                // Add iptables rules for AdGuard DNS
                 String[] commands = {"su", "-c",
                     "iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to-destination 94.140.14.14:53"};
                 Process process = Runtime.getRuntime().exec(commands);
-                return process.waitFor() == 0;
+                int result = process.waitFor();
+                logDebug("iptables command result: " + result);
+                return result == 0;
             } else {
+                logDebug("iptables rules cleared for neutral DNS");
                 return true;
             }
         } catch (Exception e) {
+            logDebug("setDNSWithRoot() failed: " + e.getMessage());
             return false;
         }
     }
@@ -268,12 +303,17 @@ public class AdBlockerUtils {
     
     public boolean setDnsProvider(String provider) {
         String hostname = getDnsHostname(provider);
-        if (hostname == null) return false;
+        if (hostname == null) {
+            logDebug("Invalid DNS provider: " + provider);
+            return false;
+        }
         
         mPrefs.edit().putString(PREF_DNS_PROVIDER, provider).apply();
+        
         if (isEnabled()) {
             return setPrivateDNS(hostname, true);
         }
+        
         return true;
     }
     
@@ -287,17 +327,43 @@ public class AdBlockerUtils {
         }
     }
     
-    public boolean isDohEnabled() { return mPrefs.getBoolean(PREF_DOH_ENABLED, true); }
-    public void setDohEnabled(boolean enabled) { mPrefs.edit().putBoolean(PREF_DOH_ENABLED, enabled).apply(); }
-    public boolean isDnsFallbackEnabled() { return mPrefs.getBoolean(PREF_DNS_FALLBACK, true); }
-    public void setDnsFallback(boolean enabled) { mPrefs.edit().putBoolean(PREF_DNS_FALLBACK, enabled).apply(); }
+    public boolean isDohEnabled() {
+        return mPrefs.getBoolean(PREF_DOH_ENABLED, true);
+    }
+    
+    public void setDohEnabled(boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_DOH_ENABLED, enabled).apply();
+        logDebug("DoH enabled: " + enabled);
+    }
+    
+    public boolean isDnsFallbackEnabled() {
+        return mPrefs.getBoolean(PREF_DNS_FALLBACK, true);
+    }
+    
+    public void setDnsFallback(boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_DNS_FALLBACK, enabled).apply();
+        logDebug("DNS fallback enabled: " + enabled);
+    }
 
     // VPN Management
-    public boolean isVpnEnabled() { return mPrefs.getBoolean(PREF_VPN_ENABLED, false); }
-    public void setVpnEnabled(boolean enabled) { mPrefs.edit().putBoolean(PREF_VPN_ENABLED, enabled).apply(); }
-    public String getVpnProvider() { return mPrefs.getString(PREF_VPN_PROVIDER, "none"); }
-    public void setVpnProvider(String provider) { mPrefs.edit().putString(PREF_VPN_PROVIDER, provider).apply(); }
-    
+    public boolean isVpnEnabled() {
+        return mPrefs.getBoolean(PREF_VPN_ENABLED, false);
+    }
+
+    public void setVpnEnabled(boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_VPN_ENABLED, enabled).apply();
+        logDebug("VPN enabled set to: " + enabled);
+    }
+
+    public String getVpnProvider() {
+        return mPrefs.getString(PREF_VPN_PROVIDER, "none");
+    }
+
+    public void setVpnProvider(String provider) {
+        mPrefs.edit().putString(PREF_VPN_PROVIDER, provider).apply();
+        logDebug("VPN provider set to: " + provider);
+    }
+
     public boolean isVpnConnected() {
         try {
             NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
@@ -306,46 +372,103 @@ public class AdBlockerUtils {
             }
             return false;
         } catch (Exception e) {
+            logDebug("VPN connection check failed: " + e.getMessage());
             return false;
         }
     }
     
-    public boolean isVpnAutoConnectEnabled() { return mPrefs.getBoolean(PREF_VPN_AUTO_CONNECT, false); }
-    public void setVpnAutoConnect(boolean enabled) { mPrefs.edit().putBoolean(PREF_VPN_AUTO_CONNECT, enabled).apply(); }
+    public boolean isVpnAutoConnectEnabled() {
+        return mPrefs.getBoolean(PREF_VPN_AUTO_CONNECT, false);
+    }
+    
+    public void setVpnAutoConnect(boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_VPN_AUTO_CONNECT, enabled).apply();
+        logDebug("VPN auto-connect set to: " + enabled);
+    }
 
     // Proxy Management
-    public boolean isProxyEnabled() { return mPrefs.getBoolean(PREF_PROXY_ENABLED, false); }
-    public void setProxyEnabled(boolean enabled) { mPrefs.edit().putBoolean(PREF_PROXY_ENABLED, enabled).apply(); }
-    public String getProxyHost() { return mPrefs.getString(PREF_PROXY_HOST, ""); }
-    public void setProxyHost(String host) { mPrefs.edit().putString(PREF_PROXY_HOST, host).apply(); }
-    public int getProxyPort() { return mPrefs.getInt(PREF_PROXY_PORT, 8080); }
-    public void setProxyPort(int port) { mPrefs.edit().putInt(PREF_PROXY_PORT, port).apply(); }
-    public boolean isProxyAutoSelectEnabled() { return mPrefs.getBoolean(PREF_PROXY_AUTO_SELECT, false); }
-    public void setProxyAutoSelect(boolean enabled) { mPrefs.edit().putBoolean(PREF_PROXY_AUTO_SELECT, enabled).apply(); }
+    public boolean isProxyEnabled() {
+        return mPrefs.getBoolean(PREF_PROXY_ENABLED, false);
+    }
+
+    public void setProxyEnabled(boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_PROXY_ENABLED, enabled).apply();
+        logDebug("Proxy enabled set to: " + enabled);
+    }
+
+    public String getProxyHost() {
+        return mPrefs.getString(PREF_PROXY_HOST, "");
+    }
+
+    public void setProxyHost(String host) {
+        mPrefs.edit().putString(PREF_PROXY_HOST, host).apply();
+        logDebug("Proxy host set to: " + host);
+    }
+
+    public int getProxyPort() {
+        return mPrefs.getInt(PREF_PROXY_PORT, 8080);
+    }
+
+    public void setProxyPort(int port) {
+        mPrefs.edit().putInt(PREF_PROXY_PORT, port).apply();
+        logDebug("Proxy port set to: " + port);
+    }
+    
+    public boolean isProxyAutoSelectEnabled() {
+        return mPrefs.getBoolean(PREF_PROXY_AUTO_SELECT, false);
+    }
+    
+    public void setProxyAutoSelect(boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_PROXY_AUTO_SELECT, enabled).apply();
+        logDebug("Proxy auto-select set to: " + enabled);
+    }
 
     public boolean setGlobalProxy(String host, int port) {
-        if (!hasRootAccess()) return false;
+        if (!hasRootAccess()) {
+            logDebug("Root access required for global proxy settings");
+            return false;
+        }
+
         try {
-            String command = String.format("settings put global http_proxy %s:%d", host, port);
+            String command = String.format(
+                "settings put global http_proxy %s:%d",
+                host, port
+            );
+            
             String[] rootCommand = {"su", "-c", command};
             Process process = Runtime.getRuntime().exec(rootCommand);
-            return process.waitFor() == 0;
+            int result = process.waitFor();
+            
+            boolean success = result == 0;
+            logDebug("Global proxy set: " + success);
+            return success;
         } catch (Exception e) {
+            logDebug("Failed to set global proxy: " + e.getMessage());
             return false;
         }
     }
 
     public boolean clearGlobalProxy() {
-        if (!hasRootAccess()) return false;
+        if (!hasRootAccess()) {
+            logDebug("Root access required to clear global proxy");
+            return false;
+        }
+
         try {
             String[] clearCommand = {"su", "-c", "settings put global http_proxy :0"};
             Process process = Runtime.getRuntime().exec(clearCommand);
-            return process.waitFor() == 0;
+            int result = process.waitFor();
+            
+            boolean success = result == 0;
+            logDebug("Global proxy cleared: " + success);
+            return success;
         } catch (Exception e) {
+            logDebug("Failed to clear global proxy: " + e.getMessage());
             return false;
         }
     }
     
+    // Proxy testing and auto-selection
     public void testProxy(String host, int port, ProxyTestCallback callback) {
         new ProxyTestTask(callback).execute(host, String.valueOf(port));
     }
@@ -356,11 +479,6 @@ public class AdBlockerUtils {
     
     public void updateProxyList(ProxyListCallback callback) {
         new UpdateProxyListTask(callback).execute();
-    }
-
-    // New method for VPN
-    public void fetchFreeVpnNodes(VpnListCallback callback) {
-        new FetchVpnNodesTask(callback).execute();
     }
     
     private class ProxyTestTask extends AsyncTask<String, Void, Long> {
@@ -385,13 +503,18 @@ public class AdBlockerUtils {
 
             try {
                 long startTime = System.currentTimeMillis();
+                
                 Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(mHost, mPort));
                 Socket socket = new Socket(proxy);
                 socket.connect(new InetSocketAddress("www.google.com", 80), 5000);
                 socket.close();
-                return System.currentTimeMillis() - startTime;
+                
+                long latency = System.currentTimeMillis() - startTime;
+                logDebug("Proxy test successful: " + mHost + ":" + mPort + " (" + latency + "ms)");
+                return latency;
             } catch (Exception e) {
                 mError = e.getMessage();
+                logDebug("Proxy test failed: " + mHost + ":" + mPort + " - " + mError);
                 return null;
             }
         }
@@ -448,12 +571,17 @@ public class AdBlockerUtils {
                         bestLatency = latency;
                         bestProxy = new ProxyInfo(host, port, latency);
                     }
-                    if (bestLatency < 100) break; 
+
+                    if (bestLatency < 100) break; // Good enough
                 } catch (Exception e) {
                     // Try next proxy
                 }
             }
-            if (bestProxy == null) mError = "No working proxies found";
+
+            if (bestProxy == null) {
+                mError = "No working proxies found";
+            }
+
             return bestProxy;
         }
 
@@ -469,7 +597,6 @@ public class AdBlockerUtils {
         }
     }
     
-    // UPDATED: Added User-Agent and increased timeouts
     private class UpdateProxyListTask extends AsyncTask<Void, Void, Integer> {
         private ProxyListCallback mCallback;
         private String mError;
@@ -488,30 +615,28 @@ public class AdBlockerUtils {
                 try {
                     URL url = new URL(source);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setConnectTimeout(15000);
-                    conn.setReadTimeout(15000);
-                    conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Android 10; XiaomiParts)");
+                    conn.setConnectTimeout(10000);
+                    conn.setReadTimeout(10000);
 
-                    if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            line = line.trim();
-                            if (isValidProxyFormat(line)) {
-                                proxySet.add(line);
-                            }
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        line = line.trim();
+                        if (isValidProxyFormat(line)) {
+                            proxySet.add(line);
                         }
-                        reader.close();
-                        logDebug("Fetched proxies from " + source);
                     }
+                    reader.close();
                     conn.disconnect();
+
+                    logDebug("Fetched " + proxySet.size() + " proxies from " + source);
                 } catch (Exception e) {
                     logDebug("Failed to fetch from " + source + ": " + e.getMessage());
                 }
             }
 
             if (proxySet.isEmpty()) {
-                mError = "Failed to fetch proxy list. Check internet or GitHub access.";
+                mError = "Failed to fetch proxy list from all sources";
                 return 0;
             }
 
@@ -534,71 +659,6 @@ public class AdBlockerUtils {
             return proxy.matches("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}:\\d{1,5}$");
         }
     }
-
-    // NEW: Fetch VPN nodes from sharkDoor
-    private class FetchVpnNodesTask extends AsyncTask<Void, Void, List<String>> {
-        private VpnListCallback mCallback;
-        private String mError;
-
-        public FetchVpnNodesTask(VpnListCallback callback) {
-            mCallback = callback;
-        }
-
-        @Override
-        protected List<String> doInBackground(Void... params) {
-            List<String> nodes = new ArrayList<>();
-            try {
-                URL url = new URL(VPN_NODES_URL);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setConnectTimeout(15000);
-                conn.setReadTimeout(15000);
-                conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Android 10; XiaomiParts)");
-
-                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuilder content = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        content.append(line).append("\n");
-                    }
-                    reader.close();
-                    
-                    // Regex to find protocols
-                    Pattern p = Pattern.compile("(vmess|vless|ss|trojan|ssr)://[^\\s]+");
-                    Matcher m = p.matcher(content.toString());
-                    
-                    while (m.find()) {
-                        nodes.add(m.group());
-                        if (nodes.size() >= 30) break; // Limit list size
-                    }
-                    
-                    logDebug("Fetched " + nodes.size() + " VPN nodes");
-                } else {
-                    mError = "HTTP Error: " + conn.getResponseCode();
-                }
-                conn.disconnect();
-            } catch (Exception e) {
-                mError = e.getMessage();
-                logDebug("Error fetching VPN nodes: " + e.getMessage());
-            }
-
-            if (nodes.isEmpty() && mError == null) {
-                mError = "No valid nodes found in list.";
-            }
-            return nodes;
-        }
-
-        @Override
-        protected void onPostExecute(List<String> nodes) {
-            if (mCallback != null) {
-                if (nodes != null && !nodes.isEmpty()) {
-                    mCallback.onVpnListFetched(nodes);
-                } else {
-                    mCallback.onError(mError != null ? mError : "Failed to fetch VPN nodes");
-                }
-            }
-        }
-    }
     
     private static class ProxyInfo {
         String host;
@@ -618,40 +678,61 @@ public class AdBlockerUtils {
     
     private void saveProxyList(Set<String> proxyList) {
         mPrefs.edit().putStringSet(PREF_PROXY_LIST, proxyList).apply();
+        logDebug("Saved " + proxyList.size() + " proxies to list");
     }
 
     // Whitelist/Blacklist Management
-    public Set<String> getWhitelist() { return mPrefs.getStringSet(PREF_WHITELIST, new HashSet<String>()); }
-    public Set<String> getBlacklist() { return mPrefs.getStringSet(PREF_BLACKLIST, new HashSet<String>()); }
-    public int getWhitelistCount() { return getWhitelist().size(); }
-    public int getBlacklistCount() { return getBlacklist().size(); }
+    public Set<String> getWhitelist() {
+        return mPrefs.getStringSet(PREF_WHITELIST, new HashSet<String>());
+    }
+    
+    public Set<String> getBlacklist() {
+        return mPrefs.getStringSet(PREF_BLACKLIST, new HashSet<String>());
+    }
+    
+    public int getWhitelistCount() {
+        return getWhitelist().size();
+    }
+    
+    public int getBlacklistCount() {
+        return getBlacklist().size();
+    }
     
     public void addToWhitelist(String domain) {
         Set<String> whitelist = new HashSet<>(getWhitelist());
         whitelist.add(domain.toLowerCase().trim());
         mPrefs.edit().putStringSet(PREF_WHITELIST, whitelist).apply();
+        logDebug("Added to whitelist: " + domain);
     }
     
     public void addToBlacklist(String domain) {
         Set<String> blacklist = new HashSet<>(getBlacklist());
         blacklist.add(domain.toLowerCase().trim());
         mPrefs.edit().putStringSet(PREF_BLACKLIST, blacklist).apply();
+        logDebug("Added to blacklist: " + domain);
     }
     
     public void removeFromWhitelist(String domain) {
         Set<String> whitelist = new HashSet<>(getWhitelist());
         whitelist.remove(domain);
         mPrefs.edit().putStringSet(PREF_WHITELIST, whitelist).apply();
+        logDebug("Removed from whitelist: " + domain);
     }
     
     public void removeFromBlacklist(String domain) {
         Set<String> blacklist = new HashSet<>(getBlacklist());
         blacklist.remove(domain);
         mPrefs.edit().putStringSet(PREF_BLACKLIST, blacklist).apply();
+        logDebug("Removed from blacklist: " + domain);
     }
     
-    public boolean isWhitelisted(String domain) { return getWhitelist().contains(domain); }
-    public boolean isBlacklisted(String domain) { return getBlacklist().contains(domain); }
+    public boolean isWhitelisted(String domain) {
+        return getWhitelist().contains(domain);
+    }
+    
+    public boolean isBlacklisted(String domain) {
+        return getBlacklist().contains(domain);
+    }
     
     // App filtering
     public int getFilteredAppsCount() {
@@ -659,14 +740,18 @@ public class AdBlockerUtils {
     }
 
     // Statistics
-    public long getTotalBlockedRequests() { return mPrefs.getLong(PREF_TOTAL_BLOCKED, 0); }
+    public long getTotalBlockedRequests() {
+        return mPrefs.getLong(PREF_TOTAL_BLOCKED, 0);
+    }
     
     public void incrementBlockedRequests() {
         long count = getTotalBlockedRequests();
         mPrefs.edit().putLong(PREF_TOTAL_BLOCKED, count + 1).apply();
     }
     
-    public long getSavedBandwidth() { return mPrefs.getLong(PREF_SAVED_BANDWIDTH, 0); }
+    public long getSavedBandwidth() {
+        return mPrefs.getLong(PREF_SAVED_BANDWIDTH, 0);
+    }
     
     public void addSavedBandwidth(long bytes) {
         long total = getSavedBandwidth();
@@ -679,10 +764,13 @@ public class AdBlockerUtils {
             .putLong(PREF_SAVED_BANDWIDTH, 0)
             .putLong(PREF_LAST_STATS_RESET, System.currentTimeMillis())
             .apply();
+        logDebug("Statistics reset");
     }
 
     // Hosts file management
     public void updateHostsFileFromContent(String hostsContent, UpdateCallback callback) {
+        logDebug("updateHostsFileFromContent() called, content length: " +
+            (hostsContent != null ? hostsContent.length() : 0));
         new UpdateHostsFromContentTask(callback).execute(hostsContent);
     }
 
@@ -697,7 +785,10 @@ public class AdBlockerUtils {
 
         @Override
         protected void onPreExecute() {
-            if (mCallback != null) mCallback.onUpdateStart();
+            logDebug("UpdateHostsFromContentTask.onPreExecute()");
+            if (mCallback != null) {
+                mCallback.onUpdateStart();
+            }
         }
 
         @Override
@@ -706,10 +797,13 @@ public class AdBlockerUtils {
                 String hostsContent = params[0];
                 if (hostsContent == null || hostsContent.trim().isEmpty()) {
                     mError = "Invalid hosts content";
+                    logDebug("Invalid hosts content");
                     return null;
                 }
+                logDebug("Manual update with content length: " + hostsContent.length());
                 return parseHostsFile(hostsContent);
             } catch (Exception e) {
+                logDebug("Manual update failed: " + e.getMessage());
                 mError = e.getMessage();
                 return null;
             }
@@ -722,8 +816,10 @@ public class AdBlockerUtils {
                     .putLong(PREF_LAST_UPDATE, System.currentTimeMillis())
                     .putInt(PREF_BLOCKED_COUNT, mBlockedCount)
                     .apply();
+                logDebug("Manual update successful, blocked count: " + mBlockedCount);
                 mCallback.onUpdateSuccess(mBlockedCount);
             } else if (mCallback != null) {
+                logDebug("Manual update failed: " + (mError != null ? mError : "Unknown error"));
                 mCallback.onUpdateError(mError != null ? mError : "Unknown error");
             }
         }
@@ -731,8 +827,8 @@ public class AdBlockerUtils {
         private String parseHostsFile(String hostsContent) throws Exception {
             Set<String> blockedDomains = new HashSet<>();
             mBlockedCount = countBlockedDomains(hostsContent, blockedDomains);
+            logDebug("Manually parsed " + mBlockedCount + " blocked domains");
 
-            // Limit to prevent SharedPreferences overflow
             Set<String> limitedDomains = new HashSet<>();
             int count = 0;
             for (String domain : blockedDomains) {
@@ -741,33 +837,39 @@ public class AdBlockerUtils {
                 count++;
             }
 
-            mPrefs.edit().putStringSet(PREF_BLOCKED_DOMAINS, limitedDomains).apply();
+            mPrefs.edit()
+                .putStringSet(PREF_BLOCKED_DOMAINS, limitedDomains)
+                .apply();
             return "Success";
         }
     }
 
     private int countBlockedDomains(String hostsContent, Set<String> blockedDomains) {
+        logDebug("countBlockedDomains() called");
         int count = 0;
         String[] lines = hostsContent.split("\n");
+        logDebug("Processing " + lines.length + " lines");
 
         Pattern hostsPattern = Pattern.compile("^(0\\.0\\.0\\.0|127\\.0\\.0\\.1)\\s+([^\\s#]+).*$");
         Pattern adblockPattern = Pattern.compile("^\\|\\|([^\\^\\s]+)\\^.*$");
         Pattern domainPattern = Pattern.compile("^([a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})\\s*$");
 
-        for (String line : lines) {
-            line = line.trim();
-            if (line.isEmpty() || line.startsWith("#") || line.startsWith("!")) continue;
+        for (int i = 0; i < lines.length; i++) {
+            String line = lines[i].trim();
+            if (line.isEmpty() || line.startsWith("#") || line.startsWith("!")) {
+                continue;
+            }
 
             String domain = null;
-            Matcher hostsMatcher = hostsPattern.matcher(line);
+            java.util.regex.Matcher hostsMatcher = hostsPattern.matcher(line);
             if (hostsMatcher.matches()) {
                 domain = hostsMatcher.group(2);
             } else {
-                Matcher adblockMatcher = adblockPattern.matcher(line);
+                java.util.regex.Matcher adblockMatcher = adblockPattern.matcher(line);
                 if (adblockMatcher.matches()) {
                     domain = adblockMatcher.group(1);
                 } else {
-                    Matcher domainMatcher = domainPattern.matcher(line);
+                    java.util.regex.Matcher domainMatcher = domainPattern.matcher(line);
                     if (domainMatcher.matches()) {
                         domain = domainMatcher.group(1);
                     }
@@ -775,28 +877,47 @@ public class AdBlockerUtils {
             }
 
             if (domain != null && isValidDomain(domain)) {
-                if (isWhitelisted(domain)) continue;
-                if (blockedDomains != null) blockedDomains.add(domain);
+                // Check whitelist/blacklist
+                if (isWhitelisted(domain)) {
+                    continue; // Skip whitelisted domains
+                }
+                
+                if (blockedDomains != null) {
+                    blockedDomains.add(domain);
+                }
                 count++;
             }
+
+            if (i > 0 && i % 10000 == 0) {
+                logDebug("Processed " + i + " lines, found " + count + " domains so far");
+            }
         }
-        
+
+        // Add blacklisted domains
         if (blockedDomains != null) {
             blockedDomains.addAll(getBlacklist());
             count += getBlacklist().size();
         }
+
+        logDebug("Total domains found: " + count);
         return count;
     }
 
     private boolean isValidDomain(String domain) {
-        if (domain == null || domain.isEmpty()) return false;
+        if (domain == null || domain.isEmpty()) {
+            return false;
+        }
+
         if (domain.contains("localhost") || domain.contains("local") ||
             domain.equals("0.0.0.0") || domain.equals("127.0.0.1") ||
             domain.contains(" ") || domain.length() < 4 ||
             !domain.contains(".") || domain.startsWith(".") || domain.endsWith(".")) {
             return false;
         }
-        return domain.matches("^[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+
+        return domain.matches("^[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") &&
+               !domain.contains("..") &&
+               domain.split("\\.").length >= 2;
     }
 
     public Set<String> getBlockedDomains() {
@@ -804,19 +925,66 @@ public class AdBlockerUtils {
     }
 
     public boolean isDomainBlocked(String domain) {
-        if (isWhitelisted(domain)) return false;
+        // Check whitelist first
+        if (isWhitelisted(domain)) {
+            return false;
+        }
+        
+        // Check blacklist
         if (isBlacklisted(domain)) {
             incrementBlockedRequests();
-            addSavedBandwidth(1024);
+            addSavedBandwidth(1024); // Estimate 1KB per blocked request
             return true;
         }
+        
+        // Check blocked domains
         Set<String> blockedDomains = getBlockedDomains();
         if (blockedDomains.contains(domain)) {
             incrementBlockedRequests();
             addSavedBandwidth(1024);
             return true;
         }
+
+        for (String blockedDomain : blockedDomains) {
+            if (domain.endsWith("." + blockedDomain) || domain.equals(blockedDomain)) {
+                incrementBlockedRequests();
+                addSavedBandwidth(1024);
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    public String getStatistics() {
+        boolean isEnabled = isEnabled();
+        int blockedCount = getBlockedDomainsCount();
+        String lastUpdate = getLastUpdateTime();
+        boolean hasRoot = hasRootAccess();
+        boolean vpnEnabled = isVpnEnabled();
+        boolean proxyEnabled = isProxyEnabled();
+        long totalBlocked = getTotalBlockedRequests();
+        long savedBandwidth = getSavedBandwidth();
+
+        StringBuilder stats = new StringBuilder();
+        stats.append("Status: ").append(isEnabled ? "Active" : "Inactive").append("\n");
+        stats.append("Blocked domains: ").append(blockedCount).append("\n");
+        stats.append("Total blocked: ").append(totalBlocked).append(" requests\n");
+        stats.append("Bandwidth saved: ").append(formatBytes(savedBandwidth)).append("\n");
+        stats.append("Last update: ").append(lastUpdate).append("\n");
+        stats.append("Root: ").append(hasRoot ? "Yes" : "No").append("\n");
+        stats.append("VPN: ").append(vpnEnabled ? "Enabled" : "Disabled").append("\n");
+        stats.append("Proxy: ").append(proxyEnabled ? "Enabled" : "Disabled").append("\n");
+        stats.append("Method: DNS-based with manual hosts file");
+
+        return stats.toString();
+    }
+    
+    private String formatBytes(long bytes) {
+        if (bytes < 1024) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(1024));
+        char pre = "KMGTPE".charAt(exp-1);
+        return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
     }
 
     public String getCurrentDNSMode() {
