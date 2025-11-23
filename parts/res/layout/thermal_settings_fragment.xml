@@ -13,8 +13,8 @@
             android:id="@+id/thermal_rv_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="true"
-            android:paddingTop="108dp"
+            android:clipToPadding="false"
+            android:paddingTop="72dp"
             android:paddingBottom="16dp"
             android:scrollbars="vertical" />
     </FrameLayout>
