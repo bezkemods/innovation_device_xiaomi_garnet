@@ -67,6 +67,36 @@
         
     </PreferenceCategory>
     
+    <!-- DNS Settings -->
+    <PreferenceCategory
+        android:key="dns_category"
+        android:title="DNS Settings">
+        
+        <ListPreference
+            android:key="dns_provider"
+            android:title="DNS Provider"
+            android:summary="Select DNS provider for ad blocking"
+            android:icon="@drawable/ic_dns"
+            android:entries="@array/dns_provider_entries"
+            android:entryValues="@array/dns_provider_values"
+            android:defaultValue="adguard" />
+        
+        <SwitchPreference
+            android:key="doh_enabled"
+            android:title="DNS over HTTPS (DoH)"
+            android:summary="Encrypt DNS queries for better privacy"
+            android:icon="@drawable/ic_security"
+            android:defaultValue="true" />
+        
+        <SwitchPreference
+            android:key="dns_fallback"
+            android:title="DNS Fallback"
+            android:summary="Use fallback DNS if primary fails"
+            android:icon="@drawable/ic_refresh"
+            android:defaultValue="true" />
+        
+    </PreferenceCategory>
+    
     <!-- VPN Settings -->
     <PreferenceCategory
         android:key="vpn_category"
@@ -84,6 +114,19 @@
             android:title="Open VPN Settings"
             android:summary="Configure VPN connection"
             android:icon="@drawable/ic_settings" />
+        
+        <SwitchPreference
+            android:key="vpn_auto_connect"
+            android:title="Auto-connect VPN"
+            android:summary="Automatically connect to VPN when available"
+            android:icon="@drawable/ic_autorenew"
+            android:defaultValue="false" />
+        
+        <Preference
+            android:key="vpn_free_servers"
+            android:title="Free VPN Resources"
+            android:summary="View free VPN server lists (educational purpose)"
+            android:icon="@drawable/ic_public" />
         
     </PreferenceCategory>
     
@@ -115,6 +158,80 @@
             android:inputType="number"
             android:defaultValue="8080"
             android:dependency="proxy_enabled" />
+        
+        <SwitchPreference
+            android:key="proxy_auto_select"
+            android:title="Auto-select Best Proxy"
+            android:summary="Automatically find and use fastest proxy"
+            android:icon="@drawable/ic_speed"
+            android:defaultValue="false"
+            android:dependency="proxy_enabled" />
+        
+        <Preference
+            android:key="proxy_update_list"
+            android:title="Update Proxy List"
+            android:summary="Fetch latest free proxy servers"
+            android:icon="@drawable/ic_cloud_download"
+            android:dependency="proxy_enabled" />
+        
+        <Preference
+            android:key="proxy_test"
+            android:title="Test Proxy Connection"
+            android:summary="Check if current proxy is working"
+            android:icon="@drawable/ic_check_circle"
+            android:dependency="proxy_enabled" />
+        
+    </PreferenceCategory>
+    
+    <!-- Custom Filters -->
+    <PreferenceCategory
+        android:key="filter_category"
+        android:title="Custom Filters">
+        
+        <Preference
+            android:key="whitelist"
+            android:title="Whitelist"
+            android:summary="0 domains whitelisted"
+            android:icon="@drawable/ic_check" />
+        
+        <Preference
+            android:key="blacklist"
+            android:title="Blacklist"
+            android:summary="0 additional domains blocked"
+            android:icon="@drawable/ic_block" />
+        
+        <Preference
+            android:key="app_filter"
+            android:title="App-based Filtering"
+            android:summary="0 apps filtered"
+            android:icon="@drawable/ic_apps" />
+        
+    </PreferenceCategory>
+    
+    <!-- Statistics -->
+    <PreferenceCategory
+        android:key="stats_category"
+        android:title="Statistics">
+        
+        <Preference
+            android:key="stats_blocked"
+            android:title="Total Blocked"
+            android:summary="0 requests blocked"
+            android:icon="@drawable/ic_block"
+            android:selectable="false" />
+        
+        <Preference
+            android:key="stats_bandwidth"
+            android:title="Bandwidth Saved"
+            android:summary="0 B bandwidth saved"
+            android:icon="@drawable/ic_data_usage"
+            android:selectable="false" />
+        
+        <Preference
+            android:key="stats_reset"
+            android:title="Reset Statistics"
+            android:summary="Clear all statistics data"
+            android:icon="@drawable/ic_delete" />
         
     </PreferenceCategory>
     
