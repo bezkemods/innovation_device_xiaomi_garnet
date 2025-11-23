@@ -738,6 +738,7 @@
     <string name="kernel_manager_error_read">Unable to read CPU information</string>
     <string name="kernel_manager_error_write">Unable to apply CPU settings. Root access may be required.</string>
     <string name="kernel_manager_error_permission">Permission denied. Root access is required to modify CPU settings.</string>
+    <string name="kernel_manager_error_not_supported">Kernel Manager not supported on this device</string>
     
     <string-array name="kernel_manager_update_intervals">
         <item>@string/update_interval_500ms</item>
