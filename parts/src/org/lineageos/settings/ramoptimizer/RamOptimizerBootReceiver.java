@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  */
 package org.lineageos.settings.ramoptimizer;
 
@@ -16,16 +16,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  * Boot receiver to restore RAM Optimizer settings after device boot
  */
 public class RamOptimizerBootReceiver extends BroadcastReceiver {
     private static final String TAG = "RamOptimizerBoot";
-    // Delay increased slightly to ensure system is fully settled
-    private static final int RESTORE_DELAY_MS = 10000; 
+    private static final int RESTORE_DELAY_MS = 10000; // 10 seconds delay
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -44,22 +40,15 @@ public class RamOptimizerBootReceiver extends BroadcastReceiver {
             return;
         }
 
-        // Use Handler to delay, but execute heavy work on background thread
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(() -> {
-            // CRITICAL FIX: Run root commands on background thread to avoid boot lag/ANR
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            executor.execute(() -> {
-                try {
-                    Log.i(TAG, "Restoring RAM Optimizer settings...");
-                    RamOptimizerUtils.restorePreferences(context);
-                    Log.i(TAG, "RAM Optimizer settings restored successfully");
-                } catch (Exception e) {
-                    Log.e(TAG, "Failed to restore RAM Optimizer settings", e);
-                } finally {
-                    executor.shutdown();
-                }
-            });
+            try {
+                Log.i(TAG, "Restoring RAM Optimizer settings...");
+                RamOptimizerUtils.restorePreferences(context);
+                Log.i(TAG, "RAM Optimizer settings restored successfully");
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to restore RAM Optimizer settings", e);
+            }
         }, RESTORE_DELAY_MS);
     }
 }

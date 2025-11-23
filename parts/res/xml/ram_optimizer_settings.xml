@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2025 The LineageOS Project
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/ram_optimizer_title">
 
+    <Preference
+        android:key="ram_optimizer_description"
+        android:title="@string/ram_optimizer_title"
+        android:summary="@string/ram_optimizer_description"
+        android:selectable="false"
+        android:icon="@drawable/ic_info_outline" />
+
     <PreferenceCategory
         android:key="ram_stats_category"
-        android:title="System Overview">
-        </PreferenceCategory>
+        android:title="RAM Statistics">
+        
+        <!-- RAM Usage info will be added here programmatically -->
+
+    </PreferenceCategory> <!-- ram_stats_category -->
 
     <PreferenceCategory
         android:key="zram_category"
@@ -31,15 +53,6 @@
             app:showSeekBarValue="true"
             app:adjustable="true" />
 
-        <androidx.preference.ListPreference
-            android:key="zram_compression_algorithm"
-            android:title="Compression Algorithm"
-            android:summary="Select compression method (e.g., ZSTD, LZ4)"
-            android:dependency="zram_enable"
-            android:entries="@array/zram_algorithms"
-            android:entryValues="@array/zram_algorithm_values"
-            android:defaultValue="lzo" />
-
         <androidx.preference.SeekBarPreference
             android:key="zram_swappiness"
             android:title="@string/zram_swappiness_title"
@@ -51,40 +64,61 @@
             app:showSeekBarValue="true"
             app:adjustable="true" />
 
+        <androidx.preference.ListPreference
+            android:key="zram_compression_algorithm"
+            android:title="Compression Algorithm"
+            android:summary="Choose the zRAM compression algorithm"
+            android:dependency="zram_enable"
+            android:entries="@array/zram_algorithms"
+            android:entryValues="@array/zram_algorithm_values"
+            android:defaultValue="lzo" />
+
         <Preference
             android:key="zram_algorithm_info"
             android:title="@string/zram_algorithm_info_title"
             android:summary="@string/zram_algorithm_info_summary"
-            android:icon="@drawable/ic_info_outline" />
+            android:dependency="zram_enable" />
 
-    </PreferenceCategory>
+    </PreferenceCategory> <!-- zram_category -->
+
 
     <PreferenceCategory
-        android:key="performance_category"
-        android:title="Performance Tuning">
+        android:key="lmk_category"
+        android:title="Low Memory Killer">
 
         <androidx.preference.ListPreference
             android:key="lmk_profile"
-            android:title="Low Memory Killer"
-            android:summary="Aggressiveness of background app killing"
+            android:title="LMK Profile"
+            android:summary="Adjust memory killer aggressiveness"
             android:entries="@array/lmk_profiles"
             android:entryValues="@array/lmk_profile_values"
-            android:defaultValue="balanced"
-            android:icon="@drawable/ic_speed" />
+            android:defaultValue="balanced" />
+
+    </PreferenceCategory> <!-- lmk_category -->
+
+    <PreferenceCategory
+        android:key="io_scheduler_category"
+        android:title="I/O Scheduler">
 
         <androidx.preference.ListPreference
             android:key="io_scheduler"
             android:title="I/O Scheduler"
-            android:summary="Disk access algorithm (e.g., CFQ, Noop)"
+            android:summary="Select disk I/O scheduling algorithm"
             android:entries="@array/io_scheduler_entries"
             android:entryValues="@array/io_scheduler_values"
-            android:defaultValue="cfq"
-            android:icon="@drawable/ic_storage" />
+            android:defaultValue="cfq" />
 
         <Preference
             android:key="io_scheduler_info"
             android:title="I/O Scheduler Info"
-            android:summary="@string/io_scheduler_info_summary" />
+            android:summary="View comparison of schedulers" />
+
+    </PreferenceCategory> <!-- io_scheduler_category -->
+
+
+    <PreferenceCategory
+        android:key="app_hibernation_category"
+        android:title="@string/app_hibernation_category_title">
 
         <androidx.preference.SwitchPreference
             android:key="app_hibernation"
@@ -93,7 +127,8 @@
             android:defaultValue="false"
             android:icon="@drawable/ic_sleep" />
 
-    </PreferenceCategory>
+    </PreferenceCategory> <!-- app_hibernation_category -->
+
 
     <PreferenceCategory
         android:key="storage_cleaner_category"
@@ -102,9 +137,62 @@
         <Preference
             android:key="storage_stats"
             android:title="@string/storage_stats_title"
-            android:summary="Calculating usage..."
             android:selectable="false"
             android:icon="@drawable/ic_storage" />
+
+        <Preference
+            android:key="clean_app_cache"
+            android:title="@string/clean_app_cache_title"
+            android:summary="@string/clean_app_cache_summary"
+            android:icon="@drawable/ic_apps" />
+
+        <Preference
+            android:key="clean_system_cache"
+            android:title="@string/clean_system_cache_title"
+            android:summary="@string/clean_system_cache_summary"
+            android:icon="@drawable/ic_clean" />
+
+        <Preference
+            android:key="clean_thumbnails"
+            android:title="@string/clean_thumbnails_title"
+            android:summary="@string/clean_thumbnails_summary"
+            android:icon="@drawable/ic_image" />
+
+        <Preference
+            android:key="clean_downloads"
+            android:title="@string/clean_downloads_title"
+            android:summary="@string/clean_downloads_summary"
+            android:icon="@drawable/ic_download" />
+
+        <Preference
+            android:key="clean_temp_files"
+            android:title="@string/clean_temp_files_title"
+            android:summary="@string/clean_temp_files_summary"
+            android:icon="@drawable/ic_file" />
+
+        <Preference
+            android:key="clean_log_files"
+            android:title="@string/clean_log_files_title"
+            android:summary="@string/clean_log_files_summary"
+            android:icon="@drawable/ic_text" />
+
+        <Preference
+            android:key="clean_apk_files"
+            android:title="@string/clean_apk_files_title"
+            android:summary="@string/clean_apk_files_summary"
+            android:icon="@drawable/ic_apk" />
+
+        <Preference
+            android:key="clean_empty_folders"
+            android:title="@string/clean_empty_folders_title"
+            android:summary="@string/clean_empty_folders_summary"
+            android:icon="@drawable/ic_folder" />
+
+        <Preference
+            android:key="clean_duplicates"
+            android:title="@string/clean_duplicates_title"
+            android:summary="@string/clean_duplicates_summary"
+            android:icon="@drawable/ic_duplicate" />
 
         <Preference
             android:key="clean_all"
@@ -112,42 +200,8 @@
             android:summary="@string/clean_all_summary"
             android:icon="@drawable/ic_delete_sweep" />
 
-        <PreferenceCategory android:title="Individual Cleaners">
-            <Preference
-                android:key="clean_app_cache"
-                android:title="@string/clean_app_cache_title"
-                android:icon="@drawable/ic_apps" />
-            <Preference
-                android:key="clean_system_cache"
-                android:title="@string/clean_system_cache_title"
-                android:icon="@drawable/ic_clean" />
-            <Preference
-                android:key="clean_thumbnails"
-                android:title="@string/clean_thumbnails_title"
-                android:icon="@drawable/ic_image" />
-            <Preference
-                android:key="clean_downloads"
-                android:title="@string/clean_downloads_title"
-                android:icon="@drawable/ic_download" />
-            <Preference
-                android:key="clean_apk_files"
-                android:title="@string/clean_apk_files_title"
-                android:icon="@drawable/ic_apk" />
-            <Preference
-                android:key="clean_log_files"
-                android:title="@string/clean_log_files_title"
-                android:icon="@drawable/ic_text" />
-            <Preference
-                android:key="clean_empty_folders"
-                android:title="@string/clean_empty_folders_title"
-                android:icon="@drawable/ic_folder" />
-             <Preference
-                android:key="clean_duplicates"
-                android:title="@string/clean_duplicates_title"
-                android:icon="@drawable/ic_duplicate" />
-        </PreferenceCategory>
+    </PreferenceCategory> <!-- storage_cleaner_category -->
 
-    </PreferenceCategory>
 
     <PreferenceCategory
         android:key="advanced_category"
@@ -175,6 +229,6 @@
             android:summary="@string/analyze_storage_summary"
             android:icon="@drawable/ic_analytics" />
 
-    </PreferenceCategory>
+    </PreferenceCategory> <!-- advanced_category -->
 
 </PreferenceScreen>

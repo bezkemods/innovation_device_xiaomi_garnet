@@ -1230,64 +1230,65 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
 <string name="keybox_reset_success">✅ All files deleted!</string>
 <string name="keybox_reset_error">❌ Delete failed: %s</string>
 
-    <!-- RAM Optimizer -->
-    <string name="ram_optimizer_title">RAM and Storage Optimizer</string>
-    <string name="ram_optimizer_summary">Optimize RAM compression and storage</string>
-    <string name="ram_optimizer_description">Manage zRAM settings, app hibernation, and clean storage for better performance.</string>
+<!-- RAM Optimizer -->
+<string name="ram_optimizer_title">RAM and Storage Optimizer</string>
+<string name="ram_optimizer_summary">Optimize RAM compression and storage</string>
+<string name="ram_optimizer_description">Manage zRAM settings, app hibernation, and clean storage for better performance.</string>
+<!-- zRAM Category -->
+<string name="zram_category_title">zRAM Compression</string>
+<string name="zram_enable_title">Enable zRAM</string>
+<string name="zram_enable_summary">Compress RAM to free up memory</string>
+<string name="zram_size_title">zRAM Size (MB)</string>
+<string name="zram_size_summary">Set the size of compressed RAM (512-8192 MB)</string>
+<string name="zram_swappiness_title">Swappiness</string>
+<string name="zram_swappiness_summary">Control how aggressively to swap to zRAM (0-200)</string>
+<!-- App Hibernation -->
+<string name="app_hibernation_category_title">App Hibernation</string>
+<string name="app_hibernation_title">Enable App Hibernation</string>
+<string name="app_hibernation_summary">Hibernate unused apps to save RAM and battery</string>
+<!-- Storage Cleaner -->
+<string name="storage_cleaner_category_title">Storage Cleaner</string>
+<string name="storage_stats_title">Storage Statistics</string>
+<string name="storage_stats_summary">Loading...</string>
+<string name="clean_app_cache_title">Clean App Cache</string>
+<string name="clean_app_cache_summary">Remove cached data from all apps</string>
+<string name="clean_system_cache_title">Clean System Cache</string>
+<string name="clean_system_cache_summary">Clear system cache and drop caches</string>
+<string name="clean_thumbnails_title">Clean Thumbnails</string>
+<string name="clean_thumbnails_summary">Remove thumbnail cache from media</string>
+<string name="clean_downloads_title">Clean Old Downloads</string>
+<string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+<string name="clean_temp_files_title">Clean Temp Files</string>
+<string name="clean_temp_files_summary">Remove temporary system files</string>
+<string name="clean_log_files_title">Clean Log Files</string>
+<string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+<string name="clean_apk_files_title">Clean APK Files</string>
+<string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+<string name="clean_empty_folders_title">Clean Empty Folders</string>
+<string name="clean_empty_folders_summary">Remove empty directories</string>
+<string name="clean_all_title">Clean All</string>
+<string name="clean_all_summary">Perform complete system cleanup</string>
+<!-- Advanced Options -->
+<string name="advanced_category_title">Advanced Options</string>
+<string name="auto_clean_title">Auto Clean</string>
+<string name="auto_clean_summary">Automatically clean storage periodically</string>
+<string name="auto_clean_interval_title">Auto Clean Interval</string>
+<string name="auto_clean_interval_summary">How often to automatically clean</string>
+<string name="analyze_storage_title">Analyze Storage</string>
+<string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+<!-- Duplicate files cleaner -->
+<string name="clean_duplicates_title">Clean Duplicate Files</string>
+<string name="clean_duplicates_summary">Find and remove duplicate files</string>
+<!-- zRAM Algorithm Info -->
+<string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+<string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+<string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+<string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
 
-    <string name="zram_category_title">zRAM Compression</string>
-    <string name="zram_enable_title">Enable zRAM</string>
-    <string name="zram_enable_summary">Compress RAM to free up memory</string>
-    <string name="zram_size_title">zRAM Size (MB)</string>
-    <string name="zram_size_summary">Set the size of compressed RAM (512-8192 MB)</string>
-    <string name="zram_swappiness_title">Swappiness</string>
-    <string name="zram_swappiness_summary">Control how aggressively to swap to zRAM (0-200)</string>
-    
-    <string name="app_hibernation_category_title">App Hibernation</string>
-    <string name="app_hibernation_title">Enable App Hibernation</string>
-    <string name="app_hibernation_summary">Hibernate unused apps to save RAM and battery</string>
-
-    <string name="storage_cleaner_category_title">Storage Cleaner</string>
-    <string name="storage_stats_title">Storage Statistics</string>
-    <string name="storage_stats_summary">Loading...</string>
-    
-    <string name="clean_app_cache_title">Clean App Cache</string>
-    <string name="clean_app_cache_summary">Remove cached data from all apps</string>
-    <string name="clean_system_cache_title">Clean System Cache</string>
-    <string name="clean_system_cache_summary">Clear system cache and drop caches</string>
-    <string name="clean_thumbnails_title">Clean Thumbnails</string>
-    <string name="clean_thumbnails_summary">Remove thumbnail cache from media</string>
-    <string name="clean_downloads_title">Clean Old Downloads</string>
-    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
-    <string name="clean_temp_files_title">Clean Temp Files</string>
-    <string name="clean_temp_files_summary">Remove temporary system files</string>
-    <string name="clean_log_files_title">Clean Log Files</string>
-    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
-    <string name="clean_apk_files_title">Clean APK Files</string>
-    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
-    <string name="clean_empty_folders_title">Clean Empty Folders</string>
-    <string name="clean_empty_folders_summary">Remove empty directories</string>
-    <string name="clean_duplicates_title">Clean Duplicate Files</string>
-    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
-    <string name="clean_all_title">Clean All</string>
-    <string name="clean_all_summary">Perform complete system cleanup</string>
-
-    <string name="advanced_category_title">Advanced Options</string>
-    <string name="auto_clean_title">Auto Clean</string>
-    <string name="auto_clean_summary">Automatically clean storage periodically</string>
-    <string name="auto_clean_interval_title">Auto Clean Interval</string>
-    <string name="auto_clean_interval_summary">How often to automatically clean</string>
-    <string name="analyze_storage_title">Analyze Storage</string>
-    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
-
-    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
-    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
-    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
-    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
-
-    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
-    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
-    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+<!-- I/O Scheduler -->
+<string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+<string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+<string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
 I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
 
 Available Schedulers:\n\n
@@ -1329,64 +1330,40 @@ Recommendations:\n
 - General use: CFQ or BFQ\n
 - Benchmarking: NOOP</string>
 
-    <string-array name="io_scheduler_entries" translatable="false">
-        <item>CFQ (Completely Fair)</item>
-        <item>Deadline</item>
-        <item>NOOP (No Operation)</item>
-        <item>BFQ (Budget Fair)</item>
-        <item>Kyber</item>
-    </string-array>
+<!-- I/O Scheduler arrays -->
+<string-array name="io_scheduler_entries" translatable="false">
+    <item>CFQ (Completely Fair)</item>
+    <item>Deadline</item>
+    <item>NOOP (No Operation)</item>
+    <item>BFQ (Budget Fair)</item>
+    <item>Kyber</item>
+</string-array>
 
-    <string-array name="io_scheduler_values" translatable="false">
-        <item>cfq</item>
-        <item>deadline</item>
-        <item>noop</item>
-        <item>bfq</item>
-        <item>kyber</item>
-    </string-array>
+<string-array name="io_scheduler_values" translatable="false">
+    <item>cfq</item>
+    <item>deadline</item>
+    <item>noop</item>
+    <item>bfq</item>
+    <item>kyber</item>
+</string-array>
 
-    <string-array name="auto_clean_intervals">
-        <item>Daily</item>
-        <item>Every 3 Days</item>
-        <item>Weekly</item>
-        <item>Bi-weekly</item>
-        <item>Monthly</item>
-    </string-array>
+<!-- Auto clean intervals -->
+<string-array name="auto_clean_intervals">
+    <item>Daily</item>
+    <item>Every 3 Days</item>
+    <item>Weekly</item>
+    <item>Bi-weekly</item>
+    <item>Monthly</item>
+</string-array>
 
-    <string-array name="auto_clean_interval_values">
-        <item>1</item>
-        <item>3</item>
-        <item>7</item>
-        <item>14</item>
-        <item>30</item>
-    </string-array>
+<string-array name="auto_clean_interval_values">
+    <item>1</item>
+    <item>3</item>
+    <item>7</item>
+    <item>14</item>
+    <item>30</item>
+</string-array>
 
-    <string-array name="zram_algorithms">
-        <item>LZO</item>
-        <item>LZ4</item>
-        <item>ZSTD</item>
-        <item>LZO-RLE</item>
-    </string-array>
-    <string-array name="zram_algorithm_values">
-        <item>lzo</item>
-        <item>lz4</item>
-        <item>zstd</item>
-        <item>lzo-rle</item>
-    </string-array>
-
-    <string-array name="lmk_profiles">
-        <item>Disabled</item>
-        <item>Basic</item>
-        <item>Balanced (Recommended)</item>
-        <item>Aggressive</item>
-    </string-array>
-    <string-array name="lmk_profile_values">
-        <item>disabled</item>
-        <item>basic</item>
-        <item>balanced</item>
-        <item>aggressive</item>
-    </string-array>
-    
     <!-- Per-app refresh rate -->
     <string name="refresh_title">Per-app refresh rate</string>
     <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
