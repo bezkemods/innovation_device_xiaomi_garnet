@@ -39,7 +39,7 @@ vendor.audio.feature.a2dp_offload.enable=true
 vendor.audio.feature.afe_proxy.enable=true
 vendor.audio.feature.battery_listener.enable=true
 vendor.audio.feature.dmabuf.cma.memory.enable=true
-vendor.audio.feature.hfp.enable=false
+vendor.audio.feature.hfp.enable=true
 vendor.audio.feature.kpi_optimize.enable=true
 vendor.audio.hdr.record.enable=false
 vendor.audio.offload.buffer.size.kb=256
@@ -55,7 +55,9 @@ vendor.audio.feature.compr_voip.enable=false
 
 # Bluetooth
 bluetooth.device.class_of_device=90,2,12
-bluetooth.hfp.codec_aptx_voice.enabled=true
+bluetooth.hfp.codec_aptx_voice.enabled=false
+bluetooth.hfp.client.wbs.enabled=false
+persist.bluetooth.disableinbandringing=true
 bluetooth.leaudio.dual_bidirection_swb.supported=true
 bluetooth.profile.pbap.sim.enabled=true
 bluetooth.profile.sap.server.enabled=false
@@ -86,6 +88,7 @@ persist.vendor.qcom.bluetooth.aptxadaptiver2_2_support=false
 persist.vendor.qcom.bluetooth.scram.enabled=false
 persist.vendor.qcom.bluetooth.twsp_state.enabled=false
 ro.bluetooth.a2dp_offload.supported=true
+ro.bluetooth.hfp.ver=1.6
 vendor.hw.fm.init=0
 
 # Camera
