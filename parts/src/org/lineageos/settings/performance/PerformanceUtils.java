@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -55,26 +55,27 @@ public class PerformanceUtils {
     private static final int NOTIFICATION_ID_PERFORMANCE = 1003;
     private static final String NOTIFICATION_CHANNEL_ID = "performance_profile_channel";
 
-    // CPU paths
+    // CPU paths - SM7435 (4+4 config: Policy0 + Policy4)
     private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
     private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
+    // Policy6 is rarely used on SM7435 (mid-range), kept for compatibility but unused logically
     private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
 
     // CPU Governors
     private static final String PERFORMANCE_GOVERNOR = "performance";
     private static final String POWERSAVE_GOVERNOR = "powersave";
-    private static final String DEFAULT_GOVERNOR = "walt";
+    private static final String DEFAULT_GOVERNOR = "walt"; // Qualcomm SM7435 Standard
 
-    // GPU paths
+    // GPU paths - Adreno 710
     private static final String GPU_MAX_CLOCK_PATH = "/sys/class/kgsl/kgsl-3d0/max_clock_mhz";
     private static final String GPU_MIN_CLOCK_PATH = "/sys/class/kgsl/kgsl-3d0/min_clock_mhz";
     private static final String GPU_DEFAULT_PWRLEVEL_PATH = "/sys/class/kgsl/kgsl-3d0/default_pwrlevel";
     private static final String GPU_FORCE_CLK_ON_PATH = "/sys/class/kgsl/kgsl-3d0/force_clk_on";
     private static final String GPU_FORCE_RAIL_ON_PATH = "/sys/class/kgsl/kgsl-3d0/force_rail_on";
 
-    // Default values
-    private static final String GPU_MIN_FREQ_DEFAULT = "180";
-    private static final String GPU_DEFAULT_POWER_LEVEL = "5";
+    // Default values for Adreno 710
+    private static final String GPU_MIN_FREQ_DEFAULT = "295"; // 295 MHz standard idle
+    private static final String GPU_DEFAULT_POWER_LEVEL = "6"; // Efficient balanced level
     private static final String PERF_MODE_PROP = "sys.performance.mode";
     private static final String PREFS_KEY_CURRENT_MODE = "current_performance_mode";
 
@@ -162,7 +163,7 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Try policy4 first, then policy6
+            // Try policy4 first (Big cluster)
             try {
                 if (fileExists(POLICY4_GOVERNOR_PATH)) {
                     writeLine(POLICY4_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
@@ -176,7 +177,7 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Apply WALT settings
+            // Apply WALT settings (tuned for low power)
             applyWaltSettings();
 
             // Set GPU to lowest performance
@@ -189,7 +190,7 @@ public class PerformanceUtils {
                     writeLine(GPU_FORCE_RAIL_ON_PATH, "0");
                 }
                 if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
-                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "7"); // Lowest power level
+                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "8"); // Lowest power level
                 }
                 if (fileExists(GPU_MIN_CLOCK_PATH)) {
                     writeLine(GPU_MIN_CLOCK_PATH, GPU_MIN_FREQ_DEFAULT);
@@ -223,7 +224,7 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Try policy4 first, then policy6
+            // Try policy4 first (Big cluster)
             try {
                 if (fileExists(POLICY4_GOVERNOR_PATH)) {
                     writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
@@ -250,7 +251,7 @@ public class PerformanceUtils {
                     writeLine(GPU_FORCE_RAIL_ON_PATH, "0");
                 }
                 if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
-                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, GPU_DEFAULT_POWER_LEVEL);
+                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, GPU_DEFAULT_POWER_LEVEL); // Level 6
                 }
                 if (fileExists(GPU_MIN_CLOCK_PATH)) {
                     writeLine(GPU_MIN_CLOCK_PATH, GPU_MIN_FREQ_DEFAULT);
@@ -284,7 +285,7 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Try policy4 first, then policy6
+            // Try policy4 first
             try {
                 if (fileExists(POLICY4_GOVERNOR_PATH)) {
                     writeLine(POLICY4_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
@@ -308,7 +309,7 @@ public class PerformanceUtils {
                     writeLine(GPU_FORCE_RAIL_ON_PATH, "1");
                 }
                 if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
-                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "0");
+                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "0"); // Max power
                 }
                 if (fileExists(GPU_MIN_CLOCK_PATH) && fileExists(GPU_MAX_CLOCK_PATH)) {
                     String maxClock = readLine(GPU_MAX_CLOCK_PATH).trim();
@@ -332,8 +333,11 @@ public class PerformanceUtils {
     }
 
     private void applyWaltSettings() {
+        // Tuned for Snapdragon 7s Gen 2 (SM7435) - 4x A55 + 4x A78
+        
+        // CPU0 (Efficiency Cluster - A55)
         String[] waltPathsCpu0 = {
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "940800",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "1113600", // ~1.1GHz sweet spot
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load", "90",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_shift", "4",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_thresh", "1024",
@@ -341,22 +345,23 @@ public class PerformanceUtils {
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/pl", "0",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/boost", "0",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_low_freq", "0",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq", "480000",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq", "691200",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/up_rate_limit_us", "500",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_high_freq", "0"
         };
 
+        // CPU4 (Performance Cluster - A78)
         String[] waltPathsCpu4 = {
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "960000",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_load", "90",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "1785600", // ~1.8GHz efficient boost
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_load", "85",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_shift", "4",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_thresh", "1024",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/down_rate_limit_us", "10000",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/pl", "0",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/boost", "-10",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/boost", "0",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_low_freq", "0",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/rtg_boost_freq", "0",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/up_rate_limit_us", "500",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/rtg_boost_freq", "1056000",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/up_rate_limit_us", "1000",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_high_freq", "0"
         };
 

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -136,26 +136,24 @@ public class CoreControlFragment extends PreferenceFragment implements Preferenc
 
     private void updateCoreStatistics() {
         int activeCores = 0;
-        int activeLittleCores = 0; // cores 0-3
-        int activeBigCores = 0;    // cores 4-6
-        int activePrimeCores = 0;  // core 7
+        int activeLittleCores = 0; // cores 0-3 (Cortex-A55)
+        int activeBigCores = 0;    // cores 4-7 (Cortex-A78)
         
         for (int i = 0; i < NUM_CORES; i++) {
             if (isCoreOnline(i)) {
                 activeCores++;
                 if (i <= 3) {
                     activeLittleCores++;
-                } else if (i <= 6) {
-                    activeBigCores++;
                 } else {
-                    activePrimeCores++;
+                    activeBigCores++;
                 }
             }
         }
         
+        // Updated formatting for 4+4 Topology of Snapdragon 7s Gen 2
         String statsText = String.format(
-            "%d/%d cores active (Little: %d/4, Big: %d/3, Prime: %d/1)", 
-            activeCores, NUM_CORES, activeLittleCores, activeBigCores, activePrimeCores);
+            "%d/%d cores active (Little: %d/4, Big: %d/4)", 
+            activeCores, NUM_CORES, activeLittleCores, activeBigCores);
         
         if (mStatsPreference != null) {
             mStatsPreference.setSummary(statsText);
@@ -170,11 +168,9 @@ public class CoreControlFragment extends PreferenceFragment implements Preferenc
         
         String coreType;
         if (core <= 3) {
-            coreType = "Little";
-        } else if (core <= 6) {
-            coreType = "Big";
+            coreType = "Little (A55)";
         } else {
-            coreType = "Prime";
+            coreType = "Big (A78)";
         }
         
         String status = isOnline ? "enabled" : "disabled";
@@ -232,7 +228,7 @@ public class CoreControlFragment extends PreferenceFragment implements Preferenc
             return onlineCount >= 2; // At least 2 little cores must remain online
         }
         
-        // Big and Prime cores can be taken offline without restriction
+        // Big cores (4-7) can be taken offline without restriction on 7s Gen 2
         return true;
     }
 

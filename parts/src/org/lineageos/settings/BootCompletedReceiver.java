@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2015 The CyanogenMod Project
- *               2017-2019 The LineageOS Project
+ * 2017-2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package org.lineageos.settings;
@@ -34,10 +34,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = true;
     private static final String TAG = "XiaomiParts";
 
-    // Governor/freq paths: SM7435 mapping
+    // Governor/freq paths: SM7435 mapping (4+4 config)
     private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
     private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
-    private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
+    // Policy6 is NOT present on SM7435 (7s Gen 2), it uses 4+4 cluster config.
+    // private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
+    
+    // 'walt' is preferred for newer Snapdragon kernels, 'schedutil' is safe fallback
     private static final String DEFAULT_GOVERNOR = "walt";
 
     // Preference keys
@@ -180,9 +183,10 @@ private void startServices(Context context) {
                 if (FileUtils.isFileWritable(POLICY4_GOVERNOR_PATH)) {
                     FileUtils.writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
                 }
-                if (FileUtils.isFileWritable(POLICY6_GOVERNOR_PATH)) {
-                    FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                }
+                // SM7435 (Garnet) has only Policy 0 and 4. Policy 6 removed to avoid errors.
+                // if (FileUtils.isFileWritable(POLICY6_GOVERNOR_PATH)) {
+                //    FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
+                // }
                 Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR + " (no performance profile found)");
             } else {
                 Log.d(TAG, "Performance profile found, skipping default governor setup");

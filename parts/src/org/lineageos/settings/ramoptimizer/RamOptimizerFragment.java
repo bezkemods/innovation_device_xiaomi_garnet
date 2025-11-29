@@ -134,11 +134,11 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         mZramSizePref = findPreference(ZRAM_SIZE_KEY);
         if (mZramSizePref != null) {
             mZramSizePref.setMin(512);
-            mZramSizePref.setMax(8192);
+            mZramSizePref.setMax(12288); // Increased max to 12GB for SM7435
             mZramSizePref.setUpdatesContinuously(false);
             mZramSizePref.setOnPreferenceChangeListener(this);
             int currentSize = RamOptimizerUtils.getZramSize();
-            mZramSizePref.setValue(currentSize > 0 ? currentSize : 1024);
+            mZramSizePref.setValue(currentSize > 0 ? currentSize : 4096);
             mZramSizePref.setEnabled(RamOptimizerUtils.isZramEnabled());
         }
 
@@ -282,7 +282,7 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         }
         if (mZramSizePref != null) {
             int size = RamOptimizerUtils.getZramSize();
-            mZramSizePref.setValue(size > 0 ? size : 1024);
+            mZramSizePref.setValue(size > 0 ? size : 4096);
             mZramSizePref.setEnabled(RamOptimizerUtils.isZramEnabled());
         }
         if (mZramSwappinessPref != null) {
@@ -357,7 +357,7 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
             mZramAlgoPref.setEnabled(enabled);
             if (enabled) {
                 int currentSize = RamOptimizerUtils.getZramSize();
-                mZramSizePref.setValue(currentSize > 0 ? currentSize : 1024);
+                mZramSizePref.setValue(currentSize > 0 ? currentSize : 4096);
             }
             showToast(enabled ? "zRAM enabled" : "zRAM disabled");
             mHandler.postDelayed(this::updateRamStatistics, 1000);
@@ -377,7 +377,7 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                 } else {
                     if (mZramSizePref != null) {
                         int currentSize = RamOptimizerUtils.getZramSize();
-                        mZramSizePref.setValue(currentSize > 0 ? currentSize : 1024);
+                        mZramSizePref.setValue(currentSize > 0 ? currentSize : 4096);
                     }
                     showToast("Failed to set zRAM size");
                 }

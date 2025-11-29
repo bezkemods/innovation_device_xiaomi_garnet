@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package org.lineageos.settings.kernelmanager;
@@ -25,7 +25,7 @@ public class KernelManagerUtils {
     public static final int PERFORMANCE_CLUSTER = 4; // Policy 4 - Big cores (A78)
 
     private static final int[] POLICIES = {EFFICIENCY_CLUSTER, PERFORMANCE_CLUSTER};
-    private static final String DEFAULT_GOVERNOR = "schedhorizon"; // Ajánlott Redmi Note 13 Pro 5G-n
+    private static final String DEFAULT_GOVERNOR = "walt"; // Qualcomm SM7435 Standard
 
     // CPU frequency and governor paths
     private static final String CPU_BASE_PATH = "/sys/devices/system/cpu/cpufreq/policy";
@@ -39,20 +39,22 @@ public class KernelManagerUtils {
     private static final String CPUINFO_CUR_FREQ = "/cpuinfo_cur_freq";
     private static final String ONLINE = "/online";
 
-    // Fallback frequency values aligned with SM7435 power profile
+    // Fallback frequency values aligned with SM7435 (Snapdragon 7s Gen 2) power profile
+    // A55 Cluster: ~691 MHz to ~1.96 GHz
     private static final String[] EFFICIENCY_CLUSTER_FREQUENCIES = {
         "691200", "806400", "940800", "1113600", "1324800", 
         "1497600", "1651200", "1804800", "1958400"
     };
+    
+    // A78 Cluster: ~691 MHz to ~2.40 GHz
     private static final String[] PERFORMANCE_CLUSTER_FREQUENCIES = {
-        "691200", "960000", "1190400", "1344000", "1497600", 
-        "1651200", "1900800", "2054400", "2112000", "2208000", 
-        "2304000", "2400000"
+        "691200", "806400", "940800", "1113600", "1324800", "1497600", 
+        "1651200", "1804800", "1958400", "2112000", "2208000", "2400000"
     };
 
     // Fallback governors if reading fails
     private static final String[] FALLBACK_GOVERNORS = {
-        "schedhorizon", "schedutil", "performance", "powersave", "ondemand", "conservative"
+        "walt", "schedutil", "performance", "powersave", "ondemand", "conservative"
     };
 
     public boolean isKernelManagerSupported() {
@@ -154,9 +156,9 @@ public class KernelManagerUtils {
             return frequencies[frequencies.length - 1];
         }
         if (cluster == EFFICIENCY_CLUSTER) {
-            return "1958400";
+            return "1958400"; // SM7435 Efficiency Max
         } else if (cluster == PERFORMANCE_CLUSTER) {
-            return "2400000";
+            return "2400000"; // SM7435 Performance Max
         }
         return "1958400";
     }

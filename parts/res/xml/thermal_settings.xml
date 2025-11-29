@@ -18,7 +18,7 @@
     <PreferenceCategory
         android:key="thermal_app_list"
         app:allowDividerAbove="true"
-        android:title="@string/thermal_title">
+        android:title="@string/thermal_app_list">
     </PreferenceCategory>
 
 </PreferenceScreen>

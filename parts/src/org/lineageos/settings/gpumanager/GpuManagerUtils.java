@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package org.lineageos.settings.gpumanager;
@@ -25,10 +25,11 @@ public class GpuManagerUtils
     private static final String DEFAULT_GOVERNOR = "msm-adreno-tz";
     private static final String TURBO_GOVERNOR = "performance";
 
-    // Adreno 710 gyári frekvenciák, max 940 MHz
+    // Adreno 710 (SM7435) gyári frekvenciák
+    // Base: 295 MHz, Max: 940 MHz
     private static final String[] FALLBACK_FREQUENCIES = {
-        "180000000", "265000000", "370000000", "465000000", "550000000",
-        "670000000", "800000000", "940000000" // Max 940 MHz
+        "295000000", "314000000", "401000000", "480000000", "550000000",
+        "670000000", "744000000", "850000000", "940000000"
     };
 
     // Paths
@@ -120,10 +121,10 @@ public class GpuManagerUtils
                 if (frequencies != null && !frequencies.trim().isEmpty())
                 {
                     String[] freqArray = frequencies.trim().split("\\s+");
-                    // Biztonság: max 940 MHz legyen a legnagyobb
+                    // Biztonság: max 940 MHz legyen a legnagyobb Adreno 710 esetén
                     freqArray = java.util.Arrays.stream(freqArray)
                         .filter(f -> {
-                            try { return Long.parseLong(f) <= 940000000; }
+                            try { return Long.parseLong(f) <= 950000000; }
                             catch (Exception e) { return false; }
                         })
                         .toArray(String[]::new);
@@ -406,8 +407,8 @@ public class GpuManagerUtils
         catch (NumberFormatException e)
         {
             Log.e(TAG, "Invalid frequency format", e);
-            minFreq = "180000000";
-            maxFreq = "940000000";
+            minFreq = "295000000"; // Adreno 710 default min
+            maxFreq = "940000000"; // Adreno 710 default max
         }
         boolean success = true;
         try
@@ -484,7 +485,8 @@ public class GpuManagerUtils
         Log.d(TAG, "Resetting GPU to defaults");
         boolean success = true;
         if (!setGovernor(DEFAULT_GOVERNOR)) success = false;
-        String minFreq = "180000000";
+        // Adreno 710 defaults: 295MHz - 940MHz
+        String minFreq = "295000000";
         String maxFreq = "940000000";
         if (!setFrequencyRange(minFreq, maxFreq)) success = false;
         if (!setForceClkOn(false)) success = false;

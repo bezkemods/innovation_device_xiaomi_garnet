@@ -75,6 +75,12 @@ public final class ThermalUtils {
     private static final String YOUTUBE_PACKAGE = "com.google.android.youtube";
     private static final String NETFLIX_PACKAGE = "com.netflix.mediaclient";
     private static final String CHROME_PACKAGE = "com.android.chrome";
+    
+    // Optimized: High load games for SM7435 (Adreno 710)
+    private static final String GENSHIN_PACKAGE = "com.miHoYo.GenshinImpact";
+    private static final String COD_PACKAGE = "com.activision.callofduty.shooter";
+    private static final String PUBG_PACKAGE = "com.tencent.ig";
+    private static final String MLBB_PACKAGE = "com.mobile.legends";
 
     private Context mContext;
     private SharedPreferences mSharedPrefs;
@@ -308,6 +314,11 @@ public final class ThermalUtils {
                 return STATE_VIDEO;
             case CHROME_PACKAGE:
                 return STATE_BROWSER;
+            case GENSHIN_PACKAGE:
+            case COD_PACKAGE:
+            case PUBG_PACKAGE:
+            case MLBB_PACKAGE:
+                return STATE_GAMING;
         }
 
         final PackageManager pm = mContext.getPackageManager();

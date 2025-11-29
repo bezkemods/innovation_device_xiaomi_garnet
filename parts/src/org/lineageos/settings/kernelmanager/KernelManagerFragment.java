@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package org.lineageos.settings.kernelmanager;
@@ -239,8 +239,11 @@ public class KernelManagerFragment extends PreferenceFragment
         String[] humanReadable = new String[governors.length];
         for (int i = 0; i < governors.length; i++) {
             switch (governors[i]) {
+                case "walt":
+                    humanReadable[i] = "WALT (Recommended)";
+                    break;
                 case "schedhorizon":
-                    humanReadable[i] = "SchedHorizon (Recommended)";
+                    humanReadable[i] = "SchedHorizon";
                     break;
                 case "schedutil":
                     humanReadable[i] = "Schedutil (Balanced)";

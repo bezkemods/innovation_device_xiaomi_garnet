@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -95,7 +95,7 @@ public class CoreControlUtils {
             return onlineCount >= 2;
         }
         
-        return true; // Big and Prime cores can be taken offline
+        return true; // Big cores (4-7) can be taken offline
     }
 
     /**
@@ -105,22 +105,20 @@ public class CoreControlUtils {
         int activeCores = 0;
         int activeLittleCores = 0;
         int activeBigCores = 0;
-        int activePrimeCores = 0;
         
         for (int i = 0; i < NUM_CORES; i++) {
             if (isCoreOnline(i)) {
                 activeCores++;
                 if (i <= 3) {
                     activeLittleCores++;
-                } else if (i <= 6) {
-                    activeBigCores++;
                 } else {
-                    activePrimeCores++;
+                    activeBigCores++;
                 }
             }
         }
         
-        return new CoreStats(activeCores, activeLittleCores, activeBigCores, activePrimeCores);
+        // Prime core count is effectively 0 or merged into Big for this SOC
+        return new CoreStats(activeCores, activeLittleCores, activeBigCores, 0);
     }
 
     /**
@@ -220,7 +218,7 @@ public class CoreControlUtils {
         public final int totalActive;
         public final int littleActive;
         public final int bigActive;
-        public final int primeActive;
+        public final int primeActive; // Kept for structure compatibility, but unused
 
         public CoreStats(int totalActive, int littleActive, int bigActive, int primeActive) {
             this.totalActive = totalActive;
@@ -231,8 +229,9 @@ public class CoreControlUtils {
 
         @Override
         public String toString() {
-            return String.format("%d/%d cores active (Little: %d/4, Big: %d/3, Prime: %d/1)",
-                    totalActive, NUM_CORES, littleActive, bigActive, primeActive);
+            // Updated string format for 4+4 layout
+            return String.format("%d/%d cores active (Little: %d/4, Big: %d/4)",
+                    totalActive, NUM_CORES, littleActive, bigActive);
         }
     }
 }

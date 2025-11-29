@@ -1258,7 +1258,7 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
 <string name="zram_enable_title">Enable zRAM</string>
 <string name="zram_enable_summary">Compress RAM to free up memory</string>
 <string name="zram_size_title">zRAM Size (MB)</string>
-<string name="zram_size_summary">Set the size of compressed RAM (512-8192 MB)</string>
+<string name="zram_size_summary">Set the size of compressed RAM (512-12288 MB)</string>
 <string name="zram_swappiness_title">Swappiness</string>
 <string name="zram_swappiness_summary">Control how aggressively to swap to zRAM (0-200)</string>
 <!-- App Hibernation -->
@@ -1392,7 +1392,8 @@ Recommendations:\n
     <string name="refresh_extreme">120 Hz</string>
     
     <!-- Thermal -->
-    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
     <string name="thermal_summary">Per-app thermal profiles</string>
     <string name="thermal_tile_label">Thermal Profiles</string>
     <string name="thermal_tile_enabled_subtitle">Profiles Active</string>

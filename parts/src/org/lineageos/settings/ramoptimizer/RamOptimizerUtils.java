@@ -54,8 +54,8 @@ public class RamOptimizerUtils {
     private static final String LMK_MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     private static final String LMK_ADAPTIVE_PATH = "/sys/module/lowmemorykiller/parameters/enable_adaptive_lmk";
 
-    // I/O Scheduler paths
-    private static final String IO_SCHEDULER_PATH = "/sys/block/mmcblk0/queue/scheduler";
+    // I/O Scheduler paths - SM7435 UFS storage uses /sys/block/sda
+    private static final String IO_SCHEDULER_PATH = "/sys/block/sda/queue/scheduler";
     private static final String PREF_IO_SCHEDULER = "io_scheduler";
     
     // Preference keys
@@ -100,7 +100,7 @@ public class RamOptimizerUtils {
         try {
             if (enabled) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                int size = prefs.getInt(PREF_ZRAM_SIZE, 1024);
+                int size = prefs.getInt(PREF_ZRAM_SIZE, 4096); // Default 4GB for SM7435
                 return setZramSize(context, size);
             } else {
                 return disableZram();
@@ -151,7 +151,7 @@ public class RamOptimizerUtils {
      */
     public static boolean setZramSize(Context context, int sizeMb) {
         try {
-            if (sizeMb < 512 || sizeMb > 8192) {
+            if (sizeMb < 512 || sizeMb > 12288) { // Updated max size for 12/16GB models
                 Log.e(TAG, "Invalid zRAM size: " + sizeMb);
                 return false;
             }
@@ -165,6 +165,7 @@ public class RamOptimizerUtils {
 
             // Set compression algorithm
             String availableAlgos = readFile(ZRAM_COMP_ALGORITHM_PATH);
+            // Updated priority for SM7435: zstd (balance) > lz4 (speed) > lzo (legacy)
             String[] algos = {"zstd", "lz4", "lzo-rle", "lzo"};
             String preferredAlgo = "zstd";
             
@@ -173,7 +174,7 @@ public class RamOptimizerUtils {
                 preferredAlgo = prefs.getString(PREF_ZRAM_ALGO, "zstd");
             }
             
-            String selectedAlgo = "lzo";
+            String selectedAlgo = "lzo"; // Fallback
 
             if (availableAlgos != null) {
                 if (availableAlgos.contains(preferredAlgo)) {
@@ -228,7 +229,7 @@ public class RamOptimizerUtils {
     public static int getZramSwappiness() {
         try {
             String value = readFile(ZRAM_SWAPPINESS_PATH);
-            if (value == null || value.isEmpty()) return 60;
+            if (value == null || value.isEmpty()) return 60; // Standard default
             return Integer.parseInt(value.trim());
         } catch (Exception e) {
             Log.e(TAG, "Failed to get swappiness", e);
@@ -289,7 +290,7 @@ public class RamOptimizerUtils {
             prefs.edit().putString(PREF_ZRAM_ALGO, algo).apply();
 
             if (isZramEnabled()) {
-                int size = getZramSize();
+                // Changing algo requires reset, re-enable to apply
                 setZramEnabled(context, false);
                 setZramEnabled(context, true);
             } else {
@@ -335,9 +336,9 @@ public class RamOptimizerUtils {
                 minfree = minfree.trim();
                 if (minfree.equals("0,0,0,0,0,0")) {
                     return "disabled";
-                } else if (minfree.equals("8192,16384,24576,32768,40960,49152")) {
+                } else if (minfree.equals("18432,23040,27648,32256,55296,80640")) {
                     return "basic";
-                } else if (minfree.equals("16384,32768,49152,65536,81920,98304")) {
+                } else if (minfree.equals("27648,32256,49152,65536,98304,131072")) {
                     return "aggressive";
                 } else {
                     return "balanced";
@@ -359,20 +360,21 @@ public class RamOptimizerUtils {
             String minfree;
             String adaptiveLmk = "1";
             
+            // Profiles tuned for 8GB-12GB RAM devices
             switch (profile) {
                 case "disabled":
                     minfree = "0,0,0,0,0,0";
                     adaptiveLmk = "0";
                     break;
-                case "basic":
-                    minfree = "8192,16384,24576,32768,40960,49152";
+                case "basic": // Conservative
+                    minfree = "18432,23040,27648,32256,55296,80640"; 
                     break;
-                case "aggressive":
-                    minfree = "16384,32768,49152,65536,81920,98304";
+                case "aggressive": // Keep more free RAM
+                    minfree = "27648,32256,49152,65536,98304,131072";
                     break;
                 case "balanced":
-                default:
-                    minfree = "12288,24576,36864,49152,61440,73728";
+                default: // Standard for mid-range
+                    minfree = "21816,29088,36360,43632,58176,72720";
                     profile = "balanced";
                     break;
             }
@@ -408,39 +410,39 @@ public class RamOptimizerUtils {
         }
     }
 
-/**
- * Get current I/O scheduler
- */
-public static String getIoScheduler() {
-    try {
-        String value = readFile(IO_SCHEDULER_PATH);
-        if (value == null) return "cfq";
-        
-        // Parse format: "noop deadline [cfq]"
-        String[] parts = value.split("\\s+");
-        for (String part : parts) {
-            if (part.startsWith("[") && part.endsWith("]")) {
-                return part.substring(1, part.length() - 1);
+    /**
+     * Get current I/O scheduler
+     */
+    public static String getIoScheduler() {
+        try {
+            String value = readFile(IO_SCHEDULER_PATH);
+            if (value == null) return "mq-deadline"; // Default for newer kernels
+            
+            // Parse format: "noop deadline [mq-deadline] kyber"
+            String[] parts = value.split("\\s+");
+            for (String part : parts) {
+                if (part.startsWith("[") && part.endsWith("]")) {
+                    return part.substring(1, part.length() - 1);
+                }
             }
+            return "mq-deadline";
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to get I/O scheduler", e);
+            return "mq-deadline";
         }
-        return "cfq";
-    } catch (Exception e) {
-        Log.e(TAG, "Failed to get I/O scheduler", e);
-        return "cfq";
     }
-}
 
     /**
      * Set I/O scheduler
      */
     public static boolean setIoScheduler(String scheduler) {
         try {
-            // Try common block device paths
+            // Prioritize UFS storage (sda) for Redmi Note 13 Pro 5G
             String[] devicePaths = {
-                "/sys/block/mmcblk0/queue/scheduler",
-                "/sys/block/sda/queue/scheduler",
-                "/sys/block/sdb/queue/scheduler",
-                "/sys/block/nvme0n1/queue/scheduler"
+                "/sys/block/sda/queue/scheduler",     // UFS
+                "/sys/block/sdb/queue/scheduler",     // UFS
+                "/sys/block/mmcblk0/queue/scheduler", // eMMC (Legacy)
+                "/sys/block/nvme0n1/queue/scheduler"  // NVMe
             };
         
             boolean success = false;
@@ -1054,7 +1056,7 @@ public static String getIoScheduler() {
             // Restore zRAM
             boolean shouldEnable = prefs.getBoolean(PREF_ZRAM_ENABLED, false);
             if (shouldEnable) {
-                int size = prefs.getInt(PREF_ZRAM_SIZE, 1024);
+                int size = prefs.getInt(PREF_ZRAM_SIZE, 4096);
                 setZramSize(context, size);
             }
 
@@ -1066,7 +1068,7 @@ public static String getIoScheduler() {
 
             // Restore I/O Scheduler
             if (prefs.contains(PREF_IO_SCHEDULER)) {
-                String scheduler = prefs.getString(PREF_IO_SCHEDULER, "cfq");
+                String scheduler = prefs.getString(PREF_IO_SCHEDULER, "mq-deadline");
                 setIoScheduler(scheduler);
             }
 

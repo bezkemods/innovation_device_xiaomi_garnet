@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package org.lineageos.settings.kernelmanager;
@@ -195,6 +195,8 @@ public class CpuGovernorTileService extends TileService {
         }
         
         switch (governor) {
+            case "walt":
+                return "Walt"; // SM7435 Default
             case "schedhorizon":
                 return "SchedHorizon";
             case "schedutil":
@@ -257,6 +259,8 @@ public class CpuGovernorTileService extends TileService {
 
     private String getShortGovernorName(String governor) {
         switch (governor) {
+            case "walt":
+                return "WALT";
             case "schedhorizon":
                 return "SCHD";
             case "schedutil":
