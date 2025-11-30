@@ -432,20 +432,7 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".xiaomiparts.XiaomiPartsActivity" />
         </activity>
-
-        <!-- Mi AdBlocker -->
-        <activity 
-            android:name=".adblocker.AdBlockerActivity"
-            android:label="@string/adblocker_title"
-            android:icon="@drawable/ic_adblocker"
-            android:theme="@style/Theme.SubSettingsBase"
-            android:exported="false"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".xiaomiparts.XiaomiPartsActivity" />
-        </activity>
-        
+       
         <!-- Core Control Activity -->
         <activity
             android:name=".corecontrol.CoreControlActivity"

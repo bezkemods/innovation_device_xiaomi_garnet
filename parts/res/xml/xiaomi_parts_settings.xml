@@ -123,13 +123,6 @@
             android:summary="@string/game_bar_summary"
             android:icon="@drawable/ic_gamebar_settings"
             app:iconSpaceReserved="true" />
-        <!-- Adblock -->
-        <Preference
-            android:key="adblocker_settings"
-            android:title="@string/adblocker_title"
-            android:summary="@string/adblocker_summary"
-            android:icon="@drawable/ic_adblocker" 
-            app:iconSpaceReserved="true" />       
         <!-- Logcat -->
         <Preference
             android:key="open_logcat_viewer"

@@ -25,7 +25,6 @@ import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import org.lineageos.settings.gpumanager.GpuManagerUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
 import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
-import org.lineageos.settings.adblocker.AdBlockerUtils;
 import org.lineageos.settings.performance.PerformanceUtils;
 import org.lineageos.settings.videoenhancer.VideoEnhancerUtils;
 import org.lineageos.settings.utils.FileUtils;
@@ -62,7 +61,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private static final String KEY_PERFORMANCE_PROFILE = "performance_profile";
     private static final String KEY_CORE_CONTROL_ENABLED = "core_control_enabled";
     private static final String KEY_AUTO_START_LOGCAT = "auto_start_logcat";
-    private static final String KEY_ADBLOCKER_ENABLED = "adblocker_enabled";
     private static final String KEY_SMOOTH_MOTION_ENABLED = "smooth_motion_enabled";
     private static final String KEY_OPTIMIZE_REFRESH_ENABLED = "optimize_refresh_enabled";
     private static final String KEY_SKIAGL_RENDERER_ENABLED = "skiagl_renderer_enabled";
@@ -108,7 +106,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 restoreGpuSettings(context);
                 restoreCoreControlSettings(context);
                 restoreLogcatService(context);
-                restoreAdBlockerSettings(context);
                 restoreVideoEnhancerSettings(context);
                 initializeCpuTileService(context);
                 Log.i(TAG, "Locked boot completed initialization finished");
@@ -283,82 +280,6 @@ private void startServices(Context context) {
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore logcat service", e);
-        }
-    }
-
-    private void restoreAdBlockerSettings(Context context) {
-        try {
-            Log.d(TAG, "Restoring AdBlocker settings...");
-            
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean adBlockerEnabled = prefs.getBoolean(KEY_ADBLOCKER_ENABLED, false);
-            
-            // Add delay to ensure network services are ready
-            Thread.sleep(3000);
-            
-            AdBlockerUtils adBlockerUtils = new AdBlockerUtils(context);
-            
-            // Check if hosts file is loaded
-            int blockedCount = adBlockerUtils.getBlockedDomainsCount();
-            Log.d(TAG, "AdBlocker blocked count: " + blockedCount);
-            
-            if (adBlockerEnabled) {
-                if (blockedCount > 0) {
-                    boolean success = adBlockerUtils.enableAdBlocker();
-                    if (success) {
-                        Log.d(TAG, "AdBlocker enabled successfully on boot");
-                    } else {
-                        Log.w(TAG, "Failed to enable AdBlocker on boot, retrying...");
-                        // Retry after additional delay
-                        Thread.sleep(2000);
-                        success = adBlockerUtils.enableAdBlocker();
-                        if (success) {
-                            Log.d(TAG, "AdBlocker enabled successfully on retry");
-                        } else {
-                            Log.e(TAG, "AdBlocker enable failed on retry");
-                        }
-                    }
-                } else {
-                    Log.w(TAG, "AdBlocker is enabled but no hosts file loaded");
-                }
-            } else {
-                // Ensure AdBlocker is disabled and DNS is reset
-                adBlockerUtils.disableAdBlocker();
-                Log.d(TAG, "AdBlocker disabled, DNS reset to neutral");
-            }
-            
-            // Restore proxy settings if enabled
-            boolean proxyEnabled = adBlockerUtils.isProxyEnabled();
-            if (proxyEnabled && adBlockerUtils.hasRootAccess()) {
-                String proxyHost = adBlockerUtils.getProxyHost();
-                int proxyPort = adBlockerUtils.getProxyPort();
-                if (!proxyHost.isEmpty()) {
-                    Thread.sleep(1000);
-                    boolean proxySuccess = adBlockerUtils.setGlobalProxy(proxyHost, proxyPort);
-                    if (proxySuccess) {
-                        Log.d(TAG, "Global proxy restored: " + proxyHost + ":" + proxyPort);
-                    } else {
-                        Log.w(TAG, "Failed to restore global proxy");
-                    }
-                }
-            }
-            
-            Log.d(TAG, "AdBlocker settings restore completed");
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            Log.w(TAG, "AdBlocker restore interrupted", e);
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to restore AdBlocker settings", e);
-            
-            // Fallback: try to set safe default (disabled state)
-            try {
-                AdBlockerUtils fallbackUtils = new AdBlockerUtils(context);
-                fallbackUtils.disableAdBlocker();
-                Log.d(TAG, "AdBlocker fallback to disabled state");
-            } catch (Exception ex) {
-                Log.e(TAG, "Fallback also failed", ex);
-            }
         }
     }
 

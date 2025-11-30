@@ -23,7 +23,6 @@ import org.lineageos.settings.kernelmanager.KernelManagerActivity;
 import org.lineageos.settings.gpumanager.GpuManagerActivity;
 import org.lineageos.settings.logcatviewer.MainActivity;
 import org.lineageos.settings.logcatviewer.LogcatSettingsPreference;
-import org.lineageos.settings.adblocker.AdBlockerActivity;
 import org.lineageos.settings.performance.PerformanceActivity;
 import org.lineageos.settings.videoenhancer.VideoEnhancerActivity;
 import org.lineageos.settings.keyboxmanager.KeyboxManagerActivity;
@@ -44,7 +43,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_KERNEL_MANAGER = "kernel_manager";
     private static final String KEY_GPU_MANAGER = "gpu_manager";
     private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
-    private static final String KEY_ADBLOCKER = "adblocker_settings";
     private static final String KEY_PERFORMANCE = "performance";
     private static final String KEY_VIDEO_ENHANCER = "video_enhancer_settings";
     private static final String KEY_KEYBOX_MANAGER = "keybox_manager";
@@ -126,7 +124,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             setupPreference(KEY_CORE_CONTROL);
             setupPreference(KEY_KERNEL_MANAGER);
             setupPreference(KEY_GPU_MANAGER);
-            setupPreference(KEY_ADBLOCKER);
             setupPreference(KEY_PERFORMANCE);
             setupPreference(KEY_VIDEO_ENHANCER);
             setupPreference(KEY_KEYBOX_MANAGER);
@@ -224,9 +221,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_GPU_MANAGER.equals(key)) {
                 startActivity(new Intent(this, GpuManagerActivity.class));
-                return true;
-            } else if (KEY_ADBLOCKER.equals(key)) {
-                startActivity(new Intent(this, AdBlockerActivity.class));
                 return true;
             } else if (KEY_PERFORMANCE.equals(key)) {
                 startActivity(new Intent(this, PerformanceActivity.class));
