@@ -4,6 +4,6 @@
 //
 
 runtime_resource_overlay {
-    name: "LineageDialerOverlayGarnet",
-    system_ext_specific: true,
+    name: "CustomSystemUIOverlayGarnet",
+    product_specific: true,
 }

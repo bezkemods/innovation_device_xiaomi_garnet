@@ -4,6 +4,6 @@
 //
 
 runtime_resource_overlay {
-    name: "LineageSystemUIOverlayGarnet",
-    system_ext_specific: true,
+    name: "CustomSettingsOverlayGarnet",
+    product_specific: true,
 }
