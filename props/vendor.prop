@@ -202,6 +202,7 @@ ro.config.low_ram=false
 debug.c2.use_dmabufheaps=1
 debug.stagefright.c2inputsurface=-1
 persist.mm.enable.prefetch=true
+debug.sdm.support_writeback=0
 ro.media.xml_variant.profiles=_parrot_v0
 
 # Netflix
