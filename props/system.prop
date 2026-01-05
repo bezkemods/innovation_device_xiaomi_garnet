@@ -14,3 +14,6 @@ persist.vendor.vonr_setting_support=1
 ril.subscription.types=NV,RUIM
 ro.telephony.default_network=33,33
 telephony.lteOnCdmaDevice=1
+
+# Blur
+ro.surface_flinger.supports_background_blur=1
