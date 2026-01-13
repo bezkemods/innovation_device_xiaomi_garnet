@@ -20,7 +20,6 @@ android_app {
     },
     required: [
         "org.lineageos.euicc.xml",
-        "hidden-api-whitelist-org.lineageos.euicc.xml",
     ],
 }
 
@@ -29,13 +28,5 @@ prebuilt_etc {
     name: "org.lineageos.euicc.xml",
     filename: "org.lineageos.euicc.xml",
     src: "org.lineageos.euicc.xml",
-    system_ext_specific: true,
-}
-
-prebuilt_etc {
-    sub_dir: "sysconfig",
-    name: "hidden-api-whitelist-org.lineageos.euicc.xml",
-    filename: "hidden-api-whitelist-org.lineageos.euicc.xml",
-    src: "hidden-api-whitelist-org.lineageos.euicc.xml",
     system_ext_specific: true,
 }

@@ -82,13 +82,16 @@ blob_fixups: blob_fixups_user_type = {
     ): blob_fixup()
         .add_needed('libprocessgroup_shim.so'),
     (
+        'vendor/lib64/libaudiocloudctrl.so',
+        'vendor/lib64/libdpps.so',
+        'vendor/lib64/libsnapdragoncolor-manager.so',
         'vendor/lib64/libagm.so',
         'vendor/lib64/libar-pal.so',
         'vendor/lib64/libaudioroute_ext.so',
         'vendor/lib64/libkaraokepal.so',
         'vendor/lib64/libmcs.so'
     ): blob_fixup()
-        .replace_needed('libaudioroute.so', 'libaudioroute-v34.so'),
+        .replace_needed('libaudioroute.so', 'libaudioroute-v34.so', 'libtinyxml2.so', 'libtinyxml2-v34.so'),
     'vendor/lib64/libQnnDspV65CalculatorStub.so': blob_fixup()
         .add_needed('liblog.so'),
     (
@@ -127,6 +130,8 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('android.hardware.security.rkp-V1-ndk.so'),
     'vendor/lib64/vendor.libdpmframework.so': blob_fixup()
         .add_needed('libhidlbase_shim.so'),
+    'system_ext/lib64/vendor.qti.hardware.qccsyshal@1.2-halimpl.so': blob_fixup()
+        .replace_needed('libprotobuf-cpp-full.so', 'libprotobuf-cpp-full-21.7.so'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
