@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Xiaomi सेटिंग्स</string>
+    <string name="tile_add">टाइल जोड़ें</string>
+    <string name="tile_added">टाइल जोड़ी गई</string>
+    <string name="tile_not_added">टाइल नहीं जोड़ी गई</string>
+    <string name="tile_already_added">टाइल पहले ही जोड़ी जा चुकी है</string>
+    <string name="tile_on">पर</string>
+    <string name="tile_off">बंद</string>
+    <string name="clear_speaker_title">स्पष्ट वक्ता</string>
+    <string name="clear_speaker_summary">स्पीकर को साफ़ करने के लिए 30 सेकंड का ऑडियो चलाएं</string>
+    <string name="clear_speaker_description">यदि आप पाते हैं कि आपका स्पीकर धूल से थोड़ा अवरुद्ध हो गया है तो इस सुविधा को एक या दो बार चलाएँ। मीडिया वॉल्यूम को अधिकतम पर सेट करें।\n\nयदि स्पीकर भारी रूप से अवरुद्ध है, तो स्पीकर को नीचे की ओर रखते हुए अपने डिवाइस को हिलाते हुए इस सुविधा को 2-5 बार चलाएं।</string>
+    <string name="saturation_title">प्रदर्शन संतृप्ति</string>
+    <string name="saturation_summary">डिस्प्ले के संतृप्ति स्तर को नियंत्रित करें</string>
+    <string name="saturation_footer_summary">डिस्प्ले सेटिंग्स में रंग मोड बदलने से संतृप्ति स्तर ओवरराइड हो जाएगा, जिससे इसे फिर से लागू करने की आवश्यकता होगी।</string>
+    <string name="image_preview_content_description">पूर्वावलोकन</string>
+    <string name="image_preview_next_page_content_description">अगला</string>
+    <string name="image_preview_previous_page_content_description">पिछला</string>
+    <string name="custom_seekbar_value">मूल्य:</string>
+    <string name="custom_seekbar_default_value">डिफ़ॉल्ट रूप से</string>
+    <string name="custom_seekbar_default_value_to_set">डिफ़ॉल्ट मान:</string>
+    <string name="custom_seekbar_default_value_is_set">डिफ़ॉल्ट मान सेट है</string>
+    <string name="auto_hbm_title">स्वचालित उच्च चमक मोड (एचबीएम)</string>
+    <string name="auto_hbm_main_switch_title">स्वचालित एचबीएम का प्रयोग करें</string>
+    <string name="tile_auto_hbm">ऑटो एचबीएम</string>
+    <string name="tile_hbm_on">सक्षम</string>
+    <string name="tile_hbm_off">विकलांग</string>
+    <string name="tile_hbm">एचबीएम</string>
+    <string name="tile_hbm_unavailable">एचबीएम अनुपलब्ध</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">ऑटो एचबीएम या ऑटो ब्राइटनेस सक्षम है</string>
+    <string name="hbm_mode_title">उच्च चमक मोड</string>
+    <string name="hbm_mode_notification">हाई ब्राइटनेस मोड अब सक्रिय है। लंबे समय तक इस्तेमाल से आपका डिस्प्ले खराब हो सकता है।</string>
+    <string name="auto_hbm_summary">सूर्य के प्रकाश की तीव्रता (लक्स) के आधार पर स्वचालित रूप से उच्च चमक मोड सक्षम करें</string>
+    <string name="auto_hbm_threshold_title">प्रकाश दहलीज</string>
+    <string name="auto_hbm_threshold_summary">लक्स इकाइयों में प्रकाश तीव्रता सीमा को परिभाषित करें जिस पर एचबीएम सक्रिय होता है</string>
+    <string name="auto_hbm_enable_time_title">समय सक्षम करें</string>
+    <string name="auto_hbm_enable_time_summary">सेकंड में वह अवधि जब एचबीएम को सक्रिय करने के लिए प्रकाश सीमा को लगातार पूरा किया जाना चाहिए</string>
+    <string name="auto_hbm_disable_time_title">समय अक्षम करें</string>
+    <string name="auto_hbm_disable_time_summary">सेकंड में अवधि जिसके लिए एचबीएम निष्क्रिय हो जाता है यदि प्रकाश सीमा निर्धारित स्तर से नीचे गिर जाती है</string>
+    <string name="game_bar_title">गेमबार</string>
+    <string name="game_bar_summary">सिस्टम ओवरले सक्षम करें (FPS, Temp, आदि)</string>
+    <string name="game_bar_tile_label">गेमबार</string>
+    <string name="game_bar_tile_description">गेम ओवरले को टॉगल करें</string>
+    <string name="game_bar_enable_title">गेमबार ओवरले सक्षम करें</string>
+    <string name="overlay_permission_required">ओवरले अनुमति आवश्यक है</string>
+    <string name="overlay_permission_granted">ओवरले अनुमति दी गई</string>
+    <string name="overlay_permission_denied">ओवरले अनुमति अस्वीकृत</string>
+    <string name="overlay_features_title">ओवरले विशेषताएँ</string>
+    <string name="game_bar_fps_enable_title">एफपीएस ओवरले</string>
+    <string name="game_bar_fps_enable_summary">स्क्रीन पर वर्तमान एफपीएस दिखाएं</string>
+    <string name="game_bar_temp_enable_title">डिवाइस तापमान</string>
+    <string name="game_bar_temp_enable_summary">डिवाइस (बैटरी) का तापमान दिखाएं</string>
+    <string name="game_bar_cpu_usage_enable_title">सीपीयू उपयोग</string>
+    <string name="game_bar_cpu_usage_enable_summary">वर्तमान CPU उपयोग प्रतिशत दिखाएँ</string>
+    <string name="game_bar_cpu_clock_enable_title">सीपीयू घड़ी की गति</string>
+    <string name="game_bar_cpu_clock_enable_summary">प्रत्येक कोर के लिए वर्तमान सीपीयू घड़ी की गति दिखाएं</string>
+    <string name="game_bar_cpu_temp_enable_title">सीपीयू तापमान</string>
+    <string name="game_bar_cpu_temp_enable_summary">सीपीयू तापमान दिखाएँ (थर्मल_ज़ोन0)</string>
+    <string name="game_bar_ram_enable_title">रैम का उपयोग</string>
+    <string name="game_bar_ram_enable_summary">एमबी में वर्तमान रैम उपयोग दिखाएं</string>
+    <string name="game_bar_gpu_usage_enable_title">जीपीयू उपयोग</string>
+    <string name="game_bar_gpu_usage_enable_summary">GPU उपयोग प्रतिशत दिखाएँ</string>
+    <string name="game_bar_gpu_clock_enable_title">जीपीयू क्लॉक स्पीड</string>
+    <string name="game_bar_gpu_clock_enable_summary">वर्तमान GPU घड़ी आवृत्ति दिखाएँ</string>
+    <string name="game_bar_gpu_temp_enable_title">जीपीयू तापमान</string>
+    <string name="game_bar_gpu_temp_enable_summary">वर्तमान GPU तापमान दिखाएँ</string>
+    <string name="fps_measurement_method_title">एफपीएस मापन विधि</string>
+    <string name="game_bar_fps_method_title">एफपीएस विधि</string>
+    <string name="game_bar_fps_method_summary">का चयन करें नई एपीआई विधि (डिफ़ॉल्ट) और लीगेसी Sysfs</string>
+    <string name="customization_title">के बीच चयन करें अनुकूलन</string>
+    <string name="game_bar_text_size_title">पाठ का आकार</string>
+    <string name="game_bar_text_size_summary">ओवरले टेक्स्ट का आकार समायोजित करें</string>
+    <string name="game_bar_background_alpha_title">पृष्ठभूमि पारदर्शिता</string>
+    <string name="game_bar_background_alpha_summary">पृष्ठभूमि की पारदर्शिता समायोजित करें</string>
+    <string name="game_bar_corner_radius_title">ओवरले कॉर्नर त्रिज्या</string>
+    <string name="game_bar_corner_radius_summary">समायोजित करें कि ओवरले के कोने कितने गोल होने चाहिए</string>
+    <string name="game_bar_padding_title">ओवरले पैडिंग</string>
+    <string name="game_bar_padding_summary">आँकड़ों के आसपास के स्थान को समायोजित करें</string>
+    <string name="game_bar_item_spacing_title">आइटम रिक्ति</string>
+    <string name="game_bar_item_spacing_summary">ओवरले लाइनों के बीच अंतर समायोजित करें</string>
+    <string name="game_bar_update_interval_title">अद्यतन अंतराल</string>
+    <string name="game_bar_update_interval_summary">सेट करें कि ओवरले मान कितनी बार अपडेट होते हैं</string>
+    <string name="game_bar_title_color_title">स्टेट शीर्षक रंग</string>
+    <string name="game_bar_title_color_summary">\'FPS\', \'Temp\', \'CPU\', आदि टेक्स्ट के लिए रंग</string>
+    <string name="game_bar_value_color_title">स्टेट वैल्यू कलर</string>
+    <string name="game_bar_value_color_summary">संख्यात्मक आँकड़ों के लिए रंग (जैसे, \'29\', \'32.0°C\')</string>
+    <string name="game_bar_position_title">ओवरले स्थिति</string>
+    <string name="game_bar_position_summary">स्क्रीन पर ओवरले की स्थिति का चयन करें</string>
+    <string name="game_bar_format_title">ओवरले प्रारूप</string>
+    <string name="game_bar_format_summary">पूर्ण या न्यूनतम डिस्प्ले</string>
+    <string name="game_bar_overlay_format_toast">के बीच चयन करें ओवरले प्रारूप बदल गया: %s</string>
+    <string name="game_bar_format_entries_full">पूर्ण</string>
+    <string name="game_bar_format_entries_minimal">न्यूनतम</string>
+    <string name="split_config_title">स्प्लिट कॉन्फ़िग</string>
+    <string name="game_bar_split_mode_title">स्प्लिट मोड</string>
+    <string name="game_bar_split_mode_summary">अगल-बगल या स्टैक्ड व्यवस्था चुनें</string>
+    <string name="overlay_gesture_controls_title">ओवरले जेस्चर नियंत्रण</string>
+    <string name="game_bar_single_tap_toggle_title">टॉगल करने के लिए सिंगल टैप सक्षम करें</string>
+    <string name="game_bar_single_tap_toggle_summary">पूर्ण और न्यूनतम ओवरले प्रारूपों के बीच स्विच करने के लिए एक बार टैप करें</string>
+    <string name="game_bar_doubletap_capture_title">कैप्चर करने के लिए डबल टैप सक्षम करें</string>
+    <string name="game_bar_doubletap_capture_summary">कैप्चर लॉग प्रारंभ/बंद करने के लिए ओवरले पर डबल-टैप करें</string>
+    <string name="game_bar_longpress_enable_title">लॉन्ग प्रेस सक्षम करें</string>
+    <string name="game_bar_longpress_enable_summary">गेमबार सेटिंग्स तक पहुँचने के लिए ओवरले को देर तक दबाएँ</string>
+    <string name="game_bar_longpress_timeout_title">लंबी प्रेस अवधि</string>
+    <string name="game_bar_longpress_timeout_summary">ओवरले को लंबे समय तक दबाने के लिए आवश्यक अवधि निर्धारित करें</string>
+    <string name="capture_logs_title">लॉग कैप्चर करें</string>
+    <string name="game_bar_capture_start_title">लॉगिंग प्रारंभ करें</string>
+    <string name="game_bar_capture_start_summary">वास्तविक समय में एफपीएस और प्रदर्शन डेटा कैप्चर करना शुरू करें</string>
+    <string name="game_bar_capture_stop_title">लॉगिंग बंद करो</string>
+    <string name="game_bar_capture_stop_summary">वास्तविक समय में एफपीएस और प्रदर्शन डेटा कैप्चर करना बंद करें</string>
+    <string name="game_bar_capture_export_title">गेमबार लॉग डेटा निर्यात करें</string>
+    <string name="game_bar_capture_export_summary">कैप्चर किए गए FPS और प्रदर्शन डेटा को CSV फ़ाइल के रूप में सहेजें</string>
+    <string name="game_bar_capture_start_toast">डेटा लॉग करना प्रारंभ किया</string>
+    <string name="game_bar_capture_stop_toast">डेटा लॉग करना बंद कर दिया</string>
+    <string name="game_bar_capture_export_toast">फ़ाइल में लॉग डेटा निर्यात किया गया</string>
+    <string name="game_bar_doubletap_capture_start_toast">कब्जा शुरू हुआ</string>
+    <string name="game_bar_doubletap_capture_stop_toast">कब्जा रोक दिया गया</string>
+    <string name="auto_enable_gamebar_title">गेमबार को स्वतः सक्षम करें</string>
+    <string name="game_bar_auto_enable_title">चयनित ऐप्स के लिए गेमबार को स्वतः सक्षम करें</string>
+    <string name="game_bar_auto_enable_summary">यदि चालू है, तो चयनित ऐप्स गेमबार को स्वचालित रूप से सक्षम कर देंगे, भले ही मुख्य स्विच बंद हो</string>
+    <string name="game_bar_app_selector_title">ऐप्स का चयन करें</string>
+    <string name="game_bar_app_selector_summary">ऐसे ऐप्स जोड़ें जो GameBar को स्वतः सक्षम करें</string>
+    <string name="game_bar_app_remover_title">चयनित ऐप्स हटाएं</string>
+    <string name="game_bar_app_remover_summary">स्वतः-सक्षम सूची से ऐप्स हटाएँ</string>
+    <string name="game_bar_app_remover_activity_title">ऑटो-सक्षम ऐप्स हटाएं</string>
+    <string name="game_bar_app_selector_activity_title">गेमबार के लिए ऐप्स चुनें</string>
+    <string name="game_bar_app_added_toast">जोड़ा गया</string>
+    <string name="game_bar_app_removed_toast">हटा दिया गया</string>
+    <string name="gpu_enable_title">GPU अनुकूलक सक्षम करें</string>
+    <string name="gpu_enable_summary">GPU अनुकूलन टॉगल करें</string>
+    <string name="gpu_freq_category_title">GPU आवृत्ति कॉन्फ़िगर करें</string>
+    <string name="gpu_min_frequency">जीपीयू न्यूनतम आवृत्ति</string>
+    <string name="gpu_max_frequency">जीपीयू अधिकतम आवृत्ति</string>
+    <string name="gpu_disabled_defaults_restored">ऑप्टिमाइज़र GPU अक्षम, डिफ़ॉल्ट पुनर्स्थापित</string>
+    <string name="gpu_optimizer_enabled">GPU अनुकूलक सक्षम</string>
+    <string name="gpu_min_freq_exceeds_max">विफल: GPU न्यूनतम आवृत्ति अधिकतम आवृत्ति से अधिक नहीं हो सकती</string>
+    <string name="gpu_max_freq_below_min">विफल: GPU अधिकतम आवृत्ति न्यूनतम आवृत्ति से कम नहीं हो सकती</string>
+    <string name="gpu_min_freq_applied">GPU न्यूनतम आवृत्ति -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU अधिकतम आवृत्ति -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">सीपीयू ऑप्टिमाइज़र सक्षम करें</string>
+    <string name="cpu_enable_summary">सीपीयू अनुकूलन टॉगल करें</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">सीपीयू ऑप्टिमाइज़र अक्षम, डिफ़ॉल्ट बहाल</string>
+    <string name="cpu_optimizer_enabled">सीपीयू अनुकूलक सक्षम</string>
+    <string name="cpu_little_category_title">सीपीयू लिटिल क्लस्टर को कॉन्फ़िगर करें</string>
+    <string name="cpu_little_min_frequency_title">न्यूनतम आवृत्ति</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">अधिकतम आवृत्ति</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">राज्यपाल</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">विफल: सीपीयू की न्यूनतम आवृत्ति अधिकतम से अधिक नहीं हो सकती</string>
+    <string name="cpu_little_max_freq_below_min">विफल: सीपीयू की थोड़ी अधिकतम आवृत्ति न्यूनतम से कम नहीं हो सकती</string>
+    <string name="cpu_little_min_freq_applied">सीपीयू छोटी न्यूनतम आवृत्ति -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">सीपीयू थोड़ी अधिकतम आवृत्ति -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">सीपीयू लिटिल गवर्नर -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">सीपीयू बिग क्लस्टर को कॉन्फ़िगर करें</string>
+    <string name="cpu_big_min_frequency_title">न्यूनतम आवृत्ति</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">अधिकतम आवृत्ति</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">राज्यपाल</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">विफल: सीपीयू बड़ी न्यूनतम आवृत्ति अधिकतम से अधिक नहीं हो सकती</string>
+    <string name="cpu_big_max_freq_below_min">विफल: CPU बड़ी अधिकतम आवृत्ति न्यूनतम</string>
+    <string name="cpu_big_min_freq_applied">से कम नहीं हो सकती सीपीयू बड़ी न्यूनतम आवृत्ति -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">सीपीयू बड़ी अधिकतम आवृत्ति -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">सीपीयू बड़ा गवर्नर -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">सीपीयू प्राइम क्लस्टर कॉन्फ़िगर करें</string>
+    <string name="cpu_prime_min_frequency_title">न्यूनतम आवृत्ति</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">अधिकतम आवृत्ति</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">राज्यपाल</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">विफल: सीपीयू प्राइम न्यूनतम आवृत्ति अधिकतम</string>
+    <string name="cpu_prime_max_freq_below_min">से अधिक नहीं हो सकती विफल: सीपीयू प्राइम मैक्स आवृत्ति न्यूनतम</string>
+    <string name="cpu_prime_min_freq_applied">से कम नहीं हो सकती सीपीयू प्राइम न्यूनतम आवृत्ति -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">सीपीयू प्राइम मैक्स फ़्रीक्वेंसी -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">सीपीयू प्राइम गवर्नर -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">बूट पर लॉगकैट प्रारंभ करें</string>
+    <string name="logcat_autostart_summary">रीबूट के बाद स्वचालित रूप से पृष्ठभूमि लॉगिंग प्रारंभ करें</string>
+    <string name="logcat_viewer_title">लॉगकैट व्यूअर</string>
+    <string name="logcat_viewer_summary">रीयल-टाइम लॉग व्यूअर खोलें</string>
+    <string name="logcat_filter_hint">टैग या कीवर्ड दर्ज करें</string>
+    <string name="logcat_filter_title">लॉग फ़िल्टर</string>
+    <string name="logcat_pause">रोकें</string>
+    <string name="logcat_resume">बायोडाटा</string>
+    <string name="logcat_autoscroll_on">ऑटोस्क्रॉल चालू</string>
+    <string name="logcat_autoscroll_off">स्वतः स्क्रॉल बंद</string>
+    <string name="logcat_save">लॉग सहेजें</string>
+    <string name="logcat_clear">लॉग साफ़ करें</string>
+    <string name="logcat_share">लॉग साझा करें</string>
+    <string name="logcat_settings">सेटिंग्स</string>
+    <string name="logcat_export">निर्यात</string>
+    <string name="logcat_search">खोजें</string>
+    <string name="logcat_notification_title">लॉगकैट व्यूअर</string>
+    <string name="logcat_notification_text">पृष्ठभूमि लॉगिंग सक्रिय</string>
+    <string name="logcat_notification_stopped">पृष्ठभूमि लॉगिंग बंद हो गई</string>
+    <string name="logcat_notification_channel_name">लॉगकैट पृष्ठभूमि सेवा</string>
+    <string name="logcat_notification_channel_desc">पृष्ठभूमि लॉगकैट लॉगिंग के लिए नियंत्रण</string>
+    <string name="logcat_level_verbose">वर्बोज़</string>
+    <string name="logcat_level_debug">डिबग</string>
+    <string name="logcat_level_info">जानकारी</string>
+    <string name="logcat_level_warn">चेतावनी</string>
+    <string name="logcat_level_error">त्रुटि</string>
+    <string name="logcat_no_logs">कोई लॉग उपलब्ध नहीं</string>
+    <string name="logcat_loading">लॉग लोड हो रहे हैं...</string>
+    <string name="logcat_paused">लॉगिंग रोक दी गई</string>
+    <string name="logcat_active">लॉगिंग सक्रिय</string>
+    <string name="logcat_filter_applied">फ़िल्टर लागू किया गया: %1$s</string>
+    <string name="logcat_logs_cleared">लॉग साफ़ हो गए</string>
+    <string name="logcat_save_progress">लॉग सहेजे जा रहे हैं...</string>
+    <string name="logcat_save_success">लॉग सफलतापूर्वक सहेजे गए.</string>
+    <string name="logcat_save_failed">लॉग सहेजने में विफल.</string>
+    <string name="logcat_share_subject">एंड्रॉइड लॉगकैट एक्सपोर्ट</string>
+    <string name="logcat_permission_required">लॉग सहेजने के लिए संग्रहण अनुमति आवश्यक है</string>
+    <string name="cpu_tile_label">सीपीयू गवर्नर</string>
+    <string name="cpu_tile_unavailable">सीपीयू नियंत्रण अनुपलब्ध</string>
+    <string name="cpu_tile_error">सीपीयू मॉनिटरिंग त्रुटि</string>
+    <string name="cpu_tile_unknown">अज्ञात</string>
+    <string name="cpu_tile_governor_schedhorizon">शेड्यूलहोराइजन</string>
+    <string name="cpu_tile_governor_schedutil">शेड्यूलिटिल</string>
+    <string name="cpu_tile_governor_performance">प्रदर्शन</string>
+    <string name="cpu_tile_governor_powersave">पॉवरसेव</string>
+    <string name="cpu_tile_governor_ondemand">ऑनडिमांड</string>
+    <string name="cpu_tile_governor_conservative">रूढ़िवादी</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%%1f GHz</string>
+    <string name="cpu_tile_settings_title">सीपीयू टाइल सेटिंग्स</string>
+    <string name="cpu_tile_settings_summary">सीपीयू गवर्नर त्वरित सेटिंग्स टाइल उपस्थिति और व्यवहार को कॉन्फ़िगर करें</string>
+    <string name="cpu_tile_appearance_category">रूप</string>
+    <string name="cpu_tile_behavior_category">व्यवहार</string>
+    <string name="cpu_tile_size_title">टाइल चिह्न का आकार</string>
+    <string name="cpu_tile_size_summary">सीपीयू टाइल आइकन का आकार चुनें</string>
+    <string name="cpu_tile_style_title">टाइल शैली</string>
+    <string name="cpu_tile_style_summary">चुनें कि CPU जानकारी कैसे प्रदर्शित की जाती है</string>
+    <string name="cpu_tile_show_percentage_title">उपयोग प्रतिशत दिखाएँ</string>
+    <string name="cpu_tile_show_percentage_summary">आवृत्ति के बजाय सीपीयू उपयोग प्रतिशत प्रदर्शित करें</string>
+    <string name="cpu_tile_update_speed_title">अद्यतन अंतराल</string>
+    <string name="cpu_tile_update_speed_summary">CPU जानकारी को कितनी बार ताज़ा करें</string>
+    <string name="cpu_tile_update_speed_fast">तेज़ (0.5 सेकंड)</string>
+    <string name="cpu_tile_update_speed_normal">सामान्य (1s)</string>
+    <string name="cpu_tile_update_speed_slow">धीमा (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">बहुत धीमी (5 सेकंड)</string>
+    <string name="cpu_tile_preview_title">पूर्वावलोकन परिवर्तन</string>
+    <string name="cpu_tile_preview_summary">वर्तमान सेटिंग्स के साथ टाइल को ताज़ा करने के लिए टैप करें</string>
+    <string name="cpu_tile_footer">सीपीयू गवर्नर टाइल सीपीयू गवर्नर्स के बीच त्वरित स्विचिंग की अनुमति देता है और वास्तविक समय सीपीयू आवृत्ति और उपयोग की जानकारी प्रदर्शित करता है। उपलब्ध गवर्नर्स के माध्यम से चक्रित करने के लिए टाइल को टैप करें।</string>
+    <string name="performance_mode_title">प्रदर्शन मोड</string>
+    <string name="performance_mode_summary">चरम प्रदर्शन के लिए सीपीयू और जीपीयू को अधिकतम पर बाध्य करें। गर्मी और बैटरी खत्म हो जाती है।</string>
+    <string name="performance_mode_enabled_summary">प्रदर्शन मोड चालू है</string>
+    <string name="performance_mode_disabled_summary">प्रदर्शन मोड बंद है</string>
+    <string name="performance_profile_title">प्रदर्शन प्रोफ़ाइल</string>
+    <string name="performance_profile_summary">इष्टतम डिवाइस व्यवहार के लिए प्रदर्शन मोड का चयन करें</string>
+    <string name="performance_mode_battery_saver">बैटरी सेवर</string>
+    <string name="performance_mode_balanced">संतुलित</string>
+    <string name="performance_mode_performance">प्रदर्शन</string>
+    <string name="performance_profile_applied">प्रदर्शन प्रोफ़ाइल %s</string>
+    <string name="performance_profile_failed">पर सेट है प्रदर्शन प्रोफ़ाइल लागू करने में विफल</string>
+    <string name="performance_tile_label">प्रदर्शन</string>
+    <string name="performance_notification_channel_name">प्रदर्शन प्रोफ़ाइल</string>
+    <string name="performance_notification_channel_desc">वर्तमान प्रदर्शन प्रोफ़ाइल स्थिति दिखाता है</string>
+    <string name="performance_notification_battery_saver">बैटरी सेवर मोड सक्रिय है - विस्तारित बैटरी जीवन</string>
+    <string name="performance_notification_balanced">संतुलित मोड सक्रिय है - इष्टतम प्रदर्शन और बैटरी जीवन</string>
+    <string name="performance_notification_performance">प्रदर्शन मोड सक्रिय है - अधिकतम प्रदर्शन</string>
+    <string name="performance_footer_title">प्रदर्शन प्रोफ़ाइल जानकारी</string>
+    <string name="performance_footer_summary">• बैटरी सेवर: सीपीयू और जीपीयू प्रदर्शन को कम करके बैटरी जीवन बढ़ाता है। हल्के उपयोग और अधिकतम बैटरी अवधि के लिए आदर्श।\n\n• संतुलित: प्रदर्शन और बैटरी जीवन के बीच इष्टतम संतुलन प्रदान करता है। दैनिक उपयोग के लिए अनुशंसित।\n\n• प्रदर्शन: मांग वाले कार्यों के लिए सीपीयू और जीपीयू प्रदर्शन को अधिकतम करता है। गेमिंग, भारी ऐप्स और गहन कार्यभार के लिए सर्वश्रेष्ठ। बैटरी जीवन कम हो सकता है.</string>
+    <string name="xiaomi_parts_title">श्याओमीपार्ट्स</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi गार्नेट विशेष सेटिंग्स</string>
+    <string name="xiaomi_parts_summary">Xiaomi डिवाइस-विशिष्ट सेटिंग्स</string>
+    <string name="xiaomi_parts_launcher_title">श्याओमीपार्ट्स</string>
+    <string name="device_settings_app_name">श्याओमीपार्ट्स</string>
+    <string name="display_title">प्रदर्शन</string>
+    <string name="sound_title">ध्वनि</string>
+    <string name="power_title">शक्ति</string>
+    <string name="gaming_title">गेमिंग और उपयोगिताएँ</string>
+    <string name="about_me_title">मेरे बारे में</string>
+    <string name="about_me_summary">InnOvaTioN के बारे में वह सब कुछ जो आपको जानना आवश्यक है</string>
+    <string name="about_me_contact_title">समर्थन</string>
+    <string name="about_me_contact_summary">आप वहां सहायता प्राप्त कर सकते हैं</string>
+    <string name="about_me_donate_title">मुझे पेपैल पर दान करें</string>
+    <string name="about_me_donate_summary">मेरे काम का समर्थन करें ताकि मैं निर्माण जारी रख सकूं</string>
+    <string name="about_me_donate2_title">Buymeacoffee</string>
+    <string name="about_me_donate2_summary">बियर या कॉफ़ी के लिए मुझे कॉल करें</string>
+    <string name="core_control_title">कोर नियंत्रण</string>
+    <string name="core_control_summary">व्यक्तिगत सीपीयू कोर को मैन्युअल रूप से सक्षम या अक्षम करें</string>
+    <string name="core_control_description">उन्नत सीपीयू नियंत्रण। कोर को बंद करने से बैटरी या थर्मल लोड बचाया जा सकता है, लेकिन प्रदर्शन और स्थिरता प्रभावित हो सकती है।\n\nकम से कम दो छोटे कोर हर समय ऑनलाइन रहने चाहिए।</string>
+    <string name="keep_little_cores_online">कम से कम 2 छोटे कोर ऑनलाइन अवश्य रहने चाहिए</string>
+    <string name="core_0">कोर 0 (छोटा)</string>
+    <string name="core_1">कोर 1 (छोटा)</string>
+    <string name="core_2">कोर 2 (छोटा)</string>
+    <string name="core_3">कोर 3 (छोटा)</string>
+    <string name="core_4">कोर 4 (बड़ा)</string>
+    <string name="core_5">कोर 5 (बड़ा)</string>
+    <string name="core_6">कोर 6 (बड़ा)</string>
+    <string name="core_7">कोर 7 (बड़ा)</string>
+    <string name="error">त्रुटि</string>
+    <string name="kernel_manager_title">कर्नेल प्रबंधक</string>
+    <string name="kernel_manager_summary">सीपीयू आवृत्तियों और गवर्नर को प्रबंधित करें</string>
+    <string name="kernel_manager_efficiency_category">दक्षता क्लस्टर (A55)</string>
+    <string name="kernel_manager_performance_category">प्रदर्शन क्लस्टर (ए78)</string>
+    <string name="kernel_manager_governor">सीपीयू गवर्नर</string>
+    <string name="kernel_manager_governor_summary">क्लस्टर के लिए सीपीयू गवर्नर का चयन करें</string>
+    <string name="cpu_governor_summary">वर्तमान: %s</string>
+    <string name="kernel_manager_min_freq">न्यूनतम आवृत्ति</string>
+    <string name="kernel_manager_min_freq_summary">न्यूनतम अनुमत सीपीयू आवृत्ति सेट करें</string>
+    <string name="kernel_manager_max_freq">अधिकतम आवृत्ति</string>
+    <string name="kernel_manager_max_freq_summary">अधिकतम अनुमत सीपीयू आवृत्ति सेट करें</string>
+    <string name="kernel_info_category">जानकारी</string>
+    <string name="kernel_info_title">कर्नेल मैनेजर के बारे में</string>
+    <string name="kernel_info_summary">सभी सीपीयू क्लस्टर के लिए सीपीयू गवर्नर और फ़्रीक्वेंसी स्केलिंग प्रबंधित करें। परिवर्तन प्रदर्शन और बैटरी जीवन को प्रभावित कर सकते हैं।</string>
+    <string name="kernel_manager_apply">सेटिंग्स लागू करें</string>
+    <string name="kernel_manager_apply_summary">चयनित सीपीयू सेटिंग्स लागू करें</string>
+    <string name="kernel_manager_reset">डिफ़ॉल्ट पर रीसेट करें</string>
+    <string name="kernel_manager_reset_summary">डिफ़ॉल्ट सीपीयू सेटिंग्स पुनर्स्थापित करें</string>
+    <string name="settings_applied">सेटिंग्स सफलतापूर्वक लागू हुईं</string>
+    <string name="settings_reset">सेटिंग्स डिफ़ॉल्ट पर रीसेट हो गईं</string>
+    <string name="kernel_manager_footer">सीपीयू गवर्नर यह प्रबंधित करते हैं कि आपका डिवाइस प्रदर्शन और बिजली के उपयोग को संतुलित करने के लिए सीपीयू आवृत्ति को कैसे समायोजित करता है। यहां एक त्वरित अवलोकन दिया गया है:\n\n• वॉल्ट: एक Google-विकसित गवर्नर जो प्रतिक्रिया और उपयोगकर्ता इंटरैक्शन विलंबता के लिए अनुकूलित है, मुख्य रूप से पिक्सेल उपकरणों में उपयोग किया जाता है।\n• रूढ़िवादी: धीरे-धीरे सीपीयू आवृत्ति बढ़ाता है; बैटरी बचाता है लेकिन प्रतिक्रियाशीलता को कम कर सकता है।\n• पावरसेव: प्रदर्शन पर बैटरी जीवन को प्राथमिकता देते हुए, सीपीयू को न्यूनतम आवृत्ति पर रखता है।\n• प्रदर्शन: बैटरी की कीमत पर अधिकतम प्रदर्शन सुनिश्चित करते हुए, अधिकतम आवृत्ति पर सीपीयू को लॉक करता है।\n• शेड्यूलर: एक शेड्यूलर-जागरूक गवर्नर जो कोर में बेहतर कार्य माइग्रेशन और दक्षता का लक्ष्य रखता है।\n• शेड्यूल्यूटिल: कई कर्नेल में डिफ़ॉल्ट आधुनिक गवर्नर; सीपीयू आवृत्ति को बुद्धिमानी और कुशलता से मापने के लिए लिनक्स के शेड्यूलर डेटा का उपयोग करता है।</string>
+    <string name="kernel_manager_cpu_monitor">सीपीयू कोर मॉनिटरिंग</string>
+    <string name="kernel_manager_core_online">ऑनलाइन</string>
+    <string name="kernel_manager_core_offline">ऑफ़लाइन</string>
+    <string name="kernel_manager_loading">लोड हो रहा है...</string>
+    <string name="kernel_manager_enable_monitoring">वास्तविक समय की निगरानी</string>
+    <string name="kernel_manager_enable_monitoring_summary">सीपीयू कोर स्थिति को लगातार अपडेट करें</string>
+    <string name="kernel_manager_update_interval">अद्यतन आवृत्ति</string>
+    <string name="kernel_manager_update_interval_summary">डेटा को कितनी बार रीफ़्रेश करना है</string>
+    <string name="kernel_manager_efficiency_cluster_summary">दक्षता क्लस्टर सारांश</string>
+    <string name="kernel_manager_performance_cluster_summary">प्रदर्शन क्लस्टर सारांश</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d कोर ऑनलाइन | रेंज: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">एन/ए</string>
+    <string name="update_interval_500ms">0.5 सेकंड</string>
+    <string name="update_interval_1000ms">1 सेकंड</string>
+    <string name="update_interval_2000ms">2 सेकंड</string>
+    <string name="update_interval_5000ms">5 सेकंड</string>
+    <string name="cpu_core_status_online">🟢 %1$s - ऑनलाइन</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - ऑफ़लाइन</string>
+    <string name="kernel_manager_governor_current">%1$s (वर्तमान: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (वर्तमान: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">वास्तविक समय की निगरानी अक्षम है. लाइव सीपीयू कोर आवृत्तियों और स्थिति को देखने के लिए इसे सक्षम करें।</string>
+    <string name="kernel_manager_error_read">सीपीयू जानकारी पढ़ने में असमर्थ</string>
+    <string name="kernel_manager_error_write">सीपीयू सेटिंग्स लागू करने में असमर्थ. रूट एक्सेस की आवश्यकता हो सकती है.</string>
+    <string name="kernel_manager_error_permission">अनुमति नहीं मिली। सीपीयू सेटिंग्स को संशोधित करने के लिए रूट एक्सेस की आवश्यकता है।</string>
+    <string name="gpu_manager_title">जीपीयू मैनेजर</string>
+    <string name="gpu_manager_summary">GPU आवृत्तियों और पावर सेटिंग्स को प्रबंधित करें</string>
+    <string name="gpu_governor_title">जीपीयू गवर्नर</string>
+    <string name="gpu_governor_summary">वर्तमान: %s</string>
+    <string name="gpu_freq_title">जीपीयू फ्रीक्वेंसी</string>
+    <string name="gpu_min_freq_title">न्यूनतम आवृत्ति</string>
+    <string name="gpu_max_freq_title">अधिकतम आवृत्ति</string>
+    <string name="gpu_max_gpuclk_title">अधिकतम GPUCLK ओवरराइड</string>
+    <string name="gpu_max_gpuclk_summary">अतिरिक्त क्लॉक बूस्ट (अधिकतम 940 मेगाहर्ट्ज)</string>
+    <string name="gpu_current_freq_title">वर्तमान आवृत्ति</string>
+    <string name="gpu_power_title">पावर सेटिंग्स</string>
+    <string name="gpu_force_clk_on_title">फोर्स क्लॉक ऑन</string>
+    <string name="gpu_force_clk_on_summary">GPU घड़ी हमेशा चालू रखें</string>
+    <string name="gpu_force_bus_on_title">बस को जबरदस्ती चालू करें</string>
+    <string name="gpu_force_bus_on_summary">GPU बस को हमेशा चालू रखें</string>
+    <string name="gpu_force_rail_on_title">फोर्स रेल ऑन</string>
+    <string name="gpu_force_rail_on_summary">GPU पावर रेल को हमेशा चालू रखें</string>
+    <string name="gpu_force_no_nap_title">ज़बरदस्ती झपकी नहीं</string>
+    <string name="gpu_force_no_nap_summary">फ़्रेम के बीच GPU नैपिंग अक्षम करें</string>
+    <string name="gpu_bus_split_title">बस विभाजन</string>
+    <string name="gpu_bus_split_summary">GPU बस विभाजन सक्षम करें</string>
+    <string name="gpu_preempt_title">जीपीयू प्रीएम्पशन</string>
+    <string name="gpu_preempt_summary">कम विलंबता गेमिंग (सर्वोत्तम गेमिंग अनुभव के लिए सक्षम करें)</string>
+    <string name="gpu_camera_boost_title">कैमरा बूस्ट</string>
+    <string name="gpu_camera_boost_summary">पावरहिंट टर्बो (अधिकतम कैमरा/वीडियो एनकोड प्रदर्शन)</string>
+    <string name="gpu_thermal_title">थर्मल सेटिंग्स</string>
+    <string name="gpu_thermal_pwrlevel_title">थर्मल पावर लेवल</string>
+    <string name="gpu_thermal_pwrlevel_summary">वर्तमान तापीय विद्युत स्तर</string>
+    <string name="gpu_temp_title">जीपीयू तापमान</string>
+    <string name="gpu_info_title">जीपीयू सूचना</string>
+    <string name="gpu_model_title">जीपीयू मॉडल</string>
+    <string name="gpu_busy_percentage_title">जीपीयू लोड</string>
+    <string name="gpu_reset_count_title">गिनती रीसेट करें</string>
+    <string name="gpu_preempt_count_title">प्रीएम्पशन गणना</string>
+    <string name="gpu_info_category">जीपीयू सूचना</string>
+    <string name="gpu_settings_category">जीपीयू सेटिंग्स</string>
+    <string name="gpu_advanced_category">उन्नत सेटिंग्स</string>
+    <string name="gpu_info_summary">GPU फ़्रीक्वेंसी स्केलिंग और पावर सेटिंग्स प्रबंधित करें। परिवर्तन प्रदर्शन और बैटरी जीवन को प्रभावित कर सकते हैं।</string>
+    <string name="apply_settings">सेटिंग्स लागू करें</string>
+    <string name="reset_settings">सेटिंग्स रीसेट करें</string>
+    <string name="gpu_turbo_preset_title">टर्बो प्रीसेट</string>
+    <string name="gpu_turbo_preset_summary">अधिकतम प्रदर्शन: 940 मेगाहर्ट्ज लॉक, प्रदर्शन गवर्नर, सभी बूस्ट चालू</string>
+    <string name="gpu_turbo_enabled">🚀 टर्बो मोड सक्षम!</string>
+    <string name="gpu_settings_applied">सेटिंग्स लागू!</string>
+    <string name="gpu_settings_reset">सेटिंग्स डिफ़ॉल्ट पर रीसेट हो गईं!</string>
+    <string name="unknown">अज्ञात</string>
+    <string name="thermal_level_summary">लेवल %s</string>
+    <string name="camera_boost_triggered">कैमरा/वीडियो बूस्ट ट्रिगर हो गया!</string>
+    <string name="video_enhancer_title">वीडियो एन्हांसर</string>
+    <string name="video_enhancer_summary">Redmi Note 13 Pro 5G के लिए प्रदर्शन और प्रदर्शन अनुकूलन</string>
+    <string name="video_enhancer_display_category">📺 प्रदर्शन विशेषताएँ</string>
+    <string name="smooth_motion_enable_title">स्मूथ मोशन</string>
+    <string name="smooth_motion_enable_summary">वीडियो के लिए हार्डवेयर मोशन स्मूथिंग (डिफ़ॉल्ट: बंद) • रीबूट आवश्यक</string>
+    <string name="optimize_refresh_enable_title">ताज़ा दर अनुकूलित करें</string>
+    <string name="optimize_refresh_enable_summary">सामग्री पर आधारित गतिशील ताज़ा दर (डिफ़ॉल्ट: बंद) • रीबूट आवश्यक</string>
+    <string name="peak_refresh_rate_title">120Hz पीक रिफ्रेश रेट</string>
+    <string name="peak_refresh_rate_summary">टच पर 120Hz सक्षम करें (200ms) • फ़ैक्टरी मान • रीबूट आवश्यक</string>
+    <string name="video_enhancer_performance_category">⚡ प्रदर्शन अनुकूलन</string>
+    <string name="force_vulkan_title">फोर्स वल्कन एपीआई</string>
+    <string name="force_vulkan_summary">ओपनजीएल ईएस (एड्रेनो 710) के बजाय वल्कन का उपयोग करें • रीबूट आवश्यक</string>
+    <string name="purgeable_assets_title">शुद्ध करने योग्य संपत्तियाँ</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">स्टोरेज में सभी डाउनलोड किए गए कीबॉक्स की सूची बनाएं</string>
+    <string name="keybox_verify_title">डाउनलोड सत्यापित करें</string>
+    <string name="keybox_verify_summary">डाउनलोड किए गए कीबॉक्स की XML संरचना की जाँच करें</string>
+    <string name="keybox_analyze_title">गहन विश्लेषण</string>
+    <string name="keybox_analyze_summary">प्रमाणपत्र शृंखला, समाप्ति और वैधता का विश्लेषण करें</string>
+    <string name="keybox_check_api_title">प्ले की सत्यनिष्ठा जांचें</string>
+    <string name="keybox_check_api_summary">Google Play इंटीग्रिटी एपीआई के विरुद्ध परीक्षण कीबॉक्स</string>
+    <string name="keybox_compare_title">कीबॉक्स की तुलना करें</string>
+    <string name="keybox_compare_summary">एकाधिक कीबॉक्स की एक साथ तुलना करें</string>
+    <string name="keybox_extract_certs_title">प्रमाण पत्र निकालें</string>
+    <string name="keybox_extract_certs_summary">प्रमाणपत्रों को PEM फ़ाइलों के रूप में निर्यात करें</string>
+    <string name="keybox_batch_verify_title">बैच सत्यापन</string>
+    <string name="keybox_batch_verify_summary">विस्तृत रिपोर्ट के साथ एकाधिक कीबॉक्स का परीक्षण करें</string>
+    <string name="keybox_status_title">कीबॉक्स स्थिति</string>
+    <string name="keybox_status_summary">वर्तमान: %s</string>
+    <string name="keybox_status_installed">✅ वैध फ़ाइल डाउनलोड</string>
+    <string name="keybox_status_not_installed">❌ कोई फ़ाइल डाउनलोड नहीं हुई</string>
+    <string name="keybox_status_unknown">⚠️ अज्ञात</string>
+    <string name="keybox_device_id_title">डिवाइस आईडी</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">प्रमाणपत्र गणना</string>
+    <string name="keybox_cert_count_summary">आरएसए: %1$d, ईसीडीएसए: %2$d</string>
+    <string name="keybox_expiry_title">प्रमाणपत्र समाप्ति</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">टेम्प्लेट जनरेट करें</string>
+    <string name="keybox_search_dialog_title">सामुदायिक कीबॉक्स खोजें</string>
+    <string name="keybox_import_dialog_title">कीबॉक्स आयात करें</string>
+    <string name="keybox_export_dialog_title">डाउनलोड किए गए कीबॉक्स की सूची</string>
+    <string name="keybox_verify_dialog_title">डाउनलोड किए गए कीबॉक्स सत्यापित करें</string>
+    <string name="keybox_analyze_dialog_title">गहन विश्लेषण</string>
+    <string name="keybox_analyze_dialog_message">यह गहन प्रमाणपत्र विश्लेषण करेगा:\n\n✅ जांच:\n• प्रमाणपत्र श्रृंखला सत्यापन\n• समाप्ति तिथियां\n• हस्ताक्षर एल्गोरिदम\n• मुख्य आकार\n• जारीकर्ता जानकारी\n• प्रमाणपत्र निरस्तीकरण स्थिति\n\n⚠️ इसमें प्रति कुंजीबॉक्स 10-30 सेकंड लगते हैं।\n\nजारी रखें?</string>
+    <string name="keybox_check_api_dialog_title">सत्यनिष्ठा जांच खेलें</string>
+    <string name="keybox_check_api_dialog_message">यह Google Play Integrity API के विरुद्ध आपके कीबॉक्स का परीक्षण करेगा।\n\n🔍 यह क्या जाँचता है:\n• बुनियादी अखंडता\n• डिवाइस अखंडता \n• मजबूत अखंडता\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ आवश्यकताएँ:\n• कीबॉक्स को Magisk/KernelSU\n• Play Integrityfix या TrickyStore मॉड्यूल में स्थापित किया जाना चाहिए\n• इंटरनेट कनेक्शन\n\n⏱️ में 5-10 सेकंड लगते हैं\n\nजारी रखें?</string>
+    <string name="keybox_compare_dialog_title">कीबॉक्स की तुलना करें</string>
+    <string name="keybox_compare_dialog_message">एकाधिक डाउनलोड किए गए कीबॉक्स की तुलना करें:\n\n📊 तुलना में शामिल हैं:\n• डिवाइस आईडी\n• प्रमाणपत्र गणना\n• समाप्ति तिथियां\n• एल्गोरिदम प्रकार\n• मुख्य प्रारूप (पीआईएफ/ट्रिकीस्टोर)\n\nतुलना करने के लिए कीबॉक्स का चयन करें।</string>
+    <string name="keybox_extract_dialog_title">प्रमाण पत्र निकालें</string>
+    <string name="keybox_extract_dialog_message">अलग PEM फ़ाइलों के रूप में कीबॉक्स से प्रमाणपत्र निकालें।\n\n📁निर्यात:\n• RSA प्रमाणपत्र\n• ECDSA प्रमाणपत्र\n• निजी कुंजियाँ (यदि आवश्यक हो)\n\nफ़ाइलें यहां सहेजी गई हैं: /डाउनलोड/कीबॉक्स/certs/\n\nजारी रखें?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ चेतावनी</string>
+    <string name="keybox_overwrite_dialog_message">यह क्रिया इस ऐप संस्करण में समर्थित नहीं है.</string>
+    <string name="keybox_generating">🔄टेम्प्लेट तैयार करना…</string>
+    <string name="keybox_searching">🔍सामुदायिक स्रोतों की खोज…</string>
+    <string name="keybox_downloading">रिपॉजिटरी से कीबॉक्स डाउनलोड हो रहा है…</string>
+    <string name="keybox_verifying">🔍 संरचनाओं का सत्यापन…</string>
+    <string name="keybox_analyzing">🔬 प्रमाणपत्रों का विश्लेषण…</string>
+    <string name="keybox_checking_api">🌐 प्ले इंटीग्रिटी एपीआई का परीक्षण…</string>
+    <string name="keybox_comparing">📊कीबॉक्स की तुलना...</string>
+    <string name="keybox_extracting">📦 प्रमाणपत्र निकालना...</string>
+    <string name="keybox_generate_success">✅ टेम्प्लेट सफलतापूर्वक उत्पन्न हुए!</string>
+    <string name="keybox_search_success">✅ वैध कीबॉक्स मिला और डाउनलोड किया गया!</string>
+    <string name="keybox_import_success">✅ कीबॉक्स सफलतापूर्वक आयात किया गया!</string>
+    <string name="keybox_export_success">✅ फ़ाइल सूची तैयार की गई।</string>
+    <string name="keybox_verify_success">✅ सत्यापन पूर्ण।</string>
+    <string name="keybox_analyze_success">✅ विश्लेषण पूर्ण।</string>
+    <string name="keybox_check_api_success">✅ सत्यनिष्ठा जांच पूर्ण।</string>
+    <string name="keybox_compare_success">✅ तुलना पूर्ण।</string>
+    <string name="keybox_extract_success">✅ प्रमाणपत्र निकाले गए!</string>
+    <string name="keybox_generate_error">❌ टेम्प्लेट जनरेट करने में विफल!\n\nत्रुटि: %s</string>
+    <string name="keybox_search_error">❌ वैध कीबॉक्स ढूंढने में विफल!\n\nत्रुटि: %s</string>
+    <string name="keybox_import_error">❌ कीबॉक्स आयात करने में विफल!\n\nत्रुटि: %s</string>
+    <string name="keybox_export_error">❌ फ़ाइलें सूचीबद्ध करने में विफल!\n\nत्रुटि: %s</string>
+    <string name="keybox_verify_error">❌ सत्यापन विफल!\n\nत्रुटि: %s</string>
+    <string name="keybox_analyze_error">❌ विश्लेषण विफल!\n\nत्रुटि: %s</string>
+    <string name="keybox_check_api_error">❌ सत्यनिष्ठा जांच विफल!\n\nत्रुटि: %s</string>
+    <string name="keybox_no_root">❌ इस ऐप के लिए रूट एक्सेस की आवश्यकता नहीं है।</string>
+    <string name="keybox_no_internet">❌ इंटरनेट कनेक्शन आवश्यक!</string>
+    <string name="keybox_no_keybox">❌ कोई फ़ाइल डाउनलोड नहीं हुई!</string>
+    <string name="keybox_no_module">❌ कोई मैजिक/कर्नेलएसयू मॉड्यूल नहीं मिला!</string>
+    <string name="keybox_info_title">कीबॉक्स मैनेजर के बारे में</string>
+    <string name="keybox_info_summary">एंड्रॉइड अटेस्टेशन और कीबॉक्स के बारे में जानें</string>
+    <string name="keybox_info_dialog_title">कीबॉक्स का बॉक्स - सूचना</string>
+    <string name="keybox_info_dialog_message">🔑 यह ऐप क्या है?\n══════════════════════════\n\nएंड्रॉइड अटेस्टेशन कीबॉक्स को प्रबंधित करने के लिए उन्नत टूल। डाउनलोड/विश्लेषण के लिए किसी रूट की आवश्यकता नहीं है।\n\n✅ विशेषताएं:\n• सामुदायिक स्रोत खोजें\n• कस्टम कीबॉक्स आयात करें\n• गहन प्रमाणपत्र विश्लेषण\n• इंटीग्रिटी एपीआई परीक्षण चलाएं\n• बैच सत्यापन\n• प्रमाणपत्र निष्कर्षण\n• साथ-साथ तुलना\n\n📁 स्थान:\n/sdcard/डाउनलोड/कीबॉक्स/\n\n⚙️ इंस्टालेशन:\n══════════════════════════\n\nविकल्प 1: इंटीग्रिटी फिक्स खेलें\n1। मैजिक/कर्नेलएसयू इंस्टॉल करें\n2. पीआईएफ मॉड्यूल स्थापित करें\n3. keybox.xml को यहां कॉपी करें:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. रिबूट\n\nविकल्प 2: ट्रिकीस्टोर\n1. मैजिक/कर्नेलएसयू इंस्टॉल करें\n2. ट्रिकीस्टोर मॉड्यूल स्थापित करें\n3. keybox.xml को यहां कॉपी करें:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. स्वतः-पुनः लोड करें (कोई रीबूट नहीं)\n\n🧪 परीक्षण:\n══════════════════════════\n• अंतर्निहित प्ले इंटीग्रिटी चेक का उपयोग करें\n• YASNAC ऐप\n• बैंकिंग ऐप्स\n• Google वॉलेट\n\n🔬 उन्नत विशेषताएं:\n══════════════════════════\nगहरा विश्लेषण:\n• प्रमाणपत्र श्रृंखला सत्यापन\n• समाप्ति ट्रैकिंग\n• एल्गोरिदम ताकत जांचें\n• निरसन स्थिति\n\nचलाएं अखंडता जांचें:\n• वास्तविक समय एपीआई परीक्षण\n• बुनियादी/डिवाइस/मजबूत स्थिति\n• मॉड्यूल का पता लगाना\n\nबैच संचालन:\n• एकाधिक कीबॉक्स सत्यापित करें\n• साथ-साथ तुलना करें\n• प्रमाणपत्र निकालें\n\n💡 टिप्स:\n══════════════════════════\n• सार्वजनिक कीबॉक्स दुर्लभ हैं और जल्दी से निरस्त कर दिए जाते हैं\n• सर्वोत्तम स्रोत निजी टेलीग्राम समूह हैं\n• पहले कीबॉक्स का परीक्षण करें इंस्टॉल करना\n• कार्यशील कीबॉक्स का बैकअप रखें\n• समाप्ति तिथियां जांचें\n\n🔗 समुदाय:\n══════════════════════════\n• टेलीग्राम: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: &amp;quot;कीबॉक्स प्ले इंटीग्रिटी&amp;quot; खोजें\n\n⚠️ कानूनी अस्वीकरण:\n══════════════════════════\nकेवल शैक्षणिक उद्देश्य।\nसंशोधित कीबॉक्स का उपयोग उल्लंघन हो सकता है:\n• Google सेवा की शर्तें\n• ऐप डेवलपर नीतियां\n• स्थानीय कानून\n\nअपने जोखिम पर उपयोग करें!</string>
+    <string name="keybox_reset_title">डाउनलोड हटाएं</string>
+    <string name="keybox_reset_summary">सभी डाउनलोड किए गए कीबॉक्स को स्टोरेज से हटा दें</string>
+    <string name="keybox_reset_dialog_title">⚠️ डाउनलोड हटाएं</string>
+    <string name="keybox_reset_dialog_message">/sdcard/Download/Keyboxes/?\n\nसे सभी फ़ाइलें हटाएं, इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="keybox_reset_success">✅ सभी फ़ाइलें हटा दी गईं!</string>
+    <string name="keybox_reset_error">❌ हटाना विफल: %s</string>
+    <string name="ram_optimizer_title">रैम और स्टोरेज ऑप्टिमाइज़र</string>
+    <string name="ram_optimizer_summary">रैम कम्प्रेशन और स्टोरेज को अनुकूलित करें</string>
+    <string name="ram_optimizer_description">बेहतर प्रदर्शन के लिए zRAM सेटिंग्स, ऐप हाइबरनेशन और क्लीन स्टोरेज प्रबंधित करें।</string>
+    <string name="zram_category_title">zRAM संपीड़न</string>
+    <string name="zram_enable_title">ZRAM सक्षम करें</string>
+    <string name="zram_enable_summary">मेमोरी खाली करने के लिए RAM को कंप्रेस करें</string>
+    <string name="zram_size_title">zRAM आकार (एमबी)</string>
+    <string name="zram_size_summary">संपीड़ित रैम का आकार सेट करें (512-12288 एमबी)</string>
+    <string name="zram_swappiness_title">स्वैपनेस</string>
+    <string name="zram_swappiness_summary">नियंत्रित करें कि zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">पर कितनी आक्रामकता से स्वैप करना है ऐप हाइबरनेशन</string>
+    <string name="app_hibernation_title">ऐप हाइबरनेशन सक्षम करें</string>
+    <string name="app_hibernation_summary">रैम और बैटरी बचाने के लिए अप्रयुक्त ऐप्स को हाइबरनेट करें</string>
+    <string name="storage_cleaner_category_title">स्टोरेज क्लीनर</string>
+    <string name="storage_stats_title">भंडारण सांख्यिकी</string>
+    <string name="storage_stats_summary">लोड हो रहा है...</string>
+    <string name="clean_app_cache_title">ऐप कैश साफ़ करें</string>
+    <string name="clean_app_cache_summary">सभी ऐप्स से कैश्ड डेटा हटाएं</string>
+    <string name="clean_system_cache_title">क्लीन सिस्टम कैश</string>
+    <string name="clean_system_cache_summary">सिस्टम कैश साफ़ करें और कैश ड्रॉप करें</string>
+    <string name="clean_thumbnails_title">साफ़ थंबनेल</string>
+    <string name="clean_thumbnails_summary">मीडिया से थंबनेल कैश हटाएँ</string>
+    <string name="clean_downloads_title">पुराने डाउनलोड साफ़ करें</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">अग्रभूमि अनुप्रयोग के आधार पर प्रदर्शन को स्वचालित रूप से समायोजित करें</string>
+</resources>

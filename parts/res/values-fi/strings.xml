@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Xiaomi-asetukset</string>
+    <string name="tile_add">Lisää laatta</string>
+    <string name="tile_added">Laatat lisätty</string>
+    <string name="tile_not_added">Laataa ei lisätty</string>
+    <string name="tile_already_added">Laatat on jo lisätty</string>
+    <string name="tile_on">Päällä</string>
+    <string name="tile_off">Pois</string>
+    <string name="clear_speaker_title">Kirkas kaiutin</string>
+    <string name="clear_speaker_summary">Toista 30 sekunnin ääni tyhjentääksesi kaiuttimen</string>
+    <string name="clear_speaker_description">Käytä tätä toimintoa kerran tai kahdesti, jos huomaat, että kaiuttimesi on kevyesti pölyn peitossa. Aseta median äänenvoimakkuus maksimiin.\n\nJos kaiutin on voimakkaasti tukossa, käytä tätä toimintoa 2–5 kertaa ja ravista laitetta kaiutin alaspäin.</string>
+    <string name="saturation_title">Näytön kylläisyys</string>
+    <string name="saturation_summary">Säädä näytön kylläisyyttä</string>
+    <string name="saturation_footer_summary">Väritilan muuttaminen näyttöasetuksissa ohittaa kylläisyystason, jolloin se on otettava uudelleen käyttöön.</string>
+    <string name="image_preview_content_description">Esikatselu</string>
+    <string name="image_preview_next_page_content_description">Seuraava</string>
+    <string name="image_preview_previous_page_content_description">Edellinen</string>
+    <string name="custom_seekbar_value">Arvo:</string>
+    <string name="custom_seekbar_default_value">oletuksena</string>
+    <string name="custom_seekbar_default_value_to_set">Oletusarvo:</string>
+    <string name="custom_seekbar_default_value_is_set">Oletusarvo on asetettu</string>
+    <string name="auto_hbm_title">Automaattinen High Brightness Mode (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Käytä automaattista HBM:ää</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">Käytössä</string>
+    <string name="tile_hbm_off">Ei käytössä</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM ei saatavilla</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Auto HBM tai Auto Brightness on käytössä</string>
+    <string name="hbm_mode_title">High Brightness Mode</string>
+    <string name="hbm_mode_notification">High Brightness Mode on nyt aktivoitu. Pitkäaikainen käyttö voi vahingoittaa näyttöä.</string>
+    <string name="auto_hbm_summary">Ota automaattisesti käyttöön korkean kirkkauden tila auringonvalon voimakkuuden (lux) perusteella</string>
+    <string name="auto_hbm_threshold_title">Valokynnys</string>
+    <string name="auto_hbm_threshold_summary">Määritä valon voimakkuuden kynnys lux-yksiköissä, jossa HBM aktivoituu</string>
+    <string name="auto_hbm_enable_time_title">Ota aika käyttöön</string>
+    <string name="auto_hbm_enable_time_summary">Kesto sekunteina, jonka valokynnys on jatkuvasti saavutettava HBM:n aktivoimiseksi</string>
+    <string name="auto_hbm_disable_time_title">Poista aika käytöstä</string>
+    <string name="auto_hbm_disable_time_summary">Kesto sekunteina, jonka ajaksi HBM on deaktivoitu, jos valokynnys laskee alle asetetun tason</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">Ota järjestelmän peitto käyttöön (FPS, Temp jne.)</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">Vaihda pelin peittokuva päälle</string>
+    <string name="game_bar_enable_title">Ota GameBar Overlay käyttöön</string>
+    <string name="overlay_permission_required">Peittokuvan lupa vaaditaan</string>
+    <string name="overlay_permission_granted">Peittokuvan lupa myönnetty</string>
+    <string name="overlay_permission_denied">Peittokuvan lupa evätty</string>
+    <string name="overlay_features_title">Peittokuvaominaisuudet</string>
+    <string name="game_bar_fps_enable_title">FPS-peitto</string>
+    <string name="game_bar_fps_enable_summary">Näytä nykyinen FPS näytöllä</string>
+    <string name="game_bar_temp_enable_title">Laitteen lämpötila</string>
+    <string name="game_bar_temp_enable_summary">Näytä laitteen (akun) lämpötila</string>
+    <string name="game_bar_cpu_usage_enable_title">CPU:n käyttö</string>
+    <string name="game_bar_cpu_usage_enable_summary">Näytä nykyinen prosessorin käyttöprosentti</string>
+    <string name="game_bar_cpu_clock_enable_title">CPU:n kellonopeudet</string>
+    <string name="game_bar_cpu_clock_enable_summary">Näytä kunkin ytimen nykyiset prosessorin kellonopeudet</string>
+    <string name="game_bar_cpu_temp_enable_title">CPU:n lämpötila</string>
+    <string name="game_bar_cpu_temp_enable_summary">Näytä suorittimen lämpötila (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">RAM-muistin käyttö</string>
+    <string name="game_bar_ram_enable_summary">Näytä nykyinen RAM-käyttö megatavuina</string>
+    <string name="game_bar_gpu_usage_enable_title">GPU-käyttö</string>
+    <string name="game_bar_gpu_usage_enable_summary">Näytä grafiikkasuorittimen käyttöprosentti</string>
+    <string name="game_bar_gpu_clock_enable_title">GPU:n kellonopeus</string>
+    <string name="game_bar_gpu_clock_enable_summary">Näytä nykyinen GPU:n kellotaajuus</string>
+    <string name="game_bar_gpu_temp_enable_title">GPU:n lämpötila</string>
+    <string name="game_bar_gpu_temp_enable_summary">Näytä nykyinen grafiikkasuorittimen lämpötila</string>
+    <string name="fps_measurement_method_title">FPS-mittausmenetelmä</string>
+    <string name="game_bar_fps_method_title">Valitse FPS-menetelmä</string>
+    <string name="game_bar_fps_method_summary">Valitse uusi API-menetelmä (oletus) tai Legacy Sysfs</string>
+    <string name="customization_title">Räätälöinti</string>
+    <string name="game_bar_text_size_title">Tekstin koko</string>
+    <string name="game_bar_text_size_summary">Säädä peittotekstin kokoa</string>
+    <string name="game_bar_background_alpha_title">Taustan läpinäkyvyys</string>
+    <string name="game_bar_background_alpha_summary">Säädä taustan läpinäkyvyyttä</string>
+    <string name="game_bar_corner_radius_title">Päällystyskulman säde</string>
+    <string name="game_bar_corner_radius_summary">Säädä peittokuvan kulmien pyöristämistä</string>
+    <string name="game_bar_padding_title">Peittopäällyste</string>
+    <string name="game_bar_padding_summary">Säädä tilaa tilastojen ympärillä</string>
+    <string name="game_bar_item_spacing_title">Kohteiden väli</string>
+    <string name="game_bar_item_spacing_summary">Säädä päällekkäisten rivien väliä</string>
+    <string name="game_bar_update_interval_title">Päivitysväli</string>
+    <string name="game_bar_update_interval_summary">Aseta, kuinka usein peittokuva-arvot päivittyvät</string>
+    <string name="game_bar_title_color_title">Tilastot Otsikko Väri</string>
+    <string name="game_bar_title_color_summary">Väri \'FPS\', \'Temp\', \'CPU\' jne. tekstille</string>
+    <string name="game_bar_value_color_title">Stat Value Color</string>
+    <string name="game_bar_value_color_summary">Numeeristen tilastojen väri (esim. \'29\', \'32,0°C\')</string>
+    <string name="game_bar_position_title">Peittokuvan sijainti</string>
+    <string name="game_bar_position_summary">Valitse peittokuvan sijainti näytöllä</string>
+    <string name="game_bar_format_title">Peittokuvamuoto</string>
+    <string name="game_bar_format_summary">Valitse täysi tai pieni näyttö</string>
+    <string name="game_bar_overlay_format_toast">Peittokuvan muoto muutettu muotoon: %s</string>
+    <string name="game_bar_format_entries_full">Täysi</string>
+    <string name="game_bar_format_entries_minimal">Minimi</string>
+    <string name="split_config_title">Split Config</string>
+    <string name="game_bar_split_mode_title">Jaettu tila</string>
+    <string name="game_bar_split_mode_summary">Valitse vierekkäin tai pinottu järjestely</string>
+    <string name="overlay_gesture_controls_title">Peittoelesäätimet</string>
+    <string name="game_bar_single_tap_toggle_title">Ota käyttöön Single Touch toggle</string>
+    <string name="game_bar_single_tap_toggle_summary">Napauta kerran vaihtaaksesi täyden ja minimaalisen peittokuvamuodon välillä</string>
+    <string name="game_bar_doubletap_capture_title">Ota kaappaamiseen käyttöön kaksoisnapauttamalla</string>
+    <string name="game_bar_doubletap_capture_summary">Kaksoisnapauta peittokuvaa käynnistääksesi/lopettaaksesi kaappauslokit</string>
+    <string name="game_bar_longpress_enable_title">Ota pitkä painallus käyttöön</string>
+    <string name="game_bar_longpress_enable_summary">Paina peittokuvaa pitkään päästäksesi GameBarin asetuksiin</string>
+    <string name="game_bar_longpress_timeout_title">Pitkä painallus Kesto</string>
+    <string name="game_bar_longpress_timeout_summary">Aseta peittokuvan painamiseen tarvittava kesto</string>
+    <string name="capture_logs_title">Kaappaa lokit</string>
+    <string name="game_bar_capture_start_title">Aloita kirjaaminen</string>
+    <string name="game_bar_capture_start_summary">Aloita FPS- ja suorituskykytietojen sieppaus reaaliajassa</string>
+    <string name="game_bar_capture_stop_title">Lopeta kirjaaminen</string>
+    <string name="game_bar_capture_stop_summary">Lopeta reaaliaikaisten FPS- ja suorituskykytietojen tallentaminen</string>
+    <string name="game_bar_capture_export_title">Vie GameBarin lokitiedot</string>
+    <string name="game_bar_capture_export_summary">Tallenna kaapatut FPS- ja suorituskykytiedot CSV-tiedostona</string>
+    <string name="game_bar_capture_start_toast">Tietojen kirjaaminen aloitettu</string>
+    <string name="game_bar_capture_stop_toast">Tietojen kirjaaminen lopetettu</string>
+    <string name="game_bar_capture_export_toast">Lokitiedot vietiin tiedostoon</string>
+    <string name="game_bar_doubletap_capture_start_toast">Sieppaus aloitettu</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Sieppaus pysäytetty</string>
+    <string name="auto_enable_gamebar_title">Ota GameBar automaattisesti käyttöön</string>
+    <string name="game_bar_auto_enable_title">Ota GameBar automaattisesti käyttöön valituille sovelluksille</string>
+    <string name="game_bar_auto_enable_summary">Jos se on päällä, valitut sovellukset ottavat GameBarin automaattisesti käyttöön, vaikka pääkytkin olisi pois päältä</string>
+    <string name="game_bar_app_selector_title">Valitse Sovellukset</string>
+    <string name="game_bar_app_selector_summary">Lisää sovelluksia, joiden pitäisi ottaa GameBar automaattisesti käyttöön</string>
+    <string name="game_bar_app_remover_title">Poista valitut sovellukset</string>
+    <string name="game_bar_app_remover_summary">Poista sovellukset automaattisen käyttöönoton luettelosta</string>
+    <string name="game_bar_app_remover_activity_title">Poista automaattisen käyttöönoton sovellukset</string>
+    <string name="game_bar_app_selector_activity_title">Valitse Apps for GameBar</string>
+    <string name="game_bar_app_added_toast">lisätty</string>
+    <string name="game_bar_app_removed_toast">poistettu</string>
+    <string name="gpu_enable_title">Ota GPU Optimizer käyttöön</string>
+    <string name="gpu_enable_summary">GPU-optimointi päälle/pois</string>
+    <string name="gpu_freq_category_title">Määritä GPU-taajuus</string>
+    <string name="gpu_min_frequency">GPU:n vähimmäistaajuus</string>
+    <string name="gpu_max_frequency">GPU:n maksimitaajuus</string>
+    <string name="gpu_disabled_defaults_restored">Optimizer GPU poistettu käytöstä, oletukset palautettu</string>
+    <string name="gpu_optimizer_enabled">GPU-optimointitoiminto käytössä</string>
+    <string name="gpu_min_freq_exceeds_max">Epäonnistui: GPU:n vähimmäistaajuus ei voi ylittää enimmäistaajuutta</string>
+    <string name="gpu_max_freq_below_min">Epäonnistui: GPU:n maksimitaajuus ei voi olla pienempi kuin minimitaajuus</string>
+    <string name="gpu_min_freq_applied">GPU:n minimitaajuus -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU:n maksimitaajuus -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Ota CPU Optimizer käyttöön</string>
+    <string name="cpu_enable_summary">Prosessorin optimointi päälle/pois</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">Suorittimen optimointi pois käytöstä, oletukset palautettu</string>
+    <string name="cpu_optimizer_enabled">Suorittimen optimointi käytössä</string>
+    <string name="cpu_little_category_title">Määritä CPU Little Cluster</string>
+    <string name="cpu_little_min_frequency_title">Minimitaajuus</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Maksimitaajuus</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Kuvernööri</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Epäonnistui: CPU:n pieni minimitaajuus ei voi ylittää maksimitaajuus</string>
+    <string name="cpu_little_max_freq_below_min">Epäonnistui: CPU:n pieni maksimitaajuus ei voi olla pienempi kuin min</string>
+    <string name="cpu_little_min_freq_applied">Suorittimen pieni minimitaajuus -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">Suorittimen pieni maksimitaajuus -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">Prosessorin pieni ohjain -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Määritä CPU Big Cluster</string>
+    <string name="cpu_big_min_frequency_title">Minimitaajuus</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Maksimitaajuus</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Kuvernööri</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Epäonnistui: Prosessorin iso minimitaajuus ei voi ylittää max</string>
+    <string name="cpu_big_max_freq_below_min">Epäonnistui: CPU:n suuri maksimitaajuus ei voi olla pienempi kuin min</string>
+    <string name="cpu_big_min_freq_applied">Suorittimen suuri minimitaajuus -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">Suorittimen suuri maksimitaajuus -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">Prosessorin iso ohjain -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Määritä CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">Minimitaajuus</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Maksimitaajuus</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Kuvernööri</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Epäonnistui: CPU:n ensisijainen minimitaajuus ei voi ylittää maksimitaajuus</string>
+    <string name="cpu_prime_max_freq_below_min">Epäonnistui: CPU:n maksimitaajuus ei voi olla pienempi kuin min</string>
+    <string name="cpu_prime_min_freq_applied">Suorittimen ensisijainen minimitaajuus -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">Suorittimen ensisijainen maksimitaajuus -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">CPU:n pääohjain -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Käynnistä logcat käynnistyksen yhteydessä</string>
+    <string name="logcat_autostart_summary">Käynnistä taustaloki automaattisesti uudelleenkäynnistyksen jälkeen</string>
+    <string name="logcat_viewer_title">Logcat Viewer</string>
+    <string name="logcat_viewer_summary">Avaa reaaliaikainen lokikatseluohjelma</string>
+    <string name="logcat_filter_hint">Anna tunniste tai avainsana</string>
+    <string name="logcat_filter_title">Lokisuodatin</string>
+    <string name="logcat_pause">Tauko</string>
+    <string name="logcat_resume">Jatka</string>
+    <string name="logcat_autoscroll_on">Automaattinen vieritys PÄÄLLÄ</string>
+    <string name="logcat_autoscroll_off">Automaattinen vieritys POIS PÄÄLTÄ</string>
+    <string name="logcat_save">Tallenna loki</string>
+    <string name="logcat_clear">Tyhjennä loki</string>
+    <string name="logcat_share">Jaa loki</string>
+    <string name="logcat_settings">Asetukset</string>
+    <string name="logcat_export">Vie</string>
+    <string name="logcat_search">Haku</string>
+    <string name="logcat_notification_title">Logcat Viewer</string>
+    <string name="logcat_notification_text">Taustaloki aktiivinen</string>
+    <string name="logcat_notification_stopped">Taustaloki on lopetettu</string>
+    <string name="logcat_notification_channel_name">Logcat taustapalvelu</string>
+    <string name="logcat_notification_channel_desc">Taustalogcat-kirjauksen säätimet</string>
+    <string name="logcat_level_verbose">Monisanainen</string>
+    <string name="logcat_level_debug">Debug</string>
+    <string name="logcat_level_info">Info</string>
+    <string name="logcat_level_warn">Warning</string>
+    <string name="logcat_level_error">Error</string>
+    <string name="logcat_no_logs">No logs available</string>
+    <string name="logcat_loading">Loading logs...</string>
+    <string name="logcat_paused">Logging paused</string>
+    <string name="logcat_active">Logging active</string>
+    <string name="logcat_filter_applied">Filter applied: %1$s</string>
+    <string name="logcat_logs_cleared">Logs cleared</string>
+    <string name="logcat_save_progress">Saving logs...</string>
+    <string name="logcat_save_success">Logs saved successfully.</string>
+    <string name="logcat_save_failed">Failed to save logs.</string>
+    <string name="logcat_share_subject">Android Logcat Export</string>
+    <string name="logcat_permission_required">Storage permission required to save logs</string>
+    <string name="cpu_tile_label">CPU Governor</string>
+    <string name="cpu_tile_unavailable">CPU control unavailable</string>
+    <string name="cpu_tile_error">CPU monitoring error</string>
+    <string name="cpu_tile_unknown">Unknown</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Schedutil</string>
+    <string name="cpu_tile_governor_performance">Performance</string>
+    <string name="cpu_tile_governor_powersave">Powersave</string>
+    <string name="cpu_tile_governor_ondemand">OnDemand</string>
+    <string name="cpu_tile_governor_conservative">Conservative</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">CPU Tile Settings</string>
+    <string name="cpu_tile_settings_summary">Configure CPU Governor Quick Settings tile appearance and behavior</string>
+    <string name="cpu_tile_appearance_category">Appearance</string>
+    <string name="cpu_tile_behavior_category">Behavior</string>
+    <string name="cpu_tile_size_title">Tile Icon Size</string>
+    <string name="cpu_tile_size_summary">Choose the size of the CPU tile icon</string>
+    <string name="cpu_tile_style_title">Tile Style</string>
+    <string name="cpu_tile_style_summary">Choose how CPU information is displayed</string>
+    <string name="cpu_tile_show_percentage_title">Show Usage Percentage</string>
+    <string name="cpu_tile_show_percentage_summary">Display CPU usage percentage instead of frequency</string>
+    <string name="cpu_tile_update_speed_title">Update Interval</string>
+    <string name="cpu_tile_update_speed_summary">How often to refresh CPU information</string>
+    <string name="cpu_tile_update_speed_fast">Fast (0.5s)</string>
+    <string name="cpu_tile_update_speed_normal">Normal (1s)</string>
+    <string name="cpu_tile_update_speed_slow">Slow (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Very Slow (5s)</string>
+    <string name="cpu_tile_preview_title">Preview Changes</string>
+    <string name="cpu_tile_preview_summary">Tap to refresh the tile with current settings</string>
+    <string name="cpu_tile_footer">The CPU Governor tile allows quick switching between CPU governors and displays real-time CPU frequency and usage information. Tap the tile to cycle through available governors.</string>
+    <string name="performance_mode_title">Performance Mode</string>
+    <string name="performance_mode_summary">Force CPU and GPU to max for peak performance. Increases heat and battery drain.</string>
+    <string name="performance_mode_enabled_summary">Performance mode is ON</string>
+    <string name="performance_mode_disabled_summary">Performance mode is OFF</string>
+    <string name="performance_profile_title">Performance Profile</string>
+    <string name="performance_profile_summary">Valitse suorituskykytila ​​laitteen optimaalista toimintaa varten</string>
+    <string name="performance_mode_battery_saver">Virransäästö</string>
+    <string name="performance_mode_balanced">Tasapainoinen</string>
+    <string name="performance_mode_performance">Suorituskyky</string>
+    <string name="performance_profile_applied">Suorituskykyprofiiliksi asetettu %s</string>
+    <string name="performance_profile_failed">Suorituskykyprofiilin käyttäminen epäonnistui</string>
+    <string name="performance_tile_label">Suorituskyky</string>
+    <string name="performance_notification_channel_name">Suorituskykyprofiilit</string>
+    <string name="performance_notification_channel_desc">Näyttää nykyisen suorituskykyprofiilin tilan</string>
+    <string name="performance_notification_battery_saver">Virransäästötila on aktiivinen - Pidentynyt akun käyttöikä</string>
+    <string name="performance_notification_balanced">Tasapainotettu tila on aktiivinen - Optimaalinen suorituskyky ja akun kesto</string>
+    <string name="performance_notification_performance">Suorituskykytila ​​on aktiivinen - Maksimi suorituskyky</string>
+    <string name="performance_footer_title">Suorituskykyprofiilin tiedot</string>
+    <string name="performance_footer_summary">• Akun säästö: Pidentää akun käyttöikää vähentämällä suorittimen ja grafiikkasuorittimen suorituskykyä. Ihanteellinen kevyeen käyttöön ja akun enimmäiskestoon.\n\n• Tasapainotettu: Tarjoaa optimaalisen tasapainon suorituskyvyn ja akun keston välillä. Suositellaan päivittäiseen käyttöön.\n\n• Suorituskyky: Maksimoi suorittimen ja grafiikkasuorittimen suorituskyvyn vaativiin tehtäviin. Paras pelaamiseen, raskaisiin sovelluksiin ja intensiivisiin työkuormiin. Saattaa lyhentää akun käyttöikää.</string>
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi Garnet erikoisasetukset</string>
+    <string name="xiaomi_parts_summary">Xiaomin laitekohtaiset asetukset</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">Näyttö</string>
+    <string name="sound_title">Ääni</string>
+    <string name="power_title">Teho</string>
+    <string name="gaming_title">Pelit ja apuvälineet</string>
+    <string name="about_me_title">Tietoja minusta</string>
+    <string name="about_me_summary">Kaikki mitä sinun tulee tietää InnOvaTionista</string>
+    <string name="about_me_contact_title">Tuki</string>
+    <string name="about_me_contact_summary">Saat apua sieltä</string>
+    <string name="about_me_donate_title">Lahjoita minulle paypalissa</string>
+    <string name="about_me_donate_summary">Tue työtäni, jotta voin jatkaa rakentamista</string>
+    <string name="about_me_donate2_title">Ostameakahvia</string>
+    <string name="about_me_donate2_summary">Soita minulle oluelle tai kahville</string>
+    <string name="core_control_title">Core Control</string>
+    <string name="core_control_summary">Ota yksittäiset CPU-ytimet käyttöön tai poista ne käytöstä manuaalisesti</string>
+    <string name="core_control_description">Edistynyt suorittimen ohjaus. Ydinten sammuttaminen voi säästää akkua tai lämpökuormitusta, mutta se voi vaikuttaa suorituskykyyn ja vakauteen.\n\nVähintään kahden pienen ytimen on pysyttävä verkossa koko ajan.</string>
+    <string name="keep_little_cores_online">Ainakin 2 pientä ydintä on säilytettävä verkossa</string>
+    <string name="core_0">Ydin 0 (pieni)</string>
+    <string name="core_1">Core 1 (pieni)</string>
+    <string name="core_2">Core 2 (pieni)</string>
+    <string name="core_3">Core 3 (pieni)</string>
+    <string name="core_4">Core 4 (iso)</string>
+    <string name="core_5">Core 5 (iso)</string>
+    <string name="core_6">Core 6 (iso)</string>
+    <string name="core_7">Core 7 (iso)</string>
+    <string name="error">Virhe</string>
+    <string name="kernel_manager_title">Ytimen hallinta</string>
+    <string name="kernel_manager_summary">Hallitse suorittimen taajuuksia ja ohjainta</string>
+    <string name="kernel_manager_efficiency_category">Tehokkuusklusteri (A55)</string>
+    <string name="kernel_manager_performance_category">Suorituskykyklusteri (A78)</string>
+    <string name="kernel_manager_governor">CPU:n ohjain</string>
+    <string name="kernel_manager_governor_summary">Valitse klustereille suorittimen ohjain</string>
+    <string name="cpu_governor_summary">Nykyinen: %s</string>
+    <string name="kernel_manager_min_freq">Minimitaajuus</string>
+    <string name="kernel_manager_min_freq_summary">Aseta pienin sallittu CPU-taajuus</string>
+    <string name="kernel_manager_max_freq">Suurin taajuus</string>
+    <string name="kernel_manager_max_freq_summary">Aseta suurin sallittu CPU-taajuus</string>
+    <string name="kernel_info_category">Tiedot</string>
+    <string name="kernel_info_title">Tietoja Kernel Managerista</string>
+    <string name="kernel_info_summary">Hallitse prosessorin ohjainta ja taajuuden skaalausta kaikille prosessoriklustereille. Muutokset voivat vaikuttaa suorituskykyyn ja akun käyttöikään.</string>
+    <string name="kernel_manager_apply">Käytä asetuksia</string>
+    <string name="kernel_manager_apply_summary">Ota valitut suorittimen asetukset käyttöön</string>
+    <string name="kernel_manager_reset">Palauta oletusarvo</string>
+    <string name="kernel_manager_reset_summary">Palauta CPU:n oletusasetukset</string>
+    <string name="settings_applied">Asetukset otettu käyttöön onnistuneesti</string>
+    <string name="settings_reset">Asetukset palautetaan oletusarvoihin</string>
+    <string name="kernel_manager_footer">Suorittimen säätimet hallitsevat, kuinka laitteesi säätää suorittimen taajuutta suorituskyvyn ja virrankulutuksen tasapainottamiseksi. Tässä on nopea yleiskatsaus:\n\n• walt: Googlen kehittämä ohjain, joka on optimoitu reagointikykyyn ja käyttäjän vuorovaikutusviiveeseen, käytetään pääasiassa Pixel-laitteissa.\n• konservatiivinen: Nostaa asteittain suorittimen taajuutta; säästää akkua, mutta saattaa heikentää reagointikykyä.\n• virransäästö: Pitää CPU:n matalimmalla mahdollisella taajuudella priorisoimalla akun käyttöiän suorituskyvyn edelle.\n• Suorituskyky: Lukitsee CPU:n maksimitaajuudelle, mikä varmistaa maksimaalisen suorituskyvyn akun kustannuksella.\n• schedhorizon: Ajoitustietoinen ohjain, joka pyrkii parantamaan tehtävien siirtoa ja tehokkuutta nykyaikaisissa ytimissä.\n• Useiden nykyisten ytimien oletusydin; käyttää Linuxin aikataulutietoja skaalatakseen suorittimen taajuutta älykkäästi ja tehokkaasti.</string>
+    <string name="kernel_manager_cpu_monitor">CPU Core Monitoring</string>
+    <string name="kernel_manager_core_online">Online</string>
+    <string name="kernel_manager_core_offline">Offline</string>
+    <string name="kernel_manager_loading">Ladataan...</string>
+    <string name="kernel_manager_enable_monitoring">Reaaliaikainen seuranta</string>
+    <string name="kernel_manager_enable_monitoring_summary">Päivitä jatkuvasti CPU-ytimen tilaa</string>
+    <string name="kernel_manager_update_interval">Päivitystiheys</string>
+    <string name="kernel_manager_update_interval_summary">Kuinka usein tiedot päivitetään</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Tehokkuusklusterin yhteenveto</string>
+    <string name="kernel_manager_performance_cluster_summary">Suorituskykyklusterin yhteenveto</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d ydintä verkossa | Alue: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">Ei käytössä</string>
+    <string name="update_interval_500ms">0,5 sekuntia</string>
+    <string name="update_interval_1000ms">1 sekunti</string>
+    <string name="update_interval_2000ms">2 sekuntia</string>
+    <string name="update_interval_5000ms">5 sekuntia</string>
+    <string name="cpu_core_status_online">🟢 %1$s - Online</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - Offline</string>
+    <string name="kernel_manager_governor_current">%1$s (nykyinen: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (nykyinen: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">Reaaliaikainen valvonta on poistettu käytöstä. Ota se käyttöön nähdäksesi suorittimen ydintaajuudet ja tilan.</string>
+    <string name="kernel_manager_error_read">CPU-tietoja ei voi lukea</string>
+    <string name="kernel_manager_error_write">CPU-asetuksia ei voi ottaa käyttöön. Root-käyttöoikeus saatetaan vaatia.</string>
+    <string name="kernel_manager_error_permission">Lupa evätty. Prosessoriasetusten muuttamiseen tarvitaan pääkäyttäjän oikeudet.</string>
+    <string name="gpu_manager_title">GPU Manager</string>
+    <string name="gpu_manager_summary">Hallitse GPU-taajuuksia ja tehoasetuksia</string>
+    <string name="gpu_governor_title">GPU-kuvernööri</string>
+    <string name="gpu_governor_summary">Nykyinen: %s</string>
+    <string name="gpu_freq_title">GPU-taajuudet</string>
+    <string name="gpu_min_freq_title">Minimitaajuus</string>
+    <string name="gpu_max_freq_title">Suurin taajuus</string>
+    <string name="gpu_max_gpuclk_title">Max GPUCLK Override</string>
+    <string name="gpu_max_gpuclk_summary">Ylimääräinen kellotehostus (max 940 MHz)</string>
+    <string name="gpu_current_freq_title">Nykyinen taajuus</string>
+    <string name="gpu_power_title">Virta-asetukset</string>
+    <string name="gpu_force_clk_on_title">Pakota kello päälle</string>
+    <string name="gpu_force_clk_on_summary">Pidä GPU-kello aina päällä</string>
+    <string name="gpu_force_bus_on_title">Pakota väylä päälle</string>
+    <string name="gpu_force_bus_on_summary">Pidä GPU-väylä aina päällä</string>
+    <string name="gpu_force_rail_on_title">Force Rail On</string>
+    <string name="gpu_force_rail_on_summary">Pidä GPU-virtakisko aina päällä</string>
+    <string name="gpu_force_no_nap_title">Force No Nap</string>
+    <string name="gpu_force_no_nap_summary">Poista GPU-torkku kehysten välillä käytöstä</string>
+    <string name="gpu_bus_split_title">Bussi Split</string>
+    <string name="gpu_bus_split_summary">Ota GPU-väylän jakaminen käyttöön</string>
+    <string name="gpu_preempt_title">GPU:n etuoikeus</string>
+    <string name="gpu_preempt_summary">Pienen viiveen pelaaminen (mahdollista paras pelikokemus)</string>
+    <string name="gpu_camera_boost_title">Kameran tehostus</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (kameran/videon maksimikoodausteho)</string>
+    <string name="gpu_thermal_title">Lämpöasetukset</string>
+    <string name="gpu_thermal_pwrlevel_title">Lämpötehotaso</string>
+    <string name="gpu_thermal_pwrlevel_summary">Nykyinen lämpötehotaso</string>
+    <string name="gpu_temp_title">GPU:n lämpötila</string>
+    <string name="gpu_info_title">GPU-tiedot</string>
+    <string name="gpu_model_title">GPU-malli</string>
+    <string name="gpu_busy_percentage_title">GPU:n kuormitus</string>
+    <string name="gpu_reset_count_title">Nollaa määrä</string>
+    <string name="gpu_preempt_count_title">Etuostosten määrä</string>
+    <string name="gpu_info_category">GPU-tiedot</string>
+    <string name="gpu_settings_category">GPU-asetukset</string>
+    <string name="gpu_advanced_category">Lisäasetukset</string>
+    <string name="gpu_info_summary">Hallitse GPU-taajuuden skaalaus- ja tehoasetuksia. Muutokset voivat vaikuttaa suorituskykyyn ja akun käyttöikään.</string>
+    <string name="apply_settings">Käytä asetuksia</string>
+    <string name="reset_settings">Nollaa asetukset</string>
+    <string name="gpu_turbo_preset_title">Turbo Preset</string>
+    <string name="gpu_turbo_preset_summary">Suurin suorituskyky: 940 MHz:n lukitus, suorituskyvyn säädin, kaikki tehosteet PÄÄLLÄ</string>
+    <string name="gpu_turbo_enabled">🚀 Turbo-tila käytössä!</string>
+    <string name="gpu_settings_applied">Asetukset käytössä!</string>
+    <string name="gpu_settings_reset">Asetukset palautettu oletusasetuksiin!</string>
+    <string name="unknown">Tuntematon</string>
+    <string name="thermal_level_summary">Taso %s</string>
+    <string name="camera_boost_triggered">Kameran/videon tehostus aktivoitu!</string>
+    <string name="video_enhancer_title">Video Enhancer</string>
+    <string name="video_enhancer_summary">Redmi Note 13 Pro 5G:n näytön ja suorituskyvyn optimointi</string>
+    <string name="video_enhancer_display_category">📺 Näyttöominaisuudet</string>
+    <string name="smooth_motion_enable_title">Smooth Motion</string>
+    <string name="smooth_motion_enable_summary">Laitteiston liikkeen tasoitus videoille (oletus: OFF) • Uudelleenkäynnistys vaaditaan</string>
+    <string name="optimize_refresh_enable_title">Optimoi virkistystaajuus</string>
+    <string name="optimize_refresh_enable_summary">Dynaaminen virkistystaajuus perustuu sisältöön (oletus: OFF) • Uudelleenkäynnistys vaaditaan</string>
+    <string name="peak_refresh_rate_title">120 Hz huippuvirkistystaajuus</string>
+    <string name="peak_refresh_rate_summary">Ota käyttöön 120 Hz kosketuksessa (200 ms) • Tehdasarvo • Vaaditaan uudelleenkäynnistys</string>
+    <string name="video_enhancer_performance_category">⚡ Suorituskyvyn optimoinnit</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">Käytä Vulkania OpenGL ES:n (Adreno 710) sijaan • Uudelleenkäynnistys vaaditaan</string>
+    <string name="purgeable_assets_title">Puhdistettavat omaisuuserät</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">Luettele kaikki ladatut näppäinlaatikot tallennustilassa</string>
+    <string name="keybox_verify_title">Tarkista lataukset</string>
+    <string name="keybox_verify_summary">Tarkista ladattujen näppäinlaatikoiden XML-rakenne</string>
+    <string name="keybox_analyze_title">Syväanalyysi</string>
+    <string name="keybox_analyze_summary">Analysoi varmenneketjut, vanheneminen ja voimassaolo</string>
+    <string name="keybox_check_api_title">Tarkista toiston eheys</string>
+    <string name="keybox_check_api_summary">Testaa näppäimistöä Google Play Integrity API:n kanssa</string>
+    <string name="keybox_compare_title">Vertaa näppäinlaatikoita</string>
+    <string name="keybox_compare_summary">Vertaa useita näppäimistöjä vierekkäin</string>
+    <string name="keybox_extract_certs_title">Ote sertifikaatit</string>
+    <string name="keybox_extract_certs_summary">Vie sertifikaatit PEM-tiedostoina</string>
+    <string name="keybox_batch_verify_title">Erävahvistus</string>
+    <string name="keybox_batch_verify_summary">Testaa useita näppäinlaatikoita yksityiskohtaisilla raporteilla</string>
+    <string name="keybox_status_title">Näppäinlaatikon tila</string>
+    <string name="keybox_status_summary">Nykyinen: %s</string>
+    <string name="keybox_status_installed">✅ Kelvollinen tiedosto ladattu</string>
+    <string name="keybox_status_not_installed">❌ Ei ladattuja tiedostoja</string>
+    <string name="keybox_status_unknown">⚠️ Tuntematon</string>
+    <string name="keybox_device_id_title">Laitetunnus</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Sertifikaattien määrä</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Todistuksen voimassaolo päättyy</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Luo malleja</string>
+    <string name="keybox_search_dialog_title">Hae yhteisön avainlaatikoista</string>
+    <string name="keybox_import_dialog_title">Tuo Keybox</string>
+    <string name="keybox_export_dialog_title">Listaa ladatut näppäimistöt</string>
+    <string name="keybox_verify_dialog_title">Vahvista ladatut näppäinlaatikot</string>
+    <string name="keybox_analyze_dialog_title">Syväanalyysi</string>
+    <string name="keybox_analyze_dialog_message">Tämä suorittaa syvällisen varmenteen analyysin:\n\n✅ Tarkistukset:\n• Varmenneketjun vahvistus\n• Vanhentumispäivät\n• Allekirjoitusalgoritmit\n• Avainkoot\n• Myöntäjän tiedot\n• Varmenteen peruutuksen tila\n\n⚠️ Tämä kestää 10–30 sekuntia avainlaatikkoa kohden.\n\nJatketaanko?</string>
+    <string name="keybox_check_api_dialog_title">Toista eheystarkastus</string>
+    <string name="keybox_check_api_dialog_message">Tämä testaa näppäinlaatikkosi Google Play Integrity API:n suhteen.\n\n🔍 Mitä se tarkistaa:\n• PERUS-eheys\n• LAITTEEN eheys \n• VAHVA eheys\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ VAATIMUKSET:\n• Keybox on asennettava Magisk- tai PlayKernel-moduuliin\n/PlaykernelySux. Internet-yhteys\n\n⏱️ Kestää 5-10 sekuntia\n\nJatketaanko?</string>
+    <string name="keybox_compare_dialog_title">Vertaa näppäinlaatikoita</string>
+    <string name="keybox_compare_dialog_message">Vertaa useita ladattuja näppäinlaatikoita:\n\n📊 Vertailu sisältää:\n• Laitetunnukset\n• Varmenteiden määrät\n• Vanhentumispäivät\n• Algoritmityypit\n• Avainmuodot (PIF/TrickyStore)\n\nValitse verrattavat näppäinlaatikot.</string>
+    <string name="keybox_extract_dialog_title">Ote sertifikaatit</string>
+    <string name="keybox_extract_dialog_message">Pura varmenteet avainlaatikosta erillisiksi PEM-tiedostoiksi.\n\n📁 Vientit:\n• RSA-varmenteet\n• ECDSA-varmenteet\n• Yksityiset avaimet (tarvittaessa)\n\nTiedostot tallennetut osoitteeseen: /Lataa/Keyboxes/certs/\n\nJatketaanko?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Varoitus</string>
+    <string name="keybox_overwrite_dialog_message">Tätä toimintoa ei tueta tässä sovellusversiossa.</string>
+    <string name="keybox_generating">🔄 Luodaan malleja…</string>
+    <string name="keybox_searching">🔍 Etsitään yhteisön lähteitä…</string>
+    <string name="keybox_downloading">Ladataan avainlaatikkoa arkistosta…</string>
+    <string name="keybox_verifying">🔍 Tarkastetaan rakenteita…</string>
+    <string name="keybox_analyzing">🔬 Analysoidaan todistuksia…</string>
+    <string name="keybox_checking_api">🌐 Play Integrity APIn testaus…</string>
+    <string name="keybox_comparing">📊 Näppäinlaatikoiden vertailu…</string>
+    <string name="keybox_extracting">📦 Poimitaan todistuksia…</string>
+    <string name="keybox_generate_success">✅ Mallit luotu onnistuneesti!</string>
+    <string name="keybox_search_success">✅ Kelvollinen avainlaatikko löydetty ja ladattu!</string>
+    <string name="keybox_import_success">✅ Keybox tuonti onnistui!</string>
+    <string name="keybox_export_success">✅ Tiedostolista luotu.</string>
+    <string name="keybox_verify_success">✅ Vahvistus valmis.</string>
+    <string name="keybox_analyze_success">✅ Analyysi valmis.</string>
+    <string name="keybox_check_api_success">✅ Eheystarkastus suoritettu.</string>
+    <string name="keybox_compare_success">✅ Vertailu valmis.</string>
+    <string name="keybox_extract_success">✅ Sertifikaatit purettu!</string>
+    <string name="keybox_generate_error">❌ Mallien luominen epäonnistui!\n\nVirhe: %s</string>
+    <string name="keybox_search_error">❌ Kelvollista näppäimistöä ei löytynyt!\n\nVirhe: %s</string>
+    <string name="keybox_import_error">❌ Näppäinlaatikon tuonti epäonnistui!\n\nVirhe: %s</string>
+    <string name="keybox_export_error">❌ Tiedostojen luettelointi epäonnistui!\n\nVirhe: %s</string>
+    <string name="keybox_verify_error">❌ Vahvistus epäonnistui!\n\nVirhe: %s</string>
+    <string name="keybox_analyze_error">❌ Analyysi epäonnistui!\n\nVirhe: %s</string>
+    <string name="keybox_check_api_error">❌ Eheyden tarkistus epäonnistui!\n\nVirhe: %s</string>
+    <string name="keybox_no_root">❌ Tämä sovellus EI vaadi juuripääsyä.</string>
+    <string name="keybox_no_internet">❌ Internet-yhteys vaaditaan!</string>
+    <string name="keybox_no_keybox">❌ Ei ladattuja tiedostoja!</string>
+    <string name="keybox_no_module">❌ Magisk/KernelSU-moduulia ei havaittu!</string>
+    <string name="keybox_info_title">Tietoja Keybox Managerista</string>
+    <string name="keybox_info_summary">Lisätietoja Android-todistuksesta ja Keyboxista</string>
+    <string name="keybox_info_dialog_title">Box of Keybox\'s - tiedot</string>
+    <string name="keybox_info_dialog_message">🔑 MIKÄ TÄMÄ SOVELLUS ON?\n═══════════════════════════════ Android Adtestation -työkalun avainhallintatyökalu. Lataamiseen/analyysiin EI vaadita juuria.\n\n✅ OMINAISUUDET:\n• Hae yhteisön lähteistä\n• Tuo mukautettuja näppäinlaatikoita\n• Syvä sertifikaattianalyysi\n• Play Integrity API -testaus\n• Erävahvistus\n• Sertifikaattien purkaminen\n• Vertailu rinnakkain\n\n\n📁 SIJAINTI:\nLataa/Lataa/Lataa/laatikko ASENNUS:\n══════════════════════════\n\nVaihtoehto 1: Play. Asenna Magisk/KernelSU\n2. Asenna PIF-moduuli\n3. Kopioi keybox.xml kansioon:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Käynnistä uudelleen\n\nVaihtoehto 2: TrickyStore\n1. Asenna Magisk/KernelSU\n2. Asenna TrickyStore-moduuli\n3. Kopioi keybox.xml kansioon:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Automaattinen uudelleenlataus (ei uudelleenkäynnistystä)\n\n🧪 TESTAUS:\n══════════════════════════════════════════════════ Sisäänrakennettu \•n═══ YaSNAC-sovellus\n• Pankkisovellukset\n• Google Wallet\n\n🔬 EDISTYNYT OMINAISUUDET:\n══════════════════════════\n\nSyvä varmenneketjun analyysi:•n\• testaus Algoritmin vahvuuden tarkistus\n• Kumoamisen tila\n\nPlayn eheyden tarkistus:\n• Reaaliaikainen API-testaus\n• PERUS/LAITE/STRONG-tila\n• Moduulin tunnistus\n\nErätoiminnot:\n• Useiden näppäinlaatikoiden vahvistaminen\n• Vertaa vierekkäin\n• Pura varmenteet\n\n💡 VINKKEJÄ:\n════════════════════════════════\n• Julkiset avainryhmät ovat harvinaisia\n• Julkiset avainlaatikot ovat harvinaisia ja nopeasti poistettavia asentaminen\n• Pidä varmuuskopiot toimivista näppäinlaatikoista\n• Tarkista vanhentumispäivät\n\n🔗 YHTEISÖ:\n══════════════════════════\n• Telegram: @PlayIntegrityin\droroid.\n•nFix. XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Hae &amp;quot;keybox play integrity&amp;quot;\n\n⚠️ LEGAL VASTUUVAPAUSLAUSEKE:\n══════════════════════════\nVain koulutukselliset ehdot: Googlen käyttöehtojen muokkaus.\n Palvelu\n• Sovelluskehittäjien käytännöt\n• Paikalliset lait\n\nKäytä omalla vastuullasi!</string>
+    <string name="keybox_reset_title">Poista lataukset</string>
+    <string name="keybox_reset_summary">Poista kaikki ladatut näppäinlaatikot tallennustilasta</string>
+    <string name="keybox_reset_dialog_title">⚠️ Poista lataukset</string>
+    <string name="keybox_reset_dialog_message">Poistetaanko KAIKKI tiedostot /sdcard/Download/Keyboxes/?\n\nTätä ei voi kumota.</string>
+    <string name="keybox_reset_success">✅ Kaikki tiedostot poistettu!</string>
+    <string name="keybox_reset_error">❌ Poistaminen epäonnistui: %s</string>
+    <string name="ram_optimizer_title">RAM ja Storage Optimizer</string>
+    <string name="ram_optimizer_summary">Optimoi RAM-pakkaus ja tallennus</string>
+    <string name="ram_optimizer_description">Hallitse zRAM-asetuksia, sovellusten lepotilaa ja puhdasta tallennustilaa parantaaksesi suorituskykyä.</string>
+    <string name="zram_category_title">zRAM-pakkaus</string>
+    <string name="zram_enable_title">Ota zRAM käyttöön</string>
+    <string name="zram_enable_summary">Vapauta muistia pakkaamalla RAM</string>
+    <string name="zram_size_title">zRAM-muistin koko (MB)</string>
+    <string name="zram_size_summary">Aseta pakatun RAM-muistin koko (512-12288 Mt)</string>
+    <string name="zram_swappiness_title">Vaihto</string>
+    <string name="zram_swappiness_summary">Hallitse kuinka aggressiivisesti vaihdetaan zRAM:iin (0-200)</string>
+    <string name="app_hibernation_category_title">Sovelluksen lepotila</string>
+    <string name="app_hibernation_title">Ota sovellusten horrostila käyttöön</string>
+    <string name="app_hibernation_summary">Aseta käyttämättömät sovellukset horrostilaan RAM-muistin ja akun säästämiseksi</string>
+    <string name="storage_cleaner_category_title">Storage Cleaner</string>
+    <string name="storage_stats_title">Tallennustilastot</string>
+    <string name="storage_stats_summary">Ladataan...</string>
+    <string name="clean_app_cache_title">Puhdista sovellusvälimuisti</string>
+    <string name="clean_app_cache_summary">Poista välimuistissa olevat tiedot kaikista sovelluksista</string>
+    <string name="clean_system_cache_title">Puhdista järjestelmän välimuisti</string>
+    <string name="clean_system_cache_summary">Tyhjennä järjestelmän välimuisti ja pudota välimuistit</string>
+    <string name="clean_thumbnails_title">Puhdista pikkukuvat</string>
+    <string name="clean_thumbnails_summary">Poista pikkukuvavälimuisti mediasta</string>
+    <string name="clean_downloads_title">Puhdista vanhat lataukset</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Säädä suorituskykyä automaattisesti etualan sovelluksen perusteella</string>
+</resources>

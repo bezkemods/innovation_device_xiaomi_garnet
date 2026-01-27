@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Pengaturan Xiaomi</string>
+    <string name="tile_add">Tambahkan ubin</string>
+    <string name="tile_added">Ubin ditambahkan</string>
+    <string name="tile_not_added">Ubin tidak ditambahkan</string>
+    <string name="tile_already_added">Ubin sudah ditambahkan</string>
+    <string name="tile_on">Aktif</string>
+    <string name="tile_off">Mati</string>
+    <string name="clear_speaker_title">Speaker jernih</string>
+    <string name="clear_speaker_summary">Putar audio 30 detik untuk membersihkan speaker</string>
+    <string name="clear_speaker_description">Jalankan fitur ini satu atau dua kali jika ternyata speaker Anda sedikit terhalang oleh debu. Setel volume media ke maksimum.\n\nJika speaker sangat terhalang, jalankan fitur ini 2-5 kali sambil menggoyangkan perangkat Anda dengan speaker menghadap ke bawah.</string>
+    <string name="saturation_title">Saturasi Tampilan</string>
+    <string name="saturation_summary">Kontrol tingkat saturasi tampilan</string>
+    <string name="saturation_footer_summary">Mengubah mode warna dalam pengaturan tampilan akan mengesampingkan tingkat saturasi, sehingga mengharuskan penerapannya kembali.</string>
+    <string name="image_preview_content_description">Pratinjau</string>
+    <string name="image_preview_next_page_content_description">Selanjutnya</string>
+    <string name="image_preview_previous_page_content_description">Sebelumnya</string>
+    <string name="custom_seekbar_value">Nilai:</string>
+    <string name="custom_seekbar_default_value">secara default</string>
+    <string name="custom_seekbar_default_value_to_set">Nilai bawaan:</string>
+    <string name="custom_seekbar_default_value_is_set">Nilai default disetel</string>
+    <string name="auto_hbm_title">Mode Kecerahan Tinggi Otomatis (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Gunakan HBM otomatis</string>
+    <string name="tile_auto_hbm">HBM Otomatis</string>
+    <string name="tile_hbm_on">Diaktifkan</string>
+    <string name="tile_hbm_off">Dengan disabilitas</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM Tidak Tersedia</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">HBM Otomatis atau Kecerahan Otomatis diaktifkan</string>
+    <string name="hbm_mode_title">Mode Kecerahan Tinggi</string>
+    <string name="hbm_mode_notification">Mode Kecerahan Tinggi sekarang diaktifkan. Penggunaan dalam waktu lama dapat merusak tampilan Anda.</string>
+    <string name="auto_hbm_summary">Secara otomatis mengaktifkan mode kecerahan tinggi berdasarkan intensitas sinar matahari (lux)</string>
+    <string name="auto_hbm_threshold_title">Ambang batas cahaya</string>
+    <string name="auto_hbm_threshold_summary">Tentukan ambang batas intensitas cahaya dalam satuan lux saat HBM diaktifkan</string>
+    <string name="auto_hbm_enable_time_title">Aktifkan waktu</string>
+    <string name="auto_hbm_enable_time_summary">Durasi dalam detik ambang batas cahaya harus terus dipenuhi untuk mengaktifkan HBM</string>
+    <string name="auto_hbm_disable_time_title">Nonaktifkan waktu</string>
+    <string name="auto_hbm_disable_time_summary">Durasi dalam detik saat HBM dinonaktifkan jika ambang cahaya turun di bawah level yang ditetapkan</string>
+    <string name="game_bar_title">Bilah Permainan</string>
+    <string name="game_bar_summary">Aktifkan overlay sistem (FPS, Temp, dll.)</string>
+    <string name="game_bar_tile_label">Bilah Permainan</string>
+    <string name="game_bar_tile_description">Alihkan hamparan game</string>
+    <string name="game_bar_enable_title">Aktifkan Hamparan GameBar</string>
+    <string name="overlay_permission_required">Izin overlay diperlukan</string>
+    <string name="overlay_permission_granted">Izin overlay diberikan</string>
+    <string name="overlay_permission_denied">Izin overlay ditolak</string>
+    <string name="overlay_features_title">Fitur Hamparan</string>
+    <string name="game_bar_fps_enable_title">Hamparan FPS</string>
+    <string name="game_bar_fps_enable_summary">Tampilkan FPS saat ini di layar</string>
+    <string name="game_bar_temp_enable_title">Suhu Perangkat</string>
+    <string name="game_bar_temp_enable_summary">Tampilkan suhu perangkat (baterai).</string>
+    <string name="game_bar_cpu_usage_enable_title">Penggunaan CPU</string>
+    <string name="game_bar_cpu_usage_enable_summary">Tampilkan persentase penggunaan CPU saat ini</string>
+    <string name="game_bar_cpu_clock_enable_title">Kecepatan Jam CPU</string>
+    <string name="game_bar_cpu_clock_enable_summary">Tampilkan kecepatan jam CPU saat ini untuk setiap inti</string>
+    <string name="game_bar_cpu_temp_enable_title">Suhu CPU</string>
+    <string name="game_bar_cpu_temp_enable_summary">Tampilkan suhu CPU (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">Penggunaan RAM</string>
+    <string name="game_bar_ram_enable_summary">Tampilkan penggunaan RAM saat ini dalam MB</string>
+    <string name="game_bar_gpu_usage_enable_title">Penggunaan GPU</string>
+    <string name="game_bar_gpu_usage_enable_summary">Tampilkan persentase penggunaan GPU</string>
+    <string name="game_bar_gpu_clock_enable_title">Kecepatan Jam GPU</string>
+    <string name="game_bar_gpu_clock_enable_summary">Tampilkan frekuensi jam GPU saat ini</string>
+    <string name="game_bar_gpu_temp_enable_title">Suhu GPU</string>
+    <string name="game_bar_gpu_temp_enable_summary">Tampilkan suhu GPU saat ini</string>
+    <string name="fps_measurement_method_title">Metode Pengukuran FPS</string>
+    <string name="game_bar_fps_method_title">Pilih Metode FPS</string>
+    <string name="game_bar_fps_method_summary">Pilih antara metode API Baru (default) dan Sysfs Lama</string>
+    <string name="customization_title">Kustomisasi</string>
+    <string name="game_bar_text_size_title">Ukuran Teks</string>
+    <string name="game_bar_text_size_summary">Sesuaikan ukuran teks overlay</string>
+    <string name="game_bar_background_alpha_title">Transparansi Latar Belakang</string>
+    <string name="game_bar_background_alpha_summary">Sesuaikan transparansi latar belakang</string>
+    <string name="game_bar_corner_radius_title">Radius Sudut Hamparan</string>
+    <string name="game_bar_corner_radius_summary">Sesuaikan seberapa membulatnya sudut hamparan</string>
+    <string name="game_bar_padding_title">Bantalan Hamparan</string>
+    <string name="game_bar_padding_summary">Sesuaikan ruang di sekitar statistik</string>
+    <string name="game_bar_item_spacing_title">Spasi Barang</string>
+    <string name="game_bar_item_spacing_summary">Sesuaikan jarak antar garis overlay</string>
+    <string name="game_bar_update_interval_title">Interval Pembaruan</string>
+    <string name="game_bar_update_interval_summary">Tetapkan seberapa sering nilai overlay diperbarui</string>
+    <string name="game_bar_title_color_title">Warna Judul Stat</string>
+    <string name="game_bar_title_color_summary">Warna untuk teks \'FPS\', \'Temp\', \'CPU\', dll</string>
+    <string name="game_bar_value_color_title">Warna Nilai Stat</string>
+    <string name="game_bar_value_color_summary">Warna untuk statistik numerik (mis., \'29\', \'32.0°C\')</string>
+    <string name="game_bar_position_title">Posisi Hamparan</string>
+    <string name="game_bar_position_summary">Pilih posisi overlay pada layar</string>
+    <string name="game_bar_format_title">Format Hamparan</string>
+    <string name="game_bar_format_summary">Pilih antara tampilan Penuh atau Minimal</string>
+    <string name="game_bar_overlay_format_toast">Format hamparan diubah menjadi: %s</string>
+    <string name="game_bar_format_entries_full">Penuh</string>
+    <string name="game_bar_format_entries_minimal">Minimal</string>
+    <string name="split_config_title">Pisahkan Konfigurasi</string>
+    <string name="game_bar_split_mode_title">Modus Terpisah</string>
+    <string name="game_bar_split_mode_summary">Pilih susunan Berdampingan atau Bertumpuk</string>
+    <string name="overlay_gesture_controls_title">Kontrol Gerakan Hamparan</string>
+    <string name="game_bar_single_tap_toggle_title">Aktifkan Ketukan Tunggal untuk Beralih</string>
+    <string name="game_bar_single_tap_toggle_summary">Ketuk sekali untuk beralih antara format overlay penuh dan minimal</string>
+    <string name="game_bar_doubletap_capture_title">Aktifkan Ketuk Dua Kali untuk Mengambil</string>
+    <string name="game_bar_doubletap_capture_summary">Ketuk dua kali hamparan untuk memulai/menghentikan pengambilan log</string>
+    <string name="game_bar_longpress_enable_title">Aktifkan Tekan Lama</string>
+    <string name="game_bar_longpress_enable_summary">Tekan lama overlay untuk mengakses pengaturan GameBar</string>
+    <string name="game_bar_longpress_timeout_title">Durasi Tekan Lama</string>
+    <string name="game_bar_longpress_timeout_summary">Atur durasi yang diperlukan untuk menekan lama overlay</string>
+    <string name="capture_logs_title">Tangkap Log</string>
+    <string name="game_bar_capture_start_title">Mulai Mencatat</string>
+    <string name="game_bar_capture_start_summary">Mulailah menangkap data FPS dan kinerja secara real-time</string>
+    <string name="game_bar_capture_stop_title">Hentikan Pencatatan</string>
+    <string name="game_bar_capture_stop_summary">Berhenti merekam FPS dan data performa secara real-time</string>
+    <string name="game_bar_capture_export_title">Ekspor Data Log GameBar</string>
+    <string name="game_bar_capture_export_summary">Simpan data FPS dan performa yang diambil sebagai file CSV</string>
+    <string name="game_bar_capture_start_toast">Mulai mencatat data</string>
+    <string name="game_bar_capture_stop_toast">Menghentikan pencatatan data</string>
+    <string name="game_bar_capture_export_toast">Data log yang diekspor ke file</string>
+    <string name="game_bar_doubletap_capture_start_toast">Pengambilan dimulai</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Pengambilan dihentikan</string>
+    <string name="auto_enable_gamebar_title">Aktifkan Otomatis GameBar</string>
+    <string name="game_bar_auto_enable_title">Aktifkan Otomatis GameBar untuk Aplikasi Terpilih</string>
+    <string name="game_bar_auto_enable_summary">Jika dihidupkan, aplikasi yang dipilih akan mengaktifkan GameBar secara otomatis meskipun tombol utama dimatikan</string>
+    <string name="game_bar_app_selector_title">Pilih Aplikasi</string>
+    <string name="game_bar_app_selector_summary">Tambahkan aplikasi yang seharusnya mengaktifkan GameBar</string>
+    <string name="game_bar_app_remover_title">secara otomatis Hapus Aplikasi yang Dipilih</string>
+    <string name="game_bar_app_remover_summary">Hapus aplikasi dari daftar aktifkan otomatis</string>
+    <string name="game_bar_app_remover_activity_title">Hapus Aplikasi yang Aktif Otomatis</string>
+    <string name="game_bar_app_selector_activity_title">Pilih Aplikasi untuk GameBar</string>
+    <string name="game_bar_app_added_toast">ditambahkan</string>
+    <string name="game_bar_app_removed_toast">dihapus</string>
+    <string name="gpu_enable_title">Aktifkan Pengoptimal GPU</string>
+    <string name="gpu_enable_summary">Alihkan pengoptimalan GPU</string>
+    <string name="gpu_freq_category_title">Konfigurasikan Frekuensi GPU</string>
+    <string name="gpu_min_frequency">Frekuensi Minimum GPU</string>
+    <string name="gpu_max_frequency">Frekuensi Maksimum GPU</string>
+    <string name="gpu_disabled_defaults_restored">GPU pengoptimal dinonaktifkan, default dipulihkan</string>
+    <string name="gpu_optimizer_enabled">Pengoptimal GPU diaktifkan</string>
+    <string name="gpu_min_freq_exceeds_max">Gagal: Frekuensi minimum GPU tidak boleh melebihi frekuensi maksimum</string>
+    <string name="gpu_max_freq_below_min">Gagal: Frekuensi maksimum GPU tidak boleh lebih rendah dari frekuensi minimum</string>
+    <string name="gpu_min_freq_applied">Frekuensi minimum GPU -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">Frekuensi maksimal GPU -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Aktifkan Pengoptimal CPU</string>
+    <string name="cpu_enable_summary">Alihkan pengoptimalan CPU</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">Pengoptimal CPU dinonaktifkan, default dipulihkan</string>
+    <string name="cpu_optimizer_enabled">Pengoptimal CPU diaktifkan</string>
+    <string name="cpu_little_category_title">Konfigurasikan Cluster Kecil CPU</string>
+    <string name="cpu_little_min_frequency_title">Frekuensi Minimal</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Frekuensi Maks</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Gubernur</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Gagal: Frekuensi minimum CPU yang kecil tidak boleh melebihi maks</string>
+    <string name="cpu_little_max_freq_below_min">Gagal: Frekuensi maks kecil CPU tidak boleh lebih rendah dari min</string>
+    <string name="cpu_little_min_freq_applied">Frekuensi minimum CPU kecil -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">Frekuensi maksimal CPU sedikit -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">Pengatur kecil CPU -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Konfigurasikan Cluster Besar CPU</string>
+    <string name="cpu_big_min_frequency_title">Frekuensi Minimal</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Frekuensi Maks</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Gubernur</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Gagal: Frekuensi min besar CPU tidak boleh melebihi maks</string>
+    <string name="cpu_big_max_freq_below_min">Gagal: Frekuensi maksimal besar CPU tidak boleh lebih rendah dari min</string>
+    <string name="cpu_big_min_freq_applied">Frekuensi min besar CPU -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">Frekuensi maksimal CPU yang besar -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">Pengatur besar CPU -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Konfigurasikan CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">Frekuensi Minimal</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Frekuensi Maks</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Gubernur</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Gagal: Frekuensi prime min CPU tidak boleh melebihi maks</string>
+    <string name="cpu_prime_max_freq_below_min">Gagal: Frekuensi prime max CPU tidak boleh lebih rendah dari min</string>
+    <string name="cpu_prime_min_freq_applied">Frekuensi prime min CPU -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">Frekuensi maksimum CPU prime -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">Pengatur utama CPU -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Mulai logcat saat boot</string>
+    <string name="logcat_autostart_summary">Secara otomatis memulai pencatatan latar belakang setelah reboot</string>
+    <string name="logcat_viewer_title">Penampil Logcat</string>
+    <string name="logcat_viewer_summary">Buka penampil log waktu nyata</string>
+    <string name="logcat_filter_hint">Masukkan tag atau kata kunci</string>
+    <string name="logcat_filter_title">Filter Log</string>
+    <string name="logcat_pause">Jeda</string>
+    <string name="logcat_resume">Lanjutkan</string>
+    <string name="logcat_autoscroll_on">Gulir otomatis AKTIF</string>
+    <string name="logcat_autoscroll_off">Gulir otomatis MATI</string>
+    <string name="logcat_save">Simpan Catatan</string>
+    <string name="logcat_clear">Hapus Log</string>
+    <string name="logcat_share">Bagikan Log</string>
+    <string name="logcat_settings">Pengaturan</string>
+    <string name="logcat_export">Ekspor</string>
+    <string name="logcat_search">Cari</string>
+    <string name="logcat_notification_title">Penampil Logcat</string>
+    <string name="logcat_notification_text">Pencatatan latar belakang aktif</string>
+    <string name="logcat_notification_stopped">Pencatatan log latar belakang dihentikan</string>
+    <string name="logcat_notification_channel_name">Layanan Latar Belakang Logcat</string>
+    <string name="logcat_notification_channel_desc">Kontrol untuk pencatatan logcat latar belakang</string>
+    <string name="logcat_level_verbose">Bertele-tele</string>
+    <string name="logcat_level_debug">Men-debug</string>
+    <string name="logcat_level_info">Info</string>
+    <string name="logcat_level_warn">Peringatan</string>
+    <string name="logcat_level_error">Kesalahan</string>
+    <string name="logcat_no_logs">Tidak ada log yang tersedia</string>
+    <string name="logcat_loading">Memuat log...</string>
+    <string name="logcat_paused">Pencatatan dijeda</string>
+    <string name="logcat_active">Pencatatan aktif</string>
+    <string name="logcat_filter_applied">Filter diterapkan: %1$s</string>
+    <string name="logcat_logs_cleared">Log dihapus</string>
+    <string name="logcat_save_progress">Menyimpan log...</string>
+    <string name="logcat_save_success">Log berhasil disimpan.</string>
+    <string name="logcat_save_failed">Gagal menyimpan log.</string>
+    <string name="logcat_share_subject">Ekspor Logcat Android</string>
+    <string name="logcat_permission_required">Izin penyimpanan diperlukan untuk menyimpan log</string>
+    <string name="cpu_tile_label">Gubernur CPU</string>
+    <string name="cpu_tile_unavailable">Kontrol CPU tidak tersedia</string>
+    <string name="cpu_tile_error">Kesalahan pemantauan CPU</string>
+    <string name="cpu_tile_unknown">Tidak diketahui</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Penjadwalan</string>
+    <string name="cpu_tile_governor_performance">Kinerja</string>
+    <string name="cpu_tile_governor_powersave">Hemat daya</string>
+    <string name="cpu_tile_governor_ondemand">Sesuai Permintaan</string>
+    <string name="cpu_tile_governor_conservative">Konservatif</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1fGHz</string>
+    <string name="cpu_tile_settings_title">Pengaturan Ubin CPU</string>
+    <string name="cpu_tile_settings_summary">Konfigurasikan tampilan dan perilaku ubin Pengaturan Cepat Gubernur CPU</string>
+    <string name="cpu_tile_appearance_category">Penampilan</string>
+    <string name="cpu_tile_behavior_category">Perilaku</string>
+    <string name="cpu_tile_size_title">Ukuran Ikon Ubin</string>
+    <string name="cpu_tile_size_summary">Pilih ukuran ikon ubin CPU</string>
+    <string name="cpu_tile_style_title">Gaya Ubin</string>
+    <string name="cpu_tile_style_summary">Pilih bagaimana informasi CPU ditampilkan</string>
+    <string name="cpu_tile_show_percentage_title">Tampilkan Persentase Penggunaan</string>
+    <string name="cpu_tile_show_percentage_summary">Tampilkan persentase penggunaan CPU, bukan frekuensi</string>
+    <string name="cpu_tile_update_speed_title">Interval Pembaruan</string>
+    <string name="cpu_tile_update_speed_summary">Seberapa sering menyegarkan informasi CPU</string>
+    <string name="cpu_tile_update_speed_fast">Cepat (0,5 detik)</string>
+    <string name="cpu_tile_update_speed_normal">Normal (1dtk)</string>
+    <string name="cpu_tile_update_speed_slow">Lambat (2 detik)</string>
+    <string name="cpu_tile_update_speed_very_slow">Sangat Lambat (5 detik)</string>
+    <string name="cpu_tile_preview_title">Pratinjau Perubahan</string>
+    <string name="cpu_tile_preview_summary">Ketuk untuk menyegarkan ubin dengan pengaturan saat ini</string>
+    <string name="cpu_tile_footer">Ubin Gubernur CPU memungkinkan peralihan cepat antara gubernur CPU dan menampilkan informasi frekuensi dan penggunaan CPU secara real-time. Ketuk ubin untuk menelusuri gubernur yang tersedia.</string>
+    <string name="performance_mode_title">Mode Kinerja</string>
+    <string name="performance_mode_summary">Paksa CPU dan GPU maksimal untuk kinerja puncak. Meningkatkan panas dan menguras baterai.</string>
+    <string name="performance_mode_enabled_summary">Mode performa AKTIF</string>
+    <string name="performance_mode_disabled_summary">Mode performa MATI</string>
+    <string name="performance_profile_title">Profil Kinerja</string>
+    <string name="performance_profile_summary">Pilih mode kinerja untuk perilaku perangkat yang optimal</string>
+    <string name="performance_mode_battery_saver">Penghemat Baterai</string>
+    <string name="performance_mode_balanced">Seimbang</string>
+    <string name="performance_mode_performance">Kinerja</string>
+    <string name="performance_profile_applied">Profil kinerja disetel ke %s</string>
+    <string name="performance_profile_failed">Gagal menerapkan profil kinerja</string>
+    <string name="performance_tile_label">Kinerja</string>
+    <string name="performance_notification_channel_name">Profil Kinerja</string>
+    <string name="performance_notification_channel_desc">Menampilkan status profil kinerja saat ini</string>
+    <string name="performance_notification_battery_saver">Mode penghemat baterai aktif - Masa pakai baterai lebih lama</string>
+    <string name="performance_notification_balanced">Mode seimbang aktif - Performa dan masa pakai baterai optimal</string>
+    <string name="performance_notification_performance">Mode performa aktif - Performa maksimal</string>
+    <string name="performance_footer_title">Informasi Profil Kinerja</string>
+    <string name="performance_footer_summary">• Penghemat Baterai: Memperpanjang masa pakai baterai dengan mengurangi kinerja CPU dan GPU. Ideal untuk penggunaan ringan dan durasi baterai maksimum.\n\n• Seimbang: Memberikan keseimbangan optimal antara performa dan masa pakai baterai. Direkomendasikan untuk penggunaan sehari-hari.\n\n• Performa: Memaksimalkan performa CPU dan GPU untuk tugas-tugas berat. Terbaik untuk bermain game, aplikasi berat, dan beban kerja intensif. Dapat mengurangi masa pakai baterai.</string>
+    <string name="xiaomi_parts_title">Bagian Xiaomi</string>
+    <string name="xiaomi_parts_subtitle">Pengaturan khusus Xiaomi Garnet</string>
+    <string name="xiaomi_parts_summary">Pengaturan khusus perangkat Xiaomi</string>
+    <string name="xiaomi_parts_launcher_title">Bagian Xiaomi</string>
+    <string name="device_settings_app_name">Bagian Xiaomi</string>
+    <string name="display_title">Tampilan</string>
+    <string name="sound_title">Suara</string>
+    <string name="power_title">Kekuatan</string>
+    <string name="gaming_title">Permainan dan Kegunaan</string>
+    <string name="about_me_title">Tentang Saya</string>
+    <string name="about_me_summary">Semua yang perlu Anda ketahui tentang InnOvaTioN</string>
+    <string name="about_me_contact_title">Dukungan</string>
+    <string name="about_me_contact_summary">Anda bisa mendapatkan bantuan di sana</string>
+    <string name="about_me_donate_title">Donasi Saya di paypal</string>
+    <string name="about_me_donate_summary">Dukunglah karyaku agar aku bisa terus membangun</string>
+    <string name="about_me_donate2_title">Beli kopiku</string>
+    <string name="about_me_donate2_summary">Hubungi saya untuk minum bir atau kopi</string>
+    <string name="core_control_title">Kontrol Inti</string>
+    <string name="core_control_summary">Mengaktifkan atau menonaktifkan masing-masing inti CPU</string>
+    <string name="core_control_description">secara manual Kontrol CPU tingkat lanjut. Menonaktifkan inti dapat menghemat baterai atau beban panas, namun dapat memengaruhi performa dan stabilitas.\n\nSetidaknya dua inti kecil harus tetap online setiap saat.</string>
+    <string name="keep_little_cores_online">Setidaknya 2 core kecil harus tetap online</string>
+    <string name="core_0">Inti 0 (Kecil)</string>
+    <string name="core_1">Inti 1 (Kecil)</string>
+    <string name="core_2">Inti 2 (Kecil)</string>
+    <string name="core_3">Inti 3 (Kecil)</string>
+    <string name="core_4">Inti 4 (Besar)</string>
+    <string name="core_5">Inti 5 (Besar)</string>
+    <string name="core_6">Inti 6 (Besar)</string>
+    <string name="core_7">Inti 7 (Besar)</string>
+    <string name="error">Kesalahan</string>
+    <string name="kernel_manager_title">Manajer Kernel</string>
+    <string name="kernel_manager_summary">Kelola frekuensi CPU dan pengatur</string>
+    <string name="kernel_manager_efficiency_category">Klaster Efisiensi (A55)</string>
+    <string name="kernel_manager_performance_category">Klaster Kinerja (A78)</string>
+    <string name="kernel_manager_governor">Gubernur CPU</string>
+    <string name="kernel_manager_governor_summary">Pilih gubernur CPU untuk klaster</string>
+    <string name="cpu_governor_summary">Saat ini: %s</string>
+    <string name="kernel_manager_min_freq">Frekuensi Minimal</string>
+    <string name="kernel_manager_min_freq_summary">Tetapkan frekuensi CPU minimum yang diperbolehkan</string>
+    <string name="kernel_manager_max_freq">Frekuensi Maksimum</string>
+    <string name="kernel_manager_max_freq_summary">Tetapkan frekuensi CPU maksimum yang diperbolehkan</string>
+    <string name="kernel_info_category">Informasi</string>
+    <string name="kernel_info_title">Tentang Manajer Kernel</string>
+    <string name="kernel_info_summary">Kelola pengatur CPU dan penskalaan frekuensi untuk semua cluster CPU. Perubahan dapat memengaruhi kinerja dan masa pakai baterai.</string>
+    <string name="kernel_manager_apply">Terapkan Pengaturan</string>
+    <string name="kernel_manager_apply_summary">Terapkan pengaturan CPU yang dipilih</string>
+    <string name="kernel_manager_reset">Atur Ulang ke Default</string>
+    <string name="kernel_manager_reset_summary">Kembalikan pengaturan CPU default</string>
+    <string name="settings_applied">Pengaturan berhasil diterapkan</string>
+    <string name="settings_reset">Pengaturan disetel ulang ke default</string>
+    <string name="kernel_manager_footer">Pengatur CPU mengatur cara perangkat Anda menyesuaikan frekuensi CPU untuk menyeimbangkan kinerja dan penggunaan daya. Berikut ringkasan singkatnya:\n\n• walt: Pengatur yang dikembangkan Google dioptimalkan untuk daya tanggap dan latensi interaksi pengguna, terutama digunakan di perangkat Pixel.\n• konservatif: Meningkatkan frekuensi CPU secara bertahap; menghemat baterai namun dapat mengurangi daya tanggap.\n• hemat daya: Menjaga CPU pada frekuensi serendah mungkin, memprioritaskan masa pakai baterai dibandingkan performa.\n• performa: Mengunci CPU pada frekuensi maksimum, memastikan performa maksimal dengan mengorbankan baterai.\n• schedhorizon: Pengatur yang sadar penjadwal yang bertujuan untuk meningkatkan migrasi tugas dan efisiensi di seluruh inti.\n• schedutil: Pengatur modern default di banyak kernel; menggunakan data penjadwal Linux untuk menskalakan frekuensi CPU secara cerdas dan efisien.</string>
+    <string name="kernel_manager_cpu_monitor">Pemantauan Inti CPU</string>
+    <string name="kernel_manager_core_online">Daring</string>
+    <string name="kernel_manager_core_offline">Luring</string>
+    <string name="kernel_manager_loading">Memuat...</string>
+    <string name="kernel_manager_enable_monitoring">Pemantauan Waktu Nyata</string>
+    <string name="kernel_manager_enable_monitoring_summary">Terus perbarui status inti CPU</string>
+    <string name="kernel_manager_update_interval">Frekuensi Pembaruan</string>
+    <string name="kernel_manager_update_interval_summary">Seberapa sering menyegarkan data</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Ringkasan Klaster Efisiensi</string>
+    <string name="kernel_manager_performance_cluster_summary">Ringkasan Klaster Kinerja</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d inti online | Rentang: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">T/A</string>
+    <string name="update_interval_500ms">0,5 detik</string>
+    <string name="update_interval_1000ms">1 detik</string>
+    <string name="update_interval_2000ms">2 detik</string>
+    <string name="update_interval_5000ms">5 detik</string>
+    <string name="cpu_core_status_online">🟢 %1$s - Daring</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - Luring</string>
+    <string name="kernel_manager_governor_current">%1$s (Saat ini: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Saat ini: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">Pemantauan waktu nyata dinonaktifkan. Aktifkan untuk melihat frekuensi dan status inti CPU secara langsung.</string>
+    <string name="kernel_manager_error_read">Tidak dapat membaca informasi CPU</string>
+    <string name="kernel_manager_error_write">Tidak dapat menerapkan pengaturan CPU. Akses root mungkin diperlukan.</string>
+    <string name="kernel_manager_error_permission">Izin ditolak. Akses root diperlukan untuk mengubah pengaturan CPU.</string>
+    <string name="gpu_manager_title">Manajer GPU</string>
+    <string name="gpu_manager_summary">Kelola frekuensi GPU dan pengaturan daya</string>
+    <string name="gpu_governor_title">Gubernur GPU</string>
+    <string name="gpu_governor_summary">Saat ini: %s</string>
+    <string name="gpu_freq_title">Frekuensi GPU</string>
+    <string name="gpu_min_freq_title">Frekuensi Minimal</string>
+    <string name="gpu_max_freq_title">Frekuensi Maksimum</string>
+    <string name="gpu_max_gpuclk_title">Penggantian GPUCLK Maks</string>
+    <string name="gpu_max_gpuclk_summary">Peningkatan jam ekstra (maks 940 MHz)</string>
+    <string name="gpu_current_freq_title">Frekuensi Saat Ini</string>
+    <string name="gpu_power_title">Pengaturan Daya</string>
+    <string name="gpu_force_clk_on_title">Paksa Jam Aktif</string>
+    <string name="gpu_force_clk_on_summary">Jaga agar jam GPU selalu menyala</string>
+    <string name="gpu_force_bus_on_title">Paksa Bus Aktif</string>
+    <string name="gpu_force_bus_on_summary">Jaga agar bus GPU selalu aktif</string>
+    <string name="gpu_force_rail_on_title">Paksa Rel Aktif</string>
+    <string name="gpu_force_rail_on_summary">Jaga agar power rail GPU selalu menyala</string>
+    <string name="gpu_force_no_nap_title">Paksa Tidak Tidur Siang</string>
+    <string name="gpu_force_no_nap_summary">Nonaktifkan GPU tidur siang antar frame</string>
+    <string name="gpu_bus_split_title">Pemisahan Bus</string>
+    <string name="gpu_bus_split_summary">Aktifkan pemisahan bus GPU</string>
+    <string name="gpu_preempt_title">Preemption GPU</string>
+    <string name="gpu_preempt_summary">Game latensi rendah (aktifkan pengalaman bermain game terbaik)</string>
+    <string name="gpu_camera_boost_title">Peningkatan Kamera</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (kinerja enkode kamera/video maksimal)</string>
+    <string name="gpu_thermal_title">Pengaturan Termal</string>
+    <string name="gpu_thermal_pwrlevel_title">Tingkat Daya Termal</string>
+    <string name="gpu_thermal_pwrlevel_summary">Tingkat daya termal saat ini</string>
+    <string name="gpu_temp_title">Suhu GPU</string>
+    <string name="gpu_info_title">Informasi GPU</string>
+    <string name="gpu_model_title">Model GPU</string>
+    <string name="gpu_busy_percentage_title">Beban GPU</string>
+    <string name="gpu_reset_count_title">Atur Ulang Jumlah</string>
+    <string name="gpu_preempt_count_title">Hitungan Preemption</string>
+    <string name="gpu_info_category">Informasi GPU</string>
+    <string name="gpu_settings_category">Pengaturan GPU</string>
+    <string name="gpu_advanced_category">Pengaturan Lanjutan</string>
+    <string name="gpu_info_summary">Kelola penskalaan frekuensi GPU dan pengaturan daya. Perubahan dapat memengaruhi kinerja dan masa pakai baterai.</string>
+    <string name="apply_settings">Terapkan Pengaturan</string>
+    <string name="reset_settings">Atur Ulang Pengaturan</string>
+    <string name="gpu_turbo_preset_title">Prasetel Turbo</string>
+    <string name="gpu_turbo_preset_summary">Performa maksimal: kunci 940 MHz, pengatur performa, semua peningkatan AKTIF</string>
+    <string name="gpu_turbo_enabled">🚀 Mode turbo diaktifkan!</string>
+    <string name="gpu_settings_applied">Pengaturan diterapkan!</string>
+    <string name="gpu_settings_reset">Pengaturan diatur ulang ke default!</string>
+    <string name="unknown">Tidak diketahui</string>
+    <string name="thermal_level_summary">Tingkat %s</string>
+    <string name="camera_boost_triggered">Peningkatan kamera/video dipicu!</string>
+    <string name="video_enhancer_title">Penyempurna Video</string>
+    <string name="video_enhancer_summary">Optimalisasi tampilan dan performa untuk Redmi Note 13 Pro 5G</string>
+    <string name="video_enhancer_display_category">📺 Fitur Tampilan</string>
+    <string name="smooth_motion_enable_title">Gerakan Halus</string>
+    <string name="smooth_motion_enable_summary">Penghalusan gerakan perangkat keras untuk video (default: OFF) • Diperlukan reboot</string>
+    <string name="optimize_refresh_enable_title">Optimalkan Kecepatan Refresh</string>
+    <string name="optimize_refresh_enable_summary">Kecepatan refresh dinamis berdasarkan konten (default: OFF) • Diperlukan reboot</string>
+    <string name="peak_refresh_rate_title">Kecepatan Penyegaran Puncak 120Hz</string>
+    <string name="peak_refresh_rate_summary">Aktifkan 120Hz saat disentuh (200ms) • Nilai pabrik • Diperlukan reboot</string>
+    <string name="video_enhancer_performance_category">⚡ Optimasi Kinerja</string>
+    <string name="force_vulkan_title">Paksa API Vulkan</string>
+    <string name="force_vulkan_summary">Gunakan Vulkan sebagai pengganti OpenGL ES (Adreno 710) • Diperlukan reboot</string>
+    <string name="purgeable_assets_title">Aset yang Dapat Dibersihkan</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">Daftar semua kotak kunci yang diunduh di penyimpanan</string>
+    <string name="keybox_verify_title">Verifikasi Unduhan</string>
+    <string name="keybox_verify_summary">Periksa struktur XML kotak kunci yang diunduh</string>
+    <string name="keybox_analyze_title">Analisis Mendalam</string>
+    <string name="keybox_analyze_summary">Analisis rantai sertifikat, masa berlakunya, dan validitasnya</string>
+    <string name="keybox_check_api_title">Periksa Integritas Putar</string>
+    <string name="keybox_check_api_summary">Uji kotak kunci terhadap Google Play Integrity API</string>
+    <string name="keybox_compare_title">Bandingkan Kotak Kunci</string>
+    <string name="keybox_compare_summary">Bandingkan beberapa kotak kunci secara berdampingan</string>
+    <string name="keybox_extract_certs_title">Ekstrak Sertifikat</string>
+    <string name="keybox_extract_certs_summary">Ekspor sertifikat sebagai file PEM</string>
+    <string name="keybox_batch_verify_title">Verifikasi Batch</string>
+    <string name="keybox_batch_verify_summary">Uji beberapa kotak kunci dengan laporan terperinci</string>
+    <string name="keybox_status_title">Status Kotak Kunci</string>
+    <string name="keybox_status_summary">Saat ini: %s</string>
+    <string name="keybox_status_installed">✅ File Valid Diunduh</string>
+    <string name="keybox_status_not_installed">❌ Tidak Ada File yang Diunduh</string>
+    <string name="keybox_status_unknown">⚠️ Tidak Diketahui</string>
+    <string name="keybox_device_id_title">ID Perangkat</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Jumlah Sertifikat</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Kedaluwarsa Sertifikat</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Hasilkan Templat</string>
+    <string name="keybox_search_dialog_title">Cari Kotak Kunci Komunitas</string>
+    <string name="keybox_import_dialog_title">Impor Kotak Kunci</string>
+    <string name="keybox_export_dialog_title">Daftar Kotak Kunci yang Diunduh</string>
+    <string name="keybox_verify_dialog_title">Verifikasi Kotak Kunci yang Diunduh</string>
+    <string name="keybox_analyze_dialog_title">Analisis Mendalam</string>
+    <string name="keybox_analyze_dialog_message">Tindakan ini akan melakukan analisis sertifikat mendalam:\n\n✅ Pemeriksaan:\n• Validasi rantai sertifikat\n• Tanggal habis masa berlaku\n• Algoritme tanda tangan\n• Ukuran kunci\n• Informasi penerbit\n• Status pencabutan sertifikat\n\n⚠️ Proses ini memerlukan waktu 10-30 detik per kotak kunci.\n\nLanjutkan?</string>
+    <string name="keybox_check_api_dialog_title">Mainkan Pemeriksaan Integritas</string>
+    <string name="keybox_check_api_dialog_message">Ini akan menguji keybox Anda terhadap Google Play Integrity API.\n\n🔍 Yang diperiksa:\n• Integritas DASAR\n• Integritas PERANGKAT \n• Integritas KUAT\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ PERSYARATAN:\n• Keybox harus dipasang di Magisk/KernelSU\n• Modul Play Integrity Fix atau TrickyStore\n• Internet koneksi\n\n⏱️ Membutuhkan waktu 5-10 detik\n\nLanjutkan?</string>
+    <string name="keybox_compare_dialog_title">Bandingkan Kotak Kunci</string>
+    <string name="keybox_compare_dialog_message">Bandingkan beberapa kotak kunci yang diunduh:\n\n📊 Perbandingan mencakup:\n• ID Perangkat\n• Jumlah sertifikat\n• Tanggal kedaluwarsa\n• Jenis algoritma\n• Format kunci (PIF/TrickyStore)\n\nPilih kotak kunci untuk dibandingkan.</string>
+    <string name="keybox_extract_dialog_title">Ekstrak Sertifikat</string>
+    <string name="keybox_extract_dialog_message">Ekstrak sertifikat dari keybox sebagai file PEM terpisah.\n\n📁 Ekspor:\n• Sertifikat RSA\n• Sertifikat ECDSA\n• Kunci pribadi (jika diperlukan)\n\nFile disimpan ke: /Download/Keyboxes/certs/\n\nLanjutkan?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Peringatan</string>
+    <string name="keybox_overwrite_dialog_message">Tindakan ini tidak didukung dalam versi aplikasi ini.</string>
+    <string name="keybox_generating">🔄 Menghasilkan template…</string>
+    <string name="keybox_searching">🔍 Mencari sumber komunitas…</string>
+    <string name="keybox_downloading">Mengunduh kotak kunci dari repositori…</string>
+    <string name="keybox_verifying">🔍 Memverifikasi struktur…</string>
+    <string name="keybox_analyzing">🔬 Menganalisis sertifikat…</string>
+    <string name="keybox_checking_api">🌐 Menguji API Integritas Play…</string>
+    <string name="keybox_comparing">📊 Membandingkan kotak kunci…</string>
+    <string name="keybox_extracting">📦 Mengekstrak sertifikat…</string>
+    <string name="keybox_generate_success">✅ Template berhasil dibuat!</string>
+    <string name="keybox_search_success">✅ Kotak kunci valid ditemukan dan diunduh!</string>
+    <string name="keybox_import_success">✅ Kotak kunci berhasil diimpor!</string>
+    <string name="keybox_export_success">✅ Daftar file dihasilkan.</string>
+    <string name="keybox_verify_success">✅ Verifikasi selesai.</string>
+    <string name="keybox_analyze_success">✅ Analisis selesai.</string>
+    <string name="keybox_check_api_success">✅ Pemeriksaan integritas selesai.</string>
+    <string name="keybox_compare_success">✅ Perbandingan selesai.</string>
+    <string name="keybox_extract_success">✅ Sertifikat diekstraksi!</string>
+    <string name="keybox_generate_error">❌ Gagal membuat templat!\n\nKesalahan: %s</string>
+    <string name="keybox_search_error">❌ Gagal menemukan kotak kunci yang valid!\n\nKesalahan: %s</string>
+    <string name="keybox_import_error">❌ Gagal mengimpor kotak kunci!\n\nKesalahan: %s</string>
+    <string name="keybox_export_error">❌ Gagal membuat daftar file!\n\nKesalahan: %s</string>
+    <string name="keybox_verify_error">❌ Verifikasi gagal!\n\nKesalahan: %s</string>
+    <string name="keybox_analyze_error">❌ Analisis gagal!\n\nKesalahan: %s</string>
+    <string name="keybox_check_api_error">❌ Pemeriksaan integritas gagal!\n\nKesalahan: %s</string>
+    <string name="keybox_no_root">❌ Akses root TIDAK diperlukan untuk aplikasi ini.</string>
+    <string name="keybox_no_internet">❌ Diperlukan koneksi internet!</string>
+    <string name="keybox_no_keybox">❌ Tidak ada file yang diunduh!</string>
+    <string name="keybox_no_module">❌ Tidak ada modul Magisk/KernelSU yang terdeteksi!</string>
+    <string name="keybox_info_title">Tentang Manajer Kotak Kunci</string>
+    <string name="keybox_info_summary">Pelajari tentang Pengesahan dan Kotak Kunci Android</string>
+    <string name="keybox_info_dialog_title">Kotak Kotak Kunci - Informasi</string>
+    <string name="keybox_info_dialog_message">🔑 APLIKASI APA INI?\n══════════════════════════\n\nAlat canggih untuk mengelola Kotak Kunci Pengesahan Android. TIDAK diperlukan ROOT untuk mendownload/analisis.\n\n✅ FITUR:\n• Telusuri sumber komunitas\n• Impor kotak kunci khusus\n• Analisis sertifikat mendalam\n• Pengujian Play Integrity API\n• Verifikasi batch\n• Ekstraksi sertifikat\n• Perbandingan berdampingan\n\n📁 LOKASI:\n/sdcard/Download/Keyboxes/\n\n⚙️ PEMASANGAN:\n══════════════════════════\n\nOpsi 1: Mainkan Perbaikan Integritas\n1. Instal Magisk/KernelSU\n2. Pasang modul PIF\n3. Salin keybox.xml ke:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 kotak kunci.xml\n5. Nyalakan ulang\n\nOpsi 2: TrickyStore\n1. Instal Magisk/KernelSU\n2. Instal modul TrickyStore\n3. Salin keybox.xml ke:\n /data/adb/tricky_store/\n4. chmod 644 kotak kunci.xml\n5. Muat ulang otomatis (tanpa reboot)\n\n🧪 PENGUJIAN:\n══════════════════════════\n• Gunakan Pemeriksaan Integritas Play bawaan\n• Aplikasi YASNAC\n• Aplikasi perbankan\n• Google Wallet\n\n🔬 LANJUTAN FITUR:\n══════════════════════════\n\nAnalisis Mendalam:\n• Validasi rantai sertifikat\n• Pelacakan habis masa berlaku\n• Kekuatan algoritme periksa\n• Status pencabutan\n\nPemeriksaan Integritas Play:\n• Pengujian API real-time\n• Status BASIC/DEVICE/STRONG\n• Deteksi modul\n\nOperasi Batch:\n• Verifikasi beberapa keybox\n• Bandingkan secara berdampingan\n• Ekstrak sertifikat\n\n💡 TIPS:\n══════════════════════════\n• Kotak kunci publik jarang terjadi dan cepat dicabut\n• Sumber terbaik adalah grup Telegram pribadi\n• Uji kotak kunci sebelum memasang\n• Simpan cadangan kotak kunci yang berfungsi\n• Periksa tanggal kedaluwarsa\n\n🔗 KOMUNITAS:\n══════════════════════════\n• Telegram: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Telusuri &amp;quot;integritas pemutaran keybox&amp;quot;\n\n⚠️ HUKUM PENAFIAN:\n══════════════════════════\nHanya untuk tujuan pendidikan.\nMenggunakan kotak kunci yang dimodifikasi dapat melanggar:\n• Persyaratan Layanan Google\n• Pengembang aplikasi kebijakan\n• Hukum setempat\n\nGunakan dengan risiko yang Anda tanggung sendiri!</string>
+    <string name="keybox_reset_title">Hapus Unduhan</string>
+    <string name="keybox_reset_summary">Hapus semua kotak kunci yang diunduh dari penyimpanan</string>
+    <string name="keybox_reset_dialog_title">⚠️ Hapus Unduhan</string>
+    <string name="keybox_reset_dialog_message">Hapus SEMUA file dari /sdcard/Download/Keyboxes/?\n\nIni tidak dapat dibatalkan.</string>
+    <string name="keybox_reset_success">✅ Semua file dihapus!</string>
+    <string name="keybox_reset_error">❌ Gagal menghapus: %s</string>
+    <string name="ram_optimizer_title">RAM dan Pengoptimal Penyimpanan</string>
+    <string name="ram_optimizer_summary">Optimalkan kompresi dan penyimpanan RAM</string>
+    <string name="ram_optimizer_description">Kelola pengaturan zRAM, hibernasi aplikasi, dan bersihkan penyimpanan untuk kinerja yang lebih baik.</string>
+    <string name="zram_category_title">zRAM Kompresi</string>
+    <string name="zram_enable_title">Aktifkan zRAM</string>
+    <string name="zram_enable_summary">Kompres RAM untuk mengosongkan memori</string>
+    <string name="zram_size_title">zRAM Ukuran (MB)</string>
+    <string name="zram_size_summary">Atur ukuran RAM terkompresi (512-12288 MB)</string>
+    <string name="zram_swappiness_title">Pertukaran</string>
+    <string name="zram_swappiness_summary">Kontrol seberapa agresif untuk menukar ke zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">Hibernasi Aplikasi</string>
+    <string name="app_hibernation_title">Aktifkan Hibernasi Aplikasi</string>
+    <string name="app_hibernation_summary">Hibernasi aplikasi yang tidak digunakan untuk menghemat RAM dan baterai</string>
+    <string name="storage_cleaner_category_title">Pembersih Penyimpanan</string>
+    <string name="storage_stats_title">Statistik Penyimpanan</string>
+    <string name="storage_stats_summary">Memuat...</string>
+    <string name="clean_app_cache_title">Bersihkan Cache Aplikasi</string>
+    <string name="clean_app_cache_summary">Hapus data cache dari semua aplikasi</string>
+    <string name="clean_system_cache_title">Bersihkan Cache Sistem</string>
+    <string name="clean_system_cache_summary">Hapus cache sistem dan hapus cache</string>
+    <string name="clean_thumbnails_title">Bersihkan Thumbnail</string>
+    <string name="clean_thumbnails_summary">Hapus cache thumbnail dari media</string>
+    <string name="clean_downloads_title">Bersihkan Unduhan Lama</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Secara otomatis menyesuaikan kinerja berdasarkan aplikasi latar depan</string>
+</resources>

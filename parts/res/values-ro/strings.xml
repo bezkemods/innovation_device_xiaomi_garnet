@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Setări Xiaomi</string>
+    <string name="tile_add">Adăugați țiglă</string>
+    <string name="tile_added">Tigla adăugată</string>
+    <string name="tile_not_added">Tigla nu a fost adăugată</string>
+    <string name="tile_already_added">Tigla adăugată deja</string>
+    <string name="tile_on">Pe</string>
+    <string name="tile_off">Off</string>
+    <string name="clear_speaker_title">Difuzor clar</string>
+    <string name="clear_speaker_summary">Redați un sunet de 30 de secunde pentru a șterge difuzorul</string>
+    <string name="clear_speaker_description">Rulați această funcție o dată sau de două ori dacă descoperiți că difuzorul este ușor blocat de praf. Setați volumul media la maxim.\n\nDacă difuzorul este blocat puternic, rulați această funcție de 2-5 ori în timp ce scuturați dispozitivul cu difuzorul îndreptat în jos.</string>
+    <string name="saturation_title">Saturația afișajului</string>
+    <string name="saturation_summary">Controlați nivelul de saturație al afișajului</string>
+    <string name="saturation_footer_summary">Schimbarea modului de culoare în setările afișajului va suprascrie nivelul de saturație, necesitând să fie reaplicat.</string>
+    <string name="image_preview_content_description">Previzualizare</string>
+    <string name="image_preview_next_page_content_description">Următorul</string>
+    <string name="image_preview_previous_page_content_description">Anterior</string>
+    <string name="custom_seekbar_value">Valoare:</string>
+    <string name="custom_seekbar_default_value">implicit</string>
+    <string name="custom_seekbar_default_value_to_set">Valoarea implicită:</string>
+    <string name="custom_seekbar_default_value_is_set">Valoarea implicită este setată</string>
+    <string name="auto_hbm_title">Modul automat de luminozitate ridicată (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Utilizați HBM automat</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">Activat</string>
+    <string name="tile_hbm_off">Dezactivat</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM indisponibil</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Auto HBM sau Auto Brightness este activat</string>
+    <string name="hbm_mode_title">Mod de luminozitate ridicată</string>
+    <string name="hbm_mode_notification">Modul de luminozitate ridicată este acum activat. Utilizarea îndelungată vă poate deteriora afișajul.</string>
+    <string name="auto_hbm_summary">Activați automat modul de luminozitate ridicată pe baza intensității luminii solare (lux)</string>
+    <string name="auto_hbm_threshold_title">Pragul de lumină</string>
+    <string name="auto_hbm_threshold_summary">Definiți pragul de intensitate a luminii în unități de lux la care HBM este activat</string>
+    <string name="auto_hbm_enable_time_title">Activare timp</string>
+    <string name="auto_hbm_enable_time_summary">Durata în secunde în care pragul de lumină trebuie îndeplinit în mod continuu pentru a activa HBM</string>
+    <string name="auto_hbm_disable_time_title">Dezactivați timpul</string>
+    <string name="auto_hbm_disable_time_summary">Durata în secunde pentru care HBM este dezactivat dacă pragul de lumină scade sub nivelul setat</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">Activați suprapunerea sistemului (FPS, Temp etc.)</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">Comutați suprapunerea jocului</string>
+    <string name="game_bar_enable_title">Activați suprapunerea GameBar</string>
+    <string name="overlay_permission_required">Este necesară permisiunea de suprapunere</string>
+    <string name="overlay_permission_granted">Permisiune de suprapunere acordată</string>
+    <string name="overlay_permission_denied">Permisiunea de suprapunere a fost refuzată</string>
+    <string name="overlay_features_title">Caracteristici de suprapunere</string>
+    <string name="game_bar_fps_enable_title">Suprapunere FPS</string>
+    <string name="game_bar_fps_enable_summary">Afișează FPS curent pe ecran</string>
+    <string name="game_bar_temp_enable_title">Temperatura dispozitivului</string>
+    <string name="game_bar_temp_enable_summary">Arată temperatura dispozitivului (bateriei).</string>
+    <string name="game_bar_cpu_usage_enable_title">Utilizare CPU</string>
+    <string name="game_bar_cpu_usage_enable_summary">Afișați procentajul curent de utilizare a procesorului</string>
+    <string name="game_bar_cpu_clock_enable_title">Viteze de ceas CPU</string>
+    <string name="game_bar_cpu_clock_enable_summary">Arată vitezele curente ale CPU pentru fiecare nucleu</string>
+    <string name="game_bar_cpu_temp_enable_title">Temperatura CPU</string>
+    <string name="game_bar_cpu_temp_enable_summary">Arată temperatura procesorului (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">Utilizare RAM</string>
+    <string name="game_bar_ram_enable_summary">Afișați utilizarea curentă a RAM în MB</string>
+    <string name="game_bar_gpu_usage_enable_title">Utilizare GPU</string>
+    <string name="game_bar_gpu_usage_enable_summary">Afișați procentul de utilizare a GPU</string>
+    <string name="game_bar_gpu_clock_enable_title">Viteza ceasului GPU</string>
+    <string name="game_bar_gpu_clock_enable_summary">Afișează frecvența curentă a tacului GPU</string>
+    <string name="game_bar_gpu_temp_enable_title">Temperatura GPU</string>
+    <string name="game_bar_gpu_temp_enable_summary">Afișați temperatura curentă a GPU</string>
+    <string name="fps_measurement_method_title">Metoda de măsurare FPS</string>
+    <string name="game_bar_fps_method_title">Selectați metoda FPS</string>
+    <string name="game_bar_fps_method_summary">Alegeți între metoda New API (implicit) și Legacy Sysfs</string>
+    <string name="customization_title">Personalizare</string>
+    <string name="game_bar_text_size_title">Dimensiunea textului</string>
+    <string name="game_bar_text_size_summary">Ajustați dimensiunea textului suprapus</string>
+    <string name="game_bar_background_alpha_title">Transparența fundalului</string>
+    <string name="game_bar_background_alpha_summary">Reglați transparența fundalului</string>
+    <string name="game_bar_corner_radius_title">Raza colțului de suprapunere</string>
+    <string name="game_bar_corner_radius_summary">Ajustați cât de rotunjite ar trebui să fie colțurile suprapuse</string>
+    <string name="game_bar_padding_title">Suprapunere de umplutură</string>
+    <string name="game_bar_padding_summary">Reglați spațiul din jurul statisticilor</string>
+    <string name="game_bar_item_spacing_title">Spațierea articolelor</string>
+    <string name="game_bar_item_spacing_summary">Reglați distanța dintre liniile de suprapunere</string>
+    <string name="game_bar_update_interval_title">Interval de actualizare</string>
+    <string name="game_bar_update_interval_summary">Setați cât de des se actualizează valorile suprapuse</string>
+    <string name="game_bar_title_color_title">Culoarea titlului statisticii</string>
+    <string name="game_bar_title_color_summary">Culoare pentru textul \'FPS\', \'Temp\', \'CPU\' etc.</string>
+    <string name="game_bar_value_color_title">Valoare statistică Culoare</string>
+    <string name="game_bar_value_color_summary">Culoare pentru statistici numerice (de exemplu, \'29\', \'32,0°C\')</string>
+    <string name="game_bar_position_title">Poziție de suprapunere</string>
+    <string name="game_bar_position_summary">Selectați poziția suprapunerii pe ecran</string>
+    <string name="game_bar_format_title">Format de suprapunere</string>
+    <string name="game_bar_format_summary">Alegeți între afișare completă sau minimă</string>
+    <string name="game_bar_overlay_format_toast">Formatul de suprapunere s-a schimbat în: %s</string>
+    <string name="game_bar_format_entries_full">Plin</string>
+    <string name="game_bar_format_entries_minimal">Minimal</string>
+    <string name="split_config_title">Split Config</string>
+    <string name="game_bar_split_mode_title">Modul Split</string>
+    <string name="game_bar_split_mode_summary">Alegeți aranjament alăturat sau stivuit</string>
+    <string name="overlay_gesture_controls_title">Suprapunerea comenzilor gesturilor</string>
+    <string name="game_bar_single_tap_toggle_title">Activați o singură atingere pentru a comuta</string>
+    <string name="game_bar_single_tap_toggle_summary">Atingeți o dată pentru a comuta între formatele de suprapunere complet și minim</string>
+    <string name="game_bar_doubletap_capture_title">Activați Atingerea de două ori pentru a captura</string>
+    <string name="game_bar_doubletap_capture_summary">Atingeți de două ori suprapunerea pentru a porni/opri jurnalele de capturare</string>
+    <string name="game_bar_longpress_enable_title">Activați apăsarea lungă</string>
+    <string name="game_bar_longpress_enable_summary">Apăsați lung suprapunerea pentru a accesa setările GameBar</string>
+    <string name="game_bar_longpress_timeout_title">Durată lungă de apăsare</string>
+    <string name="game_bar_longpress_timeout_summary">Setați durata necesară pentru a apăsa lung suprapunerea</string>
+    <string name="capture_logs_title">Captură jurnalele</string>
+    <string name="game_bar_capture_start_title">Începeți înregistrarea</string>
+    <string name="game_bar_capture_start_summary">Începeți să capturați FPS și date de performanță în timp real</string>
+    <string name="game_bar_capture_stop_title">Opriți înregistrarea</string>
+    <string name="game_bar_capture_stop_summary">Nu mai capturați FPS și date de performanță în timp real</string>
+    <string name="game_bar_capture_export_title">Exportați datele jurnalului GameBar</string>
+    <string name="game_bar_capture_export_summary">Salvați FPS-ul capturat și datele de performanță ca fișier CSV</string>
+    <string name="game_bar_capture_start_toast">S-a început înregistrarea datelor</string>
+    <string name="game_bar_capture_stop_toast">S-a oprit înregistrarea datelor</string>
+    <string name="game_bar_capture_export_toast">Datele jurnal exportate în fișier</string>
+    <string name="game_bar_doubletap_capture_start_toast">Captura a început</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Captură oprită</string>
+    <string name="auto_enable_gamebar_title">Activare automată GameBar</string>
+    <string name="game_bar_auto_enable_title">Activați automat GameBar pentru aplicațiile selectate</string>
+    <string name="game_bar_auto_enable_summary">Dacă sunt activate, aplicațiile selectate vor activa automat GameBar chiar dacă comutatorul principal este oprit</string>
+    <string name="game_bar_app_selector_title">Selectați Aplicații</string>
+    <string name="game_bar_app_selector_summary">Adăugați aplicații care ar trebui să activeze automat GameBar</string>
+    <string name="game_bar_app_remover_title">Eliminați aplicațiile selectate</string>
+    <string name="game_bar_app_remover_summary">Eliminați aplicațiile din lista de activare automată</string>
+    <string name="game_bar_app_remover_activity_title">Eliminați aplicațiile de activare automată</string>
+    <string name="game_bar_app_selector_activity_title">Selectați Aplicații pentru GameBar</string>
+    <string name="game_bar_app_added_toast">adăugat</string>
+    <string name="game_bar_app_removed_toast">eliminat</string>
+    <string name="gpu_enable_title">Activați GPU Optimizer</string>
+    <string name="gpu_enable_summary">Comutați optimizările GPU</string>
+    <string name="gpu_freq_category_title">Configurați frecvența GPU</string>
+    <string name="gpu_min_frequency">Frecvența minimă a GPU</string>
+    <string name="gpu_max_frequency">Frecvența maximă a GPU</string>
+    <string name="gpu_disabled_defaults_restored">Optimizer GPU dezactivat, valorile implicite restaurate</string>
+    <string name="gpu_optimizer_enabled">Optimizatorul GPU este activat</string>
+    <string name="gpu_min_freq_exceeds_max">Eșuat: frecvența minimă a GPU nu poate depăși frecvența maximă</string>
+    <string name="gpu_max_freq_below_min">Eșuat: frecvența maximă a GPU nu poate fi mai mică decât frecvența minimă</string>
+    <string name="gpu_min_freq_applied">Frecvența minimă a GPU -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">Frecvența maximă a GPU -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Activați CPU Optimizer</string>
+    <string name="cpu_enable_summary">Comutați optimizările CPU</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">Optimizatorul CPU dezactivat, valorile implicite restaurate</string>
+    <string name="cpu_optimizer_enabled">Optimizator CPU activat</string>
+    <string name="cpu_little_category_title">Configurați CPU Little Cluster</string>
+    <string name="cpu_little_min_frequency_title">Frecvență minimă</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Frecvența maximă</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Guvernator</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Eșuat: frecvența minimă mică a CPU nu poate depăși max</string>
+    <string name="cpu_little_max_freq_below_min">Eșuat: frecvența maximă mică a CPU nu poate fi mai mică de min</string>
+    <string name="cpu_little_min_freq_applied">Frecvența minimă mică a procesorului -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">Frecvența maximă mică a procesorului -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">Micul guvernator al procesorului -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Configurați CPU Big Cluster</string>
+    <string name="cpu_big_min_frequency_title">Frecvență minimă</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Frecvența maximă</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Guvernator</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Eșuat: frecvența minimă mare a procesorului nu poate depăși max</string>
+    <string name="cpu_big_max_freq_below_min">Eșuat: frecvența maximă mare a procesorului nu poate fi mai mică de min</string>
+    <string name="cpu_big_min_freq_applied">Frecvența minimă mare a procesorului -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">Frecvența maximă mare a procesorului -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">CPU mare guvernator -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Configurați CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">Frecvență minimă</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Frecvența maximă</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Guvernator</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Eșuat: frecvența minimă a procesului principal nu poate depăși max</string>
+    <string name="cpu_prime_max_freq_below_min">Eșuat: frecvența maximă a procesorului nu poate fi mai mică de min</string>
+    <string name="cpu_prime_min_freq_applied">Frecvența minimă principală a procesorului -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">Frecvența maximă a procesorului -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">CPU prim guvernator -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Porniți logcat la boot</string>
+    <string name="logcat_autostart_summary">Porniți automat înregistrarea în fundal după repornire</string>
+    <string name="logcat_viewer_title">Logcat Viewer</string>
+    <string name="logcat_viewer_summary">Deschideți vizualizatorul de jurnal în timp real</string>
+    <string name="logcat_filter_hint">Introduceți eticheta sau cuvântul cheie</string>
+    <string name="logcat_filter_title">Filtru de jurnal</string>
+    <string name="logcat_pause">Pauză</string>
+    <string name="logcat_resume">CV</string>
+    <string name="logcat_autoscroll_on">Defilare automată ON</string>
+    <string name="logcat_autoscroll_off">Autoscroll OFF</string>
+    <string name="logcat_save">Salvare jurnal</string>
+    <string name="logcat_clear">Ștergeți jurnalul</string>
+    <string name="logcat_share">Partajați jurnal</string>
+    <string name="logcat_settings">Setări</string>
+    <string name="logcat_export">Export</string>
+    <string name="logcat_search">Caută</string>
+    <string name="logcat_notification_title">Logcat Viewer</string>
+    <string name="logcat_notification_text">Înregistrare în fundal activă</string>
+    <string name="logcat_notification_stopped">Înregistrarea în fundal a fost oprită</string>
+    <string name="logcat_notification_channel_name">Serviciul de fundal Logcat</string>
+    <string name="logcat_notification_channel_desc">Controale pentru înregistrarea logcat în fundal</string>
+    <string name="logcat_level_verbose">Verbos</string>
+    <string name="logcat_level_debug">Depanați</string>
+    <string name="logcat_level_info">Info</string>
+    <string name="logcat_level_warn">Avertisment</string>
+    <string name="logcat_level_error">Eroare</string>
+    <string name="logcat_no_logs">Nu există jurnalele disponibile</string>
+    <string name="logcat_loading">Se încarcă jurnalele...</string>
+    <string name="logcat_paused">Înregistrare întreruptă</string>
+    <string name="logcat_active">Înregistrare activă</string>
+    <string name="logcat_filter_applied">Filtrul aplicat: %1$s</string>
+    <string name="logcat_logs_cleared">Bușteni șterse</string>
+    <string name="logcat_save_progress">Se salvează jurnalele...</string>
+    <string name="logcat_save_success">Jurnalele au fost salvate cu succes.</string>
+    <string name="logcat_save_failed">Nu s-au salvat jurnalele.</string>
+    <string name="logcat_share_subject">Export Logcat Android</string>
+    <string name="logcat_permission_required">Este necesară permisiunea de stocare pentru a salva jurnalele</string>
+    <string name="cpu_tile_label">Guvernator CPU</string>
+    <string name="cpu_tile_unavailable">Control CPU indisponibil</string>
+    <string name="cpu_tile_error">Eroare de monitorizare CPU</string>
+    <string name="cpu_tile_unknown">Necunoscut</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Schedutil</string>
+    <string name="cpu_tile_governor_performance">Performanță</string>
+    <string name="cpu_tile_governor_powersave">Economie de energie</string>
+    <string name="cpu_tile_governor_ondemand">La cerere</string>
+    <string name="cpu_tile_governor_conservative">conservator</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">Setări Tile CPU</string>
+    <string name="cpu_tile_settings_summary">Configurați aspectul și comportamentul plăcilor Setări rapide pentru guvernator CPU</string>
+    <string name="cpu_tile_appearance_category">Aspectul</string>
+    <string name="cpu_tile_behavior_category">Comportament</string>
+    <string name="cpu_tile_size_title">Dimensiunea pictogramei Tile</string>
+    <string name="cpu_tile_size_summary">Alegeți dimensiunea pictogramei plăcii CPU</string>
+    <string name="cpu_tile_style_title">Stil gresie</string>
+    <string name="cpu_tile_style_summary">Alegeți cum sunt afișate informațiile CPU</string>
+    <string name="cpu_tile_show_percentage_title">Afișați procentul de utilizare</string>
+    <string name="cpu_tile_show_percentage_summary">Afișează procentul de utilizare a procesorului în loc de frecvență</string>
+    <string name="cpu_tile_update_speed_title">Interval de actualizare</string>
+    <string name="cpu_tile_update_speed_summary">Cât de des se reîmprospătează informațiile CPU</string>
+    <string name="cpu_tile_update_speed_fast">Rapid (0,5s)</string>
+    <string name="cpu_tile_update_speed_normal">Normal (1s)</string>
+    <string name="cpu_tile_update_speed_slow">Încet (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Foarte lent (5s)</string>
+    <string name="cpu_tile_preview_title">Previzualizează modificări</string>
+    <string name="cpu_tile_preview_summary">Atingeți pentru a reîmprospăta dala cu setările curente</string>
+    <string name="cpu_tile_footer">Tigla CPU Governor permite comutarea rapidă între regulatoarele CPU și afișează în timp real frecvența CPU și informații despre utilizare. Atingeți tigla pentru a parcurge regulatoarele disponibile.</string>
+    <string name="performance_mode_title">Modul de performanță</string>
+    <string name="performance_mode_summary">Forțați CPU și GPU la maximum pentru performanță maximă. Crește căldura și consumul bateriei.</string>
+    <string name="performance_mode_enabled_summary">Modul de performanță este ON</string>
+    <string name="performance_mode_disabled_summary">Modul de performanță este OPRIT</string>
+    <string name="performance_profile_title">Profil de performanță</string>
+    <string name="performance_profile_summary">Selectați modul de performanță pentru un comportament optim al dispozitivului</string>
+    <string name="performance_mode_battery_saver">Economizor baterie</string>
+    <string name="performance_mode_balanced">Echilibrat</string>
+    <string name="performance_mode_performance">Performanță</string>
+    <string name="performance_profile_applied">Profil de performanță setat la %s</string>
+    <string name="performance_profile_failed">Nu s-a putut aplica profilul de performanță</string>
+    <string name="performance_tile_label">Performanță</string>
+    <string name="performance_notification_channel_name">Profiluri de performanță</string>
+    <string name="performance_notification_channel_desc">Afișează starea curentă a profilului de performanță</string>
+    <string name="performance_notification_battery_saver">Modul de economisire a bateriei este activ - Durată de viață extinsă a bateriei</string>
+    <string name="performance_notification_balanced">Modul echilibrat este activ - Performanță optimă și durata de viață a bateriei</string>
+    <string name="performance_notification_performance">Modul de performanță este activ - Performanță maximă</string>
+    <string name="performance_footer_title">Informații despre profilul de performanță</string>
+    <string name="performance_footer_summary">• Battery Saver: Prelungește durata de viață a bateriei prin reducerea performanței CPU și GPU. Ideal pentru utilizare ușoară și durata maximă a bateriei.\n\n• Echilibrat: oferă un echilibru optim între performanță și durata de viață a bateriei. Recomandat pentru utilizare zilnică.\n\n• Performanță: maximizează performanța CPU și GPU pentru sarcini solicitante. Cel mai bun pentru jocuri, aplicații grele și sarcini de lucru intense. Poate reduce durata de viață a bateriei.</string>
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">Setări speciale Xiaomi Garnet</string>
+    <string name="xiaomi_parts_summary">Setări specifice dispozitivului Xiaomi</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">Afișează</string>
+    <string name="sound_title">Sunetul</string>
+    <string name="power_title">Putere</string>
+    <string name="gaming_title">Jocuri și utilitare</string>
+    <string name="about_me_title">Despre mine</string>
+    <string name="about_me_summary">Tot ce trebuie să știți despre InnOvaTioN</string>
+    <string name="about_me_contact_title">Suport</string>
+    <string name="about_me_contact_summary">Puteți obține ajutor acolo</string>
+    <string name="about_me_donate_title">Donează-mă pe paypal</string>
+    <string name="about_me_donate_summary">Sprijină-mi munca ca să pot continua să construiesc</string>
+    <string name="about_me_donate2_title">Cumpărăcafea</string>
+    <string name="about_me_donate2_summary">Sună-mă pentru o bere sau o cafea</string>
+    <string name="core_control_title">Core Control</string>
+    <string name="core_control_summary">Activați sau dezactivați manual nucleele CPU individuale</string>
+    <string name="core_control_description">Control avansat al procesorului. Oprirea nucleelor ​​poate economisi bateria sau sarcina termică, dar poate afecta performanța și stabilitatea.\n\nCel puțin două nuclee trebuie să rămână online tot timpul.</string>
+    <string name="keep_little_cores_online">Cel puțin 2 nuclee mici trebuie să rămână online</string>
+    <string name="core_0">Core 0 (Mic)</string>
+    <string name="core_1">Core 1 (Mic)</string>
+    <string name="core_2">Core 2 (Mic)</string>
+    <string name="core_3">Core 3 (Mic)</string>
+    <string name="core_4">Core 4 (Mare)</string>
+    <string name="core_5">Core 5 (Mare)</string>
+    <string name="core_6">Core 6 (Mare)</string>
+    <string name="core_7">Core 7 (Mare)</string>
+    <string name="error">Eroare</string>
+    <string name="kernel_manager_title">Manager kernel</string>
+    <string name="kernel_manager_summary">Gestionați frecvențele CPU și guvernatorul</string>
+    <string name="kernel_manager_efficiency_category">Cluster de eficiență (A55)</string>
+    <string name="kernel_manager_performance_category">Cluster de performanță (A78)</string>
+    <string name="kernel_manager_governor">Guvernator CPU</string>
+    <string name="kernel_manager_governor_summary">Selectați guvernatorul CPU pentru clustere</string>
+    <string name="cpu_governor_summary">Curent: %s</string>
+    <string name="kernel_manager_min_freq">Frecventa minima</string>
+    <string name="kernel_manager_min_freq_summary">Setați frecvența minimă permisă a CPU</string>
+    <string name="kernel_manager_max_freq">Frecvența maximă</string>
+    <string name="kernel_manager_max_freq_summary">Setați frecvența maximă permisă a CPU</string>
+    <string name="kernel_info_category">Informații</string>
+    <string name="kernel_info_title">Despre Kernel Manager</string>
+    <string name="kernel_info_summary">Gestionați regulatorul CPU și scalarea frecvenței pentru toate clusterele CPU. Modificările pot afecta performanța și durata de viață a bateriei.</string>
+    <string name="kernel_manager_apply">Aplicați setările</string>
+    <string name="kernel_manager_apply_summary">Aplicați setările CPU selectate</string>
+    <string name="kernel_manager_reset">Resetați la valoarea implicită</string>
+    <string name="kernel_manager_reset_summary">Restabiliți setările implicite ale procesorului</string>
+    <string name="settings_applied">Setările aplicate cu succes</string>
+    <string name="settings_reset">Setările revin la valoarea implicită</string>
+    <string name="kernel_manager_footer">Reglatorii CPU gestionează modul în care dispozitivul dvs. ajustează frecvența procesorului pentru a echilibra performanța și consumul de energie. Iată o scurtă prezentare generală:\n\n• walt: un guvernator dezvoltat de Google, optimizat pentru receptivitate și latență de interacțiune cu utilizatorul, utilizat în principal pe dispozitivele Pixel.\n• conservator: crește treptat frecvența procesorului; economisește bateria, dar poate reduce capacitatea de răspuns.\n• economisire energie: menține procesorul la cea mai scăzută frecvență posibilă, acordând prioritate duratei de viață a bateriei în detrimentul performanței.\n• performanță: blochează procesorul la frecvența maximă, asigurând performanță maximă cu prețul bateriei.\n• schedhorizon: un guvernator conștient de planificator care urmărește o migrare îmbunătățită a sarcinilor și eficiență între nuclee.\n• sistemele implicite de guvernare moderne; folosește datele de planificare Linux pentru a scala frecvența procesorului în mod inteligent și eficient.</string>
+    <string name="kernel_manager_cpu_monitor">Monitorizarea nucleului procesorului</string>
+    <string name="kernel_manager_core_online">Online</string>
+    <string name="kernel_manager_core_offline">Offline</string>
+    <string name="kernel_manager_loading">Se încarcă...</string>
+    <string name="kernel_manager_enable_monitoring">Monitorizare în timp real</string>
+    <string name="kernel_manager_enable_monitoring_summary">Actualizați continuu starea miezului procesorului</string>
+    <string name="kernel_manager_update_interval">Frecvența de actualizare</string>
+    <string name="kernel_manager_update_interval_summary">Cât de des se reîmprospătează datele</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Rezumatul clusterului de eficiență</string>
+    <string name="kernel_manager_performance_cluster_summary">Rezumatul clusterului de performanță</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d nuclee online | Interval: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    <string name="update_interval_500ms">0,5 secunde</string>
+    <string name="update_interval_1000ms">1 secundă</string>
+    <string name="update_interval_2000ms">2 secunde</string>
+    <string name="update_interval_5000ms">5 secunde</string>
+    <string name="cpu_core_status_online">🟢 %1$s - Online</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - Offline</string>
+    <string name="kernel_manager_governor_current">%1$s (Actual: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Actual: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">Monitorizarea în timp real este dezactivată. Activați-l pentru a vedea frecvențele și starea de bază ale procesorului în direct.</string>
+    <string name="kernel_manager_error_read">Nu se pot citi informațiile CPU</string>
+    <string name="kernel_manager_error_write">Nu se pot aplica setările CPU. Poate fi necesar accesul rădăcină.</string>
+    <string name="kernel_manager_error_permission">Acces refuzat. Accesul root este necesar pentru a modifica setările CPU.</string>
+    <string name="gpu_manager_title">Manager GPU</string>
+    <string name="gpu_manager_summary">Gestionați frecvențele GPU și setările de putere</string>
+    <string name="gpu_governor_title">Guvernator GPU</string>
+    <string name="gpu_governor_summary">Curent: %s</string>
+    <string name="gpu_freq_title">Frecvențele GPU</string>
+    <string name="gpu_min_freq_title">Frecventa minima</string>
+    <string name="gpu_max_freq_title">Frecvența maximă</string>
+    <string name="gpu_max_gpuclk_title">Suprascriere maximă GPUCLK</string>
+    <string name="gpu_max_gpuclk_summary">Creștere suplimentară a ceasului (max 940 MHz)</string>
+    <string name="gpu_current_freq_title">Frecvența curentă</string>
+    <string name="gpu_power_title">Setări de putere</string>
+    <string name="gpu_force_clk_on_title">Forțare ceas activat</string>
+    <string name="gpu_force_clk_on_summary">Păstrați ceasul GPU mereu activat</string>
+    <string name="gpu_force_bus_on_title">Force Bus On</string>
+    <string name="gpu_force_bus_on_summary">Păstrați autobuzul GPU mereu activat</string>
+    <string name="gpu_force_rail_on_title">Forță șină activată</string>
+    <string name="gpu_force_rail_on_summary">Păstrați șina de alimentare GPU mereu pornită</string>
+    <string name="gpu_force_no_nap_title">Force No Nap</string>
+    <string name="gpu_force_no_nap_summary">Dezactivați siesta GPU între cadre</string>
+    <string name="gpu_bus_split_title">Autobuz Split</string>
+    <string name="gpu_bus_split_summary">Activați divizarea magistralei GPU</string>
+    <string name="gpu_preempt_title">Preempțiune GPU</string>
+    <string name="gpu_preempt_summary">Jocuri cu latență scăzută (activați pentru cea mai bună experiență de joc)</string>
+    <string name="gpu_camera_boost_title">Camera Boost</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (performanță maximă de codificare a camerei/video)</string>
+    <string name="gpu_thermal_title">Setări termice</string>
+    <string name="gpu_thermal_pwrlevel_title">Nivel de putere termică</string>
+    <string name="gpu_thermal_pwrlevel_summary">Nivelul curent al puterii termice</string>
+    <string name="gpu_temp_title">Temperatura GPU</string>
+    <string name="gpu_info_title">Informații GPU</string>
+    <string name="gpu_model_title">Model GPU</string>
+    <string name="gpu_busy_percentage_title">Încărcare GPU</string>
+    <string name="gpu_reset_count_title">Resetează numărul</string>
+    <string name="gpu_preempt_count_title">Număr de preempțiune</string>
+    <string name="gpu_info_category">Informații GPU</string>
+    <string name="gpu_settings_category">Setări GPU</string>
+    <string name="gpu_advanced_category">Setări avansate</string>
+    <string name="gpu_info_summary">Gestionați scalarea frecvenței GPU și setările de putere. Modificările pot afecta performanța și durata de viață a bateriei.</string>
+    <string name="apply_settings">Aplicați setările</string>
+    <string name="reset_settings">Resetați setările</string>
+    <string name="gpu_turbo_preset_title">Turbo Preset</string>
+    <string name="gpu_turbo_preset_summary">Performanță maximă: blocare 940 MHz, regulator de performanță, toate creșterile ON</string>
+    <string name="gpu_turbo_enabled">🚀 Modul Turbo activat!</string>
+    <string name="gpu_settings_applied">Setările aplicate!</string>
+    <string name="gpu_settings_reset">Setările revin la valorile implicite!</string>
+    <string name="unknown">Necunoscut</string>
+    <string name="thermal_level_summary">Nivelul %s</string>
+    <string name="camera_boost_triggered">Amplificarea camerei/video a fost declanșată!</string>
+    <string name="video_enhancer_title">Video Enhancer</string>
+    <string name="video_enhancer_summary">Optimizări de afișare și performanță pentru Redmi Note 13 Pro 5G</string>
+    <string name="video_enhancer_display_category">📺 Funcții de afișare</string>
+    <string name="smooth_motion_enable_title">Mișcare lină</string>
+    <string name="smooth_motion_enable_summary">Netezirea mișcării hardware pentru videoclipuri (implicit: OFF) • Este necesară repornirea</string>
+    <string name="optimize_refresh_enable_title">Optimizați rata de reîmprospătare</string>
+    <string name="optimize_refresh_enable_summary">Rata de reîmprospătare dinamică bazată pe conținut (implicit: OFF) • Este necesară repornirea</string>
+    <string name="peak_refresh_rate_title">Rată de reîmprospătare maximă de 120 Hz</string>
+    <string name="peak_refresh_rate_summary">Activați 120 Hz la atingere (200 ms) • Valoare din fabrică • Este necesară repornirea</string>
+    <string name="video_enhancer_performance_category">⚡ Optimizări de performanță</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">Utilizați Vulkan în loc de OpenGL ES (Adreno 710) • Este necesară repornirea</string>
+    <string name="purgeable_assets_title">Active care pot fi curățate</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">Listați toate cutiile de taste descărcate în stocare</string>
+    <string name="keybox_verify_title">Verificați descărcările</string>
+    <string name="keybox_verify_summary">Verificați structura XML a casetelor de taste descărcate</string>
+    <string name="keybox_analyze_title">Analiză profundă</string>
+    <string name="keybox_analyze_summary">Analizați lanțurile de certificate, expirarea și valabilitatea</string>
+    <string name="keybox_check_api_title">Verificați integritatea redării</string>
+    <string name="keybox_check_api_summary">Testați caseta de taste cu Google Play Integrity API</string>
+    <string name="keybox_compare_title">Comparați cutii de taste</string>
+    <string name="keybox_compare_summary">Comparați mai multe cutii de taste una lângă alta</string>
+    <string name="keybox_extract_certs_title">Extrage certificate</string>
+    <string name="keybox_extract_certs_summary">Exportați certificate ca fișiere PEM</string>
+    <string name="keybox_batch_verify_title">Verificare lot</string>
+    <string name="keybox_batch_verify_summary">Testați mai multe cutii de taste cu rapoarte detaliate</string>
+    <string name="keybox_status_title">Stare cutie de taste</string>
+    <string name="keybox_status_summary">Curent: %s</string>
+    <string name="keybox_status_installed">✅ Fișier valid descărcat</string>
+    <string name="keybox_status_not_installed">❌ Niciun fișier descărcat</string>
+    <string name="keybox_status_unknown">⚠️ Necunoscut</string>
+    <string name="keybox_device_id_title">ID dispozitiv</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Număr de certificate</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Expirarea certificatului</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Generați șabloane</string>
+    <string name="keybox_search_dialog_title">Căutați în casetele de taste ale comunității</string>
+    <string name="keybox_import_dialog_title">Import Keybox</string>
+    <string name="keybox_export_dialog_title">Listează casetele de taste descărcate</string>
+    <string name="keybox_verify_dialog_title">Verificați casetele de taste descărcate</string>
+    <string name="keybox_analyze_dialog_title">Analiză profundă</string>
+    <string name="keybox_analyze_dialog_message">Aceasta va efectua o analiză profundă a certificatelor:\n\n✅ Verificări:\n• Validarea lanțului de certificate\n• Date de expirare\n• Algoritmi de semnătură\n• Mărimea cheilor\n• Informații despre emitent\n• Starea revocării certificatului\n\n⚠️ Aceasta durează 10-30 de secunde pentru fiecare cutie de taste.\n\nContinuați?</string>
+    <string name="keybox_check_api_dialog_title">Verifică integritatea jocului</string>
+    <string name="keybox_check_api_dialog_message">Aceasta vă va testa caseta de taste cu API-ul Google Play Integrity.\n\n🔍 Ce verifică:\n• Integritatea de BAZĂ\n• Integritatea DISPOZITIVului \n• Integritate PUTERNICĂ\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ CERINȚE:\n• Keybox trebuie să fie instalată în Magisk/KernelSgricky•modulul Internet\n\n•Integritate\n•TrickySgricky. conexiune\n\n⏱️ Durează 5-10 secunde\n\nContinuați?</string>
+    <string name="keybox_compare_dialog_title">Comparați cutii de taste</string>
+    <string name="keybox_compare_dialog_message">Comparați mai multe cutii de taste descărcate:\n\n📊 Comparația include:\n• ID-urile dispozitivului\n• Numărul de certificate\n• Date de expirare\n• Tipuri de algoritm\n• Formate de cheie (PIF/TrickyStore)\n\nSelectați casetele de taste pentru a compara.</string>
+    <string name="keybox_extract_dialog_title">Extrage certificate</string>
+    <string name="keybox_extract_dialog_message">Extrageți certificatele din caseta de taste ca fișiere PEM separate.\n\n📁 Exporturi:\n• Certificate RSA\n• Certificate ECDSA\n• Chei private (dacă este necesar)\n\nFișiere salvate în: /Descărcare/Keyboxes/certs/\n\nContinuați?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Atenție</string>
+    <string name="keybox_overwrite_dialog_message">Această acțiune nu este acceptată în această versiune a aplicației.</string>
+    <string name="keybox_generating">🔄 Se generează șabloane…</string>
+    <string name="keybox_searching">🔍 Se caută surse comunității…</string>
+    <string name="keybox_downloading">Se descarcă caseta de taste din depozit…</string>
+    <string name="keybox_verifying">🔍 Verificarea structurilor…</string>
+    <string name="keybox_analyzing">🔬 Se analizează certificatele…</string>
+    <string name="keybox_checking_api">🌐 Testarea API-ului Play Integrity…</string>
+    <string name="keybox_comparing">📊 Se compară cutiile de taste…</string>
+    <string name="keybox_extracting">📦 Extragerea certificatelor…</string>
+    <string name="keybox_generate_success">✅ Șabloane generate cu succes!</string>
+    <string name="keybox_search_success">✅ Cutie de taste validă găsită și descărcată!</string>
+    <string name="keybox_import_success">✅ Cutia de taste a fost importată cu succes!</string>
+    <string name="keybox_export_success">✅ Lista de fișiere generată.</string>
+    <string name="keybox_verify_success">✅ Verificare finalizată.</string>
+    <string name="keybox_analyze_success">✅ Analiza finalizată.</string>
+    <string name="keybox_check_api_success">✅ Verificarea integrității este finalizată.</string>
+    <string name="keybox_compare_success">✅ Comparație finalizată.</string>
+    <string name="keybox_extract_success">✅ Certificate extrase!</string>
+    <string name="keybox_generate_error">❌ Nu s-au generat șabloanele!\n\nEroare: %s</string>
+    <string name="keybox_search_error">❌ Nu s-a găsit cutia de taste validă!\n\nEroare: %s</string>
+    <string name="keybox_import_error">❌ Nu s-a putut importa cutia de taste!\n\nEroare: %s</string>
+    <string name="keybox_export_error">❌ Nu s-a putut enumera fișierele!\n\nEroare: %s</string>
+    <string name="keybox_verify_error">❌ Verificarea a eșuat!\n\nEroare: %s</string>
+    <string name="keybox_analyze_error">❌ Analiza a eșuat!\n\nEroare: %s</string>
+    <string name="keybox_check_api_error">❌ Verificarea integrității a eșuat!\n\nEroare: %s</string>
+    <string name="keybox_no_root">❌ Accesul root NU este necesar pentru această aplicație.</string>
+    <string name="keybox_no_internet">❌ Este necesară conexiune la internet!</string>
+    <string name="keybox_no_keybox">❌ Niciun fișier descărcat!</string>
+    <string name="keybox_no_module">❌ Nu a fost detectat niciun modul Magisk/KernelSU!</string>
+    <string name="keybox_info_title">Despre Keybox Manager</string>
+    <string name="keybox_info_summary">Aflați despre atestarea Android și caseta de taste</string>
+    <string name="keybox_info_dialog_title">Cutie cu Keybox - Informații</string>
+    <string name="keybox_info_dialog_message">🔑 CE ESTE ACEASTA APLICAȚIE?\n═════════════════════════════════════════════════════════════════════════Avansat. NU este necesar ROOT pentru descărcare/analizare.\n\n✅ CARACTERISTICI:\n• Căutați surse comunității\n• Importați casete de taste personalizate\n• Analiză profundă a certificatelor\n• Testare API Integrity Play\n• Verificare în lot\n• Extragerea certificatului\n• Comparație alăturată\n\n📁 LOCAȚIE:\n/Downs/Downs/d INSTALARE:\n══════════════════════════\n\nOpțiunea 1: Redare integ. Instalați Magisk/KernelSU\n2. Instalați modulul PIF\n3. Copiați keybox.xml în:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Reporniți\n\nOpțiunea 2: TrickyStore\n1. Instalați Magisk/KernelSU\n2. Instalați modulul TrickyStore\n3. Copiați keybox.xml în:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Reîncărcare automată (fără repornire)\n\n🧪 TESTARE:\n═════════════════════════════ Integritate încorporată\• Cec\n• Aplicația YASNAC\n• Aplicații bancare\n• Google Wallet\n\n🔬 AVANSAT CARACTERISTICI:\n══════════════════════════\n\nAnaliza profundă a certificatelor:\n urmărire aprofundată a certificării:\n\n\n\n\n. Verificarea puterii algoritmului\n• Starea revocării\n\nVerificarea integrității redării:\n• Testare API în timp real\n• Stare BAZĂ/DISPOZIT/PUTERNIC\n• Detectarea modulelor\n\nOperațiuni în lot:\n• Verificați mai multe cutii de taste\n• Comparați unul lângă altul\n• Extrageți certificate\n\n💡 SFATURI:\n══════════════════════════\n• Cutiile publice de taste sunt rare și cele mai bune sursele de chei private sunt revocate\n• Grupurile de testare sunt revocate rapid\n• sursele private\n• instalarea\n• Păstrați copii de siguranță ale cutiei de taste funcționale\n• Verificați datele de expirare\n\n🔗 COMUNITATE:\n══════════════════════════════ Telegram: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Căutați „keybox play integrity”\n\n⚠️ LEGAL DISCLAIMER:\n══════════════════════════\nÎn scopuri educaționale se pot încălca numai cutia de chei de Google. Serviciu\n• Politici pentru dezvoltatorii de aplicații\n• Legile locale\n\nFolosiți pe propriul risc!</string>
+    <string name="keybox_reset_title">Șterge descărcări</string>
+    <string name="keybox_reset_summary">Eliminați toate cutiile de taste descărcate din stocare</string>
+    <string name="keybox_reset_dialog_title">⚠️ Șterge descărcările</string>
+    <string name="keybox_reset_dialog_message">Ștergeți TOATE fișierele din /sdcard/Download/Keyboxes/?\n\nAcest lucru nu poate fi anulat.</string>
+    <string name="keybox_reset_success">✅ Toate fișierele au fost șterse!</string>
+    <string name="keybox_reset_error">❌ Ștergerea nu a reușit: %s</string>
+    <string name="ram_optimizer_title">RAM și optimizator de stocare</string>
+    <string name="ram_optimizer_summary">Optimizați compresia și stocarea RAM</string>
+    <string name="ram_optimizer_description">Gestionați setările zRAM, hibernarea aplicației și spațiul de stocare curat pentru o performanță mai bună.</string>
+    <string name="zram_category_title">Compresie zRAM</string>
+    <string name="zram_enable_title">Activați zRAM</string>
+    <string name="zram_enable_summary">Comprimați memoria RAM pentru a elibera memoria</string>
+    <string name="zram_size_title">Dimensiunea zRAM (MB)</string>
+    <string name="zram_size_summary">Setați dimensiunea RAM comprimată (512-12288 MB)</string>
+    <string name="zram_swappiness_title">Schimbări</string>
+    <string name="zram_swappiness_summary">Controlați cât de agresiv să treceți la zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">Hibernare aplicație</string>
+    <string name="app_hibernation_title">Activați Hibernarea aplicației</string>
+    <string name="app_hibernation_summary">Hibernați aplicațiile neutilizate pentru a economisi RAM și baterie</string>
+    <string name="storage_cleaner_category_title">Detergent pentru depozitare</string>
+    <string name="storage_stats_title">Statistici de stocare</string>
+    <string name="storage_stats_summary">Se încarcă...</string>
+    <string name="clean_app_cache_title">Curățați memoria cache a aplicației</string>
+    <string name="clean_app_cache_summary">Eliminați datele din cache din toate aplicațiile</string>
+    <string name="clean_system_cache_title">Curățați memoria cache a sistemului</string>
+    <string name="clean_system_cache_summary">Ștergeți memoria cache de sistem și aruncați memoria cache</string>
+    <string name="clean_thumbnails_title">Miniaturi curate</string>
+    <string name="clean_thumbnails_summary">Eliminați memoria cache a miniaturilor din media</string>
+    <string name="clean_downloads_title">Curățați descărcări vechi</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Reglați automat performanța în funcție de aplicația din prim-plan</string>
+</resources>

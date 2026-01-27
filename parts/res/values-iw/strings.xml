@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">הגדרות Xiaomi</string>
+    <string name="tile_add">הוסף אריח</string>
+    <string name="tile_added">אריח נוסף</string>
+    <string name="tile_not_added">אריח לא נוסף</string>
+    <string name="tile_already_added">אריח כבר נוסף</string>
+    <string name="tile_on">על</string>
+    <string name="tile_off">כבוי</string>
+    <string name="clear_speaker_title">רמקול ברור</string>
+    <string name="clear_speaker_summary">הפעל אודיו של 30 שניות כדי לנקות את הרמקול</string>
+    <string name="clear_speaker_description">הפעל תכונה זו פעם או פעמיים אם אתה מגלה שהרמקול שלך חסום קלות באבק. הגדר את עוצמת הקול למקסימום.\n\nאם הרמקול חסום מאוד, הפעל את התכונה הזו 2-5 פעמים תוך כדי ניעור המכשיר שלך כשהרמקול פונה כלפי מטה.</string>
+    <string name="saturation_title">הצג רוויה</string>
+    <string name="saturation_summary">שלוט ברמת הרוויה של התצוגה</string>
+    <string name="saturation_footer_summary">שינוי מצב הצבע בהגדרות התצוגה יעקוף את רמת הרוויה, ויחייב אותה מחדש.</string>
+    <string name="image_preview_content_description">תצוגה מקדימה</string>
+    <string name="image_preview_next_page_content_description">הבא</string>
+    <string name="image_preview_previous_page_content_description">הקודם</string>
+    <string name="custom_seekbar_value">ערך:</string>
+    <string name="custom_seekbar_default_value">כברירת מחדל</string>
+    <string name="custom_seekbar_default_value_to_set">ערך ברירת מחדל:</string>
+    <string name="custom_seekbar_default_value_is_set">ערך ברירת המחדל מוגדר</string>
+    <string name="auto_hbm_title">מצב בהירות גבוהה אוטומטית (HBM)</string>
+    <string name="auto_hbm_main_switch_title">השתמש ב-HBM אוטומטי</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">מופעל</string>
+    <string name="tile_hbm_off">מושבת</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM לא זמין</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Auto HBM או Auto Brightness מופעלים</string>
+    <string name="hbm_mode_title">מצב בהירות גבוהה</string>
+    <string name="hbm_mode_notification">מצב בהירות גבוהה מופעל כעת. שימוש ממושך עלול לגרום נזק לתצוגה.</string>
+    <string name="auto_hbm_summary">הפעל אוטומטית מצב בהירות גבוהה בהתבסס על עוצמת אור השמש (לוקס)</string>
+    <string name="auto_hbm_threshold_title">סף אור</string>
+    <string name="auto_hbm_threshold_summary">הגדר את סף עוצמת האור ביחידות לוקס שבו מופעלת HBM</string>
+    <string name="auto_hbm_enable_time_title">אפשר זמן</string>
+    <string name="auto_hbm_enable_time_summary">משך בשניות שבו יש לעמוד ברף האור בסף האור כדי להפעיל את HBM</string>
+    <string name="auto_hbm_disable_time_title">השבת זמן</string>
+    <string name="auto_hbm_disable_time_summary">משך בשניות שעבורו ה-HBM מושבת אם סף האור יורד מתחת לרמה שנקבעה</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">הפעל את שכבת העל של המערכת (FPS, טמפ\' וכו\')</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">החלף את שכבת העל של המשחק</string>
+    <string name="game_bar_enable_title">אפשר שכבת על של GameBar</string>
+    <string name="overlay_permission_required">נדרשת הרשאת שכבת-על</string>
+    <string name="overlay_permission_granted">הרשאת שכבת-על ניתנה</string>
+    <string name="overlay_permission_denied">הרשאת שכבת-על נדחתה</string>
+    <string name="overlay_features_title">תכונות שכבת-על</string>
+    <string name="game_bar_fps_enable_title">שכבת FPS</string>
+    <string name="game_bar_fps_enable_summary">הצג FPS נוכחי על המסך</string>
+    <string name="game_bar_temp_enable_title">טמפרטורת המכשיר</string>
+    <string name="game_bar_temp_enable_summary">הצג את טמפרטורת המכשיר (סוללה).</string>
+    <string name="game_bar_cpu_usage_enable_title">שימוש במעבד</string>
+    <string name="game_bar_cpu_usage_enable_summary">הצג את אחוז השימוש הנוכחי במעבד</string>
+    <string name="game_bar_cpu_clock_enable_title">מהירויות שעון מעבד</string>
+    <string name="game_bar_cpu_clock_enable_summary">הצג את מהירויות השעון הנוכחיות של המעבד עבור כל ליבה</string>
+    <string name="game_bar_cpu_temp_enable_title">טמפרטורת המעבד</string>
+    <string name="game_bar_cpu_temp_enable_summary">הצג טמפרטורת CPU (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">שימוש בזיכרון RAM</string>
+    <string name="game_bar_ram_enable_summary">הצג את השימוש הנוכחי ב-RAM ב-MB</string>
+    <string name="game_bar_gpu_usage_enable_title">שימוש ב-GPU</string>
+    <string name="game_bar_gpu_usage_enable_summary">הצג אחוז שימוש ב-GPU</string>
+    <string name="game_bar_gpu_clock_enable_title">מהירות שעון GPU</string>
+    <string name="game_bar_gpu_clock_enable_summary">הצג את תדר השעון הנוכחי של GPU</string>
+    <string name="game_bar_gpu_temp_enable_title">טמפרטורת GPU</string>
+    <string name="game_bar_gpu_temp_enable_summary">הצג טמפרטורת GPU נוכחית</string>
+    <string name="fps_measurement_method_title">שיטת מדידת FPS</string>
+    <string name="game_bar_fps_method_title">בחר בשיטת FPS</string>
+    <string name="game_bar_fps_method_summary">בחר בין שיטת ה-API החדש (ברירת המחדל) לבין קוד Sysfs</string>
+    <string name="customization_title">התאמה אישית</string>
+    <string name="game_bar_text_size_title">גודל טקסט</string>
+    <string name="game_bar_text_size_summary">התאם את גודל טקסט שכבת העל</string>
+    <string name="game_bar_background_alpha_title">שקיפות רקע</string>
+    <string name="game_bar_background_alpha_summary">התאם את השקיפות של הרקע</string>
+    <string name="game_bar_corner_radius_title">רדיוס פינת שכבת על</string>
+    <string name="game_bar_corner_radius_summary">התאם את מידת העגלגלות של פינות השכבה</string>
+    <string name="game_bar_padding_title">ריפוד שכבת על</string>
+    <string name="game_bar_padding_summary">התאם את הרווח מסביב לסטטיסטיקה</string>
+    <string name="game_bar_item_spacing_title">מרווח פריט</string>
+    <string name="game_bar_item_spacing_summary">התאם את המרווח בין קווי כיסוי</string>
+    <string name="game_bar_update_interval_title">מרווח עדכון</string>
+    <string name="game_bar_update_interval_summary">הגדר באיזו תדירות ערכי שכבת העל מתעדכנים</string>
+    <string name="game_bar_title_color_title">צבע כותרת סטט</string>
+    <string name="game_bar_title_color_summary">צבע עבור \'FPS\', \'Temp\', \'CPU\' וכו\'. טקסט</string>
+    <string name="game_bar_value_color_title">צבע ערך סטט</string>
+    <string name="game_bar_value_color_summary">צבע עבור נתונים סטטיסטיים מספריים (לדוגמה, \'29\', \'32.0°C\')</string>
+    <string name="game_bar_position_title">מיקום שכבת-על</string>
+    <string name="game_bar_position_summary">בחר את המיקום של שכבת העל על המסך</string>
+    <string name="game_bar_format_title">פורמט שכבת-על</string>
+    <string name="game_bar_format_summary">בחר בין תצוגה מלאה או מינימלית</string>
+    <string name="game_bar_overlay_format_toast">פורמט שכבת העל השתנה ל: %s</string>
+    <string name="game_bar_format_entries_full">מלא</string>
+    <string name="game_bar_format_entries_minimal">מינימלי</string>
+    <string name="split_config_title">פיצול תצורה</string>
+    <string name="game_bar_split_mode_title">מצב פיצול</string>
+    <string name="game_bar_split_mode_summary">בחר סידור זה לצד זה או מוערם</string>
+    <string name="overlay_gesture_controls_title">בקרות תנועות שכבת-על</string>
+    <string name="game_bar_single_tap_toggle_title">אפשר הקשה אחת כדי להחליף</string>
+    <string name="game_bar_single_tap_toggle_summary">הקש פעם אחת כדי לעבור בין פורמט שכבת-על מלא למינימלי</string>
+    <string name="game_bar_doubletap_capture_title">אפשר הקשה כפולה לצילום</string>
+    <string name="game_bar_doubletap_capture_summary">הקש פעמיים על שכבת-על כדי להתחיל/להפסיק יומני לכידה</string>
+    <string name="game_bar_longpress_enable_title">אפשר לחיצה ארוכה</string>
+    <string name="game_bar_longpress_enable_summary">לחץ לחיצה ארוכה על שכבת-על כדי לגשת להגדרות GameBar</string>
+    <string name="game_bar_longpress_timeout_title">משך לחיצה ארוכה</string>
+    <string name="game_bar_longpress_timeout_summary">הגדר את משך הזמן הנדרש ללחיצה ארוכה על שכבת העל</string>
+    <string name="capture_logs_title">לכידת יומני</string>
+    <string name="game_bar_capture_start_title">התחל ברישום</string>
+    <string name="game_bar_capture_start_summary">התחל ללכוד FPS ונתוני ביצועים בזמן אמת</string>
+    <string name="game_bar_capture_stop_title">הפסק רישום</string>
+    <string name="game_bar_capture_stop_summary">הפסק ללכוד FPS ונתוני ביצועים בזמן אמת</string>
+    <string name="game_bar_capture_export_title">ייצוא נתוני יומן GameBar</string>
+    <string name="game_bar_capture_export_summary">שמור את נתוני ה-FPS והביצועים שנלכדו כקובץ CSV</string>
+    <string name="game_bar_capture_start_toast">התחיל לרשום נתונים</string>
+    <string name="game_bar_capture_stop_toast">הפסקת רישום נתונים</string>
+    <string name="game_bar_capture_export_toast">נתוני יומן ייצוא לקובץ</string>
+    <string name="game_bar_doubletap_capture_start_toast">הלכידה התחילה</string>
+    <string name="game_bar_doubletap_capture_stop_toast">הלכידה הופסקה</string>
+    <string name="auto_enable_gamebar_title">הפעלה אוטומטית של GameBar</string>
+    <string name="game_bar_auto_enable_title">הפעלה אוטומטית של GameBar עבור אפליקציות נבחרות</string>
+    <string name="game_bar_auto_enable_summary">אם מופעל, אפליקציות נבחרות יפעילו אוטומטית את GameBar גם אם המתג הראשי כבוי</string>
+    <string name="game_bar_app_selector_title">בחר אפליקציות</string>
+    <string name="game_bar_app_selector_summary">הוסף אפליקציות שאמורות להפעיל אוטומטית את GameBar</string>
+    <string name="game_bar_app_remover_title">הסר אפליקציות נבחרות</string>
+    <string name="game_bar_app_remover_summary">הסר אפליקציות מרשימת ההפעלה האוטומטית</string>
+    <string name="game_bar_app_remover_activity_title">הסר אפליקציות להפעלה אוטומטית</string>
+    <string name="game_bar_app_selector_activity_title">בחר Apps for GameBar</string>
+    <string name="game_bar_app_added_toast">נוסף</string>
+    <string name="game_bar_app_removed_toast">הוסר</string>
+    <string name="gpu_enable_title">הפעל את כלי האופטימיזציה של GPU</string>
+    <string name="gpu_enable_summary">החלף אופטימיזציות של GPU</string>
+    <string name="gpu_freq_category_title">קבע תדר GPU</string>
+    <string name="gpu_min_frequency">תדר מינימלי של GPU</string>
+    <string name="gpu_max_frequency">תדר מירבי של GPU</string>
+    <string name="gpu_disabled_defaults_restored">Optimizer GPU מושבת, ברירת המחדל שוחזרה</string>
+    <string name="gpu_optimizer_enabled">אופטימיזציית GPU מופעל</string>
+    <string name="gpu_min_freq_exceeds_max">נכשל: תדירות המינימום של GPU אינה יכולה לחרוג מהתדר המקסימלי</string>
+    <string name="gpu_max_freq_below_min">נכשל: התדירות המקסימלית של GPU לא יכולה להיות נמוכה מתדר המינימום</string>
+    <string name="gpu_min_freq_applied">תדר מינימלי של GPU -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">תדר מקסימלי של GPU -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">הפעל את כלי האופטימיזציה של CPU</string>
+    <string name="cpu_enable_summary">החלף אופטימיזציות של CPU</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">מייעל המעבד מושבת, ברירת המחדל שוחזרה</string>
+    <string name="cpu_optimizer_enabled">אופטימיזציית המעבד מופעל</string>
+    <string name="cpu_little_category_title">קבע את התצורה של CPU Little Cluster</string>
+    <string name="cpu_little_min_frequency_title">תדירות מינימלית</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">תדירות מקסימלית</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">מושל</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">נכשל: תדירות דקה קטנה של מעבד לא יכולה לחרוג מהמקסימום</string>
+    <string name="cpu_little_max_freq_below_min">נכשל: תדירות מקסימלית קטנה של מעבד לא יכולה להיות נמוכה ממינימום</string>
+    <string name="cpu_little_min_freq_applied">תדר דקה קטן של מעבד -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">תדר מקסימלי קטן של מעבד -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">מושל מעבד קטן -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">הגדר את ה-CPU Big Cluster</string>
+    <string name="cpu_big_min_frequency_title">תדירות מינימלית</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">תדירות מקסימלית</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">מושל</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">נכשל: תדר המינימום הגדול של המעבד אינו יכול לחרוג מהמקסימום</string>
+    <string name="cpu_big_max_freq_below_min">נכשל: תדירות המקסימלית הגדולה של המעבד לא יכולה להיות נמוכה ממינימום</string>
+    <string name="cpu_big_min_freq_applied">תדר מינימלי גדול של מעבד -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">תדר מרבי גדול של מעבד -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">מושל מעבד גדול -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">קבע תצורה של CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">תדירות מינימלית</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">תדירות מקסימלית</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">מושל</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">נכשל: תדירות ה-Prime min של המעבד לא יכולה לחרוג מהמקסימום</string>
+    <string name="cpu_prime_max_freq_below_min">נכשל: התדירות המקסימלית העיקרית של המעבד לא יכולה להיות נמוכה ממינימום</string>
+    <string name="cpu_prime_min_freq_applied">תדר prime min CPU -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">תדר מרבי ראשוני של מעבד -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">מושל מעבד ראשי -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">התחל את logcat באתחול</string>
+    <string name="logcat_autostart_summary">התחל אוטומטית ברישום רקע לאחר אתחול</string>
+    <string name="logcat_viewer_title">Logcat Viewer</string>
+    <string name="logcat_viewer_summary">פתח את מציג יומן בזמן אמת</string>
+    <string name="logcat_filter_hint">הזן תג או מילת מפתח</string>
+    <string name="logcat_filter_title">מסנן יומן</string>
+    <string name="logcat_pause">השהה</string>
+    <string name="logcat_resume">קורות חיים</string>
+    <string name="logcat_autoscroll_on">גלילה אוטומטית מופעל</string>
+    <string name="logcat_autoscroll_off">גלילה אוטומטית כבוי</string>
+    <string name="logcat_save">שמור יומן</string>
+    <string name="logcat_clear">נקה יומן</string>
+    <string name="logcat_share">יומן שיתוף</string>
+    <string name="logcat_settings">הגדרות</string>
+    <string name="logcat_export">ייצוא</string>
+    <string name="logcat_search">חפש</string>
+    <string name="logcat_notification_title">Logcat Viewer</string>
+    <string name="logcat_notification_text">רישום ברקע פעיל</string>
+    <string name="logcat_notification_stopped">רישום רקע הופסק</string>
+    <string name="logcat_notification_channel_name">שירות רקע של Logcat</string>
+    <string name="logcat_notification_channel_desc">בקרות לרישום logcat ברקע</string>
+    <string name="logcat_level_verbose">מילולית</string>
+    <string name="logcat_level_debug">לְנַפּוֹת</string>
+    <string name="logcat_level_info">מידע</string>
+    <string name="logcat_level_warn">אזהרה</string>
+    <string name="logcat_level_error">שגיאה</string>
+    <string name="logcat_no_logs">אין יומנים זמינים</string>
+    <string name="logcat_loading">טוען יומנים...</string>
+    <string name="logcat_paused">הרישום מושהה</string>
+    <string name="logcat_active">רישום פעיל</string>
+    <string name="logcat_filter_applied">מסנן הוחל: %1$s</string>
+    <string name="logcat_logs_cleared">יומנים נוקו</string>
+    <string name="logcat_save_progress">שומר יומנים...</string>
+    <string name="logcat_save_success">היומנים נשמרו בהצלחה.</string>
+    <string name="logcat_save_failed">שמירת היומנים נכשלה.</string>
+    <string name="logcat_share_subject">Android Logcat Export</string>
+    <string name="logcat_permission_required">נדרשת הרשאת אחסון לשמירת יומנים</string>
+    <string name="cpu_tile_label">מושל מעבד</string>
+    <string name="cpu_tile_unavailable">בקרת מעבד לא זמינה</string>
+    <string name="cpu_tile_error">שגיאת ניטור מעבד</string>
+    <string name="cpu_tile_unknown">לא ידוע</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Schedutil</string>
+    <string name="cpu_tile_governor_performance">ביצוע</string>
+    <string name="cpu_tile_governor_powersave">חיסכון בכוח</string>
+    <string name="cpu_tile_governor_ondemand">OnDemand</string>
+    <string name="cpu_tile_governor_conservative">שמרני</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">הגדרות אריחי מעבד</string>
+    <string name="cpu_tile_settings_summary">הגדר את המראה וההתנהגות של אריח מושל CPU Governor Quick Settings</string>
+    <string name="cpu_tile_appearance_category">מראה</string>
+    <string name="cpu_tile_behavior_category">התנהגות</string>
+    <string name="cpu_tile_size_title">גודל סמל אריח</string>
+    <string name="cpu_tile_size_summary">בחר את הגודל של סמל אריח המעבד</string>
+    <string name="cpu_tile_style_title">סגנון אריחים</string>
+    <string name="cpu_tile_style_summary">בחר כיצד יוצג מידע המעבד</string>
+    <string name="cpu_tile_show_percentage_title">הצג אחוזי שימוש</string>
+    <string name="cpu_tile_show_percentage_summary">הצג את אחוז השימוש במעבד במקום תדירות</string>
+    <string name="cpu_tile_update_speed_title">מרווח עדכון</string>
+    <string name="cpu_tile_update_speed_summary">באיזו תדירות לרענן מידע CPU</string>
+    <string name="cpu_tile_update_speed_fast">מהיר (0.5 שניות)</string>
+    <string name="cpu_tile_update_speed_normal">רגיל (1s)</string>
+    <string name="cpu_tile_update_speed_slow">איטי (2 שניות)</string>
+    <string name="cpu_tile_update_speed_very_slow">איטי מאוד (5 שניות)</string>
+    <string name="cpu_tile_preview_title">תצוגה מקדימה שינויים</string>
+    <string name="cpu_tile_preview_summary">הקש כדי לרענן את האריח עם ההגדרות הנוכחיות</string>
+    <string name="cpu_tile_footer">אריח ה-CPU Governor מאפשר מעבר מהיר בין מושלי מעבד ומציג בזמן אמת מידע על תדירות מעבד ושימוש. הקש על האריח כדי לעבור בין המושלים הזמינים.</string>
+    <string name="performance_mode_title">מצב ביצועים</string>
+    <string name="performance_mode_summary">כפו את המעבד וה-GPU למקסימום לביצועי שיא. מגביר את החום ואת התרוקנות הסוללה.</string>
+    <string name="performance_mode_enabled_summary">מצב ביצועים מופעל</string>
+    <string name="performance_mode_disabled_summary">מצב ביצועים כבוי</string>
+    <string name="performance_profile_title">פרופיל ביצועים</string>
+    <string name="performance_profile_summary">בחר מצב ביצועים להתנהגות אופטימלית של המכשיר</string>
+    <string name="performance_mode_battery_saver">חיסכון בסוללה</string>
+    <string name="performance_mode_balanced">מאוזן</string>
+    <string name="performance_mode_performance">ביצוע</string>
+    <string name="performance_profile_applied">פרופיל הביצועים מוגדר ל-%s</string>
+    <string name="performance_profile_failed">יישום פרופיל הביצועים נכשל</string>
+    <string name="performance_tile_label">ביצוע</string>
+    <string name="performance_notification_channel_name">פרופילי ביצועים</string>
+    <string name="performance_notification_channel_desc">מציג את סטטוס פרופיל הביצועים הנוכחי</string>
+    <string name="performance_notification_battery_saver">מצב חיסכון בסוללה פעיל - חיי סוללה ארוכים</string>
+    <string name="performance_notification_balanced">מצב מאוזן פעיל - ביצועים אופטימליים וחיי סוללה</string>
+    <string name="performance_notification_performance">מצב ביצועים פעיל - ביצועים מקסימליים</string>
+    <string name="performance_footer_title">מידע על פרופיל ביצועים</string>
+    <string name="performance_footer_summary">• חיסכון בסוללה: מאריך את חיי הסוללה על ידי הפחתת ביצועי המעבד וה-GPU. אידיאלי לשימוש קל ומשך סוללה מרבי.\n\n• מאוזן: מספק איזון אופטימלי בין ביצועים לחיי סוללה. מומלץ לשימוש יומיומי.\n\n• ביצועים: ממקסם את ביצועי המעבד וה-GPU למשימות תובעניות. הטוב ביותר עבור משחקים, אפליקציות כבדות ועומסי עבודה אינטנסיביים. עשוי להפחית את חיי הסוללה.</string>
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">הגדרות מיוחדות של Xiaomi Garnet</string>
+    <string name="xiaomi_parts_summary">הגדרות ספציפיות למכשיר Xiaomi</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">תצוגה</string>
+    <string name="sound_title">צליל</string>
+    <string name="power_title">כוח</string>
+    <string name="gaming_title">משחקים ושימושים</string>
+    <string name="about_me_title">אודותיי</string>
+    <string name="about_me_summary">כל מה שאתה צריך לדעת על InnOvaTioN</string>
+    <string name="about_me_contact_title">תמיכה</string>
+    <string name="about_me_contact_summary">אתה יכול לקבל עזרה שם</string>
+    <string name="about_me_donate_title">תרמו אותי בפייפאל</string>
+    <string name="about_me_donate_summary">תמכו בעבודה שלי כדי שאוכל להמשיך לבנות</string>
+    <string name="about_me_donate2_title">Buymeacoffee</string>
+    <string name="about_me_donate2_summary">התקשר אלי לבירה או קפה</string>
+    <string name="core_control_title">בקרת ליבה</string>
+    <string name="core_control_summary">הפעלה או השבתה ידנית של ליבות CPU בודדות</string>
+    <string name="core_control_description">בקרת מעבד מתקדמת. כיבוי הליבות עשוי לחסוך בסוללה או בעומס תרמי, אך עשוי להשפיע על הביצועים והיציבות.\n\nלפחות שתי ליבות קטנות חייבות להישאר מקוונות כל הזמן.</string>
+    <string name="keep_little_cores_online">לפחות 2 ליבות קטנות חייבות להישאר מקוונות</string>
+    <string name="core_0">ליבה 0 (קטנה)</string>
+    <string name="core_1">ליבה 1 (קטנה)</string>
+    <string name="core_2">Core 2 (Little)</string>
+    <string name="core_3">Core 3 (Little)</string>
+    <string name="core_4">Core 4 (ביג)</string>
+    <string name="core_5">Core 5 (ביג)</string>
+    <string name="core_6">Core 6 (ביג)</string>
+    <string name="core_7">Core 7 (ביג)</string>
+    <string name="error">שגיאה</string>
+    <string name="kernel_manager_title">מנהל ליבה</string>
+    <string name="kernel_manager_summary">ניהול תדרי מעבד ומושל</string>
+    <string name="kernel_manager_efficiency_category">אשכול יעילות (A55)</string>
+    <string name="kernel_manager_performance_category">אשכול ביצועים (A78)</string>
+    <string name="kernel_manager_governor">מושל מעבד</string>
+    <string name="kernel_manager_governor_summary">בחר את מושל ה-CPU עבור האשכולות</string>
+    <string name="cpu_governor_summary">נוכחי: %s</string>
+    <string name="kernel_manager_min_freq">תדירות מינימלית</string>
+    <string name="kernel_manager_min_freq_summary">הגדר את תדר המעבד המינימלי המותר</string>
+    <string name="kernel_manager_max_freq">תדירות מקסימלית</string>
+    <string name="kernel_manager_max_freq_summary">הגדר את תדר המעבד המקסימלי המותר</string>
+    <string name="kernel_info_category">מידע</string>
+    <string name="kernel_info_title">אודות מנהל הליבה</string>
+    <string name="kernel_info_summary">נהל את מושל ה-CPU ואת קנה המידה של התדרים עבור כל אשכולות ה-CPU. שינויים עשויים להשפיע על הביצועים ועל חיי הסוללה.</string>
+    <string name="kernel_manager_apply">החל הגדרות</string>
+    <string name="kernel_manager_apply_summary">החל את הגדרות המעבד שנבחרו</string>
+    <string name="kernel_manager_reset">איפוס לברירת מחדל</string>
+    <string name="kernel_manager_reset_summary">שחזר את הגדרות ברירת המחדל של CPU</string>
+    <string name="settings_applied">ההגדרות הוחלו בהצלחה</string>
+    <string name="settings_reset">ההגדרות אופסו לברירת המחדל</string>
+    <string name="kernel_manager_footer">מושלי מעבד מנהלים כיצד המכשיר שלך מכוון את תדר המעבד כדי לאזן בין ביצועים וצריכת חשמל. הנה סקירה מהירה:\n\n• walt: מושל שפותח על ידי Google מותאם להיענות וזמן השהייה באינטראקציה עם המשתמש, בשימוש בעיקר במכשירי Pixel.\n• שמרני: מגדיל בהדרגה את תדירות המעבד; חוסך בסוללה אך עשוי להפחית את ההיענות.\n• חיסכון בחשמל: שומר על ה-CPU בתדירות הנמוכה ביותר האפשרית, תוך מתן עדיפות לחיי הסוללה על פני הביצועים.\n• ביצועים: נועל מעבד בתדירות מקסימלית, ומבטיח ביצועים מקסימליים במחיר הסוללה.\n• schedhorizon: מושל מודע למתזמן שמטרתו שיפור העברת משימות ויעילות במגוון גרעיני ליבה מודרניים; משתמש בנתוני המתזמן של לינוקס כדי לשנות את תדירות המעבד בצורה חכמה ויעילה.</string>
+    <string name="kernel_manager_cpu_monitor">ניטור ליבת מעבד</string>
+    <string name="kernel_manager_core_online">מקוון</string>
+    <string name="kernel_manager_core_offline">לא מקוון</string>
+    <string name="kernel_manager_loading">טוען...</string>
+    <string name="kernel_manager_enable_monitoring">ניטור בזמן אמת</string>
+    <string name="kernel_manager_enable_monitoring_summary">עדכן ברציפות את מצב ליבת המעבד</string>
+    <string name="kernel_manager_update_interval">תדירות עדכון</string>
+    <string name="kernel_manager_update_interval_summary">באיזו תדירות לרענן את הנתונים</string>
+    <string name="kernel_manager_efficiency_cluster_summary">סיכום אשכול יעילות</string>
+    <string name="kernel_manager_performance_cluster_summary">סיכום אשכול ביצועים</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d ליבות מקוונות | טווח: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">לא רלוונטי</string>
+    <string name="update_interval_500ms">0.5 שניות</string>
+    <string name="update_interval_1000ms">שנייה אחת</string>
+    <string name="update_interval_2000ms">2 שניות</string>
+    <string name="update_interval_5000ms">5 שניות</string>
+    <string name="cpu_core_status_online">%1$s - מקוון</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - לא מקוון</string>
+    <string name="kernel_manager_governor_current">%1$s (נוכחי: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (נוכחי: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">ניטור בזמן אמת מושבת. אפשר אותו לראות תדרים וסטטוס ליבת מעבד חי.</string>
+    <string name="kernel_manager_error_read">לא ניתן לקרוא מידע CPU</string>
+    <string name="kernel_manager_error_write">לא ניתן להחיל את הגדרות המעבד. ייתכן שתידרש גישת שורש.</string>
+    <string name="kernel_manager_error_permission">הרשות נדחתה. נדרשת גישת שורש כדי לשנות את הגדרות המעבד.</string>
+    <string name="gpu_manager_title">מנהל GPU</string>
+    <string name="gpu_manager_summary">נהל תדרי GPU והגדרות צריכת חשמל</string>
+    <string name="gpu_governor_title">מושל GPU</string>
+    <string name="gpu_governor_summary">נוכחי: %s</string>
+    <string name="gpu_freq_title">תדרי GPU</string>
+    <string name="gpu_min_freq_title">תדירות מינימלית</string>
+    <string name="gpu_max_freq_title">תדירות מקסימלית</string>
+    <string name="gpu_max_gpuclk_title">עקיפה מקסימלית של GPUCLK</string>
+    <string name="gpu_max_gpuclk_summary">הגברת שעון נוספת (מקסימום 940 מגה-הרץ)</string>
+    <string name="gpu_current_freq_title">תדר נוכחי</string>
+    <string name="gpu_power_title">הגדרות חשמל</string>
+    <string name="gpu_force_clk_on_title">כפה על השעון</string>
+    <string name="gpu_force_clk_on_summary">השאר את שעון ה-GPU דולק תמיד</string>
+    <string name="gpu_force_bus_on_title">כוח האוטובוס פועל</string>
+    <string name="gpu_force_bus_on_summary">השאר את אוטובוס ה-GPU פועל תמיד</string>
+    <string name="gpu_force_rail_on_title">כפה על רכבת</string>
+    <string name="gpu_force_rail_on_summary">השאר את מסילת החשמל של GPU תמיד</string>
+    <string name="gpu_force_no_nap_title">כפה ללא תנומה</string>
+    <string name="gpu_force_no_nap_summary">השבת תנומה של GPU בין מסגרות</string>
+    <string name="gpu_bus_split_title">פיצול אוטובוס</string>
+    <string name="gpu_bus_split_summary">אפשר פיצול אפיק GPU</string>
+    <string name="gpu_preempt_title">GPU Preemption</string>
+    <string name="gpu_preempt_summary">משחק עם זמן אחזור נמוך (אפשר לחוויית המשחק הטובה ביותר)</string>
+    <string name="gpu_camera_boost_title">שיפור המצלמה</string>
+    <string name="gpu_camera_boost_summary">Powerhint טורבו (ביצועי קידוד מצלמה/וידאו מקסימליים)</string>
+    <string name="gpu_thermal_title">הגדרות תרמיות</string>
+    <string name="gpu_thermal_pwrlevel_title">רמת הספק תרמית</string>
+    <string name="gpu_thermal_pwrlevel_summary">רמת הספק תרמי נוכחי</string>
+    <string name="gpu_temp_title">טמפרטורת GPU</string>
+    <string name="gpu_info_title">מידע על GPU</string>
+    <string name="gpu_model_title">דגם GPU</string>
+    <string name="gpu_busy_percentage_title">טעינת GPU</string>
+    <string name="gpu_reset_count_title">אפס ספירה</string>
+    <string name="gpu_preempt_count_title">ספירת קדימות</string>
+    <string name="gpu_info_category">מידע על GPU</string>
+    <string name="gpu_settings_category">הגדרות GPU</string>
+    <string name="gpu_advanced_category">הגדרות מתקדמות</string>
+    <string name="gpu_info_summary">נהל את קנה המידה של תדר GPU והגדרות צריכת החשמל. שינויים עשויים להשפיע על הביצועים ועל חיי הסוללה.</string>
+    <string name="apply_settings">החל הגדרות</string>
+    <string name="reset_settings">אפס הגדרות</string>
+    <string name="gpu_turbo_preset_title">Turbo Preset</string>
+    <string name="gpu_turbo_preset_summary">ביצועים מקסימליים: נעילת 940 מגה-הרץ, מושל ביצועים, כל ההגברות פועלות</string>
+    <string name="gpu_turbo_enabled">🚀 מצב טורבו מופעל!</string>
+    <string name="gpu_settings_applied">ההגדרות הוחלו!</string>
+    <string name="gpu_settings_reset">ההגדרות אופסו לברירות המחדל!</string>
+    <string name="unknown">לא ידוע</string>
+    <string name="thermal_level_summary">רמה %s</string>
+    <string name="camera_boost_triggered">שיפור המצלמה/וידאו הופעל!</string>
+    <string name="video_enhancer_title">משפר וידאו</string>
+    <string name="video_enhancer_summary">אופטימיזציית תצוגה וביצועים עבור Redmi Note 13 Pro 5G</string>
+    <string name="video_enhancer_display_category">📺 תכונות תצוגה</string>
+    <string name="smooth_motion_enable_title">תנועה חלקה</string>
+    <string name="smooth_motion_enable_summary">החלקת תנועה של חומרה עבור סרטונים (ברירת מחדל: כבוי) • נדרש אתחול</string>
+    <string name="optimize_refresh_enable_title">מטב את קצב הרענון</string>
+    <string name="optimize_refresh_enable_summary">קצב רענון דינמי מבוסס על תוכן (ברירת מחדל: כבוי) • נדרש אתחול</string>
+    <string name="peak_refresh_rate_title">קצב רענון שיא של 120Hz</string>
+    <string name="peak_refresh_rate_summary">אפשר 120Hz במגע (200ms) • ערך יצרן • נדרש אתחול</string>
+    <string name="video_enhancer_performance_category">⚡ מיטוב ביצועים</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">השתמש ב-Vulkan במקום ב-OpenGL ES (Adreno 710) • נדרש אתחול</string>
+    <string name="purgeable_assets_title">נכסים ניתנים לניקוי</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">List all downloaded keyboxes in storage</string>
+    <string name="keybox_verify_title">Verify Downloads</string>
+    <string name="keybox_verify_summary">Check XML structure of downloaded keyboxes</string>
+    <string name="keybox_analyze_title">Deep Analysis</string>
+    <string name="keybox_analyze_summary">Analyze certificate chains, expiry, and validity</string>
+    <string name="keybox_check_api_title">Check Play Integrity</string>
+    <string name="keybox_check_api_summary">Test keybox against Google Play Integrity API</string>
+    <string name="keybox_compare_title">Compare Keyboxes</string>
+    <string name="keybox_compare_summary">Compare multiple keyboxes side-by-side</string>
+    <string name="keybox_extract_certs_title">Extract Certificates</string>
+    <string name="keybox_extract_certs_summary">Export certificates as PEM files</string>
+    <string name="keybox_batch_verify_title">Batch Verify</string>
+    <string name="keybox_batch_verify_summary">Test multiple keyboxes with detailed reports</string>
+    <string name="keybox_status_title">Keybox Status</string>
+    <string name="keybox_status_summary">Current: %s</string>
+    <string name="keybox_status_installed">✅ Valid File Downloaded</string>
+    <string name="keybox_status_not_installed">❌ No Files Downloaded</string>
+    <string name="keybox_status_unknown">⚠️ Unknown</string>
+    <string name="keybox_device_id_title">Device ID</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Certificate Count</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Certificate Expiry</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Generate Templates</string>
+    <string name="keybox_search_dialog_title">Search Community Keyboxes</string>
+    <string name="keybox_import_dialog_title">Import Keybox</string>
+    <string name="keybox_export_dialog_title">List Downloaded Keyboxes</string>
+    <string name="keybox_verify_dialog_title">Verify Downloaded Keyboxes</string>
+    <string name="keybox_analyze_dialog_title">Deep Analysis</string>
+    <string name="keybox_analyze_dialog_message">This will perform deep certificate analysis:\n\n✅ Checks:\n• Certificate chain validation\n• Expiration dates\n• Signature algorithms\n• Key sizes\n• Issuer information\n• Certificate revocation status\n\n⚠️ This takes 10-30 seconds per keybox.\n\nContinue?</string>
+    <string name="keybox_check_api_dialog_title">Play Integrity Check</string>
+    <string name="keybox_check_api_dialog_message">This will test your keybox against Google Play Integrity API.\n\n🔍 What it checks:\n• BASIC integrity\n• DEVICE integrity  \n• STRONG integrity\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ REQUIREMENTS:\n• Keybox must be installed in Magisk/KernelSU\n• Play Integrity Fix or TrickyStore module\n• Internet connection\n\n⏱️ Takes 5-10 seconds\n\nContinue?</string>
+    <string name="keybox_compare_dialog_title">Compare Keyboxes</string>
+    <string name="keybox_compare_dialog_message">Compare multiple downloaded keyboxes:\n\n📊 Comparison includes:\n• Device IDs\n• Certificate counts\n• Expiration dates\n• Algorithm types\n• Key formats (PIF/TrickyStore)\n\nSelect keyboxes to compare.</string>
+    <string name="keybox_extract_dialog_title">Extract Certificates</string>
+    <string name="keybox_extract_dialog_message">Extract certificates from keybox as separate PEM files.\n\n📁 Exports:\n• RSA certificates\n• ECDSA certificates\n• Private keys (if needed)\n\nFiles saved to: /Download/Keyboxes/certs/\n\nContinue?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Warning</string>
+    <string name="keybox_overwrite_dialog_message">This action is not supported in this app version.</string>
+    <string name="keybox_generating">🔄 Generating templates…</string>
+    <string name="keybox_searching">🔍 Searching community sources…</string>
+    <string name="keybox_downloading">Downloading keybox from repository…</string>
+    <string name="keybox_verifying">🔍 Verifying structures…</string>
+    <string name="keybox_analyzing">🔬 Analyzing certificates…</string>
+    <string name="keybox_checking_api">🌐 Testing Play Integrity API…</string>
+    <string name="keybox_comparing">📊 Comparing keyboxes…</string>
+    <string name="keybox_extracting">📦 Extracting certificates…</string>
+    <string name="keybox_generate_success">✅ Templates generated successfully!</string>
+    <string name="keybox_search_success">✅ Valid keybox found and downloaded!</string>
+    <string name="keybox_import_success">✅ Keybox imported successfully!</string>
+    <string name="keybox_export_success">✅ נוצרה רשימת קבצים.</string>
+    <string name="keybox_verify_success">✅ האימות הושלם.</string>
+    <string name="keybox_analyze_success">✅ ניתוח הושלם.</string>
+    <string name="keybox_check_api_success">✅ בדיקת תקינות הושלמה.</string>
+    <string name="keybox_compare_success">✅ ההשוואה הושלמה.</string>
+    <string name="keybox_extract_success">✅ נשלפו תעודות!</string>
+    <string name="keybox_generate_error">❌ יצירת תבניות נכשלה!\n\nשגיאה: %s</string>
+    <string name="keybox_search_error">❌ לא הצליח למצוא תיבת מפתחות חוקית!\n\nשגיאה: %s</string>
+    <string name="keybox_import_error">❌ ייבוא ​​תיבת המפתחות נכשל!\n\nשגיאה: %s</string>
+    <string name="keybox_export_error">❌ רישום הקבצים נכשל!\n\nשגיאה: %s</string>
+    <string name="keybox_verify_error">❌ האימות נכשל!\n\nשגיאה: %s</string>
+    <string name="keybox_analyze_error">❌ ניתוח נכשל!\n\nשגיאה: %s</string>
+    <string name="keybox_check_api_error">❌ בדיקת תקינות נכשלה!\n\nשגיאה: %s</string>
+    <string name="keybox_no_root">❌ לא נדרשת גישת שורש עבור אפליקציה זו.</string>
+    <string name="keybox_no_internet">❌ דרוש חיבור לאינטרנט!</string>
+    <string name="keybox_no_keybox">❌ לא הורדו קבצים!</string>
+    <string name="keybox_no_module">❌ לא זוהה מודול Magisk/KernelSU!</string>
+    <string name="keybox_info_title">אודות Keybox Manager</string>
+    <string name="keybox_info_summary">למד על אישור אנדרואיד ותיבת מקשים</string>
+    <string name="keybox_info_dialog_title">Box of Keybox\'s - מידע</string>
+    <string name="keybox_info_dialog_message">🔑 WHAT IS THIS APP?\n══════════════════════════\n\nAdvanced tool for managing Android Attestation Keyboxes. אין צורך ב-ROOT להורדה/ניתוח.\n\n✅ תכונות:\n• חיפוש מקורות קהילה\n• ייבוא תיבות מפתח מותאמות אישית\n• ניתוח אישורים עמוק\n• בדיקת Play Integrity API\n• אימות אצווה\n• חילוץ אישורים\n• השוואה זה לצד זה\n\n📁 מיקום:\n/sdcard/הורדה/תיבות מפתח/\n\n⚙️ התקנה:\n══════════════════════════\n\nאפשרות 1: תקינות משחק 1. התקן את Magisk/KernelSU\n2. התקן מודול PIF\n3. העתק את keybox.xml אל:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. אתחול מחדש\n\nאפשרות 2: TrickyStore\n1. התקן את Magisk/KernelSU\n2. התקן את מודול TrickyStore\n3. העתק את keybox.xml אל:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Auto-reload (no reboot)\n\n🧪 TESTING:\n══════════════════════════\n• Use built-in Play Integrity Check\n• אפליקציית YASNAC\n• אפליקציות בנקאות\n• ארנק Google\n\n🔬 מתקדם מאפיינים:\n══════════════════════════\n\nתעודת מעקב עמוקה\n• n• ניתוח מעקב תקפה:\n• n• בדיקת חוזק אלגוריתם\n• סטטוס ביטול\n\nבדיקת תקינות ההפעלה:\n• בדיקת API בזמן אמת\n• סטטוס BASIC/DEVICE/STRONG\n• זיהוי מודול\n\nפעולות אצווה:\n• אמת מספר תיבות מפתח\n• השוואה זו לצד זו\n• חילוץ אישורים\n\n💡 טיפים:\n══════════════════════════\n• קופסאות מפתח ציבוריות הן נדירות\n• קבוצות מפתחות של גרם נבדקות באופן פרטי\n• קבוצות מפתחות של טל. התקנה\n• שמור גיבויים של תיבות מפתח פועלות\n• בדוק תאריכי תפוגה\n\n🔗 COMMUNITY:\n══════════════════════════════ טלגרם: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: חפש &amp;quot;keybox play integrity&amp;quot;\n\n⚠️ משפטי כתב ויתור:\n══════════════════════════\nניתן להפר מונחים חינוכיים של תיבות שימוש בלבד. שירות\n• מדיניות מפתחי אפליקציות\n• חוקים מקומיים\n\nהשימוש על אחריותך בלבד!</string>
+    <string name="keybox_reset_title">מחק הורדות</string>
+    <string name="keybox_reset_summary">הסר את כל תיבות המפתחות שהורדת מהאחסון</string>
+    <string name="keybox_reset_dialog_title">⚠️ מחק הורדות</string>
+    <string name="keybox_reset_dialog_message">מחק את כל הקבצים מ-/sdcard/Download/Keyboxes/?\n\nלא ניתן לבטל פעולה זו.</string>
+    <string name="keybox_reset_success">✅ כל הקבצים נמחקו!</string>
+    <string name="keybox_reset_error">❌ המחיקה נכשלה: %s</string>
+    <string name="ram_optimizer_title">RAM ו-Storage Optimizer</string>
+    <string name="ram_optimizer_summary">אופטימיזציה של דחיסת RAM ואחסון</string>
+    <string name="ram_optimizer_description">נהל הגדרות zRAM, מצב תרדמת אפליקציות ואחסון נקי לביצועים טובים יותר.</string>
+    <string name="zram_category_title">דחיסה zRAM</string>
+    <string name="zram_enable_title">אפשר zRAM</string>
+    <string name="zram_enable_summary">דחוס זיכרון RAM כדי לפנות זיכרון</string>
+    <string name="zram_size_title">גודל zRAM (MB)</string>
+    <string name="zram_size_summary">הגדר את הגודל של זיכרון RAM דחוס (512-12288 MB)</string>
+    <string name="zram_swappiness_title">החלפות</string>
+    <string name="zram_swappiness_summary">שליטה באיזו אגרסיביות להחליף ל-zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">תרדמת אפליקציה</string>
+    <string name="app_hibernation_title">הפעל מצב Hibernation של אפליקציות</string>
+    <string name="app_hibernation_summary">שינה אפליקציות שאינן בשימוש כדי לחסוך ב-RAM ובסוללה</string>
+    <string name="storage_cleaner_category_title">מנקה אחסון</string>
+    <string name="storage_stats_title">סטטיסטיקת אחסון</string>
+    <string name="storage_stats_summary">טוען...</string>
+    <string name="clean_app_cache_title">נקה מטמון אפליקציה</string>
+    <string name="clean_app_cache_summary">הסר נתונים שמורים מכל האפליקציות</string>
+    <string name="clean_system_cache_title">נקה מטמון מערכת</string>
+    <string name="clean_system_cache_summary">נקה מטמון של מערכת ושחרר מטמונים</string>
+    <string name="clean_thumbnails_title">תמונות ממוזערות נקיות</string>
+    <string name="clean_thumbnails_summary">הסר מטמון תמונות ממוזערות מהמדיה</string>
+    <string name="clean_downloads_title">נקה הורדות ישנות</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">התאם אוטומטית את הביצועים על סמך יישום החזית</string>
+</resources>

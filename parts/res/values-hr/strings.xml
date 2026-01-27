@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Xiaomi postavke</string>
+    <string name="tile_add">Dodaj pločicu</string>
+    <string name="tile_added">Pločica dodana</string>
+    <string name="tile_not_added">Pločica nije dodana</string>
+    <string name="tile_already_added">Pločica je već dodana</string>
+    <string name="tile_on">Na</string>
+    <string name="tile_off">Isključeno</string>
+    <string name="clear_speaker_title">Čisti zvučnik</string>
+    <string name="clear_speaker_summary">Reproducirajte zvuk od 30 sekundi da biste uklonili zvučnik</string>
+    <string name="clear_speaker_description">Pokrenite ovu značajku jednom ili dvaput ako ustanovite da je vaš zvučnik lagano blokiran prašinom. Postavite glasnoću medija na maksimalnu.\n\nAko je zvučnik jako blokiran, pokrenite ovu značajku 2-5 puta dok tresete uređaj sa zvučnikom okrenutim prema dolje.</string>
+    <string name="saturation_title">Zasićenost zaslona</string>
+    <string name="saturation_summary">Kontrolirajte razinu zasićenosti zaslona</string>
+    <string name="saturation_footer_summary">Promjena načina boje u postavkama zaslona poništit će razinu zasićenosti, zahtijevajući njezinu ponovnu primjenu.</string>
+    <string name="image_preview_content_description">Pregled</string>
+    <string name="image_preview_next_page_content_description">Sljedeći</string>
+    <string name="image_preview_previous_page_content_description">Prethodna</string>
+    <string name="custom_seekbar_value">Vrijednost:</string>
+    <string name="custom_seekbar_default_value">prema zadanim postavkama</string>
+    <string name="custom_seekbar_default_value_to_set">Zadana vrijednost:</string>
+    <string name="custom_seekbar_default_value_is_set">Zadana vrijednost je postavljena</string>
+    <string name="auto_hbm_title">Automatski način visoke svjetline (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Koristite automatski HBM</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">Omogućeno</string>
+    <string name="tile_hbm_off">Onemogućeno</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM nedostupan</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Auto HBM ili Auto Brightness je omogućen</string>
+    <string name="hbm_mode_title">Način visoke svjetline</string>
+    <string name="hbm_mode_notification">Način visoke svjetline sada je aktiviran. Dugotrajna uporaba može oštetiti vaš zaslon.</string>
+    <string name="auto_hbm_summary">Automatski omogući način visoke svjetline na temelju intenziteta sunčeve svjetlosti (lux)</string>
+    <string name="auto_hbm_threshold_title">Svjetlosni prag</string>
+    <string name="auto_hbm_threshold_summary">Odredite prag intenziteta svjetlosti u jedinicama luksa pri kojem se HBM aktivira</string>
+    <string name="auto_hbm_enable_time_title">Omogući vrijeme</string>
+    <string name="auto_hbm_enable_time_summary">Trajanje u sekundama tijekom kojeg se svjetlosni prag mora stalno ispunjavati da bi se aktivirao HBM</string>
+    <string name="auto_hbm_disable_time_title">Onemogući vrijeme</string>
+    <string name="auto_hbm_disable_time_summary">Trajanje u sekundama za koje je HBM deaktiviran ako svjetlosni prag padne ispod postavljene razine</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">Omogući preklapanje sustava (FPS, Temp, itd.)</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">Uključi/isključi prikaz igre</string>
+    <string name="game_bar_enable_title">Omogući GameBar prekrivanje</string>
+    <string name="overlay_permission_required">Potrebna je dozvola za preklapanje</string>
+    <string name="overlay_permission_granted">Dopuštenje za prekrivanje</string>
+    <string name="overlay_permission_denied">Dopuštenje za preklapanje odbijeno</string>
+    <string name="overlay_features_title">Značajke preklapanja</string>
+    <string name="game_bar_fps_enable_title">FPS preklapanje</string>
+    <string name="game_bar_fps_enable_summary">Prikaži trenutni FPS na ekranu</string>
+    <string name="game_bar_temp_enable_title">Temperatura uređaja</string>
+    <string name="game_bar_temp_enable_summary">Prikaz temperature uređaja (baterije).</string>
+    <string name="game_bar_cpu_usage_enable_title">Upotreba procesora</string>
+    <string name="game_bar_cpu_usage_enable_summary">Prikaži trenutni postotak upotrebe procesora</string>
+    <string name="game_bar_cpu_clock_enable_title">Brzine CPU takta</string>
+    <string name="game_bar_cpu_clock_enable_summary">Prikaži trenutne brzine CPU takta za svaku jezgru</string>
+    <string name="game_bar_cpu_temp_enable_title">CPU temperatura</string>
+    <string name="game_bar_cpu_temp_enable_summary">Prikaži temperaturu procesora (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">Upotreba RAM-a</string>
+    <string name="game_bar_ram_enable_summary">Prikaži trenutnu upotrebu RAM-a u MB</string>
+    <string name="game_bar_gpu_usage_enable_title">Upotreba GPU-a</string>
+    <string name="game_bar_gpu_usage_enable_summary">Prikaži postotak upotrebe GPU-a</string>
+    <string name="game_bar_gpu_clock_enable_title">Brzina takta GPU-a</string>
+    <string name="game_bar_gpu_clock_enable_summary">Prikaži trenutnu frekvenciju takta GPU-a</string>
+    <string name="game_bar_gpu_temp_enable_title">GPU temperatura</string>
+    <string name="game_bar_gpu_temp_enable_summary">Prikaži trenutnu temperaturu GPU-a</string>
+    <string name="fps_measurement_method_title">FPS metoda mjerenja</string>
+    <string name="game_bar_fps_method_title">Odaberite FPS metodu</string>
+    <string name="game_bar_fps_method_summary">Odaberite između New API metode (zadano) i Legacy Sysfs</string>
+    <string name="customization_title">Prilagodba</string>
+    <string name="game_bar_text_size_title">Veličina teksta</string>
+    <string name="game_bar_text_size_summary">Podesite veličinu teksta preklapanja</string>
+    <string name="game_bar_background_alpha_title">Prozirnost pozadine</string>
+    <string name="game_bar_background_alpha_summary">Podesite prozirnost pozadine</string>
+    <string name="game_bar_corner_radius_title">Polumjer kuta preklapanja</string>
+    <string name="game_bar_corner_radius_summary">Podesite koliko zaobljeni kutovi preklapanja trebaju biti</string>
+    <string name="game_bar_padding_title">Ispuna sloja</string>
+    <string name="game_bar_padding_summary">Podesite prostor oko statistike</string>
+    <string name="game_bar_item_spacing_title">Razmak između stavki</string>
+    <string name="game_bar_item_spacing_summary">Podesite razmak između linija preklapanja</string>
+    <string name="game_bar_update_interval_title">Interval ažuriranja</string>
+    <string name="game_bar_update_interval_summary">Postavite koliko često se vrijednosti preklapanja ažuriraju</string>
+    <string name="game_bar_title_color_title">Boja naslova statistike</string>
+    <string name="game_bar_title_color_summary">Boja za \'FPS\', \'Temp\', \'CPU\' itd. tekst</string>
+    <string name="game_bar_value_color_title">Boja statističke vrijednosti</string>
+    <string name="game_bar_value_color_summary">Boja za numeričku statistiku (npr. \'29\', \'32,0°C\')</string>
+    <string name="game_bar_position_title">Položaj preklapanja</string>
+    <string name="game_bar_position_summary">Odaberite položaj preklapanja na zaslonu</string>
+    <string name="game_bar_format_title">Format preklapanja</string>
+    <string name="game_bar_format_summary">Odaberite između punog ili minimalnog prikaza</string>
+    <string name="game_bar_overlay_format_toast">Format preklapanja promijenjen je u: %s</string>
+    <string name="game_bar_format_entries_full">Pun</string>
+    <string name="game_bar_format_entries_minimal">Minimalno</string>
+    <string name="split_config_title">Podijeli konfiguraciju</string>
+    <string name="game_bar_split_mode_title">Split način</string>
+    <string name="game_bar_split_mode_summary">Odaberite jedan do drugog ili naslagani raspored</string>
+    <string name="overlay_gesture_controls_title">Prekrivanje kontrola gestama</string>
+    <string name="game_bar_single_tap_toggle_title">Omogući jednim dodirom za prebacivanje</string>
+    <string name="game_bar_single_tap_toggle_summary">Dodirnite jednom za prebacivanje između punog i minimalnog preklapanja</string>
+    <string name="game_bar_doubletap_capture_title">Omogućite dvostruki dodir za snimanje</string>
+    <string name="game_bar_doubletap_capture_summary">Dvaput dodirnite sloj za početak/zaustavljanje snimanja zapisa</string>
+    <string name="game_bar_longpress_enable_title">Omogući dugi pritisak</string>
+    <string name="game_bar_longpress_enable_summary">Dugo pritisnite prekrivač za pristup postavkama GameBar</string>
+    <string name="game_bar_longpress_timeout_title">Trajanje dugog pritiska</string>
+    <string name="game_bar_longpress_timeout_summary">Postavite trajanje potrebno za dugo pritiskanje sloja</string>
+    <string name="capture_logs_title">Snimanje zapisa</string>
+    <string name="game_bar_capture_start_title">Započni bilježenje</string>
+    <string name="game_bar_capture_start_summary">Započnite bilježiti FPS i podatke o izvedbi u stvarnom vremenu</string>
+    <string name="game_bar_capture_stop_title">Zaustavi bilježenje</string>
+    <string name="game_bar_capture_stop_summary">Prestanite snimati FPS i podatke o izvedbi u stvarnom vremenu</string>
+    <string name="game_bar_capture_export_title">Izvoz podataka GameBar zapisa</string>
+    <string name="game_bar_capture_export_summary">Spremite snimljeni FPS i podatke o izvedbi kao CSV datoteku</string>
+    <string name="game_bar_capture_start_toast">Započeto bilježenje podataka</string>
+    <string name="game_bar_capture_stop_toast">Zaustavljeno bilježenje podataka</string>
+    <string name="game_bar_capture_export_toast">Izvezeni podaci dnevnika u datoteku</string>
+    <string name="game_bar_doubletap_capture_start_toast">Snimanje je počelo</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Snimanje zaustavljeno</string>
+    <string name="auto_enable_gamebar_title">Automatski omogući GameBar</string>
+    <string name="game_bar_auto_enable_title">Automatski omogući GameBar za odabrane aplikacije</string>
+    <string name="game_bar_auto_enable_summary">Ako je uključeno, odabrane aplikacije automatski će omogućiti GameBar čak i ako je glavni prekidač isključen</string>
+    <string name="game_bar_app_selector_title">Odaberite Aplikacije</string>
+    <string name="game_bar_app_selector_summary">Dodajte aplikacije koje bi trebale automatski omogućiti GameBar</string>
+    <string name="game_bar_app_remover_title">Ukloni odabrane aplikacije</string>
+    <string name="game_bar_app_remover_summary">Uklonite aplikacije s popisa za automatsko omogućavanje</string>
+    <string name="game_bar_app_remover_activity_title">Ukloni aplikacije s automatskim omogućivanjem</string>
+    <string name="game_bar_app_selector_activity_title">Odaberite Aplikacije za GameBar</string>
+    <string name="game_bar_app_added_toast">dodano</string>
+    <string name="game_bar_app_removed_toast">uklonjen</string>
+    <string name="gpu_enable_title">Omogući GPU Optimizer</string>
+    <string name="gpu_enable_summary">Uključi/isključi GPU optimizacije</string>
+    <string name="gpu_freq_category_title">Konfigurirajte GPU frekvenciju</string>
+    <string name="gpu_min_frequency">Minimalna frekvencija GPU-a</string>
+    <string name="gpu_max_frequency">Maksimalna frekvencija GPU-a</string>
+    <string name="gpu_disabled_defaults_restored">Optimizator GPU onemogućen, zadane vrijednosti vraćene</string>
+    <string name="gpu_optimizer_enabled">GPU optimizator omogućen</string>
+    <string name="gpu_min_freq_exceeds_max">Neuspješno: minimalna frekvencija GPU-a ne može premašiti maksimalnu frekvenciju</string>
+    <string name="gpu_max_freq_below_min">Neuspješno: maksimalna frekvencija GPU-a ne može biti niža od minimalne frekvencije</string>
+    <string name="gpu_min_freq_applied">Min. frekvencija GPU-a -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU maksimalna frekvencija -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Omogući CPU Optimizer</string>
+    <string name="cpu_enable_summary">Uključi/isključi optimizacije procesora</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">CPU optimizator onemogućen, zadane vrijednosti vraćene</string>
+    <string name="cpu_optimizer_enabled">CPU optimizacija omogućena</string>
+    <string name="cpu_little_category_title">Konfigurirajte mali CPU klaster</string>
+    <string name="cpu_little_min_frequency_title">Min. frekvencija</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Maksimalna frekvencija</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Guverner</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Neuspješno: CPU mala minimalna frekvencija ne može premašiti max</string>
+    <string name="cpu_little_max_freq_below_min">Neuspješno: CPU mala maksimalna frekvencija ne može biti niža od min</string>
+    <string name="cpu_little_min_freq_applied">CPU mala minimalna frekvencija -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">CPU mala maksimalna frekvencija -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">CPU mali regulator -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Konfigurirajte CPU Big Cluster</string>
+    <string name="cpu_big_min_frequency_title">Min. frekvencija</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Maksimalna frekvencija</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Guverner</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Neuspješno: CPU velika minimalna frekvencija ne može premašiti max</string>
+    <string name="cpu_big_max_freq_below_min">Neuspješno: CPU velika maksimalna frekvencija ne može biti niža od min</string>
+    <string name="cpu_big_min_freq_applied">CPU velika minimalna frekvencija -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">CPU velika maksimalna frekvencija -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">CPU veliki regulator -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Konfigurirajte CPU glavni klaster</string>
+    <string name="cpu_prime_min_frequency_title">Min. frekvencija</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Maksimalna frekvencija</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Guverner</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Neuspješno: početna minimalna frekvencija procesora ne može premašiti max</string>
+    <string name="cpu_prime_max_freq_below_min">Neuspješno: CPU prima maksimalna frekvencija ne može biti niža od min</string>
+    <string name="cpu_prime_min_freq_applied">CPU glavna minimalna frekvencija -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">CPU glavna maksimalna frekvencija -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">CPU primarni regulator -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Pokrenite logcat pri dizanju</string>
+    <string name="logcat_autostart_summary">Automatski pokreni pozadinsko bilježenje nakon ponovnog pokretanja</string>
+    <string name="logcat_viewer_title">Logcat preglednik</string>
+    <string name="logcat_viewer_summary">Otvori preglednik dnevnika u stvarnom vremenu</string>
+    <string name="logcat_filter_hint">Unesite oznaku ili ključnu riječ</string>
+    <string name="logcat_filter_title">Filtar dnevnika</string>
+    <string name="logcat_pause">Stanka</string>
+    <string name="logcat_resume">Životopis</string>
+    <string name="logcat_autoscroll_on">Automatsko pomicanje UKLJUČENO</string>
+    <string name="logcat_autoscroll_off">Automatsko pomicanje ISKLJUČENO</string>
+    <string name="logcat_save">Spremi zapisnik</string>
+    <string name="logcat_clear">Očisti zapisnik</string>
+    <string name="logcat_share">Podijeli zapisnik</string>
+    <string name="logcat_settings">Postavke</string>
+    <string name="logcat_export">Izvoz</string>
+    <string name="logcat_search">Traži</string>
+    <string name="logcat_notification_title">Logcat preglednik</string>
+    <string name="logcat_notification_text">Zapisivanje u pozadini aktivno</string>
+    <string name="logcat_notification_stopped">Pozadinsko bilježenje zaustavljeno</string>
+    <string name="logcat_notification_channel_name">Logcat pozadinska usluga</string>
+    <string name="logcat_notification_channel_desc">Kontrole za pozadinsko logcat bilježenje</string>
+    <string name="logcat_level_verbose">Opširno</string>
+    <string name="logcat_level_debug">Debug</string>
+    <string name="logcat_level_info">Informacije</string>
+    <string name="logcat_level_warn">Upozorenje</string>
+    <string name="logcat_level_error">Greška</string>
+    <string name="logcat_no_logs">Nema dostupnih zapisa</string>
+    <string name="logcat_loading">Učitavanje zapisa...</string>
+    <string name="logcat_paused">Zapisivanje je pauzirano</string>
+    <string name="logcat_active">Zapisivanje aktivno</string>
+    <string name="logcat_filter_applied">Filtar primijenjen: %1$s</string>
+    <string name="logcat_logs_cleared">Dnevnici očišćeni</string>
+    <string name="logcat_save_progress">Spremanje dnevnika...</string>
+    <string name="logcat_save_success">Dnevnici su uspješno spremljeni.</string>
+    <string name="logcat_save_failed">Spremanje zapisa nije uspjelo.</string>
+    <string name="logcat_share_subject">Android Logcat izvoz</string>
+    <string name="logcat_permission_required">Za spremanje zapisa potrebna je dozvola za pohranu</string>
+    <string name="cpu_tile_label">CPU guverner</string>
+    <string name="cpu_tile_unavailable">CPU kontrola nedostupna</string>
+    <string name="cpu_tile_error">Pogreška praćenja procesora</string>
+    <string name="cpu_tile_unknown">Nepoznato</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Raspored</string>
+    <string name="cpu_tile_governor_performance">Izvedba</string>
+    <string name="cpu_tile_governor_powersave">Ušteda energije</string>
+    <string name="cpu_tile_governor_ondemand">Na zahtjev</string>
+    <string name="cpu_tile_governor_conservative">Konzervativno</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">Postavke procesorske pločice</string>
+    <string name="cpu_tile_settings_summary">Konfigurirajte izgled i ponašanje pločice CPU Governor Quick Settings</string>
+    <string name="cpu_tile_appearance_category">Izgled</string>
+    <string name="cpu_tile_behavior_category">Ponašanje</string>
+    <string name="cpu_tile_size_title">Veličina ikone pločice</string>
+    <string name="cpu_tile_size_summary">Odaberite veličinu ikone CPU pločice</string>
+    <string name="cpu_tile_style_title">Stil pločica</string>
+    <string name="cpu_tile_style_summary">Odaberite kako se prikazuju informacije o procesoru</string>
+    <string name="cpu_tile_show_percentage_title">Prikaži postotak korištenja</string>
+    <string name="cpu_tile_show_percentage_summary">Prikaži postotak upotrebe CPU-a umjesto frekvencije</string>
+    <string name="cpu_tile_update_speed_title">Interval ažuriranja</string>
+    <string name="cpu_tile_update_speed_summary">Koliko često osvježavati CPU podatke</string>
+    <string name="cpu_tile_update_speed_fast">Brzo (0,5 s)</string>
+    <string name="cpu_tile_update_speed_normal">Normalno (1s)</string>
+    <string name="cpu_tile_update_speed_slow">Sporo (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Vrlo sporo (5s)</string>
+    <string name="cpu_tile_preview_title">Pregled promjena</string>
+    <string name="cpu_tile_preview_summary">Dodirnite za osvježavanje pločice s trenutnim postavkama</string>
+    <string name="cpu_tile_footer">Pločica CPU Governor omogućuje brzo prebacivanje između CPU regulatora i prikazuje podatke o CPU frekvenciji i upotrebi u stvarnom vremenu. Dodirnite pločicu za kretanje kroz dostupne regulatore.</string>
+    <string name="performance_mode_title">Način izvedbe</string>
+    <string name="performance_mode_summary">Forsirajte CPU i GPU na maksimum za vrhunske performanse. Povećava toplinu i potrošnju baterije.</string>
+    <string name="performance_mode_enabled_summary">Način izvedbe je UKLJUČEN</string>
+    <string name="performance_mode_disabled_summary">Način rada je ISKLJUČEN</string>
+    <string name="performance_profile_title">Profil izvedbe</string>
+    <string name="performance_profile_summary">Odaberite način rada za optimalno ponašanje uređaja</string>
+    <string name="performance_mode_battery_saver">Štednja baterije</string>
+    <string name="performance_mode_balanced">Uravnotežen</string>
+    <string name="performance_mode_performance">Izvedba</string>
+    <string name="performance_profile_applied">Profil izvedbe postavljen na %s</string>
+    <string name="performance_profile_failed">Neuspješna primjena profila izvedbe</string>
+    <string name="performance_tile_label">Izvedba</string>
+    <string name="performance_notification_channel_name">Profili izvedbe</string>
+    <string name="performance_notification_channel_desc">Prikazuje trenutni status profila izvedbe</string>
+    <string name="performance_notification_battery_saver">Način rada za uštedu baterije je aktivan - Produljeno trajanje baterije</string>
+    <string name="performance_notification_balanced">Uravnoteženi način rada je aktivan - Optimalne performanse i trajanje baterije</string>
+    <string name="performance_notification_performance">Način izvedbe je aktivan - Maksimalna izvedba</string>
+    <string name="performance_footer_title">Informacije o profilu izvedbe</string>
+    <string name="performance_footer_summary">• Štednja baterije: produljuje trajanje baterije smanjenjem CPU i GPU performansi. Idealno za lagano korištenje i maksimalno trajanje baterije.\n\n• Uravnotežen: pruža optimalnu ravnotežu između performansi i trajanja baterije. Preporučeno za svakodnevnu upotrebu.\n\n• Performanse: Maksimizira CPU i GPU performanse za zahtjevne zadatke. Najbolje za igranje, teške aplikacije i intenzivna radna opterećenja. Može smanjiti trajanje baterije.</string>
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi Garnet posebne postavke</string>
+    <string name="xiaomi_parts_summary">Postavke specifične za Xiaomi uređaj</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">Prikaz</string>
+    <string name="sound_title">Zvuk</string>
+    <string name="power_title">Snaga</string>
+    <string name="gaming_title">Igre i alati</string>
+    <string name="about_me_title">O meni</string>
+    <string name="about_me_summary">Sve što trebate znati o InnOvaTioN</string>
+    <string name="about_me_contact_title">Podrška</string>
+    <string name="about_me_contact_summary">Tamo možete dobiti pomoć</string>
+    <string name="about_me_donate_title">Donirajte me na paypal</string>
+    <string name="about_me_donate_summary">Podržite moj rad kako bih mogao nastaviti graditi</string>
+    <string name="about_me_donate2_title">Kupite kavu</string>
+    <string name="about_me_donate2_summary">Zovi me na pivo ili kavu</string>
+    <string name="core_control_title">Kontrola jezgre</string>
+    <string name="core_control_summary">Ručno omogućite ili onemogućite pojedinačne CPU jezgre</string>
+    <string name="core_control_description">Napredna kontrola procesora. Isključivanje jezgri može uštedjeti bateriju ili toplinsko opterećenje, ali može utjecati na izvedbu i stabilnost.\n\nNajmanje dvije male jezgre moraju ostati na mreži cijelo vrijeme.</string>
+    <string name="keep_little_cores_online">Najmanje 2 male jezgre moraju ostati online</string>
+    <string name="core_0">Jezgra 0 (mala)</string>
+    <string name="core_1">Jezgra 1 (mala)</string>
+    <string name="core_2">Core 2 (mali)</string>
+    <string name="core_3">Core 3 (Little)</string>
+    <string name="core_4">Core 4 (veliki)</string>
+    <string name="core_5">Jezgra 5 (velika)</string>
+    <string name="core_6">Core 6 (veliki)</string>
+    <string name="core_7">Core 7 (veliki)</string>
+    <string name="error">Greška</string>
+    <string name="kernel_manager_title">Upravitelj jezgre</string>
+    <string name="kernel_manager_summary">Upravljanje CPU frekvencijama i regulatorom</string>
+    <string name="kernel_manager_efficiency_category">Klaster učinkovitosti (A55)</string>
+    <string name="kernel_manager_performance_category">Klaster performansi (A78)</string>
+    <string name="kernel_manager_governor">CPU guverner</string>
+    <string name="kernel_manager_governor_summary">Odaberite CPU regulator za klastere</string>
+    <string name="cpu_governor_summary">Trenutno: %s</string>
+    <string name="kernel_manager_min_freq">Minimalna frekvencija</string>
+    <string name="kernel_manager_min_freq_summary">Postavite minimalnu dopuštenu frekvenciju procesora</string>
+    <string name="kernel_manager_max_freq">Maksimalna frekvencija</string>
+    <string name="kernel_manager_max_freq_summary">Postavite najveću dopuštenu frekvenciju procesora</string>
+    <string name="kernel_info_category">Informacije</string>
+    <string name="kernel_info_title">O upravitelju kernela</string>
+    <string name="kernel_info_summary">Upravljajte CPU regulatorom i skaliranjem frekvencije za sve CPU klastere. Promjene mogu utjecati na performanse i trajanje baterije.</string>
+    <string name="kernel_manager_apply">Primijeni postavke</string>
+    <string name="kernel_manager_apply_summary">Primijeni odabrane CPU postavke</string>
+    <string name="kernel_manager_reset">Vrati na zadano</string>
+    <string name="kernel_manager_reset_summary">Vrati zadane CPU postavke</string>
+    <string name="settings_applied">Postavke su uspješno primijenjene</string>
+    <string name="settings_reset">Postavke se vraćaju na zadane</string>
+    <string name="kernel_manager_footer">CPU regulatori upravljaju načinom na koji vaš uređaj prilagođava CPU frekvenciju kako bi uravnotežio performanse i potrošnju energije. Evo kratkog pregleda:\n\n• walt: regulator koji je razvio Google optimiziran za odziv i latenciju interakcije korisnika, uglavnom se koristi u uređajima Pixel.\n• konzervativan: postupno povećava frekvenciju CPU-a; štedi bateriju, ali može smanjiti odziv.\n• ušteda energije: održava CPU na najnižoj mogućoj frekvenciji, dajući prednost trajanju baterije nad performansama.\n• izvedba: zaključava CPU na najvećoj frekvenciji, osiguravajući maksimalnu izvedbu po cijeni baterije.\n• schedhorizon: regulator svjestan planera koji cilja na poboljšanu migraciju zadataka i učinkovitost između jezgri.\n• schedutil: zadani moderni regulator u mnogim kernelima; koristi Linuxove podatke planera za inteligentno i učinkovito skaliranje CPU frekvencije.</string>
+    <string name="kernel_manager_cpu_monitor">Praćenje CPU jezgre</string>
+    <string name="kernel_manager_core_online">Online</string>
+    <string name="kernel_manager_core_offline">Izvan mreže</string>
+    <string name="kernel_manager_loading">Učitavanje...</string>
+    <string name="kernel_manager_enable_monitoring">Praćenje u stvarnom vremenu</string>
+    <string name="kernel_manager_enable_monitoring_summary">Stalno ažuriraj status jezgre procesora</string>
+    <string name="kernel_manager_update_interval">Učestalost ažuriranja</string>
+    <string name="kernel_manager_update_interval_summary">Koliko često osvježavati podatke</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Sažetak klastera učinkovitosti</string>
+    <string name="kernel_manager_performance_cluster_summary">Sažetak klastera izvedbe</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d jezgri na mreži | Raspon: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    <string name="update_interval_500ms">0,5 sekundi</string>
+    <string name="update_interval_1000ms">1 sekunda</string>
+    <string name="update_interval_2000ms">2 sekunde</string>
+    <string name="update_interval_5000ms">5 sekundi</string>
+    <string name="cpu_core_status_online">🟢 %1$s - Online</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - izvan mreže</string>
+    <string name="kernel_manager_governor_current">%1$s (Trenutno: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Trenutno: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">Praćenje u stvarnom vremenu je onemogućeno. Omogućite ga da biste uživo vidjeli frekvencije jezgre CPU-a i status.</string>
+    <string name="kernel_manager_error_read">Nije moguće pročitati CPU informacije</string>
+    <string name="kernel_manager_error_write">Nije moguće primijeniti postavke procesora. Možda će biti potreban root pristup.</string>
+    <string name="kernel_manager_error_permission">Dopuštenje odbijeno. Za izmjenu CPU postavki potreban je root pristup.</string>
+    <string name="gpu_manager_title">GPU upravitelj</string>
+    <string name="gpu_manager_summary">Upravljanje frekvencijama GPU-a i postavkama napajanja</string>
+    <string name="gpu_governor_title">GPU guverner</string>
+    <string name="gpu_governor_summary">Trenutno: %s</string>
+    <string name="gpu_freq_title">GPU frekvencije</string>
+    <string name="gpu_min_freq_title">Minimalna frekvencija</string>
+    <string name="gpu_max_freq_title">Maksimalna frekvencija</string>
+    <string name="gpu_max_gpuclk_title">Maksimalno nadjačavanje GPUCLK</string>
+    <string name="gpu_max_gpuclk_summary">Dodatno pojačanje takta (maks. 940 MHz)</string>
+    <string name="gpu_current_freq_title">Trenutna frekvencija</string>
+    <string name="gpu_power_title">Postavke napajanja</string>
+    <string name="gpu_force_clk_on_title">Prisilno uključi sat</string>
+    <string name="gpu_force_clk_on_summary">Neka GPU sat bude uvijek uključen</string>
+    <string name="gpu_force_bus_on_title">Prisilno uključi sabirnicu</string>
+    <string name="gpu_force_bus_on_summary">Držite GPU sabirnicu uvijek uključenom</string>
+    <string name="gpu_force_rail_on_title">Prisilno uključivanje tračnice</string>
+    <string name="gpu_force_rail_on_summary">Neka GPU strujna tračnica uvijek bude uključena</string>
+    <string name="gpu_force_no_nap_title">Force No Nap</string>
+    <string name="gpu_force_no_nap_summary">Onemogući GPU drijemanje između okvira</string>
+    <string name="gpu_bus_split_title">Autobus Split</string>
+    <string name="gpu_bus_split_summary">Omogući dijeljenje GPU sabirnice</string>
+    <string name="gpu_preempt_title">GPU preemption</string>
+    <string name="gpu_preempt_summary">Igre niske latencije (omogućite za najbolje iskustvo igranja)</string>
+    <string name="gpu_camera_boost_title">Pojačanje kamere</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (maksimalna izvedba kodiranja kamere/video)</string>
+    <string name="gpu_thermal_title">Toplinske postavke</string>
+    <string name="gpu_thermal_pwrlevel_title">Razina toplinske snage</string>
+    <string name="gpu_thermal_pwrlevel_summary">Trenutna razina toplinske snage</string>
+    <string name="gpu_temp_title">GPU temperatura</string>
+    <string name="gpu_info_title">GPU informacije</string>
+    <string name="gpu_model_title">GPU model</string>
+    <string name="gpu_busy_percentage_title">GPU opterećenje</string>
+    <string name="gpu_reset_count_title">Ponovno postavi broj</string>
+    <string name="gpu_preempt_count_title">Preemption Count</string>
+    <string name="gpu_info_category">GPU informacije</string>
+    <string name="gpu_settings_category">Postavke GPU-a</string>
+    <string name="gpu_advanced_category">Napredne postavke</string>
+    <string name="gpu_info_summary">Upravljajte skaliranjem frekvencije GPU-a i postavkama napajanja. Promjene mogu utjecati na performanse i trajanje baterije.</string>
+    <string name="apply_settings">Primijeni postavke</string>
+    <string name="reset_settings">Resetiraj postavke</string>
+    <string name="gpu_turbo_preset_title">Turbo unaprijed postavljeno</string>
+    <string name="gpu_turbo_preset_summary">Maksimalna izvedba: zaključavanje 940 MHz, regulator izvedbe, sva pojačanja UKLJUČENA</string>
+    <string name="gpu_turbo_enabled">🚀 Turbo način rada omogućen!</string>
+    <string name="gpu_settings_applied">Postavke primijenjene!</string>
+    <string name="gpu_settings_reset">Postavke se vraćaju na zadane!</string>
+    <string name="unknown">Nepoznato</string>
+    <string name="thermal_level_summary">Razina %s</string>
+    <string name="camera_boost_triggered">Aktivirano pojačanje kamere/videozapisa!</string>
+    <string name="video_enhancer_title">Video Enhancer</string>
+    <string name="video_enhancer_summary">Optimizacija zaslona i performansi za Redmi Note 13 Pro 5G</string>
+    <string name="video_enhancer_display_category">📺 Značajke prikaza</string>
+    <string name="smooth_motion_enable_title">Glatko kretanje</string>
+    <string name="smooth_motion_enable_summary">Hardversko izglađivanje pokreta za videozapise (zadano: ISKLJUČENO) • Potrebno ponovno pokretanje</string>
+    <string name="optimize_refresh_enable_title">Optimiziraj brzinu osvježavanja</string>
+    <string name="optimize_refresh_enable_summary">Dinamička stopa osvježavanja na temelju sadržaja (zadano: ISKLJUČENO) • Potrebno ponovno pokretanje</string>
+    <string name="peak_refresh_rate_title">120Hz vršna brzina osvježavanja</string>
+    <string name="peak_refresh_rate_summary">Omogući 120Hz na dodir (200ms) • Tvornička vrijednost • Potrebno ponovno pokretanje</string>
+    <string name="video_enhancer_performance_category">⚡ Optimizacija performansi</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">Koristite Vulkan umjesto OpenGL ES (Adreno 710) • Potrebno ponovno pokretanje</string>
+    <string name="purgeable_assets_title">Imovina koja se može očistiti</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">Popis svih preuzetih pretinaca s ključevima u pohrani</string>
+    <string name="keybox_verify_title">Provjerite preuzimanja</string>
+    <string name="keybox_verify_summary">Provjerite XML strukturu preuzetih pretinca s ključevima</string>
+    <string name="keybox_analyze_title">Duboka analiza</string>
+    <string name="keybox_analyze_summary">Analizirajte lance certifikata, istek i valjanost</string>
+    <string name="keybox_check_api_title">Provjerite integritet reprodukcije</string>
+    <string name="keybox_check_api_summary">Testirajte pretinac s ključevima u odnosu na Google Play Integrity API</string>
+    <string name="keybox_compare_title">Usporedite pretince za ključeve</string>
+    <string name="keybox_compare_summary">Usporedite više pretinca za ključeve jedan pored drugog</string>
+    <string name="keybox_extract_certs_title">Izvadak potvrda</string>
+    <string name="keybox_extract_certs_summary">Izvezi certifikate kao PEM datoteke</string>
+    <string name="keybox_batch_verify_title">Skupna provjera</string>
+    <string name="keybox_batch_verify_summary">Testirajte više pretinca s ključevima s detaljnim izvješćima</string>
+    <string name="keybox_status_title">Status pretinca s ključevima</string>
+    <string name="keybox_status_summary">Trenutno: %s</string>
+    <string name="keybox_status_installed">✅ Preuzeta važeća datoteka</string>
+    <string name="keybox_status_not_installed">❌ Nema preuzetih datoteka</string>
+    <string name="keybox_status_unknown">⚠️ Nepoznato</string>
+    <string name="keybox_device_id_title">ID uređaja</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Broj potvrda</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Istek potvrde</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Generiraj predloške</string>
+    <string name="keybox_search_dialog_title">Pretraži pretince ključeva zajednice</string>
+    <string name="keybox_import_dialog_title">Uvezi okvir za ključeve</string>
+    <string name="keybox_export_dialog_title">Popis preuzetih pretinaca s ključevima</string>
+    <string name="keybox_verify_dialog_title">Provjerite preuzete ključeve</string>
+    <string name="keybox_analyze_dialog_title">Duboka analiza</string>
+    <string name="keybox_analyze_dialog_message">Ovo će izvršiti duboku analizu certifikata:\n\n✅ Provjere:\n• Validacija lanca certifikata\n• Datumi isteka\n• Algoritmi potpisa\n• Veličine ključeva\n• Informacije o izdavatelju\n• Status opoziva certifikata\n\n⚠️ Ovo traje 10-30 sekundi po pretincu s ključevima.\n\nNastaviti?</string>
+    <string name="keybox_check_api_dialog_title">Igrajte Provjera integriteta</string>
+    <string name="keybox_check_api_dialog_message">Ovo će testirati vaš pretinac s ključevima u odnosu na Google Play Integrity API.\n\n🔍 Što provjerava:\n• OSNOVNI integritet\n• Integritet UREĐAJA \n• SNAŽAN integritet\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ ZAHTJEVI:\n• Keybox mora biti instaliran u Magisk/KernelSU\n• Play Integrity Fix ili TrickyStore modul\n• Internetska veza\n\n⏱️ Traje 5-10 sekundi\n\nNastaviti?</string>
+    <string name="keybox_compare_dialog_title">Usporedite pretince za ključeve</string>
+    <string name="keybox_compare_dialog_message">Usporedite više preuzetih pretinaca s ključevima:\n\n📊 Usporedba uključuje:\n• ID-ove uređaja\n• Brojeve certifikata\n• Datume isteka\n• Vrste algoritama\n• Formate ključeva (PIF/TrickyStore)\n\nOdaberite pretince s ključevima za usporedbu.</string>
+    <string name="keybox_extract_dialog_title">Izvadak potvrda</string>
+    <string name="keybox_extract_dialog_message">Ekstrahirajte certifikate iz pretinca s ključevima kao zasebne PEM datoteke.\n\n📁 Izvozi:\n• RSA certifikati\n• ECDSA certifikati\n• Privatni ključevi (ako su potrebni)\n\nDatoteke spremljene u: /Download/Keyboxes/certs/\n\nNastaviti?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Upozorenje</string>
+    <string name="keybox_overwrite_dialog_message">Ova radnja nije podržana u ovoj verziji aplikacije.</string>
+    <string name="keybox_generating">🔄 Generiranje predložaka…</string>
+    <string name="keybox_searching">🔍 Pretraživanje izvora zajednice…</string>
+    <string name="keybox_downloading">Preuzimanje pretinca s ključevima iz repozitorija…</string>
+    <string name="keybox_verifying">🔍 Provjera struktura…</string>
+    <string name="keybox_analyzing">🔬 Analiza certifikata…</string>
+    <string name="keybox_checking_api">🌐 Testiranje Play Integrity API-ja…</string>
+    <string name="keybox_comparing">📊 Uspoređivanje pretinaca za ključeve…</string>
+    <string name="keybox_extracting">📦 Vađenje certifikata…</string>
+    <string name="keybox_generate_success">✅ Predlošci su uspješno generirani!</string>
+    <string name="keybox_search_success">✅ Pronađen i preuzet važeći pretinac za ključeve!</string>
+    <string name="keybox_import_success">✅ Pretinac za ključeve uspješno uvezen!</string>
+    <string name="keybox_export_success">✅ Generiran popis datoteka.</string>
+    <string name="keybox_verify_success">✅ Provjera završena.</string>
+    <string name="keybox_analyze_success">✅ Analiza završena.</string>
+    <string name="keybox_check_api_success">✅ Provjera integriteta završena.</string>
+    <string name="keybox_compare_success">✅ Usporedba završena.</string>
+    <string name="keybox_extract_success">✅ Certifikati izvađeni!</string>
+    <string name="keybox_generate_error">❌ Nije uspjelo generiranje predložaka!\n\nPogreška: %s</string>
+    <string name="keybox_search_error">❌ Nije uspjelo pronalaženje važećeg pretinca s ključevima!\n\nPogreška: %s</string>
+    <string name="keybox_import_error">❌ Uvoz okvira s ključevima nije uspio!\n\nPogreška: %s</string>
+    <string name="keybox_export_error">❌ Nije uspjelo popis datoteka!\n\nPogreška: %s</string>
+    <string name="keybox_verify_error">❌ Provjera nije uspjela!\n\nPogreška: %s</string>
+    <string name="keybox_analyze_error">❌ Analiza nije uspjela!\n\nPogreška: %s</string>
+    <string name="keybox_check_api_error">❌ Provjera integriteta nije uspjela!\n\nPogreška: %s</string>
+    <string name="keybox_no_root">❌ Root pristup NIJE potreban za ovu aplikaciju.</string>
+    <string name="keybox_no_internet">❌ Potrebna internetska veza!</string>
+    <string name="keybox_no_keybox">❌ Nema preuzetih datoteka!</string>
+    <string name="keybox_no_module">❌ Nije otkriven Magisk/KernelSU modul!</string>
+    <string name="keybox_info_title">O Keybox Manageru</string>
+    <string name="keybox_info_summary">Saznajte više o Android atestaciji i Keyboxu</string>
+    <string name="keybox_info_dialog_title">Kutija pretinca za ključeve - Informacije</string>
+    <string name="keybox_info_dialog_message">🔑 ŠTO JE OVA APLIKACIJA?\n══════════════════════════\n\nNapredni alat za upravljanje Android pretincima za potvrdu. NIJE potreban ROOT za preuzimanje/analizu.\n\n✅ ZNAČAJKE:\n• Pretraživanje izvora zajednice\n• Uvoz prilagođenih okvira s ključevima\n• Duboka analiza certifikata\n• Testiranje Play Integrity API-ja\n• Skupna provjera\n• Izdvajanje certifikata\n• Usporedba uz bok\n\n📁 LOKACIJA:\n/sdcard/Download/Keyboxes/\n\n⚙️ INSTALACIJA:\n══════════════════════════\n\nOpcija 1: Play Integrity Fix\n1. Instalirajte Magisk/KernelSU\n2. Instalirajte PIF modul\n3. Kopirajte keybox.xml u:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Ponovno pokretanje\n\nOpcija 2: TrickyStore\n1. Instalirajte Magisk/KernelSU\n2. Instalirajte TrickyStore modul\n3. Kopirajte keybox.xml u:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Automatsko ponovno učitavanje (bez ponovnog pokretanja)\n\n🧪 TESTIRANJE:\n══════════════════════════\n• Koristite ugrađenu Play provjeru integriteta\n• Aplikacija YASNAC\n• Bankarske aplikacije\n• Google novčanik\n\n🔬 NAPREDNO ZNAČAJKE:\n══════════════════════════\n\nDuboka analiza:\n• Validacija lanca certifikata\n• Praćenje isteka\n• Provjera snage algoritma\n• Status opoziva\n\nPlay Integrity Check:\n• API testiranje u stvarnom vremenu\n• BASIC/DEVICE/STRONG status\n• Detekcija modula\n\nBatch Operations:\n• Provjera više pretinca s ključevima\n• Usporedba jedan pored drugog\n• Izdvajanje certifikata\n\n💡 SAVJETI:\n══════════════════════════\n• Javni pretinci s ključevima rijetki su i brzo se opozivaju\n• Najbolji izvori su privatne Telegram grupe\n• Testirajte pretince s ključevima prije instaliranje\n• Čuvajte sigurnosne kopije radnih pretinaca s ključevima\n• Provjerite datume isteka\n\n🔗 ZAJEDNICA:\n══════════════════════════\n• Telegram: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Pretražite &amp;quot;integritet reprodukcije pretinca s tipkama&amp;quot;\n\n⚠️ PRAVNO ODRICANJE ODGOVORNOSTI:\n══════════════════════════\nSamo u obrazovne svrhe.\nKorištenje modificiranih okvira za ključeve može prekršiti:\n• Googleove uvjete Usluga\n• Pravila za programere aplikacija\n• Lokalni zakoni\n\nKoristite na vlastitu odgovornost!</string>
+    <string name="keybox_reset_title">Izbriši preuzimanja</string>
+    <string name="keybox_reset_summary">Uklonite sve preuzete pretince s ključevima iz pohrane</string>
+    <string name="keybox_reset_dialog_title">⚠️ Izbriši preuzimanja</string>
+    <string name="keybox_reset_dialog_message">Izbrisati SVE datoteke iz /sdcard/Download/Keyboxes/?\n\nOvo se ne može poništiti.</string>
+    <string name="keybox_reset_success">✅ Sve datoteke izbrisane!</string>
+    <string name="keybox_reset_error">❌ Brisanje nije uspjelo: %s</string>
+    <string name="ram_optimizer_title">Optimizator RAM-a i pohrane</string>
+    <string name="ram_optimizer_summary">Optimizirajte RAM kompresiju i pohranu</string>
+    <string name="ram_optimizer_description">Upravljajte postavkama zRAM-a, hibernacijom aplikacije i čistom pohranom za bolje performanse.</string>
+    <string name="zram_category_title">zRAM kompresija</string>
+    <string name="zram_enable_title">Omogući zRAM</string>
+    <string name="zram_enable_summary">Komprimirajte RAM da biste oslobodili memoriju</string>
+    <string name="zram_size_title">zRAM Veličina (MB)</string>
+    <string name="zram_size_summary">Postavite veličinu komprimirane RAM-a (512-12288 MB)</string>
+    <string name="zram_swappiness_title">Zamjena</string>
+    <string name="zram_swappiness_summary">Kontrolirajte koliko agresivno prebaciti na zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">Hibernacija aplikacije</string>
+    <string name="app_hibernation_title">Omogući hibernaciju aplikacije</string>
+    <string name="app_hibernation_summary">Hibernira nekorištene aplikacije za uštedu RAM-a i baterije</string>
+    <string name="storage_cleaner_category_title">Sredstvo za čišćenje skladišta</string>
+    <string name="storage_stats_title">Statistika pohrane</string>
+    <string name="storage_stats_summary">Učitavanje...</string>
+    <string name="clean_app_cache_title">Očisti predmemoriju aplikacije</string>
+    <string name="clean_app_cache_summary">Ukloni predmemorirane podatke iz svih aplikacija</string>
+    <string name="clean_system_cache_title">Očisti predmemoriju sustava</string>
+    <string name="clean_system_cache_summary">Očisti predmemoriju sustava i ispusti predmemorije</string>
+    <string name="clean_thumbnails_title">Očistite sličice</string>
+    <string name="clean_thumbnails_summary">Ukloni predmemoriju sličica iz medija</string>
+    <string name="clean_downloads_title">Očistite stara preuzimanja</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Automatski prilagodi izvedbu na temelju aplikacije u prvom planu</string>
+</resources>

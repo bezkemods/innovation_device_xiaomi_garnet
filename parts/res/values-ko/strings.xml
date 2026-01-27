@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">샤오미 설정</string>
+    <string name="tile_add">타일 ​​추가</string>
+    <string name="tile_added">타일이 추가되었습니다</string>
+    <string name="tile_not_added">타일이 추가되지 않았습니다</string>
+    <string name="tile_already_added">타일이 이미 추가되었습니다</string>
+    <string name="tile_on">켜짐</string>
+    <string name="tile_off">꺼짐</string>
+    <string name="clear_speaker_title">명확한 스피커</string>
+    <string name="clear_speaker_summary">30초짜리 오디오를 재생하여 발언자의 목소리를 맑게 하세요</string>
+    <string name="clear_speaker_description">스피커가 먼지로 인해 살짝 가려진 경우 이 기능을 한두 번 실행해 보세요. 미디어 볼륨을 최대로 설정하세요.\n\n스피커가 심하게 막힌 경우 스피커를 아래로 향한 상태에서 기기를 흔들면서 이 기능을 2~5회 실행하세요.</string>
+    <string name="saturation_title">디스플레이 채도</string>
+    <string name="saturation_summary">디스플레이의 채도 수준 제어</string>
+    <string name="saturation_footer_summary">디스플레이 설정에서 색상 모드를 변경하면 채도 수준이 무시되므로 다시 적용해야 합니다.</string>
+    <string name="image_preview_content_description">미리보기</string>
+    <string name="image_preview_next_page_content_description">다음</string>
+    <string name="image_preview_previous_page_content_description">이전</string>
+    <string name="custom_seekbar_value">값:</string>
+    <string name="custom_seekbar_default_value">기본적으로</string>
+    <string name="custom_seekbar_default_value_to_set">기본값:</string>
+    <string name="custom_seekbar_default_value_is_set">기본값이 설정되었습니다</string>
+    <string name="auto_hbm_title">자동 고휘도 모드(HBM)</string>
+    <string name="auto_hbm_main_switch_title">자동 HBM 사용</string>
+    <string name="tile_auto_hbm">자동 HBM</string>
+    <string name="tile_hbm_on">활성화됨</string>
+    <string name="tile_hbm_off">장애인</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM 이용 불가</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">자동 HBM 또는 자동 밝기가 활성화되었습니다</string>
+    <string name="hbm_mode_title">고휘도 모드</string>
+    <string name="hbm_mode_notification">이제 고휘도 모드가 활성화되었습니다. 장시간 사용하면 디스플레이가 손상될 수 있습니다.</string>
+    <string name="auto_hbm_summary">일광 강도(럭스)에 따라 자동으로 고휘도 모드 활성화</string>
+    <string name="auto_hbm_threshold_title">빛의 한계점</string>
+    <string name="auto_hbm_threshold_summary">HBM이 활성화되는 럭스 단위로 광도 임계값을 정의합니다</string>
+    <string name="auto_hbm_enable_time_title">시간 활성화</string>
+    <string name="auto_hbm_enable_time_summary">HBM을 활성화하기 위해 조명 임계값을 지속적으로 충족해야 하는 기간(초)</string>
+    <string name="auto_hbm_disable_time_title">시간 비활성화</string>
+    <string name="auto_hbm_disable_time_summary">조명 임계값이 설정된 수준 아래로 떨어질 경우 HBM이 비활성화되는 기간(초)</string>
+    <string name="game_bar_title">게임바</string>
+    <string name="game_bar_summary">시스템 오버레이 활성화(FPS, Temp 등)</string>
+    <string name="game_bar_tile_label">게임바</string>
+    <string name="game_bar_tile_description">게임 오버레이 전환</string>
+    <string name="game_bar_enable_title">GameBar 오버레이 활성화</string>
+    <string name="overlay_permission_required">오버레이 권한이 필요합니다</string>
+    <string name="overlay_permission_granted">오버레이 권한이 부여됨</string>
+    <string name="overlay_permission_denied">오버레이 권한이 거부되었습니다</string>
+    <string name="overlay_features_title">오버레이 기능</string>
+    <string name="game_bar_fps_enable_title">FPS 오버레이</string>
+    <string name="game_bar_fps_enable_summary">현재 FPS를 화면에 표시</string>
+    <string name="game_bar_temp_enable_title">장치 온도</string>
+    <string name="game_bar_temp_enable_summary">기기(배터리) 온도 표시</string>
+    <string name="game_bar_cpu_usage_enable_title">CPU 사용량</string>
+    <string name="game_bar_cpu_usage_enable_summary">현재 CPU 사용률 표시</string>
+    <string name="game_bar_cpu_clock_enable_title">CPU 클럭 속도</string>
+    <string name="game_bar_cpu_clock_enable_summary">각 코어의 현재 CPU 클럭 속도 표시</string>
+    <string name="game_bar_cpu_temp_enable_title">CPU 온도</string>
+    <string name="game_bar_cpu_temp_enable_summary">CPU 온도 표시(thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">RAM 사용량</string>
+    <string name="game_bar_ram_enable_summary">현재 RAM 사용량을 MB 단위로 표시</string>
+    <string name="game_bar_gpu_usage_enable_title">GPU 사용량</string>
+    <string name="game_bar_gpu_usage_enable_summary">GPU 사용률 표시</string>
+    <string name="game_bar_gpu_clock_enable_title">GPU 클럭 속도</string>
+    <string name="game_bar_gpu_clock_enable_summary">현재 GPU 클럭 주파수 보기</string>
+    <string name="game_bar_gpu_temp_enable_title">GPU 온도</string>
+    <string name="game_bar_gpu_temp_enable_summary">현재 GPU 온도 보기</string>
+    <string name="fps_measurement_method_title">FPS 측정 방법</string>
+    <string name="game_bar_fps_method_title">FPS 방법 선택</string>
+    <string name="game_bar_fps_method_summary">새 API 방법(기본값)과 레거시 Sysfs</string>
+    <string name="customization_title">중에서 선택하세요. 맞춤화</string>
+    <string name="game_bar_text_size_title">텍스트 크기</string>
+    <string name="game_bar_text_size_summary">오버레이 텍스트 크기 조정</string>
+    <string name="game_bar_background_alpha_title">배경 투명성</string>
+    <string name="game_bar_background_alpha_summary">배경 투명도 조정</string>
+    <string name="game_bar_corner_radius_title">오버레이 코너 반경</string>
+    <string name="game_bar_corner_radius_summary">오버레이 모서리의 둥근 정도를 조정하세요</string>
+    <string name="game_bar_padding_title">오버레이 패딩</string>
+    <string name="game_bar_padding_summary">통계 주위의 공간을 조정하세요</string>
+    <string name="game_bar_item_spacing_title">항목 간격</string>
+    <string name="game_bar_item_spacing_summary">오버레이 줄 사이의 간격 조정</string>
+    <string name="game_bar_update_interval_title">업데이트 간격</string>
+    <string name="game_bar_update_interval_summary">오버레이 값이 업데이트되는 빈도 설정</string>
+    <string name="game_bar_title_color_title">통계 제목 색상</string>
+    <string name="game_bar_title_color_summary">\'FPS\', \'Temp\', \'CPU\' 등의 색상 텍스트</string>
+    <string name="game_bar_value_color_title">통계 값 색상</string>
+    <string name="game_bar_value_color_summary">숫자 통계 색상(예: \'29\', \'32.0°C\')</string>
+    <string name="game_bar_position_title">오버레이 위치</string>
+    <string name="game_bar_position_summary">화면에서 오버레이 위치를 선택하세요</string>
+    <string name="game_bar_format_title">오버레이 형식</string>
+    <string name="game_bar_format_summary">전체 또는 최소 표시 중에서 선택</string>
+    <string name="game_bar_overlay_format_toast">오버레이 형식이 다음으로 변경되었습니다: %s</string>
+    <string name="game_bar_format_entries_full">전체</string>
+    <string name="game_bar_format_entries_minimal">최소</string>
+    <string name="split_config_title">분할 구성</string>
+    <string name="game_bar_split_mode_title">분할 모드</string>
+    <string name="game_bar_split_mode_summary">병렬 또는 스택형 배열 선택</string>
+    <string name="overlay_gesture_controls_title">오버레이 제스처 컨트롤</string>
+    <string name="game_bar_single_tap_toggle_title">단일 탭을 활성화하여 전환</string>
+    <string name="game_bar_single_tap_toggle_summary">전체 오버레이 형식과 최소 오버레이 형식 사이를 전환하려면 한 번 탭하세요</string>
+    <string name="game_bar_doubletap_capture_title">두 번 탭하여 캡처 활성화</string>
+    <string name="game_bar_doubletap_capture_summary">캡처 로그를 시작/중지하려면 오버레이를 두 번 탭하세요</string>
+    <string name="game_bar_longpress_enable_title">길게 누르기 활성화</string>
+    <string name="game_bar_longpress_enable_summary">GameBar 설정에 액세스하려면 오버레이를 길게 누르세요</string>
+    <string name="game_bar_longpress_timeout_title">길게 누르는 시간</string>
+    <string name="game_bar_longpress_timeout_summary">오버레이를 길게 누르는 데 필요한 시간 설정</string>
+    <string name="capture_logs_title">로그 캡처</string>
+    <string name="game_bar_capture_start_title">로깅 시작</string>
+    <string name="game_bar_capture_start_summary">FPS 및 성능 데이터 실시간 캡처 시작</string>
+    <string name="game_bar_capture_stop_title">로깅 중지</string>
+    <string name="game_bar_capture_stop_summary">실시간 FPS 및 성능 데이터 캡처를 중지하세요</string>
+    <string name="game_bar_capture_export_title">GameBar 로그 데이터 내보내기</string>
+    <string name="game_bar_capture_export_summary">캡쳐된 FPS 및 성능 데이터를 CSV 파일로 저장</string>
+    <string name="game_bar_capture_start_toast">데이터 로깅을 시작했습니다</string>
+    <string name="game_bar_capture_stop_toast">데이터 로깅이 중지되었습니다</string>
+    <string name="game_bar_capture_export_toast">로그 데이터를 파일로 내보냈습니다</string>
+    <string name="game_bar_doubletap_capture_start_toast">캡처가 시작되었습니다</string>
+    <string name="game_bar_doubletap_capture_stop_toast">캡처가 중지되었습니다</string>
+    <string name="auto_enable_gamebar_title">GameBar 자동 활성화</string>
+    <string name="game_bar_auto_enable_title">선택한 앱에 대해 GameBar 자동 활성화</string>
+    <string name="game_bar_auto_enable_summary">켜져 있으면 선택한 앱은 메인 스위치가 꺼져 있어도 GameBar를 자동으로 활성화합니다</string>
+    <string name="game_bar_app_selector_title">앱 선택</string>
+    <string name="game_bar_app_selector_summary">GameBar를 자동으로 활성화해야 하는 앱 추가</string>
+    <string name="game_bar_app_remover_title">선택한 앱 제거</string>
+    <string name="game_bar_app_remover_summary">자동 활성화 목록에서 앱을 제거하세요</string>
+    <string name="game_bar_app_remover_activity_title">자동 활성화 앱 제거</string>
+    <string name="game_bar_app_selector_activity_title">GameBar용 앱 선택</string>
+    <string name="game_bar_app_added_toast">추가됨</string>
+    <string name="game_bar_app_removed_toast">삭제됨</string>
+    <string name="gpu_enable_title">GPU 최적화 프로그램 활성화</string>
+    <string name="gpu_enable_summary">GPU 최적화 전환</string>
+    <string name="gpu_freq_category_title">GPU 주파수 구성</string>
+    <string name="gpu_min_frequency">GPU 최소 주파수</string>
+    <string name="gpu_max_frequency">GPU 최대 주파수</string>
+    <string name="gpu_disabled_defaults_restored">최적화 GPU 비활성화, 기본값 복원</string>
+    <string name="gpu_optimizer_enabled">GPU 최적화 기능 활성화</string>
+    <string name="gpu_min_freq_exceeds_max">실패: GPU 최소 주파수는 최대 주파수를 초과할 수 없습니다</string>
+    <string name="gpu_max_freq_below_min">실패: GPU 최대 주파수는 최소 주파수보다 낮을 수 없습니다</string>
+    <string name="gpu_min_freq_applied">GPU 최소 빈도 -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU 최대 주파수 -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">CPU 최적화 프로그램 활성화</string>
+    <string name="cpu_enable_summary">CPU 최적화 전환</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">CPU 최적화 기능이 비활성화되었으며 기본값이 복원되었습니다.</string>
+    <string name="cpu_optimizer_enabled">CPU 최적화 기능 활성화</string>
+    <string name="cpu_little_category_title">CPU 작은 클러스터 구성</string>
+    <string name="cpu_little_min_frequency_title">최소 빈도</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">최대 주파수</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">주지사</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">실패: CPU 최소 최소 주파수는 최대</string>
+    <string name="cpu_little_max_freq_below_min">실패: CPU 작은 최대 주파수는 최소보다 낮을 수 없습니다.</string>
+    <string name="cpu_little_min_freq_applied">CPU little min frequency -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">CPU little max frequency -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">CPU little governor -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Configure CPU Big Cluster</string>
+    <string name="cpu_big_min_frequency_title">Min Frequency</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Max Frequency</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Governor</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Failed: CPU big min frequency cannot exceed max</string>
+    <string name="cpu_big_max_freq_below_min">Failed: CPU big max frequency cannot be lower than min</string>
+    <string name="cpu_big_min_freq_applied">CPU big min frequency -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">CPU big max frequency -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">CPU big governor -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Configure CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">Min Frequency</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Max Frequency</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Governor</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Failed: CPU prime min frequency cannot exceed max</string>
+    <string name="cpu_prime_max_freq_below_min">Failed: CPU prime max frequency cannot be lower than min</string>
+    <string name="cpu_prime_min_freq_applied">CPU prime min frequency -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">CPU prime max frequency -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">CPU prime governor -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Start logcat on boot</string>
+    <string name="logcat_autostart_summary">Automatically start background logging after reboot</string>
+    <string name="logcat_viewer_title">Logcat Viewer</string>
+    <string name="logcat_viewer_summary">Open real-time log viewer</string>
+    <string name="logcat_filter_hint">Enter tag or keyword</string>
+    <string name="logcat_filter_title">Log Filter</string>
+    <string name="logcat_pause">Pause</string>
+    <string name="logcat_resume">Resume</string>
+    <string name="logcat_autoscroll_on">Autoscroll ON</string>
+    <string name="logcat_autoscroll_off">Autoscroll OFF</string>
+    <string name="logcat_save">Save Log</string>
+    <string name="logcat_clear">Clear Log</string>
+    <string name="logcat_share">Share Log</string>
+    <string name="logcat_settings">Settings</string>
+    <string name="logcat_export">Export</string>
+    <string name="logcat_search">Search</string>
+    <string name="logcat_notification_title">Logcat Viewer</string>
+    <string name="logcat_notification_text">Background logging active</string>
+    <string name="logcat_notification_stopped">Background logging stopped</string>
+    <string name="logcat_notification_channel_name">Logcat Background Service</string>
+    <string name="logcat_notification_channel_desc">Controls for background logcat logging</string>
+    <string name="logcat_level_verbose">Verbose</string>
+    <string name="logcat_level_debug">Debug</string>
+    <string name="logcat_level_info">정보</string>
+    <string name="logcat_level_warn">경고</string>
+    <string name="logcat_level_error">오류</string>
+    <string name="logcat_no_logs">사용 가능한 로그가 없습니다</string>
+    <string name="logcat_loading">로그 로드 중...</string>
+    <string name="logcat_paused">로깅이 일시중지되었습니다</string>
+    <string name="logcat_active">로깅 활성</string>
+    <string name="logcat_filter_applied">필터 적용됨: %1$s</string>
+    <string name="logcat_logs_cleared">로그가 지워졌습니다</string>
+    <string name="logcat_save_progress">로그 저장 중...</string>
+    <string name="logcat_save_success">로그가 성공적으로 저장되었습니다.</string>
+    <string name="logcat_save_failed">로그를 저장하지 못했습니다.</string>
+    <string name="logcat_share_subject">Android Logcat 내보내기</string>
+    <string name="logcat_permission_required">로그를 저장하려면 저장소 권한이 필요합니다</string>
+    <string name="cpu_tile_label">CPU 주지사</string>
+    <string name="cpu_tile_unavailable">CPU 제어 불가</string>
+    <string name="cpu_tile_error">CPU 모니터링 오류</string>
+    <string name="cpu_tile_unknown">알 수 없음</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Schedutil</string>
+    <string name="cpu_tile_governor_performance">성능</string>
+    <string name="cpu_tile_governor_powersave">절전</string>
+    <string name="cpu_tile_governor_ondemand">온디맨드</string>
+    <string name="cpu_tile_governor_conservative">보수적</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1fGHz</string>
+    <string name="cpu_tile_settings_title">CPU 타일 설정</string>
+    <string name="cpu_tile_settings_summary">CPU 관리자 빠른 설정 타일 모양 및 동작 구성</string>
+    <string name="cpu_tile_appearance_category">외모</string>
+    <string name="cpu_tile_behavior_category">행동</string>
+    <string name="cpu_tile_size_title">타일 ​​아이콘 크기</string>
+    <string name="cpu_tile_size_summary">CPU 타일 아이콘의 크기를 선택하세요</string>
+    <string name="cpu_tile_style_title">타일 ​​스타일</string>
+    <string name="cpu_tile_style_summary">CPU 정보 표시 방법을 선택하세요</string>
+    <string name="cpu_tile_show_percentage_title">사용률 표시</string>
+    <string name="cpu_tile_show_percentage_summary">빈도 대신 CPU 사용량 비율을 표시</string>
+    <string name="cpu_tile_update_speed_title">업데이트 간격</string>
+    <string name="cpu_tile_update_speed_summary">CPU 정보를 새로 고치는 빈도</string>
+    <string name="cpu_tile_update_speed_fast">빠르게(0.5초)</string>
+    <string name="cpu_tile_update_speed_normal">정상(1초)</string>
+    <string name="cpu_tile_update_speed_slow">느림(2초)</string>
+    <string name="cpu_tile_update_speed_very_slow">매우 느림(5초)</string>
+    <string name="cpu_tile_preview_title">변경 사항 미리보기</string>
+    <string name="cpu_tile_preview_summary">현재 설정으로 타일을 새로 고치려면 탭하세요</string>
+    <string name="cpu_tile_footer">CPU 거버너 타일을 사용하면 CPU 거버너 간 빠른 전환이 가능하며 실시간 CPU 주파수 및 사용량 정보가 표시됩니다. 사용 가능한 총재를 순환하려면 타일을 탭하세요.</string>
+    <string name="performance_mode_title">성능 모드</string>
+    <string name="performance_mode_summary">최고의 성능을 얻으려면 CPU와 GPU를 최대로 설정하세요. 열과 배터리 소모가 증가합니다.</string>
+    <string name="performance_mode_enabled_summary">성능 모드가 켜져 있습니다</string>
+    <string name="performance_mode_disabled_summary">성능 모드가 꺼졌습니다</string>
+    <string name="performance_profile_title">성능 프로필</string>
+    <string name="performance_profile_summary">최적의 장치 동작을 위한 성능 모드 선택</string>
+    <string name="performance_mode_battery_saver">배터리 절약</string>
+    <string name="performance_mode_balanced">균형 잡힌</string>
+    <string name="performance_mode_performance">성능</string>
+    <string name="performance_profile_applied">성능 프로필이 %s(으)로 설정됨</string>
+    <string name="performance_profile_failed">성능 프로필을 적용하지 못했습니다.</string>
+    <string name="performance_tile_label">성능</string>
+    <string name="performance_notification_channel_name">성능 프로필</string>
+    <string name="performance_notification_channel_desc">현재 성능 프로필 상태를 표시합니다</string>
+    <string name="performance_notification_battery_saver">배터리 절약 모드가 활성화되었습니다. - 배터리 수명 연장</string>
+    <string name="performance_notification_balanced">균형 모드가 활성화되었습니다. - 최적의 성능 및 배터리 수명</string>
+    <string name="performance_notification_performance">성능 모드가 활성화되었습니다. - 최대 성능</string>
+    <string name="performance_footer_title">성능 프로필 정보</string>
+    <string name="performance_footer_summary">• 배터리 세이버: CPU 및 GPU 성능을 줄여 배터리 수명을 연장합니다. 사용량이 적고 배터리 지속 시간이 최대인 경우에 적합합니다.\n\n• 균형: 성능과 배터리 수명 간의 최적 균형을 제공합니다. 일상적인 사용에 권장됩니다.\n\n• 성능: 까다로운 작업을 위해 CPU 및 GPU 성능을 최대화합니다. 게임, 무거운 앱, 집중적인 작업 부하에 가장 적합합니다. 배터리 수명이 단축될 수 있습니다.</string>
+    <string name="xiaomi_parts_title">샤오미부품</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi Garnet 특별 설정</string>
+    <string name="xiaomi_parts_summary">Xiaomi 기기별 설정</string>
+    <string name="xiaomi_parts_launcher_title">샤오미부품</string>
+    <string name="device_settings_app_name">샤오미부품</string>
+    <string name="display_title">표시</string>
+    <string name="sound_title">소리</string>
+    <string name="power_title">힘</string>
+    <string name="gaming_title">게임 및 유틸리티</string>
+    <string name="about_me_title">내 소개</string>
+    <string name="about_me_summary">InnOvaTioN에 대해 알아야 할 모든 것</string>
+    <string name="about_me_contact_title">지원</string>
+    <string name="about_me_contact_summary">거기서 도움을 받을 수 있어요</string>
+    <string name="about_me_donate_title">페이팔로 기부해주세요</string>
+    <string name="about_me_donate_summary">계속 발전할 수 있도록 내 작업을 지원해 주세요</string>
+    <string name="about_me_donate2_title">바이미커피</string>
+    <string name="about_me_donate2_summary">맥주나 커피 한잔하자고 전화해</string>
+    <string name="core_control_title">핵심 제어</string>
+    <string name="core_control_summary">개별 CPU 코어를 수동으로 활성화 또는 비활성화</string>
+    <string name="core_control_description">고급 CPU 제어. 코어를 끄면 배터리나 열 부하가 절약될 수 있지만 성능과 안정성에 영향을 미칠 수 있습니다.\n\n최소 2개의 작은 코어가 항상 온라인 상태를 유지해야 합니다.</string>
+    <string name="keep_little_cores_online">최소 2개의 작은 코어가 온라인 상태로 유지되어야 합니다</string>
+    <string name="core_0">코어 0(소형)</string>
+    <string name="core_1">코어 1(소형)</string>
+    <string name="core_2">코어 2(소형)</string>
+    <string name="core_3">코어 3(소형)</string>
+    <string name="core_4">코어 4(대형)</string>
+    <string name="core_5">코어 5(대형)</string>
+    <string name="core_6">코어 6(대형)</string>
+    <string name="core_7">코어 7(대형)</string>
+    <string name="error">오류</string>
+    <string name="kernel_manager_title">커널 관리자</string>
+    <string name="kernel_manager_summary">CPU 주파수 및 거버너 관리</string>
+    <string name="kernel_manager_efficiency_category">효율성 클러스터(A55)</string>
+    <string name="kernel_manager_performance_category">성능 클러스터(A78)</string>
+    <string name="kernel_manager_governor">CPU 주지사</string>
+    <string name="kernel_manager_governor_summary">클러스터의 CPU 거버너 선택</string>
+    <string name="cpu_governor_summary">현재: %s</string>
+    <string name="kernel_manager_min_freq">최소 주파수</string>
+    <string name="kernel_manager_min_freq_summary">허용되는 최소 CPU 주파수 설정</string>
+    <string name="kernel_manager_max_freq">최대 주파수</string>
+    <string name="kernel_manager_max_freq_summary">허용되는 최대 CPU 주파수 설정</string>
+    <string name="kernel_info_category">정보</string>
+    <string name="kernel_info_title">커널 관리자 정보</string>
+    <string name="kernel_info_summary">모든 CPU 클러스터에 대한 CPU 거버너 및 주파수 확장을 관리합니다. 변경 사항은 성능과 배터리 수명에 영향을 미칠 수 있습니다.</string>
+    <string name="kernel_manager_apply">설정 적용</string>
+    <string name="kernel_manager_apply_summary">선택한 CPU 설정을 적용</string>
+    <string name="kernel_manager_reset">기본값으로 재설정</string>
+    <string name="kernel_manager_reset_summary">기본 CPU 설정 복원</string>
+    <string name="settings_applied">설정이 성공적으로 적용되었습니다</string>
+    <string name="settings_reset">설정이 기본값으로 재설정됨</string>
+    <string name="kernel_manager_footer">CPU 거버너는 성능과 전력 사용량의 균형을 맞추기 위해 장치가 CPU 주파수를 조정하는 방법을 관리합니다. 간략한 개요는 다음과 같습니다.\n\n• Walt: 주로 Pixel 기기에 사용되는 응답성 및 사용자 상호작용 지연 시간에 최적화된 Google에서 개발한 거버너입니다.\n• 보수적: CPU 주파수를 점차적으로 늘립니다. 배터리를 절약하지만 응답성이 저하될 수 있습니다.\n• 절전: CPU를 가능한 가장 낮은 주파수로 유지하고 성능보다 배터리 수명을 우선시합니다.\n• 성능: 최대 주파수에서 CPU를 잠그고 배터리 비용으로 최대 성능을 보장합니다.\n• schedhorizon: 코어 전체에서 작업 마이그레이션 및 효율성 개선을 목표로 하는 스케줄러 인식 거버너.\n• schedutil: 많은 커널의 기본 최신 거버너입니다. Linux의 스케줄러 데이터를 사용하여 CPU 주파수를 지능적이고 효율적으로 확장합니다.</string>
+    <string name="kernel_manager_cpu_monitor">CPU 코어 모니터링</string>
+    <string name="kernel_manager_core_online">온라인</string>
+    <string name="kernel_manager_core_offline">오프라인</string>
+    <string name="kernel_manager_loading">로드 중...</string>
+    <string name="kernel_manager_enable_monitoring">실시간 모니터링</string>
+    <string name="kernel_manager_enable_monitoring_summary">CPU 코어 상태를 지속적으로 업데이트</string>
+    <string name="kernel_manager_update_interval">업데이트 빈도</string>
+    <string name="kernel_manager_update_interval_summary">데이터를 새로 고치는 빈도</string>
+    <string name="kernel_manager_efficiency_cluster_summary">효율성 클러스터 요약</string>
+    <string name="kernel_manager_performance_cluster_summary">성능 클러스터 요약</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d 코어 온라인 | 범위: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">해당 없음</string>
+    <string name="update_interval_500ms">0.5초</string>
+    <string name="update_interval_1000ms">1초</string>
+    <string name="update_interval_2000ms">2초</string>
+    <string name="update_interval_5000ms">5초</string>
+    <string name="cpu_core_status_online">🟢 %1$s - 온라인</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - 오프라인</string>
+    <string name="kernel_manager_governor_current">%1$s(현재: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s(현재: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">실시간 모니터링이 비활성화되었습니다. 실시간 CPU 코어 주파수 및 상태를 보려면 활성화하세요.</string>
+    <string name="kernel_manager_error_read">CPU 정보를 읽을 수 없습니다.</string>
+    <string name="kernel_manager_error_write">CPU 설정을 적용할 수 없습니다. 루트 액세스가 필요할 수 있습니다.</string>
+    <string name="kernel_manager_error_permission">허가가 거부되었습니다. CPU 설정을 수정하려면 루트 액세스가 필요합니다.</string>
+    <string name="gpu_manager_title">GPU 관리자</string>
+    <string name="gpu_manager_summary">GPU 주파수 및 전원 설정 관리</string>
+    <string name="gpu_governor_title">GPU 주지사</string>
+    <string name="gpu_governor_summary">현재: %s</string>
+    <string name="gpu_freq_title">GPU 주파수</string>
+    <string name="gpu_min_freq_title">최소 주파수</string>
+    <string name="gpu_max_freq_title">최대 주파수</string>
+    <string name="gpu_max_gpuclk_title">최대 GPUCLK 재정의</string>
+    <string name="gpu_max_gpuclk_summary">추가 클럭 부스트(최대 940MHz)</string>
+    <string name="gpu_current_freq_title">현재 주파수</string>
+    <string name="gpu_power_title">전원 설정</string>
+    <string name="gpu_force_clk_on_title">강제 시계 켜기</string>
+    <string name="gpu_force_clk_on_summary">GPU 시계를 항상 켜두세요</string>
+    <string name="gpu_force_bus_on_title">강제 버스 켜기</string>
+    <string name="gpu_force_bus_on_summary">GPU 버스를 항상 켜두세요</string>
+    <string name="gpu_force_rail_on_title">강제 레일 켜기</string>
+    <string name="gpu_force_rail_on_summary">GPU 전원 레일을 항상 켜두세요</string>
+    <string name="gpu_force_no_nap_title">낮잠 금지</string>
+    <string name="gpu_force_no_nap_summary">프레임 간 GPU 낮잠 비활성화</string>
+    <string name="gpu_bus_split_title">버스 분할</string>
+    <string name="gpu_bus_split_summary">GPU 버스 분할 활성화</string>
+    <string name="gpu_preempt_title">GPU 선점</string>
+    <string name="gpu_preempt_summary">낮은 대기 시간 게임(최고의 게임 경험을 위해 활성화)</string>
+    <string name="gpu_camera_boost_title">카메라 부스트</string>
+    <string name="gpu_camera_boost_summary">Powerhint 터보(최대 카메라/비디오 인코딩 성능)</string>
+    <string name="gpu_thermal_title">열 설정</string>
+    <string name="gpu_thermal_pwrlevel_title">화력 수준</string>
+    <string name="gpu_thermal_pwrlevel_summary">현재 화력 수준</string>
+    <string name="gpu_temp_title">GPU 온도</string>
+    <string name="gpu_info_title">GPU 정보</string>
+    <string name="gpu_model_title">GPU 모델</string>
+    <string name="gpu_busy_percentage_title">GPU 로드</string>
+    <string name="gpu_reset_count_title">횟수 재설정</string>
+    <string name="gpu_preempt_count_title">선점 횟수</string>
+    <string name="gpu_info_category">GPU 정보</string>
+    <string name="gpu_settings_category">GPU 설정</string>
+    <string name="gpu_advanced_category">고급 설정</string>
+    <string name="gpu_info_summary">GPU 주파수 스케일링 및 전원 설정을 관리합니다. 변경 사항은 성능과 배터리 수명에 영향을 미칠 수 있습니다.</string>
+    <string name="apply_settings">설정 적용</string>
+    <string name="reset_settings">설정 재설정</string>
+    <string name="gpu_turbo_preset_title">터보 프리셋</string>
+    <string name="gpu_turbo_preset_summary">최대 성능: 940MHz 잠금, 성능 거버너, 모든 부스트 켜짐</string>
+    <string name="gpu_turbo_enabled">🚀 터보 모드 활성화!</string>
+    <string name="gpu_settings_applied">설정이 적용되었습니다!</string>
+    <string name="gpu_settings_reset">설정이 기본값으로 재설정되었습니다!</string>
+    <string name="unknown">알 수 없음</string>
+    <string name="thermal_level_summary">레벨 %s</string>
+    <string name="camera_boost_triggered">카메라/비디오 부스트가 실행되었습니다!</string>
+    <string name="video_enhancer_title">비디오 향상기</string>
+    <string name="video_enhancer_summary">Redmi Note 13 Pro 5G의 디스플레이 및 성능 최적화</string>
+    <string name="video_enhancer_display_category">📺 디스플레이 기능</string>
+    <string name="smooth_motion_enable_title">부드러운 움직임</string>
+    <string name="smooth_motion_enable_summary">비디오에 대한 하드웨어 모션 스무딩(기본값: OFF) • 재부팅 필요</string>
+    <string name="optimize_refresh_enable_title">재생률 최적화</string>
+    <string name="optimize_refresh_enable_summary">콘텐츠에 따른 동적 새로 고침 빈도(기본값: OFF) • 재부팅 필요</string>
+    <string name="peak_refresh_rate_title">120Hz 피크 재생률</string>
+    <string name="peak_refresh_rate_summary">터치 시 120Hz 활성화(200ms) • 공장 값 • 재부팅 필요</string>
+    <string name="video_enhancer_performance_category">⚡ 성능 최적화</string>
+    <string name="force_vulkan_title">강제 Vulkan API</string>
+    <string name="force_vulkan_summary">OpenGL ES(Adreno 710) 대신 Vulkan 사용 • 재부팅 필요</string>
+    <string name="purgeable_assets_title">제거 가능한 자산</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">저장소에 다운로드된 모든 키박스 나열</string>
+    <string name="keybox_verify_title">다운로드 확인</string>
+    <string name="keybox_verify_summary">다운로드한 키박스의 XML 구조를 확인하세요</string>
+    <string name="keybox_analyze_title">심층 분석</string>
+    <string name="keybox_analyze_summary">인증서 체인, 만료 및 유효성 분석</string>
+    <string name="keybox_check_api_title">Play 무결성을 확인하세요</string>
+    <string name="keybox_check_api_summary">Google Play Integrity API에 대해 키박스 테스트</string>
+    <string name="keybox_compare_title">키박스 비교</string>
+    <string name="keybox_compare_summary">여러 개의 키박스를 나란히 비교</string>
+    <string name="keybox_extract_certs_title">인증서 추출</string>
+    <string name="keybox_extract_certs_summary">인증서를 PEM 파일로 내보내기</string>
+    <string name="keybox_batch_verify_title">일괄 확인</string>
+    <string name="keybox_batch_verify_summary">자세한 보고서로 여러 키박스를 테스트하세요</string>
+    <string name="keybox_status_title">키박스 상태</string>
+    <string name="keybox_status_summary">현재: %s</string>
+    <string name="keybox_status_installed">✅ 유효한 파일을 다운로드했습니다</string>
+    <string name="keybox_status_not_installed">❌ 다운로드된 파일이 없습니다</string>
+    <string name="keybox_status_unknown">⚠️ 알 수 없음</string>
+    <string name="keybox_device_id_title">장치 ID</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">인증서 수</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">인증서 만료</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">템플릿 생성</string>
+    <string name="keybox_search_dialog_title">커뮤니티 키박스 검색</string>
+    <string name="keybox_import_dialog_title">키박스 가져오기</string>
+    <string name="keybox_export_dialog_title">다운로드한 키박스 나열</string>
+    <string name="keybox_verify_dialog_title">다운로드한 키박스 확인</string>
+    <string name="keybox_analyze_dialog_title">심층 분석</string>
+    <string name="keybox_analyze_dialog_message">심층적인 인증서 분석이 수행됩니다.\n\n✅ 검사:\n• 인증서 체인 유효성 검사\n• 만료 날짜\n• 서명 알고리즘\n• 키 크기\n• 발급자 정보\n• 인증서 취소 상태\n\n⚠️ 키박스당 10~30초가 소요됩니다.\n\n계속하시겠습니까?</string>
+    <string name="keybox_check_api_dialog_title">Play 무결성 검사</string>
+    <string name="keybox_check_api_dialog_message">Google Play Integrity API에 대해 키박스를 테스트합니다.\n\n🔍 확인 사항:\n• 기본 무결성\n• 기기 무결성 \n• 강력한 무결성\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ 요구 사항:\n• 키박스는 Magisk/KernelSU에 설치되어야 합니다.\n• Play Integrity Fix 또는 TrickyStore 모듈\n• 인터넷 연결\n\n⏱️ 5~10초 정도 소요\n\n계속하시겠습니까?</string>
+    <string name="keybox_compare_dialog_title">키박스 비교</string>
+    <string name="keybox_compare_dialog_message">다운로드한 여러 키박스 비교:\n\n📊 비교에는 다음이 포함됩니다.\n• 장치 ID\n• 인증서 수\n• 만료 날짜\n• 알고리즘 유형\n• 키 형식(PIF/TrickyStore)\n\n비교할 키박스를 선택하세요.</string>
+    <string name="keybox_extract_dialog_title">인증서 추출</string>
+    <string name="keybox_extract_dialog_message">키박스에서 인증서를 별도의 PEM 파일로 추출합니다.\n\n📁 내보내기:\n• RSA 인증서\n• ECDSA 인증서\n• 개인 키(필요한 경우)\n\n저장된 파일: /Download/Keyboxes/certs/\n\n계속하시겠습니까?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ 경고</string>
+    <string name="keybox_overwrite_dialog_message">이 앱 버전에서는 이 작업이 지원되지 않습니다.</string>
+    <string name="keybox_generating">🔄 템플릿 생성 중…</string>
+    <string name="keybox_searching">🔍 커뮤니티 소스 검색 중…</string>
+    <string name="keybox_downloading">저장소에서 키박스를 다운로드하는 중...</string>
+    <string name="keybox_verifying">🔍 구조 확인 중…</string>
+    <string name="keybox_analyzing">🔬 인증서 분석 중…</string>
+    <string name="keybox_checking_api">🌐 Play Integrity API 테스트 중...</string>
+    <string name="keybox_comparing">📊 키박스 비교 중…</string>
+    <string name="keybox_extracting">📦 인증서 추출 중…</string>
+    <string name="keybox_generate_success">✅ 템플릿이 성공적으로 생성되었습니다!</string>
+    <string name="keybox_search_success">✅ 유효한 키박스를 찾아서 다운로드했습니다!</string>
+    <string name="keybox_import_success">✅ 키박스를 성공적으로 가져왔습니다!</string>
+    <string name="keybox_export_success">✅ 파일 목록이 생성되었습니다.</string>
+    <string name="keybox_verify_success">✅ 확인이 완료되었습니다.</string>
+    <string name="keybox_analyze_success">✅ 분석이 완료되었습니다.</string>
+    <string name="keybox_check_api_success">✅ 무결성 검사가 완료되었습니다.</string>
+    <string name="keybox_compare_success">✅ 비교 완료.</string>
+    <string name="keybox_extract_success">✅ 인증서가 추출되었습니다!</string>
+    <string name="keybox_generate_error">❌ 템플릿을 생성하지 못했습니다!\n\n오류: %s</string>
+    <string name="keybox_search_error">❌ 유효한 키박스를 찾지 못했습니다!\n\n오류: %s</string>
+    <string name="keybox_import_error">❌ 키박스를 가져오지 못했습니다!\n\n오류: %s</string>
+    <string name="keybox_export_error">❌ 파일을 나열하지 못했습니다!\n\n오류: %s</string>
+    <string name="keybox_verify_error">❌ 확인에 실패했습니다!\n\n오류: %s</string>
+    <string name="keybox_analyze_error">❌ 분석에 실패했습니다!\n\n오류: %s</string>
+    <string name="keybox_check_api_error">❌ 무결성 검사에 실패했습니다!\n\n오류: %s</string>
+    <string name="keybox_no_root">❌ 이 앱에는 루트 액세스가 필요하지 않습니다.</string>
+    <string name="keybox_no_internet">❌ 인터넷 연결이 필요합니다!</string>
+    <string name="keybox_no_keybox">❌ 다운로드된 파일이 없습니다!</string>
+    <string name="keybox_no_module">❌ Magisk/KernelSU 모듈이 감지되지 않았습니다!</string>
+    <string name="keybox_info_title">Keybox Manager 정보</string>
+    <string name="keybox_info_summary">Android 증명 및 Keybox에 대해 자세히 알아보기</string>
+    <string name="keybox_info_dialog_title">열쇠함 상자 - 정보</string>
+    <string name="keybox_info_dialog_message">🔑 이 앱은 무엇인가요?\n=========================\n\nAndroid 증명 키박스 관리를 위한 고급 도구입니다. 다운로드/분석에는 루트가 필요하지 않습니다.\n\n✅ 기능:\n• 커뮤니티 소스 검색\n• 맞춤 키박스 가져오기\n• 심층 인증서 분석\n• Play Integrity API 테스트\n• 일괄 확인\n• 인증서 추출\n• 병렬 비교\n\n📁 위치:\n/sdcard/Download/Keyboxes/\n\n⚙️ 설치:\n=========================\n\n옵션 1: Play 무결성 수정\n1. Magisk/KernelSU를 설치합니다.\n2. PIF 모듈을 설치합니다.\n3. keybox.xml을 다음 위치에 복사하세요:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. 재부팅\n\n옵션 2: TrickyStore\n1. Magisk/KernelSU를 설치합니다.\n2. TrickyStore 모듈을 설치합니다.\n3. keybox.xml을 다음 위치에 복사하세요:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. 자동 새로고침(재부팅 없음)\n\n🧪 테스트:\n=========================\n• 내장된 Play 무결성 검사 사용\n• YASNAC 앱\n• 뱅킹 앱\n• Google 월렛\n\n🔬 고급 기능:\n========================\n\n심층 분석:\n• 인증서 체인 유효성 검사\n• 만료 추적\n• 알고리즘 강도 확인\n• 해지 상태\n\nPlay 무결성 확인:\n• 실시간 API 테스트\n• 기본/장치/STRONG 상태\n• 모듈 감지\n\n일괄 작업:\n• 여러 개의 키박스를 확인하세요\n• 나란히 비교\n• 인증서 추출\n\n💡 팁:\n==========================\n• 공개 키박스는 드물고 빨리 취소됩니다\n• 가장 좋은 소스는 비공개 텔레그램 그룹입니다\n• 설치하기 전에 키박스를 테스트하세요\n• 작동하는 키박스의 백업을 유지하세요\n• 만료 날짜를 확인하세요\n\n🔗 커뮤니티:\n=========================\n• 텔레그램: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: \'키박스 재생 무결성\' 검색\n\n⚠️ 법률 면책조항:\n========================\n교육 목적으로만 사용됩니다.\n수정된 키박스를 사용하면 다음을 위반할 수 있습니다.\n• Google 서비스 약관\n• 앱 개발자 정책\n• 현지 법률\n\n사용에 따른 책임은 본인에게 있습니다!</string>
+    <string name="keybox_reset_title">다운로드 삭제</string>
+    <string name="keybox_reset_summary">다운로드한 모든 키박스를 저장소에서 제거</string>
+    <string name="keybox_reset_dialog_title">⚠️ 다운로드 삭제</string>
+    <string name="keybox_reset_dialog_message">/sdcard/Download/Keyboxes/에서 모든 파일을 삭제하시겠습니까?\n\n이 작업은 취소할 수 없습니다.</string>
+    <string name="keybox_reset_success">✅ 모든 파일이 삭제되었습니다!</string>
+    <string name="keybox_reset_error">❌ 삭제 실패: %s</string>
+    <string name="ram_optimizer_title">RAM 및 스토리지 최적화 프로그램</string>
+    <string name="ram_optimizer_summary">RAM 압축 및 저장 최적화</string>
+    <string name="ram_optimizer_description">더 나은 성능을 위해 zRAM 설정, 앱 최대 절전 모드 및 클린 스토리지를 관리하세요.</string>
+    <string name="zram_category_title">zRAM 압축</string>
+    <string name="zram_enable_title">zRAM 활성화</string>
+    <string name="zram_enable_summary">RAM을 압축하여 메모리 확보</string>
+    <string name="zram_size_title">zRAM 크기(MB)</string>
+    <string name="zram_size_summary">압축된 RAM 크기 설정(512-12288MB)</string>
+    <string name="zram_swappiness_title">교환성</string>
+    <string name="zram_swappiness_summary">zRAM(0-200)으로 얼마나 적극적으로 교체할지 제어</string>
+    <string name="app_hibernation_category_title">앱 최대 절전 모드</string>
+    <string name="app_hibernation_title">앱 최대 절전 모드 활성화</string>
+    <string name="app_hibernation_summary">RAM과 배터리를 절약하기 위해 사용하지 않는 앱을 ​​최대 절전 모드로 전환</string>
+    <string name="storage_cleaner_category_title">스토리지 클리너</string>
+    <string name="storage_stats_title">스토리지 통계</string>
+    <string name="storage_stats_summary">로드 중...</string>
+    <string name="clean_app_cache_title">앱 캐시 정리</string>
+    <string name="clean_app_cache_summary">모든 앱에서 캐시된 데이터를 제거</string>
+    <string name="clean_system_cache_title">시스템 캐시 정리</string>
+    <string name="clean_system_cache_summary">시스템 캐시를 지우고 캐시 삭제</string>
+    <string name="clean_thumbnails_title">썸네일 정리</string>
+    <string name="clean_thumbnails_summary">미디어에서 썸네일 캐시 제거</string>
+    <string name="clean_downloads_title">오래된 다운로드 정리</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">포그라운드 애플리케이션을 기반으로 성능을 자동으로 조정합니다.</string>
+</resources>

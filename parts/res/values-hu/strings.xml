@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Xiaomi beállítások</string>
+    <string name="tile_add">Csempe hozzáadása</string>
+    <string name="tile_added">Csempe hozzáadva</string>
+    <string name="tile_not_added">Csempe nincs hozzáadva</string>
+    <string name="tile_already_added">Csempe már hozzáadva</string>
+    <string name="tile_on">Be</string>
+    <string name="tile_off">Ki</string>
+    <string name="clear_speaker_title">Tiszta hangszóró</string>
+    <string name="clear_speaker_summary">Játssz le egy 30 másodperces hangot a hangszóró törléséhez</string>
+    <string name="clear_speaker_description">Futtassa ezt a funkciót egyszer vagy kétszer, ha úgy találja, hogy a hangszórót enyhén eltakarja a por. Állítsa a média hangerejét maximálisra.\n\nHa a hangszóró erősen blokkolt, futtassa ezt a funkciót 2-5 alkalommal, miközben rázza meg az eszközt úgy, hogy a hangszóró lefelé nézzen.</string>
+    <string name="saturation_title">Kijelző telítettség</string>
+    <string name="saturation_summary">A kijelző telítettségének szabályozása</string>
+    <string name="saturation_footer_summary">A színmód megváltoztatása a megjelenítési beállításokban felülírja a telítettségi szintet, és újra kell alkalmazni.</string>
+    <string name="image_preview_content_description">Előnézet</string>
+    <string name="image_preview_next_page_content_description">Következő</string>
+    <string name="image_preview_previous_page_content_description">Előző</string>
+    <string name="custom_seekbar_value">Érték:</string>
+    <string name="custom_seekbar_default_value">alapértelmezés szerint</string>
+    <string name="custom_seekbar_default_value_to_set">Alapértelmezett érték:</string>
+    <string name="custom_seekbar_default_value_is_set">Az alapértelmezett érték:</string>
+    <string name="auto_hbm_title">Automatikus nagy fényerejű mód (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Automatikus HBM használata</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">Engedélyezve</string>
+    <string name="tile_hbm_off">Letiltva</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM nem elérhető</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Az automatikus HBM vagy az automatikus fényerő engedélyezve van</string>
+    <string name="hbm_mode_title">Nagy fényerejű mód</string>
+    <string name="hbm_mode_notification">A High Brightness Mode most aktiválva van. A hosszú távú használat károsíthatja a kijelzőt.</string>
+    <string name="auto_hbm_summary">A nagy fényerejű mód automatikus engedélyezése a napfény intenzitása (lux) alapján</string>
+    <string name="auto_hbm_threshold_title">Fényküszöb</string>
+    <string name="auto_hbm_threshold_summary">Határozza meg a fényintenzitás küszöbértékét lux egységekben, amelynél a HBM aktiválódik</string>
+    <string name="auto_hbm_enable_time_title">Idő engedélyezése</string>
+    <string name="auto_hbm_enable_time_summary">Az időtartam másodpercben, ameddig a fényküszöböt folyamatosan be kell tartani a HBM aktiválásához</string>
+    <string name="auto_hbm_disable_time_title">Letiltási idő</string>
+    <string name="auto_hbm_disable_time_summary">Az időtartam másodpercben, ameddig a HBM deaktiválódik, ha a fényküszöb a beállított szint alá esik</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">Engedélyezze a rendszerfedvényt (FPS, Temp stb.)</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">A játék fedvényének átváltása</string>
+    <string name="game_bar_enable_title">GameBar Overlay engedélyezése</string>
+    <string name="overlay_permission_required">Fedvényengedély szükséges</string>
+    <string name="overlay_permission_granted">Fedvényengedély megadva</string>
+    <string name="overlay_permission_denied">Fedvényengedély megtagadva</string>
+    <string name="overlay_features_title">Fedvény jellemzői</string>
+    <string name="game_bar_fps_enable_title">FPS Overlay</string>
+    <string name="game_bar_fps_enable_summary">Az aktuális FPS megjelenítése a képernyőn</string>
+    <string name="game_bar_temp_enable_title">Eszköz hőmérséklete</string>
+    <string name="game_bar_temp_enable_summary">Az eszköz (akkumulátor) hőmérsékletének megjelenítése</string>
+    <string name="game_bar_cpu_usage_enable_title">CPU használat</string>
+    <string name="game_bar_cpu_usage_enable_summary">Az aktuális CPU-használat százalékos megjelenítése</string>
+    <string name="game_bar_cpu_clock_enable_title">CPU órajel</string>
+    <string name="game_bar_cpu_clock_enable_summary">Az egyes magok aktuális CPU órajelének megjelenítése</string>
+    <string name="game_bar_cpu_temp_enable_title">CPU hőmérséklet</string>
+    <string name="game_bar_cpu_temp_enable_summary">CPU hőmérséklet megjelenítése (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">RAM használat</string>
+    <string name="game_bar_ram_enable_summary">Az aktuális RAM-használat megjelenítése MB-ban</string>
+    <string name="game_bar_gpu_usage_enable_title">GPU használat</string>
+    <string name="game_bar_gpu_usage_enable_summary">GPU-használati százalék megjelenítése</string>
+    <string name="game_bar_gpu_clock_enable_title">GPU órajel</string>
+    <string name="game_bar_gpu_clock_enable_summary">A GPU aktuális órajelének megjelenítése</string>
+    <string name="game_bar_gpu_temp_enable_title">GPU hőmérséklet</string>
+    <string name="game_bar_gpu_temp_enable_summary">Az aktuális GPU hőmérséklet megjelenítése</string>
+    <string name="fps_measurement_method_title">FPS mérési módszer</string>
+    <string name="game_bar_fps_method_title">Válassza az FPS módszert</string>
+    <string name="game_bar_fps_method_summary">Válasszon a New API metódus (alapértelmezett) és a Legacy Sysfs</string>
+    <string name="customization_title">közül Testreszabás</string>
+    <string name="game_bar_text_size_title">Szöveg mérete</string>
+    <string name="game_bar_text_size_summary">Állítsa be a fedvényszöveg méretét</string>
+    <string name="game_bar_background_alpha_title">Háttér átláthatóság</string>
+    <string name="game_bar_background_alpha_summary">Állítsa be a háttér átlátszóságát</string>
+    <string name="game_bar_corner_radius_title">Fedvény sarok sugara</string>
+    <string name="game_bar_corner_radius_summary">Állítsa be a fedvény sarkainak lekerekítését</string>
+    <string name="game_bar_padding_title">Átfedő bélés</string>
+    <string name="game_bar_padding_summary">Állítsa be a térközt a statisztikák körül</string>
+    <string name="game_bar_item_spacing_title">Tételköz</string>
+    <string name="game_bar_item_spacing_summary">A fedvénysorok közötti távolság beállítása</string>
+    <string name="game_bar_update_interval_title">Frissítési időköz</string>
+    <string name="game_bar_update_interval_summary">Állítsa be, hogy a fedvényértékek milyen gyakran frissüljenek</string>
+    <string name="game_bar_title_color_title">Stat Title Color</string>
+    <string name="game_bar_title_color_summary">Szín az \'FPS\', \'Temp\', \'CPU\' stb. szöveghez</string>
+    <string name="game_bar_value_color_title">Stat Value Color</string>
+    <string name="game_bar_value_color_summary">Szín a numerikus statisztikákhoz (pl. \'29\', \'32,0°C\')</string>
+    <string name="game_bar_position_title">Fedvény pozíciója</string>
+    <string name="game_bar_position_summary">Válassza ki a fedvény pozícióját a képernyőn</string>
+    <string name="game_bar_format_title">Fedvényformátum</string>
+    <string name="game_bar_format_summary">Válasszon a teljes vagy a minimális megjelenítés közül</string>
+    <string name="game_bar_overlay_format_toast">A fedvényformátum a következőre módosult: %s</string>
+    <string name="game_bar_format_entries_full">Teljes</string>
+    <string name="game_bar_format_entries_minimal">Minimális</string>
+    <string name="split_config_title">Split Config</string>
+    <string name="game_bar_split_mode_title">Osztott mód</string>
+    <string name="game_bar_split_mode_summary">Válassza az Egymás melletti vagy Halmozott elrendezést</string>
+    <string name="overlay_gesture_controls_title">Átfedő kézmozdulatvezérlők</string>
+    <string name="game_bar_single_tap_toggle_title">Engedélyezze az egyszeri koppintást a váltáshoz</string>
+    <string name="game_bar_single_tap_toggle_summary">Érintse meg egyszer a teljes és a minimális fedvényformátum közötti váltáshoz</string>
+    <string name="game_bar_doubletap_capture_title">Dupla koppintás engedélyezése a rögzítéshez</string>
+    <string name="game_bar_doubletap_capture_summary">Koppintson duplán a fedvényre a rögzítési naplók elindításához/leállításához</string>
+    <string name="game_bar_longpress_enable_title">Hosszú megnyomás engedélyezése</string>
+    <string name="game_bar_longpress_enable_summary">Nyomja meg hosszan a fedvényt a GameBar beállításainak eléréséhez</string>
+    <string name="game_bar_longpress_timeout_title">Hosszú lenyomás időtartama</string>
+    <string name="game_bar_longpress_timeout_summary">Állítsa be a fedvény hosszú lenyomásához szükséges időtartamot</string>
+    <string name="capture_logs_title">Naplók rögzítése</string>
+    <string name="game_bar_capture_start_title">Naplózás indítása</string>
+    <string name="game_bar_capture_start_summary">Kezdje el az FPS- és a teljesítményadatok valós idejű rögzítését</string>
+    <string name="game_bar_capture_stop_title">Naplózás leállítása</string>
+    <string name="game_bar_capture_stop_summary">Hagyja abba az FPS és a teljesítményadatok valós idejű rögzítését</string>
+    <string name="game_bar_capture_export_title">GameBar naplóadatok exportálása</string>
+    <string name="game_bar_capture_export_summary">Mentse el a rögzített FPS-t és a teljesítményadatokat CSV-fájlként</string>
+    <string name="game_bar_capture_start_toast">Elkezdődött az adatok naplózása</string>
+    <string name="game_bar_capture_stop_toast">Adatnaplózás leállítva</string>
+    <string name="game_bar_capture_export_toast">A naplóadatok fájlba exportálva</string>
+    <string name="game_bar_doubletap_capture_start_toast">A rögzítés megkezdődött</string>
+    <string name="game_bar_doubletap_capture_stop_toast">A rögzítés leállt</string>
+    <string name="auto_enable_gamebar_title">GameBar automatikus engedélyezése</string>
+    <string name="game_bar_auto_enable_title">A GameBar automatikus engedélyezése a kiválasztott alkalmazásokhoz</string>
+    <string name="game_bar_auto_enable_summary">Ha be van kapcsolva, a kiválasztott alkalmazások automatikusan bekapcsolják a GameBar-t akkor is, ha a főkapcsoló ki van kapcsolva</string>
+    <string name="game_bar_app_selector_title">Válassza az Alkalmazások</string>
+    <string name="game_bar_app_selector_summary">Adjon hozzá olyan alkalmazásokat, amelyeknek automatikusan engedélyezniük kell a GameBar</string>
+    <string name="game_bar_app_remover_title">Kiválasztott alkalmazások eltávolítása</string>
+    <string name="game_bar_app_remover_summary">Alkalmazások eltávolítása az automatikus engedélyezési listáról</string>
+    <string name="game_bar_app_remover_activity_title">Alkalmazások automatikus engedélyezése eltávolítása</string>
+    <string name="game_bar_app_selector_activity_title">Válassza az Alkalmazások lehetőséget a GameBar számára</string>
+    <string name="game_bar_app_added_toast">hozzáadva</string>
+    <string name="game_bar_app_removed_toast">eltávolítva</string>
+    <string name="gpu_enable_title">GPU-optimalizáló engedélyezése</string>
+    <string name="gpu_enable_summary">GPU-optimalizálások be- és kikapcsolása</string>
+    <string name="gpu_freq_category_title">GPU-frekvencia konfigurálása</string>
+    <string name="gpu_min_frequency">GPU minimális frekvenciája</string>
+    <string name="gpu_max_frequency">GPU maximális frekvencia</string>
+    <string name="gpu_disabled_defaults_restored">Az Optimizer GPU letiltva, az alapértelmezett értékek visszaállítva</string>
+    <string name="gpu_optimizer_enabled">GPU-optimalizáló engedélyezve</string>
+    <string name="gpu_min_freq_exceeds_max">Sikertelen: a GPU minimális frekvenciája nem haladhatja meg a maximális frekvenciát</string>
+    <string name="gpu_max_freq_below_min">Sikertelen: a GPU maximális frekvenciája nem lehet kisebb, mint a minimális</string>
+    <string name="gpu_min_freq_applied">GPU min frekvencia -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU maximális frekvencia -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">CPU-optimalizáló engedélyezése</string>
+    <string name="cpu_enable_summary">CPU-optimalizálás be- és kikapcsolása</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">CPU-optimalizáló letiltva, az alapértelmezett értékek visszaállítva</string>
+    <string name="cpu_optimizer_enabled">CPU-optimalizáló engedélyezve</string>
+    <string name="cpu_little_category_title">CPU Little Cluster konfigurálása</string>
+    <string name="cpu_little_min_frequency_title">Minimális frekvencia</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Max Frequency</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">kormányzó</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Sikertelen: A CPU minimális frekvenciája nem haladhatja meg a max</string>
+    <string name="cpu_little_max_freq_below_min">Sikertelen: A CPU kis maximális frekvenciája nem lehet kisebb, mint min</string>
+    <string name="cpu_little_min_freq_applied">CPU kis minimális frekvencia -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">CPU kis maximális frekvencia -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">CPU kis kormányzó -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">CPU Big Cluster konfigurálása</string>
+    <string name="cpu_big_min_frequency_title">Minimális frekvencia</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Max Frequency</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">kormányzó</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Sikertelen: CPU nagy minimális frekvencia nem haladhatja meg a max</string>
+    <string name="cpu_big_max_freq_below_min">Sikertelen: A CPU nagy maximális frekvenciája nem lehet kisebb, mint min</string>
+    <string name="cpu_big_min_freq_applied">CPU nagy minimális frekvencia -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">CPU nagy maximális frekvencia -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">CPU nagy kormányzó -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">CPU Prime Cluster konfigurálása</string>
+    <string name="cpu_prime_min_frequency_title">Minimális frekvencia</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Max Frequency</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">kormányzó</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Sikertelen: a CPU elsőszámú minimális frekvenciája nem haladhatja meg a max</string>
+    <string name="cpu_prime_max_freq_below_min">Sikertelen: a CPU maximális frekvenciája nem lehet kisebb, mint min</string>
+    <string name="cpu_prime_min_freq_applied">CPU elsőszámú minimális frekvencia -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">CPU maximális frekvencia -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">CPU elsődleges kormányzó -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">A logcat indítása rendszerindításkor</string>
+    <string name="logcat_autostart_summary">A háttérnaplózás automatikus indítása újraindítás után</string>
+    <string name="logcat_viewer_title">Logcat Viewer</string>
+    <string name="logcat_viewer_summary">Valós idejű naplónézegető megnyitása</string>
+    <string name="logcat_filter_hint">Írja be a címkét vagy a kulcsszót</string>
+    <string name="logcat_filter_title">Naplószűrő</string>
+    <string name="logcat_pause">Szünet</string>
+    <string name="logcat_resume">Folytatás</string>
+    <string name="logcat_autoscroll_on">Automatikus görgetés BE</string>
+    <string name="logcat_autoscroll_off">Automatikus görgetés KI</string>
+    <string name="logcat_save">Napló mentése</string>
+    <string name="logcat_clear">Napló törlése</string>
+    <string name="logcat_share">Megosztás Napló</string>
+    <string name="logcat_settings">Beállítások</string>
+    <string name="logcat_export">Export</string>
+    <string name="logcat_search">Keresés</string>
+    <string name="logcat_notification_title">Logcat Viewer</string>
+    <string name="logcat_notification_text">Háttérnaplózás aktív</string>
+    <string name="logcat_notification_stopped">A háttérnaplózás leállt</string>
+    <string name="logcat_notification_channel_name">Logcat háttérszolgáltatás</string>
+    <string name="logcat_notification_channel_desc">A háttérnaplózás vezérlői</string>
+    <string name="logcat_level_verbose">Bőbeszédű</string>
+    <string name="logcat_level_debug">Hibakeresés</string>
+    <string name="logcat_level_info">Info</string>
+    <string name="logcat_level_warn">Figyelmeztetés</string>
+    <string name="logcat_level_error">Hiba</string>
+    <string name="logcat_no_logs">Nincs elérhető napló</string>
+    <string name="logcat_loading">Naplók betöltése...</string>
+    <string name="logcat_paused">A naplózás szünetel</string>
+    <string name="logcat_active">Naplózás aktív</string>
+    <string name="logcat_filter_applied">Szűrő alkalmazva: %1$s</string>
+    <string name="logcat_logs_cleared">A naplók törölve</string>
+    <string name="logcat_save_progress">Napló mentése...</string>
+    <string name="logcat_save_success">A naplók mentése sikeres volt.</string>
+    <string name="logcat_save_failed">Nem sikerült menteni a naplókat.</string>
+    <string name="logcat_share_subject">Android Logcat Export</string>
+    <string name="logcat_permission_required">Tárolási engedély szükséges a naplók mentéséhez</string>
+    <string name="cpu_tile_label">CPU kormányzó</string>
+    <string name="cpu_tile_unavailable">CPU-vezérlés nem érhető el</string>
+    <string name="cpu_tile_error">CPU megfigyelési hiba</string>
+    <string name="cpu_tile_unknown">Ismeretlen</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Menetrend</string>
+    <string name="cpu_tile_governor_performance">Teljesítmény</string>
+    <string name="cpu_tile_governor_powersave">Powersave</string>
+    <string name="cpu_tile_governor_ondemand">OnDemand</string>
+    <string name="cpu_tile_governor_conservative">konzervatív</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">CPU csempe beállításai</string>
+    <string name="cpu_tile_settings_summary">A CPU-irányító gyorsbeállításai csempe megjelenésének és viselkedésének konfigurálása</string>
+    <string name="cpu_tile_appearance_category">Megjelenés</string>
+    <string name="cpu_tile_behavior_category">Viselkedés</string>
+    <string name="cpu_tile_size_title">Csempe ikon mérete</string>
+    <string name="cpu_tile_size_summary">Válassza ki a CPU csempe ikon méretét</string>
+    <string name="cpu_tile_style_title">Csempe stílus</string>
+    <string name="cpu_tile_style_summary">Válassza ki, hogyan jelenjenek meg a CPU-információk</string>
+    <string name="cpu_tile_show_percentage_title">Használati százalék megjelenítése</string>
+    <string name="cpu_tile_show_percentage_summary">A CPU-használat százalékos megjelenítése a frekvencia helyett</string>
+    <string name="cpu_tile_update_speed_title">Frissítési időköz</string>
+    <string name="cpu_tile_update_speed_summary">Milyen gyakran kell frissíteni a CPU-információkat</string>
+    <string name="cpu_tile_update_speed_fast">Gyors (0,5 s)</string>
+    <string name="cpu_tile_update_speed_normal">Normál (1s)</string>
+    <string name="cpu_tile_update_speed_slow">Lassú (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Nagyon lassú (5 mp)</string>
+    <string name="cpu_tile_preview_title">Változások előnézete</string>
+    <string name="cpu_tile_preview_summary">Érintse meg a csempe frissítéséhez az aktuális beállításokkal</string>
+    <string name="cpu_tile_footer">A CPU-szabályzó csempe lehetővé teszi a gyors váltást a CPU-szabályzók között, és valós idejű CPU-frekvenciát és -használati információkat jelenít meg. Koppintson a csempére az elérhető kormányzók közötti váltáshoz.</string>
+    <string name="performance_mode_title">Teljesítmény mód</string>
+    <string name="performance_mode_summary">A CPU és a GPU maximalizálása a csúcsteljesítmény érdekében. Növeli a hőt és az akkumulátor lemerülését.</string>
+    <string name="performance_mode_enabled_summary">A teljesítmény mód BE van kapcsolva</string>
+    <string name="performance_mode_disabled_summary">A teljesítmény mód KI</string>
+    <string name="performance_profile_title">Teljesítményprofil</string>
+    <string name="performance_profile_summary">Válassza ki a teljesítménymódot az eszköz optimális viselkedéséhez</string>
+    <string name="performance_mode_battery_saver">Akkumulátorkímélő</string>
+    <string name="performance_mode_balanced">Kiegyensúlyozott</string>
+    <string name="performance_mode_performance">Teljesítmény</string>
+    <string name="performance_profile_applied">Teljesítményprofil beállítva a következőre: %s</string>
+    <string name="performance_profile_failed">Nem sikerült alkalmazni a teljesítményprofilt</string>
+    <string name="performance_tile_label">Teljesítmény</string>
+    <string name="performance_notification_channel_name">Teljesítményprofilok</string>
+    <string name="performance_notification_channel_desc">Megjeleníti az aktuális teljesítményprofil állapotát</string>
+    <string name="performance_notification_battery_saver">Az akkumulátorkímélő mód aktív – Meghosszabbított akkumulátor-élettartam</string>
+    <string name="performance_notification_balanced">A kiegyensúlyozott mód aktív – Optimális teljesítmény és akkumulátor-élettartam</string>
+    <string name="performance_notification_performance">A teljesítmény mód aktív – Maximális teljesítmény</string>
+    <string name="performance_footer_title">Teljesítményprofil információ</string>
+    <string name="performance_footer_summary">• Akkumulátorkímélő: Meghosszabbítja az akkumulátor élettartamát a CPU és a GPU teljesítményének csökkentésével. Ideális könnyű használathoz és az akkumulátor maximális élettartamához.\n\n• Kiegyensúlyozott: Optimális egyensúlyt biztosít a teljesítmény és az akkumulátor élettartama között. Napi használatra ajánlott.\n\n• Teljesítmény: Maximalizálja a CPU és a GPU teljesítményét az igényes feladatokhoz. A legjobb játékhoz, nehéz alkalmazásokhoz és intenzív munkaterheléshez. Csökkentheti az akkumulátor élettartamát.</string>
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi Garnet speciális beállítások</string>
+    <string name="xiaomi_parts_summary">Xiaomi eszközspecifikus beállítások</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">Kijelző</string>
+    <string name="sound_title">Hang</string>
+    <string name="power_title">Teljesítmény</string>
+    <string name="gaming_title">Gaming and Utils</string>
+    <string name="about_me_title">Rólam</string>
+    <string name="about_me_summary">Minden, amit az InOvaTioNról tudni kell</string>
+    <string name="about_me_contact_title">Támogatás</string>
+    <string name="about_me_contact_summary">Ott kaphat segítséget</string>
+    <string name="about_me_donate_title">Donate Me on paypal</string>
+    <string name="about_me_donate_summary">Támogassa a munkámat, hogy tovább építhessem</string>
+    <string name="about_me_donate2_title">Vásároljon kávét</string>
+    <string name="about_me_donate2_summary">Hívjon egy sörre vagy egy kávéra</string>
+    <string name="core_control_title">Core Control</string>
+    <string name="core_control_summary">Az egyes CPU magok manuális engedélyezése vagy letiltása</string>
+    <string name="core_control_description">Fejlett CPU vezérlés. A magok kikapcsolása kímélheti az akkumulátort vagy a hőterhelést, de hatással lehet a teljesítményre és a stabilitásra.\n\nLegalább két kis magnak folyamatosan online kell maradnia.</string>
+    <string name="keep_little_cores_online">Legalább 2 kis magnak online kell maradnia</string>
+    <string name="core_0">Core 0 (Kevés)</string>
+    <string name="core_1">Core 1 (Kis)</string>
+    <string name="core_2">Core 2 (Kis)</string>
+    <string name="core_3">3. mag (kis)</string>
+    <string name="core_4">Core 4 (nagy)</string>
+    <string name="core_5">Core 5 (nagy)</string>
+    <string name="core_6">6. mag (nagy)</string>
+    <string name="core_7">Core 7 (nagy)</string>
+    <string name="error">Hiba</string>
+    <string name="kernel_manager_title">Kernel Manager</string>
+    <string name="kernel_manager_summary">CPU-frekvenciák és kormányzó kezelése</string>
+    <string name="kernel_manager_efficiency_category">Hatékonysági klaszter (A55)</string>
+    <string name="kernel_manager_performance_category">Teljesítmény klaszter (A78)</string>
+    <string name="kernel_manager_governor">CPU kormányzó</string>
+    <string name="kernel_manager_governor_summary">Válassza ki a CPU kormányzót a fürtökhöz</string>
+    <string name="cpu_governor_summary">Jelenlegi: %s</string>
+    <string name="kernel_manager_min_freq">Minimális gyakoriság</string>
+    <string name="kernel_manager_min_freq_summary">Állítsa be a minimális megengedett CPU-frekvenciát</string>
+    <string name="kernel_manager_max_freq">Maximális frekvencia</string>
+    <string name="kernel_manager_max_freq_summary">Állítsa be a maximális megengedett CPU-frekvenciát</string>
+    <string name="kernel_info_category">Információ</string>
+    <string name="kernel_info_title">A Kernel Managerről</string>
+    <string name="kernel_info_summary">Kezelje a CPU-szabályzót és a frekvenciaskálázást az összes CPU-fürthöz. A változtatások hatással lehetnek a teljesítményre és az akkumulátor élettartamára.</string>
+    <string name="kernel_manager_apply">Beállítások alkalmazása</string>
+    <string name="kernel_manager_apply_summary">Alkalmazza a kiválasztott CPU-beállításokat</string>
+    <string name="kernel_manager_reset">Visszaállítás alapértelmezettre</string>
+    <string name="kernel_manager_reset_summary">Az alapértelmezett CPU-beállítások visszaállítása</string>
+    <string name="settings_applied">A beállítások sikeresen alkalmazva</string>
+    <string name="settings_reset">A beállítások visszaállnak az alapértelmezettre</string>
+    <string name="kernel_manager_footer">A CPU-szabályzók szabályozzák, hogy az eszköz hogyan állítsa be a CPU-frekvenciát a teljesítmény és az energiafelhasználás egyensúlya érdekében. Íme egy gyors áttekintés:\n\n• walt: A Google által kifejlesztett, a válaszkészségre és a felhasználói interakciók késleltetésére optimalizált kormányzó, főként Pixel eszközökön használatos.\n• konzervatív: Fokozatosan növeli a CPU frekvenciáját; kíméli az akkumulátort, de csökkentheti a reakcióképességet.\n• energiatakarékosság: A lehető legalacsonyabb frekvencián tartja a CPU-t, előnyben részesítve az akkumulátor élettartamát a teljesítménnyel szemben.\n• Teljesítmény: Maximális frekvencián zárolja a CPU-t, maximális teljesítményt biztosítva akkumulátor árán.\n• Schedhorizon: Az ütemezőt ismerő kormányzó, amely a jobb feladatok migrációját és hatékonyságát célozza a magok között.\n• A sok modern kernel; a Linux ütemező adatait használja a CPU frekvencia intelligens és hatékony skálázásához.</string>
+    <string name="kernel_manager_cpu_monitor">CPU Core Monitoring</string>
+    <string name="kernel_manager_core_online">Online</string>
+    <string name="kernel_manager_core_offline">Offline</string>
+    <string name="kernel_manager_loading">Betöltés...</string>
+    <string name="kernel_manager_enable_monitoring">Valós idejű megfigyelés</string>
+    <string name="kernel_manager_enable_monitoring_summary">A CPU magállapotának folyamatos frissítése</string>
+    <string name="kernel_manager_update_interval">Frissítési gyakoriság</string>
+    <string name="kernel_manager_update_interval_summary">Milyen gyakran kell frissíteni az adatokat</string>
+    <string name="kernel_manager_efficiency_cluster_summary">A hatékonysági klaszter összefoglalása</string>
+    <string name="kernel_manager_performance_cluster_summary">Teljesítményfürt összefoglalása</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d mag online | Tartomány: %3$s – %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    <string name="update_interval_500ms">0,5 másodperc</string>
+    <string name="update_interval_1000ms">1 másodperc</string>
+    <string name="update_interval_2000ms">2 másodperc</string>
+    <string name="update_interval_5000ms">5 másodperc</string>
+    <string name="cpu_core_status_online">🟢 %1$s - Online</string>
+    <string name="cpu_core_status_offline">🔴 %1$s – Offline</string>
+    <string name="kernel_manager_governor_current">%1$s (Jelenleg: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Jelenleg: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">A valós idejű megfigyelés le van tiltva. Engedélyezze az élő CPU-magfrekvenciák és állapotok megtekintéséhez.</string>
+    <string name="kernel_manager_error_read">A CPU információi nem olvashatók</string>
+    <string name="kernel_manager_error_write">Nem lehet alkalmazni a CPU beállításait. Root hozzáférésre lehet szükség.</string>
+    <string name="kernel_manager_error_permission">Engedély megtagadva. Root hozzáférés szükséges a CPU beállításainak módosításához.</string>
+    <string name="gpu_manager_title">GPU Manager</string>
+    <string name="gpu_manager_summary">GPU-frekvenciák és energiabeállítások kezelése</string>
+    <string name="gpu_governor_title">GPU kormányzó</string>
+    <string name="gpu_governor_summary">Jelenlegi: %s</string>
+    <string name="gpu_freq_title">GPU-frekvenciák</string>
+    <string name="gpu_min_freq_title">Minimális gyakoriság</string>
+    <string name="gpu_max_freq_title">Maximális frekvencia</string>
+    <string name="gpu_max_gpuclk_title">Max GPUCLK felülírás</string>
+    <string name="gpu_max_gpuclk_summary">Extra órajel-növelés (max. 940 MHz)</string>
+    <string name="gpu_current_freq_title">Aktuális frekvencia</string>
+    <string name="gpu_power_title">Energiagazdálkodási beállítások</string>
+    <string name="gpu_force_clk_on_title">Óra kényszerítése</string>
+    <string name="gpu_force_clk_on_summary">Tartsa a GPU óráját mindig bekapcsolva</string>
+    <string name="gpu_force_bus_on_title">Busz bekapcsolása</string>
+    <string name="gpu_force_bus_on_summary">GPU busz mindig bekapcsolva</string>
+    <string name="gpu_force_rail_on_title">Force Rail On</string>
+    <string name="gpu_force_rail_on_summary">Tartsa a GPU tápsínét mindig bekapcsolva</string>
+    <string name="gpu_force_no_nap_title">Force No Nap</string>
+    <string name="gpu_force_no_nap_summary">GPU szunyókálás letiltása a keretek között</string>
+    <string name="gpu_bus_split_title">Bus Split</string>
+    <string name="gpu_bus_split_summary">GPU-busz felosztásának engedélyezése</string>
+    <string name="gpu_preempt_title">GPU Preemption</string>
+    <string name="gpu_preempt_summary">Alacsony késleltetésű játék (lehetővé teszi a legjobb játékélményt)</string>
+    <string name="gpu_camera_boost_title">Camera Boost</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (maximális kamera/videokódolási teljesítmény)</string>
+    <string name="gpu_thermal_title">Hőbeállítások</string>
+    <string name="gpu_thermal_pwrlevel_title">Hőteljesítmény szint</string>
+    <string name="gpu_thermal_pwrlevel_summary">Jelenlegi hőteljesítmény szint</string>
+    <string name="gpu_temp_title">GPU hőmérséklet</string>
+    <string name="gpu_info_title">GPU információ</string>
+    <string name="gpu_model_title">GPU-modell</string>
+    <string name="gpu_busy_percentage_title">GPU terhelés</string>
+    <string name="gpu_reset_count_title">Számláló visszaállítása</string>
+    <string name="gpu_preempt_count_title">Elővásárlási szám</string>
+    <string name="gpu_info_category">GPU információ</string>
+    <string name="gpu_settings_category">GPU beállítások</string>
+    <string name="gpu_advanced_category">Speciális beállítások</string>
+    <string name="gpu_info_summary">A GPU-frekvencia-skálázás és az energiabeállítások kezelése. A változtatások hatással lehetnek a teljesítményre és az akkumulátor élettartamára.</string>
+    <string name="apply_settings">Beállítások alkalmazása</string>
+    <string name="reset_settings">Beállítások visszaállítása</string>
+    <string name="gpu_turbo_preset_title">Turbó előre beállított</string>
+    <string name="gpu_turbo_preset_summary">Maximális teljesítmény: 940 MHz-es zár, teljesítményszabályzó, minden erősítés BE</string>
+    <string name="gpu_turbo_enabled">🚀 Turbó mód engedélyezve!</string>
+    <string name="gpu_settings_applied">Beállítások alkalmazva!</string>
+    <string name="gpu_settings_reset">A beállítások visszaállnak az alapértelmezett értékekre!</string>
+    <string name="unknown">Ismeretlen</string>
+    <string name="thermal_level_summary">%s szint</string>
+    <string name="camera_boost_triggered">Kamera/videó erősítés aktiválva!</string>
+    <string name="video_enhancer_title">Video Enhancer</string>
+    <string name="video_enhancer_summary">Kijelző és teljesítményoptimalizálás a Redmi Note 13 Pro 5G-hez</string>
+    <string name="video_enhancer_display_category">📺 Megjelenítési jellemzők</string>
+    <string name="smooth_motion_enable_title">Sima mozgás</string>
+    <string name="smooth_motion_enable_summary">Hardveres mozgássimítás videókhoz (alapértelmezett: KI) • Újraindítás szükséges</string>
+    <string name="optimize_refresh_enable_title">Frissítési gyakoriság optimalizálása</string>
+    <string name="optimize_refresh_enable_summary">Dinamikus frissítési gyakoriság a tartalom alapján (alapértelmezett: KI) • Újraindítás szükséges</string>
+    <string name="peak_refresh_rate_title">120 Hz csúcs frissítési gyakoriság</string>
+    <string name="peak_refresh_rate_summary">120 Hz engedélyezése érintésre (200 ms) • Gyári érték • Újraindítás szükséges</string>
+    <string name="video_enhancer_performance_category">⚡ Teljesítményoptimalizálás</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">Vulkan használata az OpenGL ES (Adreno 710) helyett • Újraindítás szükséges</string>
+    <string name="purgeable_assets_title">Kitisztítható eszközök</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">A tárhelyen lévő összes letöltött billentyűzet listája</string>
+    <string name="keybox_verify_title">Letöltések ellenőrzése</string>
+    <string name="keybox_verify_summary">Ellenőrizze a letöltött kulcsdobozok XML-struktúráját</string>
+    <string name="keybox_analyze_title">Mélyelemzés</string>
+    <string name="keybox_analyze_summary">Tanúsítványláncok, lejárat és érvényesség elemzése</string>
+    <string name="keybox_check_api_title">Ellenőrizze a lejátszás integritását</string>
+    <string name="keybox_check_api_summary">Tesztelje a billentyűzetet a Google Play Integrity API-val</string>
+    <string name="keybox_compare_title">Keyboxok összehasonlítása</string>
+    <string name="keybox_compare_summary">Több billentyűzet egymás melletti összehasonlítása</string>
+    <string name="keybox_extract_certs_title">Tanúsítványok kivonata</string>
+    <string name="keybox_extract_certs_summary">Tanúsítványok exportálása PEM-fájlként</string>
+    <string name="keybox_batch_verify_title">Batch Verify</string>
+    <string name="keybox_batch_verify_summary">Több kulcstartó tesztelése részletes jelentésekkel</string>
+    <string name="keybox_status_title">Billentyűzet állapota</string>
+    <string name="keybox_status_summary">Jelenlegi: %s</string>
+    <string name="keybox_status_installed">✅ Érvényes fájl letöltve</string>
+    <string name="keybox_status_not_installed">❌ Nincsenek letöltött fájlok</string>
+    <string name="keybox_status_unknown">⚠️ Ismeretlen</string>
+    <string name="keybox_device_id_title">Eszközazonosító</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Tanúsítványok száma</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">A tanúsítvány lejárata</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Sablonok generálása</string>
+    <string name="keybox_search_dialog_title">Keresés a közösségi kulcsdobozokban</string>
+    <string name="keybox_import_dialog_title">Import Keybox</string>
+    <string name="keybox_export_dialog_title">A letöltött billentyűzetek listája</string>
+    <string name="keybox_verify_dialog_title">Letöltött billentyűzetek ellenőrzése</string>
+    <string name="keybox_analyze_dialog_title">Mélyelemzés</string>
+    <string name="keybox_analyze_dialog_message">Ezzel mélyreható tanúsítványelemzést hajt végre:\n\n✅ Ellenőrzések:\n• Tanúsítványlánc érvényesítése\n• Lejárati dátumok\n• Aláírási algoritmusok\n• Kulcsméretek\n• Kibocsátó információi\n• Tanúsítvány visszavonási állapota\n\n⚠️ Ez 10-30 másodpercet vesz igénybe kulcsdobozonként.\n\nFolytatás?</string>
+    <string name="keybox_check_api_dialog_title">Play Integrity Check</string>
+    <string name="keybox_check_api_dialog_message">Ezzel teszteli a kulcsdobozt a Google Play Integrity API-val.\n\n🔍 Amit ellenőrzi:\n• ALAPVETŐ integritás\n• ESZKÖZ integritása \n• ERŐS integritás\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ KÖVETELMÉNYEK:\n• A Keyboxot telepíteni kell a Magisk vagy a PlayKernely modulba\n/PlaykernSUx. Internetkapcsolat\n\n⏱️ 5-10 másodpercet vesz igénybe\n\nFolytatja?</string>
+    <string name="keybox_compare_dialog_title">Keyboxok összehasonlítása</string>
+    <string name="keybox_compare_dialog_message">Több letöltött billentyűzet összehasonlítása:\n\n📊 Az összehasonlítás a következőket tartalmazza:\n• Eszközazonosítók\n• Tanúsítványok száma\n• Lejárati dátumok\n• Algoritmustípusok\n• Kulcsformátumok (PIF/TrickyStore)\n\nVálassza ki az összehasonlítandó billentyűzeteket.</string>
+    <string name="keybox_extract_dialog_title">Tanúsítványok kivonata</string>
+    <string name="keybox_extract_dialog_message">Külön PEM-fájlokként bontsa ki a tanúsítványokat a kulcstartóból.\n\n📁 Exportálások:\n• RSA-tanúsítványok\n• ECDSA-tanúsítványok\n• Privát kulcsok (ha szükséges)\n\nA fájlok a következő helyre mentve: /Letöltés/Keyboxes/certs/\n\nFolytatja?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Figyelmeztetés</string>
+    <string name="keybox_overwrite_dialog_message">Ez a művelet nem támogatott ebben az alkalmazásverzióban.</string>
+    <string name="keybox_generating">🔄 Sablonok generálása…</string>
+    <string name="keybox_searching">🔍 Közösségi források keresése…</string>
+    <string name="keybox_downloading">Keybox letöltése a tárolóból…</string>
+    <string name="keybox_verifying">🔍 Struktúrák ellenőrzése…</string>
+    <string name="keybox_analyzing">🔬 Tanúsítványok elemzése…</string>
+    <string name="keybox_checking_api">🌐 A Play Integrity API tesztelése…</string>
+    <string name="keybox_comparing">📊 A billentyűzetek összehasonlítása…</string>
+    <string name="keybox_extracting">📦 Tanúsítványok kinyerése…</string>
+    <string name="keybox_generate_success">✅ A sablonok sikeresen generálva!</string>
+    <string name="keybox_search_success">✅ Az érvényes kulcstartót megtaláltuk és letöltöttük!</string>
+    <string name="keybox_import_success">✅ A kulcstartó sikeresen importálva!</string>
+    <string name="keybox_export_success">✅ Fájllista generálva.</string>
+    <string name="keybox_verify_success">✅ Az ellenőrzés befejeződött.</string>
+    <string name="keybox_analyze_success">✅ Elemzés kész.</string>
+    <string name="keybox_check_api_success">✅ Az integritás ellenőrzése befejeződött.</string>
+    <string name="keybox_compare_success">✅ Összehasonlítás kész.</string>
+    <string name="keybox_extract_success">✅ Tanúsítványok kivonva!</string>
+    <string name="keybox_generate_error">❌ Nem sikerült létrehozni a sablonokat!\n\nHiba: %s</string>
+    <string name="keybox_search_error">❌ Nem sikerült megtalálni az érvényes billentyűzetet!\n\nHiba: %s</string>
+    <string name="keybox_import_error">❌ Nem sikerült importálni a billentyűzetet!\n\nHiba: %s</string>
+    <string name="keybox_export_error">❌ Nem sikerült listázni a fájlokat!\n\nHiba: %s</string>
+    <string name="keybox_verify_error">❌ Az ellenőrzés sikertelen!\n\nHiba: %s</string>
+    <string name="keybox_analyze_error">❌ Az elemzés sikertelen!\n\nHiba: %s</string>
+    <string name="keybox_check_api_error">❌ Az integritás ellenőrzése nem sikerült!\n\nHiba: %s</string>
+    <string name="keybox_no_root">❌ Ehhez az alkalmazáshoz NEM szükséges root hozzáférés.</string>
+    <string name="keybox_no_internet">❌ Internet kapcsolat szükséges!</string>
+    <string name="keybox_no_keybox">❌ Nincsenek letöltött fájlok!</string>
+    <string name="keybox_no_module">❌ Nem észlelhető Magisk/KernelSU modul!</string>
+    <string name="keybox_info_title">A Keybox Manager névjegye</string>
+    <string name="keybox_info_summary">További információ az Android tanúsítványról és a Keyboxról</string>
+    <string name="keybox_info_dialog_title">Box of Keybox\'s - Információ</string>
+    <string name="keybox_info_dialog_message">🔑 MI EZ AZ ALKALMAZÁS?\n═════════════════════════════════════ Android Advanced Testing eszköz. NINCS ROOT szükséges a letöltéshez/elemzéshez.\n\n✅ TULAJDONSÁGOK:\n• Keresés közösségi forrásokban\n• Egyéni kulcsdobozok importálása\n• Mély tanúsítványelemzés\n• Play Integrity API tesztelése\n• Kötegelt ellenőrzés\n• Tanúsítványkivonat\n• Egymás melletti összehasonlítás\n\n📁 HELYSZÍN\Kártya/dobozoknLetöltések/n/ TELEPÍTÉS:\n══════════════════════════\n\nFix 1. lehetőség: Play. Telepítse a Magisk/KernelSU-t\n2. Telepítse a PIF modult\n3. Másolja a keybox.xml fájlt ide:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Újraindítás\n\n2. lehetőség: TrickyStore\n1. Telepítse a Magisk/KernelSU-t\n2. Telepítse a TrickyStore modult\n3. Másolja a keybox.xml fájlt ide:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Automatikus újratöltés (nincs újraindítás)\n\n🧪 TESZTELÉS:\n═════════════════════════════════════════════════════════════ beépített n•n•n Használat ellenőrzése YaSNAC alkalmazás\n• Banki alkalmazások\n• Google Wallet\n\n🔬 HALADÓ JELLEMZŐK:\n══════════════════════════\n\nMély hitelesítési láncelemzés:•n\• hitelesítési láncelemzés Algoritmus erősségének ellenőrzése\n• Visszavonási állapot\n\nPlay integritás ellenőrzése:\n• Valós idejű API-tesztelés\n• ALAP/ESZKÖZ/STRONG állapot\n• Modulérzékelés\n\nKötegelt műveletek:\n• Több kulcstartó ellenőrzése\n• Egymás melletti összehasonlítás\n• Tanúsítványok kibontása\n\n💡 TIPPEK:\n════════════════════════════════\n• A titkos kulcsok forráskódja\n• A nyilvános kulcsdobozok ritkák és gyorsan visszavonhatók telepítés\n• Készítsen biztonsági másolatot a működő billentyűzetről\n• Ellenőrizze a lejárati dátumokat\n\n🔗 KÖZÖSSÉG:\n══════════════════════════\n• Telegram: @PlayInt.com\n•id. XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Keressen „keybox play integrity” kifejezésre\n\n⚠️ JOGI JOGI NYILATKOZAT:\n══════════════════════════\n• A Google használati feltételei: csak oktatási célokra módosíthatók.\n Szolgáltatás\n• Alkalmazásfejlesztői irányelvek\n• Helyi törvények\n\nSaját felelősségre használja!</string>
+    <string name="keybox_reset_title">Letöltések törlése</string>
+    <string name="keybox_reset_summary">Távolítsa el az összes letöltött kulcstartót a tárhelyről</string>
+    <string name="keybox_reset_dialog_title">⚠️ Letöltések törlése</string>
+    <string name="keybox_reset_dialog_message">Törli az ÖSSZES fájlt a /sdcard/Download/Keyboxes/ mappából?\n\nEz nem vonható vissza.</string>
+    <string name="keybox_reset_success">✅ Minden fájl törölve!</string>
+    <string name="keybox_reset_error">❌ A törlés nem sikerült: %s</string>
+    <string name="ram_optimizer_title">RAM és tárhely-optimalizáló</string>
+    <string name="ram_optimizer_summary">A RAM tömörítésének és tárolásának optimalizálása</string>
+    <string name="ram_optimizer_description">A jobb teljesítmény érdekében kezelheti a zRAM-beállításokat, az alkalmazások hibernálását és a tiszta tárhelyet.</string>
+    <string name="zram_category_title">zRAM tömörítés</string>
+    <string name="zram_enable_title">zRAM engedélyezése</string>
+    <string name="zram_enable_summary">Tömörítse a RAM-ot a memória felszabadításához</string>
+    <string name="zram_size_title">zRAM mérete (MB)</string>
+    <string name="zram_size_summary">Állítsa be a tömörített RAM méretét (512-12288 MB)</string>
+    <string name="zram_swappiness_title">Cserecsere</string>
+    <string name="zram_swappiness_summary">Szabályozza, hogy milyen agresszíven váltson zRAM-ra (0-200)</string>
+    <string name="app_hibernation_category_title">Alkalmazás hibernálása</string>
+    <string name="app_hibernation_title">Alkalmazások hibernálásának engedélyezése</string>
+    <string name="app_hibernation_summary">Hibernálja a nem használt alkalmazásokat a RAM és az akkumulátor megtakarítása érdekében</string>
+    <string name="storage_cleaner_category_title">Tárolótisztító</string>
+    <string name="storage_stats_title">Tárolási statisztikák</string>
+    <string name="storage_stats_summary">Betöltés...</string>
+    <string name="clean_app_cache_title">Alkalmazás-gyorsítótár tisztítása</string>
+    <string name="clean_app_cache_summary">Távolítsa el a gyorsítótárazott adatokat az összes alkalmazásból</string>
+    <string name="clean_system_cache_title">Rendszergyorsítótár tisztítása</string>
+    <string name="clean_system_cache_summary">Törölje a rendszer gyorsítótárát és dobja el a gyorsítótárakat</string>
+    <string name="clean_thumbnails_title">Miniatűrök tisztítása</string>
+    <string name="clean_thumbnails_summary">Távolítsa el a miniatűr gyorsítótárat az adathordozóról</string>
+    <string name="clean_downloads_title">Tisztítsa meg a régi letöltéseket</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">A teljesítmény automatikus beállítása az előtérben lévő alkalmazás alapján</string>
+</resources>

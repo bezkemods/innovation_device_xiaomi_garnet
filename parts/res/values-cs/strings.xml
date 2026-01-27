@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Nastavení Xiaomi</string>
+    <string name="tile_add">Přidat dlaždici</string>
+    <string name="tile_added">Dlaždice přidána</string>
+    <string name="tile_not_added">Dlaždice nebyla přidána</string>
+    <string name="tile_already_added">Dlaždice již přidána</string>
+    <string name="tile_on">Dne</string>
+    <string name="tile_off">Vypnuto</string>
+    <string name="clear_speaker_title">Jasný reproduktor</string>
+    <string name="clear_speaker_summary">Přehrajte 30sekundový zvuk pro vyčištění reproduktoru</string>
+    <string name="clear_speaker_description">Spusťte tuto funkci jednou nebo dvakrát, pokud zjistíte, že je reproduktor lehce zablokován prachem. Nastavte hlasitost médií na maximum.\n\nPokud je reproduktor silně blokován, spusťte tuto funkci 2–5krát a zatřeste zařízením s reproduktorem směrem dolů.</string>
+    <string name="saturation_title">Sytost zobrazení</string>
+    <string name="saturation_summary">Ovládejte úroveň saturace displeje</string>
+    <string name="saturation_footer_summary">Změna barevného režimu v nastavení zobrazení přepíše úroveň sytosti a bude nutné ji znovu použít.</string>
+    <string name="image_preview_content_description">Náhled</string>
+    <string name="image_preview_next_page_content_description">Další</string>
+    <string name="image_preview_previous_page_content_description">Předchozí</string>
+    <string name="custom_seekbar_value">Hodnota:</string>
+    <string name="custom_seekbar_default_value">standardně</string>
+    <string name="custom_seekbar_default_value_to_set">Výchozí hodnota:</string>
+    <string name="custom_seekbar_default_value_is_set">Výchozí hodnota je nastavena</string>
+    <string name="auto_hbm_title">Automatický režim vysokého jasu (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Použijte automatické HBM</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">Povoleno</string>
+    <string name="tile_hbm_off">Zakázáno</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM není k dispozici</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Auto HBM nebo Auto Brightness je povoleno</string>
+    <string name="hbm_mode_title">Režim vysokého jasu</string>
+    <string name="hbm_mode_notification">Režim vysokého jasu je nyní aktivován. Dlouhodobé používání může poškodit váš displej.</string>
+    <string name="auto_hbm_summary">Automaticky povolit režim vysokého jasu na základě intenzity slunečního světla (lux)</string>
+    <string name="auto_hbm_threshold_title">Světelný práh</string>
+    <string name="auto_hbm_threshold_summary">Definujte práh intenzity světla v luxech, při kterém se HBM aktivuje</string>
+    <string name="auto_hbm_enable_time_title">Povolit čas</string>
+    <string name="auto_hbm_enable_time_summary">Doba v sekundách, po kterou musí být trvale splněn světelný práh pro aktivaci HBM</string>
+    <string name="auto_hbm_disable_time_title">Zakázat čas</string>
+    <string name="auto_hbm_disable_time_summary">Doba v sekundách, po kterou je HBM deaktivováno, pokud prahová hodnota světla klesne pod nastavenou úroveň</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">Povolit překrytí systému (FPS, Temp atd.)</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">Přepnout překryvnou vrstvu hry</string>
+    <string name="game_bar_enable_title">Povolit překrytí GameBar</string>
+    <string name="overlay_permission_required">Je vyžadováno oprávnění k překrytí</string>
+    <string name="overlay_permission_granted">Uděleno oprávnění k překrytí</string>
+    <string name="overlay_permission_denied">Oprávnění k překrytí odepřeno</string>
+    <string name="overlay_features_title">Funkce překrytí</string>
+    <string name="game_bar_fps_enable_title">FPS Overlay</string>
+    <string name="game_bar_fps_enable_summary">Zobrazit aktuální FPS na obrazovce</string>
+    <string name="game_bar_temp_enable_title">Teplota zařízení</string>
+    <string name="game_bar_temp_enable_summary">Zobrazit teplotu zařízení (baterie).</string>
+    <string name="game_bar_cpu_usage_enable_title">Využití CPU</string>
+    <string name="game_bar_cpu_usage_enable_summary">Zobrazit aktuální procento využití CPU</string>
+    <string name="game_bar_cpu_clock_enable_title">Rychlosti CPU</string>
+    <string name="game_bar_cpu_clock_enable_summary">Zobrazit aktuální takt CPU pro každé jádro</string>
+    <string name="game_bar_cpu_temp_enable_title">Teplota CPU</string>
+    <string name="game_bar_cpu_temp_enable_summary">Zobrazit teplotu CPU (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">Využití RAM</string>
+    <string name="game_bar_ram_enable_summary">Zobrazit aktuální využití paměti RAM v MB</string>
+    <string name="game_bar_gpu_usage_enable_title">Využití GPU</string>
+    <string name="game_bar_gpu_usage_enable_summary">Zobrazit procento využití GPU</string>
+    <string name="game_bar_gpu_clock_enable_title">Rychlost hodin GPU</string>
+    <string name="game_bar_gpu_clock_enable_summary">Zobrazit aktuální taktovací frekvenci GPU</string>
+    <string name="game_bar_gpu_temp_enable_title">Teplota GPU</string>
+    <string name="game_bar_gpu_temp_enable_summary">Zobrazit aktuální teplotu GPU</string>
+    <string name="fps_measurement_method_title">Metoda měření FPS</string>
+    <string name="game_bar_fps_method_title">Vyberte metodu FPS</string>
+    <string name="game_bar_fps_method_summary">Vyberte si mezi metodou New API (výchozí) a Legacy Sysfs</string>
+    <string name="customization_title">Přizpůsobení</string>
+    <string name="game_bar_text_size_title">Velikost textu</string>
+    <string name="game_bar_text_size_summary">Upravte velikost překryvného textu</string>
+    <string name="game_bar_background_alpha_title">Průhlednost pozadí</string>
+    <string name="game_bar_background_alpha_summary">Upravte průhlednost pozadí</string>
+    <string name="game_bar_corner_radius_title">Poloměr překryvného rohu</string>
+    <string name="game_bar_corner_radius_summary">Upravte, jak zaoblené mají být rohy překrytí</string>
+    <string name="game_bar_padding_title">Překryvná výplň</string>
+    <string name="game_bar_padding_summary">Upravte prostor kolem statistik</string>
+    <string name="game_bar_item_spacing_title">Rozestup položek</string>
+    <string name="game_bar_item_spacing_summary">Upravte mezery mezi překryvnými čarami</string>
+    <string name="game_bar_update_interval_title">Interval aktualizace</string>
+    <string name="game_bar_update_interval_summary">Nastavte, jak často se aktualizují hodnoty překrytí</string>
+    <string name="game_bar_title_color_title">Stat Název Barva</string>
+    <string name="game_bar_title_color_summary">Barva pro \'FPS\', \'Temp\', \'CPU\' atd. text</string>
+    <string name="game_bar_value_color_title">Stat Value Color</string>
+    <string name="game_bar_value_color_summary">Barva pro číselné statistiky (např. \'29\', \'32,0°C\')</string>
+    <string name="game_bar_position_title">Poloha překrytí</string>
+    <string name="game_bar_position_summary">Vyberte pozici překrytí na obrazovce</string>
+    <string name="game_bar_format_title">Překryvný formát</string>
+    <string name="game_bar_format_summary">Vyberte si mezi úplným nebo minimálním zobrazením</string>
+    <string name="game_bar_overlay_format_toast">Formát překrytí změněn na: %s</string>
+    <string name="game_bar_format_entries_full">Celý</string>
+    <string name="game_bar_format_entries_minimal">Minimální</string>
+    <string name="split_config_title">Rozdělit konfiguraci</string>
+    <string name="game_bar_split_mode_title">Split režim</string>
+    <string name="game_bar_split_mode_summary">Vyberte uspořádání vedle sebe nebo naskládané</string>
+    <string name="overlay_gesture_controls_title">Ovládací prvky překryvných gest</string>
+    <string name="game_bar_single_tap_toggle_title">Povolit přepínání jedním klepnutím</string>
+    <string name="game_bar_single_tap_toggle_summary">Jedním klepnutím přepnete mezi úplným a minimálním překryvným formátem</string>
+    <string name="game_bar_doubletap_capture_title">Povolit dvojité klepnutí pro zachycení</string>
+    <string name="game_bar_doubletap_capture_summary">Dvojitým klepnutím na překrytí spustíte/zastavíte protokoly zachycení</string>
+    <string name="game_bar_longpress_enable_title">Povolit dlouhé stisknutí</string>
+    <string name="game_bar_longpress_enable_summary">Dlouhým stisknutím překryvu získáte přístup k nastavení GameBar</string>
+    <string name="game_bar_longpress_timeout_title">Long Press Duration</string>
+    <string name="game_bar_longpress_timeout_summary">Nastavte dobu potřebnou k dlouhému stisknutí překryvu</string>
+    <string name="capture_logs_title">Zaznamenat protokoly</string>
+    <string name="game_bar_capture_start_title">Zahájit protokolování</string>
+    <string name="game_bar_capture_start_summary">Začněte zaznamenávat FPS a údaje o výkonu v reálném čase</string>
+    <string name="game_bar_capture_stop_title">Zastavit protokolování</string>
+    <string name="game_bar_capture_stop_summary">Zastavit zachycování FPS a údajů o výkonu v reálném čase</string>
+    <string name="game_bar_capture_export_title">Exportovat data protokolu GameBar</string>
+    <string name="game_bar_capture_export_summary">Uložte zachycené FPS a údaje o výkonu jako soubor CSV</string>
+    <string name="game_bar_capture_start_toast">Zahájeno protokolování dat</string>
+    <string name="game_bar_capture_stop_toast">Zastaveno protokolování dat</string>
+    <string name="game_bar_capture_export_toast">Data protokolu byla exportována do souboru</string>
+    <string name="game_bar_doubletap_capture_start_toast">Snímání začalo</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Zachycení zastaveno</string>
+    <string name="auto_enable_gamebar_title">Automaticky povolit GameBar</string>
+    <string name="game_bar_auto_enable_title">Automaticky povolit GameBar pro vybrané aplikace</string>
+    <string name="game_bar_auto_enable_summary">Pokud je tato funkce zapnutá, vybrané aplikace automaticky povolí GameBar, i když je hlavní vypínač vypnutý</string>
+    <string name="game_bar_app_selector_title">Vyberte Aplikace</string>
+    <string name="game_bar_app_selector_summary">Přidejte aplikace, které by měly automaticky povolit GameBar</string>
+    <string name="game_bar_app_remover_title">Odebrat vybrané aplikace</string>
+    <string name="game_bar_app_remover_summary">Odebrat aplikace ze seznamu automaticky povolených</string>
+    <string name="game_bar_app_remover_activity_title">Odebrat automatické povolení aplikací</string>
+    <string name="game_bar_app_selector_activity_title">Vyberte aplikace pro GameBar</string>
+    <string name="game_bar_app_added_toast">přidáno</string>
+    <string name="game_bar_app_removed_toast">odstraněno</string>
+    <string name="gpu_enable_title">Povolit GPU Optimizer</string>
+    <string name="gpu_enable_summary">Přepnout optimalizace GPU</string>
+    <string name="gpu_freq_category_title">Konfigurace frekvence GPU</string>
+    <string name="gpu_min_frequency">Minimální frekvence GPU</string>
+    <string name="gpu_max_frequency">Maximální frekvence GPU</string>
+    <string name="gpu_disabled_defaults_restored">Optimalizátor GPU deaktivován, výchozí hodnoty obnoveny</string>
+    <string name="gpu_optimizer_enabled">Optimalizátor GPU povolen</string>
+    <string name="gpu_min_freq_exceeds_max">Selhalo: Minimální frekvence GPU nemůže překročit maximální frekvenci</string>
+    <string name="gpu_max_freq_below_min">Selhalo: Maximální frekvence GPU nemůže být nižší než minimální frekvence</string>
+    <string name="gpu_min_freq_applied">Minimální frekvence GPU -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">Maximální frekvence GPU -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Povolit CPU Optimizer</string>
+    <string name="cpu_enable_summary">Přepnout optimalizace CPU</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">Optimalizátor CPU deaktivován, výchozí hodnoty obnoveny</string>
+    <string name="cpu_optimizer_enabled">Optimalizátor CPU povolen</string>
+    <string name="cpu_little_category_title">Konfigurace malého clusteru CPU</string>
+    <string name="cpu_little_min_frequency_title">Min. frekvence</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Maximální frekvence</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Guvernér</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Selhalo: Malá minimální frekvence CPU nemůže překročit max</string>
+    <string name="cpu_little_max_freq_below_min">Selhalo: Malá maximální frekvence CPU nemůže být nižší než min</string>
+    <string name="cpu_little_min_freq_applied">CPU malá minimální frekvence -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">CPU malá maximální frekvence -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">Malý regulátor CPU -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Konfigurace velkého clusteru CPU</string>
+    <string name="cpu_big_min_frequency_title">Min. frekvence</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Maximální frekvence</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Guvernér</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Selhalo: Velká minimální frekvence CPU nemůže překročit max</string>
+    <string name="cpu_big_max_freq_below_min">Selhalo: Velká maximální frekvence CPU nemůže být nižší než min</string>
+    <string name="cpu_big_min_freq_applied">Velká minimální frekvence CPU -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">Velká maximální frekvence CPU -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">Velký regulátor CPU -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Konfigurace CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">Min. frekvence</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Maximální frekvence</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Guvernér</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Selhalo: Minimální frekvence primárního procesoru nesmí překročit max</string>
+    <string name="cpu_prime_max_freq_below_min">Selhalo: Maximální frekvence primárního procesoru nemůže být nižší než min</string>
+    <string name="cpu_prime_min_freq_applied">Minimální frekvence CPU -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">Maximální frekvence CPU -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">Hlavní guvernér CPU -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Spustit logcat při spuštění</string>
+    <string name="logcat_autostart_summary">Automaticky spustit protokolování na pozadí po restartu</string>
+    <string name="logcat_viewer_title">Logcat Viewer</string>
+    <string name="logcat_viewer_summary">Otevřít prohlížeč protokolů v reálném čase</string>
+    <string name="logcat_filter_hint">Zadejte značku nebo klíčové slovo</string>
+    <string name="logcat_filter_title">Filtr protokolu</string>
+    <string name="logcat_pause">Pauza</string>
+    <string name="logcat_resume">Pokračovat</string>
+    <string name="logcat_autoscroll_on">Autoscroll ON</string>
+    <string name="logcat_autoscroll_off">Autoscroll OFF</string>
+    <string name="logcat_save">Uložit protokol</string>
+    <string name="logcat_clear">Vymazat protokol</string>
+    <string name="logcat_share">Share Log</string>
+    <string name="logcat_settings">Nastavení</string>
+    <string name="logcat_export">Export</string>
+    <string name="logcat_search">Hledat</string>
+    <string name="logcat_notification_title">Logcat Viewer</string>
+    <string name="logcat_notification_text">Logování na pozadí je aktivní</string>
+    <string name="logcat_notification_stopped">Záznam na pozadí zastaven</string>
+    <string name="logcat_notification_channel_name">Služba pozadí Logcat</string>
+    <string name="logcat_notification_channel_desc">Ovládací prvky pro protokolování logcat na pozadí</string>
+    <string name="logcat_level_verbose">Podrobné</string>
+    <string name="logcat_level_debug">Ladit</string>
+    <string name="logcat_level_info">Informace</string>
+    <string name="logcat_level_warn">Upozornění</string>
+    <string name="logcat_level_error">Chyba</string>
+    <string name="logcat_no_logs">Žádné záznamy nejsou k dispozici</string>
+    <string name="logcat_loading">Načítání protokolů...</string>
+    <string name="logcat_paused">Protokolování pozastaveno</string>
+    <string name="logcat_active">Logování aktivní</string>
+    <string name="logcat_filter_applied">Použitý filtr: %1$s</string>
+    <string name="logcat_logs_cleared">Protokoly vymazány</string>
+    <string name="logcat_save_progress">Ukládání protokolů...</string>
+    <string name="logcat_save_success">Protokoly byly úspěšně uloženy.</string>
+    <string name="logcat_save_failed">Protokoly se nepodařilo uložit.</string>
+    <string name="logcat_share_subject">Android Logcat Export</string>
+    <string name="logcat_permission_required">K ukládání protokolů je vyžadováno oprávnění k ukládání</string>
+    <string name="cpu_tile_label">CPU guvernér</string>
+    <string name="cpu_tile_unavailable">Řízení CPU není k dispozici</string>
+    <string name="cpu_tile_error">Chyba monitorování CPU</string>
+    <string name="cpu_tile_unknown">Neznámý</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Schedutil</string>
+    <string name="cpu_tile_governor_performance">Výkon</string>
+    <string name="cpu_tile_governor_powersave">Úspora energie</string>
+    <string name="cpu_tile_governor_ondemand">OnDemand</string>
+    <string name="cpu_tile_governor_conservative">Konzervativní</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">Nastavení dlaždic CPU</string>
+    <string name="cpu_tile_settings_summary">Konfigurace vzhledu a chování dlaždice Rychlá nastavení CPU Governor</string>
+    <string name="cpu_tile_appearance_category">Vzhled</string>
+    <string name="cpu_tile_behavior_category">Chování</string>
+    <string name="cpu_tile_size_title">Velikost ikony dlaždice</string>
+    <string name="cpu_tile_size_summary">Vyberte velikost ikony dlaždice CPU</string>
+    <string name="cpu_tile_style_title">Styl dlaždice</string>
+    <string name="cpu_tile_style_summary">Vyberte způsob zobrazení informací o CPU</string>
+    <string name="cpu_tile_show_percentage_title">Zobrazit procento využití</string>
+    <string name="cpu_tile_show_percentage_summary">Zobrazit procento využití CPU místo frekvence</string>
+    <string name="cpu_tile_update_speed_title">Interval aktualizace</string>
+    <string name="cpu_tile_update_speed_summary">Jak často obnovovat informace o CPU</string>
+    <string name="cpu_tile_update_speed_fast">Rychlé (0,5 s)</string>
+    <string name="cpu_tile_update_speed_normal">Normální (1 s)</string>
+    <string name="cpu_tile_update_speed_slow">Pomalu (2 s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Velmi pomalé (5 s)</string>
+    <string name="cpu_tile_preview_title">Náhled změn</string>
+    <string name="cpu_tile_preview_summary">Klepnutím obnovíte dlaždici s aktuálním nastavením</string>
+    <string name="cpu_tile_footer">Dlaždice CPU Governor umožňuje rychlé přepínání mezi CPU guvernéry a zobrazuje frekvenci CPU a informace o využití v reálném čase. Klepnutím na dlaždici můžete procházet dostupnými guvernéry.</string>
+    <string name="performance_mode_title">Režim výkonu</string>
+    <string name="performance_mode_summary">Vynuťte CPU a GPU na maximum pro špičkový výkon. Zvyšuje teplo a vybíjení baterie.</string>
+    <string name="performance_mode_enabled_summary">Režim výkonu je zapnutý</string>
+    <string name="performance_mode_disabled_summary">Režim výkonu je vypnutý</string>
+    <string name="performance_profile_title">Profil výkonu</string>
+    <string name="performance_profile_summary">Vyberte režim výkonu pro optimální chování zařízení</string>
+    <string name="performance_mode_battery_saver">Spořič baterie</string>
+    <string name="performance_mode_balanced">Vyvážený</string>
+    <string name="performance_mode_performance">Výkon</string>
+    <string name="performance_profile_applied">Profil výkonu nastaven na %s</string>
+    <string name="performance_profile_failed">Nepodařilo se použít profil výkonu</string>
+    <string name="performance_tile_label">Výkon</string>
+    <string name="performance_notification_channel_name">Výkonnostní profily</string>
+    <string name="performance_notification_channel_desc">Zobrazuje aktuální stav profilu výkonnosti</string>
+    <string name="performance_notification_battery_saver">Režim úspory baterie je aktivní - Prodloužená životnost baterie</string>
+    <string name="performance_notification_balanced">Vyvážený režim je aktivní - Optimální výkon a výdrž baterie</string>
+    <string name="performance_notification_performance">Režim výkonu je aktivní - Maximální výkon</string>
+    <string name="performance_footer_title">Informace o profilu výkonu</string>
+    <string name="performance_footer_summary">• Battery Saver: Prodlužuje životnost baterie snížením výkonu CPU a GPU. Ideální pro nízkou spotřebu a maximální výdrž baterie.\n\n• Vyvážený: Poskytuje optimální rovnováhu mezi výkonem a výdrží baterie. Doporučeno pro každodenní použití.\n\n• Výkon: Maximalizuje výkon CPU a GPU pro náročné úkoly. Nejlepší pro hraní her, náročné aplikace a intenzivní pracovní zátěž. Může snížit životnost baterie.</string>
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">Speciální nastavení Xiaomi Garnet</string>
+    <string name="xiaomi_parts_summary">Nastavení pro konkrétní zařízení Xiaomi</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">Zobrazit</string>
+    <string name="sound_title">Zvuk</string>
+    <string name="power_title">Výkon</string>
+    <string name="gaming_title">Hry a nástroje</string>
+    <string name="about_me_title">O mně</string>
+    <string name="about_me_summary">Vše, co potřebujete vědět o InnOvaTioN</string>
+    <string name="about_me_contact_title">Podpora</string>
+    <string name="about_me_contact_summary">Zde můžete získat pomoc</string>
+    <string name="about_me_donate_title">Darujte mě na paypal</string>
+    <string name="about_me_donate_summary">Podpořte mou práci, abych mohl dál stavět</string>
+    <string name="about_me_donate2_title">Kupte káva</string>
+    <string name="about_me_donate2_summary">Zavolej mi na pivo nebo kávu</string>
+    <string name="core_control_title">Core Control</string>
+    <string name="core_control_summary">Ruční povolení nebo zakázání jednotlivých jader CPU</string>
+    <string name="core_control_description">Pokročilé řízení CPU. Vypnutím jader může ušetřit baterii nebo tepelné zatížení, ale může to ovlivnit výkon a stabilitu.\n\nNejméně dvě malá jádra musí zůstat neustále online.</string>
+    <string name="keep_little_cores_online">Alespoň 2 malá jádra musí zůstat online</string>
+    <string name="core_0">Jádro 0 (malé)</string>
+    <string name="core_1">Jádro 1 (malé)</string>
+    <string name="core_2">Jádro 2 (malé)</string>
+    <string name="core_3">Jádro 3 (malé)</string>
+    <string name="core_4">Jádro 4 (velké)</string>
+    <string name="core_5">Jádro 5 (velké)</string>
+    <string name="core_6">Jádro 6 (velké)</string>
+    <string name="core_7">Jádro 7 (velké)</string>
+    <string name="error">Chyba</string>
+    <string name="kernel_manager_title">Správce jádra</string>
+    <string name="kernel_manager_summary">Spravujte frekvence CPU a regulátor</string>
+    <string name="kernel_manager_efficiency_category">Skupina účinnosti (A55)</string>
+    <string name="kernel_manager_performance_category">Výkonnostní skupina (A78)</string>
+    <string name="kernel_manager_governor">CPU guvernér</string>
+    <string name="kernel_manager_governor_summary">Vyberte regulátor CPU pro clustery</string>
+    <string name="cpu_governor_summary">Aktuální: %s</string>
+    <string name="kernel_manager_min_freq">Minimální frekvence</string>
+    <string name="kernel_manager_min_freq_summary">Nastavte minimální povolenou frekvenci CPU</string>
+    <string name="kernel_manager_max_freq">Maximální frekvence</string>
+    <string name="kernel_manager_max_freq_summary">Nastavte maximální povolenou frekvenci CPU</string>
+    <string name="kernel_info_category">Informace</string>
+    <string name="kernel_info_title">O Správce jádra</string>
+    <string name="kernel_info_summary">Spravujte regulátor CPU a frekvenční škálování pro všechny clustery CPU. Změny mohou ovlivnit výkon a výdrž baterie.</string>
+    <string name="kernel_manager_apply">Použít nastavení</string>
+    <string name="kernel_manager_apply_summary">Použít vybraná nastavení CPU</string>
+    <string name="kernel_manager_reset">Obnovit výchozí</string>
+    <string name="kernel_manager_reset_summary">Obnovit výchozí nastavení CPU</string>
+    <string name="settings_applied">Nastavení byla úspěšně použita</string>
+    <string name="settings_reset">Nastavení resetováno na výchozí</string>
+    <string name="kernel_manager_footer">Regulátoři CPU řídí, jak vaše zařízení upravuje frekvenci CPU, aby vyvážil výkon a spotřebu energie. Zde je rychlý přehled:\n\n• walt: Guvernér vyvinutý společností Google optimalizovaný pro odezvu a latenci interakce uživatele, používaný hlavně v zařízeních Pixel.\n• konzervativní: Postupně zvyšuje frekvenci CPU; šetří baterii, ale může snižovat odezvu.\n• úspora energie: Udržuje CPU na nejnižší možné frekvenci, upřednostňuje životnost baterie před výkonem.\n• výkon: Uzamyká CPU na maximální frekvenci, čímž zajišťuje maximální výkon na úkor baterie.\n• schedhorizon: Regulátor s podporou plánovače, jehož cílem je lepší migrace úloh a efektivita mezi mnoha jádry.\n• schedutil: Výchozí nastavení používá data plánovače Linuxu k inteligentnímu a efektivnímu škálování frekvence CPU.</string>
+    <string name="kernel_manager_cpu_monitor">CPU Core Monitoring</string>
+    <string name="kernel_manager_core_online">Online</string>
+    <string name="kernel_manager_core_offline">Offline</string>
+    <string name="kernel_manager_loading">Načítání...</string>
+    <string name="kernel_manager_enable_monitoring">Monitorování v reálném čase</string>
+    <string name="kernel_manager_enable_monitoring_summary">Průběžně aktualizujte stav jádra CPU</string>
+    <string name="kernel_manager_update_interval">Frekvence aktualizace</string>
+    <string name="kernel_manager_update_interval_summary">Jak často obnovovat data</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Efficiency Cluster Summary</string>
+    <string name="kernel_manager_performance_cluster_summary">Shrnutí výkonnostního klastru</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d jader online | Rozsah: %3$s – %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    <string name="update_interval_500ms">0,5 sekundy</string>
+    <string name="update_interval_1000ms">1 sekunda</string>
+    <string name="update_interval_2000ms">2 sekundy</string>
+    <string name="update_interval_5000ms">5 sekund</string>
+    <string name="cpu_core_status_online">🢢 %1$s – Online</string>
+    <string name="cpu_core_status_offline">🔴 %1$s – offline</string>
+    <string name="kernel_manager_governor_current">%1$s (aktuální: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (aktuální: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">Monitorování v reálném čase je zakázáno. Povolte jej, abyste viděli živé frekvence a stav jádra CPU.</string>
+    <string name="kernel_manager_error_read">Nelze přečíst informace o CPU</string>
+    <string name="kernel_manager_error_write">Nelze použít nastavení CPU. Může být vyžadován přístup root.</string>
+    <string name="kernel_manager_error_permission">Povolení odepřeno. Ke změně nastavení CPU je vyžadován přístup root.</string>
+    <string name="gpu_manager_title">Správce GPU</string>
+    <string name="gpu_manager_summary">Správa frekvencí GPU a nastavení napájení</string>
+    <string name="gpu_governor_title">GPU guvernér</string>
+    <string name="gpu_governor_summary">Aktuální: %s</string>
+    <string name="gpu_freq_title">Frekvence GPU</string>
+    <string name="gpu_min_freq_title">Minimální frekvence</string>
+    <string name="gpu_max_freq_title">Maximální frekvence</string>
+    <string name="gpu_max_gpuclk_title">Přepsání max. GPUCLK</string>
+    <string name="gpu_max_gpuclk_summary">Extra zvýšení taktu (max 940 MHz)</string>
+    <string name="gpu_current_freq_title">Aktuální frekvence</string>
+    <string name="gpu_power_title">Nastavení napájení</string>
+    <string name="gpu_force_clk_on_title">Vynutit zapnutí hodin</string>
+    <string name="gpu_force_clk_on_summary">Udržujte hodiny GPU vždy zapnuté</string>
+    <string name="gpu_force_bus_on_title">Vynutit zapnutí sběrnice</string>
+    <string name="gpu_force_bus_on_summary">Udržujte sběrnici GPU vždy zapnutou</string>
+    <string name="gpu_force_rail_on_title">Force Rail On</string>
+    <string name="gpu_force_rail_on_summary">Udržujte napájecí lištu GPU vždy zapnutou</string>
+    <string name="gpu_force_no_nap_title">Force No Nap</string>
+    <string name="gpu_force_no_nap_summary">Zakázat upínání GPU mezi snímky</string>
+    <string name="gpu_bus_split_title">Autobus Split</string>
+    <string name="gpu_bus_split_summary">Povolit rozdělení sběrnice GPU</string>
+    <string name="gpu_preempt_title">Preempce GPU</string>
+    <string name="gpu_preempt_summary">Hraní s nízkou latencí (povolit pro nejlepší herní zážitek)</string>
+    <string name="gpu_camera_boost_title">Posílení fotoaparátu</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (maximální výkon kódování kamery/videa)</string>
+    <string name="gpu_thermal_title">Tepelná nastavení</string>
+    <string name="gpu_thermal_pwrlevel_title">Úroveň tepelného výkonu</string>
+    <string name="gpu_thermal_pwrlevel_summary">Aktuální úroveň tepelného výkonu</string>
+    <string name="gpu_temp_title">Teplota GPU</string>
+    <string name="gpu_info_title">Informace o GPU</string>
+    <string name="gpu_model_title">Model GPU</string>
+    <string name="gpu_busy_percentage_title">Zatížení GPU</string>
+    <string name="gpu_reset_count_title">Resetovat počet</string>
+    <string name="gpu_preempt_count_title">Počet preempcí</string>
+    <string name="gpu_info_category">Informace o GPU</string>
+    <string name="gpu_settings_category">Nastavení GPU</string>
+    <string name="gpu_advanced_category">Pokročilá nastavení</string>
+    <string name="gpu_info_summary">Spravujte škálování frekvence GPU a nastavení napájení. Změny mohou ovlivnit výkon a výdrž baterie.</string>
+    <string name="apply_settings">Použít nastavení</string>
+    <string name="reset_settings">Obnovit nastavení</string>
+    <string name="gpu_turbo_preset_title">Turbo Preset</string>
+    <string name="gpu_turbo_preset_summary">Maximální výkon: Zámek 940 MHz, regulátor výkonu, všechna zvýšení ON</string>
+    <string name="gpu_turbo_enabled">🚀 Turbo režim povolen!</string>
+    <string name="gpu_settings_applied">Nastavení byla použita!</string>
+    <string name="gpu_settings_reset">Nastavení resetováno na výchozí!</string>
+    <string name="unknown">Neznámý</string>
+    <string name="thermal_level_summary">Úroveň %s</string>
+    <string name="camera_boost_triggered">Spuštěna podpora fotoaparátu/videa!</string>
+    <string name="video_enhancer_title">Video Enhancer</string>
+    <string name="video_enhancer_summary">Optimalizace zobrazení a výkonu pro Redmi Note 13 Pro 5G</string>
+    <string name="video_enhancer_display_category">📺 Funkce displeje</string>
+    <string name="smooth_motion_enable_title">Plynulý pohyb</string>
+    <string name="smooth_motion_enable_summary">Hardwarové vyhlazování pohybu pro videa (výchozí: VYPNUTO) • Je vyžadován restart</string>
+    <string name="optimize_refresh_enable_title">Optimalizovat obnovovací frekvenci</string>
+    <string name="optimize_refresh_enable_summary">Dynamická obnovovací frekvence podle obsahu (výchozí: VYPNUTO) • Je vyžadován restart</string>
+    <string name="peak_refresh_rate_title">120Hz špičková obnovovací frekvence</string>
+    <string name="peak_refresh_rate_summary">Povolit 120 Hz při dotyku (200 ms) • Tovární hodnota • Je vyžadován restart</string>
+    <string name="video_enhancer_performance_category">⚡ Optimalizace výkonu</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">Místo OpenGL ES použijte Vulkan (Adreno 710) • Je vyžadován restart</string>
+    <string name="purgeable_assets_title">Vymazatelná aktiva</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">Seznam všech stažených klíčenek v úložišti</string>
+    <string name="keybox_verify_title">Ověřit stažené soubory</string>
+    <string name="keybox_verify_summary">Zkontrolujte XML strukturu stažených keyboxů</string>
+    <string name="keybox_analyze_title">Hluboká analýza</string>
+    <string name="keybox_analyze_summary">Analyzujte řetězce certifikátů, vypršení platnosti a platnost</string>
+    <string name="keybox_check_api_title">Zkontrolujte integritu přehrávání</string>
+    <string name="keybox_check_api_summary">Testovat klíčenku proti Google Play Integrity API</string>
+    <string name="keybox_compare_title">Porovnat Keyboxy</string>
+    <string name="keybox_compare_summary">Porovnejte více klíčenek vedle sebe</string>
+    <string name="keybox_extract_certs_title">Výpis certifikátů</string>
+    <string name="keybox_extract_certs_summary">Exportovat certifikáty jako soubory PEM</string>
+    <string name="keybox_batch_verify_title">Dávkové ověření</string>
+    <string name="keybox_batch_verify_summary">Otestujte více klíčenek pomocí podrobných zpráv</string>
+    <string name="keybox_status_title">Stav klávesnice</string>
+    <string name="keybox_status_summary">Aktuální: %s</string>
+    <string name="keybox_status_installed">✅ Stažen platný soubor</string>
+    <string name="keybox_status_not_installed">❌ Žádné stažené soubory</string>
+    <string name="keybox_status_unknown">⚠️ Neznámý</string>
+    <string name="keybox_device_id_title">ID zařízení</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Počet certifikátů</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Vypršení platnosti certifikátu</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Generovat šablony</string>
+    <string name="keybox_search_dialog_title">Hledat v komunitních klávesnicích</string>
+    <string name="keybox_import_dialog_title">Import Keybox</string>
+    <string name="keybox_export_dialog_title">Seznam stažených klávesnic</string>
+    <string name="keybox_verify_dialog_title">Ověřte stažené Keyboxy</string>
+    <string name="keybox_analyze_dialog_title">Hluboká analýza</string>
+    <string name="keybox_analyze_dialog_message">Tím se provede hloubková analýza certifikátu:\n\n✅ Kontroly:\n• Ověření řetězce certifikátů\n• Data vypršení platnosti\n• Algoritmy podpisu\n• Velikosti klíčů\n• Informace o vydavateli\n• Stav odvolání certifikátu\n\n⚠️ To trvá 10–30 sekund na klíčenku.\n\nPokračovat?</string>
+    <string name="keybox_check_api_dialog_title">Přehrát kontrolu integrity</string>
+    <string name="keybox_check_api_dialog_message">Tím se otestuje vaše keybox proti Google Play Integrity API.\n\n🔍 Co kontroluje:\n• ZÁKLADNÍ integrita\n• Integrita ZAŘÍZENÍ \n• SILNÁ integrita\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ POŽADAVKY:\n• Keybox musí být nainstalován v modulu Magisk/Kernel️ nebo\n• Integrita Play Store\n• Sticky Play Integrity• Připojení k internetu Trvá 5–10 sekund\n\nPokračovat?</string>
+    <string name="keybox_compare_dialog_title">Porovnat Keyboxy</string>
+    <string name="keybox_compare_dialog_message">Porovnejte více stažených klíčenek:\n\n📊 Porovnání zahrnuje:\n• ID zařízení\n• počty certifikátů\n• data vypršení platnosti\n• typy algoritmů\n• formáty klíčů (PIF/TrickyStore)\n\nVyberte schránky k porovnání.</string>
+    <string name="keybox_extract_dialog_title">Výpis certifikátů</string>
+    <string name="keybox_extract_dialog_message">Extrahujte certifikáty z keybox jako samostatné soubory PEM.\n\n📁 Exportuje:\n• RSA certifikáty\n• ECDSA certifikáty\n• Soukromé klíče (pokud jsou potřeba)\n\nSoubory uložené do: /Download/Keyboxes/certs/\n\nPokračovat?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Upozornění</string>
+    <string name="keybox_overwrite_dialog_message">Tato akce není v této verzi aplikace podporována.</string>
+    <string name="keybox_generating">🔄 Generování šablon…</string>
+    <string name="keybox_searching">🔍 Hledání zdrojů komunity…</string>
+    <string name="keybox_downloading">Stahování keybox z úložiště…</string>
+    <string name="keybox_verifying">🔍 Ověřování struktur…</string>
+    <string name="keybox_analyzing">🔬 Analýza certifikátů…</string>
+    <string name="keybox_checking_api">🌐 Testování Play Integrity API…</string>
+    <string name="keybox_comparing">📊 Porovnání klíčenek…</string>
+    <string name="keybox_extracting">📦 Vytěžování certifikátů…</string>
+    <string name="keybox_generate_success">✅ Šablony byly úspěšně vygenerovány!</string>
+    <string name="keybox_search_success">✅ Nalezena a stažena platná klíčenka!</string>
+    <string name="keybox_import_success">✅ Keybox úspěšně importován!</string>
+    <string name="keybox_export_success">✅ Vytvořen seznam souborů.</string>
+    <string name="keybox_verify_success">✅ Ověření dokončeno.</string>
+    <string name="keybox_analyze_success">✅ Analýza dokončena.</string>
+    <string name="keybox_check_api_success">✅ Kontrola integrity dokončena.</string>
+    <string name="keybox_compare_success">✅ Srovnání dokončeno.</string>
+    <string name="keybox_extract_success">✅ Certifikáty extrahovány!</string>
+    <string name="keybox_generate_error">❌ Generování šablon se nezdařilo!\n\nChyba: %s</string>
+    <string name="keybox_search_error">❌ Nepodařilo se najít platnou klíčenku!\n\nChyba: %s</string>
+    <string name="keybox_import_error">❌ Import klávesnice se nezdařil!\n\nChyba: %s</string>
+    <string name="keybox_export_error">❌ Seznam souborů se nezdařil!\n\nChyba: %s</string>
+    <string name="keybox_verify_error">❌ Ověření se nezdařilo!\n\nChyba: %s</string>
+    <string name="keybox_analyze_error">❌ Analýza se nezdařila!\n\nChyba: %s</string>
+    <string name="keybox_check_api_error">❌ Kontrola integrity selhala!\n\nChyba: %s</string>
+    <string name="keybox_no_root">❌ Pro tuto aplikaci NENÍ vyžadován přístup root.</string>
+    <string name="keybox_no_internet">❌ Je vyžadováno připojení k internetu!</string>
+    <string name="keybox_no_keybox">❌ Nebyly staženy žádné soubory!</string>
+    <string name="keybox_no_module">❌ Nebyl zjištěn žádný modul Magisk/KernelSU!</string>
+    <string name="keybox_info_title">O Keybox Manager</string>
+    <string name="keybox_info_summary">Další informace o Android Atestation a Keybox</string>
+    <string name="keybox_info_dialog_title">Box of Keybox\'s - Informace</string>
+    <string name="keybox_info_dialog_message">🔑 CO JE TOTO APLIKACE?\n═════════════════════════════════════════════════nástroj pro správu Android testů Ke stažení/analýze není vyžadován ŽÁDNÝ ROOT.\n\n✅ VLASTNOSTI:\n• Vyhledávání zdrojů komunity\n• Import vlastních schránek klíčů\n• Hluboká analýza certifikátů\n• Testování rozhraní Play Integrity API\n• Dávkové ověření\n• Extrakce certifikátu\n• Souběžné porovnání\n\n📁 POLOHA:\n/sdcard/Stáhnout♥/Ke INSTALACE:\n════════════════════════════════\n\nMožnost 1: Hrajte. Nainstalujte Magisk/KernelSU\n2. Nainstalujte modul PIF\n3. Zkopírujte keybox.xml do:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Restartujte\n\nMožnost 2: TrickyStore\n1. Nainstalujte Magisk/KernelSU\n2. Nainstalujte modul TrickyStore\n3. Zkopírujte keybox.xml do:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Automatické znovu načtení (bez restartu)\n\n🧪 TESTOVÁNÍ:\n═══════════════════════════════════════════════╕══════\ Aplikace YASNAC\n• Bankovní aplikace\n• Peněženka Google\n\n🔬 POKROČILÉ VLASTNOSTI:\n══════════════════════════════════•═\n\nHloubková analýza řetězu platnosti\n• Algoritmus certifikátu\n• m kontrola\n• Stav odvolání\n\nKontrola integrity služby Play:\n• Testování rozhraní API v reálném čase\n• Stav BASIC/DEVICE/STRONG\n• Detekce modulu\n\nDávkové operace:\n• Ověřte více klíčů\n• Porovnávejte vedle sebe\n• Extrahujte certifikáty\n\n💡 TIPY:\n═══════════════════════════════•═\n• Veřejné schránky klíčů jsou rychle odvolané\n• Veřejné schránky klíčů jsou vzácné a rychle se odvolávají instalace\n• Uchovávejte zálohy funkčních skříní klíčů\n• Zkontrolujte data vypršení platnosti\n\n🔗 KOMUNITA:\n═══════════════════╕═══╕\═══╕\╕•gram @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Vyhledejte „integritu přehrávání klávesnice“\n\n⚠️ LEGAL ODMÍTNUTÍ ODPOVĚDNOSTI:\n══════════════════════════════════════ Podmínky služby Google pro vývojáře:\nUpravený klíč pro vývojáře může porušovat pouze pro vývojáře\n•Pouze pro vzdělávací účely\n•Pouze pro vývojáře. zásady\n• Místní zákony\n\nPoužívejte na vlastní nebezpečí!</string>
+    <string name="keybox_reset_title">Smazat stažené soubory</string>
+    <string name="keybox_reset_summary">Odebrat všechny stažené klíčenky z úložiště</string>
+    <string name="keybox_reset_dialog_title">⚠️ Smazat stažené soubory</string>
+    <string name="keybox_reset_dialog_message">Smazat VŠECHNY soubory z /sdcard/Download/Keyboxes/?\n\nToto nelze vrátit zpět.</string>
+    <string name="keybox_reset_success">✅ Všechny soubory smazány!</string>
+    <string name="keybox_reset_error">❌ Smazání se nezdařilo: %s</string>
+    <string name="ram_optimizer_title">RAM and Storage Optimizer</string>
+    <string name="ram_optimizer_summary">Optimalizujte kompresi a úložiště RAM</string>
+    <string name="ram_optimizer_description">Spravujte nastavení paměti ZRAM, hibernaci aplikací a čisté úložiště pro lepší výkon.</string>
+    <string name="zram_category_title">zRAM komprese</string>
+    <string name="zram_enable_title">Povolit zRAM</string>
+    <string name="zram_enable_summary">Komprimujte RAM, abyste uvolnili paměť</string>
+    <string name="zram_size_title">Velikost zRAM (MB)</string>
+    <string name="zram_size_summary">Nastavte velikost komprimované paměti RAM (512–12288 MB)</string>
+    <string name="zram_swappiness_title">Swappiness</string>
+    <string name="zram_swappiness_summary">Kontrolujte, jak agresivně se má swapovat do zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">Hibernace aplikace</string>
+    <string name="app_hibernation_title">Povolit režim spánku aplikací</string>
+    <string name="app_hibernation_summary">Hibernujte nepoužívané aplikace, abyste ušetřili RAM a baterii</string>
+    <string name="storage_cleaner_category_title">Čistič skladů</string>
+    <string name="storage_stats_title">Statistika úložiště</string>
+    <string name="storage_stats_summary">Načítání...</string>
+    <string name="clean_app_cache_title">Vyčistit mezipaměť aplikací</string>
+    <string name="clean_app_cache_summary">Odebrat data uložená v mezipaměti ze všech aplikací</string>
+    <string name="clean_system_cache_title">Vyčistit mezipaměť systému</string>
+    <string name="clean_system_cache_summary">Vymazat mezipaměť systému a vypustit mezipaměti</string>
+    <string name="clean_thumbnails_title">Čisté náhledy</string>
+    <string name="clean_thumbnails_summary">Odebrat mezipaměť miniatur z média</string>
+    <string name="clean_downloads_title">Vyčistit staré soubory ke stažení</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Automaticky upravte výkon na základě aplikace v popředí</string>
+</resources>

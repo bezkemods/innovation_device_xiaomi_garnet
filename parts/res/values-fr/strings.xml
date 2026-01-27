@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Paramètres Xiaomi</string>
+    <string name="tile_add">Ajouter une tuile</string>
+    <string name="tile_added">Tuile ajoutée</string>
+    <string name="tile_not_added">Tuile non ajoutée</string>
+    <string name="tile_already_added">Tuile déjà ajoutée</string>
+    <string name="tile_on">Sur</string>
+    <string name="tile_off">Désactivé</string>
+    <string name="clear_speaker_title">Haut-parleur clair</string>
+    <string name="clear_speaker_summary">Jouez un audio de 30 secondes pour effacer le haut-parleur</string>
+    <string name="clear_speaker_description">Exécutez cette fonctionnalité une ou deux fois si vous constatez que votre haut-parleur est légèrement obstrué par la poussière. Réglez le volume multimédia au maximum.\n\nSi le haut-parleur est fortement bloqué, exécutez cette fonctionnalité 2 à 5 fois tout en secouant votre appareil avec le haut-parleur orienté vers le bas.</string>
+    <string name="saturation_title">Saturation de l\'affichage</string>
+    <string name="saturation_summary">Contrôler le niveau de saturation de l\'écran</string>
+    <string name="saturation_footer_summary">La modification du mode de couleur dans les paramètres d’affichage annulera le niveau de saturation, nécessitant sa réapplication.</string>
+    <string name="image_preview_content_description">Aperçu</string>
+    <string name="image_preview_next_page_content_description">Suivant</string>
+    <string name="image_preview_previous_page_content_description">Précédent</string>
+    <string name="custom_seekbar_value">Valeur :</string>
+    <string name="custom_seekbar_default_value">par défaut</string>
+    <string name="custom_seekbar_default_value_to_set">Valeur par défaut :</string>
+    <string name="custom_seekbar_default_value_is_set">La valeur par défaut est définie</string>
+    <string name="auto_hbm_title">Mode automatique haute luminosité (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Utiliser HBM automatique</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">Activé</string>
+    <string name="tile_hbm_off">Désactivé</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM indisponible</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Auto HBM ou Auto Brightness est activé</string>
+    <string name="hbm_mode_title">Mode haute luminosité</string>
+    <string name="hbm_mode_notification">Le mode haute luminosité est désormais activé. Une utilisation prolongée peut endommager votre écran.</string>
+    <string name="auto_hbm_summary">Activer automatiquement le mode haute luminosité en fonction de l\'intensité de la lumière solaire (lux)</string>
+    <string name="auto_hbm_threshold_title">Seuil de lumière</string>
+    <string name="auto_hbm_threshold_summary">Définir le seuil d\'intensité lumineuse en unités lux auquel HBM est activé</string>
+    <string name="auto_hbm_enable_time_title">Activer l\'heure</string>
+    <string name="auto_hbm_enable_time_summary">Durée en secondes pendant laquelle le seuil de luminosité doit être continuellement atteint pour activer HBM</string>
+    <string name="auto_hbm_disable_time_title">Désactiver l\'heure</string>
+    <string name="auto_hbm_disable_time_summary">Durée en secondes pendant laquelle HBM est désactivé si le seuil de luminosité descend en dessous du niveau défini</string>
+    <string name="game_bar_title">Barre de jeu</string>
+    <string name="game_bar_summary">Activer la superposition du système (FPS, Temp, etc.)</string>
+    <string name="game_bar_tile_label">Barre de jeu</string>
+    <string name="game_bar_tile_description">Basculer la superposition du jeu</string>
+    <string name="game_bar_enable_title">Activer la superposition GameBar</string>
+    <string name="overlay_permission_required">Une autorisation de superposition est requise</string>
+    <string name="overlay_permission_granted">Autorisation de superposition accordée</string>
+    <string name="overlay_permission_denied">Autorisation de superposition refusée</string>
+    <string name="overlay_features_title">Fonctionnalités de superposition</string>
+    <string name="game_bar_fps_enable_title">Superposition FPS</string>
+    <string name="game_bar_fps_enable_summary">Afficher le FPS actuel à l\'écran</string>
+    <string name="game_bar_temp_enable_title">Température de l\'appareil</string>
+    <string name="game_bar_temp_enable_summary">Afficher la température de l\'appareil (batterie)</string>
+    <string name="game_bar_cpu_usage_enable_title">Utilisation du processeur</string>
+    <string name="game_bar_cpu_usage_enable_summary">Afficher le pourcentage actuel d\'utilisation du processeur</string>
+    <string name="game_bar_cpu_clock_enable_title">Vitesses d\'horloge du processeur</string>
+    <string name="game_bar_cpu_clock_enable_summary">Afficher les vitesses d\'horloge actuelles du processeur pour chaque cœur</string>
+    <string name="game_bar_cpu_temp_enable_title">Température du processeur</string>
+    <string name="game_bar_cpu_temp_enable_summary">Afficher la température du processeur (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">Utilisation de la RAM</string>
+    <string name="game_bar_ram_enable_summary">Afficher l\'utilisation actuelle de la RAM en Mo</string>
+    <string name="game_bar_gpu_usage_enable_title">Utilisation du GPU</string>
+    <string name="game_bar_gpu_usage_enable_summary">Afficher le pourcentage d\'utilisation du GPU</string>
+    <string name="game_bar_gpu_clock_enable_title">Vitesse d\'horloge du GPU</string>
+    <string name="game_bar_gpu_clock_enable_summary">Afficher la fréquence d\'horloge actuelle du GPU</string>
+    <string name="game_bar_gpu_temp_enable_title">Température du processeur graphique</string>
+    <string name="game_bar_gpu_temp_enable_summary">Afficher la température actuelle du GPU</string>
+    <string name="fps_measurement_method_title">Méthode de mesure FPS</string>
+    <string name="game_bar_fps_method_title">Sélectionnez la méthode FPS</string>
+    <string name="game_bar_fps_method_summary">Choisissez entre la méthode Nouvelle API (par défaut) et Legacy Sysfs</string>
+    <string name="customization_title">Personnalisation</string>
+    <string name="game_bar_text_size_title">Taille du texte</string>
+    <string name="game_bar_text_size_summary">Ajuster la taille du texte superposé</string>
+    <string name="game_bar_background_alpha_title">Transparence de l\'arrière-plan</string>
+    <string name="game_bar_background_alpha_summary">Ajuster la transparence de l\'arrière-plan</string>
+    <string name="game_bar_corner_radius_title">Rayon de coin de superposition</string>
+    <string name="game_bar_corner_radius_summary">Ajustez l\'arrondi des coins de superposition</string>
+    <string name="game_bar_padding_title">Rembourrage superposé</string>
+    <string name="game_bar_padding_summary">Ajustez l\'espace autour des statistiques</string>
+    <string name="game_bar_item_spacing_title">Espacement des éléments</string>
+    <string name="game_bar_item_spacing_summary">Ajuster l\'espacement entre les lignes de superposition</string>
+    <string name="game_bar_update_interval_title">Intervalle de mise à jour</string>
+    <string name="game_bar_update_interval_summary">Définir la fréquence de mise à jour des valeurs de superposition</string>
+    <string name="game_bar_title_color_title">Couleur du titre des statistiques</string>
+    <string name="game_bar_title_color_summary">Couleur pour le texte \'FPS\', \'Temp\', \'CPU\', etc.</string>
+    <string name="game_bar_value_color_title">Couleur de la valeur statistique</string>
+    <string name="game_bar_value_color_summary">Couleur des statistiques numériques (par exemple, \'29\', \'32,0°C\')</string>
+    <string name="game_bar_position_title">Position de superposition</string>
+    <string name="game_bar_position_summary">Sélectionnez la position de la superposition à l\'écran</string>
+    <string name="game_bar_format_title">Format de superposition</string>
+    <string name="game_bar_format_summary">Choisissez entre un affichage complet ou minimal</string>
+    <string name="game_bar_overlay_format_toast">Le format de superposition a été remplacé par : %s</string>
+    <string name="game_bar_format_entries_full">Complet</string>
+    <string name="game_bar_format_entries_minimal">Minime</string>
+    <string name="split_config_title">Configuration divisée</string>
+    <string name="game_bar_split_mode_title">Mode partagé</string>
+    <string name="game_bar_split_mode_summary">Choisissez une disposition côte à côte ou empilée</string>
+    <string name="overlay_gesture_controls_title">Contrôles gestuels de superposition</string>
+    <string name="game_bar_single_tap_toggle_title">Activer un seul clic pour basculer</string>
+    <string name="game_bar_single_tap_toggle_summary">Appuyez une fois pour basculer entre les formats de superposition complets et minimaux</string>
+    <string name="game_bar_doubletap_capture_title">Activer le double appui pour capturer</string>
+    <string name="game_bar_doubletap_capture_summary">Appuyez deux fois sur la superposition pour démarrer/arrêter les journaux de capture</string>
+    <string name="game_bar_longpress_enable_title">Activer l\'appui long</string>
+    <string name="game_bar_longpress_enable_summary">Appuyez longuement sur la superposition pour accéder aux paramètres de la GameBar</string>
+    <string name="game_bar_longpress_timeout_title">Durée d\'appui longue</string>
+    <string name="game_bar_longpress_timeout_summary">Définissez la durée requise pour appuyer longuement sur la superposition</string>
+    <string name="capture_logs_title">Capturer les journaux</string>
+    <string name="game_bar_capture_start_title">Démarrer la journalisation</string>
+    <string name="game_bar_capture_start_summary">Commencez à capturer les FPS et les données de performances en temps réel</string>
+    <string name="game_bar_capture_stop_title">Arrêter la journalisation</string>
+    <string name="game_bar_capture_stop_summary">Arrêtez de capturer les FPS et les données de performances en temps réel</string>
+    <string name="game_bar_capture_export_title">Exporter les données du journal GameBar</string>
+    <string name="game_bar_capture_export_summary">Enregistrez les FPS et les données de performances capturées sous forme de fichier CSV</string>
+    <string name="game_bar_capture_start_toast">Début de l\'enregistrement des données</string>
+    <string name="game_bar_capture_stop_toast">Arrêt de l\'enregistrement des données</string>
+    <string name="game_bar_capture_export_toast">Données de journal exportées vers un fichier</string>
+    <string name="game_bar_doubletap_capture_start_toast">Capture démarrée</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Capture arrêtée</string>
+    <string name="auto_enable_gamebar_title">Activer automatiquement la GameBar</string>
+    <string name="game_bar_auto_enable_title">Activer automatiquement GameBar pour les applications sélectionnées</string>
+    <string name="game_bar_auto_enable_summary">Si cette option est activée, les applications sélectionnées activeront automatiquement GameBar même si l\'interrupteur principal est éteint</string>
+    <string name="game_bar_app_selector_title">Sélectionnez les applications</string>
+    <string name="game_bar_app_selector_summary">Ajoutez des applications qui devraient activer automatiquement GameBar</string>
+    <string name="game_bar_app_remover_title">Supprimer les applications sélectionnées</string>
+    <string name="game_bar_app_remover_summary">Supprimer les applications de la liste d\'activation automatique</string>
+    <string name="game_bar_app_remover_activity_title">Supprimer les applications à activation automatique</string>
+    <string name="game_bar_app_selector_activity_title">Sélectionnez les applications pour GameBar</string>
+    <string name="game_bar_app_added_toast">ajouté</string>
+    <string name="game_bar_app_removed_toast">supprimé</string>
+    <string name="gpu_enable_title">Activer l\'optimiseur GPU</string>
+    <string name="gpu_enable_summary">Basculer les optimisations GPU</string>
+    <string name="gpu_freq_category_title">Configurer la fréquence GPU</string>
+    <string name="gpu_min_frequency">Fréquence minimale du GPU</string>
+    <string name="gpu_max_frequency">Fréquence maximale du GPU</string>
+    <string name="gpu_disabled_defaults_restored">Optimizer GPU désactivé, paramètres par défaut restaurés</string>
+    <string name="gpu_optimizer_enabled">Optimiseur GPU activé</string>
+    <string name="gpu_min_freq_exceeds_max">Échec : la fréquence minimale du GPU ne peut pas dépasser la fréquence maximale</string>
+    <string name="gpu_max_freq_below_min">Échec : la fréquence maximale du GPU ne peut pas être inférieure à la fréquence minimale</string>
+    <string name="gpu_min_freq_applied">Fréquence minimale du GPU -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">Fréquence maximale du GPU -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Activer l\'optimiseur de processeur</string>
+    <string name="cpu_enable_summary">Basculer les optimisations du processeur</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">Optimiseur de processeur désactivé, paramètres par défaut restaurés</string>
+    <string name="cpu_optimizer_enabled">Optimiseur de processeur activé</string>
+    <string name="cpu_little_category_title">Configurer le petit cluster CPU</string>
+    <string name="cpu_little_min_frequency_title">Fréquence minimale</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Fréquence maximale</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Gouverneur</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Échec : la fréquence minimale du processeur ne peut pas dépasser le maximum</string>
+    <string name="cpu_little_max_freq_below_min">Échec : la fréquence maximale du processeur ne peut pas être inférieure à la valeur minimale.</string>
+    <string name="cpu_little_min_freq_applied">Fréquence minimale du processeur -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">CPU peu de fréquence maximale -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">Petit gouverneur du processeur -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Configurer le gros cluster de CPU</string>
+    <string name="cpu_big_min_frequency_title">Fréquence minimale</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Fréquence maximale</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Gouverneur</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Échec : la fréquence minimale du processeur ne peut pas dépasser le maximum</string>
+    <string name="cpu_big_max_freq_below_min">Échec : la fréquence maximale du processeur ne peut pas être inférieure à la valeur minimale</string>
+    <string name="cpu_big_min_freq_applied">Fréquence maximale du processeur -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">Fréquence maximale du processeur -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">Gros gouverneur du processeur -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Configurer le cluster CPU Prime</string>
+    <string name="cpu_prime_min_frequency_title">Fréquence minimale</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Fréquence maximale</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Gouverneur</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Échec : la fréquence minimale principale du processeur ne peut pas dépasser le maximum</string>
+    <string name="cpu_prime_max_freq_below_min">Échec : la fréquence maximale maximale du processeur ne peut pas être inférieure à la valeur minimale</string>
+    <string name="cpu_prime_min_freq_applied">Fréquence maximale du processeur -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">Fréquence maximale maximale du processeur -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">Gouverneur principal du processeur -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Démarrer logcat au démarrage</string>
+    <string name="logcat_autostart_summary">Démarrer automatiquement la journalisation en arrière-plan après le redémarrage</string>
+    <string name="logcat_viewer_title">Visionneuse Logcat</string>
+    <string name="logcat_viewer_summary">Ouvrir la visionneuse de journaux en temps réel</string>
+    <string name="logcat_filter_hint">Entrez une balise ou un mot-clé</string>
+    <string name="logcat_filter_title">Filtre de journal</string>
+    <string name="logcat_pause">Pause</string>
+    <string name="logcat_resume">Reprendre</string>
+    <string name="logcat_autoscroll_on">Défilement automatique activé</string>
+    <string name="logcat_autoscroll_off">Défilement automatique désactivé</string>
+    <string name="logcat_save">Enregistrer le journal</string>
+    <string name="logcat_clear">Effacer le journal</string>
+    <string name="logcat_share">Partager le journal</string>
+    <string name="logcat_settings">Paramètres</string>
+    <string name="logcat_export">Exporter</string>
+    <string name="logcat_search">Rechercher</string>
+    <string name="logcat_notification_title">Visionneuse Logcat</string>
+    <string name="logcat_notification_text">Journalisation en arrière-plan active</string>
+    <string name="logcat_notification_stopped">Journalisation en arrière-plan arrêtée</string>
+    <string name="logcat_notification_channel_name">Service d\'arrière-plan Logcat</string>
+    <string name="logcat_notification_channel_desc">Contrôles pour la journalisation logcat en arrière-plan</string>
+    <string name="logcat_level_verbose">Verbeux</string>
+    <string name="logcat_level_debug">Déboguer</string>
+    <string name="logcat_level_info">Informations</string>
+    <string name="logcat_level_warn">Avertissement</string>
+    <string name="logcat_level_error">Erreur</string>
+    <string name="logcat_no_logs">Aucun journal disponible</string>
+    <string name="logcat_loading">Chargement des journaux...</string>
+    <string name="logcat_paused">Journalisation suspendue</string>
+    <string name="logcat_active">Journalisation active</string>
+    <string name="logcat_filter_applied">Filtre appliqué : %1$s</string>
+    <string name="logcat_logs_cleared">Journaux effacés</string>
+    <string name="logcat_save_progress">Enregistrement des journaux...</string>
+    <string name="logcat_save_success">Journaux enregistrés avec succès.</string>
+    <string name="logcat_save_failed">Échec de l\'enregistrement des journaux.</string>
+    <string name="logcat_share_subject">Exportation Android Logcat</string>
+    <string name="logcat_permission_required">Autorisation de stockage requise pour enregistrer les journaux</string>
+    <string name="cpu_tile_label">Gouverneur du processeur</string>
+    <string name="cpu_tile_unavailable">Contrôle CPU indisponible</string>
+    <string name="cpu_tile_error">Erreur de surveillance du processeur</string>
+    <string name="cpu_tile_unknown">Inconnu</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Planificateur</string>
+    <string name="cpu_tile_governor_performance">Performances</string>
+    <string name="cpu_tile_governor_powersave">Économie d\'énergie</string>
+    <string name="cpu_tile_governor_ondemand">À la demande</string>
+    <string name="cpu_tile_governor_conservative">Conservateur</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1fGHz</string>
+    <string name="cpu_tile_settings_title">Paramètres de tuile CPU</string>
+    <string name="cpu_tile_settings_summary">Configurer l\'apparence et le comportement de la vignette Paramètres rapides du gouverneur du processeur</string>
+    <string name="cpu_tile_appearance_category">Apparence</string>
+    <string name="cpu_tile_behavior_category">Comportement</string>
+    <string name="cpu_tile_size_title">Taille de l’icône de tuile</string>
+    <string name="cpu_tile_size_summary">Choisissez la taille de l\'icône de la vignette CPU</string>
+    <string name="cpu_tile_style_title">Style de tuile</string>
+    <string name="cpu_tile_style_summary">Choisissez comment les informations sur le processeur sont affichées</string>
+    <string name="cpu_tile_show_percentage_title">Afficher le pourcentage d\'utilisation</string>
+    <string name="cpu_tile_show_percentage_summary">Afficher le pourcentage d\'utilisation du processeur au lieu de la fréquence</string>
+    <string name="cpu_tile_update_speed_title">Intervalle de mise à jour</string>
+    <string name="cpu_tile_update_speed_summary">À quelle fréquence actualiser les informations du processeur</string>
+    <string name="cpu_tile_update_speed_fast">Rapide (0,5 s)</string>
+    <string name="cpu_tile_update_speed_normal">Normale (1s)</string>
+    <string name="cpu_tile_update_speed_slow">Lent (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Très lent (5s)</string>
+    <string name="cpu_tile_preview_title">Aperçu des modifications</string>
+    <string name="cpu_tile_preview_summary">Appuyez pour actualiser la vignette avec les paramètres actuels</string>
+    <string name="cpu_tile_footer">La vignette CPU Governor permet de basculer rapidement entre les gouverneurs de CPU et affiche en temps réel la fréquence et les informations d\'utilisation du CPU. Appuyez sur la vignette pour parcourir les gouverneurs disponibles.</string>
+    <string name="performance_mode_title">Mode performances</string>
+    <string name="performance_mode_summary">Forcez le CPU et le GPU au maximum pour des performances optimales. Augmente la chaleur et l’épuisement de la batterie.</string>
+    <string name="performance_mode_enabled_summary">Le mode Performance est activé</string>
+    <string name="performance_mode_disabled_summary">Le mode Performance est désactivé</string>
+    <string name="performance_profile_title">Profil de performances</string>
+    <string name="performance_profile_summary">Sélectionnez le mode performances pour un comportement optimal de l\'appareil</string>
+    <string name="performance_mode_battery_saver">Économiseur de batterie</string>
+    <string name="performance_mode_balanced">Équilibré</string>
+    <string name="performance_mode_performance">Performances</string>
+    <string name="performance_profile_applied">Profil de performances défini sur %s</string>
+    <string name="performance_profile_failed">Échec de l\'application du profil de performances</string>
+    <string name="performance_tile_label">Performances</string>
+    <string name="performance_notification_channel_name">Profils de performances</string>
+    <string name="performance_notification_channel_desc">Affiche l\'état actuel du profil de performances</string>
+    <string name="performance_notification_battery_saver">Le mode d\'économie de batterie est actif - Durée de vie prolongée de la batterie</string>
+    <string name="performance_notification_balanced">Le mode équilibré est actif - Performances et durée de vie de la batterie optimales</string>
+    <string name="performance_notification_performance">Le mode Performance est actif - Performances maximales</string>
+    <string name="performance_footer_title">Informations sur le profil de performances</string>
+    <string name="performance_footer_summary">• Économiseur de batterie : prolonge la durée de vie de la batterie en réduisant les performances du processeur et du processeur graphique. Idéal pour une utilisation légère et une durée de vie maximale de la batterie.\n\n• Équilibré : offre un équilibre optimal entre performances et autonomie de la batterie. Recommandé pour une utilisation quotidienne.\n\n• Performance : maximise les performances du processeur et du processeur graphique pour les tâches exigeantes. Idéal pour les jeux, les applications lourdes et les charges de travail intensives. Peut réduire la durée de vie de la batterie.</string>
+    <string name="xiaomi_parts_title">Pièces Xiaomi</string>
+    <string name="xiaomi_parts_subtitle">Paramètres spéciaux Xiaomi Garnet</string>
+    <string name="xiaomi_parts_summary">Paramètres spécifiques à l\'appareil Xiaomi</string>
+    <string name="xiaomi_parts_launcher_title">Pièces Xiaomi</string>
+    <string name="device_settings_app_name">Pièces Xiaomi</string>
+    <string name="display_title">Afficher</string>
+    <string name="sound_title">Son</string>
+    <string name="power_title">Puissance</string>
+    <string name="gaming_title">Jeux et utilitaires</string>
+    <string name="about_me_title">À propos de moi</string>
+    <string name="about_me_summary">Tout ce que vous devez savoir sur InnOvaTioN</string>
+    <string name="about_me_contact_title">Prise en charge</string>
+    <string name="about_me_contact_summary">Vous pouvez y obtenir de l\'aide</string>
+    <string name="about_me_donate_title">Faites-moi un don sur Paypal</string>
+    <string name="about_me_donate_summary">Soutenez mon travail pour que je puisse continuer à construire</string>
+    <string name="about_me_donate2_title">Achetermecafé</string>
+    <string name="about_me_donate2_summary">Appelez-moi pour une bière ou un café</string>
+    <string name="core_control_title">Contrôle de base</string>
+    <string name="core_control_summary">Activer ou désactiver manuellement des cœurs de processeur individuels</string>
+    <string name="core_control_description">Contrôle avancé du processeur. La désactivation des cœurs peut économiser la batterie ou la charge thermique, mais peut affecter les performances et la stabilité.\n\nAu moins deux petits cœurs doivent rester en ligne à tout moment.</string>
+    <string name="keep_little_cores_online">Au moins 2 petits cœurs doivent rester en ligne</string>
+    <string name="core_0">Noyau 0 (Petit)</string>
+    <string name="core_1">Noyau 1 (Petit)</string>
+    <string name="core_2">Noyau 2 (Petit)</string>
+    <string name="core_3">Noyau 3 (Petit)</string>
+    <string name="core_4">Noyau 4 (grand)</string>
+    <string name="core_5">Noyau 5 (grand)</string>
+    <string name="core_6">Noyau 6 (grand)</string>
+    <string name="core_7">Noyau 7 (grand)</string>
+    <string name="error">Erreur</string>
+    <string name="kernel_manager_title">Gestionnaire de noyau</string>
+    <string name="kernel_manager_summary">Gérer les fréquences du processeur et le gouverneur</string>
+    <string name="kernel_manager_efficiency_category">Pôle Efficacité (A55)</string>
+    <string name="kernel_manager_performance_category">Groupe de performances (A78)</string>
+    <string name="kernel_manager_governor">Gouverneur du processeur</string>
+    <string name="kernel_manager_governor_summary">Sélectionnez le gouverneur de processeur pour les clusters</string>
+    <string name="cpu_governor_summary">Actuel : %s</string>
+    <string name="kernel_manager_min_freq">Fréquence minimale</string>
+    <string name="kernel_manager_min_freq_summary">Définir la fréquence CPU minimale autorisée</string>
+    <string name="kernel_manager_max_freq">Fréquence maximale</string>
+    <string name="kernel_manager_max_freq_summary">Définir la fréquence CPU maximale autorisée</string>
+    <string name="kernel_info_category">Informations</string>
+    <string name="kernel_info_title">À propos du gestionnaire de noyau</string>
+    <string name="kernel_info_summary">Gérez le gouverneur du processeur et la mise à l\'échelle de la fréquence pour tous les clusters de processeur. Les modifications peuvent affecter les performances et la durée de vie de la batterie.</string>
+    <string name="kernel_manager_apply">Appliquer les paramètres</string>
+    <string name="kernel_manager_apply_summary">Appliquer les paramètres du processeur sélectionnés</string>
+    <string name="kernel_manager_reset">Réinitialiser par défaut</string>
+    <string name="kernel_manager_reset_summary">Restaurer les paramètres par défaut du processeur</string>
+    <string name="settings_applied">Paramètres appliqués avec succès</string>
+    <string name="settings_reset">Paramètres réinitialisés aux valeurs par défaut</string>
+    <string name="kernel_manager_footer">Les gouverneurs de processeur gèrent la manière dont votre appareil ajuste la fréquence du processeur pour équilibrer les performances et la consommation d\'énergie. Voici un bref aperçu :\n\n• walt : un régulateur développé par Google optimisé pour la réactivité et la latence des interactions utilisateur, principalement utilisé dans les appareils Pixel.\n• conservateur : augmente progressivement la fréquence du processeur ; économise la batterie mais peut réduire la réactivité.\n• powersave : maintient le processeur à la fréquence la plus basse possible, en donnant la priorité à la durée de vie de la batterie par rapport aux performances.\n• performances : verrouille le processeur à la fréquence maximale, garantissant des performances maximales au détriment de la batterie.\n• schedhorizon : un gouverneur compatible avec le planificateur visant à améliorer la migration des tâches et l\'efficacité entre les cœurs.\n• schedutil : le gouverneur moderne par défaut dans de nombreux noyaux ; utilise les données du planificateur de Linux pour adapter la fréquence du processeur de manière intelligente et efficace.</string>
+    <string name="kernel_manager_cpu_monitor">Surveillance du cœur du processeur</string>
+    <string name="kernel_manager_core_online">En ligne</string>
+    <string name="kernel_manager_core_offline">Hors ligne</string>
+    <string name="kernel_manager_loading">Chargement...</string>
+    <string name="kernel_manager_enable_monitoring">Surveillance en temps réel</string>
+    <string name="kernel_manager_enable_monitoring_summary">Mettre à jour en permanence l\'état du cœur du processeur</string>
+    <string name="kernel_manager_update_interval">Fréquence de mise à jour</string>
+    <string name="kernel_manager_update_interval_summary">À quelle fréquence actualiser les données</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Résumé du cluster d\'efficacité</string>
+    <string name="kernel_manager_performance_cluster_summary">Résumé du cluster de performances</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d cœurs en ligne | Plage : %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    <string name="update_interval_500ms">0,5 seconde</string>
+    <string name="update_interval_1000ms">1 seconde</string>
+    <string name="update_interval_2000ms">2 secondes</string>
+    <string name="update_interval_5000ms">5 secondes</string>
+    <string name="cpu_core_status_online">🟢 %1$s - En ligne</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - Hors ligne</string>
+    <string name="kernel_manager_governor_current">%1$s (Actuel : %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Actuel : %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">La surveillance en temps réel est désactivée. Activez-le pour voir les fréquences et l’état du cœur du processeur en direct.</string>
+    <string name="kernel_manager_error_read">Impossible de lire les informations sur le processeur</string>
+    <string name="kernel_manager_error_write">Impossible d\'appliquer les paramètres du processeur. Un accès root peut être requis.</string>
+    <string name="kernel_manager_error_permission">Autorisation refusée. Un accès root est requis pour modifier les paramètres du processeur.</string>
+    <string name="gpu_manager_title">Gestionnaire de GPU</string>
+    <string name="gpu_manager_summary">Gérer les fréquences GPU et les paramètres d\'alimentation</string>
+    <string name="gpu_governor_title">Gouverneur GPU</string>
+    <string name="gpu_governor_summary">Actuel : %s</string>
+    <string name="gpu_freq_title">Fréquences GPU</string>
+    <string name="gpu_min_freq_title">Fréquence minimale</string>
+    <string name="gpu_max_freq_title">Fréquence maximale</string>
+    <string name="gpu_max_gpuclk_title">Remplacement maximum de GPUCLK</string>
+    <string name="gpu_max_gpuclk_summary">Boost d\'horloge supplémentaire (max 940 MHz)</string>
+    <string name="gpu_current_freq_title">Fréquence actuelle</string>
+    <string name="gpu_power_title">Paramètres d\'alimentation</string>
+    <string name="gpu_force_clk_on_title">Forcer l\'horloge à s\'activer</string>
+    <string name="gpu_force_clk_on_summary">Gardez l\'horloge du GPU toujours allumée</string>
+    <string name="gpu_force_bus_on_title">Forcer le bus activé</string>
+    <string name="gpu_force_bus_on_summary">Gardez le bus GPU toujours activé</string>
+    <string name="gpu_force_rail_on_title">Forcer le rail sur</string>
+    <string name="gpu_force_rail_on_summary">Gardez le rail d\'alimentation du GPU toujours allumé</string>
+    <string name="gpu_force_no_nap_title">Forcer aucune sieste</string>
+    <string name="gpu_force_no_nap_summary">Désactiver la sieste GPU entre les images</string>
+    <string name="gpu_bus_split_title">Partage de bus</string>
+    <string name="gpu_bus_split_summary">Activer la répartition du bus GPU</string>
+    <string name="gpu_preempt_title">Préemption GPU</string>
+    <string name="gpu_preempt_summary">Jeu à faible latence (permet une meilleure expérience de jeu)</string>
+    <string name="gpu_camera_boost_title">Amélioration de la caméra</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (performances maximales d\'encodage caméra/vidéo)</string>
+    <string name="gpu_thermal_title">Paramètres thermiques</string>
+    <string name="gpu_thermal_pwrlevel_title">Niveau de puissance thermique</string>
+    <string name="gpu_thermal_pwrlevel_summary">Niveau de puissance thermique actuel</string>
+    <string name="gpu_temp_title">Température du processeur graphique</string>
+    <string name="gpu_info_title">Informations sur le processeur graphique</string>
+    <string name="gpu_model_title">Modèle GPU</string>
+    <string name="gpu_busy_percentage_title">Charge GPU</string>
+    <string name="gpu_reset_count_title">Réinitialiser le compte</string>
+    <string name="gpu_preempt_count_title">Nombre de préemptions</string>
+    <string name="gpu_info_category">Informations sur le processeur graphique</string>
+    <string name="gpu_settings_category">Paramètres GPU</string>
+    <string name="gpu_advanced_category">Paramètres avancés</string>
+    <string name="gpu_info_summary">Gérez la mise à l\'échelle de la fréquence du GPU et les paramètres d\'alimentation. Les modifications peuvent affecter les performances et la durée de vie de la batterie.</string>
+    <string name="apply_settings">Appliquer les paramètres</string>
+    <string name="reset_settings">Réinitialiser les paramètres</string>
+    <string name="gpu_turbo_preset_title">Préréglage Turbo</string>
+    <string name="gpu_turbo_preset_summary">Performances maximales : verrouillage 940 MHz, régulateur de performances, tous les boosts sont activés</string>
+    <string name="gpu_turbo_enabled">🚀 Mode Turbo activé !</string>
+    <string name="gpu_settings_applied">Paramètres appliqués !</string>
+    <string name="gpu_settings_reset">Paramètres réinitialisés aux valeurs par défaut !</string>
+    <string name="unknown">Inconnu</string>
+    <string name="thermal_level_summary">Niveau %s</string>
+    <string name="camera_boost_triggered">Boost caméra/vidéo déclenché !</string>
+    <string name="video_enhancer_title">Optimiseur vidéo</string>
+    <string name="video_enhancer_summary">Optimisations d\'affichage et de performances pour Redmi Note 13 Pro 5G</string>
+    <string name="video_enhancer_display_category">📺 Fonctionnalités d\'affichage</string>
+    <string name="smooth_motion_enable_title">Mouvement fluide</string>
+    <string name="smooth_motion_enable_summary">Lissage matériel des mouvements pour les vidéos (par défaut : OFF) • Redémarrage requis</string>
+    <string name="optimize_refresh_enable_title">Optimiser le taux de rafraîchissement</string>
+    <string name="optimize_refresh_enable_summary">Taux de rafraîchissement dynamique basé sur le contenu (par défaut : OFF) • Redémarrage requis</string>
+    <string name="peak_refresh_rate_title">Taux de rafraîchissement maximal de 120 Hz</string>
+    <string name="peak_refresh_rate_summary">Activer 120 Hz au toucher (200 ms) • Valeur d\'usine • Redémarrage requis</string>
+    <string name="video_enhancer_performance_category">⚡ Optimisations des performances</string>
+    <string name="force_vulkan_title">Forcer l\'API Vulkan</string>
+    <string name="force_vulkan_summary">Utilisez Vulkan au lieu d\'OpenGL ES (Adreno 710) • Redémarrage requis</string>
+    <string name="purgeable_assets_title">Actifs purgeables</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">Répertorier toutes les boîtes à clés téléchargées dans le stockage</string>
+    <string name="keybox_verify_title">Vérifier les téléchargements</string>
+    <string name="keybox_verify_summary">Vérifier la structure XML des boîtes à clés téléchargées</string>
+    <string name="keybox_analyze_title">Analyse approfondie</string>
+    <string name="keybox_analyze_summary">Analyser les chaînes de certificats, leur expiration et leur validité</string>
+    <string name="keybox_check_api_title">Vérifier l\'intégrité du jeu</string>
+    <string name="keybox_check_api_summary">Testez la keybox par rapport à l\'API Google Play Integrity</string>
+    <string name="keybox_compare_title">Comparer les boîtes à clés</string>
+    <string name="keybox_compare_summary">Comparez plusieurs boîtes à clés côte à côte</string>
+    <string name="keybox_extract_certs_title">Extraire les certificats</string>
+    <string name="keybox_extract_certs_summary">Exporter les certificats sous forme de fichiers PEM</string>
+    <string name="keybox_batch_verify_title">Vérification par lots</string>
+    <string name="keybox_batch_verify_summary">Testez plusieurs boîtes à clés avec des rapports détaillés</string>
+    <string name="keybox_status_title">État de la boîte à clés</string>
+    <string name="keybox_status_summary">Actuel : %s</string>
+    <string name="keybox_status_installed">✅ Fichier valide téléchargé</string>
+    <string name="keybox_status_not_installed">❌ Aucun fichier téléchargé</string>
+    <string name="keybox_status_unknown">⚠️ Inconnu</string>
+    <string name="keybox_device_id_title">ID de l\'appareil</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Nombre de certificats</string>
+    <string name="keybox_cert_count_summary">RSA : %1$d, ECDSA : %2$d</string>
+    <string name="keybox_expiry_title">Expiration du certificat</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Générer des modèles</string>
+    <string name="keybox_search_dialog_title">Rechercher des boîtes à clés communautaires</string>
+    <string name="keybox_import_dialog_title">Importer la boîte à clés</string>
+    <string name="keybox_export_dialog_title">Liste des boîtes à clés téléchargées</string>
+    <string name="keybox_verify_dialog_title">Vérifier les boîtes à clés téléchargées</string>
+    <string name="keybox_analyze_dialog_title">Analyse approfondie</string>
+    <string name="keybox_analyze_dialog_message">Cela effectuera une analyse approfondie des certificats :\n\n✅ Vérifications :\n• Validation de la chaîne de certificats\n• Dates d\'expiration\n• Algorithmes de signature\n• Tailles des clés\n• Informations sur l\'émetteur\n• Statut de révocation du certificat\n\n⚠️ Cela prend 10 à 30 secondes par boîte à clés.\n\nContinuer ?</string>
+    <string name="keybox_check_api_dialog_title">Jouer au contrôle d\'intégrité</string>
+    <string name="keybox_check_api_dialog_message">Cela testera votre keybox par rapport à l\'API d\'intégrité de Google Play.\n\n🔍 Ce qu\'il vérifie :\n• Intégrité de BASE\n• Intégrité de l\'APPAREIL \n• FORTE intégrité\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ EXIGENCES :\n• Keybox doit être installé dans Magisk/KernelSU\n• Play Integrity Fix ou le module TrickyStore\n• Internet connexion\n\n⏱️ Prend 5 à 10 secondes\n\nContinuer ?</string>
+    <string name="keybox_compare_dialog_title">Comparer les boîtes à clés</string>
+    <string name="keybox_compare_dialog_message">Comparez plusieurs boîtes à clés téléchargées :\n\n📊 La comparaison inclut :\n• ID d\'appareil\n• Nombre de certificats\n• Dates d\'expiration\n• Types d\'algorithmes\n• Formats de clé (PIF/TrickyStore)\n\nSélectionnez les boîtes à clés à comparer.</string>
+    <string name="keybox_extract_dialog_title">Extraire les certificats</string>
+    <string name="keybox_extract_dialog_message">Extrayez les certificats de la boîte à clés sous forme de fichiers PEM séparés.\n\n📁 Exportations :\n• Certificats RSA\n• Certificats ECDSA\n• Clés privées (si nécessaire)\n\nFichiers enregistrés dans : /Télécharger/Keyboxes/certs/\n\nContinuer ?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Attention</string>
+    <string name="keybox_overwrite_dialog_message">Cette action n\'est pas prise en charge dans cette version de l\'application.</string>
+    <string name="keybox_generating">🔄 Génération de modèles…</string>
+    <string name="keybox_searching">🔍 Recherche de sources communautaires…</string>
+    <string name="keybox_downloading">Téléchargement de la keybox depuis le référentiel…</string>
+    <string name="keybox_verifying">🔍 Vérification des structures…</string>
+    <string name="keybox_analyzing">🔬 Analyse des certificats…</string>
+    <string name="keybox_checking_api">🌐 Test de l\'API Play Integrity…</string>
+    <string name="keybox_comparing">📊 Comparaison des boîtes à clés…</string>
+    <string name="keybox_extracting">📦 Extraction des certificats…</string>
+    <string name="keybox_generate_success">✅ Modèles générés avec succès !</string>
+    <string name="keybox_search_success">✅ Keybox valide trouvée et téléchargée !</string>
+    <string name="keybox_import_success">✅ Keybox importée avec succès !</string>
+    <string name="keybox_export_success">✅ Liste de fichiers générée.</string>
+    <string name="keybox_verify_success">✅ Vérification terminée.</string>
+    <string name="keybox_analyze_success">✅ Analyse terminée.</string>
+    <string name="keybox_check_api_success">✅ Contrôle d\'intégrité terminé.</string>
+    <string name="keybox_compare_success">✅ Comparaison terminée.</string>
+    <string name="keybox_extract_success">✅ Certificats extraits !</string>
+    <string name="keybox_generate_error">❌ Échec de la génération des modèles !\n\nErreur : %s</string>
+    <string name="keybox_search_error">❌ Impossible de trouver une boîte à clés valide !\n\nErreur : %s</string>
+    <string name="keybox_import_error">❌ Échec de l\'importation de la boîte à clés !\n\nErreur : %s</string>
+    <string name="keybox_export_error">❌ Échec de la liste des fichiers !\n\nErreur : %s</string>
+    <string name="keybox_verify_error">❌ La vérification a échoué !\n\nErreur : %s</string>
+    <string name="keybox_analyze_error">❌ L\'analyse a échoué !\n\nErreur : %s</string>
+    <string name="keybox_check_api_error">❌ La vérification de l\'intégrité a échoué !\n\nErreur : %s</string>
+    <string name="keybox_no_root">❌ L\'accès root n\'est PAS requis pour cette application.</string>
+    <string name="keybox_no_internet">❌Connexion Internet requise !</string>
+    <string name="keybox_no_keybox">❌ Aucun fichier téléchargé !</string>
+    <string name="keybox_no_module">❌ Aucun module Magisk/KernelSU détecté !</string>
+    <string name="keybox_info_title">À propos du gestionnaire de boîtes à clés</string>
+    <string name="keybox_info_summary">En savoir plus sur l\'attestation Android et la Keybox</string>
+    <string name="keybox_info_dialog_title">Boîte de Keybox\'s - Informations</string>
+    <string name="keybox_info_dialog_message">🔑 QU\'EST-CE QUE CETTE APPLICATION ?\n═══════════════════════\n\nOutil avancé pour gérer les boîtes à clés d\'attestation Android. AUCUNE RACINE requise pour le téléchargement/l\'analyse.\n\n✅ CARACTÉRISTIQUES :\n• Rechercher des sources communautaires\n• Importer des boîtes à clés personnalisées\n• Analyse approfondie des certificats\n• Test de l\'API Play Integrity\n• Vérification par lots\n• Extraction de certificats\n• Comparaison côte à côte\n\n📁 EMPLACEMENT :\n/sdcard/Download/Keyboxes/\n\n⚙️ INSTALLATION :\n═══════════════════════\n\nOption 1 : Jouer au correctif d\'intégrité\n1. Installez Magisk/KernelSU\n2. Installer le module PIF\n3. Copiez keybox.xml dans :\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Redémarrer\n\nOption 2 : TrickyStore\n1. Installez Magisk/KernelSU\n2. Installez le module TrickyStore\n3. Copiez keybox.xml dans :\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Rechargement automatique (pas de redémarrage)\n\n🧪 TEST :\n═══════════════════════\n• Utiliser le contrôle d\'intégrité de lecture intégré\n• Application YASNAC\n• Applications bancaires\n• Google Wallet\n\n🔬 FONCTIONNALITÉS AVANCÉES :\n═══════════════════════\n\nDeep Analyse :\n• Validation de la chaîne de certificats\n• Suivi de l\'expiration\n• Vérification de la force de l\'algorithme\n• Statut de révocation\n\nContrôle de l\'intégrité de la lecture :\n• Tests d\'API en temps réel\n• Statut BASIC/DEVICE/STRONG\n• Détection de module\n\nOpérations par lots :\n• Vérifier plusieurs boîtes à clés\n• Comparer côte à côte\n• Extraire les certificats\n\n💡 CONSEILS :\n═══════════════════════\n• Les boîtes à clés publiques sont rares et rapidement révoquées.\n• Les meilleures sources sont les groupes Telegram privés.\n• Testez les boîtes à clés avant installation\n• Conserver des sauvegardes des boîtes à clés fonctionnelles\n• Vérifier les dates d\'expiration\n\n🔗 COMMUNAUTÉ :\n═══════════════════════\n• Télégramme : @PlayIntegrityFix\n• DroidWin : droidwin.com\n• XDA : xdaforums.com\n• Reddit : r/Magisk\n• GitHub : recherchez &amp;quot;intégrité de lecture de la boîte à touches&amp;quot;\n\n⚠️ LÉGAL AVIS DE NON-RESPONSABILITÉ :\n═══════════════════════\nÀ des fins éducatives uniquement.\nL\'utilisation de boîtes à clés modifiées peut enfreindre :\n• Conditions d\'utilisation de Google\n• Développeur d\'applications politiques\n• Lois locales\n\nUtilisez à vos propres risques !</string>
+    <string name="keybox_reset_title">Supprimer les téléchargements</string>
+    <string name="keybox_reset_summary">Supprimer toutes les boîtes à clés téléchargées du stockage</string>
+    <string name="keybox_reset_dialog_title">⚠️ Supprimer les téléchargements</string>
+    <string name="keybox_reset_dialog_message">Supprimez TOUS les fichiers de /sdcard/Download/Keyboxes/?\n\nCela ne peut pas être annulé.</string>
+    <string name="keybox_reset_success">✅ Tous les fichiers supprimés !</string>
+    <string name="keybox_reset_error">❌ Échec de la suppression : %s</string>
+    <string name="ram_optimizer_title">Optimiseur de RAM et de stockage</string>
+    <string name="ram_optimizer_summary">Optimiser la compression et le stockage de la RAM</string>
+    <string name="ram_optimizer_description">Gérez les paramètres zRAM, la mise en veille prolongée des applications et un stockage propre pour de meilleures performances.</string>
+    <string name="zram_category_title">Compression zRAM</string>
+    <string name="zram_enable_title">Activer zRAM</string>
+    <string name="zram_enable_summary">Compresser la RAM pour libérer de la mémoire</string>
+    <string name="zram_size_title">Taille de la zRAM (Mo)</string>
+    <string name="zram_size_summary">Définir la taille de la RAM compressée (512-12288 Mo)</string>
+    <string name="zram_swappiness_title">Échange</string>
+    <string name="zram_swappiness_summary">Contrôlez l\'agressivité du passage à la zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">Hibernation des applications</string>
+    <string name="app_hibernation_title">Activer la mise en veille prolongée des applications</string>
+    <string name="app_hibernation_summary">Mettez en veille prolongée les applications inutilisées pour économiser la RAM et la batterie</string>
+    <string name="storage_cleaner_category_title">Nettoyant de stockage</string>
+    <string name="storage_stats_title">Statistiques de stockage</string>
+    <string name="storage_stats_summary">Chargement...</string>
+    <string name="clean_app_cache_title">Nettoyer le cache de l\'application</string>
+    <string name="clean_app_cache_summary">Supprimer les données mises en cache de toutes les applications</string>
+    <string name="clean_system_cache_title">Nettoyer le cache système</string>
+    <string name="clean_system_cache_summary">Effacer le cache système et supprimer les caches</string>
+    <string name="clean_thumbnails_title">Nettoyer les vignettes</string>
+    <string name="clean_thumbnails_summary">Supprimer le cache des vignettes du média</string>
+    <string name="clean_downloads_title">Nettoyer les anciens téléchargements</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Ajustez automatiquement les performances en fonction de l\'application de premier plan</string>
+</resources>

@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Xiaomi ezarpenak</string>
+    <string name="tile_add">Gehitu fitxa</string>
+    <string name="tile_added">Fitxa gehitu da</string>
+    <string name="tile_not_added">Fitxa ez da gehitu</string>
+    <string name="tile_already_added">Fitxa dagoeneko gehitu da</string>
+    <string name="tile_on">On</string>
+    <string name="tile_off">Itzali</string>
+    <string name="clear_speaker_title">Garbitu bozgorailua</string>
+    <string name="clear_speaker_summary">Erreproduzitu 30 segundoko audioa bozgorailua garbitzeko</string>
+    <string name="clear_speaker_description">Exekutatu funtzio hau behin edo bitan zure bozgorailua hautsak arinki blokeatuta dagoela ikusten baduzu. Ezarri multimedia-bolumena gehienez.\n\nBozgorailua asko blokeatuta badago, exekutatu eginbide hau 2-5 aldiz gailua astintzen duzun bitartean bozgorailua behera begira duela.</string>
+    <string name="saturation_title">Bistaratu saturazioa</string>
+    <string name="saturation_summary">Kontrolatu pantailaren saturazio maila</string>
+    <string name="saturation_footer_summary">Pantaila-ezarpenetan kolore-modua aldatzeak saturazio-maila gainidatziko du, eta berriro aplikatu behar da.</string>
+    <string name="image_preview_content_description">Aurrebista</string>
+    <string name="image_preview_next_page_content_description">Hurrengoa</string>
+    <string name="image_preview_previous_page_content_description">Aurreko</string>
+    <string name="custom_seekbar_value">Balioa:</string>
+    <string name="custom_seekbar_default_value">lehenespenez</string>
+    <string name="custom_seekbar_default_value_to_set">Balio lehenetsia:</string>
+    <string name="custom_seekbar_default_value_is_set">Balio lehenetsia ezarri da</string>
+    <string name="auto_hbm_title">Distira handiko modu automatikoa (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Erabili HBM automatikoa</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">Gaituta</string>
+    <string name="tile_hbm_off">Desgaituta</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM ez dago erabilgarri</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">HBM automatikoa edo Distira automatikoa gaituta dago</string>
+    <string name="hbm_mode_title">Distira handiko modua</string>
+    <string name="hbm_mode_notification">Distira handiko modua aktibatuta dago orain. Denbora luzez erabiltzeak pantaila kaltetu dezake.</string>
+    <string name="auto_hbm_summary">Gaitu automatikoki distira handiko modua eguzki-argiaren intentsitatean oinarrituta (lux)</string>
+    <string name="auto_hbm_threshold_title">Argiaren atalasea</string>
+    <string name="auto_hbm_threshold_summary">Definitu argi-intentsitatearen atalasea lux-unitatetan HBM aktibatzen den</string>
+    <string name="auto_hbm_enable_time_title">Gaitu ordua</string>
+    <string name="auto_hbm_enable_time_summary">HBM aktibatzeko argi-atalasea etengabe bete behar den segundotan</string>
+    <string name="auto_hbm_disable_time_title">Desgaitu ordua</string>
+    <string name="auto_hbm_disable_time_summary">HBM desaktibatzen den segundotan iraupena argi-atalasa ezarritako mailatik behera jaisten bada</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">Gaitu sistema gainjartzea (FPS, Temp, etab.)</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">Aldatu jokoaren gainjartzea</string>
+    <string name="game_bar_enable_title">Gaitu GameBar Overlay</string>
+    <string name="overlay_permission_required">Gainjarri baimena behar da</string>
+    <string name="overlay_permission_granted">Gainjartzeko baimena eman da</string>
+    <string name="overlay_permission_denied">Gainjartzeko baimena ukatu da</string>
+    <string name="overlay_features_title">Gainjarri Ezaugarriak</string>
+    <string name="game_bar_fps_enable_title">FPS gainjartzea</string>
+    <string name="game_bar_fps_enable_summary">Erakutsi uneko FPS pantailan</string>
+    <string name="game_bar_temp_enable_title">Gailuaren tenperatura</string>
+    <string name="game_bar_temp_enable_summary">Erakutsi gailuaren (bateria) tenperatura</string>
+    <string name="game_bar_cpu_usage_enable_title">CPU erabilera</string>
+    <string name="game_bar_cpu_usage_enable_summary">Erakutsi uneko CPU erabilera-ehunekoa</string>
+    <string name="game_bar_cpu_clock_enable_title">CPU erlojuaren abiadura</string>
+    <string name="game_bar_cpu_clock_enable_summary">Erakutsi uneko CPUaren erlojuaren abiadura nukleo bakoitzeko</string>
+    <string name="game_bar_cpu_temp_enable_title">CPU tenperatura</string>
+    <string name="game_bar_cpu_temp_enable_summary">Erakutsi CPU tenperatura (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">RAM erabilera</string>
+    <string name="game_bar_ram_enable_summary">Erakutsi uneko RAM erabilera MB-tan</string>
+    <string name="game_bar_gpu_usage_enable_title">GPU erabilera</string>
+    <string name="game_bar_gpu_usage_enable_summary">Erakutsi GPU erabilera-ehunekoa</string>
+    <string name="game_bar_gpu_clock_enable_title">GPU erlojuaren abiadura</string>
+    <string name="game_bar_gpu_clock_enable_summary">Erakutsi uneko GPUaren erlojuaren maiztasuna</string>
+    <string name="game_bar_gpu_temp_enable_title">GPUaren tenperatura</string>
+    <string name="game_bar_gpu_temp_enable_summary">Erakutsi uneko GPUaren tenperatura</string>
+    <string name="fps_measurement_method_title">FPS neurtzeko metodoa</string>
+    <string name="game_bar_fps_method_title">Hautatu FPS metodoa</string>
+    <string name="game_bar_fps_method_summary">Aukeratu New API metodoa (lehenetsia) eta Legacy Sysfs</string>
+    <string name="customization_title">Pertsonalizazioa</string>
+    <string name="game_bar_text_size_title">Testuaren tamaina</string>
+    <string name="game_bar_text_size_summary">Egokitu gainjarritako testuaren tamaina</string>
+    <string name="game_bar_background_alpha_title">Atzeko planoaren gardentasuna</string>
+    <string name="game_bar_background_alpha_summary">Doitu atzeko planoaren gardentasuna</string>
+    <string name="game_bar_corner_radius_title">Gainjarri izkina-erradioa</string>
+    <string name="game_bar_corner_radius_summary">Doitu gainjarritako ertzak zenbat biribildu behar diren</string>
+    <string name="game_bar_padding_title">Gainjarrizko betegarria</string>
+    <string name="game_bar_padding_summary">Doitu estatistiken inguruko espazioa</string>
+    <string name="game_bar_item_spacing_title">Elementu-tartea</string>
+    <string name="game_bar_item_spacing_summary">Egokitu gainjarritako lerroen arteko tartea</string>
+    <string name="game_bar_update_interval_title">Eguneratzeko tartea</string>
+    <string name="game_bar_update_interval_summary">Ezarri gainjarritako balioak zenbat eguneratzen diren</string>
+    <string name="game_bar_title_color_title">Estatistika Izenburuaren Kolorea</string>
+    <string name="game_bar_title_color_summary">Kolorea \'FPS\', \'Temp\', \'CPU\' eta abar testuetarako</string>
+    <string name="game_bar_value_color_title">Estatistikaren balioa Kolorea</string>
+    <string name="game_bar_value_color_summary">Zenbakizko estatistiketarako kolorea (adibidez, \'29\', \'32,0°C\')</string>
+    <string name="game_bar_position_title">Gainjarri posizioa</string>
+    <string name="game_bar_position_summary">Hautatu gainjartzearen posizioa pantailan</string>
+    <string name="game_bar_format_title">Gainjarri formatua</string>
+    <string name="game_bar_format_summary">Aukeratu pantaila osoa edo minimoa</string>
+    <string name="game_bar_overlay_format_toast">Gainjartze-formatua aldatu da: %s</string>
+    <string name="game_bar_format_entries_full">Osoa</string>
+    <string name="game_bar_format_entries_minimal">Gutxieneko</string>
+    <string name="split_config_title">Zatitu konfigurazioa</string>
+    <string name="game_bar_split_mode_title">Zatiketa modua</string>
+    <string name="game_bar_split_mode_summary">Aukeratu Alboz Albo edo Pilatutako antolaketa</string>
+    <string name="overlay_gesture_controls_title">Gainjarri keinu-kontrolak</string>
+    <string name="game_bar_single_tap_toggle_title">Gaitu ukitu bakarra txandakatzeko</string>
+    <string name="game_bar_single_tap_toggle_summary">Ukitu behin gainjarri formatu oso eta minimo batetik bestera aldatzeko</string>
+    <string name="game_bar_doubletap_capture_title">Gaitu Sakatu bikoitza harrapatzeko</string>
+    <string name="game_bar_doubletap_capture_summary">Sakatu birritan gainjartzea harrapatzeko erregistroak hasteko/gelditzeko</string>
+    <string name="game_bar_longpress_enable_title">Gaitu sakatu luzea</string>
+    <string name="game_bar_longpress_enable_summary">Luze sakatu gainjartzea GameBar ezarpenetara sartzeko</string>
+    <string name="game_bar_longpress_timeout_title">Prentsa luzeko iraupena</string>
+    <string name="game_bar_longpress_timeout_summary">Ezarri geruza luzez sakatzeko behar den iraupena</string>
+    <string name="capture_logs_title">Harrapatzeko erregistroak</string>
+    <string name="game_bar_capture_start_title">Hasi saioa erregistratzen</string>
+    <string name="game_bar_capture_start_summary">Hasi FPS eta errendimendu-datuak denbora errealean ateratzen</string>
+    <string name="game_bar_capture_stop_title">Utzi erregistroa</string>
+    <string name="game_bar_capture_stop_summary">Utzi FPS eta errendimendu-datuak denbora errealean harrapatzea</string>
+    <string name="game_bar_capture_export_title">Esportatu GameBar erregistroko datuak</string>
+    <string name="game_bar_capture_export_summary">Gorde ateratako FPS eta errendimendu-datuak CSV fitxategi gisa</string>
+    <string name="game_bar_capture_start_toast">Datuak erregistratzen hasi da</string>
+    <string name="game_bar_capture_stop_toast">Datuak erregistratzeari utzi zaio</string>
+    <string name="game_bar_capture_export_toast">Erregistroko datuak fitxategira esportatu dira</string>
+    <string name="game_bar_doubletap_capture_start_toast">Harrapaketa hasi da</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Harrapatzea gelditu da</string>
+    <string name="auto_enable_gamebar_title">Gaitu automatikoki GameBar</string>
+    <string name="game_bar_auto_enable_title">Gaitu GameBar automatikoki hautatutako aplikazioetarako</string>
+    <string name="game_bar_auto_enable_summary">Aktibatuta badago, hautatutako aplikazioek GameBar automatikoki gaituko dute etengailu nagusia itzalita egon arren</string>
+    <string name="game_bar_app_selector_title">Hautatu Aplikazioak</string>
+    <string name="game_bar_app_selector_summary">Gehitu GameBar automatikoki gaitu behar duten aplikazioak</string>
+    <string name="game_bar_app_remover_title">Kendu hautatutako aplikazioak</string>
+    <string name="game_bar_app_remover_summary">Kendu aplikazioak automatikoki gaitzeko zerrendatik</string>
+    <string name="game_bar_app_remover_activity_title">Kendu automatikoki gaitzeko aplikazioak</string>
+    <string name="game_bar_app_selector_activity_title">Hautatu GameBar-erako aplikazioak</string>
+    <string name="game_bar_app_added_toast">gehitu</string>
+    <string name="game_bar_app_removed_toast">kendu</string>
+    <string name="gpu_enable_title">Gaitu GPU Optimizer</string>
+    <string name="gpu_enable_summary">Aldatu GPU optimizazioak</string>
+    <string name="gpu_freq_category_title">Konfiguratu GPUaren maiztasuna</string>
+    <string name="gpu_min_frequency">GPUren gutxieneko maiztasuna</string>
+    <string name="gpu_max_frequency">GPUaren gehieneko maiztasuna</string>
+    <string name="gpu_disabled_defaults_restored">Optimizer GPU desgaituta, lehenetsitako lehenetsiak</string>
+    <string name="gpu_optimizer_enabled">GPU optimizatzailea gaituta</string>
+    <string name="gpu_min_freq_exceeds_max">Huts egin du: GPUren maiztasun minimoa ezin da maiztasun maximoa gainditu</string>
+    <string name="gpu_max_freq_below_min">Huts egin du: GPUaren maiztasun maximoa ezin da izan maiztasun minimoa baino txikiagoa</string>
+    <string name="gpu_min_freq_applied">GPU gutxieneko maiztasuna -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU gehieneko maiztasuna -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Gaitu CPU Optimizer</string>
+    <string name="cpu_enable_summary">Aldatu PUZaren optimizazioak</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">PUZaren optimizatzailea desgaituta dago, lehenetsiak leheneratu dira</string>
+    <string name="cpu_optimizer_enabled">PUZaren optimizatzailea gaituta</string>
+    <string name="cpu_little_category_title">Konfiguratu CPU Little Cluster</string>
+    <string name="cpu_little_min_frequency_title">Maiztasun minimoa</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Gehienezko maiztasuna</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Gobernadore</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Huts egin du: CPUaren maiztasun minimo txikiak ezin du gainditu gehienez</string>
+    <string name="cpu_little_max_freq_below_min">Huts egin du: CPUaren maiztasun maximo txikia ezin da izan min baino txikiagoa</string>
+    <string name="cpu_little_min_freq_applied">CPU gutxieneko maiztasun txikia -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">CPU gutxieneko maiztasun maximoa -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">CPU gobernadore txikia -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Konfiguratu CPU Big Cluster</string>
+    <string name="cpu_big_min_frequency_title">Maiztasun minimoa</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Gehienezko maiztasuna</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Gobernadore</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Huts egin du: CPU handien maiztasun minimoak ezin du gainditu gehienez</string>
+    <string name="cpu_big_max_freq_below_min">Huts egin du: CPU handien maiztasun maximoa ezin da min baino txikiagoa izan</string>
+    <string name="cpu_big_min_freq_applied">CPU handien maiztasun minimoa -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">CPU handieneko maiztasun maximoa -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">CPU handi gobernadorea -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Konfiguratu CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">Maiztasun minimoa</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Gehienezko maiztasuna</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Gobernadore</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Huts egin du: CPUaren lehen minaren maiztasunak ezin du gainditu gehienez</string>
+    <string name="cpu_prime_max_freq_below_min">Huts egin du: CPU lehen maiztasun maximoa ezin da min baino txikiagoa izan</string>
+    <string name="cpu_prime_min_freq_applied">CPU prime min maiztasuna -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">CPU lehen maiztasun maximoa -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">CPU lehen gobernadorea -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Abiarazi logcat abiaraztean</string>
+    <string name="logcat_autostart_summary">Abiarazi automatikoki atzeko planoko erregistroa berrabiarazi ondoren</string>
+    <string name="logcat_viewer_title">Logcat ikuslea</string>
+    <string name="logcat_viewer_summary">Ireki denbora errealeko erregistro-ikustailea</string>
+    <string name="logcat_filter_hint">Idatzi etiketa edo gako-hitza</string>
+    <string name="logcat_filter_title">Erregistro-iragazkia</string>
+    <string name="logcat_pause">Pausa</string>
+    <string name="logcat_resume">Resume</string>
+    <string name="logcat_autoscroll_on">Desplazamendu automatikoa AKTIBATUTA</string>
+    <string name="logcat_autoscroll_off">Joan-etorri automatikoa desaktibatuta</string>
+    <string name="logcat_save">Gorde erregistroa</string>
+    <string name="logcat_clear">Garbitu erregistroa</string>
+    <string name="logcat_share">Partekatu erregistroa</string>
+    <string name="logcat_settings">Ezarpenak</string>
+    <string name="logcat_export">Esportatu</string>
+    <string name="logcat_search">Bilatu</string>
+    <string name="logcat_notification_title">Logcat ikuslea</string>
+    <string name="logcat_notification_text">Atzeko planoko erregistroa aktibo</string>
+    <string name="logcat_notification_stopped">Atzeko planoko erregistroa gelditu da</string>
+    <string name="logcat_notification_channel_name">Logcat atzeko planoko zerbitzua</string>
+    <string name="logcat_notification_channel_desc">Atzeko planoko logcat erregistrorako kontrolak</string>
+    <string name="logcat_level_verbose">Hitzezkoa</string>
+    <string name="logcat_level_debug">Araztu</string>
+    <string name="logcat_level_info">Informazioa</string>
+    <string name="logcat_level_warn">Abisua</string>
+    <string name="logcat_level_error">Errorea</string>
+    <string name="logcat_no_logs">Ez dago erregistrorik erabilgarri</string>
+    <string name="logcat_loading">Erregistroak kargatzen...</string>
+    <string name="logcat_paused">Erregistroa eten da</string>
+    <string name="logcat_active">Erregistroa aktibo</string>
+    <string name="logcat_filter_applied">Iragazkia aplikatu da: %1$s</string>
+    <string name="logcat_logs_cleared">Garbitu erregistroak</string>
+    <string name="logcat_save_progress">Erregistroak gordetzen...</string>
+    <string name="logcat_save_success">Erregistroak ongi gorde dira.</string>
+    <string name="logcat_save_failed">Ezin izan dira erregistroak gorde.</string>
+    <string name="logcat_share_subject">Android Logcat esportazioa</string>
+    <string name="logcat_permission_required">Biltegiratze-baimena behar da erregistroak gordetzeko</string>
+    <string name="cpu_tile_label">CPU gobernadorea</string>
+    <string name="cpu_tile_unavailable">CPU kontrola ez dago erabilgarri</string>
+    <string name="cpu_tile_error">CPUaren monitorizazioaren errorea</string>
+    <string name="cpu_tile_unknown">Ezezaguna</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Schedutil</string>
+    <string name="cpu_tile_governor_performance">Errendimendua</string>
+    <string name="cpu_tile_governor_powersave">Energia aurreztea</string>
+    <string name="cpu_tile_governor_ondemand">Eskaera</string>
+    <string name="cpu_tile_governor_conservative">Kontserbadorea</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">CPU lauzaren ezarpenak</string>
+    <string name="cpu_tile_settings_summary">Konfiguratu CPU Governor Ezarpen azkarrak fitxa-itxura eta portaera</string>
+    <string name="cpu_tile_appearance_category">Itxura</string>
+    <string name="cpu_tile_behavior_category">Portaera</string>
+    <string name="cpu_tile_size_title">Fitxaren ikonoaren tamaina</string>
+    <string name="cpu_tile_size_summary">Aukeratu CPU lauzaren ikonoaren tamaina</string>
+    <string name="cpu_tile_style_title">Fitxa estiloa</string>
+    <string name="cpu_tile_style_summary">Aukeratu PUZaren informazioa nola bistaratzen den</string>
+    <string name="cpu_tile_show_percentage_title">Erakutsi Erabilera Ehunekoa</string>
+    <string name="cpu_tile_show_percentage_summary">Bistaratu PUZaren erabilera-ehunekoa maiztasunaren ordez</string>
+    <string name="cpu_tile_update_speed_title">Eguneratzeko tartea</string>
+    <string name="cpu_tile_update_speed_summary">PUZaren informazioa zenbat aldiz freskatu</string>
+    <string name="cpu_tile_update_speed_fast">Azkar (0,5 s)</string>
+    <string name="cpu_tile_update_speed_normal">Normala (1s)</string>
+    <string name="cpu_tile_update_speed_slow">Astiro (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Oso motela (5s)</string>
+    <string name="cpu_tile_preview_title">Aurrebista aldaketak</string>
+    <string name="cpu_tile_preview_summary">Ukitu fitxa uneko ezarpenekin freskatzeko</string>
+    <string name="cpu_tile_footer">CPU Governor fitxak CPU gobernadoreen artean azkar aldatzeko aukera ematen du eta denbora errealean CPUren maiztasuna eta erabilera informazioa bistaratzen ditu. Ukitu fitxa erabilgarri dauden gobernadoreetatik igarotzeko.</string>
+    <string name="performance_mode_title">Errendimendu modua</string>
+    <string name="performance_mode_summary">Behartu CPU eta GPU maximora errendimendu gorenerako. Beroa eta bateriaren hustuketa areagotzen du.</string>
+    <string name="performance_mode_enabled_summary">Errendimendu modua AKTIBATUTA dago</string>
+    <string name="performance_mode_disabled_summary">Errendimendu modua desaktibatuta dago</string>
+    <string name="performance_profile_title">Errendimendu-profila</string>
+    <string name="performance_profile_summary">Hautatu errendimendu modua gailuaren portaera optimorako</string>
+    <string name="performance_mode_battery_saver">Bateria aurrezlea</string>
+    <string name="performance_mode_balanced">Orekatua</string>
+    <string name="performance_mode_performance">Errendimendua</string>
+    <string name="performance_profile_applied">Errendimendu-profila %s gisa ezarri da</string>
+    <string name="performance_profile_failed">Ezin izan da errendimendu-profila aplikatu</string>
+    <string name="performance_tile_label">Errendimendua</string>
+    <string name="performance_notification_channel_name">Errendimendu-profilak</string>
+    <string name="performance_notification_channel_desc">Uneko errendimendu-profilaren egoera erakusten du</string>
+    <string name="performance_notification_battery_saver">Bateria aurrezteko modua aktibo dago - Bateriaren iraupena luzatu</string>
+    <string name="performance_notification_balanced">Modu orekatua aktibo dago - Errendimendu optimoa eta bateriaren iraupena</string>
+    <string name="performance_notification_performance">Errendimendu modua aktibo dago - Errendimendu maximoa</string>
+    <string name="performance_footer_title">Errendimendu-profilaren informazioa</string>
+    <string name="performance_footer_summary">• Bateria aurrezlea: bateriaren iraupena luzatzen du CPU eta GPUren errendimendua murriztuz. Arina erabiltzeko eta bateriaren iraupen maximorako aproposa.\n\n• Orekatua: errendimenduaren eta bateriaren iraupenaren arteko oreka ezin hobea eskaintzen du. Egunero erabiltzeko gomendatua.\n\n• Errendimendua: CPU eta GPUaren errendimendua maximizatzen du zeregin zorrotzetarako. Jolasetarako, aplikazio astunetarako eta lan karga intentsiboetarako onena. Bateriaren iraupena murriztu dezake.</string>
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi Garnet ezarpen bereziak</string>
+    <string name="xiaomi_parts_summary">Xiaomi gailuaren ezarpen espezifikoak</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">Erakutsi</string>
+    <string name="sound_title">Soinua</string>
+    <string name="power_title">Boterea</string>
+    <string name="gaming_title">Jokoak eta erabilerak</string>
+    <string name="about_me_title">Niri buruz</string>
+    <string name="about_me_summary">InnOvaTioN buruz jakin behar duzun guztia</string>
+    <string name="about_me_contact_title">Laguntza</string>
+    <string name="about_me_contact_summary">Bertan laguntza lor dezakezu</string>
+    <string name="about_me_donate_title">Eman nazazu paypal-en</string>
+    <string name="about_me_donate_summary">Lagundu nire lana eraikitzen jarraitu ahal izateko</string>
+    <string name="about_me_donate2_title">Erosi kafea</string>
+    <string name="about_me_donate2_summary">Deitu garagardo bat edo kafe bat hartzeko</string>
+    <string name="core_control_title">Nukleoaren kontrola</string>
+    <string name="core_control_summary">Eskuz gaitu edo desgaitu PUZaren nukleo indibidualak</string>
+    <string name="core_control_description">PUZaren kontrol aurreratua. Nukleoak itzaltzeak bateria edo karga termikoa aurreztu dezake, baina errendimenduan eta egonkortasunean eragina izan dezake.\n\nGutxienez bi nukleo txikik konektatuta egon behar dute uneoro.</string>
+    <string name="keep_little_cores_online">Gutxienez 2 nukleo txikik konektatuta egon behar dute</string>
+    <string name="core_0">Core 0 (Txikia)</string>
+    <string name="core_1">1. muina (Txikia)</string>
+    <string name="core_2">Core 2 (Txikia)</string>
+    <string name="core_3">3. muina (Txikia)</string>
+    <string name="core_4">Core 4 (Hand)</string>
+    <string name="core_5">Core 5 (Hand)</string>
+    <string name="core_6">Core 6 (Hand)</string>
+    <string name="core_7">Core 7 (Hand)</string>
+    <string name="error">Errorea</string>
+    <string name="kernel_manager_title">Kernel kudeatzailea</string>
+    <string name="kernel_manager_summary">Kudeatu CPU maiztasunak eta gobernatzailea</string>
+    <string name="kernel_manager_efficiency_category">Eraginkortasun Klusterra (A55)</string>
+    <string name="kernel_manager_performance_category">Performance Cluster (A78)</string>
+    <string name="kernel_manager_governor">CPU gobernadorea</string>
+    <string name="kernel_manager_governor_summary">Hautatu klusterren CPU gobernadorea</string>
+    <string name="cpu_governor_summary">Unekoa: %s</string>
+    <string name="kernel_manager_min_freq">Gutxieneko Maiztasuna</string>
+    <string name="kernel_manager_min_freq_summary">Ezarri baimendutako PUZaren maiztasun minimoa</string>
+    <string name="kernel_manager_max_freq">Gehienezko maiztasuna</string>
+    <string name="kernel_manager_max_freq_summary">Ezarri baimendutako CPU maiztasun maximoa</string>
+    <string name="kernel_info_category">Informazioa</string>
+    <string name="kernel_info_title">Kernel kudeatzaileari buruz</string>
+    <string name="kernel_info_summary">Kudeatu PUZaren gobernadorea eta maiztasunaren eskalatzea PUZaren kluster guztientzat. Aldaketek errendimenduan eta bateriaren iraupena eragin dezakete.</string>
+    <string name="kernel_manager_apply">Aplikatu ezarpenak</string>
+    <string name="kernel_manager_apply_summary">Aplikatu hautatutako CPU ezarpenak</string>
+    <string name="kernel_manager_reset">Berrezarri lehenespenera</string>
+    <string name="kernel_manager_reset_summary">Berrezarri CPU ezarpen lehenetsiak</string>
+    <string name="settings_applied">Ezarpenak behar bezala aplikatu dira</string>
+    <string name="settings_reset">Ezarpenak lehenespenera berrezarri</string>
+    <string name="kernel_manager_footer">PUZaren gobernatzaileek zure gailuak PUZaren maiztasuna nola doitzen duen kudeatzen dute, errendimendua eta energia-erabilera orekatzeko. Hona hemen ikuspegi bizkor bat:\n\n• walt: Google-k garatutako gobernadore bat erreakziorako eta erabiltzaileen interakziorako latentziarako optimizatua, batez ere Pixel gailuetan erabiltzen dena.\n• kontserbadorea: PUZaren maiztasuna pixkanaka handitzen du; bateria aurrezten du baina erantzuna murrizten du.\n• powersave: CPU ahalik eta maiztasun baxuenean mantentzen du, bateriaren iraupena errendimenduari lehentasuna emanez.\n• errendimendua: CPU maiztasun maximoan blokeatzen du, bateriaren kostuaren truke errendimendu maximoa bermatuz.\n• schedhorizon: programatzailea ezagutzen duen gobernatzailea, nukleoetan zereginen migrazioa eta eraginkortasuna hobetzea helburu duena.\n• schedutil moderno lehenetsietan; Linux-en programatzailearen datuak erabiltzen ditu CPUren maiztasuna modu adimentsuan eta eraginkorrean eskalatzeko.</string>
+    <string name="kernel_manager_cpu_monitor">CPU Nukleoaren Monitorizazioa</string>
+    <string name="kernel_manager_core_online">Sarean</string>
+    <string name="kernel_manager_core_offline">Lineaz kanpo</string>
+    <string name="kernel_manager_loading">Kargatzen...</string>
+    <string name="kernel_manager_enable_monitoring">Denbora errealeko jarraipena</string>
+    <string name="kernel_manager_enable_monitoring_summary">Etengabe eguneratu CPUaren core egoera</string>
+    <string name="kernel_manager_update_interval">Eguneratzeko maiztasuna</string>
+    <string name="kernel_manager_update_interval_summary">Zenbat aldiz freskatu datuak</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Eraginkortasun-klusterren laburpena</string>
+    <string name="kernel_manager_performance_cluster_summary">Errendimendu-klusterraren laburpena</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d nukleoak konektatuta | Barrutia: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    <string name="update_interval_500ms">0,5 segundo</string>
+    <string name="update_interval_1000ms">1 segundo</string>
+    <string name="update_interval_2000ms">2 segundo</string>
+    <string name="update_interval_5000ms">5 segundo</string>
+    <string name="cpu_core_status_online">🟢 %1$s - Sarean</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - Lineaz kanpo</string>
+    <string name="kernel_manager_governor_current">%1$s (Oraingo: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Oraingo: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">Denbora errealeko monitorizazioa desgaituta dago. Gaitu PUZaren core maiztasunak eta egoera zuzenekoa ikusteko.</string>
+    <string name="kernel_manager_error_read">Ezin da CPUren informazioa irakurri</string>
+    <string name="kernel_manager_error_write">Ezin dira PUZaren ezarpenak aplikatu. Baliteke erro sarbidea behar izatea.</string>
+    <string name="kernel_manager_error_permission">Baimena ukatu egin da. Erro-sarbidea beharrezkoa da CPUaren ezarpenak aldatzeko.</string>
+    <string name="gpu_manager_title">GPU kudeatzailea</string>
+    <string name="gpu_manager_summary">Kudeatu GPU maiztasunak eta potentzia ezarpenak</string>
+    <string name="gpu_governor_title">GPU gobernadorea</string>
+    <string name="gpu_governor_summary">Unekoa: %s</string>
+    <string name="gpu_freq_title">GPU maiztasunak</string>
+    <string name="gpu_min_freq_title">Gutxieneko Maiztasuna</string>
+    <string name="gpu_max_freq_title">Gehienezko maiztasuna</string>
+    <string name="gpu_max_gpuclk_title">Gehienezko GPUCLK gainidatzi</string>
+    <string name="gpu_max_gpuclk_summary">Erlojuaren areagotzea (gehienez 940 MHz)</string>
+    <string name="gpu_current_freq_title">Uneko maiztasuna</string>
+    <string name="gpu_power_title">Potentzia ezarpenak</string>
+    <string name="gpu_force_clk_on_title">Behartu erlojua aktibatuta</string>
+    <string name="gpu_force_clk_on_summary">Mantendu GPUaren erlojua beti piztuta</string>
+    <string name="gpu_force_bus_on_title">Behartu autobusa piztuta</string>
+    <string name="gpu_force_bus_on_summary">Mantendu GPU autobusa beti piztuta</string>
+    <string name="gpu_force_rail_on_title">Indar trenbidea On</string>
+    <string name="gpu_force_rail_on_summary">Mantendu GPU power rail beti piztuta</string>
+    <string name="gpu_force_no_nap_title">Force No Siesta</string>
+    <string name="gpu_force_no_nap_summary">Desgaitu GPU siesta fotograma artean</string>
+    <string name="gpu_bus_split_title">Autobus zatitua</string>
+    <string name="gpu_bus_split_summary">Gaitu GPU bus zatiketa</string>
+    <string name="gpu_preempt_title">GPU lehentasuna</string>
+    <string name="gpu_preempt_summary">Latentzia baxuko jokoak (gaitu joko-esperientzia onena lortzeko)</string>
+    <string name="gpu_camera_boost_title">Kamera areagotzea</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (kameraren/bideoaren kodeketaren gehienezko errendimendua)</string>
+    <string name="gpu_thermal_title">Ezarpen termikoak</string>
+    <string name="gpu_thermal_pwrlevel_title">Potentzia Termikoen Maila</string>
+    <string name="gpu_thermal_pwrlevel_summary">Egungo potentzia termiko maila</string>
+    <string name="gpu_temp_title">GPUaren tenperatura</string>
+    <string name="gpu_info_title">GPU informazioa</string>
+    <string name="gpu_model_title">GPU eredua</string>
+    <string name="gpu_busy_percentage_title">GPU karga</string>
+    <string name="gpu_reset_count_title">Berrezarri zenbaketa</string>
+    <string name="gpu_preempt_count_title">Lehentasun-zenbaketa</string>
+    <string name="gpu_info_category">GPU informazioa</string>
+    <string name="gpu_settings_category">GPU ezarpenak</string>
+    <string name="gpu_advanced_category">Ezarpen aurreratuak</string>
+    <string name="gpu_info_summary">Kudeatu GPU maiztasun-eskala eta potentzia-ezarpenak. Aldaketek errendimenduan eta bateriaren iraupena eragin dezakete.</string>
+    <string name="apply_settings">Aplikatu ezarpenak</string>
+    <string name="reset_settings">Berrezarri ezarpenak</string>
+    <string name="gpu_turbo_preset_title">Turbo aurrezarpena</string>
+    <string name="gpu_turbo_preset_summary">Gehienezko errendimendua: 940 MHz-ko blokeoa, errendimenduaren gobernatzailea, hobekuntza guztiak ON</string>
+    <string name="gpu_turbo_enabled">🚀 Turbo modua gaituta!</string>
+    <string name="gpu_settings_applied">Ezarpenak aplikatu dira!</string>
+    <string name="gpu_settings_reset">Ezarpenak lehenespenetara berrezarri!</string>
+    <string name="unknown">Ezezaguna</string>
+    <string name="thermal_level_summary">%s maila</string>
+    <string name="camera_boost_triggered">Kamera/bideoaren bultzada piztu da!</string>
+    <string name="video_enhancer_title">Bideo-hobetzailea</string>
+    <string name="video_enhancer_summary">Redmi Note 13 Pro 5G-rako pantaila eta errendimendu optimizazioak</string>
+    <string name="video_enhancer_display_category">📺 Bistaratzeko Ezaugarriak</string>
+    <string name="smooth_motion_enable_title">Mugimendu leuna</string>
+    <string name="smooth_motion_enable_summary">Hardwarearen mugimendua leuntzea bideoetarako (lehenetsia: OFF) • Berrabiarazi behar da</string>
+    <string name="optimize_refresh_enable_title">Optimizatu freskatze tasa</string>
+    <string name="optimize_refresh_enable_summary">Edukiaren araberako freskatze tasa dinamikoa (lehenetsia: OFF) • Berrabiarazi behar da</string>
+    <string name="peak_refresh_rate_title">120Hz-ko freskatze-abiadura gorena</string>
+    <string name="peak_refresh_rate_summary">Gaitu 120 Hz ukipenean (200 ms) • Fabrikaren balioa • Berrabiarazi behar da</string>
+    <string name="video_enhancer_performance_category">⚡ Errendimenduaren optimizazioak</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">Erabili Vulkan OpenGL ES-en ordez (Adreno 710) • Berrabiarazi behar da</string>
+    <string name="purgeable_assets_title">Purga daitezkeen Aktiboak</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">Zerrendatu biltegian deskargatutako teklatu guztiak</string>
+    <string name="keybox_verify_title">Egiaztatu deskargak</string>
+    <string name="keybox_verify_summary">Egiaztatu deskargatutako teklatuen XML egitura</string>
+    <string name="keybox_analyze_title">Azterketa sakona</string>
+    <string name="keybox_analyze_summary">Aztertu ziurtagiri-kateak, iraungipena eta indarraldia</string>
+    <string name="keybox_check_api_title">Egiaztatu erreproduzitzeko osotasuna</string>
+    <string name="keybox_check_api_summary">Probatu tekla-kutxa Google Play Integrity API-ren aurka</string>
+    <string name="keybox_compare_title">Konparatu Keyboxes</string>
+    <string name="keybox_compare_summary">Konparatu hainbat teklatu elkarren ondoan</string>
+    <string name="keybox_extract_certs_title">Atera ziurtagiriak</string>
+    <string name="keybox_extract_certs_summary">Esportatu ziurtagiriak PEM fitxategi gisa</string>
+    <string name="keybox_batch_verify_title">Batch Egiaztatu</string>
+    <string name="keybox_batch_verify_summary">Probatu hainbat teklatu txosten zehatzekin</string>
+    <string name="keybox_status_title">Teklatuaren egoera</string>
+    <string name="keybox_status_summary">Unekoa: %s</string>
+    <string name="keybox_status_installed">✅ Baliozko fitxategia deskargatu da</string>
+    <string name="keybox_status_not_installed">❌ Ez da fitxategirik deskargatu</string>
+    <string name="keybox_status_unknown">⚠️ Ezezaguna</string>
+    <string name="keybox_device_id_title">Gailu ID</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Ziurtagiri kopurua</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Ziurtagiriaren iraungipena</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Sortu txantiloiak</string>
+    <string name="keybox_search_dialog_title">Bilatu komunitateko teklak</string>
+    <string name="keybox_import_dialog_title">Inportatu teklatua</string>
+    <string name="keybox_export_dialog_title">Zerrendatu deskargatutako teklak</string>
+    <string name="keybox_verify_dialog_title">Egiaztatu deskargatutako tekla-kutxak</string>
+    <string name="keybox_analyze_dialog_title">Azterketa sakona</string>
+    <string name="keybox_analyze_dialog_message">Honek ziurtagirien azterketa sakona egingo du:\n\n✅ Egiaztapenak:\n• Ziurtagiri-katearen baliozkotzea\n• Iraungitze-datak\n• Sinadura algoritmoak\n• Gakoen tamaina\n• Jaulkitzailearen informazioa\n• Ziurtagiriaren baliogabetze egoera\n\n⚠️ 10-30 segundo behar dira giltza-kutxa bakoitzeko.\n\nJarraitu?</string>
+    <string name="keybox_check_api_dialog_title">Jolastu Integrity Check</string>
+    <string name="keybox_check_api_dialog_message">Honek zure gako-kutxa Google Play Integrity APIarekin probatuko du.\n\n🔍 Zer egiaztatzen duen:\n• OINARRIZKO osotasuna\n• GAILUAren osotasuna \n• Osotasun INDARRA\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ BALDINTZAK:\n• Teklatu-kutxa Magisk/KernelIntegrityn\KernelSUFixtoretyn\TrickySgrityn edo TrickySgricky moduluan instalatu behar da. konexioa\n\n⏱️ 5-10 segundo behar dira\n\nJarraitu?</string>
+    <string name="keybox_compare_dialog_title">Konparatu Keyboxes</string>
+    <string name="keybox_compare_dialog_message">Konparatu deskargatutako hainbat giltza-kutxa:\n\n📊 Konparaketak honako hauek ditu:\n• Gailuaren IDak\n• Ziurtagirien kopurua\n• Iraungitze-datak\n• Algoritmo motak\n• Gako formatuak (PIF/TrickyStore)\n\nHautatu teklatu-kutxak alderatzeko.</string>
+    <string name="keybox_extract_dialog_title">Atera ziurtagiriak</string>
+    <string name="keybox_extract_dialog_message">Atera ziurtagiriak giltza-kutxatik PEM fitxategi bereizi gisa.\n\n📁 Esportatu:\n• RSA ziurtagiriak\n• ECDSA ziurtagiriak\n• Gako pribatuak (beharrezkoa bada)\n\nHonetan gordetako fitxategiak: /Deskargatu/Keyboxes/certs/\n\nJarraitu?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Abisu</string>
+    <string name="keybox_overwrite_dialog_message">Ekintza hau ez da onartzen aplikazioaren bertsio honetan.</string>
+    <string name="keybox_generating">🔄 Txantiloiak sortzen…</string>
+    <string name="keybox_searching">🔍 Komunitatearen iturriak bilatzen…</string>
+    <string name="keybox_downloading">Keybox biltegitik deskargatzen…</string>
+    <string name="keybox_verifying">🔍 Egiturak egiaztatzen…</string>
+    <string name="keybox_analyzing">🔬 Ziurtagiriak aztertzen…</string>
+    <string name="keybox_checking_api">🌐 Play Integrity APIa probatzen…</string>
+    <string name="keybox_comparing">📊 Teklatu-kutxak konparatzen…</string>
+    <string name="keybox_extracting">📦 Ziurtagiriak ateratzen…</string>
+    <string name="keybox_generate_success">✅ Ondo sortu dira txantiloiak!</string>
+    <string name="keybox_search_success">✅ Baliozko giltza-kutxa aurkitu eta deskargatu!</string>
+    <string name="keybox_import_success">✅ Keybox inportatu da!</string>
+    <string name="keybox_export_success">✅ Fitxategien zerrenda sortu da.</string>
+    <string name="keybox_verify_success">✅ Egiaztapena amaituta.</string>
+    <string name="keybox_analyze_success">✅Analisia amaituta.</string>
+    <string name="keybox_check_api_success">✅ Osotasun egiaztapena osatuta.</string>
+    <string name="keybox_compare_success">✅ Konparazioa osatuta.</string>
+    <string name="keybox_extract_success">✅ Ateratako ziurtagiriak!</string>
+    <string name="keybox_generate_error">❌ Ezin izan dira txantiloiak sortu!\n\nErrorea: %s</string>
+    <string name="keybox_search_error">❌ Ezin izan da aurkitu baliozko giltza-kutxa!\n\nErrorea: %s</string>
+    <string name="keybox_import_error">❌ Huts egin du tekla-kutxa inportatzean!\n\nErrorea: %s</string>
+    <string name="keybox_export_error">❌ Huts egin du fitxategiak zerrendatzean!\n\nErrorea: %s</string>
+    <string name="keybox_verify_error">❌ Egiaztapenak huts egin du!\n\nErrorea: %s</string>
+    <string name="keybox_analyze_error">❌ Analisiak huts egin du!\n\nErrorea: %s</string>
+    <string name="keybox_check_api_error">❌ Osotasun egiaztapenak huts egin du!\n\nErrorea: %s</string>
+    <string name="keybox_no_root">❌ Erro sarbidea EZ da beharrezkoa aplikazio honetarako.</string>
+    <string name="keybox_no_internet">❌ Interneteko konexioa behar da!</string>
+    <string name="keybox_no_keybox">❌ Ez da fitxategirik deskargatu!</string>
+    <string name="keybox_no_module">❌ Ez da Magisk/KernelSU modulurik detektatu!</string>
+    <string name="keybox_info_title">Keybox Manager buruz</string>
+    <string name="keybox_info_summary">Lortu informazio gehiago Android atestazioari eta Keybox-ari buruz</string>
+    <string name="keybox_info_dialog_title">Keybox-en kutxa - Informazioa</string>
+    <string name="keybox_info_dialog_message">🔑 ZER DA APLIKAZIO HAU?\n═════════════════════════════════════════════════════════════════════════════════ EZ DA ROOT behar deskargatzeko/analisirako.\n\n✅ EZAUGARRIAK:\n• Bilatu komunitatearen iturriak\n• Inportatu giltza kutxa pertsonalizatuak\n• Ziurtagirien azterketa sakona\n• Play Integrity APIaren probak\n• Batch egiaztatzea\n• Ziurtagiriak ateratzea\n• Aldez beste alderaketa\n\n📁 KOKAPENA:\n/Downs/Downs/Downs/Downs INSTALAZIOA:\n══════════════════════════\n\n1. Aukera Konpondu\n1 Integritatea. Instalatu Magisk/KernelSU\n2. Instalatu PIF modulua\n3. Kopiatu keybox.xml hona:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Berrabiarazi\n\n2. aukera: TrickyStore\n1. Instalatu Magisk/KernelSU\n2. Instalatu TrickyStore modulua\n3. Kopiatu keybox.xml hona:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Berrkargatu automatikoa (berrabiarazi gabe)\n\n🧪 PROBAK:\n════════════════════════════════════════════════Erabiltzea integratuta Egiaztatu\n• YASNAC aplikazioa\n• Banku aplikazioak\n• Google Wallet\n\n🔬 AURRERATUA EZAUGARRIAK:\n══════════════════════════\n\nZiurtagirien analisi sakona\• aprobetxamendua\• n baliozkotzea\• n. Algoritmoaren sendotasuna egiaztatzea\n• Errebokatze-egoera\n\nErreproduzitu osotasunaren egiaztapena:\n• Denbora errealeko APIaren probak\n• OINARRIZKOA/GAILUA/STRONG egoera\n• Moduluen detekzioa\n\nLotekako eragiketak:\n• Egiaztatu hainbat teklatu\n• Konparatu elkarren ondoan\n• Atera ziurtagiriak\n\n💡 AHOLKUAK:\n══════════════════════════\n• Teklatu publikoak arraroak dira eta gako-kutxa publikoak oso bakanak dira eta Telegramen iturburuak azkar kentzen dira. instalatzen\n• Mantendu funtzionatzen duten teklen babeskopiak\n• Egiaztatu iraungitze datak\n\n🔗 KOMUNITATEA:\n══════════════════════════════ Telegram: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: bilatu &amp;quot;keybox play integrity&amp;quot;\n\n⚠️ LEGAL EZEN OHARRA:\n══════════════════════════\nHezkuntza-helburuak soilik alda ditzake Google-ren gako-kutxak. Zerbitzua\n• Aplikazioen garatzaileen gidalerroak\n• Tokiko legeak\n\nErabili zure ardurapean!</string>
+    <string name="keybox_reset_title">Ezabatu deskargak</string>
+    <string name="keybox_reset_summary">Kendu deskargatutako teklatu guztiak biltegiratzetik</string>
+    <string name="keybox_reset_dialog_title">⚠️ Ezabatu deskargak</string>
+    <string name="keybox_reset_dialog_message">Ezabatu fitxategi GUZTIAK /sdcard/Download/Keyboxes/?\n\nEzin da desegin.</string>
+    <string name="keybox_reset_success">✅ Fitxategi guztiak ezabatu dira!</string>
+    <string name="keybox_reset_error">❌ Ezabatu huts egin du: %s</string>
+    <string name="ram_optimizer_title">RAM eta biltegiratze optimizatzailea</string>
+    <string name="ram_optimizer_summary">Optimizatu RAM konpresioa eta biltegiratzea</string>
+    <string name="ram_optimizer_description">Kudeatu zRAM ezarpenak, aplikazioen hibernazioa eta biltegiratze garbia errendimendu hobea izateko.</string>
+    <string name="zram_category_title">zRAM konpresioa</string>
+    <string name="zram_enable_title">Gaitu zRAM</string>
+    <string name="zram_enable_summary">Konprimitu RAM memoria askatzeko</string>
+    <string name="zram_size_title">zRAM Tamaina (MB)</string>
+    <string name="zram_size_summary">Ezarri konprimitutako RAMaren tamaina (512-12288 MB)</string>
+    <string name="zram_swappiness_title">Truketasuna</string>
+    <string name="zram_swappiness_summary">Kontrolatu zRAM-ra (0-200) nola aldatu behar den erasokorra</string>
+    <string name="app_hibernation_category_title">Aplikazioaren hibernazioa</string>
+    <string name="app_hibernation_title">Gaitu aplikazioaren hibernazioa</string>
+    <string name="app_hibernation_summary">Hibernatu erabili gabeko aplikazioak RAM eta bateria aurrezteko</string>
+    <string name="storage_cleaner_category_title">Biltegiratze garbitzailea</string>
+    <string name="storage_stats_title">Biltegiratze-estatistikak</string>
+    <string name="storage_stats_summary">Kargatzen...</string>
+    <string name="clean_app_cache_title">Garbitu aplikazioaren cachea</string>
+    <string name="clean_app_cache_summary">Kendu cachean gordetako datuak aplikazio guztietatik</string>
+    <string name="clean_system_cache_title">Garbitu sistemaren cachea</string>
+    <string name="clean_system_cache_summary">Garbitu sistemaren cachea eta bota cacheak</string>
+    <string name="clean_thumbnails_title">Irudi txikiak garbitu</string>
+    <string name="clean_thumbnails_summary">Kendu irudi txikien cachea multimediatik</string>
+    <string name="clean_downloads_title">Garbitu Deskarga Zaharrak</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Doitu errendimendua automatikoki lehen planoko aplikazioan oinarrituta</string>
+</resources>

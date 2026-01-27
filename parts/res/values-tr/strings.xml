@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Xiaomi Ayarları</string>
+    <string name="tile_add">Parça ekle</string>
+    <string name="tile_added">Parça eklendi</string>
+    <string name="tile_not_added">Döşeme eklenmedi</string>
+    <string name="tile_already_added">Döşeme zaten eklendi</string>
+    <string name="tile_on">Açık</string>
+    <string name="tile_off">Kapalı</string>
+    <string name="clear_speaker_title">Net hoparlör</string>
+    <string name="clear_speaker_summary">Hoparlörü temizlemek için 30 saniyelik bir ses çalın</string>
+    <string name="clear_speaker_description">Hoparlörünüzün tozdan dolayı hafifçe tıkandığını fark ederseniz bu özelliği bir veya iki kez çalıştırın. Medya ses seviyesini maksimuma ayarlayın.\n\nHoparlör yoğun bir şekilde engelleniyorsa, hoparlör aşağı bakacak şekilde cihazınızı sallayarak bu özelliği 2-5 kez çalıştırın.</string>
+    <string name="saturation_title">Ekran Doygunluğu</string>
+    <string name="saturation_summary">Ekranın doygunluk seviyesini kontrol edin</string>
+    <string name="saturation_footer_summary">Ekran ayarlarında renk modunun değiştirilmesi doygunluk düzeyini geçersiz kılacak ve yeniden uygulanmasını gerektirecektir.</string>
+    <string name="image_preview_content_description">Önizleme</string>
+    <string name="image_preview_next_page_content_description">Sonraki</string>
+    <string name="image_preview_previous_page_content_description">Önceki</string>
+    <string name="custom_seekbar_value">Değer:</string>
+    <string name="custom_seekbar_default_value">varsayılan olarak</string>
+    <string name="custom_seekbar_default_value_to_set">Varsayılan değer:</string>
+    <string name="custom_seekbar_default_value_is_set">Varsayılan değer ayarlandı</string>
+    <string name="auto_hbm_title">Otomatik Yüksek Parlaklık Modu (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Otomatik HBM kullan</string>
+    <string name="tile_auto_hbm">Otomatik HBM</string>
+    <string name="tile_hbm_on">Etkin</string>
+    <string name="tile_hbm_off">Devre Dışı</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM Mevcut Değil</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Otomatik HBM veya Otomatik Parlaklık etkin</string>
+    <string name="hbm_mode_title">Yüksek Parlaklık Modu</string>
+    <string name="hbm_mode_notification">Yüksek Parlaklık Modu artık etkinleştirilmiştir. Uzun süreli kullanım ekranınıza zarar verebilir.</string>
+    <string name="auto_hbm_summary">Güneş ışığı yoğunluğuna (lüks) göre yüksek parlaklık modunu otomatik olarak etkinleştirin</string>
+    <string name="auto_hbm_threshold_title">Işık eşiği</string>
+    <string name="auto_hbm_threshold_summary">HBM\'nin etkinleştirildiği ışık yoğunluğu eşiğini lüks birimleri cinsinden tanımlayın</string>
+    <string name="auto_hbm_enable_time_title">Zamanı etkinleştir</string>
+    <string name="auto_hbm_enable_time_summary">HBM\'yi etkinleştirmek için ışık eşiğinin sürekli karşılanması gereken saniye cinsinden süre</string>
+    <string name="auto_hbm_disable_time_title">Zamanı devre dışı bırak</string>
+    <string name="auto_hbm_disable_time_summary">Işık eşiği ayarlanan seviyenin altına düşerse HBM\'nin devre dışı bırakılacağı saniye cinsinden süre</string>
+    <string name="game_bar_title">Oyun Çubuğu</string>
+    <string name="game_bar_summary">Sistem katmanını etkinleştirin (FPS, Sıcaklık vb.)</string>
+    <string name="game_bar_tile_label">Oyun Çubuğu</string>
+    <string name="game_bar_tile_description">Oyun arayüzünü değiştir</string>
+    <string name="game_bar_enable_title">GameBar Yerleşimini Etkinleştir</string>
+    <string name="overlay_permission_required">Yer paylaşımı izni gerekli</string>
+    <string name="overlay_permission_granted">Yer paylaşımı izni verildi</string>
+    <string name="overlay_permission_denied">Yer paylaşımı izni reddedildi</string>
+    <string name="overlay_features_title">Yer Paylaşımı Özellikleri</string>
+    <string name="game_bar_fps_enable_title">FPS Arayüzü</string>
+    <string name="game_bar_fps_enable_summary">Mevcut FPS\'yi ekranda göster</string>
+    <string name="game_bar_temp_enable_title">Cihaz Sıcaklığı</string>
+    <string name="game_bar_temp_enable_summary">Cihaz (pil) sıcaklığını göster</string>
+    <string name="game_bar_cpu_usage_enable_title">CPU Kullanımı</string>
+    <string name="game_bar_cpu_usage_enable_summary">Mevcut CPU kullanım yüzdesini göster</string>
+    <string name="game_bar_cpu_clock_enable_title">CPU Saat Hızları</string>
+    <string name="game_bar_cpu_clock_enable_summary">Her çekirdek için mevcut CPU saat hızlarını göster</string>
+    <string name="game_bar_cpu_temp_enable_title">CPU Sıcaklığı</string>
+    <string name="game_bar_cpu_temp_enable_summary">CPU sıcaklığını göster (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">RAM Kullanımı</string>
+    <string name="game_bar_ram_enable_summary">Mevcut RAM kullanımını MB cinsinden göster</string>
+    <string name="game_bar_gpu_usage_enable_title">GPU Kullanımı</string>
+    <string name="game_bar_gpu_usage_enable_summary">GPU kullanım yüzdesini göster</string>
+    <string name="game_bar_gpu_clock_enable_title">GPU Saat Hızı</string>
+    <string name="game_bar_gpu_clock_enable_summary">Geçerli GPU saat frekansını göster</string>
+    <string name="game_bar_gpu_temp_enable_title">GPU Sıcaklığı</string>
+    <string name="game_bar_gpu_temp_enable_summary">Mevcut GPU sıcaklığını göster</string>
+    <string name="fps_measurement_method_title">FPS Ölçüm Yöntemi</string>
+    <string name="game_bar_fps_method_title">FPS Yöntemini Seçin</string>
+    <string name="game_bar_fps_method_summary">Yeni API yöntemi (varsayılan) ve Eski Sysfs</string>
+    <string name="customization_title">arasında seçim yapın Kişiselleştirme</string>
+    <string name="game_bar_text_size_title">Metin Boyutu</string>
+    <string name="game_bar_text_size_summary">Kaplama metninin boyutunu ayarlayın</string>
+    <string name="game_bar_background_alpha_title">Arka Plan Şeffaflığı</string>
+    <string name="game_bar_background_alpha_summary">Arka planın şeffaflığını ayarlayın</string>
+    <string name="game_bar_corner_radius_title">Kaplama Köşe Yarıçapı</string>
+    <string name="game_bar_corner_radius_summary">Kaplama köşelerinin ne kadar yuvarlak olması gerektiğini ayarlayın</string>
+    <string name="game_bar_padding_title">Kaplama Dolgusu</string>
+    <string name="game_bar_padding_summary">İstatistiklerin etrafındaki boşluğu ayarlayın</string>
+    <string name="game_bar_item_spacing_title">Öğe Aralığı</string>
+    <string name="game_bar_item_spacing_summary">Kaplama çizgileri arasındaki boşluğu ayarlayın</string>
+    <string name="game_bar_update_interval_title">Güncelleme Aralığı</string>
+    <string name="game_bar_update_interval_summary">Kaplama değerlerinin ne sıklıkta güncelleneceğini ayarlayın</string>
+    <string name="game_bar_title_color_title">İstatistik Başlık Rengi</string>
+    <string name="game_bar_title_color_summary">\'FPS\', \'Temp\', \'CPU\' vb. metin rengi</string>
+    <string name="game_bar_value_color_title">İstatistik Değeri Renk</string>
+    <string name="game_bar_value_color_summary">Sayısal istatistikler için renk (ör. \'29\', \'32,0°C\')</string>
+    <string name="game_bar_position_title">Kaplama Konumu</string>
+    <string name="game_bar_position_summary">Kaplamanın ekrandaki konumunu seçin</string>
+    <string name="game_bar_format_title">Kaplama Formatı</string>
+    <string name="game_bar_format_summary">Tam veya Minimal ekran arasında seçim yapın</string>
+    <string name="game_bar_overlay_format_toast">Kaplama formatı şu şekilde değiştirildi: %s</string>
+    <string name="game_bar_format_entries_full">Tam</string>
+    <string name="game_bar_format_entries_minimal">Minimal</string>
+    <string name="split_config_title">Bölünmüş Yapılandırma</string>
+    <string name="game_bar_split_mode_title">Bölünmüş Mod</string>
+    <string name="game_bar_split_mode_summary">Yan Yana veya Yığılmış düzenlemeyi seçin</string>
+    <string name="overlay_gesture_controls_title">Yer Paylaşımlı Hareket Kontrolleri</string>
+    <string name="game_bar_single_tap_toggle_title">Geçiş Yapmak İçin Tek Dokunmayı Etkinleştir</string>
+    <string name="game_bar_single_tap_toggle_summary">Tam ve minimum kaplama formatları arasında geçiş yapmak için bir kez dokunun</string>
+    <string name="game_bar_doubletap_capture_title">Yakalamak için Çift Dokunmayı Etkinleştir</string>
+    <string name="game_bar_doubletap_capture_summary">Günlükleri yakalamayı başlatmak/durdurmak için katmana iki kez dokunun</string>
+    <string name="game_bar_longpress_enable_title">Uzun Basmayı Etkinleştir</string>
+    <string name="game_bar_longpress_enable_summary">GameBar ayarlarına erişmek için katmana uzun basın</string>
+    <string name="game_bar_longpress_timeout_title">Uzun Basma Süresi</string>
+    <string name="game_bar_longpress_timeout_summary">Kaplamaya uzun basmak için gereken süreyi ayarlayın</string>
+    <string name="capture_logs_title">Günlükleri Yakala</string>
+    <string name="game_bar_capture_start_title">Günlüğü Başlat</string>
+    <string name="game_bar_capture_start_summary">FPS ve performans verilerini gerçek zamanlı olarak yakalamaya başlayın</string>
+    <string name="game_bar_capture_stop_title">Günlüğü Durdur</string>
+    <string name="game_bar_capture_stop_summary">Gerçek zamanlı olarak FPS ve performans verilerini yakalamayı bırakın</string>
+    <string name="game_bar_capture_export_title">GameBar Günlük Verilerini Dışa Aktar</string>
+    <string name="game_bar_capture_export_summary">Yakalanan FPS ve performans verilerini CSV dosyası olarak kaydedin</string>
+    <string name="game_bar_capture_start_toast">Verileri kaydetmeye başladı</string>
+    <string name="game_bar_capture_stop_toast">Verilerin kaydedilmesi durduruldu</string>
+    <string name="game_bar_capture_export_toast">Günlük verileri dosyaya aktarıldı</string>
+    <string name="game_bar_doubletap_capture_start_toast">Yakalama başladı</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Yakalama durduruldu</string>
+    <string name="auto_enable_gamebar_title">GameBar\'ı Otomatik Etkinleştir</string>
+    <string name="game_bar_auto_enable_title">Seçilen Uygulamalar için GameBar\'ı Otomatik Etkinleştir</string>
+    <string name="game_bar_auto_enable_summary">Açılırsa, seçilen uygulamalar ana anahtar kapalı olsa bile GameBar\'ı otomatik olarak etkinleştirecektir</string>
+    <string name="game_bar_app_selector_title">Uygulamaları Seçin</string>
+    <string name="game_bar_app_selector_summary">GameBar\'ı otomatik olarak etkinleştirmesi gereken uygulamaları ekleyin</string>
+    <string name="game_bar_app_remover_title">Seçilen Uygulamaları Kaldır</string>
+    <string name="game_bar_app_remover_summary">Uygulamaları otomatik etkinleştirme listesinden kaldırın</string>
+    <string name="game_bar_app_remover_activity_title">Otomatik Etkinleştirme Uygulamalarını Kaldır</string>
+    <string name="game_bar_app_selector_activity_title">GameBar için Uygulamaları Seçin</string>
+    <string name="game_bar_app_added_toast">eklendi</string>
+    <string name="game_bar_app_removed_toast">kaldırıldı</string>
+    <string name="gpu_enable_title">GPU İyileştiriciyi Etkinleştir</string>
+    <string name="gpu_enable_summary">GPU optimizasyonlarını değiştir</string>
+    <string name="gpu_freq_category_title">GPU Frekansını Yapılandırma</string>
+    <string name="gpu_min_frequency">GPU Minimum Frekansı</string>
+    <string name="gpu_max_frequency">GPU Maksimum Frekansı</string>
+    <string name="gpu_disabled_defaults_restored">Optimize Edici GPU devre dışı bırakıldı, varsayılanlar geri yüklendi</string>
+    <string name="gpu_optimizer_enabled">GPU iyileştirici etkin</string>
+    <string name="gpu_min_freq_exceeds_max">Başarısız: GPU minimum frekansı maksimum frekansı aşamaz</string>
+    <string name="gpu_max_freq_below_min">Başarısız: GPU maksimum frekansı minimum frekanstan düşük olamaz</string>
+    <string name="gpu_min_freq_applied">GPU minimum frekansı -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU maksimum frekansı -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">CPU İyileştiriciyi Etkinleştir</string>
+    <string name="cpu_enable_summary">CPU optimizasyonlarını değiştir</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">CPU iyileştirici devre dışı bırakıldı, varsayılanlar geri yüklendi</string>
+    <string name="cpu_optimizer_enabled">CPU iyileştirici etkin</string>
+    <string name="cpu_little_category_title">CPU Küçük Kümesini Yapılandırma</string>
+    <string name="cpu_little_min_frequency_title">Minimum Frekans</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Maksimum Frekans</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Vali</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Başarısız: CPU\'nun küçük minimum frekansı maksimumu aşamaz</string>
+    <string name="cpu_little_max_freq_below_min">Başarısız: CPU\'nun küçük maksimum frekansı minimumdan düşük olamaz</string>
+    <string name="cpu_little_min_freq_applied">CPU minimum minimum frekansı -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">CPU\'nun küçük maksimum frekansı -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">CPU küçük yöneticisi -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">CPU Büyük Kümesini Yapılandırma</string>
+    <string name="cpu_big_min_frequency_title">Minimum Frekans</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Maksimum Frekans</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Vali</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Başarısız: CPU\'nun büyük minimum frekansı maksimumu aşamaz</string>
+    <string name="cpu_big_max_freq_below_min">Başarısız: CPU büyük maksimum frekansı minimumdan düşük olamaz</string>
+    <string name="cpu_big_min_freq_applied">CPU minimum frekansı -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">CPU büyük maksimum frekansı -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">CPU büyük yöneticisi -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">CPU Prime Kümesini Yapılandırma</string>
+    <string name="cpu_prime_min_frequency_title">Minimum Frekans</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Maksimum Frekans</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Vali</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Başarısız: CPU prime min frekansı maksimumu aşamaz</string>
+    <string name="cpu_prime_max_freq_below_min">Başarısız: CPU prime maksimum frekansı minimumdan düşük olamaz</string>
+    <string name="cpu_prime_min_freq_applied">CPU prime minimum frekansı -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">CPU prime maksimum frekansı -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">CPU ana yöneticisi -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Açılışta logcat\'i başlat</string>
+    <string name="logcat_autostart_summary">Yeniden başlatmanın ardından arka planda günlüğe kaydetmeyi otomatik olarak başlat</string>
+    <string name="logcat_viewer_title">Logcat Görüntüleyici</string>
+    <string name="logcat_viewer_summary">Gerçek zamanlı günlük görüntüleyiciyi aç</string>
+    <string name="logcat_filter_hint">Etiketi veya anahtar kelimeyi girin</string>
+    <string name="logcat_filter_title">Günlük Filtresi</string>
+    <string name="logcat_pause">Duraklat</string>
+    <string name="logcat_resume">Devam</string>
+    <string name="logcat_autoscroll_on">Otomatik kaydırma AÇIK</string>
+    <string name="logcat_autoscroll_off">Otomatik kaydırma KAPALI</string>
+    <string name="logcat_save">Günlüğü Kaydet</string>
+    <string name="logcat_clear">Günlüğü Temizle</string>
+    <string name="logcat_share">Günlüğü Paylaş</string>
+    <string name="logcat_settings">Ayarlar</string>
+    <string name="logcat_export">İhracat</string>
+    <string name="logcat_search">Ara</string>
+    <string name="logcat_notification_title">Logcat Görüntüleyici</string>
+    <string name="logcat_notification_text">Arka planda günlük kaydı etkin</string>
+    <string name="logcat_notification_stopped">Arka planda günlük kaydı durduruldu</string>
+    <string name="logcat_notification_channel_name">Logcat Arka Plan Hizmeti</string>
+    <string name="logcat_notification_channel_desc">Arka plan logcat günlüğü için kontroller</string>
+    <string name="logcat_level_verbose">Ayrıntılı</string>
+    <string name="logcat_level_debug">Hata ayıklama</string>
+    <string name="logcat_level_info">Bilgi</string>
+    <string name="logcat_level_warn">Uyarı</string>
+    <string name="logcat_level_error">Hata</string>
+    <string name="logcat_no_logs">Günlük yok</string>
+    <string name="logcat_loading">Günlükler yükleniyor...</string>
+    <string name="logcat_paused">Günlük kaydı duraklatıldı</string>
+    <string name="logcat_active">Günlük kaydı etkin</string>
+    <string name="logcat_filter_applied">Filtre uygulandı: %1$s</string>
+    <string name="logcat_logs_cleared">Günlükler temizlendi</string>
+    <string name="logcat_save_progress">Günlükler kaydediliyor...</string>
+    <string name="logcat_save_success">Günlükler başarıyla kaydedildi.</string>
+    <string name="logcat_save_failed">Günlükler kaydedilemedi.</string>
+    <string name="logcat_share_subject">Android Logcat Dışa Aktarma</string>
+    <string name="logcat_permission_required">Günlükleri kaydetmek için depolama izni gerekli</string>
+    <string name="cpu_tile_label">CPU Yöneticisi</string>
+    <string name="cpu_tile_unavailable">CPU kontrolü mevcut değil</string>
+    <string name="cpu_tile_error">CPU izleme hatası</string>
+    <string name="cpu_tile_unknown">Bilinmiyor</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Planlama</string>
+    <string name="cpu_tile_governor_performance">Performans</string>
+    <string name="cpu_tile_governor_powersave">Güç Tasarrufu</string>
+    <string name="cpu_tile_governor_ondemand">İsteğe Bağlı</string>
+    <string name="cpu_tile_governor_conservative">Muhafazakar</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">CPU Döşeme Ayarları</string>
+    <string name="cpu_tile_settings_summary">CPU Yöneticisi Hızlı Ayarlar döşemesinin görünümünü ve davranışını yapılandırma</string>
+    <string name="cpu_tile_appearance_category">Görünüm</string>
+    <string name="cpu_tile_behavior_category">Davranış</string>
+    <string name="cpu_tile_size_title">Döşeme Simgesi Boyutu</string>
+    <string name="cpu_tile_size_summary">CPU döşeme simgesinin boyutunu seçin</string>
+    <string name="cpu_tile_style_title">Döşeme Stili</string>
+    <string name="cpu_tile_style_summary">CPU bilgilerinin nasıl görüntüleneceğini seçin</string>
+    <string name="cpu_tile_show_percentage_title">Kullanım Yüzdesini Göster</string>
+    <string name="cpu_tile_show_percentage_summary">Frekans yerine CPU kullanım yüzdesini görüntüle</string>
+    <string name="cpu_tile_update_speed_title">Güncelleme Aralığı</string>
+    <string name="cpu_tile_update_speed_summary">CPU bilgileri ne sıklıkla yenilenir</string>
+    <string name="cpu_tile_update_speed_fast">Hızlı (0,5s)</string>
+    <string name="cpu_tile_update_speed_normal">Normal (1s)</string>
+    <string name="cpu_tile_update_speed_slow">Yavaş (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Çok Yavaş (5s)</string>
+    <string name="cpu_tile_preview_title">Değişiklikleri Önizle</string>
+    <string name="cpu_tile_preview_summary">Kutucuğu geçerli ayarlarla yenilemek için dokunun</string>
+    <string name="cpu_tile_footer">CPU Düzenleyicisi kutucuğu, CPU düzenleyicileri arasında hızlı geçiş yapılmasına olanak tanır ve gerçek zamanlı CPU frekansını ve kullanım bilgilerini görüntüler. Mevcut valiler arasında geçiş yapmak için kutucuğa dokunun.</string>
+    <string name="performance_mode_title">Performans Modu</string>
+    <string name="performance_mode_summary">En yüksek performans için CPU ve GPU\'yu maksimuma zorlayın. Isıyı ve pil tüketimini artırır.</string>
+    <string name="performance_mode_enabled_summary">Performans modu AÇIK</string>
+    <string name="performance_mode_disabled_summary">Performans modu KAPALI</string>
+    <string name="performance_profile_title">Performans Profili</string>
+    <string name="performance_profile_summary">Optimum cihaz davranışı için performans modunu seçin</string>
+    <string name="performance_mode_battery_saver">Pil Tasarrufu</string>
+    <string name="performance_mode_balanced">Dengeli</string>
+    <string name="performance_mode_performance">Performans</string>
+    <string name="performance_profile_applied">Performans profili %s olarak ayarlandı</string>
+    <string name="performance_profile_failed">Performans profili uygulanamadı</string>
+    <string name="performance_tile_label">Performans</string>
+    <string name="performance_notification_channel_name">Performans Profilleri</string>
+    <string name="performance_notification_channel_desc">Mevcut performans profili durumunu gösterir</string>
+    <string name="performance_notification_battery_saver">Pil tasarrufu modu etkin - Daha uzun pil ömrü</string>
+    <string name="performance_notification_balanced">Dengeli mod etkin - Optimum performans ve pil ömrü</string>
+    <string name="performance_notification_performance">Performans modu etkin - Maksimum performans</string>
+    <string name="performance_footer_title">Performans Profili Bilgileri</string>
+    <string name="performance_footer_summary">• Pil Tasarrufu: CPU ve GPU performansını azaltarak pil ömrünü uzatır. Hafif kullanım ve maksimum pil süresi için idealdir.\n\n• Dengeli: Performans ve pil ömrü arasında optimum dengeyi sağlar. Günlük kullanım için önerilir.\n\n• Performans: Zorlu görevler için CPU ve GPU performansını en üst düzeye çıkarır. Oyunlar, ağır uygulamalar ve yoğun iş yükleri için en iyisi. Pil ömrünü azaltabilir.</string>
+    <string name="xiaomi_parts_title">XiaomiParçaları</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi Garnet özel ayarları</string>
+    <string name="xiaomi_parts_summary">Xiaomi cihazına özel ayarlar</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParçaları</string>
+    <string name="device_settings_app_name">XiaomiParçaları</string>
+    <string name="display_title">Görüntüle</string>
+    <string name="sound_title">Ses</string>
+    <string name="power_title">Güç</string>
+    <string name="gaming_title">Oyun ve Yardımcı Programlar</string>
+    <string name="about_me_title">Hakkımda</string>
+    <string name="about_me_summary">InnOvaTioN hakkında bilmeniz gereken her şey</string>
+    <string name="about_me_contact_title">Destek</string>
+    <string name="about_me_contact_summary">Oradan yardım alabilirsiniz</string>
+    <string name="about_me_donate_title">Paypal\'da Bana Bağış Yapın</string>
+    <string name="about_me_donate_summary">Çalışmamı destekleyin ki inşa etmeye devam edebileyim</string>
+    <string name="about_me_donate2_title">Bana kahve al</string>
+    <string name="about_me_donate2_summary">Bir bira ya da kahve için beni arayın</string>
+    <string name="core_control_title">Çekirdek Kontrolü</string>
+    <string name="core_control_summary">Tek tek CPU çekirdeklerini manuel olarak etkinleştirin veya devre dışı bırakın</string>
+    <string name="core_control_description">Gelişmiş CPU kontrolü. Çekirdeklerin kapatılması pil veya termal yükten tasarruf sağlayabilir ancak performansı ve kararlılığı etkileyebilir.\n\nEn az iki küçük çekirdek her zaman çevrimiçi kalmalıdır.</string>
+    <string name="keep_little_cores_online">En az 2 küçük çekirdek çevrimiçi kalmalı</string>
+    <string name="core_0">Çekirdek 0 (Küçük)</string>
+    <string name="core_1">Çekirdek 1 (Küçük)</string>
+    <string name="core_2">Çekirdek 2 (Küçük)</string>
+    <string name="core_3">Çekirdek 3 (Küçük)</string>
+    <string name="core_4">Çekirdek 4 (Büyük)</string>
+    <string name="core_5">Çekirdek 5 (Büyük)</string>
+    <string name="core_6">Çekirdek 6 (Büyük)</string>
+    <string name="core_7">Çekirdek 7 (Büyük)</string>
+    <string name="error">Hata</string>
+    <string name="kernel_manager_title">Çekirdek Yöneticisi</string>
+    <string name="kernel_manager_summary">CPU frekanslarını ve düzenleyiciyi yönetin</string>
+    <string name="kernel_manager_efficiency_category">Verimlilik Grubu (A55)</string>
+    <string name="kernel_manager_performance_category">Performans Kümesi (A78)</string>
+    <string name="kernel_manager_governor">CPU Yöneticisi</string>
+    <string name="kernel_manager_governor_summary">Kümeler için CPU yöneticisini seçin</string>
+    <string name="cpu_governor_summary">Güncel: %s</string>
+    <string name="kernel_manager_min_freq">Minimum Frekans</string>
+    <string name="kernel_manager_min_freq_summary">İzin verilen minimum CPU frekansını ayarlayın</string>
+    <string name="kernel_manager_max_freq">Maksimum Frekans</string>
+    <string name="kernel_manager_max_freq_summary">İzin verilen maksimum CPU frekansını ayarlayın</string>
+    <string name="kernel_info_category">Bilgi</string>
+    <string name="kernel_info_title">Çekirdek Yöneticisi Hakkında</string>
+    <string name="kernel_info_summary">Tüm CPU kümeleri için CPU düzenleyicisini ve frekans ölçeklendirmesini yönetin. Değişiklikler performansı ve pil ömrünü etkileyebilir.</string>
+    <string name="kernel_manager_apply">Ayarları Uygula</string>
+    <string name="kernel_manager_apply_summary">Seçilen CPU ayarlarını uygula</string>
+    <string name="kernel_manager_reset">Varsayılana Sıfırla</string>
+    <string name="kernel_manager_reset_summary">Varsayılan CPU ayarlarını geri yükle</string>
+    <string name="settings_applied">Ayarlar başarıyla uygulandı</string>
+    <string name="settings_reset">Ayarlar varsayılana sıfırlandı</string>
+    <string name="kernel_manager_footer">CPU yöneticileri, performansı ve güç kullanımını dengelemek için cihazınızın CPU frekansını nasıl ayarlayacağını yönetir. İşte kısa bir genel bakış:\n\n• walt: Yanıt verme hızı ve kullanıcı etkileşimi gecikmesi için optimize edilmiş, Google tarafından geliştirilmiş bir düzenleyicidir ve çoğunlukla Pixel cihazlarda kullanılır.\n• muhafazakar: CPU frekansını kademeli olarak artırır; pilden tasarruf sağlar ancak yanıt verme hızını azaltabilir.\n• güç tasarrufu: CPU\'yu mümkün olan en düşük frekansta tutar, pil ömrünü performanstan öncelikli tutar.\n• performans: CPU\'yu maksimum frekansta kilitleyerek pil maliyeti karşılığında maksimum performans sağlar.\n• schedhorizon: Çekirdekler arasında gelişmiş görev geçişi ve verimliliği amaçlayan, zamanlayıcıyı tanıyan bir yönetici.\n• schedutil: Birçok çekirdekte varsayılan modern yönetici; CPU frekansını akıllıca ve verimli bir şekilde ölçeklendirmek için Linux\'un zamanlayıcı verilerini kullanır.</string>
+    <string name="kernel_manager_cpu_monitor">CPU Çekirdek İzleme</string>
+    <string name="kernel_manager_core_online">Çevrimiçi</string>
+    <string name="kernel_manager_core_offline">Çevrimdışı</string>
+    <string name="kernel_manager_loading">Yükleniyor...</string>
+    <string name="kernel_manager_enable_monitoring">Gerçek Zamanlı İzleme</string>
+    <string name="kernel_manager_enable_monitoring_summary">CPU çekirdek durumunu sürekli güncelle</string>
+    <string name="kernel_manager_update_interval">Güncelleme Sıklığı</string>
+    <string name="kernel_manager_update_interval_summary">Veriler ne sıklıkla yenilenir</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Verimlilik Kümesi Özeti</string>
+    <string name="kernel_manager_performance_cluster_summary">Performans Kümesi Özeti</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d çevrimiçi çekirdek | Aralık: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">Yok</string>
+    <string name="update_interval_500ms">0,5 saniye</string>
+    <string name="update_interval_1000ms">1 saniye</string>
+    <string name="update_interval_2000ms">2 saniye</string>
+    <string name="update_interval_5000ms">5 saniye</string>
+    <string name="cpu_core_status_online">🟢 %1$s - Çevrimiçi</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - Çevrimdışı</string>
+    <string name="kernel_manager_governor_current">%1$s (Güncel: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Güncel: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">Gerçek zamanlı izleme devre dışı bırakıldı. Canlı CPU çekirdek frekanslarını ve durumunu görmek için etkinleştirin.</string>
+    <string name="kernel_manager_error_read">CPU bilgileri okunamıyor</string>
+    <string name="kernel_manager_error_write">CPU ayarları uygulanamıyor. Kök erişimi gerekebilir.</string>
+    <string name="kernel_manager_error_permission">İzin reddedildi. CPU ayarlarını değiştirmek için kök erişimi gereklidir.</string>
+    <string name="gpu_manager_title">GPU Yöneticisi</string>
+    <string name="gpu_manager_summary">GPU frekanslarını ve güç ayarlarını yönetin</string>
+    <string name="gpu_governor_title">GPU Yöneticisi</string>
+    <string name="gpu_governor_summary">Güncel: %s</string>
+    <string name="gpu_freq_title">GPU Frekansları</string>
+    <string name="gpu_min_freq_title">Minimum Frekans</string>
+    <string name="gpu_max_freq_title">Maksimum Frekans</string>
+    <string name="gpu_max_gpuclk_title">Maksimum GPUCLK\'yi Geçersiz Kılma</string>
+    <string name="gpu_max_gpuclk_summary">Ekstra saat artışı (maks. 940 MHz)</string>
+    <string name="gpu_current_freq_title">Güncel Frekans</string>
+    <string name="gpu_power_title">Güç Ayarları</string>
+    <string name="gpu_force_clk_on_title">Saati Açmaya Zorla</string>
+    <string name="gpu_force_clk_on_summary">GPU saatini her zaman açık tutun</string>
+    <string name="gpu_force_bus_on_title">Veriyolunu Açmaya Zorla</string>
+    <string name="gpu_force_bus_on_summary">GPU veri yolunu her zaman açık tutun</string>
+    <string name="gpu_force_rail_on_title">Rayı Açmaya Zorla</string>
+    <string name="gpu_force_rail_on_summary">GPU güç rayını her zaman açık tutun</string>
+    <string name="gpu_force_no_nap_title">Şekerleme Yapmamaya Zorla</string>
+    <string name="gpu_force_no_nap_summary">Kareler arasında GPU geçişini devre dışı bırak</string>
+    <string name="gpu_bus_split_title">Otobüs Bölümü</string>
+    <string name="gpu_bus_split_summary">GPU veri yolu bölmeyi etkinleştir</string>
+    <string name="gpu_preempt_title">GPU Önceliği</string>
+    <string name="gpu_preempt_summary">Düşük gecikmeli oyun (en iyi oyun deneyimi için etkinleştirin)</string>
+    <string name="gpu_camera_boost_title">Kamera Güçlendirme</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (maksimum kamera/video kodlama performansı)</string>
+    <string name="gpu_thermal_title">Termal Ayarlar</string>
+    <string name="gpu_thermal_pwrlevel_title">Isıl Güç Seviyesi</string>
+    <string name="gpu_thermal_pwrlevel_summary">Mevcut termal güç seviyesi</string>
+    <string name="gpu_temp_title">GPU Sıcaklığı</string>
+    <string name="gpu_info_title">GPU Bilgileri</string>
+    <string name="gpu_model_title">GPU Modeli</string>
+    <string name="gpu_busy_percentage_title">GPU Yükü</string>
+    <string name="gpu_reset_count_title">Sayımı Sıfırla</string>
+    <string name="gpu_preempt_count_title">Ön Alım Sayısı</string>
+    <string name="gpu_info_category">GPU Bilgileri</string>
+    <string name="gpu_settings_category">GPU Ayarları</string>
+    <string name="gpu_advanced_category">Gelişmiş Ayarlar</string>
+    <string name="gpu_info_summary">GPU frekans ölçeklendirmesini ve güç ayarlarını yönetin. Değişiklikler performansı ve pil ömrünü etkileyebilir.</string>
+    <string name="apply_settings">Ayarları Uygula</string>
+    <string name="reset_settings">Ayarları Sıfırla</string>
+    <string name="gpu_turbo_preset_title">Turbo Ön Ayarı</string>
+    <string name="gpu_turbo_preset_summary">Maksimum performans: 940 MHz kilit, performans düzenleyici, tüm güçlendirmeler AÇIK</string>
+    <string name="gpu_turbo_enabled">🚀 Turbo modu etkin!</string>
+    <string name="gpu_settings_applied">Ayarlar uygulandı!</string>
+    <string name="gpu_settings_reset">Ayarlar varsayılanlara sıfırlandı!</string>
+    <string name="unknown">Bilinmiyor</string>
+    <string name="thermal_level_summary">Seviye %s</string>
+    <string name="camera_boost_triggered">Kamera/video hızlandırma tetiklendi!</string>
+    <string name="video_enhancer_title">Video Geliştirici</string>
+    <string name="video_enhancer_summary">Redmi Note 13 Pro 5G için ekran ve performans optimizasyonları</string>
+    <string name="video_enhancer_display_category">📺 Ekran Özellikleri</string>
+    <string name="smooth_motion_enable_title">Düzgün Hareket</string>
+    <string name="smooth_motion_enable_summary">Videolar için donanım hareket yumuşatma (varsayılan: KAPALI) • Yeniden başlatma gerekli</string>
+    <string name="optimize_refresh_enable_title">Yenileme Hızını Optimize Et</string>
+    <string name="optimize_refresh_enable_summary">İçeriğe bağlı dinamik yenileme hızı (varsayılan: KAPALI) • Yeniden başlatma gerekli</string>
+    <string name="peak_refresh_rate_title">120Hz En Yüksek Yenileme Hızı</string>
+    <string name="peak_refresh_rate_summary">Dokunmada 120Hz\'yi etkinleştirin (200ms) • Fabrika değeri • Yeniden başlatma gerekli</string>
+    <string name="video_enhancer_performance_category">⚡ Performans Optimizasyonları</string>
+    <string name="force_vulkan_title">Vulkan API\'sini Zorla</string>
+    <string name="force_vulkan_summary">OpenGL ES yerine Vulkan kullanın (Adreno 710) • Yeniden başlatma gerekli</string>
+    <string name="purgeable_assets_title">Tasfiye Edilebilir Varlıklar</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">İndirilen tüm anahtar kutularını depolama alanında listeleyin</string>
+    <string name="keybox_verify_title">İndirilenleri Doğrulayın</string>
+    <string name="keybox_verify_summary">İndirilen anahtar kutularının XML yapısını kontrol edin</string>
+    <string name="keybox_analyze_title">Derin Analiz</string>
+    <string name="keybox_analyze_summary">Sertifika zincirlerini, geçerlilik süresini ve geçerliliğini analiz edin</string>
+    <string name="keybox_check_api_title">Oynatma Bütünlüğünü Kontrol Edin</string>
+    <string name="keybox_check_api_summary">Anahtar kutusunu Google Play Integrity API\'ye göre test edin</string>
+    <string name="keybox_compare_title">Tuş Kutularını Karşılaştırın</string>
+    <string name="keybox_compare_summary">Birden fazla tuş kutusunu yan yana karşılaştırın</string>
+    <string name="keybox_extract_certs_title">Sertifikaları Çıkart</string>
+    <string name="keybox_extract_certs_summary">Sertifikaları PEM dosyaları olarak dışa aktar</string>
+    <string name="keybox_batch_verify_title">Toplu Doğrulama</string>
+    <string name="keybox_batch_verify_summary">Ayrıntılı raporlarla birden fazla tuş kutusunu test edin</string>
+    <string name="keybox_status_title">Anahtar Kutusu Durumu</string>
+    <string name="keybox_status_summary">Güncel: %s</string>
+    <string name="keybox_status_installed">✅ Geçerli Dosya İndirildi</string>
+    <string name="keybox_status_not_installed">❌ İndirilen Dosya Yok</string>
+    <string name="keybox_status_unknown">⚠️ Bilinmiyor</string>
+    <string name="keybox_device_id_title">Cihaz Kimliği</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Sertifika Sayısı</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Sertifikanın Sona Ermesi</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Şablon Oluştur</string>
+    <string name="keybox_search_dialog_title">Topluluk Anahtar Kutularında Arama</string>
+    <string name="keybox_import_dialog_title">Anahtar Kutusunu İçe Aktar</string>
+    <string name="keybox_export_dialog_title">İndirilen Anahtar Kutularını Listele</string>
+    <string name="keybox_verify_dialog_title">İndirilen Anahtar Kutularını Doğrulayın</string>
+    <string name="keybox_analyze_dialog_title">Derin Analiz</string>
+    <string name="keybox_analyze_dialog_message">Bu, ayrıntılı sertifika analizi gerçekleştirir:\n\n✅ Kontroller:\n• Sertifika zinciri doğrulaması\n• Son kullanma tarihleri\n• İmza algoritmaları\n• Anahtar boyutları\n• Veren bilgileri\n• Sertifika iptal durumu\n\n⚠️ Bu, anahtar kutusu başına 10-30 saniye sürer.\n\nDevam edilsin mi?</string>
+    <string name="keybox_check_api_dialog_title">Bütünlük Kontrolünü Oynat</string>
+    <string name="keybox_check_api_dialog_message">Bu, anahtar kutunuzu Google Play Integrity API\'ye karşı test edecektir.\n\n🔍 Neleri kontrol eder:\n• TEMEL bütünlük\n• CİHAZ bütünlüğü \n• GÜÇLÜ bütünlük\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ GEREKSİNİMLER:\n• Anahtar kutusu Magisk/KernelSU\'ya yüklenmelidir\n• Play Integrity Fix veya TrickyStore modülü\n• İnternet bağlantı\n\n⏱️ 5-10 saniye sürer\n\nDevam edilsin mi?</string>
+    <string name="keybox_compare_dialog_title">Tuş Kutularını Karşılaştırın</string>
+    <string name="keybox_compare_dialog_message">İndirilen birden çok anahtar kutusunu karşılaştırın:\n\n📊 Karşılaştırma şunları içerir:\n• Cihaz Kimlikleri\n• Sertifika sayıları\n• Son kullanma tarihleri\n• Algoritma türleri\n• Anahtar biçimleri (PIF/TrickyStore)\n\nKarşılaştırılacak anahtar kutularını seçin.</string>
+    <string name="keybox_extract_dialog_title">Sertifikaları Çıkart</string>
+    <string name="keybox_extract_dialog_message">Sertifikaları anahtar kutusundan ayrı PEM dosyaları olarak çıkarın.\n\n📁 Dışa aktarılanlar:\n• RSA sertifikaları\n• ECDSA sertifikaları\n• Özel anahtarlar (gerekiyorsa)\n\nDosyalar şuraya kaydedildi: /Download/Keyboxes/certs/\n\nDevam edilsin mi?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Uyarı</string>
+    <string name="keybox_overwrite_dialog_message">Bu işlem bu uygulama sürümünde desteklenmiyor.</string>
+    <string name="keybox_generating">🔄 Şablonlar oluşturuluyor…</string>
+    <string name="keybox_searching">🔍 Topluluk kaynakları aranıyor…</string>
+    <string name="keybox_downloading">Anahtar kutusu depodan indiriliyor…</string>
+    <string name="keybox_verifying">🔍Yapılar doğrulanıyor…</string>
+    <string name="keybox_analyzing">🔬 Sertifikalar analiz ediliyor…</string>
+    <string name="keybox_checking_api">🌐 Play Integrity API\'si test ediliyor…</string>
+    <string name="keybox_comparing">📊 Anahtar kutuları karşılaştırılıyor…</string>
+    <string name="keybox_extracting">📦 Sertifikalar çıkarılıyor…</string>
+    <string name="keybox_generate_success">✅ Şablonlar başarıyla oluşturuldu!</string>
+    <string name="keybox_search_success">✅ Geçerli anahtar kutusu bulundu ve indirildi!</string>
+    <string name="keybox_import_success">✅ Anahtar kutusu başarıyla içe aktarıldı!</string>
+    <string name="keybox_export_success">✅ Dosya listesi oluşturuldu.</string>
+    <string name="keybox_verify_success">✅ Doğrulama tamamlandı.</string>
+    <string name="keybox_analyze_success">✅ Analiz tamamlandı.</string>
+    <string name="keybox_check_api_success">✅ Bütünlük kontrolü tamamlandı.</string>
+    <string name="keybox_compare_success">✅ Karşılaştırma tamamlandı.</string>
+    <string name="keybox_extract_success">✅ Sertifikalar çıkarıldı!</string>
+    <string name="keybox_generate_error">❌ Şablonlar oluşturulamadı!\n\nHata: %s</string>
+    <string name="keybox_search_error">❌ Geçerli anahtar kutusu bulunamadı!\n\nHata: %s</string>
+    <string name="keybox_import_error">❌ Anahtar kutusu içe aktarılamadı!\n\nHata: %s</string>
+    <string name="keybox_export_error">❌ Dosyalar listelenemedi!\n\nHata: %s</string>
+    <string name="keybox_verify_error">❌ Doğrulama başarısız oldu!\n\nHata: %s</string>
+    <string name="keybox_analyze_error">❌ Analiz başarısız oldu!\n\nHata: %s</string>
+    <string name="keybox_check_api_error">❌ Bütünlük kontrolü başarısız oldu!\n\nHata: %s</string>
+    <string name="keybox_no_root">❌ Bu uygulama için kök erişimi gerekli DEĞİLDİR.</string>
+    <string name="keybox_no_internet">❌İnternet bağlantısı gerekli!</string>
+    <string name="keybox_no_keybox">❌ Hiçbir dosya indirilmedi!</string>
+    <string name="keybox_no_module">❌ Magisk/KernelSU modülü algılanmadı!</string>
+    <string name="keybox_info_title">Tuş Kutusu Yöneticisi Hakkında</string>
+    <string name="keybox_info_summary">Android Onaylaması ve Anahtar Kutusu hakkında bilgi edinin</string>
+    <string name="keybox_info_dialog_title">Anahtar Kutuları - Bilgi</string>
+    <string name="keybox_info_dialog_message">🔑 BU UYGULAMA NEDİR?\n══════════════════════════\n\nAndroid Onay Anahtar Kutularını yönetmek için gelişmiş araç. İndirme/analiz için KÖK gerekmez.\n\n✅ ÖZELLİKLER:\n• Topluluk kaynaklarında arama yapın\n• Özel anahtar kutularını içe aktarın\n• Derin sertifika analizi\n• Play Integrity API testi\n• Toplu doğrulama\n• Sertifika çıkarma\n• Yan yana karşılaştırma\n\n📁 KONUM:\n/sdcard/Download/Keyboxes/\n\n⚙️ KURULUM:\n══════════════════════════\n\nSeçenek 1: Oynatma Bütünlüğü Düzeltme\n1. Magisk/KernelSU\n2\'yi yükleyin. PIF modülünü yükleyin\n3. Keybox.xml dosyasını şuraya kopyalayın:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Yeniden başlatın\n\n2. Seçenek: TrickyStore\n1. Magisk/KernelSU\n2\'yi yükleyin. TrickyStore modülünü yükleyin\n3. Keybox.xml dosyasını şuraya kopyalayın:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Otomatik yeniden yükleme (yeniden yükleme yok)\n\n🧪 TEST:\n══════════════════════════\n• Yerleşik Play Bütünlük Denetimi\'ni kullanın\n• YASNAC uygulaması\n• Bankacılık uygulamaları\n• Google Cüzdan\n\n🔬 GELİŞMİŞ ÖZELLİKLER:\n══════════════════════════\n\nDerin Analiz:\n• Sertifika zinciri doğrulama\n• Süre sonu izleme\n• Algoritma gücü kontrol\n• İptal durumu\n\nOyun Bütünlüğü Kontrolü:\n• Gerçek zamanlı API testi\n• BASIC/DEVICE/STRONG durumu\n• Modül algılama\n\nToplu İşlemler:\n• Birden fazla anahtar kutusunu doğrulayın\n• Yan yana karşılaştırın\n• Sertifikaları çıkarın\n\n💡 İPUÇLARI:\n══════════════════════════\n• Genel anahtar kutuları nadirdir ve hızla iptal edilir\n• En iyi kaynaklar özel Telegram gruplarıdır\n• Daha önce anahtar kutularını test edin yükleme\n• Çalışan anahtar kutularının yedeklerini tutun\n• Son kullanma tarihlerini kontrol edin\n\n🔗 TOPLULUK:\n══════════════════════════\n• Telegram: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: &amp;quot;anahtar kutusu oynatma bütünlüğü&amp;quot; araması\n\n⚠️ YASAL SORUMLULUK REDDİ:\n══════════════════════════\nYalnızca eğitim amaçlı.\nDeğiştirilmiş tuş kutularının kullanılması aşağıdakileri ihlal edebilir:\n• Google Hizmet Şartları\n• Uygulama geliştiricisi politikalar\n• Yerel yasalar\n\nKullanımın riski size aittir!</string>
+    <string name="keybox_reset_title">İndirilenleri Sil</string>
+    <string name="keybox_reset_summary">İndirilen tüm anahtar kutularını depolama alanından kaldır</string>
+    <string name="keybox_reset_dialog_title">⚠️ İndirilenleri Sil</string>
+    <string name="keybox_reset_dialog_message">/sdcard/Download/Keyboxes/?\n\nBu işlem geri alınamaz.</string>
+    <string name="keybox_reset_success">✅ Tüm dosyalar silindi!</string>
+    <string name="keybox_reset_error">❌ Silinemedi: %s</string>
+    <string name="ram_optimizer_title">RAM ve Depolama Optimize Edici</string>
+    <string name="ram_optimizer_summary">RAM sıkıştırmasını ve depolamasını optimize edin</string>
+    <string name="ram_optimizer_description">Daha iyi performans için zRAM ayarlarını, uygulama hazırda bekletme modunu ve temiz depolamayı yönetin.</string>
+    <string name="zram_category_title">zRAM Sıkıştırma</string>
+    <string name="zram_enable_title">zRAM\'ı etkinleştirin</string>
+    <string name="zram_enable_summary">Belleği boşaltmak için RAM\'i sıkıştırın</string>
+    <string name="zram_size_title">zRAM Boyutu (MB)</string>
+    <string name="zram_size_summary">Sıkıştırılmış RAM boyutunu ayarlayın (512-12288 MB)</string>
+    <string name="zram_swappiness_title">Takas</string>
+    <string name="zram_swappiness_summary">ZRAM\'e (0-200) ne kadar agresif geçiş yapılacağını kontrol edin</string>
+    <string name="app_hibernation_category_title">Uygulama Hazırda Bekletme</string>
+    <string name="app_hibernation_title">Uygulama Hazırda Bekletme modunu etkinleştirin</string>
+    <string name="app_hibernation_summary">RAM ve pilden tasarruf etmek için kullanılmayan uygulamaları hazırda beklet</string>
+    <string name="storage_cleaner_category_title">Depolama Temizleyici</string>
+    <string name="storage_stats_title">Depolama İstatistikleri</string>
+    <string name="storage_stats_summary">Yükleniyor...</string>
+    <string name="clean_app_cache_title">Uygulama Önbelleğini Temizle</string>
+    <string name="clean_app_cache_summary">Önbelleğe alınmış verileri tüm uygulamalardan kaldırın</string>
+    <string name="clean_system_cache_title">Sistem Önbelleğini Temizleme</string>
+    <string name="clean_system_cache_summary">Sistem önbelleğini temizleyin ve önbellekleri bırakın</string>
+    <string name="clean_thumbnails_title">Küçük Resimleri Temizle</string>
+    <string name="clean_thumbnails_summary">Küçük resim önbelleğini ortamdan kaldırın</string>
+    <string name="clean_downloads_title">Eski İndirilenleri Temizle</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Performansı ön plan uygulamasına göre otomatik olarak ayarlayın</string>
+</resources>

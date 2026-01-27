@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">Xiaomi-innstillinger</string>
+    <string name="tile_add">Legg til flis</string>
+    <string name="tile_added">Tile lagt til</string>
+    <string name="tile_not_added">Flis ikke lagt til</string>
+    <string name="tile_already_added">Flis allerede lagt til</string>
+    <string name="tile_on">På</string>
+    <string name="tile_off">Av</string>
+    <string name="clear_speaker_title">Tydelig høyttaler</string>
+    <string name="clear_speaker_summary">Spill av en 30-sekunders lyd for å fjerne høyttaleren</string>
+    <string name="clear_speaker_description">Kjør denne funksjonen en eller to ganger hvis du oppdager at høyttaleren er lett blokkert av støv. Sett medievolum til maksimum.\n\nHvis høyttaleren er kraftig blokkert, kjør denne funksjonen 2–5 ganger mens du rister enheten med høyttaleren vendt nedover.</string>
+    <string name="saturation_title">Vis metning</string>
+    <string name="saturation_summary">Kontroller metningsnivået til skjermen</string>
+    <string name="saturation_footer_summary">Endring av fargemodus i skjerminnstillinger vil overstyre metningsnivået, og krever at det brukes på nytt.</string>
+    <string name="image_preview_content_description">Forhåndsvisning</string>
+    <string name="image_preview_next_page_content_description">Neste</string>
+    <string name="image_preview_previous_page_content_description">Forrige</string>
+    <string name="custom_seekbar_value">Verdi:</string>
+    <string name="custom_seekbar_default_value">som standard</string>
+    <string name="custom_seekbar_default_value_to_set">Standardverdi:</string>
+    <string name="custom_seekbar_default_value_is_set">Standardverdien er satt</string>
+    <string name="auto_hbm_title">Automatisk høy lysstyrkemodus (HBM)</string>
+    <string name="auto_hbm_main_switch_title">Bruk automatisk HBM</string>
+    <string name="tile_auto_hbm">Auto HBM</string>
+    <string name="tile_hbm_on">Aktivert</string>
+    <string name="tile_hbm_off">Deaktivert</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM utilgjengelig</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">Auto HBM eller Auto Brightness er aktivert</string>
+    <string name="hbm_mode_title">Høy lysstyrkemodus</string>
+    <string name="hbm_mode_notification">Høy lysstyrke-modus er nå aktivert. Lang tids bruk kan skade skjermen.</string>
+    <string name="auto_hbm_summary">Aktiver modus for høy lysstyrke automatisk basert på sollysintensitet (lux)</string>
+    <string name="auto_hbm_threshold_title">Lysterskel</string>
+    <string name="auto_hbm_threshold_summary">Definer lysintensitetsterskelen i lux-enheter der HBM aktiveres</string>
+    <string name="auto_hbm_enable_time_title">Aktiver tid</string>
+    <string name="auto_hbm_enable_time_summary">Varighet i sekunder som lysterskelen må oppfylles kontinuerlig for å aktivere HBM</string>
+    <string name="auto_hbm_disable_time_title">Deaktiver tid</string>
+    <string name="auto_hbm_disable_time_summary">Varighet i sekunder som HBM er deaktivert for hvis lysterskelen faller under innstilt nivå</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">Aktiver systemoverlegget (FPS, Temp, etc.)</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">Slå på spilloverlegget</string>
+    <string name="game_bar_enable_title">Aktiver GameBar Overlay</string>
+    <string name="overlay_permission_required">Overleggstillatelse kreves</string>
+    <string name="overlay_permission_granted">Overleggstillatelse gitt</string>
+    <string name="overlay_permission_denied">Overleggstillatelse nektet</string>
+    <string name="overlay_features_title">Overleggsfunksjoner</string>
+    <string name="game_bar_fps_enable_title">FPS-overlegg</string>
+    <string name="game_bar_fps_enable_summary">Vis gjeldende FPS på skjermen</string>
+    <string name="game_bar_temp_enable_title">Enhetstemperatur</string>
+    <string name="game_bar_temp_enable_summary">Vis enhetens (batteri) temperatur</string>
+    <string name="game_bar_cpu_usage_enable_title">CPU-bruk</string>
+    <string name="game_bar_cpu_usage_enable_summary">Vis gjeldende CPU-bruksprosent</string>
+    <string name="game_bar_cpu_clock_enable_title">CPU-klokkehastigheter</string>
+    <string name="game_bar_cpu_clock_enable_summary">Vis gjeldende CPU-klokkehastigheter for hver kjerne</string>
+    <string name="game_bar_cpu_temp_enable_title">CPU-temperatur</string>
+    <string name="game_bar_cpu_temp_enable_summary">Vis CPU-temperatur (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">RAM-bruk</string>
+    <string name="game_bar_ram_enable_summary">Vis gjeldende RAM-bruk i MB</string>
+    <string name="game_bar_gpu_usage_enable_title">GPU-bruk</string>
+    <string name="game_bar_gpu_usage_enable_summary">Vis GPU-bruksprosent</string>
+    <string name="game_bar_gpu_clock_enable_title">GPU-klokkehastighet</string>
+    <string name="game_bar_gpu_clock_enable_summary">Vis gjeldende GPU-klokkefrekvens</string>
+    <string name="game_bar_gpu_temp_enable_title">GPU-temperatur</string>
+    <string name="game_bar_gpu_temp_enable_summary">Vis gjeldende GPU-temperatur</string>
+    <string name="fps_measurement_method_title">FPS målemetode</string>
+    <string name="game_bar_fps_method_title">Velg FPS-metode</string>
+    <string name="game_bar_fps_method_summary">Velg mellom New API-metoden (standard) og Legacy Sysfs</string>
+    <string name="customization_title">Tilpasning</string>
+    <string name="game_bar_text_size_title">Tekststørrelse</string>
+    <string name="game_bar_text_size_summary">Juster størrelsen på overleggstekst</string>
+    <string name="game_bar_background_alpha_title">Bakgrunnsgjennomsiktighet</string>
+    <string name="game_bar_background_alpha_summary">Juster gjennomsiktigheten av bakgrunnen</string>
+    <string name="game_bar_corner_radius_title">Overlegg hjørneradius</string>
+    <string name="game_bar_corner_radius_summary">Juster hvor avrundede overleggshjørnene skal være</string>
+    <string name="game_bar_padding_title">Overleggspolstring</string>
+    <string name="game_bar_padding_summary">Juster mellomrommet rundt statistikken</string>
+    <string name="game_bar_item_spacing_title">Elementavstand</string>
+    <string name="game_bar_item_spacing_summary">Juster avstanden mellom overleggslinjer</string>
+    <string name="game_bar_update_interval_title">Oppdateringsintervall</string>
+    <string name="game_bar_update_interval_summary">Angi hvor ofte overleggsverdiene oppdateres</string>
+    <string name="game_bar_title_color_title">Stat Tittel Farge</string>
+    <string name="game_bar_title_color_summary">Farge for \'FPS\', \'Temp\', \'CPU\' osv. tekst</string>
+    <string name="game_bar_value_color_title">Stat Verdi Farge</string>
+    <string name="game_bar_value_color_summary">Farge for numerisk statistikk (f.eks. \'29\', \'32.0°C\')</string>
+    <string name="game_bar_position_title">Overleggsposisjon</string>
+    <string name="game_bar_position_summary">Velg plasseringen av overlegget på skjermen</string>
+    <string name="game_bar_format_title">Overleggsformat</string>
+    <string name="game_bar_format_summary">Velg mellom Full eller Minimal visning</string>
+    <string name="game_bar_overlay_format_toast">Overleggsformat endret til: %s</string>
+    <string name="game_bar_format_entries_full">Full</string>
+    <string name="game_bar_format_entries_minimal">Minimum</string>
+    <string name="split_config_title">Split Config</string>
+    <string name="game_bar_split_mode_title">Delt modus</string>
+    <string name="game_bar_split_mode_summary">Velg side-ved-side eller stablet arrangement</string>
+    <string name="overlay_gesture_controls_title">Overleggsbevegelseskontroller</string>
+    <string name="game_bar_single_tap_toggle_title">Aktiver Enkelttrykk for å veksle</string>
+    <string name="game_bar_single_tap_toggle_summary">Trykk én gang for å bytte mellom fullt og minimalt overleggsformat</string>
+    <string name="game_bar_doubletap_capture_title">Aktiver Dobbelttrykk for å fange</string>
+    <string name="game_bar_doubletap_capture_summary">Dobbelttrykk på overlegget for å starte/stoppe fangstlogger</string>
+    <string name="game_bar_longpress_enable_title">Aktiver langt trykk</string>
+    <string name="game_bar_longpress_enable_summary">Langt trykk på overlegget for å få tilgang til GameBar-innstillinger</string>
+    <string name="game_bar_longpress_timeout_title">Lang trykkvarighet</string>
+    <string name="game_bar_longpress_timeout_summary">Angi varigheten som kreves for å trykke lenge på overlegget</string>
+    <string name="capture_logs_title">Capture Logger</string>
+    <string name="game_bar_capture_start_title">Start logging</string>
+    <string name="game_bar_capture_start_summary">Begynn å fange FPS og ytelsesdata i sanntid</string>
+    <string name="game_bar_capture_stop_title">Stopp logging</string>
+    <string name="game_bar_capture_stop_summary">Slutt å fange FPS og ytelsesdata i sanntid</string>
+    <string name="game_bar_capture_export_title">Eksporter GameBar-loggdata</string>
+    <string name="game_bar_capture_export_summary">Lagre fanget FPS og ytelsesdata som en CSV-fil</string>
+    <string name="game_bar_capture_start_toast">Startet logging av data</string>
+    <string name="game_bar_capture_stop_toast">Stoppet logging av data</string>
+    <string name="game_bar_capture_export_toast">Eksporterte loggdata til fil</string>
+    <string name="game_bar_doubletap_capture_start_toast">Opptaket startet</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Opptak stoppet</string>
+    <string name="auto_enable_gamebar_title">Autoaktiver GameBar</string>
+    <string name="game_bar_auto_enable_title">Auto-aktiver GameBar for utvalgte apper</string>
+    <string name="game_bar_auto_enable_summary">Hvis slått på, vil valgte apper automatisk aktivere GameBar selv om hovedbryteren er av</string>
+    <string name="game_bar_app_selector_title">Velg Apps</string>
+    <string name="game_bar_app_selector_summary">Legg til apper som automatisk skal aktivere GameBar</string>
+    <string name="game_bar_app_remover_title">Fjern valgte apper</string>
+    <string name="game_bar_app_remover_summary">Fjern apper fra autoaktiveringslisten</string>
+    <string name="game_bar_app_remover_activity_title">Fjern automatisk aktiver apper</string>
+    <string name="game_bar_app_selector_activity_title">Velg Apps for GameBar</string>
+    <string name="game_bar_app_added_toast">lagt til</string>
+    <string name="game_bar_app_removed_toast">fjernet</string>
+    <string name="gpu_enable_title">Aktiver GPU Optimizer</string>
+    <string name="gpu_enable_summary">Slå GPU-optimalisering av/på</string>
+    <string name="gpu_freq_category_title">Konfigurer GPU-frekvens</string>
+    <string name="gpu_min_frequency">GPU Minimum Frequency</string>
+    <string name="gpu_max_frequency">GPU Maksimal frekvens</string>
+    <string name="gpu_disabled_defaults_restored">Optimizer GPU deaktivert, standardverdier gjenopprettet</string>
+    <string name="gpu_optimizer_enabled">GPU optimizer aktivert</string>
+    <string name="gpu_min_freq_exceeds_max">Mislyktes: GPU min frekvens kan ikke overstige maks frekvens</string>
+    <string name="gpu_max_freq_below_min">Mislyktes: GPU-maksfrekvens kan ikke være lavere enn min. frekvens</string>
+    <string name="gpu_min_freq_applied">GPU min frekvens -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU maks frekvens -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Aktiver CPU Optimizer</string>
+    <string name="cpu_enable_summary">Slå av CPU-optimalisering</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">CPU optimizer deaktivert, standarder gjenopprettet</string>
+    <string name="cpu_optimizer_enabled">CPU optimizer aktivert</string>
+    <string name="cpu_little_category_title">Konfigurer CPU Little Cluster</string>
+    <string name="cpu_little_min_frequency_title">Min frekvens</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Maks frekvens</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Guvernør</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Mislyktes: CPU lite min frekvens kan ikke overstige maks</string>
+    <string name="cpu_little_max_freq_below_min">Mislyktes: CPU lite maks frekvens kan ikke være lavere enn min</string>
+    <string name="cpu_little_min_freq_applied">CPU liten min frekvens -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">CPU liten maks frekvens -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">CPU liten regulator -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">Konfigurer CPU Big Cluster</string>
+    <string name="cpu_big_min_frequency_title">Min frekvens</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">Maks frekvens</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">Guvernør</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">Mislyktes: CPU big min frekvens kan ikke overstige maks</string>
+    <string name="cpu_big_max_freq_below_min">Mislyktes: CPU big max frekvens kan ikke være lavere enn min</string>
+    <string name="cpu_big_min_freq_applied">CPU stor min frekvens -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">CPU stor maks frekvens -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">CPU stor regulator -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">Konfigurer CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">Min frekvens</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">Maks frekvens</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">Guvernør</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">Mislyktes: CPU prime min frekvens kan ikke overstige maks</string>
+    <string name="cpu_prime_max_freq_below_min">Mislyktes: CPU prime max frekvens kan ikke være lavere enn min</string>
+    <string name="cpu_prime_min_freq_applied">CPU prime min frekvens -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">CPU prime max frekvens -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">CPU prime guvernør -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">Start logcat ved oppstart</string>
+    <string name="logcat_autostart_summary">Start automatisk bakgrunnslogging etter omstart</string>
+    <string name="logcat_viewer_title">Logcat Viewer</string>
+    <string name="logcat_viewer_summary">Åpne sanntidsloggvisning</string>
+    <string name="logcat_filter_hint">Skriv inn tag eller nøkkelord</string>
+    <string name="logcat_filter_title">Loggfilter</string>
+    <string name="logcat_pause">Pause</string>
+    <string name="logcat_resume">Fortsett</string>
+    <string name="logcat_autoscroll_on">Autoscroll PÅ</string>
+    <string name="logcat_autoscroll_off">Autoscroll AV</string>
+    <string name="logcat_save">Lagre logg</string>
+    <string name="logcat_clear">Tøm logg</string>
+    <string name="logcat_share">Del Logg</string>
+    <string name="logcat_settings">Innstillinger</string>
+    <string name="logcat_export">Eksporter</string>
+    <string name="logcat_search">Søk</string>
+    <string name="logcat_notification_title">Logcat Viewer</string>
+    <string name="logcat_notification_text">Bakgrunnslogging aktiv</string>
+    <string name="logcat_notification_stopped">Bakgrunnslogging stoppet</string>
+    <string name="logcat_notification_channel_name">Logcat Bakgrunnstjeneste</string>
+    <string name="logcat_notification_channel_desc">Kontroller for logcat-logging i bakgrunnen</string>
+    <string name="logcat_level_verbose">Utførlig</string>
+    <string name="logcat_level_debug">Feilsøk</string>
+    <string name="logcat_level_info">Info</string>
+    <string name="logcat_level_warn">Advarsel</string>
+    <string name="logcat_level_error">Feil</string>
+    <string name="logcat_no_logs">Ingen logger tilgjengelig</string>
+    <string name="logcat_loading">Laster logger...</string>
+    <string name="logcat_paused">Logging stoppet</string>
+    <string name="logcat_active">Logging aktiv</string>
+    <string name="logcat_filter_applied">Filter brukt: %1$s</string>
+    <string name="logcat_logs_cleared">Logger slettet</string>
+    <string name="logcat_save_progress">Lagrer logger...</string>
+    <string name="logcat_save_success">Logger er lagret.</string>
+    <string name="logcat_save_failed">Kunne ikke lagre logger.</string>
+    <string name="logcat_share_subject">Android Logcat Export</string>
+    <string name="logcat_permission_required">Lagringstillatelse kreves for å lagre logger</string>
+    <string name="cpu_tile_label">CPU-regulator</string>
+    <string name="cpu_tile_unavailable">CPU-kontroll utilgjengelig</string>
+    <string name="cpu_tile_error">CPU-overvåkingsfeil</string>
+    <string name="cpu_tile_unknown">Ukjent</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Tidsplan</string>
+    <string name="cpu_tile_governor_performance">Ytelse</string>
+    <string name="cpu_tile_governor_powersave">Strømsparing</string>
+    <string name="cpu_tile_governor_ondemand">OnDemand</string>
+    <string name="cpu_tile_governor_conservative">Konservativ</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%.1f GHz</string>
+    <string name="cpu_tile_settings_title">CPU-flisinnstillinger</string>
+    <string name="cpu_tile_settings_summary">Konfigurer CPU Governor Hurtiginnstillinger-flisens utseende og virkemåte</string>
+    <string name="cpu_tile_appearance_category">Utseende</string>
+    <string name="cpu_tile_behavior_category">Atferd</string>
+    <string name="cpu_tile_size_title">Flisikonstørrelse</string>
+    <string name="cpu_tile_size_summary">Velg størrelsen på CPU-fliseikonet</string>
+    <string name="cpu_tile_style_title">Flisstil</string>
+    <string name="cpu_tile_style_summary">Velg hvordan CPU-informasjon skal vises</string>
+    <string name="cpu_tile_show_percentage_title">Vis bruksprosent</string>
+    <string name="cpu_tile_show_percentage_summary">Vis CPU-bruksprosent i stedet for frekvens</string>
+    <string name="cpu_tile_update_speed_title">Oppdateringsintervall</string>
+    <string name="cpu_tile_update_speed_summary">Hvor ofte skal du oppdatere CPU-informasjon</string>
+    <string name="cpu_tile_update_speed_fast">Rask (0,5s)</string>
+    <string name="cpu_tile_update_speed_normal">Normal (1s)</string>
+    <string name="cpu_tile_update_speed_slow">Sakte (2s)</string>
+    <string name="cpu_tile_update_speed_very_slow">Veldig sakte (5s)</string>
+    <string name="cpu_tile_preview_title">Forhåndsvisningsendringer</string>
+    <string name="cpu_tile_preview_summary">Trykk for å oppdatere flisen med gjeldende innstillinger</string>
+    <string name="cpu_tile_footer">CPU Governor-flisen tillater rask veksling mellom CPU-regulatorer og viser sanntids CPU-frekvens og bruksinformasjon. Trykk på flisen for å bla gjennom tilgjengelige guvernører.</string>
+    <string name="performance_mode_title">Ytelsesmodus</string>
+    <string name="performance_mode_summary">Tving CPU og GPU til maks for topp ytelse. Øker varme og batteritømming.</string>
+    <string name="performance_mode_enabled_summary">Ytelsesmodus er PÅ</string>
+    <string name="performance_mode_disabled_summary">Ytelsesmodus er AV</string>
+    <string name="performance_profile_title">Ytelsesprofil</string>
+    <string name="performance_profile_summary">Velg ytelsesmodus for optimal enhetsadferd</string>
+    <string name="performance_mode_battery_saver">Batterisparing</string>
+    <string name="performance_mode_balanced">Balansert</string>
+    <string name="performance_mode_performance">Ytelse</string>
+    <string name="performance_profile_applied">Ytelsesprofil satt til %s</string>
+    <string name="performance_profile_failed">Kunne ikke bruke ytelsesprofilen</string>
+    <string name="performance_tile_label">Ytelse</string>
+    <string name="performance_notification_channel_name">Ytelsesprofiler</string>
+    <string name="performance_notification_channel_desc">Viser gjeldende resultatprofilstatus</string>
+    <string name="performance_notification_battery_saver">Batterisparemodus er aktiv - Forlenget batterilevetid</string>
+    <string name="performance_notification_balanced">Balansert modus er aktiv - Optimal ytelse og batterilevetid</string>
+    <string name="performance_notification_performance">Ytelsesmodus er aktiv - Maksimal ytelse</string>
+    <string name="performance_footer_title">Ytelsesprofilinformasjon</string>
+    <string name="performance_footer_summary">• Batterisparing: Forlenger batterilevetiden ved å redusere CPU- og GPU-ytelsen. Ideell for lett bruk og maksimal batteritid.\n\n• Balansert: Gir optimal balanse mellom ytelse og batterilevetid. Anbefalt for daglig bruk.\n\n• Ytelse: Maksimerer CPU- og GPU-ytelsen for krevende oppgaver. Best for spill, tunge apper og intensive arbeidsbelastninger. Kan redusere batterilevetiden.</string>
+    <string name="xiaomi_parts_title">XiaomiParts</string>
+    <string name="xiaomi_parts_subtitle">Xiaomi Garnet spesialinnstillinger</string>
+    <string name="xiaomi_parts_summary">Xiaomi enhetsspesifikke innstillinger</string>
+    <string name="xiaomi_parts_launcher_title">XiaomiParts</string>
+    <string name="device_settings_app_name">XiaomiParts</string>
+    <string name="display_title">Vis</string>
+    <string name="sound_title">Lyd</string>
+    <string name="power_title">Strøm</string>
+    <string name="gaming_title">Spill og verktøy</string>
+    <string name="about_me_title">Om meg</string>
+    <string name="about_me_summary">Alt du trenger å vite om InnOvaTioN</string>
+    <string name="about_me_contact_title">Støtte</string>
+    <string name="about_me_contact_summary">Du kan få hjelp der</string>
+    <string name="about_me_donate_title">Doner meg på paypal</string>
+    <string name="about_me_donate_summary">Støtt arbeidet mitt slik at jeg kan fortsette å bygge</string>
+    <string name="about_me_donate2_title">Kjøp kaffe</string>
+    <string name="about_me_donate2_summary">Ring meg for en øl eller en kaffe</string>
+    <string name="core_control_title">Kjernekontroll</string>
+    <string name="core_control_summary">Aktiver eller deaktiver individuelle CPU-kjerner manuelt</string>
+    <string name="core_control_description">Avansert CPU-kontroll. Å slå av kjerner kan spare batteri eller termisk belastning, men kan påvirke ytelsen og stabiliteten.\n\nMinst to små kjerner må være online til enhver tid.</string>
+    <string name="keep_little_cores_online">Minst 2 små kjerner må forbli online</string>
+    <string name="core_0">Kjerne 0 (liten)</string>
+    <string name="core_1">Kjerne 1 (liten)</string>
+    <string name="core_2">Kjerne 2 (liten)</string>
+    <string name="core_3">Kjerne 3 (liten)</string>
+    <string name="core_4">Kjerne 4 (stor)</string>
+    <string name="core_5">Kjerne 5 (stor)</string>
+    <string name="core_6">Kjerne 6 (stor)</string>
+    <string name="core_7">Kjerne 7 (stor)</string>
+    <string name="error">Feil</string>
+    <string name="kernel_manager_title">Kjernebehandler</string>
+    <string name="kernel_manager_summary">Administrer CPU-frekvenser og regulator</string>
+    <string name="kernel_manager_efficiency_category">Effektivitetsklynge (A55)</string>
+    <string name="kernel_manager_performance_category">Ytelsesklynge (A78)</string>
+    <string name="kernel_manager_governor">CPU-regulator</string>
+    <string name="kernel_manager_governor_summary">Velg CPU-regulatoren for klyngene</string>
+    <string name="cpu_governor_summary">Gjeldende: %s</string>
+    <string name="kernel_manager_min_freq">Minimum frekvens</string>
+    <string name="kernel_manager_min_freq_summary">Angi minimum tillatt CPU-frekvens</string>
+    <string name="kernel_manager_max_freq">Maksimal frekvens</string>
+    <string name="kernel_manager_max_freq_summary">Angi maksimalt tillatt CPU-frekvens</string>
+    <string name="kernel_info_category">Informasjon</string>
+    <string name="kernel_info_title">Om Kernel Manager</string>
+    <string name="kernel_info_summary">Administrer CPU-regulator og frekvensskalering for alle CPU-klynger. Endringer kan påvirke ytelsen og batterilevetiden.</string>
+    <string name="kernel_manager_apply">Bruk innstillinger</string>
+    <string name="kernel_manager_apply_summary">Bruk de valgte CPU-innstillingene</string>
+    <string name="kernel_manager_reset">Tilbakestill til standard</string>
+    <string name="kernel_manager_reset_summary">Gjenopprett standard CPU-innstillinger</string>
+    <string name="settings_applied">Innstillingene ble brukt</string>
+    <string name="settings_reset">Innstillinger tilbakestilt til standard</string>
+    <string name="kernel_manager_footer">CPU-regulatorer styrer hvordan enheten din justerer CPU-frekvensen for å balansere ytelse og strømforbruk. Her er en rask oversikt:\n\n• walt: En Google-utviklet guvernør optimalisert for respons og brukerinteraksjonsforsinkelse, hovedsakelig brukt i Pixel-enheter.\n• konservativ: Øker CPU-frekvensen gradvis; sparer batteri, men kan redusere reaksjonsevnen.\n• strømsparing: Holder CPU på lavest mulig frekvens, prioriterer batterilevetid fremfor ytelse.\n• ytelse: Låser CPU ved maksimal frekvens, og sikrer maksimal ytelse på bekostning av batteri.\n• schedhorizon: En planlegger-bevisst guvernør som tar sikte på forbedret oppgavemigrering og effektivitet på tvers av moderne kjerneplaner:\neller standard kjerneplaner. bruker Linuxs planleggerdata for å skalere CPU-frekvensen intelligent og effektivt.</string>
+    <string name="kernel_manager_cpu_monitor">CPU-kjerneovervåking</string>
+    <string name="kernel_manager_core_online">Online</string>
+    <string name="kernel_manager_core_offline">Frakoblet</string>
+    <string name="kernel_manager_loading">Laster...</string>
+    <string name="kernel_manager_enable_monitoring">Sanntidsovervåking</string>
+    <string name="kernel_manager_enable_monitoring_summary">Oppdater CPU-kjernestatusen kontinuerlig</string>
+    <string name="kernel_manager_update_interval">Oppdateringsfrekvens</string>
+    <string name="kernel_manager_update_interval_summary">Hvor ofte dataene skal oppdateres</string>
+    <string name="kernel_manager_efficiency_cluster_summary">Sammendrag av effektivitetsklynge</string>
+    <string name="kernel_manager_performance_cluster_summary">Sammendrag av ytelsesklynge</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d kjerner på nett | Område: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    <string name="update_interval_500ms">0,5 sekunder</string>
+    <string name="update_interval_1000ms">1 sekund</string>
+    <string name="update_interval_2000ms">2 sekunder</string>
+    <string name="update_interval_5000ms">5 sekunder</string>
+    <string name="cpu_core_status_online">%1$s - Online</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - Frakoblet</string>
+    <string name="kernel_manager_governor_current">%1$s (Gjeldende: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (Gjeldende: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">Sanntidsovervåking er deaktivert. Aktiver den for å se live CPU-kjernefrekvenser og status.</string>
+    <string name="kernel_manager_error_read">Kan ikke lese CPU-informasjon</string>
+    <string name="kernel_manager_error_write">Kan ikke bruke CPU-innstillinger. Rottilgang kan være nødvendig.</string>
+    <string name="kernel_manager_error_permission">Tillatelse nektet. Rottilgang er nødvendig for å endre CPU-innstillinger.</string>
+    <string name="gpu_manager_title">GPU Manager</string>
+    <string name="gpu_manager_summary">Administrer GPU-frekvenser og strøminnstillinger</string>
+    <string name="gpu_governor_title">GPU-guvernør</string>
+    <string name="gpu_governor_summary">Gjeldende: %s</string>
+    <string name="gpu_freq_title">GPU-frekvenser</string>
+    <string name="gpu_min_freq_title">Minimum frekvens</string>
+    <string name="gpu_max_freq_title">Maksimal frekvens</string>
+    <string name="gpu_max_gpuclk_title">Maks GPUCLK-overstyring</string>
+    <string name="gpu_max_gpuclk_summary">Ekstra klokkeforsterkning (maks 940 MHz)</string>
+    <string name="gpu_current_freq_title">Gjeldende frekvens</string>
+    <string name="gpu_power_title">Strøminnstillinger</string>
+    <string name="gpu_force_clk_on_title">Tving klokken på</string>
+    <string name="gpu_force_clk_on_summary">Hold GPU-klokken alltid på</string>
+    <string name="gpu_force_bus_on_title">Tving buss på</string>
+    <string name="gpu_force_bus_on_summary">Hold GPU-bussen alltid på</string>
+    <string name="gpu_force_rail_on_title">Tving skinne på</string>
+    <string name="gpu_force_rail_on_summary">Hold GPU-strømskinnen alltid på</string>
+    <string name="gpu_force_no_nap_title">Force No Nap</string>
+    <string name="gpu_force_no_nap_summary">Deaktiver GPU-lur mellom rammer</string>
+    <string name="gpu_bus_split_title">Buss Split</string>
+    <string name="gpu_bus_split_summary">Aktiver GPU-bussdeling</string>
+    <string name="gpu_preempt_title">GPU Preemption</string>
+    <string name="gpu_preempt_summary">Spill med lav latens (aktiver for beste spillopplevelse)</string>
+    <string name="gpu_camera_boost_title">Kameraforsterkning</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (maks kamera-/videokodeytelse)</string>
+    <string name="gpu_thermal_title">Termiske innstillinger</string>
+    <string name="gpu_thermal_pwrlevel_title">Termisk effektnivå</string>
+    <string name="gpu_thermal_pwrlevel_summary">Gjeldende termisk effektnivå</string>
+    <string name="gpu_temp_title">GPU-temperatur</string>
+    <string name="gpu_info_title">GPU-informasjon</string>
+    <string name="gpu_model_title">GPU-modell</string>
+    <string name="gpu_busy_percentage_title">GPU-belastning</string>
+    <string name="gpu_reset_count_title">Tilbakestill telling</string>
+    <string name="gpu_preempt_count_title">Preemption Count</string>
+    <string name="gpu_info_category">GPU-informasjon</string>
+    <string name="gpu_settings_category">GPU-innstillinger</string>
+    <string name="gpu_advanced_category">Avanserte innstillinger</string>
+    <string name="gpu_info_summary">Administrer GPU-frekvensskalering og strøminnstillinger. Endringer kan påvirke ytelsen og batterilevetiden.</string>
+    <string name="apply_settings">Bruk innstillinger</string>
+    <string name="reset_settings">Tilbakestill innstillinger</string>
+    <string name="gpu_turbo_preset_title">Turbo forhåndsinnstilling</string>
+    <string name="gpu_turbo_preset_summary">Maks ytelse: 940 MHz lås, ytelsesregulator, alle forsterkninger PÅ</string>
+    <string name="gpu_turbo_enabled">🚀 Turbomodus aktivert!</string>
+    <string name="gpu_settings_applied">Innstillinger brukt!</string>
+    <string name="gpu_settings_reset">Innstillinger tilbakestilt til standard!</string>
+    <string name="unknown">Ukjent</string>
+    <string name="thermal_level_summary">Nivå %s</string>
+    <string name="camera_boost_triggered">Kamera/video boost utløst!</string>
+    <string name="video_enhancer_title">Video Enhancer</string>
+    <string name="video_enhancer_summary">Skjerm- og ytelsesoptimaliseringer for Redmi Note 13 Pro 5G</string>
+    <string name="video_enhancer_display_category">📺 Skjermfunksjoner</string>
+    <string name="smooth_motion_enable_title">Smooth Motion</string>
+    <string name="smooth_motion_enable_summary">Maskinvarebevegelsesutjevning for videoer (standard: AV) • Omstart kreves</string>
+    <string name="optimize_refresh_enable_title">Optimaliser oppdateringsfrekvens</string>
+    <string name="optimize_refresh_enable_summary">Dynamisk oppdateringsfrekvens basert på innhold (standard: AV) • Omstart kreves</string>
+    <string name="peak_refresh_rate_title">120Hz toppoppdateringsfrekvens</string>
+    <string name="peak_refresh_rate_summary">Aktiver 120Hz ved berøring (200ms) • Fabrikkverdi • Omstart kreves</string>
+    <string name="video_enhancer_performance_category">⚡ Ytelsesoptimalisering</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">Bruk Vulkan i stedet for OpenGL ES (Adreno 710) • Omstart kreves</string>
+    <string name="purgeable_assets_title">Utrensbare eiendeler</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">Liste alle nedlastede nøkkelbokser i lagring</string>
+    <string name="keybox_verify_title">Bekreft nedlastinger</string>
+    <string name="keybox_verify_summary">Sjekk XML-strukturen til nedlastede nøkkelbokser</string>
+    <string name="keybox_analyze_title">Dyp analyse</string>
+    <string name="keybox_analyze_summary">Analyser sertifikatkjeder, utløp og gyldighet</string>
+    <string name="keybox_check_api_title">Sjekk spillintegritet</string>
+    <string name="keybox_check_api_summary">Test nøkkelboks mot Google Play Integrity API</string>
+    <string name="keybox_compare_title">Sammenlign nøkkelbokser</string>
+    <string name="keybox_compare_summary">Sammenlign flere nøkkelbokser side ved side</string>
+    <string name="keybox_extract_certs_title">Trekk ut sertifikater</string>
+    <string name="keybox_extract_certs_summary">Eksporter sertifikater som PEM-filer</string>
+    <string name="keybox_batch_verify_title">Batch Bekreft</string>
+    <string name="keybox_batch_verify_summary">Test flere nøkkelbokser med detaljerte rapporter</string>
+    <string name="keybox_status_title">Tasteboksstatus</string>
+    <string name="keybox_status_summary">Gjeldende: %s</string>
+    <string name="keybox_status_installed">✅ Gyldig fil lastet ned</string>
+    <string name="keybox_status_not_installed">❌ Ingen filer lastet ned</string>
+    <string name="keybox_status_unknown">⚠️ Ukjent</string>
+    <string name="keybox_device_id_title">Enhets-ID</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">Antall sertifikater</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d, ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">Sertifikatutløp</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">Generer maler</string>
+    <string name="keybox_search_dialog_title">Søk fellesskapsnøkkelbokser</string>
+    <string name="keybox_import_dialog_title">Importer nøkkelboks</string>
+    <string name="keybox_export_dialog_title">Liste over nedlastede nøkkelbokser</string>
+    <string name="keybox_verify_dialog_title">Bekreft nedlastede nøkkelbokser</string>
+    <string name="keybox_analyze_dialog_title">Dyp analyse</string>
+    <string name="keybox_analyze_dialog_message">Dette vil utføre dyp sertifikatanalyse:\n\n✅ Kontroller:\n• Sertifikatkjedevalidering\n• Utløpsdatoer\n• Signaturalgoritmer\n• Nøkkelstørrelser\n• Utstederinformasjon\n• Status for tilbakekall av sertifikat\n\n⚠️ Dette tar 10–30 sekunder per nøkkelboks.\n\nVil du fortsette?</string>
+    <string name="keybox_check_api_dialog_title">Spilleintegritetssjekk</string>
+    <string name="keybox_check_api_dialog_message">Dette vil teste nøkkelboksen din mot Google Play Integrity API.\n\n&amp;gt; Hva den kontrollerer:\n• GRUNNLEGGENDE integritet\n• ENHETSintegritet \n• STERK integritet\n• MEETS_DEVICE_INTEGRITY\n\n⚠️ KRAV:\n• Nøkkelboksen må være installert i Magisk/KernelStoren• Internet Integrity\n•modulen Magisk/Kernel. tilkobling\n\n⏱️ Tar det 5-10 sekunder\n\nVil du fortsette?</string>
+    <string name="keybox_compare_dialog_title">Sammenlign nøkkelbokser</string>
+    <string name="keybox_compare_dialog_message">Sammenlign flere nedlastede nøkkelbokser:\n\n📊 Sammenligning inkluderer:\n• Enhets-IDer\n• Sertifikateteller\n• Utløpsdatoer\n• Algoritmetyper\n• Nøkkelformater (PIF/TrickyStore)\n\nVelg nøkkelbokser for å sammenligne.</string>
+    <string name="keybox_extract_dialog_title">Trekk ut sertifikater</string>
+    <string name="keybox_extract_dialog_message">Trekk ut sertifikater fra nøkkelboksen som separate PEM-filer.\n\n📁 Eksporter:\n• RSA-sertifikater\n• ECDSA-sertifikater\n• Private nøkler (hvis nødvendig)\n\nFiler lagret i: /Last ned/Keyboxes/sertifikater/\n\nVil du fortsette?</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ Advarsel</string>
+    <string name="keybox_overwrite_dialog_message">Denne handlingen støttes ikke i denne appversjonen.</string>
+    <string name="keybox_generating">🔄 Genererer maler...</string>
+    <string name="keybox_searching">🔍 Søker etter fellesskapskilder...</string>
+    <string name="keybox_downloading">Laster ned nøkkelboks fra depotet...</string>
+    <string name="keybox_verifying">🔍 Verifiserer strukturer...</string>
+    <string name="keybox_analyzing">🔬 Analyserer sertifikater...</string>
+    <string name="keybox_checking_api">🌐 Testing av Play Integrity API...</string>
+    <string name="keybox_comparing">📊 Sammenligner nøkkelbokser...</string>
+    <string name="keybox_extracting">📦 Trekker ut sertifikater...</string>
+    <string name="keybox_generate_success">✅ Maler generert vellykket!</string>
+    <string name="keybox_search_success">✅ Gyldig nøkkelboks funnet og lastet ned!</string>
+    <string name="keybox_import_success">✅ Keybox importert vellykket!</string>
+    <string name="keybox_export_success">✅ Filliste generert.</string>
+    <string name="keybox_verify_success">✅ Verifisering fullført.</string>
+    <string name="keybox_analyze_success">✅ Analyse fullført.</string>
+    <string name="keybox_check_api_success">✅ Integritetssjekk fullført.</string>
+    <string name="keybox_compare_success">✅ Sammenligningen er fullført.</string>
+    <string name="keybox_extract_success">✅ Sertifikater trukket ut!</string>
+    <string name="keybox_generate_error">❌ Kunne ikke generere maler!\n\nFeil: %s</string>
+    <string name="keybox_search_error">❌ Kunne ikke finne gyldig nøkkelboks!\n\nFeil: %s</string>
+    <string name="keybox_import_error">❌ Kunne ikke importere nøkkelboks!\n\nFeil: %s</string>
+    <string name="keybox_export_error">❌ Kunne ikke vise filer!\n\nFeil: %s</string>
+    <string name="keybox_verify_error">❌ Verifisering mislyktes!\n\nFeil: %s</string>
+    <string name="keybox_analyze_error">❌ Analyse mislyktes!\n\nFeil: %s</string>
+    <string name="keybox_check_api_error">❌ Integritetssjekk mislyktes!\n\nFeil: %s</string>
+    <string name="keybox_no_root">❌ Rottilgang er IKKE nødvendig for denne appen.</string>
+    <string name="keybox_no_internet">❌ Internett-tilkobling kreves!</string>
+    <string name="keybox_no_keybox">❌ Ingen filer lastet ned!</string>
+    <string name="keybox_no_module">❌ Ingen Magisk/KernelSU-modul oppdaget!</string>
+    <string name="keybox_info_title">Om Keybox Manager</string>
+    <string name="keybox_info_summary">Lær om Android Attestation og Keybox</string>
+    <string name="keybox_info_dialog_title">Box of Keybox\'s - Informasjon</string>
+    <string name="keybox_info_dialog_message">🔑 HVA ER DENNE APPEN?\n═══════════════════════════════════════════════════ INGEN ROT kreves for nedlasting/analyse.\n\n✅ FUNKSJONER:\n• Søk etter fellesskapskilder\n• Importer egendefinerte nøkkelbokser\n• Dyp sertifikatanalyse\n• Play Integrity API-testing\n• Batchbekreftelse\n• Sertifikatutvinning\n• Side-ved-side sammenligning\n\n📁 PLASSERING:\n/sdcard/Last ned/Nøkkelbokser/\n\n⚙️ INSTALLASJON:\n══════════════════════════\n\nAlternativ 1: Spilleintegritet. Installer Magisk/KernelSU\n2. Installer PIF-modul\n3. Kopier keybox.xml til:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Start på nytt\n\nAlternativ 2: TrickyStore\n1. Installer Magisk/KernelSU\n2. Installer TrickyStore-modulen\n3. Kopier keybox.xml til:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Last inn automatisk (ingen omstart)\n\n🧪 TESTING:\n══════════════════════════════════════════════════•═════•═══- YASNAC-appen\n• Bankapper\n• Google Wallet\n\n🔬 AVANSERT FUNKSJONER:\n══════════════════════════\n\nDypsporingssertifikat\n• n• kjede for gyldig sporingssertifikat:\n• Algoritmestyrkesjekk\n• Tilbakekallingsstatus\n\nSpillintegritetssjekk:\n• API-testing i sanntid\n• BASIC/DEVICE/STRONG-status\n• Moduldeteksjon\n\nBatchoperasjoner:\n• Bekreft flere nøkkelbokser\n• Sammenlign side ved side\n• Trekk ut sertifikater\n\n💡 TIPS:\n══════════════════════════\n• Offentlige nøkkelbokser er sjeldne\n• testet av offentlige nøkkelbokser er sjeldne\n•-grupper som er sjeldne og raskest revokert. installerer\n• Behold sikkerhetskopier av fungerende nøkkelbokser\n• Sjekk utløpsdatoer\n\n🔗 FELLESSKAP:\n═════════════════════════ Telegram: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Søk etter &amp;quot;keybox play integrity&amp;quot;\n\n⚠️ LOVGIVNING ANSVARSFRASKRIVELSE:\n══════════════════════════\nUtdanningsmessige formål kan kun krenkes. Tjeneste\n• Retningslinjer for apputviklere\n• Lokale lover\n\nBruk på egen risiko!</string>
+    <string name="keybox_reset_title">Slett nedlastinger</string>
+    <string name="keybox_reset_summary">Fjern alle nedlastede nøkkelbokser fra lagring</string>
+    <string name="keybox_reset_dialog_title">⚠️ Slett nedlastinger</string>
+    <string name="keybox_reset_dialog_message">Slett ALLE filer fra /sdcard/Download/Keyboxes/?\n\nDette kan ikke angres.</string>
+    <string name="keybox_reset_success">✅ Alle filer slettet!</string>
+    <string name="keybox_reset_error">❌ Sletting mislyktes: %s</string>
+    <string name="ram_optimizer_title">RAM og Storage Optimizer</string>
+    <string name="ram_optimizer_summary">Optimaliser RAM-komprimering og lagring</string>
+    <string name="ram_optimizer_description">Administrer zRAM-innstillinger, app-dvalemodus og ren lagring for bedre ytelse.</string>
+    <string name="zram_category_title">zRAM-komprimering</string>
+    <string name="zram_enable_title">Aktiver zRAM</string>
+    <string name="zram_enable_summary">Komprimer RAM for å frigjøre minne</string>
+    <string name="zram_size_title">zRAM Størrelse (MB)</string>
+    <string name="zram_size_summary">Angi størrelsen på komprimert RAM (512-12288 MB)</string>
+    <string name="zram_swappiness_title">Bytting</string>
+    <string name="zram_swappiness_summary">Kontroller hvor aggressivt du skal bytte til zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">App dvalemodus</string>
+    <string name="app_hibernation_title">Aktiver appdvale</string>
+    <string name="app_hibernation_summary">Dvale ubrukte apper for å spare RAM og batteri</string>
+    <string name="storage_cleaner_category_title">Oppbevaringsrens</string>
+    <string name="storage_stats_title">Lagringsstatistikk</string>
+    <string name="storage_stats_summary">Laster...</string>
+    <string name="clean_app_cache_title">Rengjør appbufferen</string>
+    <string name="clean_app_cache_summary">Fjern bufrede data fra alle apper</string>
+    <string name="clean_system_cache_title">Rengjør systembufferen</string>
+    <string name="clean_system_cache_summary">Tøm systembuffer og slipp cacher</string>
+    <string name="clean_thumbnails_title">Rengjør miniatyrbilder</string>
+    <string name="clean_thumbnails_summary">Fjern thumbnail cache fra media</string>
+    <string name="clean_downloads_title">Rengjør gamle nedlastinger</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">Juster ytelsen automatisk basert på forgrunnsapplikasjonen</string>
+</resources>

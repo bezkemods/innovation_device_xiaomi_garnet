@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_title">تنظیمات شیائومی</string>
+    <string name="tile_add">افزودن کاشی</string>
+    <string name="tile_added">کاشی اضافه شد</string>
+    <string name="tile_not_added">کاشی اضافه نشد</string>
+    <string name="tile_already_added">کاشی قبلاً اضافه شده است</string>
+    <string name="tile_on">در</string>
+    <string name="tile_off">خاموش</string>
+    <string name="clear_speaker_title">پاک کردن بلندگو</string>
+    <string name="clear_speaker_summary">پخش صدای 30 ثانیه ای برای پاک کردن بلندگو</string>
+    <string name="clear_speaker_description">اگر متوجه شدید که اسپیکر شما به آرامی توسط گرد و غبار مسدود شده است، این ویژگی را یک یا دو بار اجرا کنید. میزان صدای رسانه را روی حداکثر تنظیم کنید.\n\nاگر بلندگو به شدت مسدود شده است، این ویژگی را 2 تا 5 بار اجرا کنید در حالی که دستگاه خود را تکان می دهید و بلندگو رو به پایین است.</string>
+    <string name="saturation_title">نمایش اشباع</string>
+    <string name="saturation_summary">سطح اشباع نمایشگر را کنترل کنید</string>
+    <string name="saturation_footer_summary">تغییر حالت رنگ در تنظیمات صفحه نمایش، سطح اشباع را لغو می کند و نیاز به اعمال مجدد آن دارد.</string>
+    <string name="image_preview_content_description">پیش نمایش</string>
+    <string name="image_preview_next_page_content_description">بعدی</string>
+    <string name="image_preview_previous_page_content_description">قبلی</string>
+    <string name="custom_seekbar_value">ارزش:</string>
+    <string name="custom_seekbar_default_value">به طور پیش فرض</string>
+    <string name="custom_seekbar_default_value_to_set">مقدار پیش فرض:</string>
+    <string name="custom_seekbar_default_value_is_set">مقدار پیش فرض تنظیم شده است</string>
+    <string name="auto_hbm_title">حالت خودکار روشنایی بالا (HBM)</string>
+    <string name="auto_hbm_main_switch_title">استفاده از HBM خودکار</string>
+    <string name="tile_auto_hbm">خودکار HBM</string>
+    <string name="tile_hbm_on">فعال</string>
+    <string name="tile_hbm_off">غیر فعال</string>
+    <string name="tile_hbm">HBM</string>
+    <string name="tile_hbm_unavailable">HBM در دسترس نیست</string>
+    <string name="tile_auto_hbm_or_brightness_enabled">خودکار HBM یا Auto Brightness فعال است</string>
+    <string name="hbm_mode_title">حالت روشنایی بالا</string>
+    <string name="hbm_mode_notification">حالت روشنایی بالا اکنون فعال شده است. استفاده طولانی مدت ممکن است به صفحه نمایش شما آسیب برساند.</string>
+    <string name="auto_hbm_summary">به طور خودکار حالت روشنایی بالا را بر اساس شدت نور خورشید (لوکس) فعال کنید</string>
+    <string name="auto_hbm_threshold_title">آستانه نور</string>
+    <string name="auto_hbm_threshold_summary">آستانه شدت نور را بر حسب واحدهای لوکس تعریف کنید که در آن HBM فعال می شود</string>
+    <string name="auto_hbm_enable_time_title">فعال کردن زمان</string>
+    <string name="auto_hbm_enable_time_summary">مدت زمانی بر حسب ثانیه که آستانه نور باید به طور پیوسته رعایت شود تا HBM فعال شود</string>
+    <string name="auto_hbm_disable_time_title">غیرفعال کردن زمان</string>
+    <string name="auto_hbm_disable_time_summary">مدت زمانی بر حسب ثانیه که HBM در صورت کاهش آستانه نور از سطح تعیین شده غیرفعال می شود</string>
+    <string name="game_bar_title">GameBar</string>
+    <string name="game_bar_summary">همپوشانی سیستم (FPS، Temp و غیره) را فعال کنید</string>
+    <string name="game_bar_tile_label">GameBar</string>
+    <string name="game_bar_tile_description">روکش بازی</string>
+    <string name="game_bar_enable_title">فعال کردن GameBar Overlay</string>
+    <string name="overlay_permission_required">مجوز پوشش مورد نیاز است</string>
+    <string name="overlay_permission_granted">مجوز پوشش داده شد</string>
+    <string name="overlay_permission_denied">مجوز همپوشانی رد شد</string>
+    <string name="overlay_features_title">ویژگی های پوشش</string>
+    <string name="game_bar_fps_enable_title">FPS Overlay</string>
+    <string name="game_bar_fps_enable_summary">نمایش FPS فعلی روی صفحه</string>
+    <string name="game_bar_temp_enable_title">دمای دستگاه</string>
+    <string name="game_bar_temp_enable_summary">نمایش دمای دستگاه (باتری).</string>
+    <string name="game_bar_cpu_usage_enable_title">استفاده از CPU</string>
+    <string name="game_bar_cpu_usage_enable_summary">نمایش درصد مصرف فعلی CPU</string>
+    <string name="game_bar_cpu_clock_enable_title">سرعت ساعت CPU</string>
+    <string name="game_bar_cpu_clock_enable_summary">نمایش سرعت کلاک فعلی CPU برای هر هسته</string>
+    <string name="game_bar_cpu_temp_enable_title">دمای CPU</string>
+    <string name="game_bar_cpu_temp_enable_summary">نمایش دمای CPU (thermal_zone0)</string>
+    <string name="game_bar_ram_enable_title">استفاده از رم</string>
+    <string name="game_bar_ram_enable_summary">نمایش میزان مصرف فعلی رم در مگابایت</string>
+    <string name="game_bar_gpu_usage_enable_title">استفاده از پردازنده گرافیکی</string>
+    <string name="game_bar_gpu_usage_enable_summary">نمایش درصد استفاده از GPU</string>
+    <string name="game_bar_gpu_clock_enable_title">سرعت ساعت پردازنده گرافیکی</string>
+    <string name="game_bar_gpu_clock_enable_summary">نمایش فرکانس ساعت GPU فعلی</string>
+    <string name="game_bar_gpu_temp_enable_title">دمای پردازنده گرافیکی</string>
+    <string name="game_bar_gpu_temp_enable_summary">نمایش دمای فعلی GPU</string>
+    <string name="fps_measurement_method_title">روش اندازه گیری FPS</string>
+    <string name="game_bar_fps_method_title">FPS Method</string>
+    <string name="game_bar_fps_method_summary">را انتخاب کنید بین روش New API (پیش‌فرض) و Legacy Sysfs</string>
+    <string name="customization_title">انتخاب کنید سفارشی سازی</string>
+    <string name="game_bar_text_size_title">اندازه متن</string>
+    <string name="game_bar_text_size_summary">اندازه متن همپوشانی را تنظیم کنید</string>
+    <string name="game_bar_background_alpha_title">شفافیت پس زمینه</string>
+    <string name="game_bar_background_alpha_summary">شفافیت پس زمینه را تنظیم کنید</string>
+    <string name="game_bar_corner_radius_title">شعاع گوشه روکش</string>
+    <string name="game_bar_corner_radius_summary">تنظیم کنید که گوشه های روکش چقدر باید گرد باشند</string>
+    <string name="game_bar_padding_title">پوشش روکشی</string>
+    <string name="game_bar_padding_summary">فضای اطراف آمار را تنظیم کنید</string>
+    <string name="game_bar_item_spacing_title">فاصله مورد</string>
+    <string name="game_bar_item_spacing_summary">تنظیم فاصله بین خطوط همپوشانی</string>
+    <string name="game_bar_update_interval_title">فاصله به روز رسانی</string>
+    <string name="game_bar_update_interval_summary">تعداد دفعات به‌روزرسانی</string>
+    <string name="game_bar_title_color_title">مقادیر همپوشانی را تنظیم کنید رنگ عنوان آمار</string>
+    <string name="game_bar_title_color_summary">رنگ برای متن \'FPS\'، \'Temp\', \'CPU\' و غیره</string>
+    <string name="game_bar_value_color_title">رنگ ارزش آماری</string>
+    <string name="game_bar_value_color_summary">رنگ برای آمارهای عددی (به عنوان مثال، \'29\'، \'32.0°C\')</string>
+    <string name="game_bar_position_title">موقعیت روکش</string>
+    <string name="game_bar_position_summary">موقعیت همپوشانی را روی صفحه انتخاب کنید</string>
+    <string name="game_bar_format_title">قالب روکش</string>
+    <string name="game_bar_format_summary">انتخاب بین نمایش کامل یا حداقل</string>
+    <string name="game_bar_overlay_format_toast">قالب همپوشانی به: %s</string>
+    <string name="game_bar_format_entries_full">تغییر کرد کامل</string>
+    <string name="game_bar_format_entries_minimal">حداقل</string>
+    <string name="split_config_title">پیکربندی تقسیم</string>
+    <string name="game_bar_split_mode_title">حالت تقسیم</string>
+    <string name="game_bar_split_mode_summary">ترتیب کنار هم یا کنار هم را انتخاب کنید</string>
+    <string name="overlay_gesture_controls_title">کنترل های اشاره ای همپوشانی</string>
+    <string name="game_bar_single_tap_toggle_title">فعال کردن یک ضربه برای تغییر</string>
+    <string name="game_bar_single_tap_toggle_summary">برای جابه‌جایی بین فرمت‌های پوشش کامل و حداقلی یکبار ضربه بزنید</string>
+    <string name="game_bar_doubletap_capture_title">فعال کردن Double Tap to Capture</string>
+    <string name="game_bar_doubletap_capture_summary">برای شروع/توقف گزارش های ضبط، روی همپوشانی دو ضربه سریع بزنید</string>
+    <string name="game_bar_longpress_enable_title">فشار طولانی را فعال کنید</string>
+    <string name="game_bar_longpress_enable_summary">Long-press overlay to access GameBar settings</string>
+    <string name="game_bar_longpress_timeout_title">Long Press Duration</string>
+    <string name="game_bar_longpress_timeout_summary">Set the duration required to long-press the overlay</string>
+    <string name="capture_logs_title">Capture Logs</string>
+    <string name="game_bar_capture_start_title">Start Logging</string>
+    <string name="game_bar_capture_start_summary">Begin capturing FPS and performance data in real-time</string>
+    <string name="game_bar_capture_stop_title">Stop Logging</string>
+    <string name="game_bar_capture_stop_summary">Stop capturing FPS and performance data in real-time</string>
+    <string name="game_bar_capture_export_title">Export GameBar Log Data</string>
+    <string name="game_bar_capture_export_summary">Save the captured FPS and performance data as a CSV file</string>
+    <string name="game_bar_capture_start_toast">Started logging data</string>
+    <string name="game_bar_capture_stop_toast">Stopped logging data</string>
+    <string name="game_bar_capture_export_toast">Exported log data to file</string>
+    <string name="game_bar_doubletap_capture_start_toast">Capture started</string>
+    <string name="game_bar_doubletap_capture_stop_toast">Capture stopped</string>
+    <string name="auto_enable_gamebar_title">Auto Enable GameBar</string>
+    <string name="game_bar_auto_enable_title">Auto-Enable GameBar for Selected Apps</string>
+    <string name="game_bar_auto_enable_summary">If turned on, selected apps will auto-enable GameBar even if the main switch is off</string>
+    <string name="game_bar_app_selector_title">Select Apps</string>
+    <string name="game_bar_app_selector_summary">Add apps that should auto-enable GameBar</string>
+    <string name="game_bar_app_remover_title">Remove Selected Apps</string>
+    <string name="game_bar_app_remover_summary">Remove apps from the auto-enable list</string>
+    <string name="game_bar_app_remover_activity_title">Remove Auto-Enable Apps</string>
+    <string name="game_bar_app_selector_activity_title">Select Apps for GameBar</string>
+    <string name="game_bar_app_added_toast">added</string>
+    <string name="game_bar_app_removed_toast">removed</string>
+    <string name="gpu_enable_title">Enable GPU Optimizer</string>
+    <string name="gpu_enable_summary">Toggle GPU optimizations</string>
+    <string name="gpu_freq_category_title">Configure GPU Frequency</string>
+    <string name="gpu_min_frequency">GPU Minimum Frequency</string>
+    <string name="gpu_max_frequency">GPU Maximum Frequency</string>
+    <string name="gpu_disabled_defaults_restored">Optimizer GPU disabled, defaults restored</string>
+    <string name="gpu_optimizer_enabled">GPU optimizer enabled</string>
+    <string name="gpu_min_freq_exceeds_max">Failed: GPU min frequency cannot exceed max frequency</string>
+    <string name="gpu_max_freq_below_min">Failed: GPU max frequency cannot be lower than min frequency</string>
+    <string name="gpu_min_freq_applied">GPU min frequency -&amp;gt; %1$s</string>
+    <string name="gpu_max_freq_applied">GPU max frequency -&amp;gt; %1$s</string>
+    <string name="cpu_enable_title">Enable CPU Optimizer</string>
+    <string name="cpu_enable_summary">Toggle CPU optimizations</string>
+    <string name="cpu_optimizer_disabled_defaults_restored">CPU optimizer disabled, defaults restored</string>
+    <string name="cpu_optimizer_enabled">CPU optimizer enabled</string>
+    <string name="cpu_little_category_title">Configure CPU Little Cluster</string>
+    <string name="cpu_little_min_frequency_title">Min Frequency</string>
+    <string name="cpu_little_min_frequency_summary">%s</string>
+    <string name="cpu_little_max_frequency_title">Max Frequency</string>
+    <string name="cpu_little_max_frequency_summary">%s</string>
+    <string name="cpu_little_governor_title">Governor</string>
+    <string name="cpu_little_governor_summary">%s</string>
+    <string name="cpu_little_min_freq_exceeds_max">Failed: CPU little min frequency cannot exceed max</string>
+    <string name="cpu_little_max_freq_below_min">Failed: CPU little max frequency cannot be lower than min</string>
+    <string name="cpu_little_min_freq_applied">فرکانس کم CPU -&amp;gt; %1$s</string>
+    <string name="cpu_little_max_freq_applied">حداکثر فرکانس CPU -&amp;gt; %1$s</string>
+    <string name="cpu_little_governor_applied">گاورنر کوچک CPU -&amp;gt; %1$s</string>
+    <string name="cpu_big_category_title">پیکربندی CPU Big Cluster</string>
+    <string name="cpu_big_min_frequency_title">حداقل فرکانس</string>
+    <string name="cpu_big_min_frequency_summary">%s</string>
+    <string name="cpu_big_max_frequency_title">حداکثر فرکانس</string>
+    <string name="cpu_big_max_frequency_summary">%s</string>
+    <string name="cpu_big_governor_title">فرماندار</string>
+    <string name="cpu_big_governor_summary">%s</string>
+    <string name="cpu_big_min_freq_exceeds_max">ناموفق: فرکانس بزرگ CPU نمی تواند از حداکثر</string>
+    <string name="cpu_big_max_freq_below_min">بیشتر شود ناموفق: حداکثر فرکانس CPU نمی تواند کمتر از min</string>
+    <string name="cpu_big_min_freq_applied">باشد فرکانس بزرگ حداقل CPU -&amp;gt; %1$s</string>
+    <string name="cpu_big_max_freq_applied">حداکثر فرکانس پردازنده -&amp;gt; %1$s</string>
+    <string name="cpu_big_governor_applied">گاورنر بزرگ پردازنده -&amp;gt; %1$s</string>
+    <string name="cpu_prime_category_title">پیکربندی CPU Prime Cluster</string>
+    <string name="cpu_prime_min_frequency_title">حداقل فرکانس</string>
+    <string name="cpu_prime_min_frequency_summary">%s</string>
+    <string name="cpu_prime_max_frequency_title">حداکثر فرکانس</string>
+    <string name="cpu_prime_max_frequency_summary">%s</string>
+    <string name="cpu_prime_governor_title">فرماندار</string>
+    <string name="cpu_prime_governor_summary">%s</string>
+    <string name="cpu_prime_min_freq_exceeds_max">ناموفق: فرکانس اولیه CPU نمی تواند از حداکثر</string>
+    <string name="cpu_prime_max_freq_below_min">تجاوز کند ناموفق: حداکثر فرکانس اصلی CPU نمی تواند کمتر از min</string>
+    <string name="cpu_prime_min_freq_applied">باشد فرکانس اولیه CPU -&amp;gt; %1$s</string>
+    <string name="cpu_prime_max_freq_applied">حداکثر فرکانس اصلی CPU -&amp;gt; %1$s</string>
+    <string name="cpu_prime_governor_applied">گاورنر اصلی CPU -&amp;gt; %1$s</string>
+    <string name="logcat_autostart">logcat را در بوت شروع کنید</string>
+    <string name="logcat_autostart_summary">شروع خودکار ثبت پس‌زمینه پس از راه‌اندازی مجدد</string>
+    <string name="logcat_viewer_title">Logcat Viewer</string>
+    <string name="logcat_viewer_summary">باز کردن نمایشگر بلادرنگ</string>
+    <string name="logcat_filter_hint">برچسب یا کلمه کلیدی را وارد کنید</string>
+    <string name="logcat_filter_title">فیلتر لاگ</string>
+    <string name="logcat_pause">مکث</string>
+    <string name="logcat_resume">رزومه</string>
+    <string name="logcat_autoscroll_on">اسکرول خودکار روشن</string>
+    <string name="logcat_autoscroll_off">اسکرول خودکار خاموش</string>
+    <string name="logcat_save">ذخیره گزارش</string>
+    <string name="logcat_clear">پاک کردن گزارش</string>
+    <string name="logcat_share">اشتراک گذاری</string>
+    <string name="logcat_settings">تنظیمات</string>
+    <string name="logcat_export">صادرات</string>
+    <string name="logcat_search">جستجو</string>
+    <string name="logcat_notification_title">Logcat Viewer</string>
+    <string name="logcat_notification_text">ثبت پس زمینه فعال</string>
+    <string name="logcat_notification_stopped">ثبت پس زمینه متوقف شد</string>
+    <string name="logcat_notification_channel_name">Logcat Background Service</string>
+    <string name="logcat_notification_channel_desc">کنترل‌های ثبت پس‌زمینه logcat</string>
+    <string name="logcat_level_verbose">پرمخاطب</string>
+    <string name="logcat_level_debug">اشکال زدایی</string>
+    <string name="logcat_level_info">اطلاعات</string>
+    <string name="logcat_level_warn">هشدار</string>
+    <string name="logcat_level_error">خطا</string>
+    <string name="logcat_no_logs">هیچ گزارشی در دسترس نیست</string>
+    <string name="logcat_loading">در حال بارگیری سیاهههای مربوط...</string>
+    <string name="logcat_paused">ثبت نام متوقف شد</string>
+    <string name="logcat_active">ورود فعال</string>
+    <string name="logcat_filter_applied">فیلتر اعمال شد: %1$s</string>
+    <string name="logcat_logs_cleared">گزارش ها پاک شد</string>
+    <string name="logcat_save_progress">ذخیره لاگ...</string>
+    <string name="logcat_save_success">گزارش‌ها با موفقیت ذخیره شدند.</string>
+    <string name="logcat_save_failed">گزارش‌ها ذخیره نشد.</string>
+    <string name="logcat_share_subject">Android Logcat Export</string>
+    <string name="logcat_permission_required">مجوز ذخیره سازی برای ذخیره گزارش ها مورد نیاز است</string>
+    <string name="cpu_tile_label">گاورنر CPU</string>
+    <string name="cpu_tile_unavailable">کنترل CPU در دسترس نیست</string>
+    <string name="cpu_tile_error">خطای مانیتورینگ پردازنده</string>
+    <string name="cpu_tile_unknown">ناشناس</string>
+    <string name="cpu_tile_governor_schedhorizon">SchedHorizon</string>
+    <string name="cpu_tile_governor_schedutil">Schedutil</string>
+    <string name="cpu_tile_governor_performance">عملکرد</string>
+    <string name="cpu_tile_governor_powersave">ذخیره انرژی</string>
+    <string name="cpu_tile_governor_ondemand">OnDemand</string>
+    <string name="cpu_tile_governor_conservative">محافظه کار</string>
+    <string name="cpu_tile_usage_percent">%d%%</string>
+    <string name="cpu_tile_freq_ghz">%1f گیگاهرتز</string>
+    <string name="cpu_tile_settings_title">تنظیمات کاشی CPU</string>
+    <string name="cpu_tile_settings_summary">پیکربندی CPU Governor تنظیمات سریع ظاهر و رفتار کاشی</string>
+    <string name="cpu_tile_appearance_category">ظاهر</string>
+    <string name="cpu_tile_behavior_category">رفتار</string>
+    <string name="cpu_tile_size_title">اندازه آیکون کاشی</string>
+    <string name="cpu_tile_size_summary">اندازه نماد کاشی CPU</string>
+    <string name="cpu_tile_style_title">را انتخاب کنید سبک کاشی</string>
+    <string name="cpu_tile_style_summary">نحوه نمایش اطلاعات CPU را انتخاب کنید</string>
+    <string name="cpu_tile_show_percentage_title">نمایش درصد استفاده</string>
+    <string name="cpu_tile_show_percentage_summary">نمایش درصد مصرف CPU به جای فرکانس</string>
+    <string name="cpu_tile_update_speed_title">فاصله به روز رسانی</string>
+    <string name="cpu_tile_update_speed_summary">هر چند وقت یکبار اطلاعات CPU را به روز کنیم</string>
+    <string name="cpu_tile_update_speed_fast">سریع (0.5 ثانیه)</string>
+    <string name="cpu_tile_update_speed_normal">عادی (1s)</string>
+    <string name="cpu_tile_update_speed_slow">آهسته (2 ثانیه)</string>
+    <string name="cpu_tile_update_speed_very_slow">خیلی آهسته (5 ثانیه)</string>
+    <string name="cpu_tile_preview_title">پیش نمایش تغییرات</string>
+    <string name="cpu_tile_preview_summary">برای بازخوانی کاشی با تنظیمات فعلی ضربه بزنید</string>
+    <string name="cpu_tile_footer">کاشی CPU Governor امکان جابجایی سریع بین گاورنرهای CPU را می دهد و فرکانس CPU و اطلاعات استفاده را در زمان واقعی نمایش می دهد. روی کاشی ضربه بزنید تا از طریق گاورنرهای موجود بچرخید.</string>
+    <string name="performance_mode_title">حالت عملکرد</string>
+    <string name="performance_mode_summary">CPU و GPU را برای حداکثر کارایی مجبور کنید به حداکثر برسند. گرما و تخلیه باتری را افزایش می دهد.</string>
+    <string name="performance_mode_enabled_summary">حالت عملکرد روشن است</string>
+    <string name="performance_mode_disabled_summary">حالت عملکرد خاموش است</string>
+    <string name="performance_profile_title">نمایه عملکرد</string>
+    <string name="performance_profile_summary">حالت عملکرد را برای رفتار بهینه دستگاه انتخاب کنید</string>
+    <string name="performance_mode_battery_saver">صرفه جویی در باتری</string>
+    <string name="performance_mode_balanced">متعادل</string>
+    <string name="performance_mode_performance">عملکرد</string>
+    <string name="performance_profile_applied">نمایه عملکرد روی %s تنظیم شد</string>
+    <string name="performance_profile_failed">نمایه عملکرد اعمال نشد</string>
+    <string name="performance_tile_label">عملکرد</string>
+    <string name="performance_notification_channel_name">مشخصات عملکرد</string>
+    <string name="performance_notification_channel_desc">وضعیت نمایه عملکرد فعلی را نشان می دهد</string>
+    <string name="performance_notification_battery_saver">حالت ذخیره باتری فعال است - عمر باتری بیشتر</string>
+    <string name="performance_notification_balanced">حالت متعادل فعال است - عملکرد بهینه و عمر باتری</string>
+    <string name="performance_notification_performance">حالت عملکرد فعال است - حداکثر عملکرد</string>
+    <string name="performance_footer_title">اطلاعات نمایه عملکرد</string>
+    <string name="performance_footer_summary">• Battery Saver: عمر باتری را با کاهش عملکرد CPU و GPU افزایش می دهد. ایده آل برای استفاده سبک و حداکثر مدت زمان باتری.\n\n• متعادل: تعادل بهینه را بین عملکرد و عمر باتری فراهم می کند. برای استفاده روزانه توصیه می‌شود.\n\n• عملکرد: عملکرد CPU و GPU را برای کارهای سخت به حداکثر می‌رساند. بهترین گزینه برای بازی، برنامه های سنگین و بارهای کاری فشرده. ممکن است عمر باتری را کاهش دهد.</string>
+    <string name="xiaomi_parts_title">Xiaomi Parts</string>
+    <string name="xiaomi_parts_subtitle">تنظیمات ویژه گارنت شیائومی</string>
+    <string name="xiaomi_parts_summary">تنظیمات مخصوص دستگاه شیائومی</string>
+    <string name="xiaomi_parts_launcher_title">Xiaomi Parts</string>
+    <string name="device_settings_app_name">Xiaomi Parts</string>
+    <string name="display_title">نمایش</string>
+    <string name="sound_title">صدا</string>
+    <string name="power_title">قدرت</string>
+    <string name="gaming_title">بازی و کاربرد</string>
+    <string name="about_me_title">درباره من</string>
+    <string name="about_me_summary">هر آنچه باید در مورد InnOvaTioN بدانید</string>
+    <string name="about_me_contact_title">پشتیبانی</string>
+    <string name="about_me_contact_summary">می توانید از آنجا کمک بگیرید</string>
+    <string name="about_me_donate_title">Donate Me on paypal</string>
+    <string name="about_me_donate_summary">از کار من حمایت کنید تا بتوانم به ساختن ادامه دهم</string>
+    <string name="about_me_donate2_title">بای قهوه</string>
+    <string name="about_me_donate2_summary">به من زنگ بزن آبجو یا قهوه</string>
+    <string name="core_control_title">کنترل هسته</string>
+    <string name="core_control_summary">به صورت دستی تک تک هسته های CPU را فعال یا غیرفعال کنید</string>
+    <string name="core_control_description">کنترل پیشرفته CPU خاموش کردن هسته ها ممکن است باعث صرفه جویی در بار باتری یا حرارتی شود، اما ممکن است بر عملکرد و پایداری تأثیر بگذارد.\n\nحداقل دو هسته کوچک همیشه باید آنلاین باقی بماند.</string>
+    <string name="keep_little_cores_online">حداقل 2 هسته کوچک باید آنلاین باقی بماند</string>
+    <string name="core_0">هسته 0 (کوچک)</string>
+    <string name="core_1">هسته 1 (کوچک)</string>
+    <string name="core_2">هسته 2 (کوچک)</string>
+    <string name="core_3">هسته 3 (کوچک)</string>
+    <string name="core_4">هسته 4 (بزرگ)</string>
+    <string name="core_5">هسته 5 (بزرگ)</string>
+    <string name="core_6">هسته 6 (بزرگ)</string>
+    <string name="core_7">هسته 7 (بزرگ)</string>
+    <string name="error">خطا</string>
+    <string name="kernel_manager_title">مدیر هسته</string>
+    <string name="kernel_manager_summary">مدیریت فرکانس های CPU و گاورنر</string>
+    <string name="kernel_manager_efficiency_category">خوشه کارایی (A55)</string>
+    <string name="kernel_manager_performance_category">خوشه عملکرد (A78)</string>
+    <string name="kernel_manager_governor">گاورنر CPU</string>
+    <string name="kernel_manager_governor_summary">گاورنر CPU را برای خوشه ها انتخاب کنید</string>
+    <string name="cpu_governor_summary">فعلی: %s</string>
+    <string name="kernel_manager_min_freq">حداقل فرکانس</string>
+    <string name="kernel_manager_min_freq_summary">حداقل فرکانس مجاز CPU</string>
+    <string name="kernel_manager_max_freq">را تنظیم کنید حداکثر فرکانس</string>
+    <string name="kernel_manager_max_freq_summary">حداکثر فرکانس مجاز CPU</string>
+    <string name="kernel_info_category">را تنظیم کنید اطلاعات</string>
+    <string name="kernel_info_title">درباره Kernel Manager</string>
+    <string name="kernel_info_summary">گاورنر CPU و مقیاس فرکانس را برای همه کلاسترهای CPU مدیریت کنید. تغییرات ممکن است بر عملکرد و عمر باتری تأثیر بگذارد.</string>
+    <string name="kernel_manager_apply">اعمال تنظیمات</string>
+    <string name="kernel_manager_apply_summary">تنظیمات انتخاب شده CPU را اعمال کنید</string>
+    <string name="kernel_manager_reset">بازنشانی به پیش فرض</string>
+    <string name="kernel_manager_reset_summary">بازیابی تنظیمات پیش فرض CPU</string>
+    <string name="settings_applied">تنظیمات با موفقیت اعمال شد</string>
+    <string name="settings_reset">تنظیمات به حالت پیش فرض بازنشانی می شود</string>
+    <string name="kernel_manager_footer">حاکمان CPU نحوه تنظیم فرکانس CPU را برای متعادل کردن عملکرد و مصرف برق مدیریت می کنند. در اینجا یک نمای کلی آمده است:\n\n• walt: یک گاورنر توسعه‌یافته توسط Google که برای پاسخ‌گویی و تأخیر تعامل با کاربر بهینه شده است، که عمدتاً در دستگاه‌های Pixel استفاده می‌شود.\n• محافظه‌کار: به تدریج فرکانس CPU را افزایش می‌دهد. باتری را ذخیره می‌کند اما ممکن است پاسخ‌دهی را کاهش دهد.\n• صرفه‌جویی در مصرف انرژی: CPU را در کمترین فرکانس ممکن نگه می‌دارد و عمر باتری را بر عملکرد اولویت می‌دهد.\n• عملکرد: CPU را در حداکثر فرکانس قفل می‌کند و حداکثر کارایی را با هزینه باتری تضمین می‌کند.\n• schedhorizon: یک گاورنر آگاه از زمان‌بندی با هدف بهبود انتقال وظایف و کارایی بسیاری از پیش‌فرض‌ها و کارایی در میان هسته‌ها. از داده های زمانبندی لینوکس برای مقیاس بندی هوشمندانه و کارآمد فرکانس CPU استفاده می کند.</string>
+    <string name="kernel_manager_cpu_monitor">مانیتورینگ هسته پردازنده</string>
+    <string name="kernel_manager_core_online">آنلاین</string>
+    <string name="kernel_manager_core_offline">آفلاین</string>
+    <string name="kernel_manager_loading">در حال بارگذاری...</string>
+    <string name="kernel_manager_enable_monitoring">مانیتورینگ بلادرنگ</string>
+    <string name="kernel_manager_enable_monitoring_summary">به روز رسانی مداوم وضعیت هسته CPU</string>
+    <string name="kernel_manager_update_interval">فرکانس به روز رسانی</string>
+    <string name="kernel_manager_update_interval_summary">هر چند وقت یکبار به روز رسانی داده ها</string>
+    <string name="kernel_manager_efficiency_cluster_summary">خلاصه خوشه کارایی</string>
+    <string name="kernel_manager_performance_cluster_summary">خلاصه خوشه عملکرد</string>
+    <string name="kernel_manager_cluster_status">%1$d/%2$d هسته آنلاین | محدوده: %3$s - %4$s</string>
+    <string name="kernel_manager_frequency_na">N/A</string>
+    <string name="update_interval_500ms">0.5 ثانیه</string>
+    <string name="update_interval_1000ms">1 ثانیه</string>
+    <string name="update_interval_2000ms">2 ثانیه</string>
+    <string name="update_interval_5000ms">5 ثانیه</string>
+    <string name="cpu_core_status_online">%1$s - آنلاین</string>
+    <string name="cpu_core_status_offline">🔴 %1$s - آفلاین</string>
+    <string name="kernel_manager_governor_current">%1$s (جاری: %2$s)</string>
+    <string name="kernel_manager_freq_current">%1$s (جاری: %2$s)</string>
+    <string name="kernel_manager_monitoring_disabled">نظارت در زمان واقعی غیرفعال است. آن را فعال کنید تا فرکانس‌ها و وضعیت هسته CPU را مشاهده کنید.</string>
+    <string name="kernel_manager_error_read">قادر به خواندن اطلاعات CPU نیست</string>
+    <string name="kernel_manager_error_write">نمی توان تنظیمات CPU را اعمال کرد. دسترسی به ریشه ممکن است مورد نیاز باشد.</string>
+    <string name="kernel_manager_error_permission">اجازه رد شد. برای تغییر تنظیمات CPU به دسترسی ریشه نیاز است.</string>
+    <string name="gpu_manager_title">مدیر پردازنده گرافیکی</string>
+    <string name="gpu_manager_summary">مدیریت فرکانس های GPU و تنظیمات قدرت</string>
+    <string name="gpu_governor_title">فرماندار GPU</string>
+    <string name="gpu_governor_summary">فعلی: %s</string>
+    <string name="gpu_freq_title">فرکانس های GPU</string>
+    <string name="gpu_min_freq_title">حداقل فرکانس</string>
+    <string name="gpu_max_freq_title">حداکثر فرکانس</string>
+    <string name="gpu_max_gpuclk_title">حداکثر لغو GPUCLK</string>
+    <string name="gpu_max_gpuclk_summary">افزایش ساعت اضافی (حداکثر 940 مگاهرتز)</string>
+    <string name="gpu_current_freq_title">فرکانس فعلی</string>
+    <string name="gpu_power_title">تنظیمات برق</string>
+    <string name="gpu_force_clk_on_title">اجباری ساعت روشن</string>
+    <string name="gpu_force_clk_on_summary">ساعت GPU را همیشه روشن نگه دارید</string>
+    <string name="gpu_force_bus_on_title">اتوبوس اجباری روشن</string>
+    <string name="gpu_force_bus_on_summary">گذرگاه GPU را همیشه روشن نگه دارید</string>
+    <string name="gpu_force_rail_on_title">Force Rail On</string>
+    <string name="gpu_force_rail_on_summary">ریل برق GPU را همیشه روشن نگه دارید</string>
+    <string name="gpu_force_no_nap_title">فورس بدون چرت</string>
+    <string name="gpu_force_no_nap_summary">غیرفعال کردن چرت زدن GPU بین فریم</string>
+    <string name="gpu_bus_split_title">اتوبوس اسپلیت</string>
+    <string name="gpu_bus_split_summary">فعال کردن گذرگاه GPU</string>
+    <string name="gpu_preempt_title">Preemption GPU</string>
+    <string name="gpu_preempt_summary">بازی با تاخیر کم (فعال کردن بهترین تجربه بازی)</string>
+    <string name="gpu_camera_boost_title">تقویت دوربین</string>
+    <string name="gpu_camera_boost_summary">Powerhint توربو (حداکثر عملکرد کدگذاری دوربین/فیلم)</string>
+    <string name="gpu_thermal_title">تنظیمات حرارتی</string>
+    <string name="gpu_thermal_pwrlevel_title">سطح توان حرارتی</string>
+    <string name="gpu_thermal_pwrlevel_summary">سطح توان حرارتی فعلی</string>
+    <string name="gpu_temp_title">دمای پردازنده گرافیکی</string>
+    <string name="gpu_info_title">اطلاعات پردازنده گرافیکی</string>
+    <string name="gpu_model_title">مدل پردازنده گرافیکی</string>
+    <string name="gpu_busy_percentage_title">بارگذاری پردازنده گرافیکی</string>
+    <string name="gpu_reset_count_title">بازنشانی تعداد</string>
+    <string name="gpu_preempt_count_title">شمارش پیشدستی</string>
+    <string name="gpu_info_category">اطلاعات پردازنده گرافیکی</string>
+    <string name="gpu_settings_category">تنظیمات GPU</string>
+    <string name="gpu_advanced_category">تنظیمات پیشرفته</string>
+    <string name="gpu_info_summary">مقیاس فرکانس GPU و تنظیمات قدرت را مدیریت کنید. تغییرات ممکن است بر عملکرد و عمر باتری تأثیر بگذارد.</string>
+    <string name="apply_settings">اعمال تنظیمات</string>
+    <string name="reset_settings">بازنشانی تنظیمات</string>
+    <string name="gpu_turbo_preset_title">پیش تنظیم توربو</string>
+    <string name="gpu_turbo_preset_summary">حداکثر عملکرد: قفل 940 مگاهرتز، گاورنر عملکرد، همه بوست ها روشن</string>
+    <string name="gpu_turbo_enabled">🚀 حالت توربو فعال شد!</string>
+    <string name="gpu_settings_applied">تنظیمات اعمال شد!</string>
+    <string name="gpu_settings_reset">تنظیمات به حالت پیش فرض بازنشانی شد!</string>
+    <string name="unknown">ناشناس</string>
+    <string name="thermal_level_summary">سطح %s</string>
+    <string name="camera_boost_triggered">تقویت دوربین/فیلم فعال شد!</string>
+    <string name="video_enhancer_title">تقویت کننده ویدیو</string>
+    <string name="video_enhancer_summary">بهینه سازی نمایش و عملکرد برای Redmi Note 13 Pro 5G</string>
+    <string name="video_enhancer_display_category">📺 ویژگی های نمایش</string>
+    <string name="smooth_motion_enable_title">حرکت صاف</string>
+    <string name="smooth_motion_enable_summary">هموارسازی حرکت سخت افزاری برای ویدیوها (پیش فرض: OFF) • راه اندازی مجدد مورد نیاز است</string>
+    <string name="optimize_refresh_enable_title">بهینه سازی نرخ تازه سازی</string>
+    <string name="optimize_refresh_enable_summary">نرخ نوسازی پویا بر اساس محتوا (پیش‌فرض: OFF) • نیاز به راه‌اندازی مجدد</string>
+    <string name="peak_refresh_rate_title">اوج رفرش ریت 120 هرتز</string>
+    <string name="peak_refresh_rate_summary">فعال کردن 120 هرتز در لمس (200 میلی‌ثانیه) • مقدار کارخانه • نیاز به راه‌اندازی مجدد</string>
+    <string name="video_enhancer_performance_category">⚡ بهینه سازی عملکرد</string>
+    <string name="force_vulkan_title">Force Vulkan API</string>
+    <string name="force_vulkan_summary">استفاده از Vulkan به جای OpenGL ES (Adreno 710) • راه اندازی مجدد مورد نیاز است</string>
+    <string name="purgeable_assets_title">دارایی های قابل تسویه</string>
+    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
+    <string name="gfx_accel_title">Graphics Acceleration</string>
+    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
+    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
+    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
+    <string name="gpu_scheduling_title">GPU Scheduling</string>
+    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
+    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
+    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
+    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
+    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
+    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
+    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
+    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
+    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
+    <string name="hwui_disable_vsync_title">Disable VSync</string>
+    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
+    <string name="disable_scaler_title">Disable Display Scaler</string>
+    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
+    <string name="media_codec_hw_title">Hardware Media Codecs</string>
+    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
+    <string name="video_enhancer_info_category">ℹ️ Information</string>
+    <string name="video_enhancer_info_title">About Video Enhancer</string>
+    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
+    <string name="reset_to_defaults_title">Reset to Defaults</string>
+    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
+    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
+    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
+    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
+    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
+    <string name="reboot_required_title">🔄 Reboot Required</string>
+    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
+    <string name="reboot_now">Reboot Now</string>
+    <string name="reboot_later">Later</string>
+    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
+    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
+🎮 GPU: Qualcomm Adreno 710\n
+📺 Display: 120Hz AMOLED (1220×2712)\n
+💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
+
+═══════════════════════════════\n
+📹 DISPLAY FEATURES\n
+═══════════════════════════════\n\n
+
+🎬 Smooth Motion\n
+└─ Hardware motion smoothing technology\n
+└─ Qualcomm proprietary motion engine\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.use_smooth_motion\n
+└─ ⚠️ Increased battery consumption!\n\n
+
+🔄 Optimize Refresh Rate\n
+└─ Dynamic refresh rate based on content\n
+└─ Better battery efficiency\n
+└─ Factory default: DISABLED\n
+└─ Property: vendor.display.enable_optimize_refresh\n\n
+
+⚡ 120Hz Peak Refresh Rate\n
+└─ Enable full 120Hz capability\n
+└─ Touch detection timer: 200ms (factory)\n
+└─ Idle timer: 1100ms\n
+└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
+└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
+
+═══════════════════════════════\n
+⚡ PERFORMANCE OPTIMIZATIONS\n
+═══════════════════════════════\n\n
+
+🔺 Force Vulkan API\n
+└─ Use Vulkan instead of OpenGL ES\n
+└─ Better performance on Adreno 710 GPU\n
+└─ For modern games and apps\n
+└─ Property: ro.hwui.use_vulkan=true\n
+└─ ⚠️ Not all apps support it!\n\n
+
+💾 Purgeable Assets\n
+└─ Free unused graphics memory\n
+└─ Improved memory management\n
+└─ Property: persist.sys.purgeable_assets=1\n\n
+
+🚀 Graphics Acceleration\n
+└─ Hardware acceleration for UI rendering\n
+└─ Essential for smooth performance\n
+└─ Recommended: ENABLED\n
+└─ Property: ro.config.avoid_gfx_accel=false\n\n
+
+🧠 ADPF CPU Hints\n
+└─ Android Dynamic Performance Framework\n
+└─ Intelligent CPU frequency hints\n
+└─ Workload-based optimization\n
+└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
+└─ Recommended: ENABLED\n\n
+
+📊 GPU Scheduling\n
+└─ Advanced GPU task scheduling\n
+└─ Better frame pacing\n
+└─ Reduced latency\n
+└─ Property: persist.sys.gpu.scheduling=1\n\n
+
+═══════════════════════════════\n
+🎨 HARDWARE RENDERERS\n
+═══════════════════════════════\n\n
+
+🟢 SkiaGL Renderer\n
+└─ OpenGL ES-based Skia renderer\n
+└─ Better compatibility with older apps\n
+└─ Stable performance\n
+└─ Property: debug.hwui.renderer=skiagl\n\n
+
+🔵 SkiaVK Renderer\n
+└─ Vulkan-based Skia renderer\n
+└─ Better performance on Adreno 710\n
+└─ Lower CPU overhead\n
+└─ Modern rendering path\n
+└─ Property: debug.hwui.renderer=skiavk\n
+└─ ⚠️ Only ONE can be active at a time!\n\n
+
+═══════════════════════════════\n
+🔧 ADVANCED FEATURES\n
+═══════════════════════════════\n\n
+
+💪 Force GPU Rendering\n
+└─ All 2D drawing on GPU\n
+└─ Smoother UI possible\n
+└─ Increased power consumption\n
+└─ Property: persist.sys.ui.hw=1\n\n
+
+⚠️ Disable VSync\n
+└─ Remove vertical sync limitation\n
+└─ Higher FPS possible\n
+└─ ❌ MAY CAUSE SCREEN TEARING!\n
+└─ ❌ NOT RECOMMENDED for normal use!\n
+└─ Property: debug.hwui.disable_vsync=true\n
+└─ 🚫 This causes video vibration/judder!\n\n
+
+🖼️ Disable Display Scaler\n
+└─ Bypass hardware scaler\n
+└─ Native resolution rendering\n
+└─ Better image quality\n
+└─ Property: vendor.display.disable_scaler=1\n\n
+
+🎥 Hardware Media Codecs\n
+└─ Adreno 710 hardware video encode/decode\n
+└─ Essential for smooth video playback\n
+└─ Recommended: ENABLED\n
+└─ Property: debug.stagefright.c2-poolmask=0x1f\n
+└─ 0x1f = all HW codecs enabled\n\n
+
+═══════════════════════════════\n
+⚠️ IMPORTANT NOTES\n
+═══════════════════════════════\n\n
+
+🔄 Most changes require device REBOOT\n
+🎨 Only ONE renderer can be active at a time\n
+🔀 Selecting a renderer automatically disables the other\n
+🔑 Root access (Magisk) is REQUIRED for all features\n
+💾 Settings are automatically restored on boot\n
+📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
+
+═══════════════════════════════\n
+💡 RECOMMENDED SETTINGS\n
+═══════════════════════════════\n\n
+
+🎮 For Gaming:\n
+├─ Force Vulkan: ON\n
+├─ GPU Scheduling: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Hardware Codecs: ON\n
+└─ VSync: ON (NEVER disable!)\n\n
+
+🔋 For Battery Life:\n
+├─ Optimize Refresh: ON\n
+├─ 120Hz Peak: OFF\n
+├─ Graphics Acceleration: ON\n
+├─ ADPF CPU: ON\n
+└─ Others: default\n\n
+
+⚡ For Maximum Performance:\n
+├─ All Performance options: ON\n
+├─ SkiaVK Renderer: ON\n
+├─ Force GPU Rendering: ON\n
+├─ GPU Scheduling: ON\n
+└─ VSync: ON (avoid tearing!)\n\n
+
+🎬 For Smooth Video Playback:\n
+├─ Hardware Codecs: ON\n
+├─ Graphics Acceleration: ON\n
+├─ VSync: ON (ALWAYS!)\n
+├─ Smooth Motion: OPTIONAL\n
+└─ Others: default\n\n
+
+═══════════════════════════════\n
+🐛 TROUBLESHOOTING\n
+═══════════════════════════════\n\n
+
+❓ Videos vibrate/stutter/tear?\n
+└─ VSync: ENABLE IT!\n
+└─ Disable VSync: TURN OFF!\n
+└─ Smooth Motion: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ System lag?\n
+└─ Renderers: TURN OFF!\n
+└─ Force GPU Rendering: TURN OFF!\n
+└─ Reset to defaults\n\n
+
+❓ Apps crashing?\n
+└─ Force Vulkan: TURN OFF!\n
+└─ SkiaVK: TURN OFF!\n
+└─ Use default OpenGL\n\n
+
+═══════════════════════════════\n
+📱 DEVICE INFORMATION\n
+═══════════════════════════════\n\n
+
+Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
+Codename: garnet\n
+SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
+GPU: Adreno 710\n
+Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
+Android: 14 / HyperOS 2.0 / LineageOS 21+\n
+Requirement: Root access (Magisk recommended)\n\n
+
+═══════════════════════════════\n
+🔗 PROPERTY REFERENCE\n
+═══════════════════════════════\n\n
+
+Display:\n
+• vendor.display.use_smooth_motion\n
+• vendor.display.enable_optimize_refresh\n
+• ro.surface_flinger.set_touch_timer_ms\n
+• debug.sf.set_idle_timer_ms\n\n
+
+Performance:\n
+• ro.hwui.use_vulkan\n
+• persist.sys.purgeable_assets\n
+• ro.config.avoid_gfx_accel\n
+• debug.sf.enable_adpf_cpu_hint\n
+• persist.sys.gpu.scheduling\n\n
+
+Renderers:\n
+• debug.hwui.renderer (skiagl/skiavk)\n\n
+
+Advanced:\n
+• persist.sys.ui.hw\n
+• debug.hwui.disable_vsync\n
+• vendor.display.disable_scaler\n
+• debug.stagefright.c2-poolmask\n\n
+
+Frame Pacing:\n
+• debug.sf.disable_client_composition_cache\n
+• debug.sf.enable_gl_backpressure\n\n
+
+═══════════════════════════════\n
+⚠️ DISCLAIMER\n
+═══════════════════════════════\n\n
+
+This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="keybox_manager_title">Box of Keybox\'s</string>
+    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
+    <string name="security_title">Security &amp;amp; Attestation</string>
+    <string name="keybox_actions_category">🔑 Keybox Actions</string>
+    <string name="keybox_info_category">ℹ️ Information</string>
+    <string name="keybox_status_category">📊 Current Status</string>
+    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
+    <string name="keybox_generate_title">Generate Templates</string>
+    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_search_title">Search Keybox</string>
+    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
+    <string name="keybox_import_title">Import Keybox</string>
+    <string name="keybox_import_summary">Import keybox.xml from storage</string>
+    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_export_summary">لیست تمام کی باکس های دانلود شده در ذخیره سازی</string>
+    <string name="keybox_verify_title">تایید دانلودها</string>
+    <string name="keybox_verify_summary">ساختار XML کیباکس های دانلود شده را بررسی کنید</string>
+    <string name="keybox_analyze_title">تحلیل عمیق</string>
+    <string name="keybox_analyze_summary">تجزیه و تحلیل زنجیره های گواهی، انقضا، و اعتبار</string>
+    <string name="keybox_check_api_title">Play Integrity</string>
+    <string name="keybox_check_api_summary">تست کی باکس در برابر Google Play Integrity API</string>
+    <string name="keybox_compare_title">مقایسه کی باکس</string>
+    <string name="keybox_compare_summary">مقایسه چند کی باکس کنار هم</string>
+    <string name="keybox_extract_certs_title">استخراج گواهینامه ها</string>
+    <string name="keybox_extract_certs_summary">صدور گواهینامه ها به عنوان فایل های PEM</string>
+    <string name="keybox_batch_verify_title">تأیید دسته ای</string>
+    <string name="keybox_batch_verify_summary">چندین کی باکس را با گزارش های دقیق تست کنید</string>
+    <string name="keybox_status_title">وضعیت کیباکس</string>
+    <string name="keybox_status_summary">فعلی: %s</string>
+    <string name="keybox_status_installed">✅ فایل معتبر دانلود شده</string>
+    <string name="keybox_status_not_installed">❌ هیچ فایلی دانلود نشده</string>
+    <string name="keybox_status_unknown">⚠️ ناشناخته</string>
+    <string name="keybox_device_id_title">شناسه دستگاه</string>
+    <string name="keybox_device_id_summary">%s</string>
+    <string name="keybox_cert_count_title">تعداد گواهینامه</string>
+    <string name="keybox_cert_count_summary">RSA: %1$d، ECDSA: %2$d</string>
+    <string name="keybox_expiry_title">انقضای گواهینامه</string>
+    <string name="keybox_expiry_summary">%s</string>
+    <string name="keybox_generate_dialog_title">ایجاد قالب</string>
+    <string name="keybox_search_dialog_title">جستجوی جعبه کلیدهای انجمن</string>
+    <string name="keybox_import_dialog_title">وارد کردن کی باکس</string>
+    <string name="keybox_export_dialog_title">فهرست کلیدهای دانلود شده</string>
+    <string name="keybox_verify_dialog_title">بررسی جعبه کلیدهای دانلود شده</string>
+    <string name="keybox_analyze_dialog_title">تحلیل عمیق</string>
+    <string name="keybox_analyze_dialog_message">این کار تجزیه و تحلیل عمیق گواهی را انجام می‌دهد:\n\n✅ بررسی‌ها:\n• اعتبار سنجی زنجیره گواهی\n• تاریخ انقضا\n• الگوریتم‌های امضا\n• اندازه کلید\n• اطلاعات صادرکننده\n• وضعیت لغو گواهی\n\n⚠️ برای هر جعبه کلید 10 تا 30 ثانیه طول می‌کشد.</string>
+    <string name="keybox_check_api_dialog_title">بازی بررسی یکپارچگی</string>
+    <string name="keybox_check_api_dialog_message">با این کار کیباکس شما با Google Play Integrity API آزمایش می‌شود.\n\n ماژول\n• اتصال به اینترنت\n\n⏱️ 5-10 ثانیه طول می کشد\n\nادامه می دهید؟</string>
+    <string name="keybox_compare_dialog_title">مقایسه کی باکس</string>
+    <string name="keybox_compare_dialog_message">مقایسه چند جعبه کلید دانلود شده:\n\n📊 مقایسه شامل:\n• شناسه‌های دستگاه\n• تعداد گواهی‌ها\n• تاریخ انقضا\n• انواع الگوریتم\n• قالب‌های کلید (PIF/TrickyStore)\n\nصفحه کلیدها را برای مقایسه انتخاب کنید.</string>
+    <string name="keybox_extract_dialog_title">استخراج گواهینامه ها</string>
+    <string name="keybox_extract_dialog_message">گواهی‌ها را از جعبه کلید به‌عنوان فایل‌های PEM جداگانه استخراج کنید.\n\n</string>
+    <string name="keybox_overwrite_dialog_title">⚠️ هشدار</string>
+    <string name="keybox_overwrite_dialog_message">این عمل در این نسخه برنامه پشتیبانی نمی شود.</string>
+    <string name="keybox_generating">🔄 تولید قالب…</string>
+    <string name="keybox_searching">🔍 جستجو در منابع انجمن…</string>
+    <string name="keybox_downloading">در حال دانلود کی باکس از مخزن…</string>
+    <string name="keybox_verifying">🔍 تایید سازه ها…</string>
+    <string name="keybox_analyzing">🔬 تجزیه و تحلیل گواهی ها…</string>
+    <string name="keybox_checking_api">🌐 تست Play Integrity API…</string>
+    <string name="keybox_comparing">📊 مقایسه کی باکس ها…</string>
+    <string name="keybox_extracting">📦 استخراج گواهی…</string>
+    <string name="keybox_generate_success">✅ قالب ها با موفقیت تولید شدند!</string>
+    <string name="keybox_search_success">✅ کیباکس معتبر پیدا و دانلود شد!</string>
+    <string name="keybox_import_success">✅ کی باکس با موفقیت وارد شد!</string>
+    <string name="keybox_export_success">✅ لیست فایل ایجاد شد.</string>
+    <string name="keybox_verify_success">✅ تایید کامل شد.</string>
+    <string name="keybox_analyze_success">✅ آنالیز کامل شد</string>
+    <string name="keybox_check_api_success">✅ بررسی یکپارچگی کامل شد.</string>
+    <string name="keybox_compare_success">✅ مقایسه کامل شد.</string>
+    <string name="keybox_extract_success">✅ گواهینامه ها استخراج شد!</string>
+    <string name="keybox_generate_error">❌ ایجاد الگوها انجام نشد!\n\nخطا: %s</string>
+    <string name="keybox_search_error">❌ یافت نشد جعبه کلید معتبر!\n\nخطا: %s</string>
+    <string name="keybox_import_error">❌ وارد کردن جعبه کلید انجام نشد!\n\nخطا: %s</string>
+    <string name="keybox_export_error">❌ لیست فایل ها انجام نشد!\n\nخطا: %s</string>
+    <string name="keybox_verify_error">❌ تأیید نشد!\n\nخطا: %s</string>
+    <string name="keybox_analyze_error">❌ تجزیه و تحلیل انجام نشد!\n\nخطا: %s</string>
+    <string name="keybox_check_api_error">❌ بررسی یکپارچگی انجام نشد!\n\nخطا: %s</string>
+    <string name="keybox_no_root">❌ دسترسی ریشه برای این برنامه مورد نیاز نیست.</string>
+    <string name="keybox_no_internet">❌ اتصال به اینترنت مورد نیاز است!</string>
+    <string name="keybox_no_keybox">❌ هیچ فایلی دانلود نشد!</string>
+    <string name="keybox_no_module">❌ هیچ ماژول Magisk/KernelSU شناسایی نشد!</string>
+    <string name="keybox_info_title">درباره مدیریت کیباکس</string>
+    <string name="keybox_info_summary">درباره Android Atestation and Keybox بدانید</string>
+    <string name="keybox_info_dialog_title">جعبه کیباکس - اطلاعات</string>
+    <string name="keybox_info_dialog_message">🔑 این برنامه چیست؟\n═════════════════════════════════════════════Attest managing tools. بدون نیاز به ROOT برای دانلود/تجزیه و تحلیل مکان:\n/sdcard/Download/Keyboxes/\n\n⚙️ نصب:\n═══════════════════════════\n\nگزینه 1: یکپارچگی بازی. Magisk/KernelSU\n2 را نصب کنید. ماژول PIF را نصب کنید\n3. keybox.xml را در:\n /data/adb/modules/playintegrityfix/\n4 کپی کنید. chmod 644 keybox.xml\n5. راه اندازی مجدد\n\nگزینه 2: TrickyStore\n1. Magisk/KernelSU\n2 را نصب کنید. ماژول TrickyStore را نصب کنید\n3. keybox.xml را در:\n /data/adb/tricky_store/\n4 کپی کنید. chmod 644 keybox.xml\n5. بارگیری مجدد خودکار (بدون راه‌اندازی مجدد)\n\n برنامه YASNAC\n• برنامه های بانکی\n• Google Wallet\n\n🔬 پیشرفته امکانات بررسی قدرت الگوریتم\n• وضعیت ابطال\n\nبررسی یکپارچگی پخش:\n• آزمایش API در زمان واقعی\n• وضعیت BASIC/DEVICE/STRONG\n• تشخیص ماژول\n\nعملیات دسته:\n• بررسی چند جعبه کلید\n• مقایسه کنار هم\n• استخراج گواهی ها\n\n نکات:\n════════════════════════════════\n• جعبه کلیدهای عمومی به ندرت منبع آزمایش هستند. قبل از نصب\n• پشتیبان گیری از کیباکس های کارکرده\n• بررسی تاریخ انقضا\n\n👇 COMMUNITY:\n═══════════════════════════\n• تلگرام: @Winroid. XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: جستجوی &amp;quot;یکپارچگی پخش کیباکس&amp;quot;\n\n⚠️ قانونی سلب مسئولیت:\n═════════════════════════════════\nممکن است قوانین و مقررات مربوط به قوانین آموزشی تغییر کند. سرویس\n• خط‌مشی‌های توسعه‌دهنده برنامه\n• قوانین محلی\n\nبا مسئولیت خود استفاده کنید!</string>
+    <string name="keybox_reset_title">حذف دانلودها</string>
+    <string name="keybox_reset_summary">تمام کیباکس های دانلود شده را از حافظه حذف کنید</string>
+    <string name="keybox_reset_dialog_title">⚠️ حذف دانلودها</string>
+    <string name="keybox_reset_dialog_message">همه فایل‌ها را از /sdcard/Download/Keyboxes/ حذف کنید؟\n\nاین کار قابل واگرد نیست.</string>
+    <string name="keybox_reset_success">✅تمام فایل ها پاک شدند</string>
+    <string name="keybox_reset_error">❌ حذف نشد: %s</string>
+    <string name="ram_optimizer_title">RAM و Storage Optimizer</string>
+    <string name="ram_optimizer_summary">بهینه سازی فشرده سازی و ذخیره سازی رم</string>
+    <string name="ram_optimizer_description">تنظیمات zRAM، خواب زمستانی برنامه و فضای ذخیره سازی تمیز را برای عملکرد بهتر مدیریت کنید.</string>
+    <string name="zram_category_title">فشرده سازی zRAM</string>
+    <string name="zram_enable_title">فعال کردن zRAM</string>
+    <string name="zram_enable_summary">رم را فشرده کنید تا حافظه آزاد شود</string>
+    <string name="zram_size_title">حجم zRAM (MB)</string>
+    <string name="zram_size_summary">تنظیم اندازه رم فشرده (512-12288 مگابایت)</string>
+    <string name="zram_swappiness_title">تعویض</string>
+    <string name="zram_swappiness_summary">کنترل تهاجمی مبادله به zRAM (0-200)</string>
+    <string name="app_hibernation_category_title">خواب زمستانی برنامه</string>
+    <string name="app_hibernation_title">فعال کردن Hibernation برنامه</string>
+    <string name="app_hibernation_summary">برای صرفه جویی در رم و باتری، برنامه های استفاده نشده را Hibernate کنید</string>
+    <string name="storage_cleaner_category_title">پاک کننده ذخیره سازی</string>
+    <string name="storage_stats_title">آمار ذخیره سازی</string>
+    <string name="storage_stats_summary">در حال بارگذاری...</string>
+    <string name="clean_app_cache_title">پاک کردن کش برنامه</string>
+    <string name="clean_app_cache_summary">حذف داده های کش شده از همه برنامه ها</string>
+    <string name="clean_system_cache_title">پاک کردن کش سیستم</string>
+    <string name="clean_system_cache_summary">کش سیستم را پاک کنید و کش ها را رها کنید</string>
+    <string name="clean_thumbnails_title">پاک کردن ریز عکسها</string>
+    <string name="clean_thumbnails_summary">حذف کش تصویر کوچک از رسانه</string>
+    <string name="clean_downloads_title">دانلودهای قدیمی را پاک کنید</string>
+    <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
+    <string name="clean_temp_files_title">Clean Temp Files</string>
+    <string name="clean_temp_files_summary">Remove temporary system files</string>
+    <string name="clean_log_files_title">Clean Log Files</string>
+    <string name="clean_log_files_summary">Remove system logs and crash dumps</string>
+    <string name="clean_apk_files_title">Clean APK Files</string>
+    <string name="clean_apk_files_summary">Remove downloaded APK installation files</string>
+    <string name="clean_empty_folders_title">Clean Empty Folders</string>
+    <string name="clean_empty_folders_summary">Remove empty directories</string>
+    <string name="clean_all_title">Clean All</string>
+    <string name="clean_all_summary">Perform complete system cleanup</string>
+    <string name="advanced_category_title">Advanced Options</string>
+    <string name="auto_clean_title">Auto Clean</string>
+    <string name="auto_clean_summary">Automatically clean storage periodically</string>
+    <string name="auto_clean_interval_title">Auto Clean Interval</string>
+    <string name="auto_clean_interval_summary">How often to automatically clean</string>
+    <string name="analyze_storage_title">Analyze Storage</string>
+    <string name="analyze_storage_summary">Detailed breakdown of storage usage</string>
+    <string name="clean_duplicates_title">Clean Duplicate Files</string>
+    <string name="clean_duplicates_summary">Find and remove duplicate files</string>
+    <string name="zram_algorithm_info_title">Compression Algorithms Info</string>
+    <string name="zram_algorithm_info_summary">View comparison of algorithms</string>
+    <string name="zram_algorithms_comparison_title">zRAM Compression Algorithms Comparison</string>
+    <string name="zram_algorithms_comparison">zRAM Compression Algorithms Comparison\n\n\nzRAM (compressed RAM) is a Linux kernel feature that allows RAM compression to store more data in memory, thereby reducing swap (paging) usage to disk. The most common compression algorithms are LZ4, LZO, LZO-RLE, and ZSTD. These are compared primarily based on compression ratio, speed (compression/decompression speed), latency, throughput, and CPU usage.\n\nThe comparison is based on benchmarks and tests from various sources (e.g., LinuxReviews, Reddit/Fedora, Emin\'s Notes), typically measured on 1-1.1 GB datasets (e.g., Linux kernel source code). The tests show that algorithm performance depends on hardware (e.g., CPU), workload, and settings (e.g., vm.page-cluster).\n\nComparative Table (Based on Average Values)\n\nAlgorithm Compression Ratio Compression Time (1.1 GB) Decompression Speed (GiB/s) Throughput (MiB/s) Latency (ns) CPU Usage\nLZ4 2.58–2.63 ~4.47 s ~12.4 7943–11434 1708–10674 Low\nLZO ~2.77 ~4.57 s ~9.31 5821–7496 2428–16426 Medium\nLZO-RLE ~2.74 ~4.47 s ~9.78 6264–8248 2235–14897 Medium\nZSTD 3.37–3.97 ~7.90 s ~3.91 2612–3005 5714–41343 High\n\n- Compression Ratio: How much smaller the compressed data is compared to the original (higher is better, e.g., ZSTD can achieve up to 3-4x smaller size).\n- Compression Time: Time to compress the data (lower is better).\n- Decompression Speed: Speed of decompressing the data (higher is better).\n- Throughput: Data processing capacity (higher is better, based on page-cluster=0–3 values).\n- Latency: Waiting time in nanoseconds (lower is better).\n- CPU Usage: Relative processor load (lower is better for performance).\n\nAnalysis: Pros and Cons\n- LZ4:\n - Pros: Fastest compression and decompression, low latency and CPU usage. Ideal for frequent swap cases (e.g., games, multitasking), where speed is critical. High throughput and IOPS (up to 2 million operations/s).\n - Cons: Lower compression ratio, so it may use more memory, increasing OOM (out-of-memory) risk under heavy memory pressure.\n - Recommended Setting: vm.page-cluster=1 for balance between latency and throughput.\n\n- LZO:\n - Pros: Good balance between speed and compression, lower CPU demand than ZSTD.\n - Cons: Slower than LZ4 or LZO-RLE, with marginal benefits. Less efficient on modern systems.\n - Recommended Setting: For general use, but often replaced by better alternatives.\n\n- LZO-RLE (LZO Run-Length Encoding):\n - Pros: Faster decompression than LZO, better compression ratio for certain data (e.g., repeating patterns). Similar speed to LZ4.\n - Cons: Slightly weaker throughput than LZ4, and more prone to OOM at high swap activity.\n - Recommended Setting: Default in many kernels (e.g., Fedora), but switching to ZSTD is recommended.\n\n- ZSTD (Zstandard):\n - Pros: Best compression ratio, requiring less swap, reducing memory pressure. Effective for textual data (e.g., logs, browser tabs). In real tests, it completes tasks faster under heavy memory pressure because less data needs to be moved.\n - Cons: Slower compression/decompression, higher latency and CPU usage. Not ideal for frequently accessed data.\n - Recommended Setting: vm.page-cluster=0 to reduce latency (default on ChromeOS/Android). vm.swappiness=180 for more aggressive swap usage.\n\nGeneral Recommendations\n- General Use (e.g., desktop, browsing): ZSTD with page-cluster=0 – better compression, less swap, ideal if swapped data is rarely used (e.g., old tabs).\n- Performance-Intensive Tasks (e.g., games, servers): LZ4 – faster, lower latency, but may use more memory.\n- Old or Weak Hardware: LZO-RLE or LZ4 – lower CPU demand.\n- Testing: Try it on your own system (e.g., with zramctl commands), as performance depends on hardware. For example, on Raspberry Pi or ARM devices, ZSTD is more efficient for logs.\n- Other: From kernel 5.1, LZO-RLE is the default, but many distributions (e.g., Fedora) switch to ZSTD. Other algorithms (e.g., DEFLATE, 842) exist but are slower and less commonly used in zRAM.</string>
+    <string name="io_scheduler_info_title">I/O Schedulers Comparison</string>
+    <string name="io_scheduler_info_summary">View comparison of I/O schedulers</string>
+    <string name="io_scheduler_info_text">I/O Scheduler Comparison\n\n
+I/O (Input/Output) schedulers determine how the system handles read and write requests to storage devices. Different schedulers optimize for different use cases.\n\n
+
+Available Schedulers:\n\n
+
+- CFQ (Completely Fair Queuing)\n
+Default on many systems. Provides fair access to all processes. Good balance between throughput and latency.\n
+Best for: General use, multi-tasking\n
+Pros: Fair, predictable, good for multiple apps\n
+Cons: Not optimal for specific workloads\n\n
+
+- Deadline\n
+Guarantees requests are served within a deadline. Prevents request starvation.\n
+Best for: Databases, real-time apps\n
+Pros: Low latency, prevents starvation\n
+Cons: Lower throughput than noop\n\n
+
+- NOOP (No Operation)\n
+Simple FIFO (First In First Out) scheduler. Minimal overhead.\n
+Best for: SSDs, fast flash storage\n
+Pros: Very low CPU overhead, good for SSDs\n
+Cons: No optimization, can cause latency spikes\n\n
+
+- BFQ (Budget Fair Queuing)\n
+Modern scheduler focused on responsiveness and fairness.\n
+Best for: Interactive workloads, UI responsiveness\n
+Pros: Excellent responsiveness, low latency\n
+Cons: Slightly higher CPU usage\n\n
+
+- Kyber\n
+Modern multi-queue scheduler for fast storage.\n
+Best for: NVMe SSDs, modern hardware\n
+Pros: Excellent for fast storage, low latency\n
+Cons: Requires modern kernel support\n\n
+
+Recommendations:\n
+- HDDs: CFQ or Deadline\n
+- SSDs/Flash: NOOP, BFQ, or Kyber\n
+- Gaming: BFQ or Deadline\n
+- General use: CFQ or BFQ\n
+- Benchmarking: NOOP</string>
+    <string name="refresh_title">Per-app refresh rate</string>
+    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
+    <string name="refresh_default">Default</string>
+    <string name="refresh_standard">60 Hz</string>
+    <string name="refresh_high">90 Hz</string>
+    <string name="refresh_extreme">120 Hz</string>
+    <string name="thermal_control_title">Thermal Profiles</string>
+    <string name="thermal_title">Thermal Profiles</string>
+    <string name="thermal_app_list">App list (with SMART Technology)</string>
+    <string name="thermal_summary">Per-app thermal profiles</string>
+    <string name="thermal_tile_label">Thermal Profiles</string>
+    <string name="thermal_tile_enabled_subtitle">Profiles Active</string>
+    <string name="thermal_tile_disabled_subtitle">Profiles Disabled</string>
+    <string name="thermal_default">Default</string>
+    <string name="thermal_benchmark">Benchmark</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Camera</string>
+    <string name="thermal_dialer">Dialer</string>
+    <string name="thermal_gaming">Gaming</string>
+    <string name="thermal_navigation">Navigation</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_summary">تنظیم خودکار عملکرد بر اساس برنامه پیش زمینه</string>
+</resources>
