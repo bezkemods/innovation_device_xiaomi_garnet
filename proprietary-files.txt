@@ -1395,6 +1395,21 @@ vendor/lib64/libllvm-glnext.so
 vendor/lib64/libllvm-qcom.so
 vendor/lib64/libllvm-qgl.so
 
+# Graphics (Adreno Upstream)
+vendor/etc/permissions/android.hardware.opengles.aep.xml
+vendor/etc/permissions/android.hardware.vulkan.version-1_1.xml
+vendor/etc/permissions/android.hardware.vulkan.version-1_3.xml
+vendor/etc/permissions/android.hardware.vulkan.version-1_4.xml
+vendor/etc/permissions/android.software.opengles.deqp.level.xml
+vendor/etc/permissions/android.software.vulkan.deqp.level.xml
+vendor/lib/hw/vulkan.adreno.so
+vendor/lib/libOpenCL_adreno.so
+vendor/lib/libadreno_compiler_cl.so
+vendor/lib/libdmabufheap.so
+vendor/lib64/libOpenCL_adreno.so
+vendor/lib64/libadreno_compiler_cl.so
+vendor/lib64/libdmabufheap.so
+
 # Graphics (Adreno firmware)
 vendor/firmware/a710_sqe.fw
 vendor/firmware/a710_zap.b00
