@@ -19,9 +19,6 @@ $(call inherit-product, hardware/qcom-caf/common/common.mk)
 # Call the MiuiCamera setup
 $(call inherit-product-if-exists, device/xiaomi/miuicamera-garnet/device.mk)
 
-# Parts
-$(call inherit-product, packages/apps/XiaomiParts/parts.mk)
-
 # GameBar Performance Overlay
 $(call inherit-product, packages/apps/GameBar/gamebar.mk)
 
