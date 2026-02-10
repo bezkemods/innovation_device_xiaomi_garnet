@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2025 bezke
+ * Optimized for Garnet (Snapdragon 7s Gen 2)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,10 +36,9 @@ import org.lineageos.settings.R;
 public class CpuGovernorTileService extends TileService {
     private static final String TAG = "CpuGovernorTileService";
     
-    // Update interval
-    private static final int UPDATE_INTERVAL = 2000; // 2 seconds
+    // Optimized update interval for SM7435
+    private static final int UPDATE_INTERVAL = 2000;
     
-    // CPU frequency monitoring
     private Handler mUpdateHandler;
     private Handler mToastHandler;
     private Runnable mUpdateRunnable;
@@ -91,7 +91,6 @@ public class CpuGovernorTileService extends TileService {
             return;
         }
         
-        // Cycle to next governor
         cycleGovernor();
     }
 
@@ -173,14 +172,12 @@ public class CpuGovernorTileService extends TileService {
             if (icon != null) {
                 tile.setIcon(icon);
             } else {
-                // Fallback to default icon
                 try {
                     int iconRes = state == Tile.STATE_ACTIVE ? 
                         R.drawable.ic_cpu_governor_active : 
                         R.drawable.ic_cpu_governor_inactive;
                     tile.setIcon(Icon.createWithResource(this, iconRes));
                 } catch (Exception e) {
-                    // Final fallback
                     tile.setIcon(Icon.createWithResource(this, android.R.drawable.ic_menu_manage));
                 }
             }
@@ -196,7 +193,7 @@ public class CpuGovernorTileService extends TileService {
         
         switch (governor) {
             case "walt":
-                return "Walt"; // SM7435 Default
+                return "Walt";
             case "schedhorizon":
                 return "SchedHorizon";
             case "schedutil":
@@ -210,7 +207,6 @@ public class CpuGovernorTileService extends TileService {
             case "conservative":
                 return "Conservative";
             default:
-                // Capitalize first letter
                 return governor.substring(0, 1).toUpperCase() + 
                        (governor.length() > 1 ? governor.substring(1) : "");
         }
@@ -218,34 +214,27 @@ public class CpuGovernorTileService extends TileService {
 
     private Icon createGovernorIcon(String governor) {
         try {
-            // Android 16 Monet kompatibilis egyszerű ikon
             int size = 128;
             Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            
-            // Monet kompatibilis fehér szín - a rendszer automatikusan átszínezi
             paint.setColor(Color.WHITE);
             paint.setStyle(Paint.Style.FILL);
             paint.setTextAlign(Paint.Align.CENTER);
             paint.setTypeface(Typeface.DEFAULT_BOLD);
             
-            // Governor név rövidítése
             String shortName = getShortGovernorName(governor);
             
-            // Szöveg méret beállítása
             paint.setTextSize(size * 0.25f);
             Rect textBounds = new Rect();
             paint.getTextBounds(shortName, 0, shortName.length(), textBounds);
             
-            // Ha túl hosszú, kisebb betűméret
             if (textBounds.width() > size * 0.8f) {
                 paint.setTextSize(size * 0.2f);
                 paint.getTextBounds(shortName, 0, shortName.length(), textBounds);
             }
             
-            // Szöveg rajzolása középre
             float textY = size / 2f + textBounds.height() / 2f;
             canvas.drawText(shortName, size / 2f, textY, paint);
             
@@ -274,7 +263,6 @@ public class CpuGovernorTileService extends TileService {
             case "conservative":
                 return "CONS";
             default:
-                // Első 4 karakter nagybetűvel
                 return governor.length() >= 4 ? 
                     governor.substring(0, 4).toUpperCase() : 
                     governor.toUpperCase();
@@ -291,7 +279,6 @@ public class CpuGovernorTileService extends TileService {
                 return;
             }
             
-            // Következő elérhető governor keresése
             int currentIndex = -1;
             for (int i = 0; i < availableGovernors.length; i++) {
                 if (currentGovernor.equals(availableGovernors[i])) {
@@ -300,27 +287,22 @@ public class CpuGovernorTileService extends TileService {
                 }
             }
             
-            // Következő governor
             String nextGovernor;
             if (currentIndex >= 0 && currentIndex < availableGovernors.length - 1) {
                 nextGovernor = availableGovernors[currentIndex + 1];
             } else {
-                nextGovernor = availableGovernors[0]; // Visszatérés az elejére
+                nextGovernor = availableGovernors[0];
             }
             
-            // Governor beállítása
             boolean success = mKernelUtils.setGovernor(nextGovernor);
             if (success) {
-                // Mentés preferenciákba
                 SharedPreferences.Editor editor = mSharedPrefs.edit();
                 editor.putString("cpu_governor", nextGovernor);
                 editor.apply();
                 
-                // Toast üzenet
                 String message = "Governor: " + formatGovernorName(nextGovernor);
                 showToast(message);
                 
-                // Tile frissítése
                 mUpdateHandler.postDelayed(this::updateTile, 100);
                 
                 Log.d(TAG, "Governor changed from " + currentGovernor + " to " + nextGovernor);

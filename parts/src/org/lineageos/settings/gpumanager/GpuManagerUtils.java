@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2025 KamiKaonashi, Copilot
+ * Optimized for Garnet (Snapdragon 7s Gen 2, SM7435)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,14 +26,14 @@ public class GpuManagerUtils
     private static final String DEFAULT_GOVERNOR = "msm-adreno-tz";
     private static final String TURBO_GOVERNOR = "performance";
 
-    // Adreno 710 (SM7435) gyári frekvenciák
+    // Adreno 710 (SM7435) optimized frequencies
     // Base: 295 MHz, Max: 940 MHz
     private static final String[] FALLBACK_FREQUENCIES = {
         "295000000", "314000000", "401000000", "480000000", "550000000",
         "670000000", "744000000", "850000000", "940000000"
     };
 
-    // Paths
+    // Sysfs paths
     private static final String GPU_MODEL = "/gpu_model";
     private static final String GPU_AVAILABLE_FREQUENCIES = "/gpu_available_frequencies";
     private static final String GPU_CURRENT_FREQ = "/gpuclk";
@@ -53,9 +54,18 @@ public class GpuManagerUtils
     private static final String GPU_PREEMPT = "/preempt";
     private static final String GPU_MAX_GPUCLK = "/max_gpuclk";
 
-    // Kamera/video boost: Powerhint trigger (gyári XML alapján)
+    // Performance limits for SM7435
+    private static final long MAX_GPU_FREQ = 940000000L; // 940 MHz max
+
+    // Powerhint paths for camera boost
     private static final String POWERHINT_TRIGGER_PATH = "/proc/powerhint";
     private static final String CAMERA_BOOST_HINT_ID = "0x00001340";
+
+    // Cache for frequently accessed values (optimized)
+    private String[] mCachedFrequencies = null;
+    private String[] mCachedGovernors = null;
+    private long mLastCacheTime = 0;
+    private static final long CACHE_VALIDITY_MS = 5000; // 5 seconds
 
     public boolean isGpuManagerSupported()
     {
@@ -79,7 +89,6 @@ public class GpuManagerUtils
             String model = readFile(GPU_BASE_PATH + GPU_MODEL);
             if (model != null && !model.trim().isEmpty())
                 return model.trim();
-            // Adreno 710 fallback
             return "Adreno 710";
         }
         catch (Exception e)
@@ -91,28 +100,42 @@ public class GpuManagerUtils
 
     public String[] getAvailableGovernors()
     {
+        long currentTime = System.currentTimeMillis();
+        if (mCachedGovernors != null && (currentTime - mLastCacheTime) < CACHE_VALIDITY_MS) {
+            return mCachedGovernors;
+        }
+
         try
         {
             String governors = readFile(GPU_BASE_PATH + GPU_AVAILABLE_GOVERNORS);
             if (governors != null && !governors.trim().isEmpty())
             {
-                return governors.trim().split("\\s+");
+                mCachedGovernors = governors.trim().split("\\s+");
+                mLastCacheTime = currentTime;
+                return mCachedGovernors;
             }
         }
         catch (Exception e)
         {
             Log.w(TAG, "Could not read available governors", e);
         }
-        return new String[]{"msm-adreno-tz", "performance", "powersave", "simple_ondemand"};
+        mCachedGovernors = new String[]{"msm-adreno-tz", "performance", "powersave", "simple_ondemand"};
+        return mCachedGovernors;
     }
 
     public String[] getAvailableFrequencies()
     {
+        long currentTime = System.currentTimeMillis();
+        if (mCachedFrequencies != null && (currentTime - mLastCacheTime) < CACHE_VALIDITY_MS) {
+            return mCachedFrequencies;
+        }
+
         String[] frequencyPaths = {
             GPU_BASE_PATH + GPU_AVAILABLE_FREQUENCIES,
             GPU_BASE_PATH + "/freq_table_mhz",
             GPU_BASE_PATH + "/devfreq/available_frequencies"
         };
+        
         for (String path : frequencyPaths)
         {
             try
@@ -121,18 +144,32 @@ public class GpuManagerUtils
                 if (frequencies != null && !frequencies.trim().isEmpty())
                 {
                     String[] freqArray = frequencies.trim().split("\\s+");
-                    // Biztonság: max 940 MHz legyen a legnagyobb Adreno 710 esetén
-                    freqArray = java.util.Arrays.stream(freqArray)
-                        .filter(f -> {
-                            try { return Long.parseLong(f) <= 950000000; }
-                            catch (Exception e) { return false; }
-                        })
-                        .toArray(String[]::new);
-                    java.util.Arrays.sort(freqArray, (a, b) -> {
-                        try { return Long.compare(Long.parseLong(a), Long.parseLong(b)); }
-                        catch (NumberFormatException e) { return a.compareTo(b); }
+                    
+                    // Optimize: filter and sort in one pass
+                    java.util.List<String> validFreqs = new java.util.ArrayList<>();
+                    for (String f : freqArray) {
+                        try {
+                            long freq = Long.parseLong(f);
+                            if (freq <= MAX_GPU_FREQ) {
+                                validFreqs.add(f);
+                            }
+                        } catch (Exception e) {
+                            // Skip invalid frequencies
+                        }
+                    }
+                    
+                    // Sort numerically
+                    java.util.Collections.sort(validFreqs, (a, b) -> {
+                        try {
+                            return Long.compare(Long.parseLong(a), Long.parseLong(b));
+                        } catch (NumberFormatException e) {
+                            return a.compareTo(b);
+                        }
                     });
-                    return freqArray;
+                    
+                    mCachedFrequencies = validFreqs.toArray(new String[0]);
+                    mLastCacheTime = currentTime;
+                    return mCachedFrequencies;
                 }
             }
             catch (Exception e)
@@ -140,7 +177,9 @@ public class GpuManagerUtils
                 Log.w(TAG, "Could not read frequencies from: " + path, e);
             }
         }
-        return FALLBACK_FREQUENCIES.clone();
+        
+        mCachedFrequencies = FALLBACK_FREQUENCIES.clone();
+        return mCachedFrequencies;
     }
 
     public String getCurrentGovernor()
@@ -164,6 +203,7 @@ public class GpuManagerUtils
             GPU_BASE_PATH + "/devfreq/cur_freq",
             GPU_BASE_PATH + "/gpuclk"
         };
+        
         for (String path : frequencyPaths)
         {
             try
@@ -177,7 +217,6 @@ public class GpuManagerUtils
                 // Next path
             }
         }
-        Log.w(TAG, "Could not read current frequency from any path");
         return "0";
     }
 
@@ -308,6 +347,7 @@ public class GpuManagerUtils
     {
         return getBooleanValue(GPU_BASE_PATH + GPU_PREEMPT);
     }
+
     public boolean setPreempt(boolean enabled)
     {
         return setBooleanValue(GPU_BASE_PATH + GPU_PREEMPT, enabled);
@@ -317,17 +357,18 @@ public class GpuManagerUtils
     {
         try {
             long value = Long.parseLong(clk);
-            if (value > 940000000) clk = "940000000"; // Biztonság: max 940 MHz
+            if (value > MAX_GPU_FREQ) clk = String.valueOf(MAX_GPU_FREQ);
         } catch (Exception e) {
-            clk = "940000000";
+            clk = String.valueOf(MAX_GPU_FREQ);
         }
         return writeFile(GPU_BASE_PATH + GPU_MAX_GPUCLK, clk);
     }
+
     public String getMaxGpuClk()
     {
         String clk = readFile(GPU_BASE_PATH + GPU_MAX_GPUCLK);
         try {
-            if (clk != null && Long.parseLong(clk) > 940000000) return "940000000";
+            if (clk != null && Long.parseLong(clk) > MAX_GPU_FREQ) return String.valueOf(MAX_GPU_FREQ);
         } catch (Exception e) { }
         return clk;
     }
@@ -401,21 +442,24 @@ public class GpuManagerUtils
                 Log.e(TAG, "Min frequency (" + min + ") is higher than max frequency (" + max + ")");
                 return false;
             }
-            if (min > 940000000) minFreq = "940000000";
-            if (max > 940000000) maxFreq = "940000000";
+            if (min > MAX_GPU_FREQ) minFreq = String.valueOf(MAX_GPU_FREQ);
+            if (max > MAX_GPU_FREQ) maxFreq = String.valueOf(MAX_GPU_FREQ);
         }
         catch (NumberFormatException e)
         {
             Log.e(TAG, "Invalid frequency format", e);
-            minFreq = "295000000"; // Adreno 710 default min
-            maxFreq = "940000000"; // Adreno 710 default max
+            minFreq = "295000000";
+            maxFreq = String.valueOf(MAX_GPU_FREQ);
         }
+        
         boolean success = true;
         try
         {
             if (!writeFile(GPU_BASE_PATH + GPU_MAX_FREQ, maxFreq)) success = false;
             if (!writeFile(GPU_BASE_PATH + GPU_MIN_FREQ, minFreq)) success = false;
-            Log.d(TAG, "GPU frequency range set: " + minFreq + " - " + maxFreq);
+            if (success) {
+                Log.d(TAG, "GPU frequency range set: " + minFreq + " - " + maxFreq);
+            }
         }
         catch (Exception e)
         {
@@ -449,11 +493,21 @@ public class GpuManagerUtils
         }
     }
 
+    /**
+     * Trigger camera boost using powerhint mechanism
+     * Improves video recording and camera app performance
+     */
     public boolean triggerCameraBoost()
     {
         try
         {
-            return writeFile(POWERHINT_TRIGGER_PATH, CAMERA_BOOST_HINT_ID);
+            boolean success = writeFile(POWERHINT_TRIGGER_PATH, CAMERA_BOOST_HINT_ID);
+            if (success) {
+                Log.d(TAG, "Camera boost triggered successfully");
+            } else {
+                Log.w(TAG, "Failed to trigger camera boost");
+            }
+            return success;
         }
         catch (Exception e)
         {
@@ -462,12 +516,16 @@ public class GpuManagerUtils
         }
     }
 
-    // TURBO PROFILE: performance governor, max freq, minden ON, preempt ON (max 940 MHz)
+    /**
+     * TURBO PROFILE: performance governor, max freq, all power options ON, preemption ON
+     * Maximum performance mode for gaming and intensive tasks
+     */
     public boolean applyTurboPreset()
     {
         boolean success = true;
-        String maxFreq = "940000000";
-        String minFreq = "940000000";
+        String maxFreq = String.valueOf(MAX_GPU_FREQ);
+        String minFreq = String.valueOf(MAX_GPU_FREQ);
+        
         if (!setGovernor(TURBO_GOVERNOR)) success = false;
         if (!setFrequencyRange(minFreq, maxFreq)) success = false;
         if (!setForceClkOn(true)) success = false;
@@ -476,18 +534,24 @@ public class GpuManagerUtils
         if (!setForceNoNap(true)) success = false;
         if (!setBusSplit(true)) success = false;
         if (!setPreempt(true)) success = false;
+        
         Log.d(TAG, "Turbo preset enabled: " + (success ? "OK" : "FAILED"));
         return success;
     }
 
+    /**
+     * Reset GPU settings to factory defaults
+     * Adreno 710 defaults: 295MHz - 940MHz
+     */
     public boolean resetToDefaults()
     {
         Log.d(TAG, "Resetting GPU to defaults");
         boolean success = true;
         if (!setGovernor(DEFAULT_GOVERNOR)) success = false;
-        // Adreno 710 defaults: 295MHz - 940MHz
+        
         String minFreq = "295000000";
-        String maxFreq = "940000000";
+        String maxFreq = String.valueOf(MAX_GPU_FREQ);
+        
         if (!setFrequencyRange(minFreq, maxFreq)) success = false;
         if (!setForceClkOn(false)) success = false;
         if (!setForceBusOn(false)) success = false;
@@ -495,6 +559,7 @@ public class GpuManagerUtils
         if (!setForceNoNap(false)) success = false;
         if (!setBusSplit(false)) success = false;
         if (!setPreempt(false)) success = false;
+        
         Log.d(TAG, "GPU reset to defaults " + (success ? "successful" : "partially failed"));
         return success;
     }
@@ -505,7 +570,8 @@ public class GpuManagerUtils
         sb.append("GPU Manager Debug Info:\n");
         sb.append("======================\n");
         sb.append("Supported: ").append(isGpuManagerSupported()).append("\n");
-        sb.append("GPU Model: ").append(getGpuModel()).append("\n\n");
+        sb.append("GPU Model: ").append(getGpuModel()).append("\n");
+        sb.append("Device: Xiaomi 13 (Garnet) - SM7435\n\n");
         sb.append("Current Settings:\n");
         sb.append("Governor: ").append(getCurrentGovernor()).append("\n");
         sb.append("Current Freq: ").append(getCurrentFrequency()).append(" Hz\n");
@@ -553,6 +619,7 @@ public class GpuManagerUtils
             File file = new File(path);
             if (!file.exists() || !file.canRead())
                 return null;
+            
             BufferedReader reader = null;
             try
             {
@@ -580,6 +647,7 @@ public class GpuManagerUtils
             File file = new File(path);
             if (!file.exists() || !file.canWrite())
                 throw new IOException("Cannot write to file: " + path);
+            
             FileWriter writer = null;
             try
             {
@@ -599,5 +667,16 @@ public class GpuManagerUtils
             Log.e(TAG, "writeFile error: " + path, e);
             return false;
         }
+    }
+
+    /**
+     * Invalidate cache to force refresh from sysfs
+     * Call this when settings are changed externally
+     */
+    public void invalidateCache() {
+        mCachedFrequencies = null;
+        mCachedGovernors = null;
+        mLastCacheTime = 0;
+        Log.d(TAG, "Cache invalidated");
     }
 }

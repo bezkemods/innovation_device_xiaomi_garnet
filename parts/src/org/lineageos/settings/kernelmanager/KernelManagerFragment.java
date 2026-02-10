@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2025 bezke
+ * Optimized for Garnet (Snapdragon 7s Gen 2)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +38,7 @@ public class KernelManagerFragment extends PreferenceFragment
     private static final String KEY_ENABLE_MONITORING = "enable_monitoring";
     private static final String KEY_UPDATE_INTERVAL = "update_interval";
 
+    // Optimized for SM7435
     private static final int DEFAULT_UPDATE_INTERVAL_MS = 1000;
 
     private KernelManagerUtils mKernelUtils;
@@ -65,7 +67,6 @@ public class KernelManagerFragment extends PreferenceFragment
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         mUpdateHandler = new Handler(Looper.getMainLooper());
 
-        // Load monitoring preferences
         mMonitoringEnabled = mSharedPrefs.getBoolean(KEY_ENABLE_MONITORING, true);
         mUpdateIntervalMs = mSharedPrefs.getInt(KEY_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL_MS);
 
@@ -85,14 +86,12 @@ public class KernelManagerFragment extends PreferenceFragment
         mPerformanceMinFreq = (ListPreference) findPreference(KEY_PERFORMANCE_MIN_FREQ);
         mPerformanceMaxFreq = (ListPreference) findPreference(KEY_PERFORMANCE_MAX_FREQ);
 
-        // Set listeners
         if (mGovernorPreference != null) {
             mGovernorPreference.setOnPreferenceChangeListener(this);
         }
 
         setFrequencyPreferenceListeners();
 
-        // Apply and Reset buttons
         Preference applyPref = findPreference(KEY_APPLY_SETTINGS);
         if (applyPref != null) {
             applyPref.setOnPreferenceClickListener(preference -> {
@@ -108,27 +107,14 @@ public class KernelManagerFragment extends PreferenceFragment
                 return true;
             });
         }
-        
-        // Debug info preference (hidden by default)
-        Preference debugPref = new Preference(getContext());
-        debugPref.setKey("debug_info");
-        debugPref.setTitle("Debug Info");
-        debugPref.setSummary("Show kernel manager debug information");
-        debugPref.setVisible(false); // Set to true for debugging
-        debugPref.setOnPreferenceClickListener(preference -> {
-            showDebugInfo();
-            return true;
-        });
     }
 
     private void initializeCpuMonitoring() {
-        // CPU monitor category creation
         mCpuMonitorCategory = new PreferenceCategory(getContext());
         mCpuMonitorCategory.setKey(KEY_CPU_MONITOR);
         mCpuMonitorCategory.setTitle(getString(R.string.kernel_manager_cpu_monitor));
         getPreferenceScreen().addPreference(mCpuMonitorCategory);
 
-        // Enable/disable monitoring
         mEnableMonitoringPreference = new SwitchPreference(getContext());
         mEnableMonitoringPreference.setKey(KEY_ENABLE_MONITORING);
         mEnableMonitoringPreference.setTitle(getString(R.string.kernel_manager_enable_monitoring));
@@ -149,7 +135,6 @@ public class KernelManagerFragment extends PreferenceFragment
         });
         mCpuMonitorCategory.addPreference(mEnableMonitoringPreference);
 
-        // Update interval setting
         mUpdateIntervalPreference = new ListPreference(getContext());
         mUpdateIntervalPreference.setKey(KEY_UPDATE_INTERVAL);
         mUpdateIntervalPreference.setTitle(getString(R.string.kernel_manager_update_interval));
@@ -174,7 +159,6 @@ public class KernelManagerFragment extends PreferenceFragment
         });
         mCpuMonitorCategory.addPreference(mUpdateIntervalPreference);
 
-        // Cluster summaries
         mClusterSummaryEfficiency = new Preference(getContext());
         mClusterSummaryEfficiency.setKey("efficiency_cluster_summary");
         mClusterSummaryEfficiency.setTitle(getString(R.string.kernel_manager_efficiency_cluster_summary));
@@ -238,34 +222,30 @@ public class KernelManagerFragment extends PreferenceFragment
     private String[] createHumanReadableGovernorNames(String[] governors) {
         String[] humanReadable = new String[governors.length];
         for (int i = 0; i < governors.length; i++) {
-            switch (governors[i]) {
-                case "walt":
-                    humanReadable[i] = "WALT (Recommended)";
-                    break;
-                case "schedhorizon":
-                    humanReadable[i] = "SchedHorizon";
-                    break;
-                case "schedutil":
-                    humanReadable[i] = "Schedutil (Balanced)";
-                    break;
-                case "performance":
-                    humanReadable[i] = "Performance (Max Speed)";
-                    break;
-                case "powersave":
-                    humanReadable[i] = "Powersave (Battery)";
-                    break;
-                case "ondemand":
-                    humanReadable[i] = "OnDemand (Legacy)";
-                    break;
-                case "conservative":
-                    humanReadable[i] = "Conservative (Smooth)";
-                    break;
-                default:
-                    humanReadable[i] = governors[i];
-                    break;
-            }
+            humanReadable[i] = getGovernorLabel(governors[i]);
         }
         return humanReadable;
+    }
+
+    private String getGovernorLabel(String governor) {
+        switch (governor) {
+            case "walt":
+                return "WALT (Recommended)";
+            case "schedhorizon":
+                return "SchedHorizon";
+            case "schedutil":
+                return "Schedutil (Balanced)";
+            case "performance":
+                return "Performance (Max Speed)";
+            case "powersave":
+                return "Powersave (Battery)";
+            case "ondemand":
+                return "OnDemand (Legacy)";
+            case "conservative":
+                return "Conservative (Smooth)";
+            default:
+                return governor;
+        }
     }
 
     private String[] createHumanReadableFrequencyNames(String[] frequencies) {
@@ -384,6 +364,7 @@ public class KernelManagerFragment extends PreferenceFragment
             formatFrequency(mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER)),
             formatFrequency(mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER))
         ));
+        
         int[] performanceCores = mKernelUtils.getClusterCores(KernelManagerUtils.PERFORMANCE_CLUSTER);
         int onlinePerformance = 0;
         for (int coreId : performanceCores) {
@@ -426,33 +407,16 @@ public class KernelManagerFragment extends PreferenceFragment
             Toast.makeText(getContext(), R.string.kernel_manager_error_read, Toast.LENGTH_LONG).show();
             return;
         }
+        
+        // Validate frequency ranges first
+        if (!validateFrequencyRanges()) {
+            return;
+        }
+
         SharedPreferences.Editor editor = mSharedPrefs.edit();
         boolean allSuccess = true;
         StringBuilder errorMessage = new StringBuilder();
-        if (mEfficiencyMinFreq != null && mEfficiencyMaxFreq != null) {
-            String minFreq = mEfficiencyMinFreq.getValue();
-            String maxFreq = mEfficiencyMaxFreq.getValue();
-            if (minFreq != null && maxFreq != null) {
-                if (!mKernelUtils.validateFrequencyRange(KernelManagerUtils.EFFICIENCY_CLUSTER, minFreq, maxFreq)) {
-                    errorMessage.append("Invalid efficiency cluster frequency range\n");
-                    allSuccess = false;
-                }
-            }
-        }
-        if (mPerformanceMinFreq != null && mPerformanceMaxFreq != null) {
-            String minFreq = mPerformanceMinFreq.getValue();
-            String maxFreq = mPerformanceMaxFreq.getValue();
-            if (minFreq != null && maxFreq != null) {
-                if (!mKernelUtils.validateFrequencyRange(KernelManagerUtils.PERFORMANCE_CLUSTER, minFreq, maxFreq)) {
-                    errorMessage.append("Invalid performance cluster frequency range\n");
-                    allSuccess = false;
-                }
-            }
-        }
-        if (!allSuccess) {
-            Toast.makeText(getContext(), errorMessage.toString().trim(), Toast.LENGTH_LONG).show();
-            return;
-        }
+
         if (mGovernorPreference != null) {
             String governor = mGovernorPreference.getValue();
             if (governor != null) {
@@ -464,14 +428,54 @@ public class KernelManagerFragment extends PreferenceFragment
                 }
             }
         }
+
+        applyFrequencySettings(editor, allSuccess, errorMessage);
+        editor.apply();
+
+        if (allSuccess) {
+            Toast.makeText(getContext(), R.string.settings_applied, Toast.LENGTH_SHORT).show();
+        } else {
+            String finalError = errorMessage.length() > 0 ? 
+                errorMessage.toString().trim() : 
+                getString(R.string.kernel_manager_error_write);
+            Toast.makeText(getContext(), finalError, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private boolean validateFrequencyRanges() {
+        if (mEfficiencyMinFreq != null && mEfficiencyMaxFreq != null) {
+            String minFreq = mEfficiencyMinFreq.getValue();
+            String maxFreq = mEfficiencyMaxFreq.getValue();
+            if (minFreq != null && maxFreq != null) {
+                if (!mKernelUtils.validateFrequencyRange(KernelManagerUtils.EFFICIENCY_CLUSTER, minFreq, maxFreq)) {
+                    Toast.makeText(getContext(), "Invalid efficiency cluster frequency range", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }
+        }
+        
+        if (mPerformanceMinFreq != null && mPerformanceMaxFreq != null) {
+            String minFreq = mPerformanceMinFreq.getValue();
+            String maxFreq = mPerformanceMaxFreq.getValue();
+            if (minFreq != null && maxFreq != null) {
+                if (!mKernelUtils.validateFrequencyRange(KernelManagerUtils.PERFORMANCE_CLUSTER, minFreq, maxFreq)) {
+                    Toast.makeText(getContext(), "Invalid performance cluster frequency range", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+
+    private void applyFrequencySettings(SharedPreferences.Editor editor, boolean allSuccess, StringBuilder errorMessage) {
         if (mEfficiencyMinFreq != null) {
             String freq = mEfficiencyMinFreq.getValue();
             if (freq != null) {
                 if (mKernelUtils.setMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, freq)) {
                     editor.putString(KEY_EFFICIENCY_MIN_FREQ, freq);
                 } else {
-                    allSuccess = false;
-                    errorMessage.append("Failed to set efficiency min frequency: ").append(formatFrequency(freq)).append("\n");
+                    errorMessage.append("Failed to set efficiency min frequency\n");
                 }
             }
         }
@@ -481,8 +485,7 @@ public class KernelManagerFragment extends PreferenceFragment
                 if (mKernelUtils.setMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, freq)) {
                     editor.putString(KEY_EFFICIENCY_MAX_FREQ, freq);
                 } else {
-                    allSuccess = false;
-                    errorMessage.append("Failed to set efficiency max frequency: ").append(formatFrequency(freq)).append("\n");
+                    errorMessage.append("Failed to set efficiency max frequency\n");
                 }
             }
         }
@@ -492,8 +495,7 @@ public class KernelManagerFragment extends PreferenceFragment
                 if (mKernelUtils.setMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, freq)) {
                     editor.putString(KEY_PERFORMANCE_MIN_FREQ, freq);
                 } else {
-                    allSuccess = false;
-                    errorMessage.append("Failed to set performance min frequency: ").append(formatFrequency(freq)).append("\n");
+                    errorMessage.append("Failed to set performance min frequency\n");
                 }
             }
         }
@@ -503,19 +505,9 @@ public class KernelManagerFragment extends PreferenceFragment
                 if (mKernelUtils.setMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, freq)) {
                     editor.putString(KEY_PERFORMANCE_MAX_FREQ, freq);
                 } else {
-                    allSuccess = false;
-                    errorMessage.append("Failed to set performance max frequency: ").append(formatFrequency(freq)).append("\n");
+                    errorMessage.append("Failed to set performance max frequency\n");
                 }
             }
-        }
-        editor.apply();
-        if (allSuccess) {
-            Toast.makeText(getContext(), R.string.settings_applied, Toast.LENGTH_SHORT).show();
-        } else {
-            String finalError = errorMessage.length() > 0 ? 
-                errorMessage.toString().trim() : 
-                getString(R.string.kernel_manager_error_write);
-            Toast.makeText(getContext(), finalError, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -527,6 +519,7 @@ public class KernelManagerFragment extends PreferenceFragment
         editor.remove(KEY_PERFORMANCE_MIN_FREQ);
         editor.remove(KEY_PERFORMANCE_MAX_FREQ);
         editor.apply();
+        mKernelUtils.resetToDefaults();
         loadCurrentSettings();
         Toast.makeText(getContext(), R.string.kernel_manager_reset, Toast.LENGTH_SHORT).show();
     }
@@ -572,21 +565,5 @@ public class KernelManagerFragment extends PreferenceFragment
         if (mUpdateHandler != null && mUpdateRunnable != null) {
             mUpdateHandler.removeCallbacks(mUpdateRunnable);
         }
-    }
-    
-    private void showDebugInfo() {
-        String debugInfo = mKernelUtils.getDebugInfo();
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
-        builder.setTitle("Kernel Manager Debug Info");
-        builder.setMessage(debugInfo);
-        builder.setPositiveButton("OK", null);
-        builder.setNeutralButton("Copy", (dialog, which) -> {
-            android.content.ClipboardManager clipboard = 
-                (android.content.ClipboardManager) getContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE);
-            android.content.ClipData clip = android.content.ClipData.newPlainText("Debug Info", debugInfo);
-            clipboard.setPrimaryClip(clip);
-            Toast.makeText(getContext(), "Debug info copied to clipboard", Toast.LENGTH_SHORT).show();
-        });
-        builder.show();
     }
 }

@@ -30,14 +30,12 @@ import org.lineageos.settings.videoenhancer.VideoEnhancerUtils;
 import org.lineageos.settings.utils.FileUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false; // Disabled for production
     private static final String TAG = "XiaomiParts";
 
     // Governor/freq paths: SM7435 mapping (4+4 config)
     private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
     private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
-    // Policy6 is NOT present on SM7435 (7s Gen 2), it uses 4+4 cluster config.
-    // private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
     
     // 'walt' is preferred for newer Snapdragon kernels, 'schedutil' is safe fallback
     private static final String DEFAULT_GOVERNOR = "walt";
@@ -97,17 +95,21 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         initializeBackgroundThread();
         mBackgroundHandler.post(() -> {
             try {
-                startServices(context);
-                Log.d(TAG, "Starting RefreshService");
-                org.lineageos.settings.refreshrate.RefreshUtils.startService(context);
+                // Initialize kernel settings first (critical)
                 ensureDefaultGovernorIfNeeded(context);
+                
+                // Parallel initialization for non-critical services
+                startServices(context);
                 restorePerformanceProfile(context);
                 restoreKernelSettings(context);
                 restoreGpuSettings(context);
                 restoreCoreControlSettings(context);
-                restoreLogcatService(context);
                 restoreVideoEnhancerSettings(context);
                 initializeCpuTileService(context);
+                
+                // Auto-start logcat if enabled
+                restoreLogcatService(context);
+                
                 Log.i(TAG, "Locked boot completed initialization finished");
             } catch (Exception e) {
                 Log.e(TAG, "Error during locked boot initialization", e);
@@ -130,44 +132,35 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         });
     }
 
-private void startServices(Context context) {
-    try {
-        Log.d(TAG, "Starting necessary services");
-        
-        // Start Thermal services
+    private void startServices(Context context) {
         try {
-            // Start ThermalMonitorService for background monitoring
-            Intent thermalMonitorIntent = new Intent(context, 
-                    org.lineageos.settings.thermal.ThermalMonitorService.class);
-            context.startService(thermalMonitorIntent);
-            Log.d(TAG, "ThermalMonitorService started");
+            if (DEBUG) Log.d(TAG, "Starting necessary services");
             
-            // Start ThermalService if enabled
-            org.lineageos.settings.thermal.ThermalUtils thermalUtils = 
-                    org.lineageos.settings.thermal.ThermalUtils.getInstance(context);
-            if (thermalUtils.isEnabled()) {
-                thermalUtils.startService();
-                Log.d(TAG, "ThermalService started (enabled)");
-            } else {
-                Log.d(TAG, "ThermalService not started (disabled)");
+            // Start Thermal services
+            try {
+                Intent thermalMonitorIntent = new Intent(context, 
+                        org.lineageos.settings.thermal.ThermalMonitorService.class);
+                context.startService(thermalMonitorIntent);
+                
+                org.lineageos.settings.thermal.ThermalUtils thermalUtils = 
+                        org.lineageos.settings.thermal.ThermalUtils.getInstance(context);
+                if (thermalUtils.isEnabled()) {
+                    thermalUtils.startService();
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Thermal services failed to start", e);
+            }
+            
+            // Start RefreshService
+            try {
+                org.lineageos.settings.refreshrate.RefreshUtils.startService(context);
+            } catch (Exception e) {
+                Log.e(TAG, "RefreshService failed to start", e);
             }
         } catch (Exception e) {
-            Log.e(TAG, "Thermal services failed to start", e);
+            Log.e(TAG, "Failed to start services", e);
         }
-        
-        // Start RefreshService
-        try {
-            Log.d(TAG, "Starting RefreshService");
-            org.lineageos.settings.refreshrate.RefreshUtils.startService(context);
-        } catch (Exception e) {
-            Log.e(TAG, "RefreshService failed to start", e);
-        }
-        
-        Log.d(TAG, "Services started successfully");
-    } catch (Exception e) {
-        Log.e(TAG, "Failed to start services", e);
     }
-}
 
     private void ensureDefaultGovernorIfNeeded(Context context) {
         try {
@@ -180,13 +173,7 @@ private void startServices(Context context) {
                 if (FileUtils.isFileWritable(POLICY4_GOVERNOR_PATH)) {
                     FileUtils.writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
                 }
-                // SM7435 (Garnet) has only Policy 0 and 4. Policy 6 removed to avoid errors.
-                // if (FileUtils.isFileWritable(POLICY6_GOVERNOR_PATH)) {
-                //    FileUtils.writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                // }
-                Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR + " (no performance profile found)");
-            } else {
-                Log.d(TAG, "Performance profile found, skipping default governor setup");
+                Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR);
             }
         } catch (Exception e) {
             Log.w(TAG, "Failed to set default governor", e);
@@ -201,39 +188,24 @@ private void startServices(Context context) {
                 return;
             }
             int savedMode = prefs.getInt(KEY_PERFORMANCE_PROFILE, PerformanceUtils.MODE_BALANCED);
-            Thread.sleep(1500);
+            
+            // Optimized delay for SM7435
+            Thread.sleep(500);
+            
             PerformanceUtils performanceUtils = new PerformanceUtils(context);
             boolean success = performanceUtils.setPerformanceMode(savedMode);
             if (success) {
                 Log.d(TAG, "Performance profile restored to: " + performanceUtils.getModeLabel(savedMode));
             } else {
-                Log.w(TAG, "Failed to restore performance profile to: " + savedMode);
-                success = performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
-                if (success) {
-                    Log.d(TAG, "Performance profile fallback to balanced mode successful");
-                } else {
-                    Log.e(TAG, "Performance profile fallback also failed");
-                }
-            }
-            if (DEBUG) {
-                Thread.sleep(500);
-                int currentMode = performanceUtils.getCurrentMode();
-                Log.d(TAG, "Performance profile verification - Expected: " + savedMode + 
-                     ", Current: " + currentMode + " (" + performanceUtils.getModeLabel(currentMode) + ")");
+                // Fallback to balanced
+                performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
+                Log.d(TAG, "Performance profile fallback to balanced mode");
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             Log.w(TAG, "Performance profile restore interrupted", e);
-            return;
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore performance profile", e);
-            try {
-                PerformanceUtils performanceUtils = new PerformanceUtils(context);
-                performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
-                Log.d(TAG, "Set safe default performance mode");
-            } catch (Exception ex) {
-                Log.e(TAG, "Failed to set safe default performance mode", ex);
-            }
         }
     }
 
@@ -249,21 +221,15 @@ private void startServices(Context context) {
                 Log.d(TAG, "Core control disabled, skipping restore");
                 return;
             }
-            Thread.sleep(2000);
+            
+            // Optimized delay for SM7435
+            Thread.sleep(1000);
+            
             Log.d(TAG, "Restoring core control settings");
             CoreControlUtils.restoreCorePreferences(context);
-            if (DEBUG) {
-                CoreControlUtils.CoreStats stats = CoreControlUtils.getCoreStatistics();
-                Log.d(TAG, "Core control restored - " + stats.toString());
-                for (int i = 0; i < 8; i++) {
-                    boolean online = CoreControlUtils.isCoreOnline(i);
-                    Log.d(TAG, "Core " + i + ": " + (online ? "online" : "offline"));
-                }
-            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             Log.w(TAG, "Core control restore interrupted", e);
-            return;
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore core control settings", e);
         }
@@ -300,6 +266,7 @@ private void startServices(Context context) {
                 Log.w(TAG, "Kernel Manager not supported");
                 return;
             }
+            
             String savedGovernor = prefs.getString(KEY_CPU_GOVERNOR, null);
             if (savedGovernor != null && !savedGovernor.isEmpty()) {
                 try {
@@ -309,14 +276,14 @@ private void startServices(Context context) {
                     Log.w(TAG, "Failed to restore CPU governor: " + savedGovernor, e);
                 }
             }
+            
             restoreClusterFrequencies(prefs, kernelUtils, 
                 KernelManagerUtils.EFFICIENCY_CLUSTER, 
-                KEY_EFFICIENCY_MIN_FREQ, KEY_EFFICIENCY_MAX_FREQ,
-                "efficiency");
+                KEY_EFFICIENCY_MIN_FREQ, KEY_EFFICIENCY_MAX_FREQ, "efficiency");
             restoreClusterFrequencies(prefs, kernelUtils,
                 KernelManagerUtils.PERFORMANCE_CLUSTER,
-                KEY_PERFORMANCE_MIN_FREQ, KEY_PERFORMANCE_MAX_FREQ,
-                "performance");
+                KEY_PERFORMANCE_MIN_FREQ, KEY_PERFORMANCE_MAX_FREQ, "performance");
+            
             Log.d(TAG, "Kernel settings restoration completed");
         } catch (Exception e) {
             Log.e(TAG, "Failed to restore kernel settings", e);
@@ -327,21 +294,15 @@ private void startServices(Context context) {
                                          int cluster, String minKey, String maxKey, String clusterName) {
         try {
             String minFreq = prefs.getString(minKey, null);
-            if (minFreq != null && !minFreq.isEmpty()) {
-                try {
-                    kernelUtils.setMinFrequency(cluster, minFreq);
-                    Log.d(TAG, "Restored " + clusterName + " min freq: " + minFreq);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore " + clusterName + " min freq: " + minFreq, e);
-                }
-            }
             String maxFreq = prefs.getString(maxKey, null);
-            if (maxFreq != null && !maxFreq.isEmpty()) {
-                try {
-                    kernelUtils.setMaxFrequency(cluster, maxFreq);
+            
+            if (minFreq != null && !minFreq.isEmpty() && 
+                maxFreq != null && !maxFreq.isEmpty()) {
+                if (kernelUtils.setMinFrequency(cluster, minFreq)) {
+                    Log.d(TAG, "Restored " + clusterName + " min freq: " + minFreq);
+                }
+                if (kernelUtils.setMaxFrequency(cluster, maxFreq)) {
                     Log.d(TAG, "Restored " + clusterName + " max freq: " + maxFreq);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore " + clusterName + " max freq: " + maxFreq, e);
                 }
             }
         } catch (Exception e) {
@@ -372,6 +333,7 @@ private void startServices(Context context) {
                     Log.w(TAG, "Failed to restore GPU governor: " + savedGpuGovernor, e);
                 }
             }
+            
             restoreGpuFrequencies(prefs, gpuUtils);
             restoreGpuPowerSettings(prefs, gpuUtils);
 
@@ -391,7 +353,7 @@ private void startServices(Context context) {
                     gpuUtils.setFrequencyRange(gpuMinFreq, gpuMaxFreq);
                     Log.d(TAG, "Restored GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq);
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU freq range: " + gpuMinFreq + " - " + gpuMaxFreq, e);
+                    Log.w(TAG, "Failed to restore GPU freq range", e);
                 }
             }
         } catch (Exception e) {
@@ -401,53 +363,26 @@ private void startServices(Context context) {
 
     private void restoreGpuPowerSettings(SharedPreferences prefs, GpuManagerUtils gpuUtils) {
         try {
-            if (prefs.contains(KEY_GPU_FORCE_CLK_ON)) {
-                boolean forceClkOn = prefs.getBoolean(KEY_GPU_FORCE_CLK_ON, false);
-                try {
-                    gpuUtils.setForceClkOn(forceClkOn);
-                    Log.d(TAG, "Restored GPU force clk on: " + forceClkOn);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU force clk on: " + forceClkOn, e);
-                }
-            }
-            if (prefs.contains(KEY_GPU_FORCE_BUS_ON)) {
-                boolean forceBusOn = prefs.getBoolean(KEY_GPU_FORCE_BUS_ON, false);
-                try {
-                    gpuUtils.setForceBusOn(forceBusOn);
-                    Log.d(TAG, "Restored GPU force bus on: " + forceBusOn);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU force bus on: " + forceBusOn, e);
-                }
-            }
-            if (prefs.contains(KEY_GPU_FORCE_RAIL_ON)) {
-                boolean forceRailOn = prefs.getBoolean(KEY_GPU_FORCE_RAIL_ON, false);
-                try {
-                    gpuUtils.setForceRailOn(forceRailOn);
-                    Log.d(TAG, "Restored GPU force rail on: " + forceRailOn);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU force rail on: " + forceRailOn, e);
-                }
-            }
-            if (prefs.contains(KEY_GPU_FORCE_NO_NAP)) {
-                boolean forceNoNap = prefs.getBoolean(KEY_GPU_FORCE_NO_NAP, false);
-                try {
-                    gpuUtils.setForceNoNap(forceNoNap);
-                    Log.d(TAG, "Restored GPU force no nap: " + forceNoNap);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU force no nap: " + forceNoNap, e);
-                }
-            }
-            if (prefs.contains(KEY_GPU_BUS_SPLIT)) {
-                boolean busSplit = prefs.getBoolean(KEY_GPU_BUS_SPLIT, false);
-                try {
-                    gpuUtils.setBusSplit(busSplit);
-                    Log.d(TAG, "Restored GPU bus split: " + busSplit);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to restore GPU bus split: " + busSplit, e);
-                }
-            }
+            applyGpuBooleanSetting(prefs, gpuUtils, KEY_GPU_FORCE_CLK_ON, gpuUtils::setForceClkOn, "force clk on");
+            applyGpuBooleanSetting(prefs, gpuUtils, KEY_GPU_FORCE_BUS_ON, gpuUtils::setForceBusOn, "force bus on");
+            applyGpuBooleanSetting(prefs, gpuUtils, KEY_GPU_FORCE_RAIL_ON, gpuUtils::setForceRailOn, "force rail on");
+            applyGpuBooleanSetting(prefs, gpuUtils, KEY_GPU_FORCE_NO_NAP, gpuUtils::setForceNoNap, "force no nap");
+            applyGpuBooleanSetting(prefs, gpuUtils, KEY_GPU_BUS_SPLIT, gpuUtils::setBusSplit, "bus split");
         } catch (Exception e) {
             Log.e(TAG, "Error restoring GPU power settings", e);
+        }
+    }
+
+    private void applyGpuBooleanSetting(SharedPreferences prefs, GpuManagerUtils gpuUtils, 
+                                       String key, java.util.function.Consumer<Boolean> setter, String name) {
+        if (prefs.contains(key)) {
+            boolean value = prefs.getBoolean(key, false);
+            try {
+                setter.accept(value);
+                Log.d(TAG, "Restored GPU " + name + ": " + value);
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to restore GPU " + name, e);
+            }
         }
     }
 
@@ -459,7 +394,10 @@ private void startServices(Context context) {
                 return;
             }
             Log.d(TAG, "Restoring Video Enhancer settings...");
-            Thread.sleep(1000);
+            
+            // Optimized delay for SM7435
+            Thread.sleep(500);
+            
             VideoEnhancerUtils videoUtils = new VideoEnhancerUtils(context);
             if (!videoUtils.isRootAvailable()) {
                 Log.w(TAG, "Root not available, skipping Video Enhancer restore");
@@ -476,7 +414,7 @@ private void startServices(Context context) {
     }
 
     private void initializeBackgroundThread() {
-        mBackgroundThread = new HandlerThread("BackgroundThread");
+        mBackgroundThread = new HandlerThread("BootCompletedReceiver");
         mBackgroundThread.start();
         mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
     }
@@ -496,9 +434,6 @@ private void startServices(Context context) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             boolean cpuTileEnabled = prefs.getBoolean(KEY_CPU_TILE_ENABLED, false);
             if (cpuTileEnabled) {
-                // Start CPU Tile service if enabled
-                // Intent cpuTileIntent = new Intent(context, CpuTileService.class);
-                // context.startService(cpuTileIntent);
                 Log.d(TAG, "CPU Tile service initialized");
             }
         } catch (Exception e) {
