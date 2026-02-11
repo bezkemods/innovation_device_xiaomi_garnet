@@ -277,8 +277,10 @@ PRODUCT_PACKAGES += \
     FrameworkOverlayGarnet \
     FrameworkOverlayGarnetGLEsim \
     FrameworkOverlayGarnetJPEsim \
-    CloverSettingsOverlayGarnet \
-    CloverSystemUIOverlayGarnet \
+    LineageDialerOverlayGarnet \
+    LineageSDKOverlayGarnet \
+    LineageSettingsOverlayGarnet \
+    LineageSystemUIOverlayGarnet \
     NfcOverlayGarnet \
     SettingsOverlayGarnet \
     SettingsProviderOverlayGarnetPoco \

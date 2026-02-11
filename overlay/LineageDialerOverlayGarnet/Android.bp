@@ -4,6 +4,6 @@
 //
 
 runtime_resource_overlay {
-    name: "CloverSystemUIOverlayGarnet",
-    product_specific: true,
+    name: "LineageDialerOverlayGarnet",
+    system_ext_specific: true,
 }

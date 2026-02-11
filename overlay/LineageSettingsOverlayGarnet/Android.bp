@@ -4,6 +4,6 @@
 //
 
 runtime_resource_overlay {
-    name: "TelephonyOverlayGarnet",
+    name: "LineageSettingsOverlayGarnet",
     system_ext_specific: true,
 }

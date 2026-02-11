@@ -5,4 +5,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/clover_garnet.mk
+    $(LOCAL_DIR)/lineage_garnet.mk
