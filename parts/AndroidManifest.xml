@@ -74,8 +74,6 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="org.lineageos.settings.LOGCAT_PERMISSION" />
 
-    <protected-broadcast android:name="com.android.systemui.doze.pulse" />
-
     <!-- Android 16 only -->
     <uses-sdk
         android:minSdkVersion="35"
@@ -284,21 +282,6 @@
                 android:value="true" />
         </service>
 
-        <!-- Doze -->
-        <activity
-            android:name=".doze.DozeSettingsActivity"
-            android:label="@string/ambient_display_title"
-            android:icon="@drawable/ic_doze"
-            android:theme="@style/Theme.SubSettingsBase"
-            android:exported="false"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        </activity>
-
-        <service 
-            android:name=".doze.DozeService"
-            android:permission="XiaomiDozeService">
-        </service>
-        
         <!-- Thermal Service -->
         <activity
             android:name=".thermal.ThermalSettingsActivity"
