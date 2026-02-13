@@ -43,6 +43,13 @@
             android:summary="@string/auto_hbm_summary"
             android:icon="@drawable/ic_auto_hbm"
             app:iconSpaceReserved="true" />
+        <!-- Ambient Display / Doze -->
+        <Preference
+            android:key="doze_settings"
+            android:title="@string/ambient_display_title"
+            android:summary="@string/ambient_display_summary"
+            android:icon="@drawable/ic_doze"
+            app:iconSpaceReserved="true" />
         <!-- Video Enhancer -->
         <Preference
             android:key="video_enhancer_settings"

@@ -16,6 +16,7 @@ import org.lineageos.settings.R;
 import org.lineageos.settings.speaker.ClearSpeakerActivity;
 import org.lineageos.settings.saturation.SaturationActivity;
 import org.lineageos.settings.autohbm.AutoHbmActivity;
+import org.lineageos.settings.doze.DozeSettingsActivity;
 import org.lineageos.settings.gamebar.GameBarSettingsActivity;
 import org.lineageos.settings.aboutme.AboutMeActivity;
 import org.lineageos.settings.corecontrol.CoreControlActivity;
@@ -37,6 +38,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_CLEAR_SPEAKER = "clear_speaker";
     private static final String KEY_SATURATION = "saturation_settings";
     private static final String KEY_AUTO_HBM = "auto_hbm";
+    private static final String KEY_DOZE = "doze_settings";
     private static final String KEY_GAMEBAR = "gamebar_settings";
     private static final String KEY_ABOUTME = "about_me_settings";
     private static final String KEY_CORE_CONTROL = "core_control_settings";
@@ -120,6 +122,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             setupPreference(KEY_CLEAR_SPEAKER);
             setupPreference(KEY_SATURATION);
             setupPreference(KEY_AUTO_HBM);
+            setupPreference(KEY_DOZE);
             setupPreference(KEY_GAMEBAR);
             setupPreference(KEY_CORE_CONTROL);
             setupPreference(KEY_KERNEL_MANAGER);
@@ -209,6 +212,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_AUTO_HBM.equals(key)) {
                 startActivity(new Intent(this, AutoHbmActivity.class));
+                return true;
+            } else if (KEY_DOZE.equals(key)) {
+                startActivity(new Intent(this, DozeSettingsActivity.class));
                 return true;
             } else if (KEY_GAMEBAR.equals(key)) {
                 startActivity(new Intent(this, GameBarSettingsActivity.class));

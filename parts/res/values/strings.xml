@@ -1259,4 +1259,10 @@ Recommendations:\n
     <string name="thermal_enable_title">Enable Per-App Profiles</string>
     <string name="thermal_enable_summary">Automatically adjust performance based on foreground application</string>
     
+    <!-- Doze Strings -->
+    <string name="doze_brightness_low">Low brightness</string>
+    <string name="doze_brightness_high">High brightness</string>
+    <string name="doze_brightness_adaptive">Adaptive brightness</string>
+    <string name="doze_brightness_title">Doze brightness level</string>
+    <string name="doze_brightness_summary">Brightness level of doze pulse screen (% of max allowed brightness)</string>
 </resources>

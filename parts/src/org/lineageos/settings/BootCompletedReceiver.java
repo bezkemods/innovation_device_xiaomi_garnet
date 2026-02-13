@@ -21,6 +21,7 @@ import android.os.UserHandle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import org.lineageos.settings.doze.DozeUtils;
 import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import org.lineageos.settings.gpumanager.GpuManagerUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
@@ -135,6 +136,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private void startServices(Context context) {
         try {
             if (DEBUG) Log.d(TAG, "Starting necessary services");
+            
+            // Start Doze service
+            try {
+                DozeUtils.onBootCompleted(context);
+            } catch (Exception e) {
+                Log.e(TAG, "Doze service failed to start", e);
+            }
             
             // Start Thermal services
             try {
