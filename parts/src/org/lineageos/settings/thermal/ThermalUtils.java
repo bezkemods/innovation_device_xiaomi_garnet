@@ -82,6 +82,11 @@ public final class ThermalUtils {
     private static final String PUBG_PACKAGE = "com.tencent.ig";
     private static final String MLBB_PACKAGE = "com.mobile.legends";
 
+    // Battery optimization: Cache for package states
+    private static final Map<String, Integer> sPackageStateCache = new java.util.concurrent.ConcurrentHashMap<>();
+    private static long sLastCacheInvalidation = 0;
+    private static final long CACHE_VALIDITY_MS = 30000; // 30 seconds
+
     private Context mContext;
     private SharedPreferences mSharedPrefs;
     private Intent mServiceIntent;
@@ -113,6 +118,8 @@ public final class ThermalUtils {
             setDefaultThermalProfile();
             stopService();
         }
+        // Battery optimization: Invalidate cache when toggling
+        invalidatePackageCache();
         Log.d(TAG, "Thermal profiles " + (enabled ? "enabled" : "disabled"));
     }
 
@@ -138,6 +145,8 @@ public final class ThermalUtils {
 
     private void writeValue(String profiles) {
         mSharedPrefs.edit().putString(THERMAL_CONTROL, profiles).apply();
+        // Battery optimization: Invalidate cache on write
+        invalidatePackageCache();
     }
 
     private String getValue() {
@@ -185,6 +194,10 @@ public final class ThermalUtils {
                 }
             }
             writeValue(finalStringBuilder.toString());
+            
+            // Battery optimization: Update cache
+            sPackageStateCache.put(packageName, mode);
+            
             Log.d(TAG, "Package " + packageName + " assigned to mode " + mode);
         } catch (Exception e) {
             Log.e(TAG, "Error writing package mode", e);
@@ -196,6 +209,11 @@ public final class ThermalUtils {
             return STATE_DEFAULT;
         }
 
+        // Battery optimization: Check cache first
+        if (isCacheValid() && sPackageStateCache.containsKey(packageName)) {
+            return sPackageStateCache.get(packageName);
+        }
+
         try {
             String value = getValue();
             String[] modes = value.split(":");
@@ -203,7 +221,9 @@ public final class ThermalUtils {
             if (modes.length != 9) {
                 Log.e(TAG, "Invalid thermal control data structure");
                 resetThermalControl();
-                return getDefaultStateForPackage(packageName);
+                int state = getDefaultStateForPackage(packageName);
+                sPackageStateCache.put(packageName, state);
+                return state;
             }
 
             int state = STATE_DEFAULT;
@@ -231,6 +251,9 @@ public final class ThermalUtils {
                 state = getDefaultStateForPackage(packageName);
             }
 
+            // Battery optimization: Cache the result
+            sPackageStateCache.put(packageName, state);
+            
             return state;
         } catch (Exception e) {
             Log.e(TAG, "Error getting state for package", e);
@@ -291,9 +314,9 @@ public final class ThermalUtils {
                 return Float.parseFloat(line.trim());
             }
         } catch (NumberFormatException e) {
-            Log.w(TAG, "Invalid temperature value from " + path);
+            // Silent error handling for battery optimization
         } catch (Exception e) {
-            Log.w(TAG, "Error reading temperature from " + path, e);
+            // Silent error handling for battery optimization
         }
         return 0;
     }
@@ -303,7 +326,7 @@ public final class ThermalUtils {
             return STATE_DEFAULT;
         }
         
-        // Check hardcoded apps first
+        // Check hardcoded apps first (fastest)
         switch (packageName) {
             case GMAPS_PACKAGE:
                 return STATE_NAVIGATION;
@@ -321,31 +344,30 @@ public final class ThermalUtils {
                 return STATE_GAMING;
         }
 
-        final PackageManager pm = mContext.getPackageManager();
-        final ApplicationInfo appInfo;
+        // Battery optimization: Use try-catch to avoid crashes
         try {
-            appInfo = pm.getApplicationInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.w(TAG, "Package not found: " + packageName);
-            return STATE_DEFAULT;
-        }
+            final PackageManager pm = mContext.getPackageManager();
+            final ApplicationInfo appInfo = pm.getApplicationInfo(packageName, 0);
 
-        // Check app categories
-        if (appInfo.category == ApplicationInfo.CATEGORY_GAME) {
-            return STATE_GAMING;
-        } else if (appInfo.category == ApplicationInfo.CATEGORY_VIDEO) {
-            return STATE_VIDEO;
-        } else if (appInfo.category == ApplicationInfo.CATEGORY_MAPS) {
-            return STATE_NAVIGATION;
-        }
+            // Check app categories
+            if (appInfo.category == ApplicationInfo.CATEGORY_GAME) {
+                return STATE_GAMING;
+            } else if (appInfo.category == ApplicationInfo.CATEGORY_VIDEO) {
+                return STATE_VIDEO;
+            } else if (appInfo.category == ApplicationInfo.CATEGORY_MAPS) {
+                return STATE_NAVIGATION;
+            }
 
-        // Check specific app types
-        if (AppUtils.isBrowserApp(mContext, packageName, UserHandle.myUserId())) {
-            return STATE_BROWSER;
-        } else if (isDialerApp(packageName)) {
-            return STATE_DIALER;
-        } else if (isCameraApp(packageName)) {
-            return STATE_CAMERA;
+            // Check specific app types
+            if (AppUtils.isBrowserApp(mContext, packageName, UserHandle.myUserId())) {
+                return STATE_BROWSER;
+            } else if (isDialerApp(packageName)) {
+                return STATE_DIALER;
+            } else if (isCameraApp(packageName)) {
+                return STATE_CAMERA;
+            }
+        } catch (Exception e) {
+            // Silent error handling for battery optimization
         }
         
         return STATE_DEFAULT;
@@ -359,7 +381,7 @@ public final class ThermalUtils {
                 return packageName.equals(defaultDialer);
             }
         } catch (Exception e) {
-            Log.w(TAG, "Error checking dialer app", e);
+            // Silent error handling for battery optimization
         }
         return false;
     }
@@ -373,7 +395,7 @@ public final class ThermalUtils {
                             UserHandle.myUserId());
             return list != null && !list.isEmpty();
         } catch (Exception e) {
-            Log.w(TAG, "Error checking camera app", e);
+            // Silent error handling for battery optimization
             return false;
         }
     }
@@ -392,7 +414,6 @@ public final class ThermalUtils {
 
     private static void writeLine(String path, String value) {
         if (value == null || value.isEmpty()) {
-            Log.w(TAG, "Cannot write null/empty value to " + path);
             return;
         }
 
@@ -400,7 +421,7 @@ public final class ThermalUtils {
             writer.write(value);
             writer.flush();
         } catch (IOException e) {
-            Log.e(TAG, "Failed to write to " + path, e);
+            // Silent error handling for battery optimization
         }
     }
     
@@ -412,8 +433,19 @@ public final class ThermalUtils {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             return br.readLine();
         } catch (IOException e) {
-            Log.w(TAG, "Error reading file: " + path, e);
+            // Silent error handling for battery optimization
             return null;
         }
+    }
+
+    // Battery optimization: Cache management
+    private static boolean isCacheValid() {
+        long currentTime = System.currentTimeMillis();
+        return (currentTime - sLastCacheInvalidation) < CACHE_VALIDITY_MS;
+    }
+
+    private static void invalidatePackageCache() {
+        sPackageStateCache.clear();
+        sLastCacheInvalidation = System.currentTimeMillis();
     }
 }

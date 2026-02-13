@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2025 bezke
  * Optimized for Garnet (Snapdragon 7s Gen 2, SM7435)
+ * Battery-optimized version
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,19 +51,19 @@ public class KernelManagerUtils {
     
     // A78 Cluster: 691 MHz - 2.40 GHz
     private static final String[] PERFORMANCE_CLUSTER_FREQUENCIES = {
-        "691200", "806400", "940800", "1113600", "1324800", "1497600", 
-        "1651200", "1804800", "1958400", "2112000", "2208000", "2400000"
+        "691200", "960000", "1190400", "1344000", "1497600", "1651200",
+        "1900800", "2054400", "2112000", "2208000", "2304000", "2400000"
     };
 
     private static final String[] FALLBACK_GOVERNORS = {
         "walt", "schedutil", "performance", "powersave", "ondemand", "conservative"
     };
 
-    // Cache for optimization
+    // Cache for optimization - extended validity for battery saving
     private String[] mCachedFrequencies = null;
     private String[] mCachedGovernors = null;
     private long mLastCacheTime = 0;
-    private static final long CACHE_VALIDITY_MS = 5000;
+    private static final long CACHE_VALIDITY_MS = 10000; // Extended to 10 seconds for battery
 
     public boolean isKernelManagerSupported() {
         try {
@@ -177,20 +178,14 @@ public class KernelManagerUtils {
             return "0";
         }
         
-        String[] paths = {
-            CPU_CORE_PATH + coreId + "/cpufreq" + SCALING_CUR_FREQ,
-            CPU_CORE_PATH + coreId + "/cpufreq" + CPUINFO_CUR_FREQ
-        };
-        
-        for (String path : paths) {
-            try {
-                String freq = readFile(path);
-                if (freq != null && !freq.isEmpty() && !freq.equals("0")) {
-                    return freq.trim();
-                }
-            } catch (Exception e) {
-                // Try next path
+        // Battery optimization: Only try one path instead of multiple
+        try {
+            String freq = readFile(CPU_CORE_PATH + coreId + "/cpufreq" + SCALING_CUR_FREQ);
+            if (freq != null && !freq.isEmpty() && !freq.equals("0")) {
+                return freq.trim();
             }
+        } catch (Exception e) {
+            // Fall through to policy check
         }
         
         int policy = getCpuPolicy(coreId);
@@ -212,21 +207,21 @@ public class KernelManagerUtils {
             return false;
         }
         if (coreId == 0) {
-            return true;
+            return true; // CPU0 is always online
         }
+        
         try {
             String online = readFile(CPU_CORE_PATH + coreId + ONLINE);
-            return online != null && "1".equals(online.trim());
+            return online != null && online.trim().equals("1");
         } catch (Exception e) {
-            Log.w(TAG, "Could not read online status for core " + coreId, e);
-            return true;
+            return false;
         }
     }
 
     public int getCpuPolicy(int coreId) {
-        if (coreId >= 0 && coreId <= 3) {
+        if (coreId >= 0 && coreId < 4) {
             return EFFICIENCY_CLUSTER;
-        } else if (coreId >= 4 && coreId <= 7) {
+        } else if (coreId >= 4 && coreId < 8) {
             return PERFORMANCE_CLUSTER;
         }
         return -1;
@@ -252,55 +247,45 @@ public class KernelManagerUtils {
 
     public boolean setGovernor(String governor) {
         if (governor == null || governor.isEmpty()) {
-            Log.e(TAG, "Invalid governor: " + governor);
+            Log.e(TAG, "Governor cannot be null or empty");
             return false;
         }
-        
-        String[] availableGovernors = getAvailableGovernors();
-        boolean isValid = false;
-        for (String availableGovernor : availableGovernors) {
-            if (governor.equals(availableGovernor)) {
-                isValid = true;
-                break;
-            }
-        }
-        
-        if (!isValid) {
-            Log.e(TAG, "Governor not available: " + governor);
-            return false;
-        }
-        
+
         boolean success = true;
         for (int cluster : POLICIES) {
             try {
-                if (!writeFile(CPU_BASE_PATH + cluster + SCALING_GOVERNOR, governor)) {
+                boolean result = writeFile(CPU_BASE_PATH + cluster + SCALING_GOVERNOR, governor);
+                if (result) {
+                    Log.d(TAG, "Set governor for cluster " + cluster + " to: " + governor);
+                } else {
                     success = false;
                     Log.e(TAG, "Failed to set governor for cluster " + cluster);
-                                } else {
-                    Log.d(TAG, "Successfully set governor " + governor + " for cluster " + cluster);
                 }
             } catch (Exception e) {
-                success = false;
                 Log.e(TAG, "Error setting governor for cluster " + cluster, e);
+                success = false;
             }
         }
         
         if (success) {
-            Log.i(TAG, "Governor successfully set to: " + governor);
+            invalidateCache();
         }
         return success;
     }
 
     public boolean setMinFrequency(int cluster, String freq) {
         if (freq == null || freq.isEmpty()) {
-            Log.e(TAG, "Invalid frequency: " + freq);
+            Log.e(TAG, "Frequency cannot be null or empty");
             return false;
         }
-        if (!isFrequencyValid(cluster, freq)) {
-            Log.e(TAG, "Frequency not available for cluster " + cluster + ": " + freq);
-            return false;
-        }
+
         try {
+            // Battery optimization: Validate before write
+            if (!isFrequencyValid(cluster, freq)) {
+                Log.e(TAG, "Invalid frequency: " + freq + " for cluster " + cluster);
+                return false;
+            }
+
             boolean success = writeFile(CPU_BASE_PATH + cluster + SCALING_MIN_FREQ, freq);
             if (success) {
                 Log.d(TAG, "Set min frequency for cluster " + cluster + " to " + freq);
@@ -314,14 +299,17 @@ public class KernelManagerUtils {
 
     public boolean setMaxFrequency(int cluster, String freq) {
         if (freq == null || freq.isEmpty()) {
-            Log.e(TAG, "Invalid frequency: " + freq);
+            Log.e(TAG, "Frequency cannot be null or empty");
             return false;
         }
-        if (!isFrequencyValid(cluster, freq)) {
-            Log.e(TAG, "Frequency not available for cluster " + cluster + ": " + freq);
-            return false;
-        }
+
         try {
+            // Battery optimization: Validate before write
+            if (!isFrequencyValid(cluster, freq)) {
+                Log.e(TAG, "Invalid frequency: " + freq + " for cluster " + cluster);
+                return false;
+            }
+
             boolean success = writeFile(CPU_BASE_PATH + cluster + SCALING_MAX_FREQ, freq);
             if (success) {
                 Log.d(TAG, "Set max frequency for cluster " + cluster + " to " + freq);
@@ -362,6 +350,119 @@ public class KernelManagerUtils {
             Log.e(TAG, "Invalid frequency format", e);
             return false;
         }
+    }
+
+    /**
+     * Apply battery saver profile
+     * Lower max frequencies and use powersave governor
+     */
+    public boolean applyBatterySaverProfile() {
+        Log.d(TAG, "Applying battery saver CPU profile");
+        boolean success = true;
+
+        // Set powersave governor
+        if (!setGovernor("powersave")) {
+            success = false;
+        }
+
+        // Limit max frequencies for battery saving
+        // Efficiency cluster: max 1.5 GHz
+        if (!setMaxFrequency(EFFICIENCY_CLUSTER, "1497600")) {
+            success = false;
+        }
+        // Performance cluster: max 1.9 GHz
+        if (!setMaxFrequency(PERFORMANCE_CLUSTER, "1900800")) {
+            success = false;
+        }
+
+        // Keep min at lowest
+        if (!setMinFrequency(EFFICIENCY_CLUSTER, "691200")) {
+            success = false;
+        }
+        if (!setMinFrequency(PERFORMANCE_CLUSTER, "691200")) {
+            success = false;
+        }
+
+        Log.d(TAG, "Battery saver profile " + (success ? "applied" : "partially failed"));
+        return success;
+    }
+
+    /**
+     * Apply balanced profile
+     * Full frequency range with walt governor
+     */
+    public boolean applyBalancedProfile() {
+        Log.d(TAG, "Applying balanced CPU profile");
+        boolean success = true;
+
+        // Set walt governor (default)
+        if (!setGovernor("walt")) {
+            success = false;
+        }
+
+        // Full frequency range
+        String[] effFreqs = getAvailableFrequencies(EFFICIENCY_CLUSTER);
+        String[] perfFreqs = getAvailableFrequencies(PERFORMANCE_CLUSTER);
+
+        if (effFreqs != null && effFreqs.length > 0) {
+            if (!setMinFrequency(EFFICIENCY_CLUSTER, effFreqs[0])) {
+                success = false;
+            }
+            if (!setMaxFrequency(EFFICIENCY_CLUSTER, effFreqs[effFreqs.length - 1])) {
+                success = false;
+            }
+        }
+
+        if (perfFreqs != null && perfFreqs.length > 0) {
+            if (!setMinFrequency(PERFORMANCE_CLUSTER, perfFreqs[0])) {
+                success = false;
+            }
+            if (!setMaxFrequency(PERFORMANCE_CLUSTER, perfFreqs[perfFreqs.length - 1])) {
+                success = false;
+            }
+        }
+
+        Log.d(TAG, "Balanced profile " + (success ? "applied" : "partially failed"));
+        return success;
+    }
+
+    /**
+     * Apply performance profile
+     * Performance governor with full frequency range
+     */
+    public boolean applyPerformanceProfile() {
+        Log.d(TAG, "Applying performance CPU profile");
+        boolean success = true;
+
+        // Set performance governor
+        if (!setGovernor("performance")) {
+            success = false;
+        }
+
+        // Full frequency range
+        String[] effFreqs = getAvailableFrequencies(EFFICIENCY_CLUSTER);
+        String[] perfFreqs = getAvailableFrequencies(PERFORMANCE_CLUSTER);
+
+        if (effFreqs != null && effFreqs.length > 0) {
+            if (!setMinFrequency(EFFICIENCY_CLUSTER, effFreqs[0])) {
+                success = false;
+            }
+            if (!setMaxFrequency(EFFICIENCY_CLUSTER, effFreqs[effFreqs.length - 1])) {
+                success = false;
+            }
+        }
+
+        if (perfFreqs != null && perfFreqs.length > 0) {
+            if (!setMinFrequency(PERFORMANCE_CLUSTER, perfFreqs[0])) {
+                success = false;
+            }
+            if (!setMaxFrequency(PERFORMANCE_CLUSTER, perfFreqs[perfFreqs.length - 1])) {
+                success = false;
+            }
+        }
+
+        Log.d(TAG, "Performance profile " + (success ? "applied" : "partially failed"));
+        return success;
     }
 
     public String getDebugInfo() {
@@ -405,28 +506,7 @@ public class KernelManagerUtils {
 
     public boolean resetToDefaults() {
         Log.d(TAG, "Resetting CPU settings to defaults");
-        boolean success = true;
-        
-        if (!setGovernor(DEFAULT_GOVERNOR)) {
-            success = false;
-        }
-        
-        for (int cluster : POLICIES) {
-            String[] frequencies = getAvailableFrequencies(cluster);
-            if (frequencies != null && frequencies.length > 0) {
-                String minFreq = frequencies[0];
-                String maxFreq = frequencies[frequencies.length - 1];
-                if (!setMinFrequency(cluster, minFreq)) {
-                    success = false;
-                }
-                if (!setMaxFrequency(cluster, maxFreq)) {
-                    success = false;
-                }
-            }
-        }
-        
-        Log.d(TAG, "CPU settings reset to defaults " + (success ? "successful" : "partially failed"));
-        return success;
+        return applyBalancedProfile();
     }
 
     public CpuStats getCpuStatistics() {

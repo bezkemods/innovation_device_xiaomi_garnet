@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2025 bezke
  * Optimized for Garnet (Snapdragon 7s Gen 2)
+ * Battery-optimized version
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +37,8 @@ import org.lineageos.settings.R;
 public class CpuGovernorTileService extends TileService {
     private static final String TAG = "CpuGovernorTileService";
     
-    // Optimized update interval for SM7435
-    private static final int UPDATE_INTERVAL = 2000;
+    // Battery-optimized update interval (reduced frequency for battery saving)
+    private static final int UPDATE_INTERVAL = 3000; // Increased from 2000 to 3000 ms
     
     private Handler mUpdateHandler;
     private Handler mToastHandler;
@@ -46,6 +47,7 @@ public class CpuGovernorTileService extends TileService {
     private SharedPreferences mSharedPrefs;
     
     private boolean mIsListening = false;
+    private String mLastKnownGovernor = null; // Cache to reduce unnecessary updates
 
     @Override
     public void onCreate() {
@@ -55,7 +57,7 @@ public class CpuGovernorTileService extends TileService {
         mUpdateHandler = new Handler(Looper.getMainLooper());
         mToastHandler = new Handler(Looper.getMainLooper());
         
-        Log.d(TAG, "CPU Governor Tile Service created");
+        Log.d(TAG, "CPU Governor Tile Service created (battery-optimized)");
     }
 
     @Override
@@ -68,8 +70,10 @@ public class CpuGovernorTileService extends TileService {
             return;
         }
         
-        startPeriodicUpdates();
+        // Initial update
         updateTile();
+        // Start periodic updates only when tile is visible
+        startPeriodicUpdates();
         Log.d(TAG, "Started listening for CPU tile updates");
     }
 
@@ -123,6 +127,7 @@ public class CpuGovernorTileService extends TileService {
             }
         };
         
+        // First update immediately, then periodic
         mUpdateHandler.post(mUpdateRunnable);
     }
 
@@ -146,10 +151,17 @@ public class CpuGovernorTileService extends TileService {
                 return;
             }
             
+            // Battery optimization: Only update if governor changed
+            if (currentGovernor.equals(mLastKnownGovernor)) {
+                return; // Skip update if no change
+            }
+            
+            mLastKnownGovernor = currentGovernor;
+            
             String label = formatGovernorName(currentGovernor);
             Icon icon = createGovernorIcon(currentGovernor);
             
-            int state = "powersave".equals(currentGovernor) ? Tile.STATE_INACTIVE : Tile.STATE_ACTIVE;
+            int state = getGovernorState(currentGovernor);
             
             updateTileState(state, label, null, icon);
             
@@ -157,6 +169,19 @@ public class CpuGovernorTileService extends TileService {
             Log.e(TAG, "Error updating tile", e);
             updateTileState(Tile.STATE_UNAVAILABLE, "CPU Error", null, null);
         }
+    }
+
+    private int getGovernorState(String governor) {
+        // Battery-conscious governors show as inactive
+        if ("powersave".equals(governor)) {
+            return Tile.STATE_INACTIVE;
+        }
+        // Performance governor shows as active
+        if ("performance".equals(governor)) {
+            return Tile.STATE_ACTIVE;
+        }
+        // Default governors (walt, schedutil) show as inactive (balanced)
+        return Tile.STATE_INACTIVE;
     }
 
     private void updateTileState(int state, String label, String subtitle, Icon icon) {
@@ -300,9 +325,13 @@ public class CpuGovernorTileService extends TileService {
                 editor.putString("cpu_governor", nextGovernor);
                 editor.apply();
                 
+                // Update cached value immediately
+                mLastKnownGovernor = nextGovernor;
+                
                 String message = "Governor: " + formatGovernorName(nextGovernor);
                 showToast(message);
                 
+                // Force immediate tile update
                 mUpdateHandler.postDelayed(this::updateTile, 100);
                 
                 Log.d(TAG, "Governor changed from " + currentGovernor + " to " + nextGovernor);
@@ -338,5 +367,13 @@ public class CpuGovernorTileService extends TileService {
         } catch (Exception e) {
             Log.e(TAG, "Failed to open Kernel Manager settings", e);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopPeriodicUpdates();
+        mKernelUtils = null;
+        Log.d(TAG, "CPU Governor Tile Service destroyed");
     }
 }

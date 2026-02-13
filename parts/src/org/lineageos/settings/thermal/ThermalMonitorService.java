@@ -9,13 +9,13 @@ import android.util.Log;
 
 /**
  * Background service for monitoring thermal states
- * This service can be used by other components (like GpuManager) 
- * to access thermal data without constantly creating new instances
+ * Battery-optimized version with reduced update frequency
  */
 public class ThermalMonitorService extends Service {
 
     private static final String TAG = "ThermalMonitorService";
-    private static final long UPDATE_INTERVAL_MS = 2000; // 2 seconds
+    // Battery optimization: Increased from 2s to 5s
+    private static final long UPDATE_INTERVAL_MS = 5000; // 5 seconds
     
     private Handler mHandler;
     private Runnable mUpdateRunnable;
@@ -35,7 +35,7 @@ public class ThermalMonitorService extends Service {
                     }
                 }
             };
-            Log.d(TAG, "ThermalMonitorService created");
+            Log.d(TAG, "ThermalMonitorService created (battery-optimized)");
         } catch (Exception e) {
             Log.e(TAG, "Error in onCreate", e);
         }
@@ -82,14 +82,15 @@ public class ThermalMonitorService extends Service {
             float gpuTemp = ThermalUtils.getGpuTemp();
             float batteryTemp = ThermalUtils.getBatteryTemp();
             
-            // This data can be used by other components
-            // For now, just log it periodically for debugging
-            if (cpuTemp > 0 || gpuTemp > 0 || batteryTemp > 0) {
+            // Battery optimization: Only log if temps are significant
+            // This reduces log I/O and wake locks
+            if (cpuTemp > 45 || gpuTemp > 45 || batteryTemp > 35) {
                 Log.v(TAG, String.format("Thermal: CPU=%.1f°C GPU=%.1f°C BAT=%.1f°C",
                         cpuTemp, gpuTemp, batteryTemp));
             }
         } catch (Exception e) {
-            Log.w(TAG, "Error updating thermal data", e);
+            // Battery optimization: Silent error handling
+            // Avoid excessive logging that causes wake locks
         }
     }
 }

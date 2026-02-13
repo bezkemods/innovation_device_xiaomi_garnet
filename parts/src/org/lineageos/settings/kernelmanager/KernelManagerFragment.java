@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2025 bezke
  * Optimized for Garnet (Snapdragon 7s Gen 2)
+ * Battery-optimized version
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,8 +39,8 @@ public class KernelManagerFragment extends PreferenceFragment
     private static final String KEY_ENABLE_MONITORING = "enable_monitoring";
     private static final String KEY_UPDATE_INTERVAL = "update_interval";
 
-    // Optimized for SM7435
-    private static final int DEFAULT_UPDATE_INTERVAL_MS = 1000;
+    // Battery-optimized default update interval
+    private static final int DEFAULT_UPDATE_INTERVAL_MS = 2000; // Increased from 1000 to 2000 ms
 
     private KernelManagerUtils mKernelUtils;
     private ListPreference mGovernorPreference;
@@ -57,7 +58,8 @@ public class KernelManagerFragment extends PreferenceFragment
     private Preference mClusterSummaryEfficiency;
     private Preference mClusterSummaryPerformance;
     
-    private boolean mMonitoringEnabled = true;
+    // Battery optimization: Default monitoring OFF to save battery
+    private boolean mMonitoringEnabled = false;
     private int mUpdateIntervalMs = DEFAULT_UPDATE_INTERVAL_MS;
 
     @Override
@@ -67,7 +69,8 @@ public class KernelManagerFragment extends PreferenceFragment
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         mUpdateHandler = new Handler(Looper.getMainLooper());
 
-        mMonitoringEnabled = mSharedPrefs.getBoolean(KEY_ENABLE_MONITORING, true);
+        // Battery optimization: Default to monitoring disabled
+        mMonitoringEnabled = mSharedPrefs.getBoolean(KEY_ENABLE_MONITORING, false);
         mUpdateIntervalMs = mSharedPrefs.getInt(KEY_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL_MS);
 
         initializePreferences();
@@ -139,13 +142,13 @@ public class KernelManagerFragment extends PreferenceFragment
         mUpdateIntervalPreference.setKey(KEY_UPDATE_INTERVAL);
         mUpdateIntervalPreference.setTitle(getString(R.string.kernel_manager_update_interval));
         mUpdateIntervalPreference.setSummary(getString(R.string.kernel_manager_update_interval_summary));
+        // Battery optimization: Removed 500ms option, minimum is now 1000ms
         mUpdateIntervalPreference.setEntries(new String[]{
-            getString(R.string.update_interval_500ms), 
             getString(R.string.update_interval_1000ms), 
             getString(R.string.update_interval_2000ms), 
             getString(R.string.update_interval_5000ms)
         });
-        mUpdateIntervalPreference.setEntryValues(new String[]{"500", "1000", "2000", "5000"});
+        mUpdateIntervalPreference.setEntryValues(new String[]{"1000", "2000", "5000"});
         mUpdateIntervalPreference.setValue(String.valueOf(mUpdateIntervalMs));
         mUpdateIntervalPreference.setOnPreferenceChangeListener((preference, newValue) -> {
             mUpdateIntervalMs = Integer.parseInt((String) newValue);
@@ -188,198 +191,217 @@ public class KernelManagerFragment extends PreferenceFragment
     }
 
     private void updateMonitoringVisibility() {
-        boolean visible = mMonitoringEnabled;
-        mUpdateIntervalPreference.setVisible(visible);
-        mClusterSummaryEfficiency.setVisible(visible);
-        mClusterSummaryPerformance.setVisible(visible);
-        for (Preference pref : mCpuCorePreferences) {
-            if (pref != null) {
-                pref.setVisible(visible);
+        if (mCpuMonitorCategory != null) {
+            for (int i = 0; i < mCpuMonitorCategory.getPreferenceCount(); i++) {
+                Preference pref = mCpuMonitorCategory.getPreference(i);
+                if (pref != mEnableMonitoringPreference) {
+                    pref.setVisible(mMonitoringEnabled);
+                }
             }
         }
     }
 
     private void setFrequencyPreferenceListeners() {
-        if (mEfficiencyMinFreq != null) mEfficiencyMinFreq.setOnPreferenceChangeListener(this);
-        if (mEfficiencyMaxFreq != null) mEfficiencyMaxFreq.setOnPreferenceChangeListener(this);
-        if (mPerformanceMinFreq != null) mPerformanceMinFreq.setOnPreferenceChangeListener(this);
-        if (mPerformanceMaxFreq != null) mPerformanceMaxFreq.setOnPreferenceChangeListener(this);
+        if (mEfficiencyMinFreq != null) {
+            mEfficiencyMinFreq.setOnPreferenceChangeListener(this);
+        }
+        if (mEfficiencyMaxFreq != null) {
+            mEfficiencyMaxFreq.setOnPreferenceChangeListener(this);
+        }
+        if (mPerformanceMinFreq != null) {
+            mPerformanceMinFreq.setOnPreferenceChangeListener(this);
+        }
+        if (mPerformanceMaxFreq != null) {
+            mPerformanceMaxFreq.setOnPreferenceChangeListener(this);
+        }
     }
 
     private void loadCurrentSettings() {
-        if (mGovernorPreference != null) {
-            String savedGovernor = mSharedPrefs.getString(KEY_CPU_GOVERNOR, 
-                mKernelUtils.getCurrentGovernor(KernelManagerUtils.EFFICIENCY_CLUSTER));
-            mGovernorPreference.setValue(savedGovernor);
-            String[] availableGovernors = mKernelUtils.getAvailableGovernors();
-            mGovernorPreference.setEntries(createHumanReadableGovernorNames(availableGovernors));
+        if (!mKernelUtils.isKernelManagerSupported()) {
+            return;
+        }
+
+        // Load governors
+        String[] availableGovernors = mKernelUtils.getAvailableGovernors();
+        if (mGovernorPreference != null && availableGovernors != null) {
+            String[] governorLabels = new String[availableGovernors.length];
+            for (int i = 0; i < availableGovernors.length; i++) {
+                governorLabels[i] = formatGovernorLabel(availableGovernors[i]);
+            }
+            mGovernorPreference.setEntries(governorLabels);
             mGovernorPreference.setEntryValues(availableGovernors);
-            updateGovernorSummary();
+            
+            String savedGovernor = mSharedPrefs.getString(KEY_CPU_GOVERNOR, null);
+            if (savedGovernor == null) {
+                savedGovernor = mKernelUtils.getCurrentGovernor(KernelManagerUtils.EFFICIENCY_CLUSTER);
+            }
+            mGovernorPreference.setValue(savedGovernor);
+            mGovernorPreference.setSummary(formatGovernorLabel(savedGovernor));
         }
-        loadFrequencySettings();
+
+        // Load frequencies
+        loadFrequencyPreferences();
     }
 
-    private String[] createHumanReadableGovernorNames(String[] governors) {
-        String[] humanReadable = new String[governors.length];
-        for (int i = 0; i < governors.length; i++) {
-            humanReadable[i] = getGovernorLabel(governors[i]);
-        }
-        return humanReadable;
-    }
-
-    private String getGovernorLabel(String governor) {
+    private String formatGovernorLabel(String governor) {
         switch (governor) {
             case "walt":
-                return "WALT (Recommended)";
-            case "schedhorizon":
-                return "SchedHorizon";
+                return "Walt (Default)";
             case "schedutil":
-                return "Schedutil (Balanced)";
+                return "Schedutil (Responsive)";
             case "performance":
-                return "Performance (Max Speed)";
+                return "Performance (Fast)";
             case "powersave":
                 return "Powersave (Battery)";
             case "ondemand":
-                return "OnDemand (Legacy)";
+                return "OnDemand (Dynamic)";
             case "conservative":
                 return "Conservative (Smooth)";
             default:
-                return governor;
+                return governor.substring(0, 1).toUpperCase() + 
+                       (governor.length() > 1 ? governor.substring(1) : "");
         }
     }
 
-    private String[] createHumanReadableFrequencyNames(String[] frequencies) {
-        String[] humanReadable = new String[frequencies.length];
-        for (int i = 0; i < frequencies.length; i++) {
-            humanReadable[i] = formatFrequency(frequencies[i]);
-        }
-        return humanReadable;
+    private void loadFrequencyPreferences() {
+        loadClusterFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER, 
+            mEfficiencyMinFreq, mEfficiencyMaxFreq, 
+            KEY_EFFICIENCY_MIN_FREQ, KEY_EFFICIENCY_MAX_FREQ);
+        
+        loadClusterFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER, 
+            mPerformanceMinFreq, mPerformanceMaxFreq, 
+            KEY_PERFORMANCE_MIN_FREQ, KEY_PERFORMANCE_MAX_FREQ);
     }
 
-    private void loadFrequencySettings() {
-        if (mEfficiencyMinFreq != null) {
-            String savedFreq = mSharedPrefs.getString(KEY_EFFICIENCY_MIN_FREQ,
-                mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER));
-            mEfficiencyMinFreq.setValue(savedFreq);
-            String[] availableFreqs = mKernelUtils.getAvailableFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER);
-            mEfficiencyMinFreq.setEntries(createHumanReadableFrequencyNames(availableFreqs));
-            mEfficiencyMinFreq.setEntryValues(availableFreqs);
-            updateFrequencySummary(mEfficiencyMinFreq, KernelManagerUtils.EFFICIENCY_CLUSTER, true);
+    private void loadClusterFrequencies(int cluster, 
+            ListPreference minPref, ListPreference maxPref, 
+            String minKey, String maxKey) {
+        
+        String[] availableFreqs = mKernelUtils.getAvailableFrequencies(cluster);
+        if (availableFreqs == null || minPref == null || maxPref == null) {
+            return;
         }
-        if (mEfficiencyMaxFreq != null) {
-            String savedFreq = mSharedPrefs.getString(KEY_EFFICIENCY_MAX_FREQ,
-                mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER));
-            mEfficiencyMaxFreq.setValue(savedFreq);
-            String[] availableFreqs = mKernelUtils.getAvailableFrequencies(KernelManagerUtils.EFFICIENCY_CLUSTER);
-            mEfficiencyMaxFreq.setEntries(createHumanReadableFrequencyNames(availableFreqs));
-            mEfficiencyMaxFreq.setEntryValues(availableFreqs);
-            updateFrequencySummary(mEfficiencyMaxFreq, KernelManagerUtils.EFFICIENCY_CLUSTER, false);
-        }
-        if (mPerformanceMinFreq != null) {
-            String savedFreq = mSharedPrefs.getString(KEY_PERFORMANCE_MIN_FREQ,
-                mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER));
-            mPerformanceMinFreq.setValue(savedFreq);
-            String[] availableFreqs = mKernelUtils.getAvailableFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER);
-            mPerformanceMinFreq.setEntries(createHumanReadableFrequencyNames(availableFreqs));
-            mPerformanceMinFreq.setEntryValues(availableFreqs);
-            updateFrequencySummary(mPerformanceMinFreq, KernelManagerUtils.PERFORMANCE_CLUSTER, true);
-        }
-        if (mPerformanceMaxFreq != null) {
-            String savedFreq = mSharedPrefs.getString(KEY_PERFORMANCE_MAX_FREQ,
-                mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER));
-            mPerformanceMaxFreq.setValue(savedFreq);
-            String[] availableFreqs = mKernelUtils.getAvailableFrequencies(KernelManagerUtils.PERFORMANCE_CLUSTER);
-            mPerformanceMaxFreq.setEntries(createHumanReadableFrequencyNames(availableFreqs));
-            mPerformanceMaxFreq.setEntryValues(availableFreqs);
-            updateFrequencySummary(mPerformanceMaxFreq, KernelManagerUtils.PERFORMANCE_CLUSTER, false);
-        }
-    }
 
-    private void updateGovernorSummary() {
-        if (mGovernorPreference != null) {
-            String currentGovernor = mKernelUtils.getCurrentGovernor(KernelManagerUtils.EFFICIENCY_CLUSTER);
-            String baseSummary = getString(R.string.kernel_manager_governor_summary);
-            mGovernorPreference.setSummary(getString(R.string.kernel_manager_governor_current, 
-                baseSummary, currentGovernor));
+        String[] freqLabels = new String[availableFreqs.length];
+        for (int i = 0; i < availableFreqs.length; i++) {
+            freqLabels[i] = formatFrequency(availableFreqs[i]);
         }
-    }
 
-    private void updateFrequencySummary(ListPreference pref, int cluster, boolean isMin) {
-        if (pref != null) {
-            String currentFreq = isMin ? 
-                mKernelUtils.getCurrentMinFrequency(cluster) : 
-                mKernelUtils.getCurrentMaxFrequency(cluster);
-            String freqMHz = formatFrequency(currentFreq);
-            String baseSummary = isMin ? 
-                getString(R.string.kernel_manager_min_freq_summary) :
-                getString(R.string.kernel_manager_max_freq_summary);
-            pref.setSummary(getString(R.string.kernel_manager_freq_current, baseSummary, freqMHz));
+        minPref.setEntries(freqLabels);
+        minPref.setEntryValues(availableFreqs);
+        maxPref.setEntries(freqLabels);
+        maxPref.setEntryValues(availableFreqs);
+
+        String savedMinFreq = mSharedPrefs.getString(minKey, null);
+        if (savedMinFreq == null) {
+            savedMinFreq = mKernelUtils.getCurrentMinFrequency(cluster);
         }
+        minPref.setValue(savedMinFreq);
+        minPref.setSummary(formatFrequency(savedMinFreq));
+
+        String savedMaxFreq = mSharedPrefs.getString(maxKey, null);
+        if (savedMaxFreq == null) {
+            savedMaxFreq = mKernelUtils.getCurrentMaxFrequency(cluster);
+        }
+        maxPref.setValue(savedMaxFreq);
+        maxPref.setSummary(formatFrequency(savedMaxFreq));
     }
 
     private void startCpuMonitoring() {
         if (mUpdateRunnable != null) {
             mUpdateHandler.removeCallbacks(mUpdateRunnable);
         }
+
         mUpdateRunnable = new Runnable() {
             @Override
             public void run() {
+                updateCpuInfo();
                 if (mMonitoringEnabled) {
-                    updateCpuFrequencies();
-                    updateClusterSummaries();
-                    updateFrequencySummaries();
-                    updateGovernorSummary();
                     mUpdateHandler.postDelayed(this, mUpdateIntervalMs);
                 }
             }
         };
+
         mUpdateHandler.post(mUpdateRunnable);
     }
 
-    private void updateCpuFrequencies() {
-        for (int i = 0; i < 8; i++) {
-            if (mCpuCorePreferences[i] != null) {
-                String currentFreq = mKernelUtils.getCurrentCoreFrequency(i);
-                String freqMHz = formatFrequency(currentFreq);
-                boolean isOnline = mKernelUtils.isCoreOnline(i);
-                if (isOnline) {
-                    mCpuCorePreferences[i].setSummary(getString(R.string.cpu_core_status_online, freqMHz));
-                } else {
-                    mCpuCorePreferences[i].setSummary(getString(R.string.cpu_core_status_offline, freqMHz));
+    private void updateCpuInfo() {
+        if (!mMonitoringEnabled || !isResumed()) {
+            return;
+        }
+
+        try {
+            // Update cluster summaries
+            updateClusterSummary(mClusterSummaryEfficiency, KernelManagerUtils.EFFICIENCY_CLUSTER);
+            updateClusterSummary(mClusterSummaryPerformance, KernelManagerUtils.PERFORMANCE_CLUSTER);
+
+            // Update individual core info
+            for (int i = 0; i < 8; i++) {
+                updateCoreInfo(i);
+            }
+        } catch (Exception e) {
+            // Silently handle errors to avoid excessive logging
+        }
+    }
+
+    private void updateClusterSummary(Preference pref, int cluster) {
+        if (pref == null) return;
+
+        try {
+            String governor = mKernelUtils.getCurrentGovernor(cluster);
+            String minFreq = formatFrequency(mKernelUtils.getCurrentMinFrequency(cluster));
+            String maxFreq = formatFrequency(mKernelUtils.getCurrentMaxFrequency(cluster));
+            
+            int[] cores = mKernelUtils.getClusterCores(cluster);
+            int onlineCount = 0;
+            for (int coreId : cores) {
+                if (mKernelUtils.isCoreOnline(coreId)) {
+                    onlineCount++;
                 }
             }
+
+            String summary = String.format("Governor: %s | %s - %s | Cores: %d/%d online", 
+                formatGovernorLabel(governor), minFreq, maxFreq, onlineCount, cores.length);
+            
+            pref.setSummary(summary);
+        } catch (Exception e) {
+            pref.setSummary("Error reading cluster info");
         }
     }
 
-    private void updateClusterSummaries() {
-        int[] efficiencyCores = mKernelUtils.getClusterCores(KernelManagerUtils.EFFICIENCY_CLUSTER);
-        int onlineEfficiency = 0;
-        for (int coreId : efficiencyCores) {
-            if (mKernelUtils.isCoreOnline(coreId)) {
-                onlineEfficiency++;
-            }
+    private void updateCoreInfo(int coreId) {
+        if (coreId < 0 || coreId >= mCpuCorePreferences.length) {
+            return;
         }
-        mClusterSummaryEfficiency.setSummary(getString(R.string.kernel_manager_cluster_status,
-            onlineEfficiency, efficiencyCores.length,
-            formatFrequency(mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER)),
-            formatFrequency(mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER))
-        ));
-        
-        int[] performanceCores = mKernelUtils.getClusterCores(KernelManagerUtils.PERFORMANCE_CLUSTER);
-        int onlinePerformance = 0;
-        for (int coreId : performanceCores) {
-            if (mKernelUtils.isCoreOnline(coreId)) {
-                onlinePerformance++;
-            }
+
+        Preference pref = mCpuCorePreferences[coreId];
+        if (pref == null) return;
+
+        try {
+            boolean isOnline = mKernelUtils.isCoreOnline(coreId);
+            String status = isOnline ? "Online" : "Offline";
+            String freq = isOnline ? formatFrequency(mKernelUtils.getCurrentCoreFrequency(coreId)) : "---";
+            
+            pref.setSummary(status + " @ " + freq);
+        } catch (Exception e) {
+            pref.setSummary("Error");
         }
-        mClusterSummaryPerformance.setSummary(getString(R.string.kernel_manager_cluster_status,
-            onlinePerformance, performanceCores.length,
-            formatFrequency(mKernelUtils.getCurrentMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER)),
-            formatFrequency(mKernelUtils.getCurrentMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER))
-        ));
     }
 
-    private void updateFrequencySummaries() {
+    private void updateFrequencySummary(ListPreference pref, int cluster, boolean isMin) {
+        if (pref == null) return;
+
+        try {
+            String currentFreq = isMin ? 
+                mKernelUtils.getCurrentMinFrequency(cluster) : 
+                mKernelUtils.getCurrentMaxFrequency(cluster);
+            pref.setSummary(formatFrequency(currentFreq));
+        } catch (Exception e) {
+            pref.setSummary("Error");
+        }
+    }
+
+    private void updateAllFrequencySummaries() {
         updateFrequencySummary(mEfficiencyMinFreq, KernelManagerUtils.EFFICIENCY_CLUSTER, true);
         updateFrequencySummary(mEfficiencyMaxFreq, KernelManagerUtils.EFFICIENCY_CLUSTER, false);
         updateFrequencySummary(mPerformanceMinFreq, KernelManagerUtils.PERFORMANCE_CLUSTER, true);
@@ -544,12 +566,14 @@ public class KernelManagerFragment extends PreferenceFragment
     @Override
     public void onPause() {
         super.onPause();
+        // Battery optimization: Stop monitoring when not visible
         stopCpuMonitoring();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        // Restart monitoring only if enabled
         if (mMonitoringEnabled) {
             startCpuMonitoring();
         }

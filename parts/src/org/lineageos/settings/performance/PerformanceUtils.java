@@ -1,11 +1,12 @@
 /*
  * Copyright (C) 2025 bezke
+ * Battery-optimized version with improved GPU management
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -58,7 +59,6 @@ public class PerformanceUtils {
     // CPU paths - SM7435 (4+4 config: Policy0 + Policy4)
     private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
     private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
-    // Policy6 is rarely used on SM7435 (mid-range), kept for compatibility but unused logically
     private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
 
     // CPU Governors
@@ -67,14 +67,31 @@ public class PerformanceUtils {
     private static final String DEFAULT_GOVERNOR = "walt"; // Qualcomm SM7435 Standard
 
     // GPU paths - Adreno 710
-    private static final String GPU_MAX_CLOCK_PATH = "/sys/class/kgsl/kgsl-3d0/max_clock_mhz";
-    private static final String GPU_MIN_CLOCK_PATH = "/sys/class/kgsl/kgsl-3d0/min_clock_mhz";
+    private static final String GPU_GOVERNOR_PATH = "/sys/class/kgsl/kgsl-3d0/devfreq/governor";
+    private static final String GPU_MAX_FREQ_PATH = "/sys/class/kgsl/kgsl-3d0/devfreq/max_freq";
+    private static final String GPU_MIN_FREQ_PATH = "/sys/class/kgsl/kgsl-3d0/devfreq/min_freq";
     private static final String GPU_DEFAULT_PWRLEVEL_PATH = "/sys/class/kgsl/kgsl-3d0/default_pwrlevel";
     private static final String GPU_FORCE_CLK_ON_PATH = "/sys/class/kgsl/kgsl-3d0/force_clk_on";
     private static final String GPU_FORCE_RAIL_ON_PATH = "/sys/class/kgsl/kgsl-3d0/force_rail_on";
+    private static final String GPU_FORCE_BUS_ON_PATH = "/sys/class/kgsl/kgsl-3d0/force_bus_on";
+    private static final String GPU_IDLE_TIMER_PATH = "/sys/class/kgsl/kgsl-3d0/idle_timer";
 
-    // Default values for Adreno 710
-    private static final String GPU_MIN_FREQ_DEFAULT = "295"; // 295 MHz standard idle
+    // GPU frequency values for Adreno 710 (Hz)
+    private static final String GPU_MIN_FREQ_DEFAULT = "295000000"; // 295 MHz
+    private static final String GPU_MAX_FREQ_DEFAULT = "940000000"; // 940 MHz
+    private static final String GPU_MAX_FREQ_BATTERY = "650000000"; // 650 MHz for battery mode
+    private static final String GPU_MIN_FREQ_PERF = "500000000"; // 500 MHz for performance mode
+    
+    // GPU idle timer values (milliseconds)
+    private static final String GPU_IDLE_TIMER_DEFAULT = "64";
+    private static final String GPU_IDLE_TIMER_BATTERY = "40";
+    private static final String GPU_IDLE_TIMER_PERF = "100";
+    
+    // GPU governors
+    private static final String GPU_GOVERNOR_DEFAULT = "msm-adreno-tz";
+    private static final String GPU_GOVERNOR_POWERSAVE = "powersave";
+    private static final String GPU_GOVERNOR_PERFORMANCE = "performance";
+
     private static final String GPU_DEFAULT_POWER_LEVEL = "6"; // Efficient balanced level
     private static final String PERF_MODE_PROP = "sys.performance.mode";
     private static final String PREFS_KEY_CURRENT_MODE = "current_performance_mode";
@@ -153,6 +170,8 @@ public class PerformanceUtils {
 
     private boolean setBatterySaverMode() {
         try {
+            Log.d(TAG, "Applying battery saver mode");
+            
             // Set CPU governors to powersave
             boolean cpuSuccess = true;
             try {
@@ -163,7 +182,6 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Try policy4 first (Big cluster)
             try {
                 if (fileExists(POLICY4_GOVERNOR_PATH)) {
                     writeLine(POLICY4_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
@@ -180,101 +198,151 @@ public class PerformanceUtils {
             // Apply WALT settings (tuned for low power)
             applyWaltSettings();
 
-            // Set GPU to lowest performance
+            // Set GPU to battery saving mode
             boolean gpuSuccess = true;
             try {
+                // Use powersave governor
+                if (fileExists(GPU_GOVERNOR_PATH)) {
+                    writeLine(GPU_GOVERNOR_PATH, GPU_GOVERNOR_POWERSAVE);
+                    Log.d(TAG, "Set GPU governor to powersave");
+                }
+                
+                // Cap max frequency to 650 MHz
+                if (fileExists(GPU_MAX_FREQ_PATH)) {
+                    writeLine(GPU_MAX_FREQ_PATH, GPU_MAX_FREQ_BATTERY);
+                    Log.d(TAG, "Set GPU max freq to " + GPU_MAX_FREQ_BATTERY);
+                }
+                
+                // Keep min at lowest
+                if (fileExists(GPU_MIN_FREQ_PATH)) {
+                    writeLine(GPU_MIN_FREQ_PATH, GPU_MIN_FREQ_DEFAULT);
+                    Log.d(TAG, "Set GPU min freq to " + GPU_MIN_FREQ_DEFAULT);
+                }
+                
+                // Disable all force flags
                 if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
                     writeLine(GPU_FORCE_CLK_ON_PATH, "0");
                 }
                 if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
                     writeLine(GPU_FORCE_RAIL_ON_PATH, "0");
                 }
+                if (fileExists(GPU_FORCE_BUS_ON_PATH)) {
+                    writeLine(GPU_FORCE_BUS_ON_PATH, "0");
+                }
+                
+                // Aggressive idle timer for quick power down
+                if (fileExists(GPU_IDLE_TIMER_PATH)) {
+                    writeLine(GPU_IDLE_TIMER_PATH, GPU_IDLE_TIMER_BATTERY);
+                    Log.d(TAG, "Set GPU idle timer to " + GPU_IDLE_TIMER_BATTERY + " ms");
+                }
+                
                 if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
                     writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "8"); // Lowest power level
                 }
-                if (fileExists(GPU_MIN_CLOCK_PATH)) {
-                    writeLine(GPU_MIN_CLOCK_PATH, GPU_MIN_FREQ_DEFAULT);
-                }
+                
                 Log.d(TAG, "GPU set to battery saver mode");
             } catch (Exception e) {
-                Log.w(TAG, "Error setting GPU to battery saver mode", e);
+                Log.w(TAG, "Failed to set GPU to battery saver mode", e);
                 gpuSuccess = false;
             }
 
-            // Enable system battery saver
-            enableSystemBatterySaver(true);
-
-            return cpuSuccess || gpuSuccess;
+            return cpuSuccess && gpuSuccess;
             
         } catch (Exception e) {
-            Log.e(TAG, "Error setting battery saver mode", e);
+            Log.e(TAG, "Error in setBatterySaverMode", e);
             return false;
         }
     }
 
     private boolean setBalancedMode() {
         try {
-            // Set CPU governors to default
+            Log.d(TAG, "Applying balanced mode");
+            
+            // Set CPU governors to default (walt)
             boolean cpuSuccess = true;
             try {
                 writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                Log.d(TAG, "Set policy0 governor to default");
+                Log.d(TAG, "Set policy0 governor to walt");
             } catch (Exception e) {
-                Log.w(TAG, "Failed to set policy0 governor to default", e);
+                Log.w(TAG, "Failed to set policy0 governor to walt", e);
                 cpuSuccess = false;
             }
 
-            // Try policy4 first (Big cluster)
             try {
                 if (fileExists(POLICY4_GOVERNOR_PATH)) {
                     writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                    Log.d(TAG, "Set policy4 governor to default");
+                    Log.d(TAG, "Set policy4 governor to walt");
                 } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
                     writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                    Log.d(TAG, "Set policy6 governor to default");
+                    Log.d(TAG, "Set policy6 governor to walt");
                 }
             } catch (Exception e) {
-                Log.w(TAG, "Failed to set performance cluster governor to default", e);
+                Log.w(TAG, "Failed to set performance cluster governor to walt", e);
                 cpuSuccess = false;
             }
 
-            // Apply WALT settings
+            // Apply balanced WALT settings
             applyWaltSettings();
 
-            // Set GPU to balanced settings
+            // Set GPU to balanced mode
             boolean gpuSuccess = true;
             try {
+                // Use default msm-adreno-tz governor
+                if (fileExists(GPU_GOVERNOR_PATH)) {
+                    writeLine(GPU_GOVERNOR_PATH, GPU_GOVERNOR_DEFAULT);
+                    Log.d(TAG, "Set GPU governor to msm-adreno-tz");
+                }
+                
+                // Full frequency range
+                if (fileExists(GPU_MAX_FREQ_PATH)) {
+                    writeLine(GPU_MAX_FREQ_PATH, GPU_MAX_FREQ_DEFAULT);
+                    Log.d(TAG, "Set GPU max freq to " + GPU_MAX_FREQ_DEFAULT);
+                }
+                
+                if (fileExists(GPU_MIN_FREQ_PATH)) {
+                    writeLine(GPU_MIN_FREQ_PATH, GPU_MIN_FREQ_DEFAULT);
+                    Log.d(TAG, "Set GPU min freq to " + GPU_MIN_FREQ_DEFAULT);
+                }
+                
+                // Disable all force flags for balanced mode
                 if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
                     writeLine(GPU_FORCE_CLK_ON_PATH, "0");
                 }
                 if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
                     writeLine(GPU_FORCE_RAIL_ON_PATH, "0");
                 }
+                if (fileExists(GPU_FORCE_BUS_ON_PATH)) {
+                    writeLine(GPU_FORCE_BUS_ON_PATH, "0");
+                }
+                
+                // Balanced idle timer
+                if (fileExists(GPU_IDLE_TIMER_PATH)) {
+                    writeLine(GPU_IDLE_TIMER_PATH, GPU_IDLE_TIMER_DEFAULT);
+                    Log.d(TAG, "Set GPU idle timer to " + GPU_IDLE_TIMER_DEFAULT + " ms");
+                }
+                
                 if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
-                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, GPU_DEFAULT_POWER_LEVEL); // Level 6
+                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, GPU_DEFAULT_POWER_LEVEL);
                 }
-                if (fileExists(GPU_MIN_CLOCK_PATH)) {
-                    writeLine(GPU_MIN_CLOCK_PATH, GPU_MIN_FREQ_DEFAULT);
-                }
+                
                 Log.d(TAG, "GPU set to balanced mode");
             } catch (Exception e) {
-                Log.w(TAG, "Error setting GPU to balanced mode", e);
+                Log.w(TAG, "Failed to set GPU to balanced mode", e);
                 gpuSuccess = false;
             }
 
-            // Disable system battery saver
-            enableSystemBatterySaver(false);
-
-            return cpuSuccess || gpuSuccess;
+            return cpuSuccess && gpuSuccess;
             
         } catch (Exception e) {
-            Log.e(TAG, "Error setting balanced mode", e);
+            Log.e(TAG, "Error in setBalancedMode", e);
             return false;
         }
     }
 
     private boolean setPerformanceMode() {
         try {
+            Log.d(TAG, "Applying performance mode");
+            
             // Set CPU governors to performance
             boolean cpuSuccess = true;
             try {
@@ -285,7 +353,6 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Try policy4 first
             try {
                 if (fileExists(POLICY4_GOVERNOR_PATH)) {
                     writeLine(POLICY4_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
@@ -299,69 +366,88 @@ public class PerformanceUtils {
                 cpuSuccess = false;
             }
 
-            // Set GPU to maximum performance
+            // Apply performance WALT settings
+            applyWaltSettings();
+
+            // Set GPU to performance mode (battery-conscious)
             boolean gpuSuccess = true;
             try {
+                // Use performance governor but keep it battery-conscious
+                if (fileExists(GPU_GOVERNOR_PATH)) {
+                    writeLine(GPU_GOVERNOR_PATH, GPU_GOVERNOR_PERFORMANCE);
+                    Log.d(TAG, "Set GPU governor to performance");
+                }
+                
+                // Max frequency
+                if (fileExists(GPU_MAX_FREQ_PATH)) {
+                    writeLine(GPU_MAX_FREQ_PATH, GPU_MAX_FREQ_DEFAULT);
+                    Log.d(TAG, "Set GPU max freq to " + GPU_MAX_FREQ_DEFAULT);
+                }
+                
+                // Higher min for better responsiveness but not max (battery saving)
+                if (fileExists(GPU_MIN_FREQ_PATH)) {
+                    writeLine(GPU_MIN_FREQ_PATH, GPU_MIN_FREQ_PERF);
+                    Log.d(TAG, "Set GPU min freq to " + GPU_MIN_FREQ_PERF);
+                }
+                
+                // Only enable clock forcing, not bus/rail for battery
                 if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
                     writeLine(GPU_FORCE_CLK_ON_PATH, "1");
+                    Log.d(TAG, "Enabled GPU force clock on");
                 }
                 if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
-                    writeLine(GPU_FORCE_RAIL_ON_PATH, "1");
+                    writeLine(GPU_FORCE_RAIL_ON_PATH, "0"); // Keep off for battery
                 }
+                if (fileExists(GPU_FORCE_BUS_ON_PATH)) {
+                    writeLine(GPU_FORCE_BUS_ON_PATH, "0"); // Keep off for battery
+                }
+                
+                // Performance idle timer
+                if (fileExists(GPU_IDLE_TIMER_PATH)) {
+                    writeLine(GPU_IDLE_TIMER_PATH, GPU_IDLE_TIMER_PERF);
+                    Log.d(TAG, "Set GPU idle timer to " + GPU_IDLE_TIMER_PERF + " ms");
+                }
+                
                 if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
-                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "0"); // Max power
+                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "0"); // Highest power level
                 }
-                if (fileExists(GPU_MIN_CLOCK_PATH) && fileExists(GPU_MAX_CLOCK_PATH)) {
-                    String maxClock = readLine(GPU_MAX_CLOCK_PATH).trim();
-                    writeLine(GPU_MIN_CLOCK_PATH, maxClock);
-                }
-                Log.d(TAG, "GPU set to performance mode");
+                
+                Log.d(TAG, "GPU set to performance mode (battery-optimized)");
             } catch (Exception e) {
-                Log.w(TAG, "Error setting GPU to performance mode", e);
+                Log.w(TAG, "Failed to set GPU to performance mode", e);
                 gpuSuccess = false;
             }
 
-            // Disable system battery saver
-            enableSystemBatterySaver(false);
-
-            return cpuSuccess || gpuSuccess;
+            return cpuSuccess && gpuSuccess;
             
         } catch (Exception e) {
-            Log.e(TAG, "Error setting performance mode", e);
+            Log.e(TAG, "Error in setPerformanceMode", e);
             return false;
         }
     }
 
     private void applyWaltSettings() {
-        // Tuned for Snapdragon 7s Gen 2 (SM7435) - 4x A55 + 4x A78
-        
-        // CPU0 (Efficiency Cluster - A55)
+        // WALT (Window Assisted Load Tracking) scheduler tuning
+        // These settings are optimized for Snapdragon 7s Gen 2
         String[] waltPathsCpu0 = {
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "1113600", // ~1.1GHz sweet spot
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load", "90",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_shift", "4",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/target_load_thresh", "1024",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/down_rate_limit_us", "20000",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "1497600",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/pl", "0",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/boost", "0",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_low_freq", "0",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq", "691200",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/up_rate_limit_us", "500",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq", "940800",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/up_rate_limit_us", "1000",
+            "/sys/devices/system/cpu/cpu0/cpufreq/walt/down_rate_limit_us", "20000",
             "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_high_freq", "0"
         };
 
-        // CPU4 (Performance Cluster - A78)
         String[] waltPathsCpu4 = {
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "1785600", // ~1.8GHz efficient boost
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_load", "85",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_shift", "4",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/target_load_thresh", "1024",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/down_rate_limit_us", "10000",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "1900800",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/pl", "0",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/boost", "0",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_low_freq", "0",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/rtg_boost_freq", "1056000",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/up_rate_limit_us", "1000",
+            "/sys/devices/system/cpu/cpu4/cpufreq/walt/down_rate_limit_us", "10000",
             "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_high_freq", "0"
         };
 
@@ -376,8 +462,6 @@ public class PerformanceUtils {
                 } catch (Exception e) {
                     Log.w(TAG, "Failed to apply WALT setting: " + path, e);
                 }
-            } else {
-                Log.d(TAG, "WALT path not found, skipping: " + path);
             }
         }
 
@@ -392,22 +476,7 @@ public class PerformanceUtils {
                 } catch (Exception e) {
                     Log.w(TAG, "Failed to apply WALT setting: " + path, e);
                 }
-            } else {
-                Log.d(TAG, "WALT path not found, skipping: " + path);
             }
-        }
-    }
-
-    private void enableSystemBatterySaver(boolean enable) {
-        try {
-            PowerManager powerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-            if (powerManager != null && powerManager.isPowerSaveMode() != enable) {
-                Settings.Global.putInt(mContext.getContentResolver(), 
-                    Settings.Global.LOW_POWER_MODE, enable ? 1 : 0);
-                Log.d(TAG, "System battery saver " + (enable ? "enabled" : "disabled"));
-            }
-        } catch (Exception e) {
-            Log.w(TAG, "Failed to toggle system battery saver", e);
         }
     }
 
