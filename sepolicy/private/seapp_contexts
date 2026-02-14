@@ -1,1 +1,4 @@
 user=system seinfo=platform name=org.lineageos.settings domain=devicesettings_app type=system_app_data_file
+
+# EuiccGarnet
+user=system seinfo=platform isPrivApp=true name=com.xiaomi.settings domain=parts_app type=system_app_data_file levelFrom=all
