@@ -154,8 +154,13 @@ PRODUCT_PACKAGES += \
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
+# EUICC (ESIM Support)
+PRODUCT_PACKAGES += \
+    EuiccGarnet
+
 # Euicc
-$(call inherit-product, hardware/xiaomi/Euicc/euicc.mk)
+PRODUCT_PACKAGES += \
+    XiaomiEuicc
 
 # Fastbootd
 PRODUCT_PACKAGES += \
