@@ -382,19 +382,6 @@
             android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
         </activity>
         
-        <!-- Mi Video -->
-        <activity 
-        android:name=".videoenhancer.VideoEnhancerActivity"
-        android:label="@string/video_enhancer_title"
-        android:icon="@drawable/ic_video_enhancer"
-        android:theme="@style/Theme.SubSettingsBase"
-        android:exported="false"
-        android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".xiaomiparts.XiaomiPartsActivity" />
-        </activity>
-
         <!-- Ramoptimizer -->
         <activity
         android:name=".ramoptimizer.RamOptimizerActivity"

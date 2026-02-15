@@ -101,10 +101,6 @@ $(foreach sku, CN GL JP, \
 
 DEVICE_FRAMEWORK_MANIFEST_FILE += $(DEVICE_PATH)/configs/hidl/framework_manifest.xml
 
-# HWUI
-HWUI_COMPILE_FOR_PERF := true
-TARGET_USES_VULKAN := true
-
 # Init
 TARGET_RECOVERY_DEVICE_MODULES := libinit_garnet
 

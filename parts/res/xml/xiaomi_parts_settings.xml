@@ -43,13 +43,6 @@
             android:summary="@string/auto_hbm_summary"
             android:icon="@drawable/ic_auto_hbm"
             app:iconSpaceReserved="true" />
-        <!-- Video Enhancer -->
-        <Preference
-            android:key="video_enhancer_settings"
-            android:title="@string/video_enhancer_title"
-            android:summary="@string/video_enhancer_summary"
-            android:icon="@drawable/ic_video_enhancer"
-            app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
     <!-- Sound Settings -->

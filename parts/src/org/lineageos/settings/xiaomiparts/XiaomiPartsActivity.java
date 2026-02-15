@@ -24,7 +24,6 @@ import org.lineageos.settings.gpumanager.GpuManagerActivity;
 import org.lineageos.settings.logcatviewer.MainActivity;
 import org.lineageos.settings.logcatviewer.LogcatSettingsPreference;
 import org.lineageos.settings.performance.PerformanceActivity;
-import org.lineageos.settings.videoenhancer.VideoEnhancerActivity;
 import org.lineageos.settings.keyboxmanager.KeyboxManagerActivity;
 import org.lineageos.settings.ramoptimizer.RamOptimizerActivity;
 import org.lineageos.settings.refreshrate.RefreshActivity;
@@ -44,7 +43,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_GPU_MANAGER = "gpu_manager";
     private static final String KEY_LOGCAT_VIEWER = "open_logcat_viewer";
     private static final String KEY_PERFORMANCE = "performance";
-    private static final String KEY_VIDEO_ENHANCER = "video_enhancer_settings";
     private static final String KEY_KEYBOX_MANAGER = "keybox_manager";
     private static final String KEY_RAM_OPTIMIZER = "ram_optimizer_settings";
     private static final String KEY_REFRESH_RATE = "refresh_rate_settings";
@@ -125,7 +123,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             setupPreference(KEY_KERNEL_MANAGER);
             setupPreference(KEY_GPU_MANAGER);
             setupPreference(KEY_PERFORMANCE);
-            setupPreference(KEY_VIDEO_ENHANCER);
             setupPreference(KEY_KEYBOX_MANAGER);
             setupPreference(KEY_RAM_OPTIMIZER);
             setupPreference(KEY_REFRESH_RATE);
@@ -224,9 +221,6 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_PERFORMANCE.equals(key)) {
                 startActivity(new Intent(this, PerformanceActivity.class));
-                return true;
-            } else if (KEY_VIDEO_ENHANCER.equals(key)) {
-                startActivity(new Intent(this, VideoEnhancerActivity.class));
                 return true;
             } else if (KEY_KEYBOX_MANAGER.equals(key)) {
                 startActivity(new Intent(this, KeyboxManagerActivity.class));

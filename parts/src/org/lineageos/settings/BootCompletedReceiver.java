@@ -26,7 +26,6 @@ import org.lineageos.settings.gpumanager.GpuManagerUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
 import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 import org.lineageos.settings.performance.PerformanceUtils;
-import org.lineageos.settings.videoenhancer.VideoEnhancerUtils;
 import org.lineageos.settings.utils.FileUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
@@ -104,7 +103,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 restoreKernelSettings(context);
                 restoreGpuSettings(context);
                 restoreCoreControlSettings(context);
-                restoreVideoEnhancerSettings(context);
                 initializeCpuTileService(context);
                 
                 // Auto-start logcat if enabled
@@ -383,33 +381,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             } catch (Exception e) {
                 Log.w(TAG, "Failed to restore GPU " + name, e);
             }
-        }
-    }
-
-    private void restoreVideoEnhancerSettings(Context context) {
-        try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (prefs == null) {
-                Log.w(TAG, "SharedPreferences is null for Video Enhancer settings");
-                return;
-            }
-            Log.d(TAG, "Restoring Video Enhancer settings...");
-            
-            // Optimized delay for SM7435
-            Thread.sleep(500);
-            
-            VideoEnhancerUtils videoUtils = new VideoEnhancerUtils(context);
-            if (!videoUtils.isRootAvailable()) {
-                Log.w(TAG, "Root not available, skipping Video Enhancer restore");
-                return;
-            }
-            videoUtils.applyOnBoot();
-            Log.d(TAG, "Video Enhancer settings restored successfully");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            Log.w(TAG, "Video Enhancer restore interrupted", e);
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to restore Video Enhancer settings", e);
         }
     }
 
