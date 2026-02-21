@@ -12,7 +12,6 @@ package org.lineageos.settings.ramoptimizer;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -350,21 +349,29 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     }
 
     private boolean handleZramEnableChange(boolean enabled) {
-        boolean success = RamOptimizerUtils.setZramEnabled(requireContext(), enabled);
-        if (success) {
-            mZramSizePref.setEnabled(enabled);
-            mZramSwappinessPref.setEnabled(enabled);
-            mZramAlgoPref.setEnabled(enabled);
-            if (enabled) {
-                int currentSize = RamOptimizerUtils.getZramSize();
-                mZramSizePref.setValue(currentSize > 0 ? currentSize : 4096);
-            }
-            showToast(enabled ? "zRAM enabled" : "zRAM disabled");
-            mHandler.postDelayed(this::updateRamStatistics, 1000);
-        } else {
-            showToast("Failed to " + (enabled ? "enable" : "disable") + " zRAM");
-        }
-        return success;
+        // Root commands must not run on the main thread
+        new Thread(() -> {
+            boolean success = RamOptimizerUtils.setZramEnabled(requireContext(), enabled);
+            mHandler.post(() -> {
+                if (!isAdded()) return;
+                if (success) {
+                    if (mZramSizePref != null) mZramSizePref.setEnabled(enabled);
+                    if (mZramSwappinessPref != null) mZramSwappinessPref.setEnabled(enabled);
+                    if (mZramAlgoPref != null) mZramAlgoPref.setEnabled(enabled);
+                    if (enabled && mZramSizePref != null) {
+                        int currentSize = RamOptimizerUtils.getZramSize();
+                        mZramSizePref.setValue(currentSize > 0 ? currentSize : 4096);
+                    }
+                    showToast(enabled ? "zRAM enabled" : "zRAM disabled");
+                    mHandler.postDelayed(this::updateRamStatistics, 1000);
+                } else {
+                    // Revert the switch on failure
+                    if (mZramEnablePref != null) mZramEnablePref.setChecked(!enabled);
+                    showToast("Failed to " + (enabled ? "enable" : "disable") + " zRAM");
+                }
+            });
+        }).start();
+        return true; // Optimistic — reverted in callback on failure
     }
 
     private boolean handleZramSizeChange(int size) {
@@ -387,36 +394,51 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     }
 
     private boolean handleZramSwappinessChange(int swappiness) {
-        boolean success = RamOptimizerUtils.setZramSwappiness(swappiness);
-        if (success) {
-            mHandler.postDelayed(this::updateRamStatistics, 500);
-            showToast("Swappiness set to " + swappiness);
-        } else {
-            showToast("Failed to set swappiness");
-        }
-        return success;
+        new Thread(() -> {
+            boolean success = RamOptimizerUtils.setZramSwappiness(swappiness);
+            mHandler.post(() -> {
+                if (!isAdded()) return;
+                if (success) {
+                    mHandler.postDelayed(this::updateRamStatistics, 500);
+                    showToast("Swappiness set to " + swappiness);
+                } else {
+                    showToast("Failed to set swappiness");
+                }
+            });
+        }).start();
+        return true;
     }
 
     private boolean handleZramAlgoChange(String algo) {
-        boolean success = RamOptimizerUtils.setZramCompressionAlgorithm(requireContext(), algo);
-        if (success) {
-            showToast("Compression algorithm set to " + algo.toUpperCase());
-            mHandler.postDelayed(this::updateRamStatistics, 1000);
-        } else {
-            showToast("Failed to set compression algorithm");
-        }
-        return success;
+        new Thread(() -> {
+            boolean success = RamOptimizerUtils.setZramCompressionAlgorithm(requireContext(), algo);
+            mHandler.post(() -> {
+                if (!isAdded()) return;
+                if (success) {
+                    showToast("Compression algorithm set to " + algo.toUpperCase());
+                    mHandler.postDelayed(this::updateRamStatistics, 1000);
+                } else {
+                    showToast("Failed to set compression algorithm");
+                }
+            });
+        }).start();
+        return true;
     }
 
     private boolean handleLmkProfileChange(String profile) {
-        boolean success = RamOptimizerUtils.setLmkProfile(requireContext(), profile);
-        if (success) {
-            showToast("LMK profile set to " + profile);
-            mHandler.postDelayed(this::updateRamStatistics, 500);
-        } else {
-            showToast("Failed to set LMK profile");
-        }
-        return success;
+        new Thread(() -> {
+            boolean success = RamOptimizerUtils.setLmkProfile(requireContext(), profile);
+            mHandler.post(() -> {
+                if (!isAdded()) return;
+                if (success) {
+                    showToast("LMK profile set to " + profile);
+                    mHandler.postDelayed(this::updateRamStatistics, 500);
+                } else {
+                    showToast("Failed to set LMK profile");
+                }
+            });
+        }).start();
+        return true;
     }
 
     private boolean handleAppHibernationChange(boolean enabled) {
@@ -430,13 +452,18 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     }
 
     private boolean handleIoSchedulerChange(String scheduler) {
-        boolean success = RamOptimizerUtils.setIoScheduler(scheduler);
-        if (success) {
-            showToast("I/O Scheduler set to " + scheduler.toUpperCase());
-        } else {
-            showToast("Failed to set I/O scheduler");
-        }
-        return success;
+        new Thread(() -> {
+            boolean success = RamOptimizerUtils.setIoScheduler(scheduler);
+            mHandler.post(() -> {
+                if (!isAdded()) return;
+                if (success) {
+                    showToast("I/O Scheduler set to " + scheduler.toUpperCase());
+                } else {
+                    showToast("Failed to set I/O scheduler");
+                }
+            });
+        }).start();
+        return true;
     }
 
     private void showAlgorithmInfo() {
@@ -567,40 +594,43 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
 
     private void updateRamStatistics() {
         if (mStatsPreference == null || !isAdded()) return;
-        try {
-            RamOptimizerUtils.RamStats stats = RamOptimizerUtils.getRamStatistics();
-            RamOptimizerUtils.ZramStats zramStats = stats.zramStats;
-        
-            // Get current algorithm and LMK profile
-            String currentAlgo = RamOptimizerUtils.getZramCompressionAlgorithm().toUpperCase();
-            String currentLmk = RamOptimizerUtils.getLmkProfile(requireContext()).toUpperCase();
-        
-            // Build the stats text
-            StringBuilder statsBuilder = new StringBuilder();
-            statsBuilder.append(String.format(
-                "Total: %d MB | Used: %d MB | Free: %d MB\n" +
-                "Available: %d MB | Cached: %d MB\n" +
-                "zRAM: %s (%d MB)",
-                stats.totalRam, stats.usedRam, stats.freeRam,
-                stats.availableRam, stats.cachedRam,
-                stats.zramEnabled ? "On" : "Off", stats.zramSize
-            ));
-        
-            // Add compression ratio if available
-            if (zramStats.compressionRatio > 0) {
-                statsBuilder.append(" | Ratio: ").append(zramStats.getCompressionRatioString());
+        // /proc/meminfo and zRAM sysfs reads must not happen on the main thread
+        new Thread(() -> {
+            try {
+                RamOptimizerUtils.RamStats stats = RamOptimizerUtils.getRamStatistics();
+                RamOptimizerUtils.ZramStats zramStats = stats.zramStats;
+                String currentAlgo = RamOptimizerUtils.getZramCompressionAlgorithm().toUpperCase();
+                String currentLmk = RamOptimizerUtils.getLmkProfile(requireContext()).toUpperCase();
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(String.format(
+                    "Total: %d MB | Used: %d MB | Free: %d MB\n" +
+                    "Available: %d MB | Cached: %d MB\n" +
+                    "zRAM: %s (%d MB)",
+                    stats.totalRam, stats.usedRam, stats.freeRam,
+                    stats.availableRam, stats.cachedRam,
+                    stats.zramEnabled ? "On" : "Off", stats.zramSize));
+                if (zramStats.compressionRatio > 0) {
+                    sb.append(" | Ratio: ").append(zramStats.getCompressionRatioString());
+                }
+                sb.append("\nAlgorithm: ").append(currentAlgo)
+                  .append(" | LMK: ").append(currentLmk);
+
+                final String summary = sb.toString();
+                mHandler.post(() -> {
+                    if (isAdded() && mStatsPreference != null) {
+                        mStatsPreference.setSummary(summary);
+                    }
+                });
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to update RAM statistics", e);
+                mHandler.post(() -> {
+                    if (isAdded() && mStatsPreference != null) {
+                        mStatsPreference.setSummary("Error retrieving stats");
+                    }
+                });
             }
-        
-            // Add algorithm and LMK on new line
-            statsBuilder.append("\n");
-            statsBuilder.append("Algorithm: ").append(currentAlgo);
-            statsBuilder.append(" | LMK: ").append(currentLmk);
-        
-            mStatsPreference.setSummary(statsBuilder.toString());
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to update RAM statistics", e);
-            mStatsPreference.setSummary("Error retrieving stats");
-        }
+        }).start();
     }
 
     private void updateStorageStats() {
@@ -656,9 +686,9 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     }
 
     /**
-     * AsyncTask for cleaning operations
+     * Background clean task — replaces deprecated AsyncTask
      */
-    private class CleanTask extends AsyncTask<Void, Void, RamOptimizerUtils.CleanResult> {
+    private class CleanTask implements Runnable {
         static final int TYPE_APP_CACHE = 1;
         static final int TYPE_SYSTEM_CACHE = 2;
         static final int TYPE_THUMBNAILS = 3;
@@ -671,64 +701,48 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         static final int TYPE_ALL = 10;
 
         private final int mType;
-        private ProgressDialog mDialog;
+        private final ProgressDialog mDialog;
 
         CleanTask(int type) {
             mType = type;
+            mDialog = isAdded() ? showProgress("Cleaning...") : null;
         }
 
         @Override
-        protected void onPreExecute() {
-            if (!isAdded()) return;
-            mDialog = showProgress("Cleaning...");
-        }
-
-        @Override
-        protected RamOptimizerUtils.CleanResult doInBackground(Void... voids) {
+        public void run() {
+            RamOptimizerUtils.CleanResult result;
             switch (mType) {
-                case TYPE_APP_CACHE:
-                    return RamOptimizerUtils.cleanAppCache(requireContext());
-                case TYPE_SYSTEM_CACHE:
-                    return RamOptimizerUtils.cleanSystemCache();
-                case TYPE_THUMBNAILS:
-                    return RamOptimizerUtils.cleanThumbnails();
-                case TYPE_DOWNLOADS:
-                    return RamOptimizerUtils.cleanOldDownloads();
-                case TYPE_TEMP_FILES:
-                    return RamOptimizerUtils.cleanTempFiles();
-                case TYPE_LOG_FILES:
-                    return RamOptimizerUtils.cleanLogFiles();
-                case TYPE_APK_FILES:
-                    return RamOptimizerUtils.cleanApkFiles();
-                case TYPE_EMPTY_FOLDERS:
-                    return RamOptimizerUtils.cleanEmptyFolders();
-                case TYPE_DUPLICATES:
-                    return RamOptimizerUtils.cleanDuplicateFiles();
-                case TYPE_ALL:
-                    return RamOptimizerUtils.cleanAll(requireContext());
+                case TYPE_APP_CACHE:    result = RamOptimizerUtils.cleanAppCache(requireContext()); break;
+                case TYPE_SYSTEM_CACHE: result = RamOptimizerUtils.cleanSystemCache(); break;
+                case TYPE_THUMBNAILS:   result = RamOptimizerUtils.cleanThumbnails(); break;
+                case TYPE_DOWNLOADS:    result = RamOptimizerUtils.cleanOldDownloads(); break;
+                case TYPE_TEMP_FILES:   result = RamOptimizerUtils.cleanTempFiles(); break;
+                case TYPE_LOG_FILES:    result = RamOptimizerUtils.cleanLogFiles(); break;
+                case TYPE_APK_FILES:    result = RamOptimizerUtils.cleanApkFiles(); break;
+                case TYPE_EMPTY_FOLDERS:result = RamOptimizerUtils.cleanEmptyFolders(); break;
+                case TYPE_DUPLICATES:   result = RamOptimizerUtils.cleanDuplicateFiles(); break;
+                case TYPE_ALL:          result = RamOptimizerUtils.cleanAll(requireContext()); break;
                 default:
-                    RamOptimizerUtils.CleanResult result = new RamOptimizerUtils.CleanResult();
+                    result = new RamOptimizerUtils.CleanResult();
                     result.success = false;
                     result.message = "Unknown clean type";
-                    return result;
+                    break;
             }
+            final RamOptimizerUtils.CleanResult finalResult = result;
+            mHandler.post(() -> {
+                if (!isAdded()) return;
+                if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
+                if (finalResult.success) {
+                    showToast(finalResult.message);
+                    mHandler.postDelayed(() -> updateStorageStats(), 1000);
+                } else {
+                    showToast("Cleaning failed: " + finalResult.message);
+                }
+            });
         }
 
-        @Override
-        protected void onPostExecute(RamOptimizerUtils.CleanResult result) {
-            if (!isAdded()) return;
-            
-            if (mDialog != null && mDialog.isShowing()) {
-                mDialog.dismiss();
-            }
-            
-            if (result.success) {
-                showToast(result.message);
-                // Update storage stats after cleaning
-                mHandler.postDelayed(() -> updateStorageStats(), 1000);
-            } else {
-                showToast("Cleaning failed: " + result.message);
-            }
+        void execute() {
+            new Thread(this).start();
         }
     }
 }

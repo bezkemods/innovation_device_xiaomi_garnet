@@ -16,12 +16,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceManager; // FIX: was android.preference.PreferenceManager
 import androidx.preference.SwitchPreference;
 import org.lineageos.settings.R;
 
@@ -451,7 +451,14 @@ public class KernelManagerFragment extends PreferenceFragment
             }
         }
 
-        applyFrequencySettings(editor, allSuccess, errorMessage);
+        // FIX: applyFrequencySettings now returns boolean so the result is
+        // correctly reflected in allSuccess. Previously it received allSuccess
+        // by value (Java primitives are pass-by-value), so failures inside the
+        // method never propagated back and the "success" toast always showed.
+        if (!applyFrequencySettings(editor, errorMessage)) {
+            allSuccess = false;
+        }
+
         editor.apply();
 
         if (allSuccess) {
@@ -490,13 +497,22 @@ public class KernelManagerFragment extends PreferenceFragment
         return true;
     }
 
-    private void applyFrequencySettings(SharedPreferences.Editor editor, boolean allSuccess, StringBuilder errorMessage) {
+    /**
+     * FIX: Now returns boolean instead of void.
+     * Previously allSuccess was passed by value so write failures inside this
+     * method were invisible to the caller — applySettings() always showed the
+     * "success" toast even when frequency writes failed.
+     */
+    private boolean applyFrequencySettings(SharedPreferences.Editor editor, StringBuilder errorMessage) {
+        boolean success = true;
+
         if (mEfficiencyMinFreq != null) {
             String freq = mEfficiencyMinFreq.getValue();
             if (freq != null) {
                 if (mKernelUtils.setMinFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, freq)) {
                     editor.putString(KEY_EFFICIENCY_MIN_FREQ, freq);
                 } else {
+                    success = false;
                     errorMessage.append("Failed to set efficiency min frequency\n");
                 }
             }
@@ -507,6 +523,7 @@ public class KernelManagerFragment extends PreferenceFragment
                 if (mKernelUtils.setMaxFrequency(KernelManagerUtils.EFFICIENCY_CLUSTER, freq)) {
                     editor.putString(KEY_EFFICIENCY_MAX_FREQ, freq);
                 } else {
+                    success = false;
                     errorMessage.append("Failed to set efficiency max frequency\n");
                 }
             }
@@ -517,6 +534,7 @@ public class KernelManagerFragment extends PreferenceFragment
                 if (mKernelUtils.setMinFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, freq)) {
                     editor.putString(KEY_PERFORMANCE_MIN_FREQ, freq);
                 } else {
+                    success = false;
                     errorMessage.append("Failed to set performance min frequency\n");
                 }
             }
@@ -527,10 +545,13 @@ public class KernelManagerFragment extends PreferenceFragment
                 if (mKernelUtils.setMaxFrequency(KernelManagerUtils.PERFORMANCE_CLUSTER, freq)) {
                     editor.putString(KEY_PERFORMANCE_MAX_FREQ, freq);
                 } else {
+                    success = false;
                     errorMessage.append("Failed to set performance max frequency\n");
                 }
             }
         }
+
+        return success;
     }
 
     private void resetSettings() {

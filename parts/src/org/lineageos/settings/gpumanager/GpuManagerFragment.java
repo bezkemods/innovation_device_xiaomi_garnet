@@ -14,11 +14,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceManager; // FIX: was android.preference.PreferenceManager
 import androidx.preference.SwitchPreference;
 import org.lineageos.settings.R;
 
@@ -81,6 +81,21 @@ public class GpuManagerFragment extends PreferenceFragment
 
         initializePreferences();
         loadCurrentSettings();
+        startPeriodicUpdates();
+    }
+
+    // FIX: Stop periodic updates when the fragment is no longer visible.
+    // Previously the 2-second sysfs polling continued running even after the
+    // user left the screen (until onDestroy), draining battery unnecessarily.
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopPeriodicUpdates();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         startPeriodicUpdates();
     }
 
@@ -259,6 +274,10 @@ public class GpuManagerFragment extends PreferenceFragment
     }
 
     private void startPeriodicUpdates() {
+        // Avoid double-scheduling if called from both onCreatePreferences and onResume
+        if (mUpdateRunnable != null) {
+            mUpdateHandler.removeCallbacks(mUpdateRunnable);
+        }
         mUpdateRunnable = new Runnable() {
             @Override
             public void run() {

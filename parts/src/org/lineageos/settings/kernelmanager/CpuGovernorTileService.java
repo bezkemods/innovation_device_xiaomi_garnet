@@ -25,12 +25,12 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Icon;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+import androidx.preference.PreferenceManager; // FIX: was android.preference.PreferenceManager
 
 import org.lineageos.settings.R;
 
@@ -321,6 +321,13 @@ public class CpuGovernorTileService extends TileService {
             
             boolean success = mKernelUtils.setGovernor(nextGovernor);
             if (success) {
+                // Warn if the new governor breaks PowerHAL hint processing
+                if ("performance".equals(nextGovernor) || "powersave".equals(nextGovernor)) {
+                    Log.w(TAG, "Governor changed to '" + nextGovernor
+                            + "' — PowerHAL powerhint.json hints (INTERACTION, LAUNCH, "
+                            + "EXPENSIVE_RENDERING, CAMERA_*) will not function until "
+                            + "walt is restored.");
+                }
                 SharedPreferences.Editor editor = mSharedPrefs.edit();
                 editor.putString("cpu_governor", nextGovernor);
                 editor.apply();

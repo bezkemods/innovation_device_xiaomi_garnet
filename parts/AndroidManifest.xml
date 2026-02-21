@@ -60,7 +60,8 @@
     <uses-permission android:name="android.permission.STORAGE_INTERNAL" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
-    
+    <uses-permission android:name="android.permission.CHANGE_NIGHT_MODE" /> 
+   
     <!-- Root operations -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />

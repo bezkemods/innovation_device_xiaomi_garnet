@@ -60,7 +60,9 @@ public class KernelManagerUtils {
     };
 
     // Cache for optimization - extended validity for battery saving
-    private String[] mCachedFrequencies = null;
+    // Per-cluster caches to avoid returning efficiency freqs for performance cluster and vice versa
+    private String[] mCachedFrequenciesEfficiency = null;
+    private String[] mCachedFrequenciesPerformance = null;
     private String[] mCachedGovernors = null;
     private long mLastCacheTime = 0;
     private static final long CACHE_VALIDITY_MS = 10000; // Extended to 10 seconds for battery
@@ -100,8 +102,11 @@ public class KernelManagerUtils {
 
     public String[] getAvailableFrequencies(int cluster) {
         long currentTime = System.currentTimeMillis();
-        if (mCachedFrequencies != null && (currentTime - mLastCacheTime) < CACHE_VALIDITY_MS) {
-            return mCachedFrequencies;
+        // Use per-cluster cache to avoid returning wrong cluster's frequencies
+        String[] cachedForCluster = (cluster == EFFICIENCY_CLUSTER)
+                ? mCachedFrequenciesEfficiency : mCachedFrequenciesPerformance;
+        if (cachedForCluster != null && (currentTime - mLastCacheTime) < CACHE_VALIDITY_MS) {
+            return cachedForCluster;
         }
 
         try {
@@ -115,7 +120,11 @@ public class KernelManagerUtils {
                         return a.compareTo(b);
                     }
                 });
-                mCachedFrequencies = freqArray;
+                if (cluster == EFFICIENCY_CLUSTER) {
+                    mCachedFrequenciesEfficiency = freqArray;
+                } else {
+                    mCachedFrequenciesPerformance = freqArray;
+                }
                 mLastCacheTime = currentTime;
                 Log.d(TAG, "Available frequencies for cluster " + cluster + ": " + freqArray.length);
                 return freqArray;
@@ -123,7 +132,7 @@ public class KernelManagerUtils {
         } catch (Exception e) {
             Log.w(TAG, "Could not read available frequencies for cluster " + cluster, e);
         }
-        
+
         if (cluster == EFFICIENCY_CLUSTER) {
             return EFFICIENCY_CLUSTER_FREQUENCIES.clone();
         } else {
@@ -353,35 +362,22 @@ public class KernelManagerUtils {
     }
 
     /**
-     * Apply battery saver profile
-     * Lower max frequencies and use powersave governor
+     * Apply battery saver profile.
+     * Governor intentionally NOT changed — walt must stay active so PowerHAL
+     * powerhint.json hints continue to function. Only frequency ceilings are capped.
      */
     public boolean applyBatterySaverProfile() {
         Log.d(TAG, "Applying battery saver CPU profile");
         boolean success = true;
 
-        // Set powersave governor
-        if (!setGovernor("powersave")) {
-            success = false;
-        }
-
-        // Limit max frequencies for battery saving
-        // Efficiency cluster: max 1.5 GHz
-        if (!setMaxFrequency(EFFICIENCY_CLUSTER, "1497600")) {
-            success = false;
-        }
-        // Performance cluster: max 1.9 GHz
-        if (!setMaxFrequency(PERFORMANCE_CLUSTER, "1900800")) {
-            success = false;
-        }
+        // Efficiency cluster: cap at 1.5 GHz
+        if (!setMaxFrequency(EFFICIENCY_CLUSTER, "1497600")) success = false;
+        // Performance cluster: cap at 1.9 GHz
+        if (!setMaxFrequency(PERFORMANCE_CLUSTER, "1900800")) success = false;
 
         // Keep min at lowest
-        if (!setMinFrequency(EFFICIENCY_CLUSTER, "691200")) {
-            success = false;
-        }
-        if (!setMinFrequency(PERFORMANCE_CLUSTER, "691200")) {
-            success = false;
-        }
+        if (!setMinFrequency(EFFICIENCY_CLUSTER, "691200")) success = false;
+        if (!setMinFrequency(PERFORMANCE_CLUSTER, "691200")) success = false;
 
         Log.d(TAG, "Battery saver profile " + (success ? "applied" : "partially failed"));
         return success;
@@ -427,38 +423,26 @@ public class KernelManagerUtils {
     }
 
     /**
-     * Apply performance profile
-     * Performance governor with full frequency range
+     * Apply performance profile.
+     * Governor intentionally NOT changed — walt must stay active so PowerHAL
+     * powerhint.json hints continue to function. Full frequency range is unlocked.
      */
     public boolean applyPerformanceProfile() {
         Log.d(TAG, "Applying performance CPU profile");
         boolean success = true;
-
-        // Set performance governor
-        if (!setGovernor("performance")) {
-            success = false;
-        }
 
         // Full frequency range
         String[] effFreqs = getAvailableFrequencies(EFFICIENCY_CLUSTER);
         String[] perfFreqs = getAvailableFrequencies(PERFORMANCE_CLUSTER);
 
         if (effFreqs != null && effFreqs.length > 0) {
-            if (!setMinFrequency(EFFICIENCY_CLUSTER, effFreqs[0])) {
-                success = false;
-            }
-            if (!setMaxFrequency(EFFICIENCY_CLUSTER, effFreqs[effFreqs.length - 1])) {
-                success = false;
-            }
+            if (!setMinFrequency(EFFICIENCY_CLUSTER, effFreqs[0])) success = false;
+            if (!setMaxFrequency(EFFICIENCY_CLUSTER, effFreqs[effFreqs.length - 1])) success = false;
         }
 
         if (perfFreqs != null && perfFreqs.length > 0) {
-            if (!setMinFrequency(PERFORMANCE_CLUSTER, perfFreqs[0])) {
-                success = false;
-            }
-            if (!setMaxFrequency(PERFORMANCE_CLUSTER, perfFreqs[perfFreqs.length - 1])) {
-                success = false;
-            }
+            if (!setMinFrequency(PERFORMANCE_CLUSTER, perfFreqs[0])) success = false;
+            if (!setMaxFrequency(PERFORMANCE_CLUSTER, perfFreqs[perfFreqs.length - 1])) success = false;
         }
 
         Log.d(TAG, "Performance profile " + (success ? "applied" : "partially failed"));
@@ -559,19 +543,18 @@ public class KernelManagerUtils {
         }
     }
 
-    public boolean isFileWritable(String path) {
-        try {
-            File file = new File(path);
-            return file.exists() && file.canWrite();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
+    /**
+     * FIX: Removed canWrite() check.
+     * File.canWrite() only checks POSIX DAC bits via stat(), it does NOT
+     * consult SELinux/MAC policies. On Android sysfs nodes, canWrite() can
+     * return false even when the SELinux domain allows the write, causing
+     * all governor and frequency writes to silently fail.
+     * We now simply attempt the write and let IOException report real failures.
+     */
     private String readFile(String path) throws IOException {
         File file = new File(path);
-        if (!file.exists() || !file.canRead()) {
-            throw new IOException("Cannot read file: " + path);
+        if (!file.exists()) {
+            throw new IOException("File not found: " + path);
         }
         
         BufferedReader reader = null;
@@ -592,10 +575,12 @@ public class KernelManagerUtils {
 
     private boolean writeFile(String path, String value) throws IOException {
         File file = new File(path);
-        if (!file.exists() || !file.canWrite()) {
-            throw new IOException("Cannot write to file: " + path);
+        if (!file.exists()) {
+            throw new IOException("File not found: " + path);
         }
-        
+        // FIX: Removed !file.canWrite() check — canWrite() does not reflect
+        // SELinux permissions, causing legitimate writes to be blocked before
+        // even attempting the I/O. Let FileWriter throw if access is truly denied.
         FileWriter writer = null;
         try {
             writer = new FileWriter(file);
@@ -614,7 +599,8 @@ public class KernelManagerUtils {
     }
 
     public void invalidateCache() {
-        mCachedFrequencies = null;
+        mCachedFrequenciesEfficiency = null;
+        mCachedFrequenciesPerformance = null;
         mCachedGovernors = null;
         mLastCacheTime = 0;
     }

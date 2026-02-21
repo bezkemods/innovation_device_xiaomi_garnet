@@ -18,7 +18,7 @@ package org.lineageos.settings.corecontrol;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager; // FIX: was android.preference.PreferenceManager
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -35,12 +35,14 @@ public class CoreControlUtils {
     private static final String PREF_PREFIX = "core_control_";
 
     /**
-     * Check if core control is supported on this device
+     * Check if core control is supported on this device.
+     * FIX: Removed canWrite() check — canWrite() does not reflect SELinux
+     * permissions and would return false even when writes are allowed by policy.
+     * Existence of the sysfs node is sufficient to consider it supported.
      */
     public static boolean isSupported() {
-        // Check if at least core 1 online file exists and is writable
         File core1File = new File(String.format(CORE_ONLINE_PATH, 1));
-        return core1File.exists() && core1File.canWrite();
+        return core1File.exists();
     }
 
     /**
@@ -50,12 +52,9 @@ public class CoreControlUtils {
         if (core < 0 || core >= NUM_CORES) {
             return false;
         }
-        
-        // Core 0 is always online (boot core)
         if (core == 0) {
-            return true;
+            return true; // Boot core is always online
         }
-        
         String path = String.format(CORE_ONLINE_PATH, core);
         String value = readFile(path);
         return "1".equals(value.trim());
@@ -69,11 +68,8 @@ public class CoreControlUtils {
             Log.w(TAG, "Cannot change state of core " + core);
             return false;
         }
-        
         String path = String.format(CORE_ONLINE_PATH, core);
-        String value = online ? "1" : "0";
-        
-        return writeFile(path, value);
+        return writeFile(path, online ? "1" : "0");
     }
 
     /**
@@ -83,7 +79,6 @@ public class CoreControlUtils {
         if (core == 0) {
             return false; // Boot core cannot be taken offline
         }
-        
         // For little cores (1-3), ensure at least 2 will remain online
         if (core >= 1 && core <= 3) {
             int onlineCount = 1; // Core 0 is always online
@@ -94,7 +89,6 @@ public class CoreControlUtils {
             }
             return onlineCount >= 2;
         }
-        
         return true; // Big cores (4-7) can be taken offline
     }
 
@@ -105,7 +99,7 @@ public class CoreControlUtils {
         int activeCores = 0;
         int activeLittleCores = 0;
         int activeBigCores = 0;
-        
+
         for (int i = 0; i < NUM_CORES; i++) {
             if (isCoreOnline(i)) {
                 activeCores++;
@@ -116,8 +110,7 @@ public class CoreControlUtils {
                 }
             }
         }
-        
-        // Prime core count is effectively 0 or merged into Big for this SOC
+
         return new CoreStats(activeCores, activeLittleCores, activeBigCores, 0);
     }
 
@@ -128,16 +121,14 @@ public class CoreControlUtils {
         if (!isSupported()) {
             return;
         }
-        
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        
-        for (int i = 1; i < NUM_CORES; i++) { // Skip core 0
-            String key = PREF_PREFIX + i;
-            boolean online = isCoreOnline(i);
-            editor.putBoolean(key, online);
+
+        for (int i = 1; i < NUM_CORES; i++) {
+            editor.putBoolean(PREF_PREFIX + i, isCoreOnline(i));
         }
-        
+
         editor.apply();
         Log.d(TAG, "Core preferences saved");
     }
@@ -150,21 +141,21 @@ public class CoreControlUtils {
             Log.d(TAG, "Core control not supported, skipping restore");
             return;
         }
-        
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        
-        for (int i = 1; i < NUM_CORES; i++) { // Skip core 0
+
+        for (int i = 1; i < NUM_CORES; i++) {
             String key = PREF_PREFIX + i;
             if (prefs.contains(key)) {
                 boolean savedState = prefs.getBoolean(key, true);
                 boolean currentState = isCoreOnline(i);
-                
+
                 if (savedState != currentState) {
                     if (!savedState && canOffline(i)) {
-                        setCoreState(i, savedState);
-                        Log.d(TAG, "Restored core " + i + " to " + (savedState ? "online" : "offline"));
+                        setCoreState(i, false);
+                        Log.d(TAG, "Restored core " + i + " to offline");
                     } else if (savedState) {
-                        setCoreState(i, savedState);
+                        setCoreState(i, true);
                         Log.d(TAG, "Restored core " + i + " to online");
                     }
                 }
@@ -172,17 +163,20 @@ public class CoreControlUtils {
         }
     }
 
+    /**
+     * FIX: Removed canRead() check.
+     * canRead() uses POSIX stat() and does not reflect SELinux MAC policy.
+     * Simply attempt the read and return empty string on failure.
+     */
     private static String readFile(String path) {
         try {
             File file = new File(path);
-            if (!file.exists() || !file.canRead()) {
+            if (!file.exists()) {
                 return "";
             }
-            
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
             reader.close();
-            
             return line != null ? line.trim() : "";
         } catch (IOException e) {
             Log.e(TAG, "Failed to read " + path, e);
@@ -190,21 +184,31 @@ public class CoreControlUtils {
         }
     }
 
+    /**
+     * FIX: Removed canWrite() check.
+     * canWrite() does not reflect SELinux permissions — it would return false
+     * even when the platform_app domain is allowed to write, silently blocking
+     * all core online/offline operations. Let IOException report real failures.
+     */
     private static boolean writeFile(String path, String value) {
         try {
             File file = new File(path);
-            if (!file.exists() || !file.canWrite()) {
-                Log.w(TAG, "Cannot write to file: " + path);
+            if (!file.exists()) {
+                Log.w(TAG, "File not found: " + path);
                 return false;
             }
-            
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(value);
             writer.close();
-            
+
             // Verify the write was successful
             String readBack = readFile(path);
-            return value.equals(readBack);
+            boolean success = value.equals(readBack);
+            if (!success) {
+                Log.w(TAG, "Write verification failed for " + path +
+                        ". Wrote: " + value + ", Read: " + readBack);
+            }
+            return success;
         } catch (IOException e) {
             Log.e(TAG, "Failed to write " + path + " with value " + value, e);
             return false;
@@ -218,7 +222,7 @@ public class CoreControlUtils {
         public final int totalActive;
         public final int littleActive;
         public final int bigActive;
-        public final int primeActive; // Kept for structure compatibility, but unused
+        public final int primeActive; // Kept for structure compatibility, unused on SM7435
 
         public CoreStats(int totalActive, int littleActive, int bigActive, int primeActive) {
             this.totalActive = totalActive;
@@ -229,7 +233,6 @@ public class CoreControlUtils {
 
         @Override
         public String toString() {
-            // Updated string format for 4+4 layout
             return String.format("%d/%d cores active (Little: %d/4, Big: %d/4)",
                     totalActive, NUM_CORES, littleActive, bigActive);
         }

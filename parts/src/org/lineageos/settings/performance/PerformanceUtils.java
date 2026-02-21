@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2025 bezke
- * Battery-optimized version with improved GPU management
+ * Optimized for Garnet (Snapdragon 7s Gen 2, SM7435 / Adreno 710)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,88 +21,121 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.PowerManager;
+import android.content.res.Configuration;
 import android.os.SystemProperties;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.util.Log;
 import androidx.preference.PreferenceManager;
 import org.lineageos.settings.R;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
 
 public class PerformanceUtils {
 
     private static final String TAG = "PerformanceUtils";
-    private Context mContext;
-    private SharedPreferences mSharedPrefs;
-    private NotificationManager mNotificationManager;
-    private Vibrator mVibrator;
 
-    // Performance modes
+    // =========================================================================
+    // Mode constants
+    // =========================================================================
     public static final int MODE_BATTERY_SAVER = 0;
-    public static final int MODE_BALANCED = 1;
-    public static final int MODE_PERFORMANCE = 2;
+    public static final int MODE_BALANCED      = 1;
+    public static final int MODE_PERFORMANCE   = 2;
 
-    // Notification IDs
-    private static final int NOTIFICATION_ID_BATTERY_SAVER = 1001;
-    private static final int NOTIFICATION_ID_BALANCED = 1002;
-    private static final int NOTIFICATION_ID_PERFORMANCE = 1003;
-    private static final String NOTIFICATION_CHANNEL_ID = "performance_profile_channel";
+    // =========================================================================
+    // SharedPreferences keys
+    //
+    // PREFS_KEY_CURRENT_MODE   — internal int, never touched by ListPreference
+    // PREFS_KEY_LIST           — string key kept in sync for ListPreference UI
+    // PREFS_KEY_USER_NIGHT     — the user's night mode before Battery Saver
+    //                            forced it to MODE_NIGHT_YES, so we can restore it
+    // =========================================================================
+    private static final String PREFS_KEY_CURRENT_MODE = "performance_profile_int";
+    public  static final String PREFS_KEY_LIST         = "performance_profile";
+    private static final String PREFS_KEY_USER_NIGHT   = "performance_saved_night_mode";
 
-    // CPU paths - SM7435 (4+4 config: Policy0 + Policy4)
-    private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
-    private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
-    private static final String POLICY6_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor";
+    private static final String PERF_MODE_PROP = "sys.performance.mode";
 
-    // CPU Governors
-    private static final String PERFORMANCE_GOVERNOR = "performance";
-    private static final String POWERSAVE_GOVERNOR = "powersave";
-    private static final String DEFAULT_GOVERNOR = "walt"; // Qualcomm SM7435 Standard
+    // =========================================================================
+    // CPU paths — atomic cluster writes via msm_performance
+    // =========================================================================
+    private static final String CPU_MIN_FREQ_PATH =
+            "/sys/kernel/msm_performance/parameters/cpu_min_freq";
+    private static final String CPU_MAX_FREQ_PATH =
+            "/sys/kernel/msm_performance/parameters/cpu_max_freq";
 
-    // GPU paths - Adreno 710
-    private static final String GPU_GOVERNOR_PATH = "/sys/class/kgsl/kgsl-3d0/devfreq/governor";
-    private static final String GPU_MAX_FREQ_PATH = "/sys/class/kgsl/kgsl-3d0/devfreq/max_freq";
-    private static final String GPU_MIN_FREQ_PATH = "/sys/class/kgsl/kgsl-3d0/devfreq/min_freq";
-    private static final String GPU_DEFAULT_PWRLEVEL_PATH = "/sys/class/kgsl/kgsl-3d0/default_pwrlevel";
-    private static final String GPU_FORCE_CLK_ON_PATH = "/sys/class/kgsl/kgsl-3d0/force_clk_on";
-    private static final String GPU_FORCE_RAIL_ON_PATH = "/sys/class/kgsl/kgsl-3d0/force_rail_on";
-    private static final String GPU_FORCE_BUS_ON_PATH = "/sys/class/kgsl/kgsl-3d0/force_bus_on";
+    private static final String CPU_MIN_DEFAULT  = "0:0 1:0 2:0 3:0 4:0 5:0 6:0 7:0";
+    private static final String CPU_MAX_UNLOCKED =
+            "0:9999999 1:9999999 2:9999999 3:9999999 4:9999999 5:9999999 6:9999999 7:9999999";
+    private static final String CPU_MIN_PERFORMANCE =
+            "0:1651200 1:1651200 2:1651200 3:1651200 4:1900800 5:1900800 6:1900800 7:1900800";
+    private static final String CPU_MAX_BATTERY =
+            "0:1324800 1:1324800 2:1324800 3:1324800 4:1190400 5:1190400 6:1190400 7:1190400";
+
+    // =========================================================================
+    // GPU paths — Adreno 710
+    // =========================================================================
+    private static final String GPU_MIN_FREQ_PATH   = "/sys/class/kgsl/kgsl-3d0/devfreq/min_freq";
+    private static final String GPU_MAX_FREQ_PATH   = "/sys/class/kgsl/kgsl-3d0/devfreq/max_freq";
+    private static final String GPU_FORCE_RAIL_PATH = "/sys/class/kgsl/kgsl-3d0/force_rail_on";
+    private static final String GPU_FORCE_CLK_PATH  = "/sys/class/kgsl/kgsl-3d0/force_clk_on";
     private static final String GPU_IDLE_TIMER_PATH = "/sys/class/kgsl/kgsl-3d0/idle_timer";
 
-    // GPU frequency values for Adreno 710 (Hz)
-    private static final String GPU_MIN_FREQ_DEFAULT = "295000000"; // 295 MHz
-    private static final String GPU_MAX_FREQ_DEFAULT = "940000000"; // 940 MHz
-    private static final String GPU_MAX_FREQ_BATTERY = "650000000"; // 650 MHz for battery mode
-    private static final String GPU_MIN_FREQ_PERF = "500000000"; // 500 MHz for performance mode
-    
-    // GPU idle timer values (milliseconds)
-    private static final String GPU_IDLE_TIMER_DEFAULT = "64";
-    private static final String GPU_IDLE_TIMER_BATTERY = "40";
-    private static final String GPU_IDLE_TIMER_PERF = "100";
-    
-    // GPU governors
-    private static final String GPU_GOVERNOR_DEFAULT = "msm-adreno-tz";
-    private static final String GPU_GOVERNOR_POWERSAVE = "powersave";
-    private static final String GPU_GOVERNOR_PERFORMANCE = "performance";
+    private static final String GPU_MIN_DEFAULT  = "295000000";
+    private static final String GPU_MAX_DEFAULT  = "940000000";
+    private static final String GPU_MAX_BATTERY  = "650000000";
+    private static final String GPU_MIN_PERF     = "500000000";
+    private static final String GPU_IDLE_DEFAULT = "64";
+    private static final String GPU_IDLE_BATTERY = "40";
+    private static final String GPU_IDLE_PERF    = "100";
 
-    private static final String GPU_DEFAULT_POWER_LEVEL = "6"; // Efficient balanced level
-    private static final String PERF_MODE_PROP = "sys.performance.mode";
-    private static final String PREFS_KEY_CURRENT_MODE = "current_performance_mode";
+    // =========================================================================
+    // Scheduler / DDR / uclamp
+    // =========================================================================
+    private static final String SCHED_BOOST_PATH = "/proc/sys/walt/sched_boost";
+    private static final String DDR_MIN_FREQ_PATH =
+            "/sys/devices/system/cpu/bus_dcvs/DDR/19091000.qcom,bwmon-ddr/min_freq";
+    private static final String DDR_MIN_DEFAULT  = "547000";
+    private static final String DDR_MIN_PERF     = "1708000";
+
+    private static final String UCLAMP_TA_MIN_PATH     = "/dev/cpuctl/top-app/cpu.uclamp.min";
+    private static final String UCLAMP_TA_LATENCY_PATH =
+            "/dev/cpuctl/top-app/cpu.uclamp.latency_sensitive";
+    private static final String UCLAMP_FG_MIN_PATH     = "/dev/cpuctl/foreground/cpu.uclamp.min";
+
+    // =========================================================================
+    // Notification
+    // =========================================================================
+    private static final String NOTIFICATION_CHANNEL_ID = "performance_profile_channel";
+    private static final int    NOTIFICATION_ID          = 1001;
+
+    // =========================================================================
+    // Fields
+    // =========================================================================
+    private final Context             mContext;
+    private final SharedPreferences   mSharedPrefs;
+    private final NotificationManager mNotificationManager;
+    private final UiModeManager       mUiModeManager;
+    private final Vibrator            mVibrator;
 
     public PerformanceUtils(Context context) {
-        mContext = context;
-        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        mContext             = context.getApplicationContext();
+        mSharedPrefs         = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mNotificationManager = (NotificationManager)
+                mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        mUiModeManager       = (UiModeManager)
+                mContext.getSystemService(Context.UI_MODE_SERVICE);
+        mVibrator            = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         setupNotificationChannel();
     }
+
+    // =========================================================================
+    // Public API
+    // =========================================================================
 
     public int getCurrentMode() {
         return mSharedPrefs.getInt(PREFS_KEY_CURRENT_MODE, MODE_BALANCED);
@@ -110,518 +143,264 @@ public class PerformanceUtils {
 
     public String getModeLabel(int mode) {
         switch (mode) {
-            case MODE_BATTERY_SAVER:
-                return mContext.getString(R.string.performance_mode_battery_saver);
-            case MODE_BALANCED:
-                return mContext.getString(R.string.performance_mode_balanced);
-            case MODE_PERFORMANCE:
-                return mContext.getString(R.string.performance_mode_performance);
-            default:
-                return mContext.getString(R.string.performance_mode_balanced);
+            case MODE_BATTERY_SAVER: return mContext.getString(R.string.performance_mode_battery_saver);
+            case MODE_PERFORMANCE:   return mContext.getString(R.string.performance_mode_performance);
+            default:                 return mContext.getString(R.string.performance_mode_balanced);
         }
     }
 
+    /**
+     * Apply a performance profile. Always returns true (best-effort sysfs writes).
+     *
+     * Battery Saver specifics:
+     *  • Saves the current night mode (auto / yes / no) to SharedPreferences.
+     *  • Switches the system to Dark Mode (UiModeManager.MODE_NIGHT_YES).
+     *  • Restores the saved night mode when switching away.
+     */
     public boolean setPerformanceMode(int mode) {
+        Log.d(TAG, "Setting performance mode: " + getModeLabel(mode));
+
+        if (mVibrator != null && mVibrator.hasVibrator()) {
+            mVibrator.vibrate(50);
+        }
+
+        // Apply kernel/sysfs tuning
+        switch (mode) {
+            case MODE_BATTERY_SAVER:
+                applyBatterySaver();
+                break;
+            case MODE_PERFORMANCE:
+                applyPerformance();
+                break;
+            default:
+                mode = MODE_BALANCED;
+                applyBalanced();
+                break;
+        }
+
+        // Apply UI night mode change
+        applyNightMode(mode);
+
+        // Persist (int key + string key so ListPreference stays in sync)
+        mSharedPrefs.edit()
+                .putInt(PREFS_KEY_CURRENT_MODE, mode)
+                .putString(PREFS_KEY_LIST, String.valueOf(mode))
+                .apply();
+
         try {
-            Log.d(TAG, "Setting performance mode to: " + mode);
-            
-            // Vibrate on mode change
-            if (mVibrator != null && mVibrator.hasVibrator()) {
-                mVibrator.vibrate(100);
-            }
-
-            boolean success = false;
-
-            switch (mode) {
-                case MODE_BATTERY_SAVER:
-                    success = setBatterySaverMode();
-                    break;
-                case MODE_BALANCED:
-                    success = setBalancedMode();
-                    break;
-                case MODE_PERFORMANCE:
-                    success = setPerformanceMode();
-                    break;
-            }
-
-            if (success) {
-                // Save current mode to preferences
-                mSharedPrefs.edit().putInt(PREFS_KEY_CURRENT_MODE, mode).apply();
-                
-                // Set system property
-                SystemProperties.set(PERF_MODE_PROP, String.valueOf(mode));
-                
-                // Update status bar icon and notification
-                updateStatusBarIcon(mode);
-                showNotification(mode);
-                
-                Log.d(TAG, "Performance mode successfully set to: " + getModeLabel(mode));
-                return true;
-            } else {
-                Log.e(TAG, "Failed to set performance mode to: " + mode);
-                return false;
-            }
-            
+            SystemProperties.set(PERF_MODE_PROP, String.valueOf(mode));
         } catch (Exception e) {
-            Log.e(TAG, "Error setting performance mode", e);
-            return false;
+            Log.w(TAG, "Could not set system property " + PERF_MODE_PROP, e);
         }
+
+        showNotification(mode);
+        Log.d(TAG, "Performance mode applied: " + getModeLabel(mode));
+        return true;
     }
 
-    private boolean setBatterySaverMode() {
+    /** Legacy boolean overload kept for existing call sites. */
+    public boolean setPerformanceMode(boolean enabled) {
+        return setPerformanceMode(enabled ? MODE_PERFORMANCE : MODE_BALANCED);
+    }
+
+    public boolean isPerformanceModeEnabled() {
+        return getCurrentMode() == MODE_PERFORMANCE;
+    }
+
+    // =========================================================================
+    // Night mode (Dark Theme)
+    //
+    // Battery Saver → save current night mode, force MODE_NIGHT_YES (dark).
+    // Switching away from Battery Saver → restore the saved night mode.
+    //
+    // UiModeManager.setNightMode() is a system API available to priv-apps.
+    // Required in AndroidManifest.xml (already present in LineageOS Parts):
+    //   <uses-permission android:name="android.permission.CHANGE_NIGHT_MODE" />
+    //
+    // Possible saved values:
+    //   MODE_NIGHT_AUTO  (0) — follow system/time
+    //   MODE_NIGHT_NO    (1) — always light
+    //   MODE_NIGHT_YES   (2) — always dark
+    // =========================================================================
+
+    private void applyNightMode(int newMode) {
+        if (mUiModeManager == null) return;
+
         try {
-            Log.d(TAG, "Applying battery saver mode");
-            
-            // Set CPU governors to powersave
-            boolean cpuSuccess = true;
-            try {
-                writeLine(POLICY0_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
-                Log.d(TAG, "Set policy0 governor to powersave");
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set policy0 governor to powersave", e);
-                cpuSuccess = false;
+            int previousMode = getCurrentMode(); // read BEFORE prefs are written
+
+            if (newMode == MODE_BATTERY_SAVER) {
+                // Only snapshot if we're not already in battery saver, to avoid
+                // overwriting the real user preference with MODE_NIGHT_YES.
+                if (previousMode != MODE_BATTERY_SAVER) {
+                    int currentNightMode = mUiModeManager.getNightMode();
+                    mSharedPrefs.edit()
+                            .putInt(PREFS_KEY_USER_NIGHT, currentNightMode)
+                            .apply();
+                    Log.d(TAG, "Saved night mode: " + currentNightMode);
+                }
+
+                mUiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+                Log.d(TAG, "Dark mode enabled for Battery Saver");
+
+            } else if (previousMode == MODE_BATTERY_SAVER) {
+                // Restore only when actually leaving battery saver
+                int savedNightMode = mSharedPrefs.getInt(
+                        PREFS_KEY_USER_NIGHT, UiModeManager.MODE_NIGHT_AUTO);
+                mUiModeManager.setNightMode(savedNightMode);
+                Log.d(TAG, "Restored night mode: " + savedNightMode);
             }
 
-            try {
-                if (fileExists(POLICY4_GOVERNOR_PATH)) {
-                    writeLine(POLICY4_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
-                    Log.d(TAG, "Set policy4 governor to powersave");
-                } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
-                    writeLine(POLICY6_GOVERNOR_PATH, POWERSAVE_GOVERNOR);
-                    Log.d(TAG, "Set policy6 governor to powersave");
-                }
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set performance cluster governor to powersave", e);
-                cpuSuccess = false;
-            }
-
-            // Apply WALT settings (tuned for low power)
-            applyWaltSettings();
-
-            // Set GPU to battery saving mode
-            boolean gpuSuccess = true;
-            try {
-                // Use powersave governor
-                if (fileExists(GPU_GOVERNOR_PATH)) {
-                    writeLine(GPU_GOVERNOR_PATH, GPU_GOVERNOR_POWERSAVE);
-                    Log.d(TAG, "Set GPU governor to powersave");
-                }
-                
-                // Cap max frequency to 650 MHz
-                if (fileExists(GPU_MAX_FREQ_PATH)) {
-                    writeLine(GPU_MAX_FREQ_PATH, GPU_MAX_FREQ_BATTERY);
-                    Log.d(TAG, "Set GPU max freq to " + GPU_MAX_FREQ_BATTERY);
-                }
-                
-                // Keep min at lowest
-                if (fileExists(GPU_MIN_FREQ_PATH)) {
-                    writeLine(GPU_MIN_FREQ_PATH, GPU_MIN_FREQ_DEFAULT);
-                    Log.d(TAG, "Set GPU min freq to " + GPU_MIN_FREQ_DEFAULT);
-                }
-                
-                // Disable all force flags
-                if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
-                    writeLine(GPU_FORCE_CLK_ON_PATH, "0");
-                }
-                if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
-                    writeLine(GPU_FORCE_RAIL_ON_PATH, "0");
-                }
-                if (fileExists(GPU_FORCE_BUS_ON_PATH)) {
-                    writeLine(GPU_FORCE_BUS_ON_PATH, "0");
-                }
-                
-                // Aggressive idle timer for quick power down
-                if (fileExists(GPU_IDLE_TIMER_PATH)) {
-                    writeLine(GPU_IDLE_TIMER_PATH, GPU_IDLE_TIMER_BATTERY);
-                    Log.d(TAG, "Set GPU idle timer to " + GPU_IDLE_TIMER_BATTERY + " ms");
-                }
-                
-                if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
-                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "8"); // Lowest power level
-                }
-                
-                Log.d(TAG, "GPU set to battery saver mode");
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set GPU to battery saver mode", e);
-                gpuSuccess = false;
-            }
-
-            return cpuSuccess && gpuSuccess;
-            
         } catch (Exception e) {
-            Log.e(TAG, "Error in setBatterySaverMode", e);
-            return false;
+            Log.w(TAG, "Could not change night mode: " + e.getMessage());
         }
     }
 
-    private boolean setBalancedMode() {
-        try {
-            Log.d(TAG, "Applying balanced mode");
-            
-            // Set CPU governors to default (walt)
-            boolean cpuSuccess = true;
-            try {
-                writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                Log.d(TAG, "Set policy0 governor to walt");
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set policy0 governor to walt", e);
-                cpuSuccess = false;
-            }
+    // =========================================================================
+    // Profile implementations
+    //
+    // Governor intentionally NOT changed — WALT must stay active so PowerHAL
+    // powerhint.json hints (INTERACTION, LAUNCH, EXPENSIVE_RENDERING, CAMERA_*)
+    // continue to work.
+    //
+    // Relationship with KernelManager:
+    //   msm_performance (used here) takes precedence over per-policy cpufreq nodes
+    //   (used by KernelManager). Battery Saver caps override KernelManager values.
+    //   Balanced/Performance clear the msm_performance caps, making KernelManager
+    //   per-cluster settings effective again.
+    // =========================================================================
 
-            try {
-                if (fileExists(POLICY4_GOVERNOR_PATH)) {
-                    writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                    Log.d(TAG, "Set policy4 governor to walt");
-                } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
-                    writeLine(POLICY6_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                    Log.d(TAG, "Set policy6 governor to walt");
-                }
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set performance cluster governor to walt", e);
-                cpuSuccess = false;
-            }
+    private void applyPerformance() {
+        writeSafe(CPU_MIN_FREQ_PATH, CPU_MIN_PERFORMANCE);
+        writeSafe(CPU_MAX_FREQ_PATH, CPU_MAX_UNLOCKED);
 
-            // Apply balanced WALT settings
-            applyWaltSettings();
+        writeSafe(GPU_MIN_FREQ_PATH,   GPU_MIN_PERF);
+        writeSafe(GPU_MAX_FREQ_PATH,   GPU_MAX_DEFAULT);
+        writeSafe(GPU_FORCE_RAIL_PATH, "1");
+        writeSafe(GPU_FORCE_CLK_PATH,  "1");
+        writeSafe(GPU_IDLE_TIMER_PATH, GPU_IDLE_PERF);
 
-            // Set GPU to balanced mode
-            boolean gpuSuccess = true;
-            try {
-                // Use default msm-adreno-tz governor
-                if (fileExists(GPU_GOVERNOR_PATH)) {
-                    writeLine(GPU_GOVERNOR_PATH, GPU_GOVERNOR_DEFAULT);
-                    Log.d(TAG, "Set GPU governor to msm-adreno-tz");
-                }
-                
-                // Full frequency range
-                if (fileExists(GPU_MAX_FREQ_PATH)) {
-                    writeLine(GPU_MAX_FREQ_PATH, GPU_MAX_FREQ_DEFAULT);
-                    Log.d(TAG, "Set GPU max freq to " + GPU_MAX_FREQ_DEFAULT);
-                }
-                
-                if (fileExists(GPU_MIN_FREQ_PATH)) {
-                    writeLine(GPU_MIN_FREQ_PATH, GPU_MIN_FREQ_DEFAULT);
-                    Log.d(TAG, "Set GPU min freq to " + GPU_MIN_FREQ_DEFAULT);
-                }
-                
-                // Disable all force flags for balanced mode
-                if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
-                    writeLine(GPU_FORCE_CLK_ON_PATH, "0");
-                }
-                if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
-                    writeLine(GPU_FORCE_RAIL_ON_PATH, "0");
-                }
-                if (fileExists(GPU_FORCE_BUS_ON_PATH)) {
-                    writeLine(GPU_FORCE_BUS_ON_PATH, "0");
-                }
-                
-                // Balanced idle timer
-                if (fileExists(GPU_IDLE_TIMER_PATH)) {
-                    writeLine(GPU_IDLE_TIMER_PATH, GPU_IDLE_TIMER_DEFAULT);
-                    Log.d(TAG, "Set GPU idle timer to " + GPU_IDLE_TIMER_DEFAULT + " ms");
-                }
-                
-                if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
-                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, GPU_DEFAULT_POWER_LEVEL);
-                }
-                
-                Log.d(TAG, "GPU set to balanced mode");
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set GPU to balanced mode", e);
-                gpuSuccess = false;
-            }
+        writeSafe(SCHED_BOOST_PATH,       "1");
+        writeSafe(DDR_MIN_FREQ_PATH,      DDR_MIN_PERF);
+        writeSafe(UCLAMP_TA_MIN_PATH,     "30");
+        writeSafe(UCLAMP_TA_LATENCY_PATH, "1");
+        writeSafe(UCLAMP_FG_MIN_PATH,     "20");
+    }
 
-            return cpuSuccess && gpuSuccess;
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Error in setBalancedMode", e);
-            return false;
+    private void applyBalanced() {
+        writeSafe(CPU_MIN_FREQ_PATH, CPU_MIN_DEFAULT);
+        writeSafe(CPU_MAX_FREQ_PATH, CPU_MAX_UNLOCKED);
+
+        writeSafe(GPU_MIN_FREQ_PATH,   GPU_MIN_DEFAULT);
+        writeSafe(GPU_MAX_FREQ_PATH,   GPU_MAX_DEFAULT);
+        writeSafe(GPU_FORCE_RAIL_PATH, "0");
+        writeSafe(GPU_FORCE_CLK_PATH,  "0");
+        writeSafe(GPU_IDLE_TIMER_PATH, GPU_IDLE_DEFAULT);
+
+        writeSafe(SCHED_BOOST_PATH,       "0");
+        writeSafe(DDR_MIN_FREQ_PATH,      DDR_MIN_DEFAULT);
+        writeSafe(UCLAMP_TA_MIN_PATH,     "0");
+        writeSafe(UCLAMP_TA_LATENCY_PATH, "0");
+        writeSafe(UCLAMP_FG_MIN_PATH,     "0");
+    }
+
+    private void applyBatterySaver() {
+        writeSafe(CPU_MIN_FREQ_PATH, CPU_MIN_DEFAULT);
+        writeSafe(CPU_MAX_FREQ_PATH, CPU_MAX_BATTERY);
+
+        writeSafe(GPU_MIN_FREQ_PATH,   GPU_MIN_DEFAULT);
+        writeSafe(GPU_MAX_FREQ_PATH,   GPU_MAX_BATTERY);
+        writeSafe(GPU_FORCE_RAIL_PATH, "0");
+        writeSafe(GPU_FORCE_CLK_PATH,  "0");
+        writeSafe(GPU_IDLE_TIMER_PATH, GPU_IDLE_BATTERY);
+
+        writeSafe(SCHED_BOOST_PATH,       "0");
+        writeSafe(DDR_MIN_FREQ_PATH,      DDR_MIN_DEFAULT);
+        writeSafe(UCLAMP_TA_MIN_PATH,     "0");
+        writeSafe(UCLAMP_TA_LATENCY_PATH, "0");
+        writeSafe(UCLAMP_FG_MIN_PATH,     "0");
+    }
+
+    // =========================================================================
+    // File I/O — canWrite() intentionally NOT used (see KernelManagerUtils fix)
+    // =========================================================================
+
+    private void writeSafe(String path, String value) {
+        File f = new File(path);
+        if (!f.exists()) {
+            Log.v(TAG, "Node not present, skipping: " + path);
+            return;
+        }
+        try (FileWriter fw = new FileWriter(f)) {
+            fw.write(value);
+            fw.flush();
+            Log.v(TAG, "Wrote '" + value + "' -> " + path);
+        } catch (IOException e) {
+            Log.w(TAG, "Write failed (SELinux or read-only?): " + path, e);
         }
     }
 
-    private boolean setPerformanceMode() {
-        try {
-            Log.d(TAG, "Applying performance mode");
-            
-            // Set CPU governors to performance
-            boolean cpuSuccess = true;
-            try {
-                writeLine(POLICY0_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
-                Log.d(TAG, "Set policy0 governor to performance");
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set policy0 governor to performance", e);
-                cpuSuccess = false;
-            }
-
-            try {
-                if (fileExists(POLICY4_GOVERNOR_PATH)) {
-                    writeLine(POLICY4_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
-                    Log.d(TAG, "Set policy4 governor to performance");
-                } else if (fileExists(POLICY6_GOVERNOR_PATH)) {
-                    writeLine(POLICY6_GOVERNOR_PATH, PERFORMANCE_GOVERNOR);
-                    Log.d(TAG, "Set policy6 governor to performance");
-                }
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set performance cluster governor to performance", e);
-                cpuSuccess = false;
-            }
-
-            // Apply performance WALT settings
-            applyWaltSettings();
-
-            // Set GPU to performance mode (battery-conscious)
-            boolean gpuSuccess = true;
-            try {
-                // Use performance governor but keep it battery-conscious
-                if (fileExists(GPU_GOVERNOR_PATH)) {
-                    writeLine(GPU_GOVERNOR_PATH, GPU_GOVERNOR_PERFORMANCE);
-                    Log.d(TAG, "Set GPU governor to performance");
-                }
-                
-                // Max frequency
-                if (fileExists(GPU_MAX_FREQ_PATH)) {
-                    writeLine(GPU_MAX_FREQ_PATH, GPU_MAX_FREQ_DEFAULT);
-                    Log.d(TAG, "Set GPU max freq to " + GPU_MAX_FREQ_DEFAULT);
-                }
-                
-                // Higher min for better responsiveness but not max (battery saving)
-                if (fileExists(GPU_MIN_FREQ_PATH)) {
-                    writeLine(GPU_MIN_FREQ_PATH, GPU_MIN_FREQ_PERF);
-                    Log.d(TAG, "Set GPU min freq to " + GPU_MIN_FREQ_PERF);
-                }
-                
-                // Only enable clock forcing, not bus/rail for battery
-                if (fileExists(GPU_FORCE_CLK_ON_PATH)) {
-                    writeLine(GPU_FORCE_CLK_ON_PATH, "1");
-                    Log.d(TAG, "Enabled GPU force clock on");
-                }
-                if (fileExists(GPU_FORCE_RAIL_ON_PATH)) {
-                    writeLine(GPU_FORCE_RAIL_ON_PATH, "0"); // Keep off for battery
-                }
-                if (fileExists(GPU_FORCE_BUS_ON_PATH)) {
-                    writeLine(GPU_FORCE_BUS_ON_PATH, "0"); // Keep off for battery
-                }
-                
-                // Performance idle timer
-                if (fileExists(GPU_IDLE_TIMER_PATH)) {
-                    writeLine(GPU_IDLE_TIMER_PATH, GPU_IDLE_TIMER_PERF);
-                    Log.d(TAG, "Set GPU idle timer to " + GPU_IDLE_TIMER_PERF + " ms");
-                }
-                
-                if (fileExists(GPU_DEFAULT_PWRLEVEL_PATH)) {
-                    writeLine(GPU_DEFAULT_PWRLEVEL_PATH, "0"); // Highest power level
-                }
-                
-                Log.d(TAG, "GPU set to performance mode (battery-optimized)");
-            } catch (Exception e) {
-                Log.w(TAG, "Failed to set GPU to performance mode", e);
-                gpuSuccess = false;
-            }
-
-            return cpuSuccess && gpuSuccess;
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Error in setPerformanceMode", e);
-            return false;
-        }
-    }
-
-    private void applyWaltSettings() {
-        // WALT (Window Assisted Load Tracking) scheduler tuning
-        // These settings are optimized for Snapdragon 7s Gen 2
-        String[] waltPathsCpu0 = {
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq", "1497600",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/pl", "0",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/boost", "0",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_low_freq", "0",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq", "940800",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/up_rate_limit_us", "1000",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/down_rate_limit_us", "20000",
-            "/sys/devices/system/cpu/cpu0/cpufreq/walt/adaptive_high_freq", "0"
-        };
-
-        String[] waltPathsCpu4 = {
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/hispeed_freq", "1900800",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/pl", "0",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/boost", "0",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_low_freq", "0",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/rtg_boost_freq", "1056000",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/up_rate_limit_us", "1000",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/down_rate_limit_us", "10000",
-            "/sys/devices/system/cpu/cpu4/cpufreq/walt/adaptive_high_freq", "0"
-        };
-
-        // Apply for cpu0
-        for (int i = 0; i < waltPathsCpu0.length; i += 2) {
-            String path = waltPathsCpu0[i];
-            String value = waltPathsCpu0[i + 1];
-            if (fileExists(path)) {
-                try {
-                    writeLine(path, value);
-                    Log.d(TAG, "Applied WALT setting: " + path + " = " + value);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to apply WALT setting: " + path, e);
-                }
-            }
-        }
-
-        // Apply for cpu4
-        for (int i = 0; i < waltPathsCpu4.length; i += 2) {
-            String path = waltPathsCpu4[i];
-            String value = waltPathsCpu4[i + 1];
-            if (fileExists(path)) {
-                try {
-                    writeLine(path, value);
-                    Log.d(TAG, "Applied WALT setting: " + path + " = " + value);
-                } catch (Exception e) {
-                    Log.w(TAG, "Failed to apply WALT setting: " + path, e);
-                }
-            }
-        }
-    }
+    // =========================================================================
+    // Status bar notification — persistent, cannot be dismissed
+    // =========================================================================
 
     private void setupNotificationChannel() {
-        if (mNotificationManager != null) {
-            NotificationChannel channel = new NotificationChannel(
+        if (mNotificationManager == null) return;
+        NotificationChannel ch = new NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
                 mContext.getString(R.string.performance_notification_channel_name),
-                NotificationManager.IMPORTANCE_DEFAULT
-            );
-            channel.setDescription(mContext.getString(R.string.performance_notification_channel_desc));
-            channel.setBlockable(true);
-            mNotificationManager.createNotificationChannel(channel);
-        }
+                NotificationManager.IMPORTANCE_LOW); // no sound, no heads-up
+        ch.setDescription(mContext.getString(R.string.performance_notification_channel_desc));
+        ch.setShowBadge(false);
+        ch.setBlockable(true);
+        mNotificationManager.createNotificationChannel(ch);
     }
 
     private void showNotification(int mode) {
         if (mNotificationManager == null) return;
 
-        // Cancel all other notifications first
-        cancelAllNotifications();
+        mNotificationManager.cancel(NOTIFICATION_ID);
 
+        int iconRes;
         String title, text;
-        int icon, notificationId;
 
         switch (mode) {
             case MODE_BATTERY_SAVER:
-                title = mContext.getString(R.string.performance_mode_battery_saver);
-                text = mContext.getString(R.string.performance_notification_battery_saver);
-                icon = R.drawable.ic_performance_battery_saver;
-                notificationId = NOTIFICATION_ID_BATTERY_SAVER;
-                break;
-            case MODE_BALANCED:
-                title = mContext.getString(R.string.performance_mode_balanced);
-                text = mContext.getString(R.string.performance_notification_balanced);
-                icon = R.drawable.ic_performance_balanced;
-                notificationId = NOTIFICATION_ID_BALANCED;
+                iconRes = R.drawable.ic_performance_battery_saver;
+                title   = mContext.getString(R.string.performance_mode_battery_saver);
+                text    = mContext.getString(R.string.performance_notification_battery_saver);
                 break;
             case MODE_PERFORMANCE:
-                title = mContext.getString(R.string.performance_mode_performance);
-                text = mContext.getString(R.string.performance_notification_performance);
-                icon = R.drawable.ic_performance_performance;
-                notificationId = NOTIFICATION_ID_PERFORMANCE;
+                iconRes = R.drawable.ic_performance_performance;
+                title   = mContext.getString(R.string.performance_mode_performance);
+                text    = mContext.getString(R.string.performance_notification_performance);
                 break;
             default:
-                return;
+                iconRes = R.drawable.ic_performance_balanced;
+                title   = mContext.getString(R.string.performance_mode_balanced);
+                text    = mContext.getString(R.string.performance_notification_balanced);
+                break;
         }
 
-        // Open XiaomiParts instead of battery settings
         Intent intent = new Intent();
-        intent.setClassName("org.lineageos.settings", "org.lineageos.settings.xiaomiparts.XiaomiPartsActivity");
+        intent.setClassName("org.lineageos.settings",
+                "org.lineageos.settings.xiaomiparts.XiaomiPartsActivity");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 
-            PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pi = PendingIntent.getActivity(mContext, 0, intent,
+                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new Notification.Builder(mContext, NOTIFICATION_CHANNEL_ID)
+        Notification n = new Notification.Builder(mContext, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setSmallIcon(icon)
-                .setContentIntent(pendingIntent)
+                .setSmallIcon(iconRes)
+                .setContentIntent(pi)
                 .setOngoing(true)
                 .setFlag(Notification.FLAG_NO_CLEAR, true)
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setLocalOnly(true)
                 .build();
 
-        mNotificationManager.notify(notificationId, notification);
-    }
-
-    private void cancelAllNotifications() {
-        if (mNotificationManager != null) {
-            mNotificationManager.cancel(NOTIFICATION_ID_BATTERY_SAVER);
-            mNotificationManager.cancel(NOTIFICATION_ID_BALANCED);
-            mNotificationManager.cancel(NOTIFICATION_ID_PERFORMANCE);
-        }
-    }
-
-    private void updateStatusBarIcon(int mode) {
-        // Set system property for status bar icon
-        String iconMode;
-        switch (mode) {
-            case MODE_BATTERY_SAVER:
-                iconMode = "battery_saver";
-                break;
-            case MODE_BALANCED:
-                iconMode = "balanced";
-                break;
-            case MODE_PERFORMANCE:
-                iconMode = "performance";
-                break;
-            default:
-                iconMode = "balanced";
-                break;
-        }
-        SystemProperties.set("sys.performance.icon", iconMode);
-    }
-
-    // Helper methods for file operations
-    private static String readLine(String path) throws IOException {
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(path));
-            String s = br.readLine();
-            return s == null ? "" : s;
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    Log.w(TAG, "Error closing BufferedReader", e);
-                }
-            }
-        }
-    }
-
-    private static void writeLine(String path, String value) throws IOException {
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter(path);
-            fw.write(value);
-            fw.flush();
-        } finally {
-            if (fw != null) {
-                try {
-                    fw.close();
-                } catch (IOException e) {
-                    Log.w(TAG, "Error closing FileWriter", e);
-                }
-            }
-        }
-    }
-
-    private static boolean fileExists(String path) {
-        try {
-            File file = new File(path);
-            return file.exists() && file.canRead();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    // Legacy methods for compatibility
-    public boolean isPerformanceModeEnabled() {
-        return getCurrentMode() == MODE_PERFORMANCE;
-    }
-
-    public boolean setPerformanceMode(boolean enabled) {
-        return setPerformanceMode(enabled ? MODE_PERFORMANCE : MODE_BALANCED);
+        mNotificationManager.notify(NOTIFICATION_ID, n);
+        Log.d(TAG, "Notification updated: " + title);
     }
 }

@@ -18,7 +18,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.UserHandle;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
 
 import org.lineageos.settings.kernelmanager.KernelManagerUtils;
@@ -31,13 +31,6 @@ import org.lineageos.settings.utils.FileUtils;
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false; // Disabled for production
     private static final String TAG = "XiaomiParts";
-
-    // Governor/freq paths: SM7435 mapping (4+4 config)
-    private static final String POLICY0_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor";
-    private static final String POLICY4_GOVERNOR_PATH = "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor";
-    
-    // 'walt' is preferred for newer Snapdragon kernels, 'schedutil' is safe fallback
-    private static final String DEFAULT_GOVERNOR = "walt";
 
     // Preference keys
     private static final String KEY_CPU_GOVERNOR = "cpu_governor";
@@ -94,15 +87,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         initializeBackgroundThread();
         mBackgroundHandler.post(() -> {
             try {
-                // Initialize kernel settings first (critical)
-                ensureDefaultGovernorIfNeeded(context);
-                
-                // Parallel initialization for non-critical services
+                // Restore performance profile first (sets msm_performance freq floors)
                 startServices(context);
                 restorePerformanceProfile(context);
                 restoreKernelSettings(context);
                 restoreGpuSettings(context);
                 restoreCoreControlSettings(context);
+                restoreRamOptimizerSettings(context);
                 initializeCpuTileService(context);
                 
                 // Auto-start logcat if enabled
@@ -157,24 +148,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to start services", e);
-        }
-    }
-
-    private void ensureDefaultGovernorIfNeeded(Context context) {
-        try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
-            if (!hasPerformanceProfile) {
-                if (FileUtils.isFileWritable(POLICY0_GOVERNOR_PATH)) {
-                    FileUtils.writeLine(POLICY0_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                }
-                if (FileUtils.isFileWritable(POLICY4_GOVERNOR_PATH)) {
-                    FileUtils.writeLine(POLICY4_GOVERNOR_PATH, DEFAULT_GOVERNOR);
-                }
-                Log.d(TAG, "Set default governor to " + DEFAULT_GOVERNOR);
-            }
-        } catch (Exception e) {
-            Log.w(TAG, "Failed to set default governor", e);
         }
     }
 
@@ -397,6 +370,20 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         if (mBackgroundThread != null) {
             mBackgroundThread.quitSafely();
             mBackgroundThread = null;
+        }
+    }
+
+    private void restoreRamOptimizerSettings(Context context) {
+        try {
+            if (!org.lineageos.settings.ramoptimizer.RamOptimizerUtils.isSupported()) {
+                Log.d(TAG, "RAM Optimizer not supported, skipping restore");
+                return;
+            }
+            // Runs on mBackgroundHandler thread — root commands are safe here
+            org.lineageos.settings.ramoptimizer.RamOptimizerUtils.restorePreferences(context);
+            Log.d(TAG, "RAM Optimizer preferences restored");
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to restore RAM Optimizer settings", e);
         }
     }
 

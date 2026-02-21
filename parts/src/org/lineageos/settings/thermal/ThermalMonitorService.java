@@ -3,29 +3,35 @@ package org.lineageos.settings.thermal;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
 /**
- * Background service for monitoring thermal states
- * Battery-optimized version with reduced update frequency
+ * Background service for monitoring thermal states.
+ * Uses a HandlerThread so file I/O never runs on the main thread.
  */
 public class ThermalMonitorService extends Service {
 
     private static final String TAG = "ThermalMonitorService";
-    // Battery optimization: Increased from 2s to 5s
     private static final long UPDATE_INTERVAL_MS = 5000; // 5 seconds
-    
+
+    private HandlerThread mHandlerThread;
     private Handler mHandler;
     private Runnable mUpdateRunnable;
-    private boolean mIsMonitoring = false;
+    private volatile boolean mIsMonitoring = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
         try {
-            mHandler = new Handler(Looper.getMainLooper());
+            // Background thread — thermal sysfs reads must NOT run on the main thread
+            mHandlerThread = new HandlerThread("ThermalMonitor",
+                    android.os.Process.THREAD_PRIORITY_BACKGROUND);
+            mHandlerThread.start();
+            mHandler = new Handler(mHandlerThread.getLooper());
+
             mUpdateRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -35,7 +41,7 @@ public class ThermalMonitorService extends Service {
                     }
                 }
             };
-            Log.d(TAG, "ThermalMonitorService created (battery-optimized)");
+            Log.d(TAG, "ThermalMonitorService created (background thread)");
         } catch (Exception e) {
             Log.e(TAG, "Error in onCreate", e);
         }
@@ -52,6 +58,10 @@ public class ThermalMonitorService extends Service {
     @Override
     public void onDestroy() {
         stopMonitoring();
+        if (mHandlerThread != null) {
+            mHandlerThread.quitSafely();
+            mHandlerThread = null;
+        }
         super.onDestroy();
         Log.d(TAG, "ThermalMonitorService destroyed");
     }

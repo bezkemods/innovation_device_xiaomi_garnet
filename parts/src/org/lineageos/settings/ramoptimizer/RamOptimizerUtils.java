@@ -15,9 +15,7 @@ import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageStats;
 import android.os.Environment;
 import android.os.StatFs;
 import android.preference.PreferenceManager;
@@ -546,21 +544,10 @@ public class RamOptimizerUtils {
             stats.freeStorage = statFs.getAvailableBlocksLong() * blockSize / (1024 * 1024);
             stats.usedStorage = stats.totalStorage - stats.freeStorage;
 
-            // App cache
-            PackageManager pm = context.getPackageManager();
-            List<ApplicationInfo> apps = pm.getInstalledApplications(0);
-            final long[] cacheSize = {0};
-            for (ApplicationInfo app : apps) {
-                pm.getPackageSizeInfo(app.packageName, new IPackageStatsObserver.Stub() {
-                    @Override
-                    public void onGetStatsCompleted(PackageStats pStats, boolean succeeded) {
-                        if (succeeded) {
-                            cacheSize[0] += pStats.cacheSize / (1024 * 1024);
-                        }
-                    }
-                });
-            }
-            stats.appCacheSize = cacheSize[0];
+            // App cache size — pm.getPackageSizeInfo() is a hidden/removed API.
+            // Approximate from the cache directory sizes instead.
+            stats.appCacheSize = getDirSize(new File("/data/data")) > 0
+                    ? getDirSize(new File("/data/data")) / (1024 * 1024) : 0;
 
             // System cache - approximate
             stats.systemCacheSize = getDirSize(new File("/data/cache")) / (1024 * 1024);

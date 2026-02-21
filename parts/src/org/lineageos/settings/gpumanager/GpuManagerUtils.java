@@ -25,7 +25,6 @@ public class GpuManagerUtils
     private static final String GPU_BASE_PATH = "/sys/class/kgsl/kgsl-3d0";
     private static final String DEVFREQ_PATH = GPU_BASE_PATH + "/devfreq";
     private static final String DEFAULT_GOVERNOR = "msm-adreno-tz";
-    private static final String TURBO_GOVERNOR = "performance";
 
     // Adreno 710 (SM7435) optimized frequencies
     // Base: 295 MHz, Max: 940 MHz
@@ -60,9 +59,8 @@ public class GpuManagerUtils
     private static final long MAX_GPU_FREQ = 940000000L; // 940 MHz max
     private static final long DEFAULT_MIN_GPU_FREQ = 295000000L; // 295 MHz default idle
 
-    // Powerhint paths for camera boost
-    private static final String POWERHINT_TRIGGER_PATH = "/proc/powerhint";
-    private static final String CAMERA_BOOST_HINT_ID = "0x00001340";
+    // Camera boost is handled by the PowerHAL via powerhint.json CAMERA_LAUNCH hint.
+    // Manual triggering from app is not needed on garnet.
 
     // Cache for frequently accessed values (optimized)
     private String[] mCachedFrequencies = null;
@@ -573,54 +571,44 @@ public class GpuManagerUtils
     }
 
     /**
-     * Trigger camera boost using powerhint mechanism
-     * Improves video recording and camera app performance
+     * Camera boost on garnet is handled automatically by the PowerHAL via
+     * powerhint.json CAMERA_LAUNCH / CAMERA_STREAMING_* hints.
+     * Manual triggering from the app is not required and the /proc/powerhint
+     * path does not exist on this kernel.
      */
     public boolean triggerCameraBoost()
     {
-        try
-        {
-            boolean success = writeFile(POWERHINT_TRIGGER_PATH, CAMERA_BOOST_HINT_ID);
-            if (success) {
-                Log.d(TAG, "Camera boost triggered successfully");
-            } else {
-                Log.w(TAG, "Failed to trigger camera boost");
-            }
-            return success;
-        }
-        catch (Exception e)
-        {
-            Log.e(TAG, "Camera boost trigger failed", e);
-            return false;
-        }
+        Log.d(TAG, "Camera boost is managed by PowerHAL (CAMERA_LAUNCH hint), no manual trigger needed");
+        return true;
     }
 
     /**
-     * TURBO PROFILE: performance governor, max freq, optimized power options
-     * Maximum performance mode for gaming - battery-conscious version
+     * TURBO PROFILE: max freq ceiling, high min floor, optimized power options.
+     * Governor intentionally NOT changed — msm-adreno-tz must stay active so the
+     * PowerHAL EXPENSIVE_RENDERING and CAMERA_* hints continue to function.
      */
     public boolean applyTurboPreset()
     {
         boolean success = true;
         String maxFreq = String.valueOf(MAX_GPU_FREQ);
+        
         // Use mid-high frequency as min for better responsiveness while saving battery
         String minFreq = "650000000"; // 650 MHz instead of max
         
-        if (!setGovernor(TURBO_GOVERNOR)) success = false;
         if (!setFrequencyRange(minFreq, maxFreq)) success = false;
         
         // Only enable clock forcing, not bus/rail for better battery life
         if (!setForceClkOn(true)) success = false;
         if (!setForceBusOn(false)) success = false; // Battery optimization
         if (!setForceRailOn(false)) success = false; // Battery optimization
-        if (!setForceNoNap(false)) success = false; // Battery optimization
+        if (!setForceNoNap(false)) success = false;
         if (!setBusSplit(true)) success = false;
         if (!setPreempt(true)) success = false;
         
-        // Set aggressive idle timer for better battery when not in use
+        // Set performance idle timer
         if (!setIdleTimer(IDLE_TIMER_PERFORMANCE)) success = false;
         
-        Log.d(TAG, "Turbo preset enabled (battery-optimized): " + (success ? "OK" : "FAILED"));
+        Log.d(TAG, "Turbo preset enabled (governor unchanged, battery-optimized): " + (success ? "OK" : "FAILED"));
         return success;
     }
 
@@ -746,14 +734,19 @@ public class GpuManagerUtils
         return sb.toString();
     }
 
+    /**
+     * FIX: readFile() — removed canRead() check as a strict gate.
+     * canRead() uses POSIX stat() which does not reflect SELinux MAC policy.
+     * Silently returns null on failure so callers can use fallback values.
+     */
     private String readFile(String path)
     {
         try
         {
             File file = new File(path);
-            if (!file.exists() || !file.canRead())
+            if (!file.exists())
                 return null;
-            
+
             BufferedReader reader = null;
             try
             {
@@ -774,14 +767,28 @@ public class GpuManagerUtils
         }
     }
 
+    /**
+     * FIX: Removed !file.canWrite() check from writeFile().
+     *
+     * File.canWrite() queries POSIX DAC permission bits via stat() and does NOT
+     * consult SELinux / MAC policies. On Android sysfs nodes this means canWrite()
+     * can return false even when the platform_app SELinux domain is allowed to
+     * write — blocking the attempt before any I/O is attempted.
+     *
+     * Removing the check and letting FileWriter throw on real permission failures
+     * is the correct approach, consistent with PerformanceUtils and KernelManagerUtils.
+     */
     private boolean writeFile(String path, String value)
     {
         try
         {
             File file = new File(path);
-            if (!file.exists() || !file.canWrite())
-                throw new IOException("Cannot write to file: " + path);
-            
+            if (!file.exists())
+            {
+                Log.w(TAG, "writeFile: file not found: " + path);
+                return false;
+            }
+            // canWrite() intentionally NOT checked — see javadoc above.
             FileWriter writer = null;
             try
             {
@@ -798,7 +805,7 @@ public class GpuManagerUtils
         }
         catch (Exception e)
         {
-            Log.e(TAG, "writeFile error: " + path, e);
+            Log.e(TAG, "writeFile error (SELinux or read-only?): " + path, e);
             return false;
         }
     }
