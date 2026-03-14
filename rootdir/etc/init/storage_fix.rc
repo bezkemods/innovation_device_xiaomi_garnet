@@ -1,0 +1,19 @@
+# storage_fix.rc — Android 16 QPR2 storage fix
+# Installed at: /system/etc/init/storage_fix.rc
+#
+# Runs the fix script inside the init context (u:r:init:s0) using
+# "exec_background" so it does not block the init queue.
+# No custom SELinux domain is needed — init already holds all required
+# capabilities (chown, dac_override, fowner, fsetid) and has access to
+# /data/media/0 and /data/system/packages.list.
+#
+# Add to device.mk via PRODUCT_COPY_FILES:
+#   $(LOCAL_PATH)/rootdir/etc/init/storage_fix.rc:system/etc/init/storage_fix.rc
+#   $(LOCAL_PATH)/rootdir/bin/storage_fix.sh:system/bin/storage_fix.sh
+
+on property:sys.boot_completed=1
+    exec_background -- /system/bin/sh /system/bin/storage_fix.sh
+
+# Fallback: some A16 QPR2 configs signal storage readiness here
+on property:vold.decrypt=trigger_restart_framework
+    exec_background -- /system/bin/sh /system/bin/storage_fix.sh

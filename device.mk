@@ -406,6 +406,14 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/xiaomi \
     vendor/qcom/opensource/usb/etc
 
+# Storage Fix: Android 16 QPR2
+# Fixes missing Android/data and Android/obb per-package directories on FUSE.
+# Based on Universal-Storage-Fix by @Rubyneee (Garnet Geeks).
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/init/storage_fix.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/storage_fix.rc \
+    $(LOCAL_PATH)/rootdir/bin/storage_fix.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/storage_fix.sh
+
 # Telephony
 PRODUCT_PACKAGES += \
     extphonelib \
