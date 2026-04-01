@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Widget colors — Material You / Monet dynamic colors.
+
+    These reference the system-generated ?attr/colorPrimary etc. values
+    which Android 12+ (Monet) derives from the user's wallpaper.
+    On older builds they fall back to the default Material3 teal.
+
+    Place in: res/values/widget_colors.xml
+    Night variant:  res/values-night/widget_colors.xml  (same — Monet handles dark mode)
+-->
+<resources>
+    <!-- Primary accent: follows wallpaper color (Monet) -->
+    <color name="widget_accent">@android:color/system_accent1_600</color>
+
+    <!-- Widget surface: lightest tint of the accent family -->
+    <color name="widget_surface">@android:color/system_accent2_50</color>
+
+    <!-- Card surface: slightly deeper tint -->
+    <color name="widget_card_surface">@android:color/system_accent2_100</color>
+
+    <!-- Active/ON card: clearly tinted -->
+    <color name="widget_card_active_surface">@android:color/system_accent1_200</color>
+
+    <!-- Primary text: darkest shade on the accent family -->
+    <color name="widget_text_primary">@android:color/system_accent1_900</color>
+
+    <!-- Secondary/muted text -->
+    <color name="widget_text_secondary">@android:color/system_accent1_700</color>
+
+    <!-- Round button background -->
+    <color name="widget_btn_bg">@android:color/system_accent1_100</color>
+
+    <!-- Round button pressed state -->
+    <color name="widget_btn_pressed">@android:color/system_accent1_300</color>
+
+    <!-- Progress bar track background -->
+    <color name="widget_progress_bg">@android:color/system_accent2_200</color>
+</resources>

@@ -940,4 +940,29 @@ Recommendations:\n
     <string name="thermal_enable_title">Enable Per-App Profiles</string>
     <string name="thermal_enable_summary">Automatically adjust performance based on foreground application</string>
     
+    <!-- ========== Widget ========== -->
+    <string name="widget_title">Xiaomi Parts</string>
+    <string name="widget_description">CPU, Display, Thermal and Performance controls</string>
+
+    <!-- State labels -->
+    <string name="widget_state_on">ON</string>
+    <string name="widget_state_off">OFF</string>
+
+    <!-- CPU Governor -->
+    <string name="widget_cpu_governor_label">CPU Governor</string>
+    <string name="widget_gov_prev">Previous governor</string>
+    <string name="widget_gov_next">Next governor</string>
+
+    <!-- Display refresh rate -->
+    <string name="widget_display_hz">Refresh rate</string>
+    <string name="widget_hz_dec">Decrease refresh rate</string>
+    <string name="widget_hz_inc">Increase refresh rate</string>
+
+    <string name="widget_cpu_freq_note">CPU max frequency limits are applied directly via Kernel Manager</string>
+    
+    <!-- HBM -->
+    <string name="widget_hbm">HBM</string>
+    <string name="widget_hbm_on">ON</string>
+    <string name="widget_hbm_off">OFF</string>
+    
 </resources>

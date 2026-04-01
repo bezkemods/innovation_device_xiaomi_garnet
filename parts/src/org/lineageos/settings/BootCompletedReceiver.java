@@ -21,12 +21,16 @@ import android.os.UserHandle;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+
 import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import org.lineageos.settings.gpumanager.GpuManagerUtils;
 import org.lineageos.settings.corecontrol.CoreControlUtils;
 import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 import org.lineageos.settings.performance.PerformanceUtils;
 import org.lineageos.settings.utils.FileUtils;
+import org.lineageos.settings.widget.XiaomiPartsWidget;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false; // Disabled for production
@@ -112,6 +116,21 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         }
         mBackgroundHandler.post(() -> {
             try {
+                // Refresh all XiaomiParts widget instances after boot
+                try {
+                    AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+                    int[] widgetIds = widgetManager.getAppWidgetIds(
+                            new ComponentName(context, XiaomiPartsWidget.class));
+                    if (widgetIds != null && widgetIds.length > 0) {
+                        for (int id : widgetIds) {
+                            XiaomiPartsWidget.updateWidget(context, widgetManager, id);
+                        }
+                        Log.i(TAG, "XiaomiPartsWidget refreshed for " + widgetIds.length + " instance(s)");
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed to refresh XiaomiPartsWidget", e);
+                }
+
                 Log.i(TAG, "Boot completed initialization finished");
             } catch (Exception e) {
                 Log.e(TAG, "Error during boot completed initialization", e);

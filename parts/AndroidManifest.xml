@@ -477,6 +477,53 @@
             android:name=".gamebar.GameBarPerAppConfigActivity"
             android:exported="false"
             android:theme="@style/Theme.SubSettingsBase" />    
-         
+
+        <!-- ============================================================
+             XIAOMIPARTS WIDGET
+        ============================================================ -->
+
+        <!--
+            AppWidgetProvider — handles widget broadcast intents
+            (ACTION_APPWIDGET_UPDATE + custom button actions).
+            android:exported="true" is required: the launcher sends the update broadcast.
+        -->
+<receiver
+    android:name=".widget.XiaomiPartsWidget"
+    android:exported="true"
+    android:label="@string/widget_title">
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        <action android:name="org.lineageos.settings.widget.GOV_PREV" />
+        <action android:name="org.lineageos.settings.widget.GOV_NEXT" />
+        <action android:name="org.lineageos.settings.widget.HZ_DEC" />
+        <action android:name="org.lineageos.settings.widget.HZ_INC" />
+        <action android:name="org.lineageos.settings.widget.THERMAL_TOGGLE" />
+        <action android:name="org.lineageos.settings.widget.PERFORMANCE_MODE" />
+        <action android:name="org.lineageos.settings.widget.A55_DEC" />
+        <action android:name="org.lineageos.settings.widget.A55_INC" />
+        <action android:name="org.lineageos.settings.widget.A78_DEC" />
+        <action android:name="org.lineageos.settings.widget.A78_INC" />
+        <action android:name="org.lineageos.settings.widget.OPEN_PARTS" />
+        <action android:name="org.lineageos.settings.widget.TOGGLE_THEME" />
+        <action android:name="org.lineageos.settings.widget.HBM_TOGGLE" />
+    </intent-filter>
+    <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/widget_xiaomi_parts_info" />
+</receiver>
+
+        <!--
+            Widget configuration Activity — opened by the launcher when
+            the user first adds the widget to their home screen.
+        -->
+        <activity
+            android:name=".widget.XiaomiPartsWidgetConfigActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
