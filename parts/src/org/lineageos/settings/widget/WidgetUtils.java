@@ -132,9 +132,14 @@ public final class WidgetUtils {
     // -------------------------------------------------------------------
 
     public static boolean setHbm(Context context, boolean enable) {
-        SharedPreferences prefs = context.getSharedPreferences(
+        // Widget saját prefs (utolsó fényerő, stb.)
+        SharedPreferences widgetPrefs = context.getSharedPreferences(
                 XiaomiPartsWidget.PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
+        SharedPreferences.Editor widgetEditor = widgetPrefs.edit();
+
+        // Parts által használt default prefs (hbm_enabled kulcs)
+        SharedPreferences defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor defaultEditor = defaultPrefs.edit();
 
         if (enable) {
             String current = readSysfs(HBM_BRIGHTNESS_NODE);
@@ -144,17 +149,25 @@ public final class WidgetUtils {
             } catch (Exception e) {
                 Log.w(TAG, "Failed to parse current brightness", e);
             }
-            editor.putInt(XiaomiPartsWidget.KEY_LAST_BRIGHTNESS, currentBrightness);
-            editor.putBoolean(XiaomiPartsWidget.KEY_HBM_ENABLED, true);
-            editor.apply();
+            widgetEditor.putInt(XiaomiPartsWidget.KEY_LAST_BRIGHTNESS, currentBrightness);
+            widgetEditor.putBoolean(XiaomiPartsWidget.KEY_HBM_ENABLED, true);
+            widgetEditor.apply();
+
+            // Frissítjük a default prefs-t is, hogy a Parts főkapcsolója szinkronban legyen
+            defaultEditor.putBoolean("hbm_enabled", true);
+            defaultEditor.apply();
 
             boolean success = runAsRoot("echo " + HBM_MAX_BRIGHTNESS + " > " + HBM_BRIGHTNESS_NODE);
             Log.d(TAG, "HBM enabled: " + success);
             return success;
         } else {
-            int last = prefs.getInt(XiaomiPartsWidget.KEY_LAST_BRIGHTNESS, FALLBACK_BRIGHTNESS);
-            editor.putBoolean(XiaomiPartsWidget.KEY_HBM_ENABLED, false);
-            editor.apply();
+            int last = widgetPrefs.getInt(XiaomiPartsWidget.KEY_LAST_BRIGHTNESS, FALLBACK_BRIGHTNESS);
+            widgetEditor.putBoolean(XiaomiPartsWidget.KEY_HBM_ENABLED, false);
+            widgetEditor.apply();
+
+            defaultEditor.putBoolean("hbm_enabled", false);
+            defaultEditor.apply();
+
             boolean success = runAsRoot("echo " + last + " > " + HBM_BRIGHTNESS_NODE);
             Log.d(TAG, "HBM disabled, restored to " + last);
             return success;
@@ -162,9 +175,15 @@ public final class WidgetUtils {
     }
 
     public static boolean isHbmEnabled(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(
+        // Először a default prefs-ből olvassuk (ahova a Parts is ír)
+        SharedPreferences defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (defaultPrefs.contains("hbm_enabled")) {
+            return defaultPrefs.getBoolean("hbm_enabled", false);
+        }
+        // Ha nincs, akkor a widget saját prefs-éből (kompatibilitás)
+        SharedPreferences widgetPrefs = context.getSharedPreferences(
                 XiaomiPartsWidget.PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getBoolean(XiaomiPartsWidget.KEY_HBM_ENABLED, false);
+        return widgetPrefs.getBoolean(XiaomiPartsWidget.KEY_HBM_ENABLED, false);
     }
 
     // -------------------------------------------------------------------

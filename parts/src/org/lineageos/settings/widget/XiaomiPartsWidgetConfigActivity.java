@@ -57,6 +57,10 @@ public class XiaomiPartsWidgetConfigActivity extends Activity {
                 getSharedPreferences(XiaomiPartsWidget.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
+        // Default prefs a Parts számára
+        SharedPreferences defaultPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor defaultEditor = defaultPrefs.edit();
+
         KernelManagerUtils km = new KernelManagerUtils();
         PerformanceUtils    pm = new PerformanceUtils(this);
 
@@ -104,9 +108,11 @@ public class XiaomiPartsWidgetConfigActivity extends Activity {
                               .getBoolean("thermal_enabled", false);
         editor.putBoolean(XiaomiPartsWidget.KEY_THERMAL, thermalOn);
 
-        // HBM – alapértelmezetten kikapcsolva
+        // HBM – alapértelmezetten kikapcsolva (mindkét prefs-ben)
         editor.putBoolean(XiaomiPartsWidget.KEY_HBM_ENABLED, false);
         editor.putInt(XiaomiPartsWidget.KEY_LAST_BRIGHTNESS, 200);
+        defaultEditor.putBoolean("hbm_enabled", false);
+        defaultEditor.apply();
 
         editor.apply();
         Log.d(TAG, "Widget prefs synced with system.");
@@ -122,6 +128,12 @@ public class XiaomiPartsWidgetConfigActivity extends Activity {
             .putInt(XiaomiPartsWidget.KEY_LAST_BRIGHTNESS, 200)
             .remove(XiaomiPartsWidget.KEY_A55_MAX)
             .remove(XiaomiPartsWidget.KEY_A78_MAX)
+            .apply();
+
+        // Fallback esetén is írjuk a default prefs-be
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putBoolean("hbm_enabled", false)
             .apply();
     }
 }

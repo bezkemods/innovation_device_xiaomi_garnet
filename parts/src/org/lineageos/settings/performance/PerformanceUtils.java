@@ -31,9 +31,11 @@ import android.os.Vibrator;
 import android.util.Log;
 import androidx.preference.PreferenceManager;
 import org.lineageos.settings.R;
+import org.lineageos.settings.kernelmanager.KernelManagerUtils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class PerformanceUtils {
 
@@ -48,17 +50,17 @@ public class PerformanceUtils {
 
     // =========================================================================
     // SharedPreferences keys
-    //
-    // PREFS_KEY_CURRENT_MODE   — internal int, never touched by ListPreference
-    // PREFS_KEY_LIST           — string key kept in sync for ListPreference UI
-    // PREFS_KEY_USER_NIGHT     — the user's night mode before Battery Saver
-    //                            forced it to MODE_NIGHT_YES, so we can restore it
     // =========================================================================
     private static final String PREFS_KEY_CURRENT_MODE = "performance_profile_int";
     public  static final String PREFS_KEY_LIST         = "performance_profile";
     private static final String PREFS_KEY_USER_NIGHT   = "performance_saved_night_mode";
 
     private static final String PERF_MODE_PROP = "sys.performance.mode";
+
+    // =========================================================================
+    // CPU governor paths
+    // =========================================================================
+    private static final String CPU_GOVERNOR_BASE = "/sys/devices/system/cpu/cpufreq";
 
     // =========================================================================
     // CPU paths — atomic cluster writes via msm_performance
@@ -151,11 +153,7 @@ public class PerformanceUtils {
 
     /**
      * Apply a performance profile. Always returns true (best-effort sysfs writes).
-     *
-     * Battery Saver specifics:
-     *  • Saves the current night mode (auto / yes / no) to SharedPreferences.
-     *  • Switches the system to Dark Mode (UiModeManager.MODE_NIGHT_YES).
-     *  • Restores the saved night mode when switching away.
+     * Now also sets the CPU governor.
      */
     public boolean setPerformanceMode(int mode) {
         Log.d(TAG, "Setting performance mode: " + getModeLabel(mode));
@@ -164,7 +162,7 @@ public class PerformanceUtils {
             mVibrator.vibrate(50);
         }
 
-        // Apply kernel/sysfs tuning
+        // Apply kernel/sysfs tuning + governor
         switch (mode) {
             case MODE_BATTERY_SAVER:
                 applyBatterySaver();
@@ -208,19 +206,25 @@ public class PerformanceUtils {
     }
 
     // =========================================================================
+    // Governor handling
+    // =========================================================================
+
+    /**
+     * Sets the scaling governor for all CPU policy directories using KernelManagerUtils.
+     * This ensures that the governor change is properly applied and persisted.
+     */
+    private void setGovernor(String desiredGovernor) {
+        KernelManagerUtils km = new KernelManagerUtils();
+        boolean success = km.setGovernor(desiredGovernor);
+        if (success) {
+            Log.d(TAG, "Governor set to: " + desiredGovernor);
+        } else {
+            Log.w(TAG, "Failed to set governor to: " + desiredGovernor);
+        }
+    }
+
+    // =========================================================================
     // Night mode (Dark Theme)
-    //
-    // Battery Saver → save current night mode, force MODE_NIGHT_YES (dark).
-    // Switching away from Battery Saver → restore the saved night mode.
-    //
-    // UiModeManager.setNightMode() is a system API available to priv-apps.
-    // Required in AndroidManifest.xml (already present in LineageOS Parts):
-    //   <uses-permission android:name="android.permission.CHANGE_NIGHT_MODE" />
-    //
-    // Possible saved values:
-    //   MODE_NIGHT_AUTO  (0) — follow system/time
-    //   MODE_NIGHT_NO    (1) — always light
-    //   MODE_NIGHT_YES   (2) — always dark
     // =========================================================================
 
     private void applyNightMode(int newMode) {
@@ -230,8 +234,6 @@ public class PerformanceUtils {
             int previousMode = getCurrentMode(); // read BEFORE prefs are written
 
             if (newMode == MODE_BATTERY_SAVER) {
-                // Only snapshot if we're not already in battery saver, to avoid
-                // overwriting the real user preference with MODE_NIGHT_YES.
                 if (previousMode != MODE_BATTERY_SAVER) {
                     int currentNightMode = mUiModeManager.getNightMode();
                     mSharedPrefs.edit()
@@ -239,18 +241,14 @@ public class PerformanceUtils {
                             .apply();
                     Log.d(TAG, "Saved night mode: " + currentNightMode);
                 }
-
                 mUiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
                 Log.d(TAG, "Dark mode enabled for Battery Saver");
-
             } else if (previousMode == MODE_BATTERY_SAVER) {
-                // Restore only when actually leaving battery saver
                 int savedNightMode = mSharedPrefs.getInt(
                         PREFS_KEY_USER_NIGHT, UiModeManager.MODE_NIGHT_AUTO);
                 mUiModeManager.setNightMode(savedNightMode);
                 Log.d(TAG, "Restored night mode: " + savedNightMode);
             }
-
         } catch (Exception e) {
             Log.w(TAG, "Could not change night mode: " + e.getMessage());
         }
@@ -258,28 +256,22 @@ public class PerformanceUtils {
 
     // =========================================================================
     // Profile implementations
-    //
-    // Governor intentionally NOT changed — WALT must stay active so PowerHAL
-    // powerhint.json hints (INTERACTION, LAUNCH, EXPENSIVE_RENDERING, CAMERA_*)
-    // continue to work.
-    //
-    // Relationship with KernelManager:
-    //   msm_performance (used here) takes precedence over per-policy cpufreq nodes
-    //   (used by KernelManager). Battery Saver caps override KernelManager values.
-    //   Balanced/Performance clear the msm_performance caps, making KernelManager
-    //   per-cluster settings effective again.
     // =========================================================================
 
     private void applyPerformance() {
+        // CPU
         writeSafe(CPU_MIN_FREQ_PATH, CPU_MIN_PERFORMANCE);
         writeSafe(CPU_MAX_FREQ_PATH, CPU_MAX_UNLOCKED);
+        setGovernor("performance");
 
+        // GPU
         writeSafe(GPU_MIN_FREQ_PATH,   GPU_MIN_PERF);
         writeSafe(GPU_MAX_FREQ_PATH,   GPU_MAX_DEFAULT);
         writeSafe(GPU_FORCE_RAIL_PATH, "1");
         writeSafe(GPU_FORCE_CLK_PATH,  "1");
         writeSafe(GPU_IDLE_TIMER_PATH, GPU_IDLE_PERF);
 
+        // Scheduler & DDR
         writeSafe(SCHED_BOOST_PATH,       "1");
         writeSafe(DDR_MIN_FREQ_PATH,      DDR_MIN_PERF);
         writeSafe(UCLAMP_TA_MIN_PATH,     "30");
@@ -288,15 +280,19 @@ public class PerformanceUtils {
     }
 
     private void applyBalanced() {
+        // CPU
         writeSafe(CPU_MIN_FREQ_PATH, CPU_MIN_DEFAULT);
         writeSafe(CPU_MAX_FREQ_PATH, CPU_MAX_UNLOCKED);
+        setGovernor("walt");
 
+        // GPU
         writeSafe(GPU_MIN_FREQ_PATH,   GPU_MIN_DEFAULT);
         writeSafe(GPU_MAX_FREQ_PATH,   GPU_MAX_DEFAULT);
         writeSafe(GPU_FORCE_RAIL_PATH, "0");
         writeSafe(GPU_FORCE_CLK_PATH,  "0");
         writeSafe(GPU_IDLE_TIMER_PATH, GPU_IDLE_DEFAULT);
 
+        // Scheduler & DDR
         writeSafe(SCHED_BOOST_PATH,       "0");
         writeSafe(DDR_MIN_FREQ_PATH,      DDR_MIN_DEFAULT);
         writeSafe(UCLAMP_TA_MIN_PATH,     "0");
@@ -305,15 +301,19 @@ public class PerformanceUtils {
     }
 
     private void applyBatterySaver() {
+        // CPU: lower max frequencies + powersave governor
         writeSafe(CPU_MIN_FREQ_PATH, CPU_MIN_DEFAULT);
         writeSafe(CPU_MAX_FREQ_PATH, CPU_MAX_BATTERY);
+        setGovernor("powersave");
 
+        // GPU: lower max frequency, faster idle, no force rail/clk
         writeSafe(GPU_MIN_FREQ_PATH,   GPU_MIN_DEFAULT);
         writeSafe(GPU_MAX_FREQ_PATH,   GPU_MAX_BATTERY);
         writeSafe(GPU_FORCE_RAIL_PATH, "0");
         writeSafe(GPU_FORCE_CLK_PATH,  "0");
         writeSafe(GPU_IDLE_TIMER_PATH, GPU_IDLE_BATTERY);
 
+        // Scheduler & DDR: most conservative
         writeSafe(SCHED_BOOST_PATH,       "0");
         writeSafe(DDR_MIN_FREQ_PATH,      DDR_MIN_DEFAULT);
         writeSafe(UCLAMP_TA_MIN_PATH,     "0");
@@ -322,7 +322,7 @@ public class PerformanceUtils {
     }
 
     // =========================================================================
-    // File I/O — canWrite() intentionally NOT used (see KernelManagerUtils fix)
+    // File I/O
     // =========================================================================
 
     private void writeSafe(String path, String value) {
@@ -341,7 +341,7 @@ public class PerformanceUtils {
     }
 
     // =========================================================================
-    // Status bar notification — persistent, cannot be dismissed
+    // Notification
     // =========================================================================
 
     private void setupNotificationChannel() {
@@ -349,7 +349,7 @@ public class PerformanceUtils {
         NotificationChannel ch = new NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
                 mContext.getString(R.string.performance_notification_channel_name),
-                NotificationManager.IMPORTANCE_LOW); // no sound, no heads-up
+                NotificationManager.IMPORTANCE_LOW);
         ch.setDescription(mContext.getString(R.string.performance_notification_channel_desc));
         ch.setShowBadge(false);
         ch.setBlockable(true);
