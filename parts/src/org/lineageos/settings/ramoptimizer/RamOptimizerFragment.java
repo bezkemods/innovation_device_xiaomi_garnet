@@ -1,12 +1,12 @@
 /*
-* Copyright (C) 2025 The LineageOS Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*/
+ * Copyright (C) 2025 The LineageOS Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
 package org.lineageos.settings.ramoptimizer;
 
 import android.app.AlertDialog;
@@ -60,7 +60,6 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     private static final String AUTO_CLEAN_INTERVAL_KEY = "auto_clean_interval";
     private static final String ANALYZE_STORAGE_KEY = "analyze_storage";
 
-    // RAM preferences
     private Preference mStatsPreference;
     private SwitchPreference mZramEnablePref;
     private SeekBarPreference mZramSizePref;
@@ -70,7 +69,6 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     private SwitchPreference mAppHibernationPref;
     private ListPreference mIoSchedulerPref;
 
-    // Storage cleaner preferences
     private Preference mStorageStatsPref;
     private Preference mCleanAppCachePref;
     private Preference mCleanSystemCachePref;
@@ -83,21 +81,25 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     private Preference mCleanDuplicatesPref;
     private Preference mCleanAllPref;
 
-    // Advanced preferences
     private SwitchPreference mAutoCleanPref;
     private ListPreference mAutoCleanIntervalPref;
     private Preference mAnalyzeStoragePref;
 
-    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
     private Runnable mUpdateStatsRunnable;
     private RamOptimizerUtils.StorageStats mStorageStats;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.ram_optimizer_settings);
+        // JAVÍTÁS: SharedPreferences-ben tárolt helytelen típusú értékek javítása
+        fixCorruptedPreferences();
 
-        if (!RamOptimizerUtils.isSupported()) {
-            showErrorAndFinish("RAM Optimizer not supported on this device");
+        try {
+            addPreferencesFromResource(R.xml.ram_optimizer_settings);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to load preferences XML", e);
+            Toast.makeText(getContext(), "Error loading RAM Optimizer settings", Toast.LENGTH_LONG).show();
+            if (getActivity() != null) getActivity().finish();
             return;
         }
 
@@ -105,67 +107,122 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         setupUpdateTask();
     }
 
-    private void showErrorAndFinish(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-        if (getActivity() != null) {
-            getActivity().finish();
+    /**
+     * Javítja a SharedPreferences-ben esetlegesen rossz típusú értékeket.
+     * Különösen a SeekBarPreference-eknél váltott ki ClassCastException-t.
+     */
+    private void fixCorruptedPreferences() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean changed = false;
+
+        // zram_size: int kell, 512-12288
+        if (prefs.contains(ZRAM_SIZE_KEY)) {
+            try {
+                prefs.getInt(ZRAM_SIZE_KEY, 4096);
+            } catch (ClassCastException e) {
+                String stringValue = prefs.getString(ZRAM_SIZE_KEY, "4096");
+                int intValue;
+                try {
+                    intValue = Integer.parseInt(stringValue);
+                } catch (NumberFormatException ex) {
+                    intValue = 4096;
+                }
+                editor.putInt(ZRAM_SIZE_KEY, intValue);
+                changed = true;
+                Log.w(TAG, "Fixed corrupted zram_size from String to int: " + intValue);
+            }
+        }
+
+        // zram_swappiness: int kell, 0-200
+        if (prefs.contains(ZRAM_SWAPPINESS_KEY)) {
+            try {
+                prefs.getInt(ZRAM_SWAPPINESS_KEY, 60);
+            } catch (ClassCastException e) {
+                String stringValue = prefs.getString(ZRAM_SWAPPINESS_KEY, "60");
+                int intValue;
+                try {
+                    intValue = Integer.parseInt(stringValue);
+                } catch (NumberFormatException ex) {
+                    intValue = 60;
+                }
+                editor.putInt(ZRAM_SWAPPINESS_KEY, intValue);
+                changed = true;
+                Log.w(TAG, "Fixed corrupted zram_swappiness from String to int: " + intValue);
+            }
+        }
+
+        if (changed) {
+            editor.apply();
         }
     }
 
     private void initializePreferences() {
-        // RAM Stats
+        // RAM Stats kategória – ha nincs, akkor létrehozzuk programozottan
         PreferenceCategory statsCategory = findPreference(STATS_CATEGORY_KEY);
-        if (statsCategory != null) {
+        if (statsCategory == null) {
+            statsCategory = new PreferenceCategory(requireContext());
+            statsCategory.setKey(STATS_CATEGORY_KEY);
+            statsCategory.setTitle("RAM Statistics");
+            getPreferenceScreen().addPreference(statsCategory);
+        }
+
+        if (findPreference(STATS_KEY) == null) {
             mStatsPreference = new Preference(requireContext());
             mStatsPreference.setKey(STATS_KEY);
             mStatsPreference.setTitle("RAM Usage");
             mStatsPreference.setSelectable(false);
             statsCategory.addPreference(mStatsPreference);
+        } else {
+            mStatsPreference = findPreference(STATS_KEY);
         }
 
-        // zRAM preferences
-        mZramEnablePref = findPreference(ZRAM_ENABLE_KEY);
-        if (mZramEnablePref != null) {
-            mZramEnablePref.setOnPreferenceChangeListener(this);
-            mZramEnablePref.setChecked(RamOptimizerUtils.isZramEnabled());
+        // zRAM preferenciák – csak akkor jelennek meg, ha a rendszer támogatja
+        boolean zramSupported = RamOptimizerUtils.isZramSupported();
+        if (!zramSupported) {
+            PreferenceCategory zramCat = findPreference("zram_category");
+            if (zramCat != null) getPreferenceScreen().removePreference(zramCat);
+        } else {
+            mZramEnablePref = findPreference(ZRAM_ENABLE_KEY);
+            if (mZramEnablePref != null) {
+                mZramEnablePref.setOnPreferenceChangeListener(this);
+                mZramEnablePref.setChecked(RamOptimizerUtils.isZramEnabled());
+            }
+
+            mZramSizePref = findPreference(ZRAM_SIZE_KEY);
+            if (mZramSizePref != null) {
+                mZramSizePref.setMin(512);
+                mZramSizePref.setMax(12288);
+                mZramSizePref.setUpdatesContinuously(false);
+                mZramSizePref.setOnPreferenceChangeListener(this);
+                int currentSize = RamOptimizerUtils.getZramSize();
+                mZramSizePref.setValue(currentSize > 0 ? currentSize : 4096);
+                mZramSizePref.setEnabled(RamOptimizerUtils.isZramEnabled());
+            }
+
+            mZramSwappinessPref = findPreference(ZRAM_SWAPPINESS_KEY);
+            if (mZramSwappinessPref != null) {
+                mZramSwappinessPref.setMin(0);
+                mZramSwappinessPref.setMax(200);
+                mZramSwappinessPref.setUpdatesContinuously(false);
+                mZramSwappinessPref.setOnPreferenceChangeListener(this);
+                mZramSwappinessPref.setValue(RamOptimizerUtils.getZramSwappiness());
+                mZramSwappinessPref.setEnabled(RamOptimizerUtils.isZramEnabled());
+            }
+
+            mZramAlgoPref = findPreference(ZRAM_ALGO_KEY);
+            if (mZramAlgoPref != null) {
+                mZramAlgoPref.setOnPreferenceChangeListener(this);
+                String currentAlgo = RamOptimizerUtils.getZramCompressionAlgorithm();
+                mZramAlgoPref.setValue(currentAlgo);
+                mZramAlgoPref.setEnabled(RamOptimizerUtils.isZramEnabled());
+            }
+
+            Preference mZramAlgoInfoPref = findPreference("zram_algorithm_info");
+            if (mZramAlgoInfoPref != null) mZramAlgoInfoPref.setOnPreferenceClickListener(this);
         }
 
-        mZramSizePref = findPreference(ZRAM_SIZE_KEY);
-        if (mZramSizePref != null) {
-            mZramSizePref.setMin(512);
-            mZramSizePref.setMax(12288); // Increased max to 12GB for SM7435
-            mZramSizePref.setUpdatesContinuously(false);
-            mZramSizePref.setOnPreferenceChangeListener(this);
-            int currentSize = RamOptimizerUtils.getZramSize();
-            mZramSizePref.setValue(currentSize > 0 ? currentSize : 4096);
-            mZramSizePref.setEnabled(RamOptimizerUtils.isZramEnabled());
-        }
-
-        mZramSwappinessPref = findPreference(ZRAM_SWAPPINESS_KEY);
-        if (mZramSwappinessPref != null) {
-            mZramSwappinessPref.setMin(0);
-            mZramSwappinessPref.setMax(200);
-            mZramSwappinessPref.setUpdatesContinuously(false);
-            mZramSwappinessPref.setOnPreferenceChangeListener(this);
-            mZramSwappinessPref.setValue(RamOptimizerUtils.getZramSwappiness());
-            mZramSwappinessPref.setEnabled(RamOptimizerUtils.isZramEnabled());
-        }
-
-        mZramAlgoPref = findPreference(ZRAM_ALGO_KEY);
-        if (mZramAlgoPref != null) {
-            mZramAlgoPref.setOnPreferenceChangeListener(this);
-            String currentAlgo = RamOptimizerUtils.getZramCompressionAlgorithm();
-            mZramAlgoPref.setValue(currentAlgo);
-            mZramAlgoPref.setEnabled(RamOptimizerUtils.isZramEnabled());
-        }
-
-        // zRAM Algorithm Info
-        Preference mZramAlgoInfoPref = findPreference("zram_algorithm_info");
-        if (mZramAlgoInfoPref != null) {
-            mZramAlgoInfoPref.setOnPreferenceClickListener(this);
-        }
-
-        // LMK preferences
+        // LMK
         mLmkProfilePref = findPreference(LMK_PROFILE_KEY);
         if (mLmkProfilePref != null) {
             mLmkProfilePref.setOnPreferenceChangeListener(this);
@@ -173,7 +230,7 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
             mLmkProfilePref.setValue(currentProfile);
         }
 
-        // I/O Scheduler preferences
+        // I/O Scheduler
         mIoSchedulerPref = findPreference(IO_SCHEDULER_KEY);
         if (mIoSchedulerPref != null) {
             mIoSchedulerPref.setOnPreferenceChangeListener(this);
@@ -181,79 +238,49 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
             mIoSchedulerPref.setValue(currentScheduler);
         }
 
-        // I/O Scheduler Info
         Preference mIoSchedulerInfoPref = findPreference("io_scheduler_info");
-        if (mIoSchedulerInfoPref != null) {
-            mIoSchedulerInfoPref.setOnPreferenceClickListener(this);
-        }
+        if (mIoSchedulerInfoPref != null) mIoSchedulerInfoPref.setOnPreferenceClickListener(this);
 
         // App hibernation
         mAppHibernationPref = findPreference(APP_HIBERNATION_KEY);
         if (mAppHibernationPref != null) {
             mAppHibernationPref.setOnPreferenceChangeListener(this);
-            mAppHibernationPref.setChecked(
-                    RamOptimizerUtils.isAppHibernationEnabled(requireContext()));
+            mAppHibernationPref.setChecked(RamOptimizerUtils.isAppHibernationEnabled(requireContext()));
         }
 
-        // Storage stats
+        // Storage cleaner preferenciák
         mStorageStatsPref = findPreference(STORAGE_STATS_KEY);
-
-        // Storage cleaner preferences
         mCleanAppCachePref = findPreference(CLEAN_APP_CACHE_KEY);
-        if (mCleanAppCachePref != null) {
-            mCleanAppCachePref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanAppCachePref != null) mCleanAppCachePref.setOnPreferenceClickListener(this);
         mCleanSystemCachePref = findPreference(CLEAN_SYSTEM_CACHE_KEY);
-        if (mCleanSystemCachePref != null) {
-            mCleanSystemCachePref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanSystemCachePref != null) mCleanSystemCachePref.setOnPreferenceClickListener(this);
         mCleanThumbnailsPref = findPreference(CLEAN_THUMBNAILS_KEY);
-        if (mCleanThumbnailsPref != null) {
-            mCleanThumbnailsPref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanThumbnailsPref != null) mCleanThumbnailsPref.setOnPreferenceClickListener(this);
         mCleanDownloadsPref = findPreference(CLEAN_DOWNLOADS_KEY);
-        if (mCleanDownloadsPref != null) {
-            mCleanDownloadsPref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanDownloadsPref != null) mCleanDownloadsPref.setOnPreferenceClickListener(this);
         mCleanTempFilesPref = findPreference(CLEAN_TEMP_FILES_KEY);
-        if (mCleanTempFilesPref != null) {
-            mCleanTempFilesPref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanTempFilesPref != null) mCleanTempFilesPref.setOnPreferenceClickListener(this);
         mCleanLogFilesPref = findPreference(CLEAN_LOG_FILES_KEY);
-        if (mCleanLogFilesPref != null) {
-            mCleanLogFilesPref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanLogFilesPref != null) mCleanLogFilesPref.setOnPreferenceClickListener(this);
         mCleanApkFilesPref = findPreference(CLEAN_APK_FILES_KEY);
-        if (mCleanApkFilesPref != null) {
-            mCleanApkFilesPref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanApkFilesPref != null) mCleanApkFilesPref.setOnPreferenceClickListener(this);
         mCleanEmptyFoldersPref = findPreference(CLEAN_EMPTY_FOLDERS_KEY);
-        if (mCleanEmptyFoldersPref != null) {
-            mCleanEmptyFoldersPref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanEmptyFoldersPref != null) mCleanEmptyFoldersPref.setOnPreferenceClickListener(this);
         mCleanDuplicatesPref = findPreference(CLEAN_DUPLICATES_KEY);
-        if (mCleanDuplicatesPref != null) {
-            mCleanDuplicatesPref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanDuplicatesPref != null) mCleanDuplicatesPref.setOnPreferenceClickListener(this);
         mCleanAllPref = findPreference(CLEAN_ALL_KEY);
-        if (mCleanAllPref != null) {
-            mCleanAllPref.setOnPreferenceClickListener(this);
-        }
+        if (mCleanAllPref != null) mCleanAllPref.setOnPreferenceClickListener(this);
 
-        // Advanced preferences
+        // Advanced
         mAutoCleanPref = findPreference(AUTO_CLEAN_KEY);
-        if (mAutoCleanPref != null) {
-            mAutoCleanPref.setOnPreferenceChangeListener(this);
-        }
+        if (mAutoCleanPref != null) mAutoCleanPref.setOnPreferenceChangeListener(this);
         mAutoCleanIntervalPref = findPreference(AUTO_CLEAN_INTERVAL_KEY);
         if (mAutoCleanIntervalPref != null) {
             mAutoCleanIntervalPref.setOnPreferenceChangeListener(this);
             mAutoCleanIntervalPref.setEnabled(mAutoCleanPref != null && mAutoCleanPref.isChecked());
         }
         mAnalyzeStoragePref = findPreference(ANALYZE_STORAGE_KEY);
-        if (mAnalyzeStoragePref != null) {
-            mAnalyzeStoragePref.setOnPreferenceClickListener(this);
-        }
+        if (mAnalyzeStoragePref != null) mAnalyzeStoragePref.setOnPreferenceClickListener(this);
 
         updateRamStatistics();
         updateStorageStats();
@@ -266,7 +293,7 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                 if (isAdded()) {
                     updateRamStatistics();
                     updateStorageStats();
-                    mHandler.postDelayed(this, 3000); // Update every 3 seconds
+                    mHandler.postDelayed(this, 3000);
                 }
             }
         };
@@ -275,20 +302,20 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     @Override
     public void onResume() {
         super.onResume();
-        // Update preferences
-        if (mZramEnablePref != null) {
+        // Frissítés a legfrissebb értékekkel
+        if (mZramEnablePref != null && RamOptimizerUtils.isZramSupported()) {
             mZramEnablePref.setChecked(RamOptimizerUtils.isZramEnabled());
         }
-        if (mZramSizePref != null) {
+        if (mZramSizePref != null && RamOptimizerUtils.isZramSupported()) {
             int size = RamOptimizerUtils.getZramSize();
             mZramSizePref.setValue(size > 0 ? size : 4096);
             mZramSizePref.setEnabled(RamOptimizerUtils.isZramEnabled());
         }
-        if (mZramSwappinessPref != null) {
+        if (mZramSwappinessPref != null && RamOptimizerUtils.isZramSupported()) {
             mZramSwappinessPref.setValue(RamOptimizerUtils.getZramSwappiness());
             mZramSwappinessPref.setEnabled(RamOptimizerUtils.isZramEnabled());
         }
-        if (mZramAlgoPref != null) {
+        if (mZramAlgoPref != null && RamOptimizerUtils.isZramSupported()) {
             mZramAlgoPref.setValue(RamOptimizerUtils.getZramCompressionAlgorithm());
             mZramAlgoPref.setEnabled(RamOptimizerUtils.isZramEnabled());
         }
@@ -296,25 +323,20 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
             mLmkProfilePref.setValue(RamOptimizerUtils.getLmkProfile(requireContext()));
         }
         if (mAppHibernationPref != null) {
-            mAppHibernationPref.setChecked(
-                    RamOptimizerUtils.isAppHibernationEnabled(requireContext()));
+            mAppHibernationPref.setChecked(RamOptimizerUtils.isAppHibernationEnabled(requireContext()));
         }
         if (mIoSchedulerPref != null) {
             mIoSchedulerPref.setValue(RamOptimizerUtils.getIoScheduler());
         }
         updateRamStatistics();
         updateStorageStats();
-
-        // Start periodic updates
         mHandler.post(mUpdateStatsRunnable);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        // Stop periodic updates
         mHandler.removeCallbacks(mUpdateStatsRunnable);
-        // Save preferences
         RamOptimizerUtils.savePreferences(requireContext());
     }
 
@@ -324,23 +346,32 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         try {
             switch (key) {
                 case ZRAM_ENABLE_KEY:
-                    return handleZramEnableChange((Boolean) newValue);
+                    handleZramEnableChange((Boolean) newValue);
+                    return true;
                 case ZRAM_SIZE_KEY:
-                    return handleZramSizeChange((Integer) newValue);
+                    handleZramSizeChange((Integer) newValue);
+                    return true;
                 case ZRAM_SWAPPINESS_KEY:
-                    return handleZramSwappinessChange((Integer) newValue);
+                    handleZramSwappinessChange((Integer) newValue);
+                    return true;
                 case ZRAM_ALGO_KEY:
-                    return handleZramAlgoChange((String) newValue);
+                    handleZramAlgoChange((String) newValue);
+                    return true;
                 case LMK_PROFILE_KEY:
-                    return handleLmkProfileChange((String) newValue);
+                    handleLmkProfileChange((String) newValue);
+                    return true;
                 case APP_HIBERNATION_KEY:
-                    return handleAppHibernationChange((Boolean) newValue);
+                    handleAppHibernationChange((Boolean) newValue);
+                    return true;
                 case AUTO_CLEAN_KEY:
-                    return handleAutoCleanChange((Boolean) newValue);
+                    handleAutoCleanChange((Boolean) newValue);
+                    return true;
                 case AUTO_CLEAN_INTERVAL_KEY:
-                    return handleAutoCleanIntervalChange((String) newValue);
+                    handleAutoCleanIntervalChange((String) newValue);
+                    return true;
                 case IO_SCHEDULER_KEY:
-                    return handleIoSchedulerChange((String) newValue);
+                    handleIoSchedulerChange((String) newValue);
+                    return true;
             }
         } catch (Exception e) {
             Log.e(TAG, "Error handling preference change for " + key, e);
@@ -348,8 +379,8 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         return false;
     }
 
-    private boolean handleZramEnableChange(boolean enabled) {
-        // Root commands must not run on the main thread
+    // --- zRAM kezelés (háttérszálon) ---
+    private void handleZramEnableChange(boolean enabled) {
         new Thread(() -> {
             boolean success = RamOptimizerUtils.setZramEnabled(requireContext(), enabled);
             mHandler.post(() -> {
@@ -365,19 +396,18 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                     showToast(enabled ? "zRAM enabled" : "zRAM disabled");
                     mHandler.postDelayed(this::updateRamStatistics, 1000);
                 } else {
-                    // Revert the switch on failure
                     if (mZramEnablePref != null) mZramEnablePref.setChecked(!enabled);
                     showToast("Failed to " + (enabled ? "enable" : "disable") + " zRAM");
                 }
             });
         }).start();
-        return true; // Optimistic — reverted in callback on failure
     }
 
-    private boolean handleZramSizeChange(int size) {
+    private void handleZramSizeChange(int size) {
         new Thread(() -> {
             boolean success = RamOptimizerUtils.setZramSize(requireContext(), size);
             mHandler.post(() -> {
+                if (!isAdded()) return;
                 if (success) {
                     showToast("zRAM size set to " + size + " MB");
                     mHandler.postDelayed(this::updateRamStatistics, 1000);
@@ -390,26 +420,24 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                 }
             });
         }).start();
-        return true;
     }
 
-    private boolean handleZramSwappinessChange(int swappiness) {
+    private void handleZramSwappinessChange(int swappiness) {
         new Thread(() -> {
             boolean success = RamOptimizerUtils.setZramSwappiness(swappiness);
             mHandler.post(() -> {
                 if (!isAdded()) return;
                 if (success) {
-                    mHandler.postDelayed(this::updateRamStatistics, 500);
                     showToast("Swappiness set to " + swappiness);
+                    mHandler.postDelayed(this::updateRamStatistics, 500);
                 } else {
                     showToast("Failed to set swappiness");
                 }
             });
         }).start();
-        return true;
     }
 
-    private boolean handleZramAlgoChange(String algo) {
+    private void handleZramAlgoChange(String algo) {
         new Thread(() -> {
             boolean success = RamOptimizerUtils.setZramCompressionAlgorithm(requireContext(), algo);
             mHandler.post(() -> {
@@ -422,10 +450,9 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                 }
             });
         }).start();
-        return true;
     }
 
-    private boolean handleLmkProfileChange(String profile) {
+    private void handleLmkProfileChange(String profile) {
         new Thread(() -> {
             boolean success = RamOptimizerUtils.setLmkProfile(requireContext(), profile);
             mHandler.post(() -> {
@@ -438,20 +465,15 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                 }
             });
         }).start();
-        return true;
     }
 
-    private boolean handleAppHibernationChange(boolean enabled) {
+    private void handleAppHibernationChange(boolean enabled) {
         boolean success = RamOptimizerUtils.setAppHibernationEnabled(requireContext(), enabled);
-        if (success) {
-            showToast(enabled ? "App hibernation enabled" : "App hibernation disabled");
-        } else {
-            showToast("Failed to change app hibernation");
-        }
-        return success;
+        showToast(success ? (enabled ? "App hibernation enabled" : "App hibernation disabled")
+                          : "Failed to change app hibernation");
     }
 
-    private boolean handleIoSchedulerChange(String scheduler) {
+    private void handleIoSchedulerChange(String scheduler) {
         new Thread(() -> {
             boolean success = RamOptimizerUtils.setIoScheduler(scheduler);
             mHandler.post(() -> {
@@ -463,40 +485,15 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                 }
             });
         }).start();
-        return true;
     }
 
-    private void showAlgorithmInfo() {
-        String infoText = getString(R.string.zram_algorithms_comparison);
-        
-        new AlertDialog.Builder(requireContext())
-            .setTitle(R.string.zram_algorithms_comparison_title)
-            .setMessage(infoText)
-            .setPositiveButton("OK", null)
-            .show();
-    }
-
-    private void showIoSchedulerInfo() {
-        String infoText = getString(R.string.io_scheduler_info_text);
-    
-        new AlertDialog.Builder(requireContext())
-            .setTitle(R.string.io_scheduler_info_title)
-            .setMessage(infoText)
-            .setPositiveButton("OK", null)
-            .show();
-    }
-
-    private boolean handleAutoCleanChange(boolean enabled) {
-        if (mAutoCleanIntervalPref != null) {
-            mAutoCleanIntervalPref.setEnabled(enabled);
-        }
+    private void handleAutoCleanChange(boolean enabled) {
+        if (mAutoCleanIntervalPref != null) mAutoCleanIntervalPref.setEnabled(enabled);
         showToast(enabled ? "Auto clean enabled" : "Auto clean disabled");
-        return true;
     }
 
-    private boolean handleAutoCleanIntervalChange(String value) {
+    private void handleAutoCleanIntervalChange(String value) {
         showToast("Auto clean interval updated");
-        return true;
     }
 
     @Override
@@ -550,8 +547,7 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         new AlertDialog.Builder(requireContext())
                 .setTitle("Clean " + cleanType + "?")
                 .setMessage("This will remove " + cleanType.toLowerCase() + ". Continue?")
-                .setPositiveButton("Clean", (dialog, which) ->
-                        new CleanTask(cleanTaskType).execute())
+                .setPositiveButton("Clean", (dialog, which) -> new CleanTask(cleanTaskType).execute())
                 .setNegativeButton("Cancel", null)
                 .show();
     }
@@ -559,25 +555,14 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
     private void analyzeStorage() {
         ProgressDialog dialog = showProgress("Analyzing storage...");
         new Thread(() -> {
-            RamOptimizerUtils.StorageStats stats =
-                    RamOptimizerUtils.getStorageStats(requireContext());
+            RamOptimizerUtils.StorageStats stats = RamOptimizerUtils.getStorageStats(requireContext());
             mHandler.post(() -> {
                 dialog.dismiss();
                 String message = String.format(
-                        "Storage Analysis:\n\n" +
-                                "Total: %d MB\n" +
-                                "Used: %d MB\n" +
-                                "Free: %d MB\n\n" +
-                                "Cleanable Files:\n" +
-                                "• App Cache: %d MB\n" +
-                                "• System Cache: %d MB\n" +
-                                "• Thumbnails: %d MB\n" +
-                                "• Old Downloads: %d MB\n" +
-                                "• Temp Files: %d MB\n" +
-                                "• Log Files: %d MB\n" +
-                                "• APK Files: %d MB\n" +
-                                "• Duplicates: %d MB\n\n" +
-                                "Total Cleanable: %d MB",
+                        "Storage Analysis:\n\nTotal: %d MB\nUsed: %d MB\nFree: %d MB\n\nCleanable Files:\n" +
+                        "• App Cache: %d MB\n• System Cache: %d MB\n• Thumbnails: %d MB\n" +
+                        "• Old Downloads: %d MB\n• Temp Files: %d MB\n• Log Files: %d MB\n" +
+                        "• APK Files: %d MB\n• Duplicates: %d MB\n\nTotal Cleanable: %d MB",
                         stats.totalStorage, stats.usedStorage, stats.freeStorage,
                         stats.appCacheSize, stats.systemCacheSize, stats.thumbnailsSize,
                         stats.downloadsSize, stats.tempFilesSize, stats.logFilesSize,
@@ -594,40 +579,34 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
 
     private void updateRamStatistics() {
         if (mStatsPreference == null || !isAdded()) return;
-        // /proc/meminfo and zRAM sysfs reads must not happen on the main thread
         new Thread(() -> {
             try {
                 RamOptimizerUtils.RamStats stats = RamOptimizerUtils.getRamStatistics();
-                RamOptimizerUtils.ZramStats zramStats = stats.zramStats;
                 String currentAlgo = RamOptimizerUtils.getZramCompressionAlgorithm().toUpperCase();
                 String currentLmk = RamOptimizerUtils.getLmkProfile(requireContext()).toUpperCase();
 
                 StringBuilder sb = new StringBuilder();
-                sb.append(String.format(
-                    "Total: %d MB | Used: %d MB | Free: %d MB\n" +
-                    "Available: %d MB | Cached: %d MB\n" +
-                    "zRAM: %s (%d MB)",
-                    stats.totalRam, stats.usedRam, stats.freeRam,
-                    stats.availableRam, stats.cachedRam,
-                    stats.zramEnabled ? "On" : "Off", stats.zramSize));
-                if (zramStats.compressionRatio > 0) {
-                    sb.append(" | Ratio: ").append(zramStats.getCompressionRatioString());
+                sb.append(String.format("Total: %d MB | Used: %d MB | Free: %d MB\nAvailable: %d MB | Cached: %d MB\n",
+                        stats.totalRam, stats.usedRam, stats.freeRam, stats.availableRam, stats.cachedRam));
+                if (stats.zramEnabled) {
+                    sb.append(String.format("zRAM: On (%d MB)", stats.zramSize));
+                    if (stats.zramStats.compressionRatio > 0) {
+                        sb.append(" | Ratio: ").append(stats.zramStats.getCompressionRatioString());
+                    }
+                    sb.append("\nAlgorithm: ").append(currentAlgo);
+                } else {
+                    sb.append("zRAM: Off");
                 }
-                sb.append("\nAlgorithm: ").append(currentAlgo)
-                  .append(" | LMK: ").append(currentLmk);
+                sb.append(" | LMK: ").append(currentLmk);
 
                 final String summary = sb.toString();
                 mHandler.post(() -> {
-                    if (isAdded() && mStatsPreference != null) {
-                        mStatsPreference.setSummary(summary);
-                    }
+                    if (isAdded() && mStatsPreference != null) mStatsPreference.setSummary(summary);
                 });
             } catch (Exception e) {
                 Log.e(TAG, "Failed to update RAM statistics", e);
                 mHandler.post(() -> {
-                    if (isAdded() && mStatsPreference != null) {
-                        mStatsPreference.setSummary("Error retrieving stats");
-                    }
+                    if (isAdded() && mStatsPreference != null) mStatsPreference.setSummary("Error retrieving stats");
                 });
             }
         }).start();
@@ -639,15 +618,9 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
             mStorageStats = RamOptimizerUtils.getStorageStats(requireContext());
             mHandler.post(() -> {
                 if (!isAdded()) return;
-                String statsText = String.format(
-                        "Total: %d MB | Used: %d MB | Free: %d MB\nCleanable: %d MB",
-                        mStorageStats.totalStorage,
-                        mStorageStats.usedStorage,
-                        mStorageStats.freeStorage,
-                        mStorageStats.getTotalCleanable()
-                );
+                String statsText = String.format("Total: %d MB | Used: %d MB | Free: %d MB\nCleanable: %d MB",
+                        mStorageStats.totalStorage, mStorageStats.usedStorage, mStorageStats.freeStorage, mStorageStats.getTotalCleanable());
                 mStorageStatsPref.setSummary(statsText);
-                // Update individual cleaner summaries
                 updateCleanerSummary(mCleanAppCachePref, mStorageStats.appCacheSize);
                 updateCleanerSummary(mCleanSystemCachePref, mStorageStats.systemCacheSize);
                 updateCleanerSummary(mCleanThumbnailsPref, mStorageStats.thumbnailsSize);
@@ -656,21 +629,30 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                 updateCleanerSummary(mCleanLogFilesPref, mStorageStats.logFilesSize);
                 updateCleanerSummary(mCleanApkFilesPref, mStorageStats.apkSize);
                 updateCleanerSummary(mCleanDuplicatesPref, mStorageStats.duplicateFilesSize);
-                if (mCleanEmptyFoldersPref != null) {
-                    mCleanEmptyFoldersPref.setSummary("Remove empty directories");
-                }
-                if (mCleanAllPref != null) {
-                    mCleanAllPref.setSummary(String.format("Total: %d MB",
-                            mStorageStats.getTotalCleanable()));
-                }
+                if (mCleanEmptyFoldersPref != null) mCleanEmptyFoldersPref.setSummary("Remove empty directories");
+                if (mCleanAllPref != null) mCleanAllPref.setSummary(String.format("Total: %d MB", mStorageStats.getTotalCleanable()));
             });
         }).start();
     }
 
     private void updateCleanerSummary(Preference pref, long size) {
-        if (pref != null) {
-            pref.setSummary(String.format("Can free: %d MB", size));
-        }
+        if (pref != null) pref.setSummary(String.format("Can free: %d MB", size));
+    }
+
+    private void showAlgorithmInfo() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.zram_algorithms_comparison_title)
+                .setMessage(R.string.zram_algorithms_comparison)
+                .setPositiveButton("OK", null)
+                .show();
+    }
+
+    private void showIoSchedulerInfo() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.io_scheduler_info_title)
+                .setMessage(R.string.io_scheduler_info_text)
+                .setPositiveButton("OK", null)
+                .show();
     }
 
     private ProgressDialog showProgress(String message) {
@@ -685,9 +667,7 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Background clean task — replaces deprecated AsyncTask
-     */
+    // --- Belső CleanTask osztály (AsyncTask helyett) ---
     private class CleanTask implements Runnable {
         static final int TYPE_APP_CACHE = 1;
         static final int TYPE_SYSTEM_CACHE = 2;
@@ -726,7 +706,6 @@ public class RamOptimizerFragment extends PreferenceFragmentCompat
                     result = new RamOptimizerUtils.CleanResult();
                     result.success = false;
                     result.message = "Unknown clean type";
-                    break;
             }
             final RamOptimizerUtils.CleanResult finalResult = result;
             mHandler.post(() -> {

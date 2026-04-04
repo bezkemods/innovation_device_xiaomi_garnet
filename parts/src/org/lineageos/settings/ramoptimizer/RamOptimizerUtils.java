@@ -71,9 +71,15 @@ public class RamOptimizerUtils {
      * Check if RAM optimizer features are supported
      */
     public static boolean isSupported() {
+    return true;
+    }
+
+    /**
+     * Check if Zram is supported
+     */
+    public static boolean isZramSupported() {
         File zramFile = new File(ZRAM_DISK_SIZE_PATH);
-        File swappinessFile = new File(ZRAM_SWAPPINESS_PATH);
-        return zramFile.exists() || swappinessFile.exists();
+        return zramFile.exists();
     }
 
     /**

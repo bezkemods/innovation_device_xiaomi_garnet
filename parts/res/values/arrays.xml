@@ -15,6 +15,7 @@
      limitations under the License.
 -->
 <resources>
+
     <!-- Game Packages -->
     <string-array name="game_packages">
         <item>com.proximabeta.mf.uamo</item>
@@ -169,7 +170,7 @@
         <item>3000</item>
         <item>5000</item>
     </string-array>
-    
+
     <!-- GPU Frequency Options for Adreno 710 -->
     <string-array name="gpu_frequency_entries" translatable="false">
         <item>220MHz</item>
@@ -199,7 +200,7 @@
         <item>940000000</item>
     </string-array>
 
-    <!-- CPU Efficiency Cluster Frequencies - Aligned with Power Profile -->
+    <!-- CPU Efficiency Cluster Frequencies -->
     <string-array name="cpu_little_freq_entries" translatable="false">
         <item>691MHz</item>
         <item>806MHz</item>
@@ -223,7 +224,7 @@
         <item>1958400</item>
     </string-array>
 
-    <!-- CPU Performance Cluster Frequencies - Aligned with Power Profile -->
+    <!-- CPU Performance Cluster Frequencies -->
     <string-array name="cpu_big_freq_entries" translatable="false">
         <item>691MHz</item>
         <item>960MHz</item>
@@ -252,41 +253,40 @@
         <item>2304000</item>
         <item>2400000</item>
     </string-array>
- 
+
     <!-- CPU Governor Options (for all clusters) -->
     <string-array name="cpu_governor_entries" translatable="false">
-         <item>schedhorizon</item>
-         <item>schedutil</item>
-         <item>performance</item>
-         <item>powersave</item>
-         <item>ondemand</item>
-         <item>conservative</item>
+        <item>schedhorizon</item>
+        <item>schedutil</item>
+        <item>performance</item>
+        <item>powersave</item>
+        <item>ondemand</item>
+        <item>conservative</item>
     </string-array>
     <string-array name="cpu_governor_values" translatable="false">
-         <item>schedhorizon</item>
-         <item>schedutil</item>
-         <item>performance</item>
-         <item>powersave</item>
-         <item>ondemand</item>
-         <item>conservative</item>
+        <item>schedhorizon</item>
+        <item>schedutil</item>
+        <item>performance</item>
+        <item>powersave</item>
+        <item>ondemand</item>
+        <item>conservative</item>
     </string-array>
 
     <!-- Power Profile Modes -->
     <string-array name="power_profile_modes" translatable="false">
-         <item>Balanced</item>
-         <item>Gaming</item>
-         <item>Performance</item>
-         <item>Battery Saver</item>
+        <item>Balanced</item>
+        <item>Gaming</item>
+        <item>Performance</item>
+        <item>Battery Saver</item>
     </string-array>
     <string-array name="power_profile_mode_values" translatable="false">
-         <item>0</item>
-         <item>1</item>
-         <item>2</item>
-         <item>3</item>
-         <item>4</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
-   
-    <!-- Kernel Manager Governor Options - Aligned with Power Profile -->
+
+    <!-- Kernel Manager Governor Options -->
     <string-array name="kernel_manager_governors">
         <item>schedhorizon</item>
         <item>schedutil</item>
@@ -324,47 +324,44 @@
         <item>2304000</item>
         <item>2400000</item>
     </string-array>
-    
+
     <!-- CPU Tile Size Arrays -->
-<string-array name="cpu_tile_size_entries">
-    <item>Small (64px)</item>
-    <item>Medium (96px)</item>
-    <item>Large (128px)</item>
-</string-array>
+    <string-array name="cpu_tile_size_entries">
+        <item>Small (64px)</item>
+        <item>Medium (96px)</item>
+        <item>Large (128px)</item>
+    </string-array>
+    <string-array name="cpu_tile_size_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
-<string-array name="cpu_tile_size_values">
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-</string-array>
+    <!-- CPU Tile Style Arrays -->
+    <string-array name="cpu_tile_style_entries">
+        <item>Speedometer (Gauge with percentage)</item>
+        <item>Bar Chart (8 core bars)</item>
+        <item>Simple (Circle with text)</item>
+    </string-array>
+    <string-array name="cpu_tile_style_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
-<!-- CPU Tile Style Arrays -->
-<string-array name="cpu_tile_style_entries">
-    <item>Speedometer (Gauge with percentage)</item>
-    <item>Bar Chart (8 core bars)</item>
-    <item>Simple (Circle with text)</item>
-</string-array>
-
-<string-array name="cpu_tile_style_values">
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-</string-array>
-
-<!-- CPU Tile Update Speed Arrays -->
-<string-array name="cpu_tile_update_speed_entries">
-    <item>Fast (0.5 seconds)</item>
-    <item>Normal (1 second)</item>
-    <item>Slow (2 seconds)</item>
-    <item>Very Slow (5 seconds)</item>
-</string-array>
-
-<string-array name="cpu_tile_update_speed_values">
-    <item>500</item>
-    <item>1000</item>
-    <item>2000</item>
-    <item>5000</item>
-</string-array>
+    <!-- CPU Tile Update Speed Arrays -->
+    <string-array name="cpu_tile_update_speed_entries">
+        <item>Fast (0.5 seconds)</item>
+        <item>Normal (1 second)</item>
+        <item>Slow (2 seconds)</item>
+        <item>Very Slow (5 seconds)</item>
+    </string-array>
+    <string-array name="cpu_tile_update_speed_values">
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+    </string-array>
 
     <!-- Performance mode Arrays -->
     <string-array name="performance_profile_entries">
@@ -372,22 +369,49 @@
         <item>Balanced</item>
         <item>Performance</item>
     </string-array>
-    
     <string-array name="performance_profile_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
-    
-    <!-- Auto clean interval options -->
-    <string-array name="auto_clean_intervals">
-        <item>Daily</item>
-        <item>Every 3 Days</item>
-        <item>Weekly</item>
-        <item>Bi-weekly</item>
-        <item>Monthly</item>
+
+     <!-- ========== RAM OPTIMIZER ARRAYS ========== -->
+    <!-- zRAM compression algorithms -->
+    <string-array name="zram_algorithms">
+        <item>lzo</item>
+        <item>lz4</item>
+        <item>zstd</item>
+        <item>lzo-rle</item>
     </string-array>
-    
+    <string-array name="zram_algorithm_values">
+        <item>lzo</item>
+        <item>lz4</item>
+        <item>zstd</item>
+        <item>lzo-rle</item>
+    </string-array>
+
+    <!-- LMK profiles -->
+    <string-array name="lmk_profiles">
+        <item>Disabled</item>
+        <item>Basic</item>
+        <item>Balanced</item>
+        <item>Aggressive</item>
+    </string-array>
+    <string-array name="lmk_profile_values">
+        <item>disabled</item>
+        <item>basic</item>
+        <item>balanced</item>
+        <item>aggressive</item>
+    </string-array>
+
+    <!-- Auto clean intervals -->
+    <string-array name="auto_clean_intervals">
+        <item>Every day</item>
+        <item>Every 3 days</item>
+        <item>Every week</item>
+        <item>Every 2 weeks</item>
+        <item>Every month</item>
+    </string-array>
     <string-array name="auto_clean_interval_values">
         <item>1</item>
         <item>3</item>
@@ -395,33 +419,5 @@
         <item>14</item>
         <item>30</item>
     </string-array>
- 
- <string-array name="zram_algorithms" translatable="false">
-        <item>LZ4</item>
-        <item>LZO</item>
-        <item>LZO-RLE</item>
-        <item>ZSTD</item>
-    </string-array>
 
-    <string-array name="zram_algorithm_values" translatable="false">
-        <item>lz4</item>
-        <item>lzo</item>
-        <item>lzo-rle</item>
-        <item>zstd</item>
-    </string-array>
-
-    <string-array name="lmk_profiles" translatable="false">
-        <item>Disabled</item>
-        <item>Basic</item>
-        <item>Balanced</item>
-        <item>Aggressive</item>
-    </string-array>
-
-    <string-array name="lmk_profile_values" translatable="false">
-        <item>disabled</item>
-        <item>basic</item>
-        <item>balanced</item>
-        <item>aggressive</item>
-    </string-array>
-    
 </resources>
