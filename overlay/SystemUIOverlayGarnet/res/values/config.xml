@@ -50,4 +50,7 @@
     <!-- If using proximity_sensor_secondary_type, specifies a threshold value to distinguish
          near and far break points. A sensor value less than this is considered "near". -->
     <item format="float" name="proximity_sensor_secondary_threshold" translatable="false" type="dimen">5</item>
+    
+    <!-- Show 5G toggle in internet dialog when available -->
+    <bool name="config_supportsVONR">true</bool> 
 </resources>
