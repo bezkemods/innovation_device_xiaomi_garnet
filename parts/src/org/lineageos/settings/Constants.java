@@ -29,10 +29,20 @@ public class Constants {
     // Saturation
     public static final String KEY_SATURATION = "saturation";
     public static final String KEY_SATURATION_PREVIEW = "saturation_preview";
-    
+
     // Charge control
     public static final String KEY_CHARGE_CONTROL = "charge_control";
     public static final String KEY_STOP_CHARGING = "stop_charging";
-    public static final String NODE_STOP_CHARGING = "/sys/class/qcom-battery/input_suspend";
-    public static final String DEFAULT_STOP_CHARGING = "100";
+    // NODE_STOP_CHARGING: write "1" to suspend input (stop charging), "0" to allow charging.
+    // Candidate nodes in priority order — ChargeControlUtils probes these at runtime.
+    public static final String[] NODES_STOP_CHARGING = {
+        "/sys/class/qcom-battery/input_suspend",
+        "/sys/class/power_supply/battery/input_suspend",
+        "/sys/class/power_supply/battery/charging_enabled",   // inverted: "0" = stop
+        "/sys/class/power_supply/battery/battery_charging_enabled", // inverted: "0" = stop
+    };
+    // Convenience alias resolved at runtime by ChargeControlUtils.resolveNode()
+    public static final String NODE_STOP_CHARGING = NODES_STOP_CHARGING[0];
+    // Default stop threshold in percent
+    public static final int DEFAULT_STOP_CHARGING = 80;
 }

@@ -24,22 +24,19 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SectionIndexer;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceFragment;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.settingslib.applications.ApplicationsState;
 
@@ -51,13 +48,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ResolutionSettingsFragment extends PreferenceFragment implements ApplicationsState.Callbacks {
+public class ResolutionSettingsFragment extends PreferenceFragment
+        implements ApplicationsState.Callbacks {
+
+    /** How long (ms) the state badge stays visible after a selection change. */
+    private static final long STATE_ICON_HIDE_DELAY_MS = 5_000L;
 
     private AllPackagesAdapter mAllPackagesAdapter;
     private ApplicationsState mApplicationsState;
     private ApplicationsState.Session mSession;
     private ActivityFilter mActivityFilter;
-    private Map<String, ApplicationsState.AppEntry> mEntryMap = new HashMap<String, ApplicationsState.AppEntry>();
+    private final Map<String, ApplicationsState.AppEntry> mEntryMap = new HashMap<>();
     private ResolutionUtils mResolutionUtils;
     private RecyclerView mAppsRecyclerView;
 
@@ -68,7 +69,6 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mApplicationsState = ApplicationsState.getInstance(getActivity().getApplication());
         mSession = mApplicationsState.newSession(this);
         mSession.onResume();
@@ -78,14 +78,14 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         return inflater.inflate(R.layout.resolution_layout, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mAppsRecyclerView = view.findViewById(R.id.resolution_rv_view);
         mAppsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAppsRecyclerView.setAdapter(mAllPackagesAdapter);
@@ -105,8 +105,7 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
         mSession.onDestroy();
     }
 
-    @Override
-    public void onPackageListChanged() {
+    @Override public void onPackageListChanged() {
         mActivityFilter.updateLauncherInfoList();
         rebuild();
     }
@@ -119,47 +118,35 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
         }
     }
 
-    @Override
-    public void onLoadEntriesCompleted() {
-        rebuild();
-    }
-
-    @Override
-    public void onAllSizesComputed() {}
-
-    @Override
-    public void onLauncherInfoChanged() {}
-
-    @Override
-    public void onPackageIconChanged() {}
-
-    @Override
-    public void onPackageSizeChanged(String packageName) {}
-
-    @Override
-    public void onRunningStateChanged(boolean running) {}
+    @Override public void onLoadEntriesCompleted() { rebuild(); }
+    @Override public void onAllSizesComputed() {}
+    @Override public void onLauncherInfoChanged() {}
+    @Override public void onPackageIconChanged() {}
+    @Override public void onPackageSizeChanged(String packageName) {}
+    @Override public void onRunningStateChanged(boolean running) {}
 
     private void handleAppEntries(List<ApplicationsState.AppEntry> entries) {
-        final ArrayList<String> sections = new ArrayList<String>();
-        final ArrayList<Integer> positions = new ArrayList<Integer>();
+        final ArrayList<String>  sections  = new ArrayList<>();
+        final ArrayList<Integer> positions = new ArrayList<>();
         final PackageManager pm = getActivity().getPackageManager();
         String lastSectionIndex = null;
         int offset = 0;
 
-        for (int i = 0; i < entries.size(); i++) {
-            final ApplicationInfo info = entries.get(i).info;
-            final String label = (String) info.loadLabel(pm);
+        for (ApplicationsState.AppEntry appEntry : entries) {
+            final ApplicationInfo info  = appEntry.info;
+            final String          label = (String) info.loadLabel(pm);
             final String sectionIndex;
 
             if (!info.enabled) {
-                sectionIndex = "--"; /* XXX */
+                sectionIndex = "--";
             } else if (TextUtils.isEmpty(label)) {
                 sectionIndex = "";
             } else {
                 sectionIndex = label.substring(0, 1).toUpperCase();
             }
 
-            if (lastSectionIndex == null || !TextUtils.equals(sectionIndex, lastSectionIndex)) {
+            if (lastSectionIndex == null
+                    || !TextUtils.equals(sectionIndex, lastSectionIndex)) {
                 sections.add(sectionIndex);
                 positions.add(offset);
                 lastSectionIndex = sectionIndex;
@@ -180,58 +167,86 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
 
     private int getStateDrawable(int state) {
         switch (state) {
-            case ResolutionUtils.STATE_480P:
-                return R.drawable.ic_resolution_480;
-            case ResolutionUtils.STATE_540P:
-                return R.drawable.ic_resolution_540;
-            case ResolutionUtils.STATE_720P:
-                return R.drawable.ic_resolution_720;
+            case ResolutionUtils.STATE_480P:    return R.drawable.ic_resolution_480;
+            case ResolutionUtils.STATE_540P:    return R.drawable.ic_resolution_540;
+            case ResolutionUtils.STATE_720P:    return R.drawable.ic_resolution_720;
             case ResolutionUtils.STATE_DEFAULT:
-            default:
-                return R.drawable.ic_resolution_default;
+            default:                            return R.drawable.ic_resolution_default;
         }
     }
+
+    // -------------------------------------------------------------------------
+    // ViewHolder
+    // -------------------------------------------------------------------------
 
     private class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title;
-        private Spinner mode;
-        private ImageView icon;
-        private View rootView;
-        private ImageView stateIcon;
+        final TextView  title;
+        final Spinner   mode;
+        final ImageView icon;
+        final ImageView stateIcon;
 
-        private ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
-            this.title = view.findViewById(R.id.app_name);
-            this.mode = view.findViewById(R.id.app_mode);
-            this.icon = view.findViewById(R.id.app_icon);
-            this.stateIcon = view.findViewById(R.id.state);
-            this.rootView = view;
+            title     = view.findViewById(R.id.app_name);
+            mode      = view.findViewById(R.id.app_mode);
+            icon      = view.findViewById(R.id.app_icon);
+            stateIcon = view.findViewById(R.id.state);
             view.setTag(this);
         }
+
+        /**
+         * Show the state badge and schedule auto-hide after STATE_ICON_HIDE_DELAY_MS.
+         *
+         * We attach the hide-Runnable directly to the ImageView via
+         * {@link View#setTag(int, Object)} so that:
+         *  1. Any pending callback from a previous bind is cancelled before we post
+         *     a new one — no stale callbacks can fire on recycled views.
+         *  2. No per-holder Handler field is needed, eliminating the recycling race.
+         */
+        void showStateBadge(int drawableRes) {
+            // Cancel any previously scheduled hide for this exact view.
+            Runnable previous = (Runnable) stateIcon.getTag(R.id.tag_hide_runnable);
+            if (previous != null) stateIcon.removeCallbacks(previous);
+
+            stateIcon.setImageResource(drawableRes);
+            stateIcon.setVisibility(View.VISIBLE);
+
+            Runnable hide = () -> stateIcon.setVisibility(View.GONE);
+            stateIcon.setTag(R.id.tag_hide_runnable, hide);
+            stateIcon.postDelayed(hide, STATE_ICON_HIDE_DELAY_MS);
+        }
+
+        /** Cancel any pending hide and immediately hide the badge. */
+        void hideStateBadge() {
+            Runnable pending = (Runnable) stateIcon.getTag(R.id.tag_hide_runnable);
+            if (pending != null) {
+                stateIcon.removeCallbacks(pending);
+                stateIcon.setTag(R.id.tag_hide_runnable, null);
+            }
+            stateIcon.setVisibility(View.GONE);
+        }
     }
+
+    // -------------------------------------------------------------------------
+    // Spinner adapter for the per-app mode selection
+    // -------------------------------------------------------------------------
 
     private class ModeAdapter extends BaseAdapter {
         private final LayoutInflater inflater;
-        private final int[] items = {R.string.upscale_default, R.string.upscale_480p, R.string.upscale_540p, R.string.upscale_720p};
+        private final int[] items = {
+                R.string.upscale_default,
+                R.string.upscale_480p,
+                R.string.upscale_540p,
+                R.string.upscale_720p
+        };
 
-        private ModeAdapter(Context context) {
+        ModeAdapter(Context context) {
             inflater = LayoutInflater.from(context);
         }
 
-        @Override
-        public int getCount() {
-            return items.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return items[position];
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
+        @Override public int    getCount()               { return items.length; }
+        @Override public Object getItem(int position)    { return items[position]; }
+        @Override public long   getItemId(int position)  { return 0; }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -239,7 +254,8 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
             if (convertView != null) {
                 view = (TextView) convertView;
             } else {
-                view = (TextView) inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+                view = (TextView) inflater.inflate(
+                        android.R.layout.simple_spinner_dropdown_item, parent, false);
             }
             view.setText(items[position]);
             view.setTextSize(14f);
@@ -247,24 +263,23 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
         }
     }
 
-    private class AllPackagesAdapter extends RecyclerView.Adapter<ViewHolder> implements AdapterView.OnItemSelectedListener, SectionIndexer {
+    // -------------------------------------------------------------------------
+    // RecyclerView adapter
+    // -------------------------------------------------------------------------
+
+    private class AllPackagesAdapter extends RecyclerView.Adapter<ViewHolder>
+            implements AdapterView.OnItemSelectedListener {
+
         private List<ApplicationsState.AppEntry> mEntries = new ArrayList<>();
         private String[] mSections;
-        private int[] mPositions;
+        private int[]    mPositions;
 
-        public AllPackagesAdapter(Context context) {
+        AllPackagesAdapter(Context context) {
             mActivityFilter = new ActivityFilter(context.getPackageManager());
         }
 
-        @Override
-        public int getItemCount() {
-            return mEntries.size();
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return mEntries.get(position).id;
-        }
+        @Override public int  getItemCount()           { return mEntries.size(); }
+        @Override public long getItemId(int position)  { return mEntries.get(position).id; }
 
         @NonNull
         @Override
@@ -275,12 +290,14 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            Context context = holder.itemView.getContext();
             ApplicationsState.AppEntry entry = mEntries.get(position);
-
             if (entry == null) return;
 
-            holder.mode.setAdapter(new ModeAdapter(context));
+            // Always hide the badge when the view is (re)bound — the timer from
+            // a previous bind should not carry over to a recycled view.
+            holder.hideStateBadge();
+
+            holder.mode.setAdapter(new ModeAdapter(holder.itemView.getContext()));
             holder.mode.setOnItemSelectedListener(this);
             holder.title.setText(entry.label);
             holder.title.setOnClickListener(v -> holder.mode.performClick());
@@ -291,80 +308,87 @@ public class ResolutionSettingsFragment extends PreferenceFragment implements Ap
             int packageState = mResolutionUtils.getStateForPackage(entry.info.packageName);
             holder.mode.setSelection(packageState, false);
             holder.mode.setTag(entry);
-            holder.stateIcon.setImageResource(getStateDrawable(packageState));
+            // Badge is hidden on bind; it becomes visible only when the user changes the selection.
         }
 
-        private void setEntries(List<ApplicationsState.AppEntry> entries, List<String> sections, List<Integer> positions) {
-            mEntries = entries;
-            mSections = sections.toArray(new String[sections.size()]);
+        void setEntries(List<ApplicationsState.AppEntry> entries,
+                List<String> sections, List<Integer> positions) {
+            mEntries   = entries;
+            mSections  = sections.toArray(new String[0]);
             mPositions = new int[positions.size()];
-            for (int i = 0; i < positions.size(); i++) {
-                mPositions[i] = positions.get(i);
+            for (int i = 0; i < positions.size(); i++) mPositions[i] = positions.get(i);
+            notifyDataSetChanged();
+        }
+
+        // Called when the user picks a different mode in the spinner
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            final ApplicationsState.AppEntry entry =
+                    (ApplicationsState.AppEntry) parent.getTag();
+            if (entry == null) return;
+
+            int currentState = mResolutionUtils.getStateForPackage(entry.info.packageName);
+            if (currentState == position) return;
+
+            mResolutionUtils.writePackage(entry.info.packageName, position);
+
+            // Find the ViewHolder that owns this spinner and show its badge
+            // (the spinner's parent chain leads back to the item root view).
+            View itemRoot = (View) parent.getParent().getParent();
+            if (itemRoot != null) {
+                Object tag = itemRoot.getTag();
+                if (tag instanceof ViewHolder) {
+                    ViewHolder vh = (ViewHolder) tag;
+                    vh.showStateBadge(getStateDrawable(position));
+                }
             }
             notifyDataSetChanged();
         }
 
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            final ApplicationsState.AppEntry entry = (ApplicationsState.AppEntry) parent.getTag();
-            int currentState = mResolutionUtils.getStateForPackage(entry.info.packageName);
-            if (currentState != position) {
-                mResolutionUtils.writePackage(entry.info.packageName, position);
-                notifyDataSetChanged();
-            }
-        }
-
-        @Override
         public void onNothingSelected(AdapterView<?> parent) {}
 
-        @Override
+        // SectionIndexer helpers (used by fast scroll)
         public int getPositionForSection(int section) {
-            if (section < 0 || section >= mSections.length) {
-                return -1;
-            }
+            if (mSections == null || section < 0 || section >= mSections.length) return -1;
             return mPositions[section];
         }
 
-        @Override
         public int getSectionForPosition(int position) {
-            if (position < 0 || position >= getItemCount()) {
-                return -1;
-            }
-
-            final int index = Arrays.binarySearch(mPositions, position);
+            if (mPositions == null || position < 0 || position >= getItemCount()) return -1;
+            int index = Arrays.binarySearch(mPositions, position);
             return index >= 0 ? index : -index - 2;
         }
 
-        @Override
-        public Object[] getSections() {
-            return mSections;
-        }
+        public Object[] getSections() { return mSections; }
     }
+
+    // -------------------------------------------------------------------------
+    // App filter — launcher apps only
+    // -------------------------------------------------------------------------
 
     private class ActivityFilter implements ApplicationsState.AppFilter {
         private final PackageManager mPackageManager;
-        private final List<String> mLauncherResolveInfoList = new ArrayList<String>();
+        private final List<String>   mLauncherResolveInfoList = new ArrayList<>();
 
-        private ActivityFilter(PackageManager packageManager) {
+        ActivityFilter(PackageManager packageManager) {
             this.mPackageManager = packageManager;
             updateLauncherInfoList();
         }
 
-        public void updateLauncherInfoList() {
+        void updateLauncherInfoList() {
             Intent i = new Intent(Intent.ACTION_MAIN);
             i.addCategory(Intent.CATEGORY_LAUNCHER);
-            List<ResolveInfo> resolveInfoList = mPackageManager.queryIntentActivities(i, 0);
-
+            List<ResolveInfo> list = mPackageManager.queryIntentActivities(i, 0);
             synchronized (mLauncherResolveInfoList) {
                 mLauncherResolveInfoList.clear();
-                for (ResolveInfo ri : resolveInfoList) {
+                for (ResolveInfo ri : list) {
                     mLauncherResolveInfoList.add(ri.activityInfo.packageName);
                 }
             }
         }
 
-        @Override
-        public void init() {}
+        @Override public void init() {}
 
         @Override
         public boolean filterApp(ApplicationsState.AppEntry entry) {

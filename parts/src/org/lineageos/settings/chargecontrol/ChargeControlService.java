@@ -26,19 +26,24 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
+import androidx.preference.PreferenceManager;
+
 import org.lineageos.settings.Constants;
-import org.lineageos.settings.utils.FileUtils;
 
 public class ChargeControlService extends Service {
+
     private static final String TAG = "ChargeControlService";
+    // Periodic re-check interval (ms) — battery broadcast covers most cases,
+    // this is a safety net for missed events.
+    private static final long MONITOR_INTERVAL_MS = 60_000L;
+
     private Handler mHandler;
     private Runnable mMonitorRunnable;
     private BroadcastReceiver mBatteryReceiver;
     private int mLastBatteryLevel = -1;
-    private boolean mLastChargingState = false;
+    private boolean mChargingSuspended = false;
 
     @Override
     public void onCreate() {
@@ -52,50 +57,55 @@ public class ChargeControlService extends Service {
         mBatteryReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
-                    int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                    int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 100);
-                    int percent = (int) ((level / (float) scale) * 100);
-                    mLastBatteryLevel = percent;
-                    checkAndControlCharging();
-                }
+                if (!Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) return;
+                int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 100);
+                mLastBatteryLevel = (int) ((level / (float) scale) * 100);
+                // Sysfs write must not happen on main thread — post to worker
+                mHandler.post(() -> new Thread(ChargeControlService.this::checkAndControl).start());
             }
         };
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        registerReceiver(mBatteryReceiver, filter);
+        registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
     private void startMonitoring() {
         mMonitorRunnable = new Runnable() {
             @Override
             public void run() {
-                checkAndControlCharging();
-                mHandler.postDelayed(this, 60000);
+                new Thread(ChargeControlService.this::checkAndControl).start();
+                mHandler.postDelayed(this, MONITOR_INTERVAL_MS);
             }
         };
         mHandler.post(mMonitorRunnable);
     }
 
-    private void checkAndControlCharging() {
+    private void checkAndControl() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean enabled = prefs.getBoolean(Constants.KEY_CHARGE_CONTROL, false);
-        int stopValue = prefs.getInt(Constants.KEY_STOP_CHARGING, 100);
-        int batteryLevel = mLastBatteryLevel;
+
         if (!enabled) {
-            FileUtils.writeValue(Constants.NODE_STOP_CHARGING, "0");
+            if (mChargingSuspended) {
+                ChargeControlUtils.setChargingSuspended(false);
+                mChargingSuspended = false;
+                Log.d(TAG, "Charge control disabled — charging re-enabled");
+            }
             return;
         }
-        if (batteryLevel >= stopValue) {
-            if (!mLastChargingState) {
-                FileUtils.writeValue(Constants.NODE_STOP_CHARGING, "1");
-                mLastChargingState = true;
-                Log.d(TAG, "Charging stopped at " + batteryLevel + "%");
+
+        if (mLastBatteryLevel < 0) return; // not yet received a battery update
+
+        int threshold = prefs.getInt(Constants.KEY_STOP_CHARGING, Constants.DEFAULT_STOP_CHARGING);
+        boolean shouldSuspend = mLastBatteryLevel >= threshold;
+
+        if (shouldSuspend && !mChargingSuspended) {
+            if (ChargeControlUtils.setChargingSuspended(true)) {
+                mChargingSuspended = true;
+                Log.d(TAG, "Charging suspended at " + mLastBatteryLevel + "% (threshold " + threshold + "%)");
             }
-        } else {
-            if (mLastChargingState) {
-                FileUtils.writeValue(Constants.NODE_STOP_CHARGING, "0");
-                mLastChargingState = false;
-                Log.d(TAG, "Charging allowed at " + batteryLevel + "%");
+        } else if (!shouldSuspend && mChargingSuspended) {
+            if (ChargeControlUtils.setChargingSuspended(false)) {
+                mChargingSuspended = false;
+                Log.d(TAG, "Charging resumed at " + mLastBatteryLevel + "% (threshold " + threshold + "%)");
             }
         }
     }
@@ -109,11 +119,13 @@ public class ChargeControlService extends Service {
     public void onDestroy() {
         super.onDestroy();
         if (mBatteryReceiver != null) unregisterReceiver(mBatteryReceiver);
-        if (mHandler != null && mMonitorRunnable != null) mHandler.removeCallbacks(mMonitorRunnable);
+        if (mHandler != null && mMonitorRunnable != null) {
+            mHandler.removeCallbacks(mMonitorRunnable);
+        }
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
-} 
+}

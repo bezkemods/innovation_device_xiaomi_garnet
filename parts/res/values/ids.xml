@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Used as a View tag key to store/cancel the state-badge hide Runnable -->
+    <item name="tag_hide_runnable" type="id" />
+</resources>
