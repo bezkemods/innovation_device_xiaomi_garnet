@@ -239,28 +239,49 @@
             android:permission="RefreshService">
         </service>
                 
-        <!-- Resolution / Upscale -->
-        <activity
-            android:name=".resolution.ResolutionActivity"
-            android:label="@string/upscale_title"
-            android:theme="@style/Theme.SubSettingsBase"
-            android:exported="false"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        </activity>
+<!-- Per-app resolution list screen -->
+<activity
+    android:name=".resolution.ResolutionActivity"
+    android:label="@string/upscale_title"
+    android:theme="@style/Theme.SubSettingsBase"
+    android:exported="false"
+    android:parentActivityName=".xiaomiparts.XiaomiPartsActivity" />
 
-        <activity
-            android:name=".resolution.SystemResolutionActivity"
-            android:label="@string/system_resolution_title"
-            android:theme="@style/Theme.SubSettingsBase"
-            android:exported="false"
-            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
-        </activity>
+<!-- System-wide resolution screen -->
+<activity
+    android:name=".resolution.SystemResolutionActivity"
+    android:label="@string/system_resolution_title"
+    android:theme="@style/Theme.SubSettingsBase"
+    android:exported="false"
+    android:parentActivityName=".xiaomiparts.XiaomiPartsActivity" />
 
-        <service
-            android:name=".resolution.ResolutionService"
-            android:exported="true"
-            android:permission="ResolutionService">
-        </service>
+<!-- Background service – monitors foreground app and switches resolution -->
+<service
+    android:name=".resolution.ResolutionService"
+    android:exported="true"
+    android:permission="ResolutionService" />
+
+<!-- Boot receiver – restores global resolution state after reboot -->
+<receiver
+    android:name=".resolution.ResolutionBootReceiver"
+    android:exported="false">
+    <intent-filter>
+        <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+    </intent-filter>
+</receiver>
+
+<!-- Quick Settings tile – cycles through resolution states -->
+<service
+    android:name=".resolution.ResolutionQsTileService"
+    android:exported="true"
+    android:icon="@drawable/ic_resolution_default"
+    android:label="@string/resolution_qs_label"
+    android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+    <intent-filter>
+        <action android:name="android.service.quicksettings.action.QS_TILE" />
+    </intent-filter>
+</service>
 
         <!-- Auto HBM -->
         <activity

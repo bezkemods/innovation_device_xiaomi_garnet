@@ -980,21 +980,54 @@ Recommendations:\n
     <string name="charge_control_tile_subtitle">Stop at %1$d%%</string>
     
     <!-- Per-app upscale -->
-    <string name="upscale_title">Per-app Upscaling</string>
     <string name="upscale_summary">Set upscaling for specific applications</string>
-    <string name="upscale_default">Native</string>
-    <string name="upscale_480p">Performance</string>
-    <string name="upscale_540p">Balanced</string>
-    <string name="upscale_720p">Quality</string>
-
-    <!-- System-wide resolution -->
-    <string name="system_resolution_title">System resolution</string>
-    <string name="system_resolution_summary">Baseline applied system-wide: %1$s</string>
-    <string name="system_resolution_summary_setting">Baseline applied system-wide</string>
-    <string name="system_resolution_note">Per-app rules upscaling override the baseline while those apps are in the foreground</string>
+    <string name="upscale_title">Per-App Resolution</string>
+    <string name="upscale_default">Default</string>
+    <string name="upscale_480p">480p</string>
+    <string name="upscale_540p">540p</string>
+    <string name="upscale_720p">720p</string>
+ 
+    <!-- ── System-wide screen ───────────────────────────────────────────── -->
+    <string name="system_resolution_title">Display Resolution</string>
+    <!-- %1$s will be replaced with e.g. "1220×2712 @ 395 dpi" -->
+    <string name="system_resolution_summary">Current: %1$s</string>
+    <string name="system_resolution_summary_setting">Select system-wide display resolution</string>
+    <string name="system_resolution_note">Lower resolution reduces GPU load and may extend battery life.
+        Changes take effect immediately. If the screen becomes unusable, reboot to recover.</string>
+ 
+    <!-- Spinner entries (must match state indices 0–4) -->
+    <string-array name="system_resolution_entries">
+        <item>Default (native)</item>
+        <item>480p</item>
+        <item>540p</item>
+        <item>720p</item>
+        <item>Custom…</item>
+    </string-array>
+ 
+    <!-- ── Resolution labels (shared) ──────────────────────────────────── -->
     <string name="resolution_default">Default</string>
     <string name="resolution_480p">480p</string>
     <string name="resolution_540p">540p</string>
     <string name="resolution_720p">720p</string>
+    <string name="resolution_custom">Custom</string>
+ 
+    <!-- ── Custom resolution dialog ─────────────────────────────────────── -->
+    <string name="custom_resolution_dialog_title">Custom Resolution</string>
+    <string name="custom_resolution_section_title">Custom resolution settings</string>
+    <string name="custom_resolution_width_label">Width (px)</string>
+    <string name="custom_resolution_height_label">Height (px)</string>
+    <string name="custom_resolution_density_label">Density (dpi)</string>
+    <!-- %1$d = native value shown as hint -->
+    <string name="custom_resolution_width_hint">Native: %1$d</string>
+    <string name="custom_resolution_height_hint">Native: %1$d</string>
+    <string name="custom_resolution_density_hint">Native: %1$d dpi</string>
+    <string name="custom_resolution_note">Tip: density ≈ (width / native_width) × native_dpi.
+        Min width: 240 px · Min height: 320 px · Min density: 80 dpi.</string>
+    <string name="custom_resolution_invalid">Invalid values — please enter positive integers within bounds.</string>
+    <string name="custom_resolution_reset">Reset to native</string>
+ 
+    <!-- ── QS Tile ───────────────────────────────────────────────────────── -->
+    <string name="resolution_qs_label">Resolution</string>
+
 
 </resources>
