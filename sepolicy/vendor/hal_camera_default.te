@@ -14,3 +14,6 @@ allow hal_camera_client vendor_hal_cameraperf_hwservice:hwservice_manager find;
 allow hal_camera_client vendor_hal_camerapostproc_xiaomi_hwservice:hwservice_manager find;
 
 hal_client_domain(hal_camera_default, hal_power)
+
+allow hal_camera_default vendor_sysfs_battery_supply:dir search;
+allow hal_camera_default vendor_sysfs_battery_supply:file r_file_perms;

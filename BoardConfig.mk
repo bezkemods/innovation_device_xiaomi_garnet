@@ -110,6 +110,8 @@ $(foreach sku, CN GL JP, \
 
 DEVICE_FRAMEWORK_MANIFEST_FILE += $(DEVICE_PATH)/configs/hidl/framework_manifest.xml
 
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/hidl/c2_manifest_vendor.xml
+
 # Init
 TARGET_RECOVERY_DEVICE_MODULES := libinit_garnet
 
