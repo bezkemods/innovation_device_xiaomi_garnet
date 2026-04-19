@@ -56,6 +56,13 @@
     <PreferenceCategory
         android:key="sound_category"
         android:title="@string/sound_title">
+        <!-- Dirac -->
+        <Preference
+            android:key="dirac_settings"
+            android:title="@string/dirac_title"
+            android:summary="@string/dirac_summary"
+            android:icon="@drawable/ic_dirac"
+            app:iconSpaceReserved="true" />
         <!-- Clear Speaker -->
         <Preference
             android:key="clear_speaker"

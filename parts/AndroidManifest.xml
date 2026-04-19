@@ -283,6 +283,29 @@
     </intent-filter>
 </service>
 
+        <!-- Dirac Audio -->
+        <activity
+            android:name=".dirac.DiracActivity"
+            android:exported="false"
+            android:label="@string/dirac_title"
+            android:icon="@drawable/ic_dirac"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+        
+        <service
+            android:name=".dirac.DiracTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_headphone"
+            android:label="@string/dirac_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+            android:value="true" />
+        </service>
+
         <!-- Auto HBM -->
         <activity
             android:name=".autohbm.AutoHbmActivity"
