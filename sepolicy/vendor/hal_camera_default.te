@@ -17,3 +17,6 @@ hal_client_domain(hal_camera_default, hal_power)
 
 allow hal_camera_default vendor_sysfs_battery_supply:dir search;
 allow hal_camera_default vendor_sysfs_battery_supply:file r_file_perms;
+
+allow hal_camera_default sysfs_thermal:dir search;
+allow hal_camera_default sysfs_thermal:file w_file_perms;
