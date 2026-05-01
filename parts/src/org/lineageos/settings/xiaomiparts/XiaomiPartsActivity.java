@@ -3,6 +3,7 @@ package org.lineageos.settings.xiaomiparts;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -78,28 +79,45 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
         }
     }
 
+    private boolean isKsuNextInstalled() {
+        String[] ksuPackages = {
+            "me.weishu.kernelsu",
+            "com.kernelsu.next"
+        };
+        PackageManager pm = getPackageManager();
+        for (String pkg : ksuPackages) {
+            try {
+                pm.getPackageInfo(pkg, 0);
+                return true;
+            } catch (PackageManager.NameNotFoundException ignored) {}
+        }
+        return false;
+    }
+
     private void showRootNoticeIfNeeded() {
+        // Ha KSU Next már telepítve van, nem mutatjuk a dialógust
+        if (isKsuNextInstalled()) {
+            Log.d(TAG, "KSU Next is installed, skipping root notice");
+            return;
+        }
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean noticeShown = prefs.getBoolean(PREF_ROOT_NOTICE_SHOWN, false);
-        
+
         if (!noticeShown) {
             new AlertDialog.Builder(this)
                 .setTitle("Root Access Recommended")
                 .setMessage("Root access is recommended for full functionality of XiaomiParts.\n\n" +
                            "We recommend downloading KSU Next and granting root permissions for the best experience.")
                 .setPositiveButton("Download KSU Next", (dialog, which) -> {
-                    // Save preference so dialog doesn't show again
                     prefs.edit().putBoolean(PREF_ROOT_NOTICE_SHOWN, true).apply();
-                    
-                    // Open download link
                     try {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, 
-                            Uri.parse("https://github.com/KernelSU-Next/KernelSU-Next/releases/download/v1.1.1/KernelSU_Next_v1.1.1_12851-release.apk"));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/KernelSU-Next/KernelSU-Next/releases/download/v3.2.0/KernelSU_Next_v3.2.0_33129-release.apk"));
                         startActivity(browserIntent);
                     } catch (Exception e) {
                         Log.e(TAG, "Error opening download link", e);
                     }
-                    
                     dialog.dismiss();
                 })
                 .setNegativeButton("Don't show again", (dialog, which) -> {
