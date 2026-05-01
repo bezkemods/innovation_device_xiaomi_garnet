@@ -1,7 +1,3 @@
 -keep class org.lineageos.settings.turbocharging.* {
   *;
 }
-
--keep class org.lineageos.settings.dirac.* {
-  *;
-}

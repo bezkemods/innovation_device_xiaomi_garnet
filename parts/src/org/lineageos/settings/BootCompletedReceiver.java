@@ -32,7 +32,6 @@ import org.lineageos.settings.logcatviewer.LogcatBackgroundService;
 import org.lineageos.settings.performance.PerformanceUtils;
 import org.lineageos.settings.utils.FileUtils;
 import org.lineageos.settings.widget.XiaomiPartsWidget;
-import org.lineageos.settings.dirac.DiracUtils;
 import org.lineageos.settings.resolution.ResolutionUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
@@ -183,13 +182,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 Log.d(TAG, "ResolutionService started");
             } catch (Exception e) {
                 Log.e(TAG, "ResolutionService failed to start", e);
-            }
-
-            // Initialize Dirac
-            try {
-                DiracUtils.getInstance(context);
-            } catch (Exception e) {
-                Log.d(TAG, "Dirac is not present in system");
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to start services", e);
