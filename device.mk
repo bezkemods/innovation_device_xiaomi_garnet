@@ -119,8 +119,8 @@ PRODUCT_PACKAGES += \
     android.hardware.boot-service.qti \
     android.hardware.boot-service.qti.recovery
 
-# Call the Leica Camera setup
-$(call inherit-product-if-exists, vendor/xiaomi/garnet-leicacamera/products/miuicamera.mk)
+# Call the MiuiCamera setup
+$(call inherit-product-if-exists, device/xiaomi/miuicamera-garnet/device.mk)
 
 PRODUCT_PACKAGES += \
     libcamera2ndk_vendor

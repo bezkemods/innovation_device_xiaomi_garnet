@@ -20,14 +20,3 @@ persist.sys.parts.cpu.prime.max_frequency    u:object_r:exported_system_prop:s0
 persist.sys.parts.cpu.prime.governor         u:object_r:exported_system_prop:s0
 
 persist.sys.turbo_charge_current             u:object_r:exported_system_prop:s0
-
-# Camera
-persist.camera.                u:object_r:vendor_camera_prop:s0
-ro.camera.                     u:object_r:exported_default_prop:s0
-ro.camera.req.fmq.             u:object_r:exported_default_prop:s0
-ro.camera.res.fmq.             u:object_r:exported_default_prop:s0
-ro.vendor.camera.res.fmq.size       u:object_r:vendor_camera_prop:s0
-
-# MIUI
-ro.miui.region                      u:object_r:exported_system_prop:s0
-ro.miui.build.region                u:object_r:exported_system_prop:s0

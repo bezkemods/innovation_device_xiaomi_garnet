@@ -1,16 +1,51 @@
+/*
+ * Copyright (C) 2025 KamiKaonashi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.lineageos.settings.resolution;
 
 import android.annotation.Nullable;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.lineageos.settings.R;
 
+/**
+ * System-wide resolution selector.
+ *
+ * Spinner entries: Default | 480p | 540p | 720p | Custom
+ *
+ * Selecting "Custom" opens a dialog that lets the user input:
+ *   - Width  (px)
+ *   - Height (px)
+ *   - Density (dpi)
+ *
+ * After saving, the custom config is persisted and the system resolution is applied.
+ */
 public class SystemResolutionSettingsFragment extends Fragment
         implements AdapterView.OnItemSelectedListener {
 
@@ -18,7 +53,8 @@ public class SystemResolutionSettingsFragment extends Fragment
     private Spinner         mModeSpinner;
     private TextView        mSummaryView;
 
-    private static final int SPINNER_CUSTOM_POS = ResolutionUtils.STATE_CUSTOM;
+    /** Position of STATE_CUSTOM in the spinner. */
+    private static final int SPINNER_CUSTOM_POS = ResolutionUtils.STATE_CUSTOM; // = 4
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,14 +65,19 @@ public class SystemResolutionSettingsFragment extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mResolutionUtils = new ResolutionUtils(getActivity());
 
         mSummaryView = view.findViewById(R.id.system_resolution_summary);
         mModeSpinner = view.findViewById(R.id.system_resolution_mode);
 
-        // 🔥 CUSTOM ADAPTER
-        mModeSpinner.setAdapter(new ResolutionAdapter());
+        // Build adapter from string-array (must include "Custom" entry at index 4)
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                getActivity(),
+                R.array.system_resolution_entries,   // 5 entries: Default, 480p, 540p, 720p, Custom
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mModeSpinner.setAdapter(adapter);
         mModeSpinner.setOnItemSelectedListener(this);
 
         int current = mResolutionUtils.getGlobalState();
@@ -50,9 +91,9 @@ public class SystemResolutionSettingsFragment extends Fragment
         getActivity().setTitle(getString(R.string.system_resolution_title));
     }
 
-    // =========================================================
-    // Spinner
-    // =========================================================
+    // -------------------------------------------------------------------------
+    // Spinner callbacks
+    // -------------------------------------------------------------------------
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -70,88 +111,11 @@ public class SystemResolutionSettingsFragment extends Fragment
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {}
+    public void onNothingSelected(AdapterView<?> parent) { /* no-op */ }
 
-    // =========================================================
-    // Adapter (🔥 grafikus preview)
-    // =========================================================
-
-    private class ResolutionAdapter extends ArrayAdapter<String> {
-
-        private final LayoutInflater inflater;
-
-        ResolutionAdapter() {
-            super(getActivity(), 0,
-                    getResources().getStringArray(R.array.system_resolution_entries));
-            inflater = LayoutInflater.from(getActivity());
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return createItem(position, convertView, parent);
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            return createItem(position, convertView, parent);
-        }
-
-        private View createItem(int position, View convertView, ViewGroup parent) {
-            View v = convertView;
-            if (v == null) {
-                v = inflater.inflate(R.layout.resolution_spinner_item, parent, false);
-            }
-
-            TextView title = v.findViewById(R.id.title);
-            TextView subtitle = v.findViewById(R.id.subtitle);
-            View preview = v.findViewById(R.id.preview_inner);
-
-            title.setText(getItem(position));
-
-            String detail = mResolutionUtils.getResolutionDetail(position);
-            subtitle.setText(detail);
-
-            int baseW = mResolutionUtils.getNativeWidth();
-            int baseH = mResolutionUtils.getNativeHeight();
-
-            int[] cfg;
-            if (position == ResolutionUtils.STATE_CUSTOM) {
-                cfg = mResolutionUtils.getCustomConfig();
-            } else {
-                String[] split = detail.split("×|@");
-                cfg = new int[]{
-                        Integer.parseInt(split[0].trim()),
-                        Integer.parseInt(split[1].trim())
-                };
-            }
-
-            float scaleW = (float) cfg[0] / baseW;
-            float scaleH = (float) cfg[1] / baseH;
-
-            int w = Math.max(8, (int)(30 * scaleW));
-            int h = Math.max(12, (int)(60 * scaleH));
-
-            preview.getLayoutParams().width  = w;
-            preview.getLayoutParams().height = h;
-
-            // 🎨 performance hint
-            if (position == ResolutionUtils.STATE_480P) {
-                preview.setBackgroundColor(0xFF4CAF50); // zöld
-            } else if (position == ResolutionUtils.STATE_720P) {
-                preview.setBackgroundColor(0xFFFFC107); // sárga
-            } else {
-                preview.setBackgroundColor(0xFFFFFFFF);
-            }
-
-            preview.requestLayout();
-
-            return v;
-        }
-    }
-
-    // =========================================================
-    // Custom dialog (unchanged)
-    // =========================================================
+    // -------------------------------------------------------------------------
+    // Custom resolution dialog
+    // -------------------------------------------------------------------------
 
     private void showCustomResolutionDialog() {
         int[] cfg = mResolutionUtils.getCustomConfig();
@@ -167,30 +131,71 @@ public class SystemResolutionSettingsFragment extends Fragment
         etHeight.setText(String.valueOf(cfg[1]));
         etDensity.setText(String.valueOf(cfg[2]));
 
+        // Hint: show native panel values
+        etWidth.setHint(getString(R.string.custom_resolution_width_hint,
+                mResolutionUtils.getNativeWidth()));
+        etHeight.setHint(getString(R.string.custom_resolution_height_hint,
+                mResolutionUtils.getNativeHeight()));
+        etDensity.setHint(getString(R.string.custom_resolution_density_hint,
+                mResolutionUtils.getNativeDensity()));
+
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.custom_resolution_dialog_title)
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    try {
-                        int w = Integer.parseInt(etWidth.getText().toString().trim());
-                        int h = Integer.parseInt(etHeight.getText().toString().trim());
-                        int d = Integer.parseInt(etDensity.getText().toString().trim());
-
-                        if (w < 240 || h < 320 || d < 80) throw new Exception();
-
-                        mResolutionUtils.setCustomConfig(w, h, d);
-                        mResolutionUtils.setGlobalState(ResolutionUtils.STATE_CUSTOM);
-                        updateSummary(ResolutionUtils.STATE_CUSTOM);
-
-                    } catch (Exception e) {
-                        Toast.makeText(getActivity(),
-                                R.string.custom_resolution_invalid,
-                                Toast.LENGTH_SHORT).show();
-                    }
+                    applyCustomFromDialog(etWidth, etHeight, etDensity);
                 })
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    // Revert spinner to previous selection
+                    int prev = mResolutionUtils.getGlobalState();
+                    mModeSpinner.setSelection(prev, false);
+                })
+                .setNeutralButton(R.string.custom_resolution_reset, (dialog, which) -> {
+                    resetToNative();
+                })
+                .setOnCancelListener(d -> {
+                    int prev = mResolutionUtils.getGlobalState();
+                    mModeSpinner.setSelection(prev, false);
+                })
                 .show();
     }
+
+    private void applyCustomFromDialog(EditText etWidth, EditText etHeight, EditText etDensity) {
+        try {
+            int w = Integer.parseInt(etWidth.getText().toString().trim());
+            int h = Integer.parseInt(etHeight.getText().toString().trim());
+            int d = Integer.parseInt(etDensity.getText().toString().trim());
+
+            if (w < 240 || h < 320 || d < 80) {
+                Toast.makeText(getActivity(),
+                        R.string.custom_resolution_invalid, Toast.LENGTH_SHORT).show();
+                mModeSpinner.setSelection(mResolutionUtils.getGlobalState(), false);
+                return;
+            }
+
+            mResolutionUtils.setCustomConfig(w, h, d);
+            mResolutionUtils.setGlobalState(ResolutionUtils.STATE_CUSTOM);
+            updateSummary(ResolutionUtils.STATE_CUSTOM);
+        } catch (NumberFormatException e) {
+            Toast.makeText(getActivity(),
+                    R.string.custom_resolution_invalid, Toast.LENGTH_SHORT).show();
+            mModeSpinner.setSelection(mResolutionUtils.getGlobalState(), false);
+        }
+    }
+
+    private void resetToNative() {
+        mResolutionUtils.setCustomConfig(
+                mResolutionUtils.getNativeWidth(),
+                mResolutionUtils.getNativeHeight(),
+                mResolutionUtils.getNativeDensity());
+        mResolutionUtils.setGlobalState(ResolutionUtils.STATE_DEFAULT);
+        mModeSpinner.setSelection(ResolutionUtils.STATE_DEFAULT, false);
+        updateSummary(ResolutionUtils.STATE_DEFAULT);
+    }
+
+    // -------------------------------------------------------------------------
+    // Helpers
+    // -------------------------------------------------------------------------
 
     private void updateSummary(int state) {
         String detail = mResolutionUtils.getResolutionDetail(state);

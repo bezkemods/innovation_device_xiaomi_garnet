@@ -9,13 +9,8 @@ DEVICE_PATH := device/xiaomi/garnet
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
-# Inherit from proprietary files for Leica Camera
--include vendor/xiaomi/garnet-leicacamera/products/board.mk
-
-TARGET_USES_QTI_CAMERA_DEVICE := true
-TARGET_CAMERA_BOOTTIME_TIMESTAMP := true
-MALLOC_SVELTE := true
-MALLOC_SVELTE_FOR_LIBC32 := true
+# Inherit from proprietary files for miuicamera
+-include device/xiaomi/miuicamera-garnet/BoardConfig.mk
 
 # HWUI
 HWUI_COMPILE_FOR_PERF := true
