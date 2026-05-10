@@ -44,7 +44,6 @@ static void ensureInitialized() {
     if (sInitialized) return;
     int switchVal = get<int>(TOGGLE_SWITCH, 0);
     if (switchVal != 0) {
-        // Switch left open from previous session – close it now
         set(TOGGLE_SWITCH, 0);
         auto node = kTorchLedPath + "/" + TORCH_BRIGHTNESS;
         set(node, 0);
@@ -93,12 +92,17 @@ void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
             torchStrength,
             getTorchMaxStrengthLevelExt());
 
-    if (!sTorchEnabled) {
-        set(TOGGLE_SWITCH, 255);
-        sTorchEnabled = true;
-    }
-
+    /*
+     * Always close and reopen the switch around brightness writes.
+     * This ensures the PMIC sees a clean enable sequence and prevents
+     * the switch staying open from a prior session desynchronizing
+     * the Camera HAL torch state on Android 16.
+     * Pattern borrowed from pm8350c implementation.
+     */
+    set(TOGGLE_SWITCH, 0);
     set(node, torchStrength);
+    set(TOGGLE_SWITCH, 255);
+    sTorchEnabled = true;
 }
 
 void setTorchModeExt(bool enabled) {
