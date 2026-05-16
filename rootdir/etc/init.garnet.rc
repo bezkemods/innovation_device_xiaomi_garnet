@@ -118,8 +118,9 @@ on property:ro.boot.product.hardware.sku=JP
 on property:sys.boot_completed=1
     write /sys/devices/virtual/thermal/thermal_message/sconfig 20
 
-    # Enable PowerHAL hint processing
-    setprop vendor.powerhal.init 1
+    # Report max frequency to unity tasks.
+    write /proc/sys/walt/sched_lib_name "UnityMain,libunity.so,libil2cpp.so,com.miHoYo.,com.pubg.imobile,com.pubg.,com.activision."
+    write /proc/sys/walt/sched_lib_mask_force 255   
     
     # Only owner can acces this node
     chmod 440 /proc/net/unix

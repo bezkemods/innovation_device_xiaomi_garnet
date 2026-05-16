@@ -1075,5 +1075,9 @@
     
     <!-- Smart 5G -->
     <bool name="config_supportSmart5G">true</bool>
+    
+    <!-- Blur Optimization -->
+    <bool name="config_blurSupported">true</bool>
+    <integer name="config_maxBlurRadius">30</integer>
    
 </resources>

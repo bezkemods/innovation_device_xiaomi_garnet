@@ -150,6 +150,9 @@ PRODUCT_COPY_FILES += \
 # Dolby
 $(call inherit-product, hardware/dolby/dolby.mk)
 
+PRODUCT_PACKAGES += \
+    LunarisDolby
+
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm-service.clearkey
@@ -240,6 +243,10 @@ PRODUCT_COPY_FILES += \
 # Keymint
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.keystore.app_attest_key.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.keystore.app_attest_key.xml
+
+# KProfiles
+PRODUCT_PACKAGES += \
+    KProfiles
 
 # Logging
 SPAMMY_LOG_TAGS := \
