@@ -246,7 +246,7 @@
     <string name="cpu_tile_preview_summary">Нажмите, чтобы обновить плитку с текущими настройками</string>
     <string name="cpu_tile_footer">Плитка регулятора ЦП позволяет быстро переключаться между регуляторами ЦП и отображает в реальном времени частоту и информацию об использовании ЦП. Коснитесь плитки, чтобы просмотреть доступные губернаторы.</string>
     <string name="performance_mode_title">Режим производительности</string>
-    <string name="performance_mode_summary">Установите максимальную производительность процессора и графического процессора. Увеличивает нагрев и расход батареи.</string>
+    <string name="performance_mode_summary">Заставьте процессор и графический процессор работать на максимуме для достижения максимальной производительности. Увеличивает нагрев и расход батареи.</string>
     <string name="performance_mode_enabled_summary">Режим производительности включен</string>
     <string name="performance_mode_disabled_summary">Режим производительности ВЫКЛ</string>
     <string name="performance_profile_title">Профиль производительности</string>
@@ -314,7 +314,7 @@
     <string name="kernel_manager_reset_summary">Восстановить настройки ЦП по умолчанию</string>
     <string name="settings_applied">Настройки успешно применены</string>
     <string name="settings_reset">Настройки сброшены на значения по умолчанию</string>
-    <string name="kernel_manager_footer">Регуляторы ЦП управляют тем, как ваше устройство регулирует частоту ЦП, чтобы сбалансировать производительность и энергопотребление. Вот краткий обзор:\n\n• walt: разработанный Google регулятор, оптимизированный для быстрого реагирования и задержки взаимодействия с пользователем, в основном используется в устройствах Pixel.\n• консервативный: постепенно увеличивает частоту процессора; экономит батарею, но может снизить скорость реагирования.\n• Экономия энергии: поддерживает процессор на минимально возможной частоте, отдавая приоритет времени автономной работы над производительностью.\n• Производительность: блокирует процессор на максимальной частоте, обеспечивая максимальную производительность за счет батареи.\n• schedhorizon: регулятор с поддержкой планировщика, предназначенный для улучшения миграции задач и эффективности между ядрами.\n• schedutil: современный регулятор по умолчанию во многих ядрах; использует данные планировщика Linux для разумного и эффективного масштабирования частоты процессора.</string>
+    <string name="kernel_manager_footer">Регуляторы ЦП управляют тем, как ваше устройство регулирует частоту ЦП, чтобы сбалансировать производительность и энергопотребление. Вот краткий обзор:\n\n• walt: разработанный Google регулятор, оптимизированный для быстрого реагирования и задержки взаимодействия с пользователем, в основном используется в устройствах Pixel.\n• консервативный: постепенно увеличивает частоту процессора; экономит батарею, но может снизить скорость реагирования.\n• Экономия энергии: поддерживает процессор на минимально возможной частоте, отдавая приоритет времени автономной работы над производительностью.\n• Производительность: блокирует процессор на максимальной частоте, обеспечивая максимальную производительность за счет аккумулятора.\n• schedhorizon: регулятор с поддержкой планировщика, предназначенный для улучшения миграции задач и эффективности между ядрами.\n• schedutil: современный регулятор по умолчанию во многих ядрах; использует данные планировщика Linux для разумного и эффективного масштабирования частоты процессора.</string>
     <string name="kernel_manager_cpu_monitor">Мониторинг ядра процессора</string>
     <string name="kernel_manager_core_online">Онлайн</string>
     <string name="kernel_manager_core_offline">Оффлайн</string>
@@ -387,291 +387,20 @@
     <string name="unknown">Неизвестно</string>
     <string name="thermal_level_summary">Уровень %s</string>
     <string name="camera_boost_triggered">Сработало усиление камеры/видео!</string>
-    <string name="video_enhancer_title">Усилитель видео</string>
-    <string name="video_enhancer_summary">Оптимизация дисплея и производительности Redmi Note 13 Pro 5G</string>
-    <string name="video_enhancer_display_category">📺 Особенности дисплея</string>
-    <string name="smooth_motion_enable_title">Плавное движение</string>
-    <string name="smooth_motion_enable_summary">Аппаратное сглаживание движения для видео (по умолчанию: ВЫКЛ.) • Требуется перезагрузка</string>
-    <string name="optimize_refresh_enable_title">Оптимизировать частоту обновления</string>
-    <string name="optimize_refresh_enable_summary">Динамическая частота обновления в зависимости от содержимого (по умолчанию: ВЫКЛ.) • Требуется перезагрузка</string>
-    <string name="peak_refresh_rate_title">Пиковая частота обновления 120 Гц</string>
-    <string name="peak_refresh_rate_summary">Включить 120 Гц при нажатии (200 мс) • Заводское значение • Требуется перезагрузка</string>
-    <string name="video_enhancer_performance_category">⚡ Оптимизация производительности</string>
-    <string name="force_vulkan_title">API-интерфейс Force Vulkan</string>
-    <string name="force_vulkan_summary">Используйте Vulkan вместо OpenGL ES (Adreno 710) • Требуется перезагрузка</string>
-    <string name="purgeable_assets_title">Очищаемые активы</string>
-    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
-    <string name="gfx_accel_title">Graphics Acceleration</string>
-    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
-    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
-    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
-    <string name="gpu_scheduling_title">GPU Scheduling</string>
-    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
-    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
-    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
-    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
-    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
-    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
-    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
-    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
-    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
-    <string name="hwui_disable_vsync_title">Disable VSync</string>
-    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
-    <string name="disable_scaler_title">Disable Display Scaler</string>
-    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
-    <string name="media_codec_hw_title">Hardware Media Codecs</string>
-    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
-    <string name="video_enhancer_info_category">ℹ️ Information</string>
-    <string name="video_enhancer_info_title">About Video Enhancer</string>
-    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
-    <string name="reset_to_defaults_title">Reset to Defaults</string>
-    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
-    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
-    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
-    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
-    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
-    <string name="reboot_required_title">🔄 Reboot Required</string>
-    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
-    <string name="reboot_now">Reboot Now</string>
-    <string name="reboot_later">Later</string>
-    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
-    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
-🎮 GPU: Qualcomm Adreno 710\n
-📺 Display: 120Hz AMOLED (1220×2712)\n
-💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
-
-═══════════════════════════════\n
-📹 DISPLAY FEATURES\n
-═══════════════════════════════\n\n
-
-🎬 Smooth Motion\n
-└─ Hardware motion smoothing technology\n
-└─ Qualcomm proprietary motion engine\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.use_smooth_motion\n
-└─ ⚠️ Increased battery consumption!\n\n
-
-🔄 Optimize Refresh Rate\n
-└─ Dynamic refresh rate based on content\n
-└─ Better battery efficiency\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.enable_optimize_refresh\n\n
-
-⚡ 120Hz Peak Refresh Rate\n
-└─ Enable full 120Hz capability\n
-└─ Touch detection timer: 200ms (factory)\n
-└─ Idle timer: 1100ms\n
-└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
-└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
-
-═══════════════════════════════\n
-⚡ PERFORMANCE OPTIMIZATIONS\n
-═══════════════════════════════\n\n
-
-🔺 Force Vulkan API\n
-└─ Use Vulkan instead of OpenGL ES\n
-└─ Better performance on Adreno 710 GPU\n
-└─ For modern games and apps\n
-└─ Property: ro.hwui.use_vulkan=true\n
-└─ ⚠️ Not all apps support it!\n\n
-
-💾 Purgeable Assets\n
-└─ Free unused graphics memory\n
-└─ Improved memory management\n
-└─ Property: persist.sys.purgeable_assets=1\n\n
-
-🚀 Graphics Acceleration\n
-└─ Hardware acceleration for UI rendering\n
-└─ Essential for smooth performance\n
-└─ Recommended: ENABLED\n
-└─ Property: ro.config.avoid_gfx_accel=false\n\n
-
-🧠 ADPF CPU Hints\n
-└─ Android Dynamic Performance Framework\n
-└─ Intelligent CPU frequency hints\n
-└─ Workload-based optimization\n
-└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
-└─ Recommended: ENABLED\n\n
-
-📊 GPU Scheduling\n
-└─ Advanced GPU task scheduling\n
-└─ Better frame pacing\n
-└─ Reduced latency\n
-└─ Property: persist.sys.gpu.scheduling=1\n\n
-
-═══════════════════════════════\n
-🎨 HARDWARE RENDERERS\n
-═══════════════════════════════\n\n
-
-🟢 SkiaGL Renderer\n
-└─ OpenGL ES-based Skia renderer\n
-└─ Better compatibility with older apps\n
-└─ Stable performance\n
-└─ Property: debug.hwui.renderer=skiagl\n\n
-
-🔵 SkiaVK Renderer\n
-└─ Vulkan-based Skia renderer\n
-└─ Better performance on Adreno 710\n
-└─ Lower CPU overhead\n
-└─ Modern rendering path\n
-└─ Property: debug.hwui.renderer=skiavk\n
-└─ ⚠️ Only ONE can be active at a time!\n\n
-
-═══════════════════════════════\n
-🔧 ADVANCED FEATURES\n
-═══════════════════════════════\n\n
-
-💪 Force GPU Rendering\n
-└─ All 2D drawing on GPU\n
-└─ Smoother UI possible\n
-└─ Increased power consumption\n
-└─ Property: persist.sys.ui.hw=1\n\n
-
-⚠️ Disable VSync\n
-└─ Remove vertical sync limitation\n
-└─ Higher FPS possible\n
-└─ ❌ MAY CAUSE SCREEN TEARING!\n
-└─ ❌ NOT RECOMMENDED for normal use!\n
-└─ Property: debug.hwui.disable_vsync=true\n
-└─ 🚫 This causes video vibration/judder!\n\n
-
-🖼️ Disable Display Scaler\n
-└─ Bypass hardware scaler\n
-└─ Native resolution rendering\n
-└─ Better image quality\n
-└─ Property: vendor.display.disable_scaler=1\n\n
-
-🎥 Hardware Media Codecs\n
-└─ Adreno 710 hardware video encode/decode\n
-└─ Essential for smooth video playback\n
-└─ Recommended: ENABLED\n
-└─ Property: debug.stagefright.c2-poolmask=0x1f\n
-└─ 0x1f = all HW codecs enabled\n\n
-
-═══════════════════════════════\n
-⚠️ IMPORTANT NOTES\n
-═══════════════════════════════\n\n
-
-🔄 Most changes require device REBOOT\n
-🎨 Only ONE renderer can be active at a time\n
-🔀 Selecting a renderer automatically disables the other\n
-🔑 Root access (Magisk) is REQUIRED for all features\n
-💾 Settings are automatically restored on boot\n
-📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
-
-═══════════════════════════════\n
-💡 RECOMMENDED SETTINGS\n
-═══════════════════════════════\n\n
-
-🎮 For Gaming:\n
-├─ Force Vulkan: ON\n
-├─ GPU Scheduling: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Hardware Codecs: ON\n
-└─ VSync: ON (NEVER disable!)\n\n
-
-🔋 For Battery Life:\n
-├─ Optimize Refresh: ON\n
-├─ 120Hz Peak: OFF\n
-├─ Graphics Acceleration: ON\n
-├─ ADPF CPU: ON\n
-└─ Others: default\n\n
-
-⚡ For Maximum Performance:\n
-├─ All Performance options: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Force GPU Rendering: ON\n
-├─ GPU Scheduling: ON\n
-└─ VSync: ON (avoid tearing!)\n\n
-
-🎬 For Smooth Video Playback:\n
-├─ Hardware Codecs: ON\n
-├─ Graphics Acceleration: ON\n
-├─ VSync: ON (ALWAYS!)\n
-├─ Smooth Motion: OPTIONAL\n
-└─ Others: default\n\n
-
-═══════════════════════════════\n
-🐛 TROUBLESHOOTING\n
-═══════════════════════════════\n\n
-
-❓ Videos vibrate/stutter/tear?\n
-└─ VSync: ENABLE IT!\n
-└─ Disable VSync: TURN OFF!\n
-└─ Smooth Motion: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ System lag?\n
-└─ Renderers: TURN OFF!\n
-└─ Force GPU Rendering: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ Apps crashing?\n
-└─ Force Vulkan: TURN OFF!\n
-└─ SkiaVK: TURN OFF!\n
-└─ Use default OpenGL\n\n
-
-═══════════════════════════════\n
-📱 DEVICE INFORMATION\n
-═══════════════════════════════\n\n
-
-Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
-Codename: garnet\n
-SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
-GPU: Adreno 710\n
-Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
-Android: 14 / HyperOS 2.0 / LineageOS 21+\n
-Requirement: Root access (Magisk recommended)\n\n
-
-═══════════════════════════════\n
-🔗 PROPERTY REFERENCE\n
-═══════════════════════════════\n\n
-
-Display:\n
-• vendor.display.use_smooth_motion\n
-• vendor.display.enable_optimize_refresh\n
-• ro.surface_flinger.set_touch_timer_ms\n
-• debug.sf.set_idle_timer_ms\n\n
-
-Performance:\n
-• ro.hwui.use_vulkan\n
-• persist.sys.purgeable_assets\n
-• ro.config.avoid_gfx_accel\n
-• debug.sf.enable_adpf_cpu_hint\n
-• persist.sys.gpu.scheduling\n\n
-
-Renderers:\n
-• debug.hwui.renderer (skiagl/skiavk)\n\n
-
-Advanced:\n
-• persist.sys.ui.hw\n
-• debug.hwui.disable_vsync\n
-• vendor.display.disable_scaler\n
-• debug.stagefright.c2-poolmask\n\n
-
-Frame Pacing:\n
-• debug.sf.disable_client_composition_cache\n
-• debug.sf.enable_gl_backpressure\n\n
-
-═══════════════════════════════\n
-⚠️ DISCLAIMER\n
-═══════════════════════════════\n\n
-
-This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
-    <string name="keybox_manager_title">Box of Keybox\'s</string>
-    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
-    <string name="security_title">Security &amp;amp; Attestation</string>
-    <string name="keybox_actions_category">🔑 Keybox Actions</string>
-    <string name="keybox_info_category">ℹ️ Information</string>
-    <string name="keybox_status_category">📊 Current Status</string>
-    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
-    <string name="keybox_generate_title">Generate Templates</string>
-    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
-    <string name="keybox_search_title">Search Keybox</string>
-    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
-    <string name="keybox_import_title">Import Keybox</string>
-    <string name="keybox_import_summary">Import keybox.xml from storage</string>
-    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_manager_title">Коробка с ящиками для ключей</string>
+    <string name="keybox_manager_summary">Создание, поиск и анализ ключей аттестации Android</string>
+    <string name="security_title">Безопасность и аттестация</string>
+    <string name="keybox_actions_category">🔑 Действия с клавиатурой</string>
+    <string name="keybox_info_category">ℹ️ Информация</string>
+    <string name="keybox_status_category">📊 Текущий статус</string>
+    <string name="keybox_advanced_category">🔬 Расширенные инструменты</string>
+    <string name="keybox_generate_title">Создание шаблонов</string>
+    <string name="keybox_generate_summary">Создание шаблонов PIF и TrickyStore keybox.xml</string>
+    <string name="keybox_search_title">Поиск в клавиатуре</string>
+    <string name="keybox_search_summary">Найдите действительный ящик для ключей в репозиториях сообщества</string>
+    <string name="keybox_import_title">Импортировать ящик для ключей</string>
+    <string name="keybox_import_summary">Импортируйте файл keybox.xml из хранилища.</string>
+    <string name="keybox_export_title">Список загрузок</string>
     <string name="keybox_export_summary">Список всех загруженных ящиков с ключами в хранилище</string>
     <string name="keybox_verify_title">Проверка загрузок</string>
     <string name="keybox_verify_summary">Проверить XML-структуру загруженных ящиков с ключами</string>
@@ -771,7 +500,7 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
     <string name="clean_system_cache_summary">Очистить системный кеш и удалить кеши</string>
     <string name="clean_thumbnails_title">Очистить миниатюры</string>
     <string name="clean_thumbnails_summary">Удалить кэш миниатюр с носителя</string>
-    <string name="clean_downloads_title">Очистить старые загрузки</string>
+    <string name="clean_downloads_title">Clean Old Downloads</string>
     <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
     <string name="clean_temp_files_title">Clean Temp Files</string>
     <string name="clean_temp_files_summary">Remove temporary system files</string>
@@ -861,6 +590,65 @@ Recommendations:\n
     <string name="thermal_navigation">Navigation</string>
     <string name="thermal_streaming">Streaming</string>
     <string name="thermal_video">Video</string>
-    <string name="thermal_enable_title">Enable Per-App Profiles</string>
-    <string name="thermal_enable_summary">Автоматическая настройка производительности в зависимости от приложения на переднем плане</string>
+    <string name="thermal_enable_title">Включить профили для каждого приложения</string>
+    <string name="thermal_enable_summary">Автоматически корректировать производительность в зависимости от приложения на переднем плане</string>
+    <string name="widget_title">Запчасти Сяоми</string>
+    <string name="widget_description">Элементы управления процессором, дисплеем, температурой и производительностью</string>
+    <string name="widget_state_on">ВКЛ</string>
+    <string name="widget_state_off">ВЫКЛ</string>
+    <string name="widget_cpu_governor_label">Губернатор процессора</string>
+    <string name="widget_gov_prev">Предыдущий губернатор</string>
+    <string name="widget_gov_next">Следующий губернатор</string>
+    <string name="widget_display_hz">Частота обновления</string>
+    <string name="widget_hz_dec">Уменьшить частоту обновления</string>
+    <string name="widget_hz_inc">Увеличить частоту обновления</string>
+    <string name="widget_cpu_freq_note">Ограничения максимальной частоты процессора применяются непосредственно через диспетчер ядра</string>
+    <string name="widget_hbm">ХБМ</string>
+    <string name="widget_hbm_on">ВКЛ</string>
+    <string name="widget_hbm_off">ВЫКЛ</string>
+    <string name="charge_control_title">Контроль зарядки</string>
+    <string name="charge_control_summary">Контроль прекращения зарядки устройства</string>
+    <string name="charge_control_main_switch_title">Включить контроль зарядки</string>
+    <string name="stop_charging_title">Остановить уровень зарядки</string>
+    <string name="stop_charging_summary">Прекратить зарядку при достижении заданного процента</string>
+    <string name="charge_control_footer_summary">Управление зарядкой может мешать адаптивной зарядке.</string>
+    <string name="kernel_node_access_error">Узел ядра недоступен</string>
+    <string name="stop_charging_set_to">Зарядка прекратится на %1$d%%.</string>
+    <string name="charge_control_tile_label">Контроль заряда</string>
+    <string name="charge_control_tile_enabled">Включено</string>
+    <string name="charge_control_tile_disabled">Отключено</string>
+    <string name="charge_control_tile_subtitle">Остановитесь на %1$d%%</string>
+    <string name="upscale_summary">Настройка масштабирования для конкретных приложений</string>
+    <string name="upscale_title">Разрешение для каждого приложения</string>
+    <string name="upscale_default">По умолчанию</string>
+    <string name="upscale_480p">480р</string>
+    <string name="upscale_540p">540р</string>
+    <string name="upscale_720p">720p</string>
+    <string name="system_resolution_title">Разрешение дисплея</string>
+    <string name="system_resolution_summary">Текущее: %1$s</string>
+    <string name="system_resolution_summary_setting">Выберите общесистемное разрешение экрана</string>
+    <string name="system_resolution_note">Более низкое разрешение снижает нагрузку на графический процессор и может продлить срок службы батареи.
+        Изменения вступают в силу немедленно. Если экран становится непригодным для использования, перезагрузите компьютер для восстановления.</string>
+    <string name="resolution_default">По умолчанию</string>
+    <string name="resolution_480p">480р</string>
+    <string name="resolution_540p">540р</string>
+    <string name="resolution_720p">720p</string>
+    <string name="resolution_custom">Пользовательский</string>
+    <string name="custom_resolution_dialog_title">Пользовательское разрешение</string>
+    <string name="custom_resolution_section_title">Пользовательские настройки разрешения</string>
+    <string name="custom_resolution_width_label">Ширина (пикселей)</string>
+    <string name="custom_resolution_height_label">Высота (пикселей)</string>
+    <string name="custom_resolution_density_label">Плотность (точек на дюйм)</string>
+    <string name="custom_resolution_width_hint">Родной: %1$d</string>
+    <string name="custom_resolution_height_hint">Родной: %1$d</string>
+    <string name="custom_resolution_density_hint">Исходное: %1$d dpi</string>
+    <string name="custom_resolution_note">Совет: плотность ≈ (ширина/native_width)×native_dpi.
+        Минимальная ширина: 240 пикселей · Минимальная высота: 320 пикселей · Минимальная плотность: 80 точек на дюйм.</string>
+    <string name="custom_resolution_invalid">Недопустимые значения. Введите положительные целые числа в допустимых пределах.</string>
+    <string name="custom_resolution_reset">Сбросить на родной</string>
+    <string name="resolution_qs_label">Разрешение</string>
+    <string name="charge_bypass_title">Обход зарядки</string>
+    <string name="charge_bypass_summary">Включить прямую зарядку, минуя батарею</string>
+    <string name="charge_bypass_warning">Предупреждение: Обходная зарядка может привести к повышению температуры устройства или повреждению аккумулятора. Используйте с осторожностью.</string>
+    <string name="charge_bypass_unavailable">Обходная зарядка не поддерживается на этом устройстве.</string>
 </resources>

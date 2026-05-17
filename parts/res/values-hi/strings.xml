@@ -387,291 +387,20 @@
     <string name="unknown">अज्ञात</string>
     <string name="thermal_level_summary">लेवल %s</string>
     <string name="camera_boost_triggered">कैमरा/वीडियो बूस्ट ट्रिगर हो गया!</string>
-    <string name="video_enhancer_title">वीडियो एन्हांसर</string>
-    <string name="video_enhancer_summary">Redmi Note 13 Pro 5G के लिए प्रदर्शन और प्रदर्शन अनुकूलन</string>
-    <string name="video_enhancer_display_category">📺 प्रदर्शन विशेषताएँ</string>
-    <string name="smooth_motion_enable_title">स्मूथ मोशन</string>
-    <string name="smooth_motion_enable_summary">वीडियो के लिए हार्डवेयर मोशन स्मूथिंग (डिफ़ॉल्ट: बंद) • रीबूट आवश्यक</string>
-    <string name="optimize_refresh_enable_title">ताज़ा दर अनुकूलित करें</string>
-    <string name="optimize_refresh_enable_summary">सामग्री पर आधारित गतिशील ताज़ा दर (डिफ़ॉल्ट: बंद) • रीबूट आवश्यक</string>
-    <string name="peak_refresh_rate_title">120Hz पीक रिफ्रेश रेट</string>
-    <string name="peak_refresh_rate_summary">टच पर 120Hz सक्षम करें (200ms) • फ़ैक्टरी मान • रीबूट आवश्यक</string>
-    <string name="video_enhancer_performance_category">⚡ प्रदर्शन अनुकूलन</string>
-    <string name="force_vulkan_title">फोर्स वल्कन एपीआई</string>
-    <string name="force_vulkan_summary">ओपनजीएल ईएस (एड्रेनो 710) के बजाय वल्कन का उपयोग करें • रीबूट आवश्यक</string>
-    <string name="purgeable_assets_title">शुद्ध करने योग्य संपत्तियाँ</string>
-    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
-    <string name="gfx_accel_title">Graphics Acceleration</string>
-    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
-    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
-    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
-    <string name="gpu_scheduling_title">GPU Scheduling</string>
-    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
-    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
-    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
-    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
-    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
-    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
-    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
-    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
-    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
-    <string name="hwui_disable_vsync_title">Disable VSync</string>
-    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
-    <string name="disable_scaler_title">Disable Display Scaler</string>
-    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
-    <string name="media_codec_hw_title">Hardware Media Codecs</string>
-    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
-    <string name="video_enhancer_info_category">ℹ️ Information</string>
-    <string name="video_enhancer_info_title">About Video Enhancer</string>
-    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
-    <string name="reset_to_defaults_title">Reset to Defaults</string>
-    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
-    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
-    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
-    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
-    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
-    <string name="reboot_required_title">🔄 Reboot Required</string>
-    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
-    <string name="reboot_now">Reboot Now</string>
-    <string name="reboot_later">Later</string>
-    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
-    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
-🎮 GPU: Qualcomm Adreno 710\n
-📺 Display: 120Hz AMOLED (1220×2712)\n
-💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
-
-═══════════════════════════════\n
-📹 DISPLAY FEATURES\n
-═══════════════════════════════\n\n
-
-🎬 Smooth Motion\n
-└─ Hardware motion smoothing technology\n
-└─ Qualcomm proprietary motion engine\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.use_smooth_motion\n
-└─ ⚠️ Increased battery consumption!\n\n
-
-🔄 Optimize Refresh Rate\n
-└─ Dynamic refresh rate based on content\n
-└─ Better battery efficiency\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.enable_optimize_refresh\n\n
-
-⚡ 120Hz Peak Refresh Rate\n
-└─ Enable full 120Hz capability\n
-└─ Touch detection timer: 200ms (factory)\n
-└─ Idle timer: 1100ms\n
-└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
-└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
-
-═══════════════════════════════\n
-⚡ PERFORMANCE OPTIMIZATIONS\n
-═══════════════════════════════\n\n
-
-🔺 Force Vulkan API\n
-└─ Use Vulkan instead of OpenGL ES\n
-└─ Better performance on Adreno 710 GPU\n
-└─ For modern games and apps\n
-└─ Property: ro.hwui.use_vulkan=true\n
-└─ ⚠️ Not all apps support it!\n\n
-
-💾 Purgeable Assets\n
-└─ Free unused graphics memory\n
-└─ Improved memory management\n
-└─ Property: persist.sys.purgeable_assets=1\n\n
-
-🚀 Graphics Acceleration\n
-└─ Hardware acceleration for UI rendering\n
-└─ Essential for smooth performance\n
-└─ Recommended: ENABLED\n
-└─ Property: ro.config.avoid_gfx_accel=false\n\n
-
-🧠 ADPF CPU Hints\n
-└─ Android Dynamic Performance Framework\n
-└─ Intelligent CPU frequency hints\n
-└─ Workload-based optimization\n
-└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
-└─ Recommended: ENABLED\n\n
-
-📊 GPU Scheduling\n
-└─ Advanced GPU task scheduling\n
-└─ Better frame pacing\n
-└─ Reduced latency\n
-└─ Property: persist.sys.gpu.scheduling=1\n\n
-
-═══════════════════════════════\n
-🎨 HARDWARE RENDERERS\n
-═══════════════════════════════\n\n
-
-🟢 SkiaGL Renderer\n
-└─ OpenGL ES-based Skia renderer\n
-└─ Better compatibility with older apps\n
-└─ Stable performance\n
-└─ Property: debug.hwui.renderer=skiagl\n\n
-
-🔵 SkiaVK Renderer\n
-└─ Vulkan-based Skia renderer\n
-└─ Better performance on Adreno 710\n
-└─ Lower CPU overhead\n
-└─ Modern rendering path\n
-└─ Property: debug.hwui.renderer=skiavk\n
-└─ ⚠️ Only ONE can be active at a time!\n\n
-
-═══════════════════════════════\n
-🔧 ADVANCED FEATURES\n
-═══════════════════════════════\n\n
-
-💪 Force GPU Rendering\n
-└─ All 2D drawing on GPU\n
-└─ Smoother UI possible\n
-└─ Increased power consumption\n
-└─ Property: persist.sys.ui.hw=1\n\n
-
-⚠️ Disable VSync\n
-└─ Remove vertical sync limitation\n
-└─ Higher FPS possible\n
-└─ ❌ MAY CAUSE SCREEN TEARING!\n
-└─ ❌ NOT RECOMMENDED for normal use!\n
-└─ Property: debug.hwui.disable_vsync=true\n
-└─ 🚫 This causes video vibration/judder!\n\n
-
-🖼️ Disable Display Scaler\n
-└─ Bypass hardware scaler\n
-└─ Native resolution rendering\n
-└─ Better image quality\n
-└─ Property: vendor.display.disable_scaler=1\n\n
-
-🎥 Hardware Media Codecs\n
-└─ Adreno 710 hardware video encode/decode\n
-└─ Essential for smooth video playback\n
-└─ Recommended: ENABLED\n
-└─ Property: debug.stagefright.c2-poolmask=0x1f\n
-└─ 0x1f = all HW codecs enabled\n\n
-
-═══════════════════════════════\n
-⚠️ IMPORTANT NOTES\n
-═══════════════════════════════\n\n
-
-🔄 Most changes require device REBOOT\n
-🎨 Only ONE renderer can be active at a time\n
-🔀 Selecting a renderer automatically disables the other\n
-🔑 Root access (Magisk) is REQUIRED for all features\n
-💾 Settings are automatically restored on boot\n
-📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
-
-═══════════════════════════════\n
-💡 RECOMMENDED SETTINGS\n
-═══════════════════════════════\n\n
-
-🎮 For Gaming:\n
-├─ Force Vulkan: ON\n
-├─ GPU Scheduling: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Hardware Codecs: ON\n
-└─ VSync: ON (NEVER disable!)\n\n
-
-🔋 For Battery Life:\n
-├─ Optimize Refresh: ON\n
-├─ 120Hz Peak: OFF\n
-├─ Graphics Acceleration: ON\n
-├─ ADPF CPU: ON\n
-└─ Others: default\n\n
-
-⚡ For Maximum Performance:\n
-├─ All Performance options: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Force GPU Rendering: ON\n
-├─ GPU Scheduling: ON\n
-└─ VSync: ON (avoid tearing!)\n\n
-
-🎬 For Smooth Video Playback:\n
-├─ Hardware Codecs: ON\n
-├─ Graphics Acceleration: ON\n
-├─ VSync: ON (ALWAYS!)\n
-├─ Smooth Motion: OPTIONAL\n
-└─ Others: default\n\n
-
-═══════════════════════════════\n
-🐛 TROUBLESHOOTING\n
-═══════════════════════════════\n\n
-
-❓ Videos vibrate/stutter/tear?\n
-└─ VSync: ENABLE IT!\n
-└─ Disable VSync: TURN OFF!\n
-└─ Smooth Motion: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ System lag?\n
-└─ Renderers: TURN OFF!\n
-└─ Force GPU Rendering: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ Apps crashing?\n
-└─ Force Vulkan: TURN OFF!\n
-└─ SkiaVK: TURN OFF!\n
-└─ Use default OpenGL\n\n
-
-═══════════════════════════════\n
-📱 DEVICE INFORMATION\n
-═══════════════════════════════\n\n
-
-Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
-Codename: garnet\n
-SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
-GPU: Adreno 710\n
-Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
-Android: 14 / HyperOS 2.0 / LineageOS 21+\n
-Requirement: Root access (Magisk recommended)\n\n
-
-═══════════════════════════════\n
-🔗 PROPERTY REFERENCE\n
-═══════════════════════════════\n\n
-
-Display:\n
-• vendor.display.use_smooth_motion\n
-• vendor.display.enable_optimize_refresh\n
-• ro.surface_flinger.set_touch_timer_ms\n
-• debug.sf.set_idle_timer_ms\n\n
-
-Performance:\n
-• ro.hwui.use_vulkan\n
-• persist.sys.purgeable_assets\n
-• ro.config.avoid_gfx_accel\n
-• debug.sf.enable_adpf_cpu_hint\n
-• persist.sys.gpu.scheduling\n\n
-
-Renderers:\n
-• debug.hwui.renderer (skiagl/skiavk)\n\n
-
-Advanced:\n
-• persist.sys.ui.hw\n
-• debug.hwui.disable_vsync\n
-• vendor.display.disable_scaler\n
-• debug.stagefright.c2-poolmask\n\n
-
-Frame Pacing:\n
-• debug.sf.disable_client_composition_cache\n
-• debug.sf.enable_gl_backpressure\n\n
-
-═══════════════════════════════\n
-⚠️ DISCLAIMER\n
-═══════════════════════════════\n\n
-
-This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
-    <string name="keybox_manager_title">Box of Keybox\'s</string>
-    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
-    <string name="security_title">Security &amp;amp; Attestation</string>
-    <string name="keybox_actions_category">🔑 Keybox Actions</string>
-    <string name="keybox_info_category">ℹ️ Information</string>
-    <string name="keybox_status_category">📊 Current Status</string>
-    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
-    <string name="keybox_generate_title">Generate Templates</string>
-    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
-    <string name="keybox_search_title">Search Keybox</string>
-    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
-    <string name="keybox_import_title">Import Keybox</string>
-    <string name="keybox_import_summary">Import keybox.xml from storage</string>
-    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_manager_title">कीबॉक्स का बॉक्स</string>
+    <string name="keybox_manager_summary">एंड्रॉइड अटेस्टेशन कीबॉक्स उत्पन्न करें, खोजें, विश्लेषण करें</string>
+    <string name="security_title">सुरक्षा एवं सत्यापन</string>
+    <string name="keybox_actions_category">🔑 कीबॉक्स क्रियाएँ</string>
+    <string name="keybox_info_category">ℹ️ जानकारी</string>
+    <string name="keybox_status_category">📊 वर्तमान स्थिति</string>
+    <string name="keybox_advanced_category">🔬उन्नत उपकरण</string>
+    <string name="keybox_generate_title">टेम्प्लेट जनरेट करें</string>
+    <string name="keybox_generate_summary">PIF और TrickyStore keybox.xml टेम्प्लेट जेनरेट करें</string>
+    <string name="keybox_search_title">खोज कीबॉक्स</string>
+    <string name="keybox_search_summary">सामुदायिक रिपॉजिटरी से वैध कीबॉक्स खोजें</string>
+    <string name="keybox_import_title">कीबॉक्स आयात करें</string>
+    <string name="keybox_import_summary">स्टोरेज से keybox.xml आयात करें</string>
+    <string name="keybox_export_title">डाउनलोड सूची</string>
     <string name="keybox_export_summary">स्टोरेज में सभी डाउनलोड किए गए कीबॉक्स की सूची बनाएं</string>
     <string name="keybox_verify_title">डाउनलोड सत्यापित करें</string>
     <string name="keybox_verify_summary">डाउनलोड किए गए कीबॉक्स की XML संरचना की जाँच करें</string>
@@ -771,7 +500,7 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
     <string name="clean_system_cache_summary">सिस्टम कैश साफ़ करें और कैश ड्रॉप करें</string>
     <string name="clean_thumbnails_title">साफ़ थंबनेल</string>
     <string name="clean_thumbnails_summary">मीडिया से थंबनेल कैश हटाएँ</string>
-    <string name="clean_downloads_title">पुराने डाउनलोड साफ़ करें</string>
+    <string name="clean_downloads_title">Clean Old Downloads</string>
     <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
     <string name="clean_temp_files_title">Clean Temp Files</string>
     <string name="clean_temp_files_summary">Remove temporary system files</string>
@@ -861,6 +590,65 @@ Recommendations:\n
     <string name="thermal_navigation">Navigation</string>
     <string name="thermal_streaming">Streaming</string>
     <string name="thermal_video">Video</string>
-    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_title">प्रति-ऐप प्रोफ़ाइल सक्षम करें</string>
     <string name="thermal_enable_summary">अग्रभूमि अनुप्रयोग के आधार पर प्रदर्शन को स्वचालित रूप से समायोजित करें</string>
+    <string name="widget_title">Xiaomi पार्ट्स</string>
+    <string name="widget_description">सीपीयू, डिस्प्ले, थर्मल और प्रदर्शन नियंत्रण</string>
+    <string name="widget_state_on">चालू</string>
+    <string name="widget_state_off">बंद</string>
+    <string name="widget_cpu_governor_label">सीपीयू गवर्नर</string>
+    <string name="widget_gov_prev">पिछला गवर्नर</string>
+    <string name="widget_gov_next">अगला गवर्नर</string>
+    <string name="widget_display_hz">ताज़ा दर</string>
+    <string name="widget_hz_dec">ताज़ा दर कम करें</string>
+    <string name="widget_hz_inc">ताज़ा दर बढ़ाएँ</string>
+    <string name="widget_cpu_freq_note">सीपीयू अधिकतम आवृत्ति सीमाएं सीधे कर्नेल प्रबंधक</string>
+    <string name="widget_hbm">के माध्यम से लागू की जाती हैं एचबीएम</string>
+    <string name="widget_hbm_on">चालू</string>
+    <string name="widget_hbm_off">बंद</string>
+    <string name="charge_control_title">चार्जिंग नियंत्रण</string>
+    <string name="charge_control_summary">नियंत्रित करें कि डिवाइस कब चार्ज करना बंद कर दे</string>
+    <string name="charge_control_main_switch_title">चार्जिंग नियंत्रण सक्षम करें</string>
+    <string name="stop_charging_title">चार्जिंग लेवल बंद करो</string>
+    <string name="stop_charging_summary">निर्धारित प्रतिशत तक पहुंचने पर चार्ज करना बंद कर दें</string>
+    <string name="charge_control_footer_summary">चार्जिंग नियंत्रण अनुकूली चार्जिंग में हस्तक्षेप कर सकता है।</string>
+    <string name="kernel_node_access_error">कर्नेल नोड पहुँच योग्य नहीं है</string>
+    <string name="stop_charging_set_to">चार्जिंग %1$d%% पर रुक जाएगी।</string>
+    <string name="charge_control_tile_label">चार्ज नियंत्रण</string>
+    <string name="charge_control_tile_enabled">सक्षम</string>
+    <string name="charge_control_tile_disabled">विकलांग</string>
+    <string name="charge_control_tile_subtitle">%1$d%%</string>
+    <string name="upscale_summary">पर रुकें विशिष्ट अनुप्रयोगों के लिए अपस्केलिंग सेट करें</string>
+    <string name="upscale_title">प्रति-ऐप रिज़ॉल्यूशन</string>
+    <string name="upscale_default">डिफ़ॉल्ट</string>
+    <string name="upscale_480p">480पी</string>
+    <string name="upscale_540p">540पी</string>
+    <string name="upscale_720p">720पी</string>
+    <string name="system_resolution_title">प्रदर्शन संकल्प</string>
+    <string name="system_resolution_summary">वर्तमान: %1$s</string>
+    <string name="system_resolution_summary_setting">सिस्टम-वाइड डिस्प्ले रिज़ॉल्यूशन का चयन करें</string>
+    <string name="system_resolution_note">कम रिज़ॉल्यूशन GPU लोड को कम करता है और बैटरी जीवन को बढ़ा सकता है।
+        परिवर्तन तुरंत प्रभावी होते हैं. यदि स्क्रीन अनुपयोगी हो जाती है, तो पुनर्प्राप्त करने के लिए रीबूट करें।</string>
+    <string name="resolution_default">डिफ़ॉल्ट</string>
+    <string name="resolution_480p">480पी</string>
+    <string name="resolution_540p">540पी</string>
+    <string name="resolution_720p">720पी</string>
+    <string name="resolution_custom">कस्टम</string>
+    <string name="custom_resolution_dialog_title">कस्टम रिज़ॉल्यूशन</string>
+    <string name="custom_resolution_section_title">कस्टम रिज़ॉल्यूशन सेटिंग्स</string>
+    <string name="custom_resolution_width_label">चौड़ाई (पिक्सेल)</string>
+    <string name="custom_resolution_height_label">ऊंचाई (पीएक्स)</string>
+    <string name="custom_resolution_density_label">घनत्व (डीपीआई)</string>
+    <string name="custom_resolution_width_hint">मूल: %1$d</string>
+    <string name="custom_resolution_height_hint">मूल निवासी: %1$d</string>
+    <string name="custom_resolution_density_hint">मूल: %1$d dpi</string>
+    <string name="custom_resolution_note">युक्ति: घनत्व ≈ (चौड़ाई / मूल_चौड़ाई) × मूल_डीपीआई।
+        न्यूनतम चौड़ाई: 240 पिक्सेल · न्यूनतम ऊँचाई: 320 पिक्सेल · न्यूनतम घनत्व: 80 डीपीआई।</string>
+    <string name="custom_resolution_invalid">अमान्य मान - कृपया सीमा के भीतर सकारात्मक पूर्णांक दर्ज करें।</string>
+    <string name="custom_resolution_reset">मूल पर रीसेट करें</string>
+    <string name="resolution_qs_label">संकल्प</string>
+    <string name="charge_bypass_title">बायपास चार्जिंग</string>
+    <string name="charge_bypass_summary">बैटरी को दरकिनार करते हुए सीधे चार्जिंग सक्षम करें</string>
+    <string name="charge_bypass_warning">चेतावनी: बायपास चार्जिंग से डिवाइस का तापमान बढ़ सकता है या बैटरी खराब हो सकती है। सावधानी के साथ प्रयोग करें.</string>
+    <string name="charge_bypass_unavailable">इस डिवाइस पर बायपास चार्जिंग समर्थित नहीं है</string>
 </resources>

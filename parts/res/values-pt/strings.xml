@@ -283,7 +283,7 @@
     <string name="about_me_donate2_summary">Me chame para tomar uma cerveja ou um café</string>
     <string name="core_control_title">Controle Central</string>
     <string name="core_control_summary">Ativar ou desativar manualmente núcleos de CPU individuais</string>
-    <string name="core_control_description">Controle avançado da CPU. Desligar os núcleos pode economizar bateria ou carga térmica, mas pode afetar o desempenho e a estabilidade.\n\nPelo menos dois pequenos núcleos devem permanecer on-line o tempo todo.</string>
+    <string name="core_control_description">Controle avançado da CPU. Desligar os núcleos pode economizar bateria ou carga térmica, mas pode afetar o desempenho e a estabilidade.\n\nPelo menos dois núcleos pequenos devem permanecer on-line o tempo todo.</string>
     <string name="keep_little_cores_online">Pelo menos 2 pequenos núcleos devem permanecer online</string>
     <string name="core_0">Núcleo 0 (pouco)</string>
     <string name="core_1">Núcleo 1 (Pequeno)</string>
@@ -387,291 +387,20 @@
     <string name="unknown">Desconhecido</string>
     <string name="thermal_level_summary">Nível %s</string>
     <string name="camera_boost_triggered">Aumento de câmera/vídeo acionado!</string>
-    <string name="video_enhancer_title">Melhorador de vídeo</string>
-    <string name="video_enhancer_summary">Otimizações de exibição e desempenho para Redmi Note 13 Pro 5G</string>
-    <string name="video_enhancer_display_category">📺 Recursos de exibição</string>
-    <string name="smooth_motion_enable_title">Movimento Suave</string>
-    <string name="smooth_motion_enable_summary">Suavização de movimento de hardware para vídeos (padrão: DESLIGADO) • Reinicialização necessária</string>
-    <string name="optimize_refresh_enable_title">Otimizar taxa de atualização</string>
-    <string name="optimize_refresh_enable_summary">Taxa de atualização dinâmica baseada no conteúdo (padrão: OFF) • Reinicialização necessária</string>
-    <string name="peak_refresh_rate_title">Taxa de atualização de pico de 120 Hz</string>
-    <string name="peak_refresh_rate_summary">Habilite 120 Hz ao toque (200 ms) • Valor de fábrica • Reinicialização necessária</string>
-    <string name="video_enhancer_performance_category">⚡ Otimizações de desempenho</string>
-    <string name="force_vulkan_title">Forçar API Vulkan</string>
-    <string name="force_vulkan_summary">Use Vulkan em vez de OpenGL ES (Adreno 710) • Reinicialização necessária</string>
-    <string name="purgeable_assets_title">Ativos purgáveis</string>
-    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
-    <string name="gfx_accel_title">Graphics Acceleration</string>
-    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
-    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
-    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
-    <string name="gpu_scheduling_title">GPU Scheduling</string>
-    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
-    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
-    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
-    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
-    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
-    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
-    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
-    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
-    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
-    <string name="hwui_disable_vsync_title">Disable VSync</string>
-    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
-    <string name="disable_scaler_title">Disable Display Scaler</string>
-    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
-    <string name="media_codec_hw_title">Hardware Media Codecs</string>
-    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
-    <string name="video_enhancer_info_category">ℹ️ Information</string>
-    <string name="video_enhancer_info_title">About Video Enhancer</string>
-    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
-    <string name="reset_to_defaults_title">Reset to Defaults</string>
-    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
-    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
-    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
-    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
-    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
-    <string name="reboot_required_title">🔄 Reboot Required</string>
-    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
-    <string name="reboot_now">Reboot Now</string>
-    <string name="reboot_later">Later</string>
-    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
-    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
-🎮 GPU: Qualcomm Adreno 710\n
-📺 Display: 120Hz AMOLED (1220×2712)\n
-💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
-
-═══════════════════════════════\n
-📹 DISPLAY FEATURES\n
-═══════════════════════════════\n\n
-
-🎬 Smooth Motion\n
-└─ Hardware motion smoothing technology\n
-└─ Qualcomm proprietary motion engine\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.use_smooth_motion\n
-└─ ⚠️ Increased battery consumption!\n\n
-
-🔄 Optimize Refresh Rate\n
-└─ Dynamic refresh rate based on content\n
-└─ Better battery efficiency\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.enable_optimize_refresh\n\n
-
-⚡ 120Hz Peak Refresh Rate\n
-└─ Enable full 120Hz capability\n
-└─ Touch detection timer: 200ms (factory)\n
-└─ Idle timer: 1100ms\n
-└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
-└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
-
-═══════════════════════════════\n
-⚡ PERFORMANCE OPTIMIZATIONS\n
-═══════════════════════════════\n\n
-
-🔺 Force Vulkan API\n
-└─ Use Vulkan instead of OpenGL ES\n
-└─ Better performance on Adreno 710 GPU\n
-└─ For modern games and apps\n
-└─ Property: ro.hwui.use_vulkan=true\n
-└─ ⚠️ Not all apps support it!\n\n
-
-💾 Purgeable Assets\n
-└─ Free unused graphics memory\n
-└─ Improved memory management\n
-└─ Property: persist.sys.purgeable_assets=1\n\n
-
-🚀 Graphics Acceleration\n
-└─ Hardware acceleration for UI rendering\n
-└─ Essential for smooth performance\n
-└─ Recommended: ENABLED\n
-└─ Property: ro.config.avoid_gfx_accel=false\n\n
-
-🧠 ADPF CPU Hints\n
-└─ Android Dynamic Performance Framework\n
-└─ Intelligent CPU frequency hints\n
-└─ Workload-based optimization\n
-└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
-└─ Recommended: ENABLED\n\n
-
-📊 GPU Scheduling\n
-└─ Advanced GPU task scheduling\n
-└─ Better frame pacing\n
-└─ Reduced latency\n
-└─ Property: persist.sys.gpu.scheduling=1\n\n
-
-═══════════════════════════════\n
-🎨 HARDWARE RENDERERS\n
-═══════════════════════════════\n\n
-
-🟢 SkiaGL Renderer\n
-└─ OpenGL ES-based Skia renderer\n
-└─ Better compatibility with older apps\n
-└─ Stable performance\n
-└─ Property: debug.hwui.renderer=skiagl\n\n
-
-🔵 SkiaVK Renderer\n
-└─ Vulkan-based Skia renderer\n
-└─ Better performance on Adreno 710\n
-└─ Lower CPU overhead\n
-└─ Modern rendering path\n
-└─ Property: debug.hwui.renderer=skiavk\n
-└─ ⚠️ Only ONE can be active at a time!\n\n
-
-═══════════════════════════════\n
-🔧 ADVANCED FEATURES\n
-═══════════════════════════════\n\n
-
-💪 Force GPU Rendering\n
-└─ All 2D drawing on GPU\n
-└─ Smoother UI possible\n
-└─ Increased power consumption\n
-└─ Property: persist.sys.ui.hw=1\n\n
-
-⚠️ Disable VSync\n
-└─ Remove vertical sync limitation\n
-└─ Higher FPS possible\n
-└─ ❌ MAY CAUSE SCREEN TEARING!\n
-└─ ❌ NOT RECOMMENDED for normal use!\n
-└─ Property: debug.hwui.disable_vsync=true\n
-└─ 🚫 This causes video vibration/judder!\n\n
-
-🖼️ Disable Display Scaler\n
-└─ Bypass hardware scaler\n
-└─ Native resolution rendering\n
-└─ Better image quality\n
-└─ Property: vendor.display.disable_scaler=1\n\n
-
-🎥 Hardware Media Codecs\n
-└─ Adreno 710 hardware video encode/decode\n
-└─ Essential for smooth video playback\n
-└─ Recommended: ENABLED\n
-└─ Property: debug.stagefright.c2-poolmask=0x1f\n
-└─ 0x1f = all HW codecs enabled\n\n
-
-═══════════════════════════════\n
-⚠️ IMPORTANT NOTES\n
-═══════════════════════════════\n\n
-
-🔄 Most changes require device REBOOT\n
-🎨 Only ONE renderer can be active at a time\n
-🔀 Selecting a renderer automatically disables the other\n
-🔑 Root access (Magisk) is REQUIRED for all features\n
-💾 Settings are automatically restored on boot\n
-📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
-
-═══════════════════════════════\n
-💡 RECOMMENDED SETTINGS\n
-═══════════════════════════════\n\n
-
-🎮 For Gaming:\n
-├─ Force Vulkan: ON\n
-├─ GPU Scheduling: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Hardware Codecs: ON\n
-└─ VSync: ON (NEVER disable!)\n\n
-
-🔋 For Battery Life:\n
-├─ Optimize Refresh: ON\n
-├─ 120Hz Peak: OFF\n
-├─ Graphics Acceleration: ON\n
-├─ ADPF CPU: ON\n
-└─ Others: default\n\n
-
-⚡ For Maximum Performance:\n
-├─ All Performance options: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Force GPU Rendering: ON\n
-├─ GPU Scheduling: ON\n
-└─ VSync: ON (avoid tearing!)\n\n
-
-🎬 For Smooth Video Playback:\n
-├─ Hardware Codecs: ON\n
-├─ Graphics Acceleration: ON\n
-├─ VSync: ON (ALWAYS!)\n
-├─ Smooth Motion: OPTIONAL\n
-└─ Others: default\n\n
-
-═══════════════════════════════\n
-🐛 TROUBLESHOOTING\n
-═══════════════════════════════\n\n
-
-❓ Videos vibrate/stutter/tear?\n
-└─ VSync: ENABLE IT!\n
-└─ Disable VSync: TURN OFF!\n
-└─ Smooth Motion: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ System lag?\n
-└─ Renderers: TURN OFF!\n
-└─ Force GPU Rendering: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ Apps crashing?\n
-└─ Force Vulkan: TURN OFF!\n
-└─ SkiaVK: TURN OFF!\n
-└─ Use default OpenGL\n\n
-
-═══════════════════════════════\n
-📱 DEVICE INFORMATION\n
-═══════════════════════════════\n\n
-
-Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
-Codename: garnet\n
-SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
-GPU: Adreno 710\n
-Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
-Android: 14 / HyperOS 2.0 / LineageOS 21+\n
-Requirement: Root access (Magisk recommended)\n\n
-
-═══════════════════════════════\n
-🔗 PROPERTY REFERENCE\n
-═══════════════════════════════\n\n
-
-Display:\n
-• vendor.display.use_smooth_motion\n
-• vendor.display.enable_optimize_refresh\n
-• ro.surface_flinger.set_touch_timer_ms\n
-• debug.sf.set_idle_timer_ms\n\n
-
-Performance:\n
-• ro.hwui.use_vulkan\n
-• persist.sys.purgeable_assets\n
-• ro.config.avoid_gfx_accel\n
-• debug.sf.enable_adpf_cpu_hint\n
-• persist.sys.gpu.scheduling\n\n
-
-Renderers:\n
-• debug.hwui.renderer (skiagl/skiavk)\n\n
-
-Advanced:\n
-• persist.sys.ui.hw\n
-• debug.hwui.disable_vsync\n
-• vendor.display.disable_scaler\n
-• debug.stagefright.c2-poolmask\n\n
-
-Frame Pacing:\n
-• debug.sf.disable_client_composition_cache\n
-• debug.sf.enable_gl_backpressure\n\n
-
-═══════════════════════════════\n
-⚠️ DISCLAIMER\n
-═══════════════════════════════\n\n
-
-This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
-    <string name="keybox_manager_title">Box of Keybox\'s</string>
-    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
-    <string name="security_title">Security &amp;amp; Attestation</string>
-    <string name="keybox_actions_category">🔑 Keybox Actions</string>
-    <string name="keybox_info_category">ℹ️ Information</string>
-    <string name="keybox_status_category">📊 Current Status</string>
-    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
-    <string name="keybox_generate_title">Generate Templates</string>
-    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
-    <string name="keybox_search_title">Search Keybox</string>
-    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
-    <string name="keybox_import_title">Import Keybox</string>
-    <string name="keybox_import_summary">Import keybox.xml from storage</string>
-    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_manager_title">Caixa de Keybox\'s</string>
+    <string name="keybox_manager_summary">Gere, pesquise e analise caixas de chaves de atestado Android</string>
+    <string name="security_title">Segurança e Atestado</string>
+    <string name="keybox_actions_category">🔑 Ações da caixa de teclas</string>
+    <string name="keybox_info_category">ℹ️ Informações</string>
+    <string name="keybox_status_category">📊 Status Atual</string>
+    <string name="keybox_advanced_category">🔬 Ferramentas Avançadas</string>
+    <string name="keybox_generate_title">Gerar modelos</string>
+    <string name="keybox_generate_summary">Gere modelos PIF e TrickyStore keybox.xml</string>
+    <string name="keybox_search_title">Caixa de chave de pesquisa</string>
+    <string name="keybox_search_summary">Procure por keybox válido nos repositórios da comunidade</string>
+    <string name="keybox_import_title">Importar caixa de chaves</string>
+    <string name="keybox_import_summary">Importe keybox.xml do armazenamento</string>
+    <string name="keybox_export_title">Listar downloads</string>
     <string name="keybox_export_summary">Lista todos os keyboxes baixados no armazenamento</string>
     <string name="keybox_verify_title">Verificar downloads</string>
     <string name="keybox_verify_summary">Verifique a estrutura XML dos keyboxes baixados</string>
@@ -771,7 +500,7 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
     <string name="clean_system_cache_summary">Limpar cache do sistema e descartar caches</string>
     <string name="clean_thumbnails_title">Limpar miniaturas</string>
     <string name="clean_thumbnails_summary">Remover cache de miniaturas da mídia</string>
-    <string name="clean_downloads_title">Limpe downloads antigos</string>
+    <string name="clean_downloads_title">Clean Old Downloads</string>
     <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
     <string name="clean_temp_files_title">Clean Temp Files</string>
     <string name="clean_temp_files_summary">Remove temporary system files</string>
@@ -861,6 +590,65 @@ Recommendations:\n
     <string name="thermal_navigation">Navigation</string>
     <string name="thermal_streaming">Streaming</string>
     <string name="thermal_video">Video</string>
-    <string name="thermal_enable_title">Enable Per-App Profiles</string>
-    <string name="thermal_enable_summary">Ajuste automaticamente o desempenho com base na aplicação em primeiro plano</string>
+    <string name="thermal_enable_title">Habilitar perfis por aplicativo</string>
+    <string name="thermal_enable_summary">Ajusta automaticamente o desempenho com base na aplicação em primeiro plano</string>
+    <string name="widget_title">Peças Xiaomi</string>
+    <string name="widget_description">Controles de CPU, Display, Térmico e Desempenho</string>
+    <string name="widget_state_on">ATIVADO</string>
+    <string name="widget_state_off">DESLIGADO</string>
+    <string name="widget_cpu_governor_label">Governador da CPU</string>
+    <string name="widget_gov_prev">Governador anterior</string>
+    <string name="widget_gov_next">Próximo governador</string>
+    <string name="widget_display_hz">Taxa de atualização</string>
+    <string name="widget_hz_dec">Diminuir taxa de atualização</string>
+    <string name="widget_hz_inc">Aumentar a taxa de atualização</string>
+    <string name="widget_cpu_freq_note">Os limites máximos de frequência da CPU são aplicados diretamente através do Kernel Manager</string>
+    <string name="widget_hbm">HBM</string>
+    <string name="widget_hbm_on">ATIVADO</string>
+    <string name="widget_hbm_off">DESLIGADO</string>
+    <string name="charge_control_title">Controle de carregamento</string>
+    <string name="charge_control_summary">Controle quando o dispositivo para de carregar</string>
+    <string name="charge_control_main_switch_title">Ativar controle de carregamento</string>
+    <string name="stop_charging_title">Pare o nível de carregamento</string>
+    <string name="stop_charging_summary">Pare de carregar quando a porcentagem definida for atingida</string>
+    <string name="charge_control_footer_summary">O controle de carregamento pode interferir no carregamento adaptativo.</string>
+    <string name="kernel_node_access_error">Nó do kernel não acessível</string>
+    <string name="stop_charging_set_to">O carregamento irá parar em %1$d%%.</string>
+    <string name="charge_control_tile_label">Controle de Carga</string>
+    <string name="charge_control_tile_enabled">Habilitado</string>
+    <string name="charge_control_tile_disabled">Desativado</string>
+    <string name="charge_control_tile_subtitle">Pare em %1$d%%</string>
+    <string name="upscale_summary">Configure o upscaling para aplicações específicas</string>
+    <string name="upscale_title">Resolução por aplicativo</string>
+    <string name="upscale_default">Padrão</string>
+    <string name="upscale_480p">480p</string>
+    <string name="upscale_540p">540p</string>
+    <string name="upscale_720p">720p</string>
+    <string name="system_resolution_title">Resolução de exibição</string>
+    <string name="system_resolution_summary">Atual: %1$s</string>
+    <string name="system_resolution_summary_setting">Selecione a resolução de exibição de todo o sistema</string>
+    <string name="system_resolution_note">A resolução mais baixa reduz a carga da GPU e pode prolongar a vida útil da bateria.
+        As alterações entram em vigor imediatamente. Se a tela ficar inutilizável, reinicie para recuperar.</string>
+    <string name="resolution_default">Padrão</string>
+    <string name="resolution_480p">480p</string>
+    <string name="resolution_540p">540p</string>
+    <string name="resolution_720p">720p</string>
+    <string name="resolution_custom">Personalizado</string>
+    <string name="custom_resolution_dialog_title">Resolução personalizada</string>
+    <string name="custom_resolution_section_title">Configurações de resolução personalizadas</string>
+    <string name="custom_resolution_width_label">Largura (px)</string>
+    <string name="custom_resolution_height_label">Altura (px)</string>
+    <string name="custom_resolution_density_label">Densidade (dpi)</string>
+    <string name="custom_resolution_width_hint">Nativo: %1$d</string>
+    <string name="custom_resolution_height_hint">Nativo: %1$d</string>
+    <string name="custom_resolution_density_hint">Nativo: %1$d dpi</string>
+    <string name="custom_resolution_note">Dica: densidade ≈ (largura/largura_nativa) × dpi_nativo.
+        Largura mínima: 240 px · Altura mínima: 320 px · Densidade mínima: 80 dpi.</string>
+    <string name="custom_resolution_invalid">Valores inválidos — insira números inteiros positivos dentro dos limites.</string>
+    <string name="custom_resolution_reset">Redefinir para nativo</string>
+    <string name="resolution_qs_label">Resolução</string>
+    <string name="charge_bypass_title">Ignorar carregamento</string>
+    <string name="charge_bypass_summary">Habilite o carregamento direto, ignorando a bateria</string>
+    <string name="charge_bypass_warning">Aviso: O carregamento bypass pode causar aumento da temperatura do dispositivo ou danos à bateria. Use com cuidado.</string>
+    <string name="charge_bypass_unavailable">O carregamento bypass não é compatível com este dispositivo</string>
 </resources>

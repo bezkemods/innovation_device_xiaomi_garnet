@@ -387,291 +387,20 @@
     <string name="unknown">Nepoznato</string>
     <string name="thermal_level_summary">Razina %s</string>
     <string name="camera_boost_triggered">Aktivirano pojačanje kamere/videozapisa!</string>
-    <string name="video_enhancer_title">Video Enhancer</string>
-    <string name="video_enhancer_summary">Optimizacija zaslona i performansi za Redmi Note 13 Pro 5G</string>
-    <string name="video_enhancer_display_category">📺 Značajke prikaza</string>
-    <string name="smooth_motion_enable_title">Glatko kretanje</string>
-    <string name="smooth_motion_enable_summary">Hardversko izglađivanje pokreta za videozapise (zadano: ISKLJUČENO) • Potrebno ponovno pokretanje</string>
-    <string name="optimize_refresh_enable_title">Optimiziraj brzinu osvježavanja</string>
-    <string name="optimize_refresh_enable_summary">Dinamička stopa osvježavanja na temelju sadržaja (zadano: ISKLJUČENO) • Potrebno ponovno pokretanje</string>
-    <string name="peak_refresh_rate_title">120Hz vršna brzina osvježavanja</string>
-    <string name="peak_refresh_rate_summary">Omogući 120Hz na dodir (200ms) • Tvornička vrijednost • Potrebno ponovno pokretanje</string>
-    <string name="video_enhancer_performance_category">⚡ Optimizacija performansi</string>
-    <string name="force_vulkan_title">Force Vulkan API</string>
-    <string name="force_vulkan_summary">Koristite Vulkan umjesto OpenGL ES (Adreno 710) • Potrebno ponovno pokretanje</string>
-    <string name="purgeable_assets_title">Imovina koja se može očistiti</string>
-    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
-    <string name="gfx_accel_title">Graphics Acceleration</string>
-    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
-    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
-    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
-    <string name="gpu_scheduling_title">GPU Scheduling</string>
-    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
-    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
-    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
-    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
-    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
-    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
-    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
-    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
-    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
-    <string name="hwui_disable_vsync_title">Disable VSync</string>
-    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
-    <string name="disable_scaler_title">Disable Display Scaler</string>
-    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
-    <string name="media_codec_hw_title">Hardware Media Codecs</string>
-    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
-    <string name="video_enhancer_info_category">ℹ️ Information</string>
-    <string name="video_enhancer_info_title">About Video Enhancer</string>
-    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
-    <string name="reset_to_defaults_title">Reset to Defaults</string>
-    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
-    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
-    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
-    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
-    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
-    <string name="reboot_required_title">🔄 Reboot Required</string>
-    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
-    <string name="reboot_now">Reboot Now</string>
-    <string name="reboot_later">Later</string>
-    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
-    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
-🎮 GPU: Qualcomm Adreno 710\n
-📺 Display: 120Hz AMOLED (1220×2712)\n
-💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
-
-═══════════════════════════════\n
-📹 DISPLAY FEATURES\n
-═══════════════════════════════\n\n
-
-🎬 Smooth Motion\n
-└─ Hardware motion smoothing technology\n
-└─ Qualcomm proprietary motion engine\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.use_smooth_motion\n
-└─ ⚠️ Increased battery consumption!\n\n
-
-🔄 Optimize Refresh Rate\n
-└─ Dynamic refresh rate based on content\n
-└─ Better battery efficiency\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.enable_optimize_refresh\n\n
-
-⚡ 120Hz Peak Refresh Rate\n
-└─ Enable full 120Hz capability\n
-└─ Touch detection timer: 200ms (factory)\n
-└─ Idle timer: 1100ms\n
-└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
-└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
-
-═══════════════════════════════\n
-⚡ PERFORMANCE OPTIMIZATIONS\n
-═══════════════════════════════\n\n
-
-🔺 Force Vulkan API\n
-└─ Use Vulkan instead of OpenGL ES\n
-└─ Better performance on Adreno 710 GPU\n
-└─ For modern games and apps\n
-└─ Property: ro.hwui.use_vulkan=true\n
-└─ ⚠️ Not all apps support it!\n\n
-
-💾 Purgeable Assets\n
-└─ Free unused graphics memory\n
-└─ Improved memory management\n
-└─ Property: persist.sys.purgeable_assets=1\n\n
-
-🚀 Graphics Acceleration\n
-└─ Hardware acceleration for UI rendering\n
-└─ Essential for smooth performance\n
-└─ Recommended: ENABLED\n
-└─ Property: ro.config.avoid_gfx_accel=false\n\n
-
-🧠 ADPF CPU Hints\n
-└─ Android Dynamic Performance Framework\n
-└─ Intelligent CPU frequency hints\n
-└─ Workload-based optimization\n
-└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
-└─ Recommended: ENABLED\n\n
-
-📊 GPU Scheduling\n
-└─ Advanced GPU task scheduling\n
-└─ Better frame pacing\n
-└─ Reduced latency\n
-└─ Property: persist.sys.gpu.scheduling=1\n\n
-
-═══════════════════════════════\n
-🎨 HARDWARE RENDERERS\n
-═══════════════════════════════\n\n
-
-🟢 SkiaGL Renderer\n
-└─ OpenGL ES-based Skia renderer\n
-└─ Better compatibility with older apps\n
-└─ Stable performance\n
-└─ Property: debug.hwui.renderer=skiagl\n\n
-
-🔵 SkiaVK Renderer\n
-└─ Vulkan-based Skia renderer\n
-└─ Better performance on Adreno 710\n
-└─ Lower CPU overhead\n
-└─ Modern rendering path\n
-└─ Property: debug.hwui.renderer=skiavk\n
-└─ ⚠️ Only ONE can be active at a time!\n\n
-
-═══════════════════════════════\n
-🔧 ADVANCED FEATURES\n
-═══════════════════════════════\n\n
-
-💪 Force GPU Rendering\n
-└─ All 2D drawing on GPU\n
-└─ Smoother UI possible\n
-└─ Increased power consumption\n
-└─ Property: persist.sys.ui.hw=1\n\n
-
-⚠️ Disable VSync\n
-└─ Remove vertical sync limitation\n
-└─ Higher FPS possible\n
-└─ ❌ MAY CAUSE SCREEN TEARING!\n
-└─ ❌ NOT RECOMMENDED for normal use!\n
-└─ Property: debug.hwui.disable_vsync=true\n
-└─ 🚫 This causes video vibration/judder!\n\n
-
-🖼️ Disable Display Scaler\n
-└─ Bypass hardware scaler\n
-└─ Native resolution rendering\n
-└─ Better image quality\n
-└─ Property: vendor.display.disable_scaler=1\n\n
-
-🎥 Hardware Media Codecs\n
-└─ Adreno 710 hardware video encode/decode\n
-└─ Essential for smooth video playback\n
-└─ Recommended: ENABLED\n
-└─ Property: debug.stagefright.c2-poolmask=0x1f\n
-└─ 0x1f = all HW codecs enabled\n\n
-
-═══════════════════════════════\n
-⚠️ IMPORTANT NOTES\n
-═══════════════════════════════\n\n
-
-🔄 Most changes require device REBOOT\n
-🎨 Only ONE renderer can be active at a time\n
-🔀 Selecting a renderer automatically disables the other\n
-🔑 Root access (Magisk) is REQUIRED for all features\n
-💾 Settings are automatically restored on boot\n
-📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
-
-═══════════════════════════════\n
-💡 RECOMMENDED SETTINGS\n
-═══════════════════════════════\n\n
-
-🎮 For Gaming:\n
-├─ Force Vulkan: ON\n
-├─ GPU Scheduling: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Hardware Codecs: ON\n
-└─ VSync: ON (NEVER disable!)\n\n
-
-🔋 For Battery Life:\n
-├─ Optimize Refresh: ON\n
-├─ 120Hz Peak: OFF\n
-├─ Graphics Acceleration: ON\n
-├─ ADPF CPU: ON\n
-└─ Others: default\n\n
-
-⚡ For Maximum Performance:\n
-├─ All Performance options: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Force GPU Rendering: ON\n
-├─ GPU Scheduling: ON\n
-└─ VSync: ON (avoid tearing!)\n\n
-
-🎬 For Smooth Video Playback:\n
-├─ Hardware Codecs: ON\n
-├─ Graphics Acceleration: ON\n
-├─ VSync: ON (ALWAYS!)\n
-├─ Smooth Motion: OPTIONAL\n
-└─ Others: default\n\n
-
-═══════════════════════════════\n
-🐛 TROUBLESHOOTING\n
-═══════════════════════════════\n\n
-
-❓ Videos vibrate/stutter/tear?\n
-└─ VSync: ENABLE IT!\n
-└─ Disable VSync: TURN OFF!\n
-└─ Smooth Motion: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ System lag?\n
-└─ Renderers: TURN OFF!\n
-└─ Force GPU Rendering: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ Apps crashing?\n
-└─ Force Vulkan: TURN OFF!\n
-└─ SkiaVK: TURN OFF!\n
-└─ Use default OpenGL\n\n
-
-═══════════════════════════════\n
-📱 DEVICE INFORMATION\n
-═══════════════════════════════\n\n
-
-Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
-Codename: garnet\n
-SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
-GPU: Adreno 710\n
-Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
-Android: 14 / HyperOS 2.0 / LineageOS 21+\n
-Requirement: Root access (Magisk recommended)\n\n
-
-═══════════════════════════════\n
-🔗 PROPERTY REFERENCE\n
-═══════════════════════════════\n\n
-
-Display:\n
-• vendor.display.use_smooth_motion\n
-• vendor.display.enable_optimize_refresh\n
-• ro.surface_flinger.set_touch_timer_ms\n
-• debug.sf.set_idle_timer_ms\n\n
-
-Performance:\n
-• ro.hwui.use_vulkan\n
-• persist.sys.purgeable_assets\n
-• ro.config.avoid_gfx_accel\n
-• debug.sf.enable_adpf_cpu_hint\n
-• persist.sys.gpu.scheduling\n\n
-
-Renderers:\n
-• debug.hwui.renderer (skiagl/skiavk)\n\n
-
-Advanced:\n
-• persist.sys.ui.hw\n
-• debug.hwui.disable_vsync\n
-• vendor.display.disable_scaler\n
-• debug.stagefright.c2-poolmask\n\n
-
-Frame Pacing:\n
-• debug.sf.disable_client_composition_cache\n
-• debug.sf.enable_gl_backpressure\n\n
-
-═══════════════════════════════\n
-⚠️ DISCLAIMER\n
-═══════════════════════════════\n\n
-
-This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
-    <string name="keybox_manager_title">Box of Keybox\'s</string>
-    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
-    <string name="security_title">Security &amp;amp; Attestation</string>
-    <string name="keybox_actions_category">🔑 Keybox Actions</string>
-    <string name="keybox_info_category">ℹ️ Information</string>
-    <string name="keybox_status_category">📊 Current Status</string>
-    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
-    <string name="keybox_generate_title">Generate Templates</string>
-    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
-    <string name="keybox_search_title">Search Keybox</string>
-    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
-    <string name="keybox_import_title">Import Keybox</string>
-    <string name="keybox_import_summary">Import keybox.xml from storage</string>
-    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_manager_title">Kutija pretinca za ključeve</string>
+    <string name="keybox_manager_summary">Generirajte, pretražujte, analizirajte Android Attestation Keyboxes</string>
+    <string name="security_title">Sigurnost i potvrda</string>
+    <string name="keybox_actions_category">🔑 Radnje pretinca s ključevima</string>
+    <string name="keybox_info_category">ℹ️ Informacije</string>
+    <string name="keybox_status_category">📊 Trenutno stanje</string>
+    <string name="keybox_advanced_category">🔬 Napredni alati</string>
+    <string name="keybox_generate_title">Generiraj predloške</string>
+    <string name="keybox_generate_summary">Generiraj PIF &amp;amp; TrickyStore keybox.xml predloške</string>
+    <string name="keybox_search_title">Okvir za pretraživanje</string>
+    <string name="keybox_search_summary">Potražite važeći pretinac s ključevima iz repozitorija zajednice</string>
+    <string name="keybox_import_title">Uvezi okvir za ključeve</string>
+    <string name="keybox_import_summary">Uvezi keybox.xml iz pohrane</string>
+    <string name="keybox_export_title">Popis preuzimanja</string>
     <string name="keybox_export_summary">Popis svih preuzetih pretinaca s ključevima u pohrani</string>
     <string name="keybox_verify_title">Provjerite preuzimanja</string>
     <string name="keybox_verify_summary">Provjerite XML strukturu preuzetih pretinca s ključevima</string>
@@ -742,7 +471,7 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
     <string name="keybox_info_title">O Keybox Manageru</string>
     <string name="keybox_info_summary">Saznajte više o Android atestaciji i Keyboxu</string>
     <string name="keybox_info_dialog_title">Kutija pretinca za ključeve - Informacije</string>
-    <string name="keybox_info_dialog_message">🔑 ŠTO JE OVA APLIKACIJA?\n══════════════════════════\n\nNapredni alat za upravljanje Android pretincima za potvrdu. NIJE potreban ROOT za preuzimanje/analizu.\n\n✅ ZNAČAJKE:\n• Pretraživanje izvora zajednice\n• Uvoz prilagođenih okvira s ključevima\n• Duboka analiza certifikata\n• Testiranje Play Integrity API-ja\n• Skupna provjera\n• Izdvajanje certifikata\n• Usporedba uz bok\n\n📁 LOKACIJA:\n/sdcard/Download/Keyboxes/\n\n⚙️ INSTALACIJA:\n══════════════════════════\n\nOpcija 1: Play Integrity Fix\n1. Instalirajte Magisk/KernelSU\n2. Instalirajte PIF modul\n3. Kopirajte keybox.xml u:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Ponovno pokretanje\n\nOpcija 2: TrickyStore\n1. Instalirajte Magisk/KernelSU\n2. Instalirajte TrickyStore modul\n3. Kopirajte keybox.xml u:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Automatsko ponovno učitavanje (bez ponovnog pokretanja)\n\n🧪 TESTIRANJE:\n══════════════════════════\n• Koristite ugrađenu Play provjeru integriteta\n• Aplikacija YASNAC\n• Bankarske aplikacije\n• Google novčanik\n\n🔬 NAPREDNO ZNAČAJKE:\n══════════════════════════\n\nDuboka analiza:\n• Validacija lanca certifikata\n• Praćenje isteka\n• Provjera snage algoritma\n• Status opoziva\n\nPlay Integrity Check:\n• API testiranje u stvarnom vremenu\n• BASIC/DEVICE/STRONG status\n• Detekcija modula\n\nBatch Operations:\n• Provjera više pretinca s ključevima\n• Usporedba jedan pored drugog\n• Izdvajanje certifikata\n\n💡 SAVJETI:\n══════════════════════════\n• Javni pretinci s ključevima rijetki su i brzo se opozivaju\n• Najbolji izvori su privatne Telegram grupe\n• Testirajte pretince s ključevima prije instaliranje\n• Čuvajte sigurnosne kopije radnih pretinaca s ključevima\n• Provjerite datume isteka\n\n🔗 ZAJEDNICA:\n══════════════════════════\n• Telegram: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Pretražite &amp;quot;integritet reprodukcije pretinca s tipkama&amp;quot;\n\n⚠️ PRAVNO ODRICANJE ODGOVORNOSTI:\n══════════════════════════\nSamo u obrazovne svrhe.\nKorištenje modificiranih okvira za ključeve može prekršiti:\n• Googleove uvjete Usluga\n• Pravila za programere aplikacija\n• Lokalni zakoni\n\nKoristite na vlastitu odgovornost!</string>
+    <string name="keybox_info_dialog_message">🔑 ŠTO JE OVA APLIKACIJA?\n══════════════════════════\n\nNapredni alat za upravljanje Android pretincima za potvrdu. NIJE potreban ROOT za preuzimanje/analizu.\n\n✅ ZNAČAJKE:\n• Pretraživanje izvora zajednice\n• Uvoz prilagođenih okvira s ključevima\n• Duboka analiza certifikata\n• Testiranje Play Integrity API-ja\n• Skupna provjera\n• Izdvajanje certifikata\n• Usporedba uz bok\n\n📁 LOKACIJA:\n/sdcard/Download/Keyboxes/\n\n⚙️ INSTALACIJA:\n══════════════════════════\n\nOpcija 1: Play Integrity Fix\n1. Instalirajte Magisk/KernelSU\n2. Instalirajte PIF modul\n3. Kopirajte keybox.xml u:\n /data/adb/modules/playintegrityfix/\n4. chmod 644 keybox.xml\n5. Ponovno pokretanje\n\nOpcija 2: TrickyStore\n1. Instalirajte Magisk/KernelSU\n2. Instalirajte TrickyStore modul\n3. Kopirajte keybox.xml u:\n /data/adb/tricky_store/\n4. chmod 644 keybox.xml\n5. Automatsko ponovno učitavanje (bez ponovnog pokretanja)\n\n🧪 TESTIRANJE:\n══════════════════════════\n• Koristite ugrađenu Play provjeru integriteta\n• Aplikacija YASNAC\n• Bankarske aplikacije\n• Google novčanik\n\n🔬 NAPREDNO ZNAČAJKE:\n══════════════════════════\n\nDuboka analiza:\n• Validacija lanca certifikata\n• Praćenje isteka\n• Provjera snage algoritma\n• Status opoziva\n\nProvjera integriteta reprodukcije:\n• Testiranje API-ja u stvarnom vremenu\n• OSNOVNI/DEVICE/JAKI status\n• Detekcija modula\n\nSkupne operacije:\n• Provjera više pretinca s ključevima\n• Usporedba jedan pored drugog\n• Izdvajanje certifikata\n\n💡 SAVJETI:\n══════════════════════════\n• Javni pretinci s ključevima rijetki su i brzo se opozivaju\n• Najbolji izvori su privatne Telegram grupe\n• Testirajte pretince s ključevima prije instaliranje\n• Čuvajte sigurnosne kopije radnih pretinaca s ključevima\n• Provjerite datume isteka\n\n🔗 ZAJEDNICA:\n══════════════════════════\n• Telegram: @PlayIntegrityFix\n• DroidWin: droidwin.com\n• XDA: xdaforums.com\n• Reddit: r/Magisk\n• GitHub: Pretražite &amp;quot;integritet reprodukcije pretinca s tipkama&amp;quot;\n\n⚠️ PRAVNO ODRICANJE ODGOVORNOSTI:\n══════════════════════════\nSamo u obrazovne svrhe.\nKorištenje modificiranih okvira za ključeve može prekršiti:\n• Googleove uvjete Usluga\n• Pravila za programere aplikacija\n• Lokalni zakoni\n\nKoristite na vlastitu odgovornost!</string>
     <string name="keybox_reset_title">Izbriši preuzimanja</string>
     <string name="keybox_reset_summary">Uklonite sve preuzete pretince s ključevima iz pohrane</string>
     <string name="keybox_reset_dialog_title">⚠️ Izbriši preuzimanja</string>
@@ -770,8 +499,8 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
     <string name="clean_system_cache_title">Očisti predmemoriju sustava</string>
     <string name="clean_system_cache_summary">Očisti predmemoriju sustava i ispusti predmemorije</string>
     <string name="clean_thumbnails_title">Očistite sličice</string>
-    <string name="clean_thumbnails_summary">Ukloni predmemoriju sličica iz medija</string>
-    <string name="clean_downloads_title">Očistite stara preuzimanja</string>
+    <string name="clean_thumbnails_summary">Uklonite predmemoriju sličica iz medija</string>
+    <string name="clean_downloads_title">Clean Old Downloads</string>
     <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
     <string name="clean_temp_files_title">Clean Temp Files</string>
     <string name="clean_temp_files_summary">Remove temporary system files</string>
@@ -861,6 +590,65 @@ Recommendations:\n
     <string name="thermal_navigation">Navigation</string>
     <string name="thermal_streaming">Streaming</string>
     <string name="thermal_video">Video</string>
-    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_title">Omogući profile po aplikaciji</string>
     <string name="thermal_enable_summary">Automatski prilagodi izvedbu na temelju aplikacije u prvom planu</string>
+    <string name="widget_title">Xiaomi dijelovi</string>
+    <string name="widget_description">Kontrole procesora, zaslona, ​​topline i performansi</string>
+    <string name="widget_state_on">NA</string>
+    <string name="widget_state_off">ISKLJUČENO</string>
+    <string name="widget_cpu_governor_label">CPU guverner</string>
+    <string name="widget_gov_prev">Prethodni guverner</string>
+    <string name="widget_gov_next">Sljedeći guverner</string>
+    <string name="widget_display_hz">Stopa osvježavanja</string>
+    <string name="widget_hz_dec">Smanji stopu osvježavanja</string>
+    <string name="widget_hz_inc">Povećaj stopu osvježavanja</string>
+    <string name="widget_cpu_freq_note">Ograničenja maksimalne frekvencije CPU-a primjenjuju se izravno putem Kernel Managera</string>
+    <string name="widget_hbm">HBM</string>
+    <string name="widget_hbm_on">NA</string>
+    <string name="widget_hbm_off">ISKLJUČENO</string>
+    <string name="charge_control_title">Kontrola punjenja</string>
+    <string name="charge_control_summary">Kontrolirajte kada se uređaj prestaje puniti</string>
+    <string name="charge_control_main_switch_title">Omogući kontrolu punjenja</string>
+    <string name="stop_charging_title">Zaustavi razinu punjenja</string>
+    <string name="stop_charging_summary">Zaustavite punjenje kada se postigne postavljeni postotak</string>
+    <string name="charge_control_footer_summary">Kontrola punjenja može ometati adaptivno punjenje.</string>
+    <string name="kernel_node_access_error">Čvor jezgre nije dostupan</string>
+    <string name="stop_charging_set_to">Punjenje će prestati na %1$d%%.</string>
+    <string name="charge_control_tile_label">Kontrola punjenja</string>
+    <string name="charge_control_tile_enabled">Omogućeno</string>
+    <string name="charge_control_tile_disabled">Onemogućeno</string>
+    <string name="charge_control_tile_subtitle">Zaustavi se na %1$d%%</string>
+    <string name="upscale_summary">Postavi povećanje veličine za određene aplikacije</string>
+    <string name="upscale_title">Razlučivost po aplikaciji</string>
+    <string name="upscale_default">Zadano</string>
+    <string name="upscale_480p">480p</string>
+    <string name="upscale_540p">540p</string>
+    <string name="upscale_720p">720p</string>
+    <string name="system_resolution_title">Razlučivost zaslona</string>
+    <string name="system_resolution_summary">Trenutno: %1$s</string>
+    <string name="system_resolution_summary_setting">Odaberite razlučivost prikaza za cijeli sustav</string>
+    <string name="system_resolution_note">Niža razlučivost smanjuje opterećenje GPU-a i može produžiti trajanje baterije.
+        Promjene stupaju na snagu odmah. Ako zaslon postane neupotrebljiv, ponovno pokrenite sustav za oporavak.</string>
+    <string name="resolution_default">Zadano</string>
+    <string name="resolution_480p">480p</string>
+    <string name="resolution_540p">540p</string>
+    <string name="resolution_720p">720p</string>
+    <string name="resolution_custom">Prilagođeno</string>
+    <string name="custom_resolution_dialog_title">Prilagođena razlučivost</string>
+    <string name="custom_resolution_section_title">Prilagođene postavke rezolucije</string>
+    <string name="custom_resolution_width_label">Širina (px)</string>
+    <string name="custom_resolution_height_label">Visina (px)</string>
+    <string name="custom_resolution_density_label">Gustoća (dpi)</string>
+    <string name="custom_resolution_width_hint">Izvorno: %1$d</string>
+    <string name="custom_resolution_height_hint">Izvorno: %1$d</string>
+    <string name="custom_resolution_density_hint">Izvorno: %1$d dpi</string>
+    <string name="custom_resolution_note">Savjet: gustoća ≈ (širina / izvorna_širina) × izvorni_dpi.
+        Min. širina: 240 px · Min. visina: 320 px · Min. gustoća: 80 dpi.</string>
+    <string name="custom_resolution_invalid">Nevažeće vrijednosti — unesite pozitivne cijele brojeve unutar granica.</string>
+    <string name="custom_resolution_reset">Vrati na izvorni</string>
+    <string name="resolution_qs_label">Razlučivost</string>
+    <string name="charge_bypass_title">Zaobilazno punjenje</string>
+    <string name="charge_bypass_summary">Omogući izravno punjenje, zaobilazeći bateriju</string>
+    <string name="charge_bypass_warning">Upozorenje: Premosno punjenje može uzrokovati povišenu temperaturu uređaja ili oštećenje baterije. Koristite s oprezom.</string>
+    <string name="charge_bypass_unavailable">Zaobilazno punjenje nije podržano na ovom uređaju</string>
 </resources>

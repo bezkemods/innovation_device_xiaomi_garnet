@@ -4,7 +4,7 @@
     <string name="tile_add">Lisää laatta</string>
     <string name="tile_added">Laatat lisätty</string>
     <string name="tile_not_added">Laataa ei lisätty</string>
-    <string name="tile_already_added">Laatat on jo lisätty</string>
+    <string name="tile_already_added">Laatat jo lisätty</string>
     <string name="tile_on">Päällä</string>
     <string name="tile_off">Pois</string>
     <string name="clear_speaker_title">Kirkas kaiutin</string>
@@ -283,7 +283,7 @@
     <string name="about_me_donate2_summary">Soita minulle oluelle tai kahville</string>
     <string name="core_control_title">Core Control</string>
     <string name="core_control_summary">Ota yksittäiset CPU-ytimet käyttöön tai poista ne käytöstä manuaalisesti</string>
-    <string name="core_control_description">Edistynyt suorittimen ohjaus. Ydinten sammuttaminen voi säästää akkua tai lämpökuormitusta, mutta se voi vaikuttaa suorituskykyyn ja vakauteen.\n\nVähintään kahden pienen ytimen on pysyttävä verkossa koko ajan.</string>
+    <string name="core_control_description">Edistynyt suorittimen ohjaus. Sydämien sammuttaminen voi säästää akkua tai lämpökuormitusta, mutta se voi vaikuttaa suorituskykyyn ja vakauteen.\n\nVähintään kahden pienen ytimen on pysyttävä verkossa koko ajan.</string>
     <string name="keep_little_cores_online">Ainakin 2 pientä ydintä on säilytettävä verkossa</string>
     <string name="core_0">Ydin 0 (pieni)</string>
     <string name="core_1">Core 1 (pieni)</string>
@@ -307,7 +307,7 @@
     <string name="kernel_manager_max_freq_summary">Aseta suurin sallittu CPU-taajuus</string>
     <string name="kernel_info_category">Tiedot</string>
     <string name="kernel_info_title">Tietoja Kernel Managerista</string>
-    <string name="kernel_info_summary">Hallitse prosessorin ohjainta ja taajuuden skaalausta kaikille prosessoriklustereille. Muutokset voivat vaikuttaa suorituskykyyn ja akun käyttöikään.</string>
+    <string name="kernel_info_summary">Hallitse prosessoriohjainta ja taajuuden skaalausta kaikille prosessoriklustereille. Muutokset voivat vaikuttaa suorituskykyyn ja akun käyttöikään.</string>
     <string name="kernel_manager_apply">Käytä asetuksia</string>
     <string name="kernel_manager_apply_summary">Ota valitut suorittimen asetukset käyttöön</string>
     <string name="kernel_manager_reset">Palauta oletusarvo</string>
@@ -338,7 +338,7 @@
     <string name="kernel_manager_monitoring_disabled">Reaaliaikainen valvonta on poistettu käytöstä. Ota se käyttöön nähdäksesi suorittimen ydintaajuudet ja tilan.</string>
     <string name="kernel_manager_error_read">CPU-tietoja ei voi lukea</string>
     <string name="kernel_manager_error_write">CPU-asetuksia ei voi ottaa käyttöön. Root-käyttöoikeus saatetaan vaatia.</string>
-    <string name="kernel_manager_error_permission">Lupa evätty. Prosessoriasetusten muuttamiseen tarvitaan pääkäyttäjän oikeudet.</string>
+    <string name="kernel_manager_error_permission">Lupa evätty. CPU-asetusten muuttamiseen tarvitaan pääkäyttäjän oikeudet.</string>
     <string name="gpu_manager_title">GPU Manager</string>
     <string name="gpu_manager_summary">Hallitse GPU-taajuuksia ja tehoasetuksia</string>
     <string name="gpu_governor_title">GPU-kuvernööri</string>
@@ -387,291 +387,20 @@
     <string name="unknown">Tuntematon</string>
     <string name="thermal_level_summary">Taso %s</string>
     <string name="camera_boost_triggered">Kameran/videon tehostus aktivoitu!</string>
-    <string name="video_enhancer_title">Video Enhancer</string>
-    <string name="video_enhancer_summary">Redmi Note 13 Pro 5G:n näytön ja suorituskyvyn optimointi</string>
-    <string name="video_enhancer_display_category">📺 Näyttöominaisuudet</string>
-    <string name="smooth_motion_enable_title">Smooth Motion</string>
-    <string name="smooth_motion_enable_summary">Laitteiston liikkeen tasoitus videoille (oletus: OFF) • Uudelleenkäynnistys vaaditaan</string>
-    <string name="optimize_refresh_enable_title">Optimoi virkistystaajuus</string>
-    <string name="optimize_refresh_enable_summary">Dynaaminen virkistystaajuus perustuu sisältöön (oletus: OFF) • Uudelleenkäynnistys vaaditaan</string>
-    <string name="peak_refresh_rate_title">120 Hz huippuvirkistystaajuus</string>
-    <string name="peak_refresh_rate_summary">Ota käyttöön 120 Hz kosketuksessa (200 ms) • Tehdasarvo • Vaaditaan uudelleenkäynnistys</string>
-    <string name="video_enhancer_performance_category">⚡ Suorituskyvyn optimoinnit</string>
-    <string name="force_vulkan_title">Force Vulkan API</string>
-    <string name="force_vulkan_summary">Käytä Vulkania OpenGL ES:n (Adreno 710) sijaan • Uudelleenkäynnistys vaaditaan</string>
-    <string name="purgeable_assets_title">Puhdistettavat omaisuuserät</string>
-    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
-    <string name="gfx_accel_title">Graphics Acceleration</string>
-    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
-    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
-    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
-    <string name="gpu_scheduling_title">GPU Scheduling</string>
-    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
-    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
-    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
-    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
-    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
-    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
-    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
-    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
-    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
-    <string name="hwui_disable_vsync_title">Disable VSync</string>
-    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
-    <string name="disable_scaler_title">Disable Display Scaler</string>
-    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
-    <string name="media_codec_hw_title">Hardware Media Codecs</string>
-    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
-    <string name="video_enhancer_info_category">ℹ️ Information</string>
-    <string name="video_enhancer_info_title">About Video Enhancer</string>
-    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
-    <string name="reset_to_defaults_title">Reset to Defaults</string>
-    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
-    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
-    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
-    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
-    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
-    <string name="reboot_required_title">🔄 Reboot Required</string>
-    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
-    <string name="reboot_now">Reboot Now</string>
-    <string name="reboot_later">Later</string>
-    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
-    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
-🎮 GPU: Qualcomm Adreno 710\n
-📺 Display: 120Hz AMOLED (1220×2712)\n
-💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
-
-═══════════════════════════════\n
-📹 DISPLAY FEATURES\n
-═══════════════════════════════\n\n
-
-🎬 Smooth Motion\n
-└─ Hardware motion smoothing technology\n
-└─ Qualcomm proprietary motion engine\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.use_smooth_motion\n
-└─ ⚠️ Increased battery consumption!\n\n
-
-🔄 Optimize Refresh Rate\n
-└─ Dynamic refresh rate based on content\n
-└─ Better battery efficiency\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.enable_optimize_refresh\n\n
-
-⚡ 120Hz Peak Refresh Rate\n
-└─ Enable full 120Hz capability\n
-└─ Touch detection timer: 200ms (factory)\n
-└─ Idle timer: 1100ms\n
-└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
-└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
-
-═══════════════════════════════\n
-⚡ PERFORMANCE OPTIMIZATIONS\n
-═══════════════════════════════\n\n
-
-🔺 Force Vulkan API\n
-└─ Use Vulkan instead of OpenGL ES\n
-└─ Better performance on Adreno 710 GPU\n
-└─ For modern games and apps\n
-└─ Property: ro.hwui.use_vulkan=true\n
-└─ ⚠️ Not all apps support it!\n\n
-
-💾 Purgeable Assets\n
-└─ Free unused graphics memory\n
-└─ Improved memory management\n
-└─ Property: persist.sys.purgeable_assets=1\n\n
-
-🚀 Graphics Acceleration\n
-└─ Hardware acceleration for UI rendering\n
-└─ Essential for smooth performance\n
-└─ Recommended: ENABLED\n
-└─ Property: ro.config.avoid_gfx_accel=false\n\n
-
-🧠 ADPF CPU Hints\n
-└─ Android Dynamic Performance Framework\n
-└─ Intelligent CPU frequency hints\n
-└─ Workload-based optimization\n
-└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
-└─ Recommended: ENABLED\n\n
-
-📊 GPU Scheduling\n
-└─ Advanced GPU task scheduling\n
-└─ Better frame pacing\n
-└─ Reduced latency\n
-└─ Property: persist.sys.gpu.scheduling=1\n\n
-
-═══════════════════════════════\n
-🎨 HARDWARE RENDERERS\n
-═══════════════════════════════\n\n
-
-🟢 SkiaGL Renderer\n
-└─ OpenGL ES-based Skia renderer\n
-└─ Better compatibility with older apps\n
-└─ Stable performance\n
-└─ Property: debug.hwui.renderer=skiagl\n\n
-
-🔵 SkiaVK Renderer\n
-└─ Vulkan-based Skia renderer\n
-└─ Better performance on Adreno 710\n
-└─ Lower CPU overhead\n
-└─ Modern rendering path\n
-└─ Property: debug.hwui.renderer=skiavk\n
-└─ ⚠️ Only ONE can be active at a time!\n\n
-
-═══════════════════════════════\n
-🔧 ADVANCED FEATURES\n
-═══════════════════════════════\n\n
-
-💪 Force GPU Rendering\n
-└─ All 2D drawing on GPU\n
-└─ Smoother UI possible\n
-└─ Increased power consumption\n
-└─ Property: persist.sys.ui.hw=1\n\n
-
-⚠️ Disable VSync\n
-└─ Remove vertical sync limitation\n
-└─ Higher FPS possible\n
-└─ ❌ MAY CAUSE SCREEN TEARING!\n
-└─ ❌ NOT RECOMMENDED for normal use!\n
-└─ Property: debug.hwui.disable_vsync=true\n
-└─ 🚫 This causes video vibration/judder!\n\n
-
-🖼️ Disable Display Scaler\n
-└─ Bypass hardware scaler\n
-└─ Native resolution rendering\n
-└─ Better image quality\n
-└─ Property: vendor.display.disable_scaler=1\n\n
-
-🎥 Hardware Media Codecs\n
-└─ Adreno 710 hardware video encode/decode\n
-└─ Essential for smooth video playback\n
-└─ Recommended: ENABLED\n
-└─ Property: debug.stagefright.c2-poolmask=0x1f\n
-└─ 0x1f = all HW codecs enabled\n\n
-
-═══════════════════════════════\n
-⚠️ IMPORTANT NOTES\n
-═══════════════════════════════\n\n
-
-🔄 Most changes require device REBOOT\n
-🎨 Only ONE renderer can be active at a time\n
-🔀 Selecting a renderer automatically disables the other\n
-🔑 Root access (Magisk) is REQUIRED for all features\n
-💾 Settings are automatically restored on boot\n
-📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
-
-═══════════════════════════════\n
-💡 RECOMMENDED SETTINGS\n
-═══════════════════════════════\n\n
-
-🎮 For Gaming:\n
-├─ Force Vulkan: ON\n
-├─ GPU Scheduling: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Hardware Codecs: ON\n
-└─ VSync: ON (NEVER disable!)\n\n
-
-🔋 For Battery Life:\n
-├─ Optimize Refresh: ON\n
-├─ 120Hz Peak: OFF\n
-├─ Graphics Acceleration: ON\n
-├─ ADPF CPU: ON\n
-└─ Others: default\n\n
-
-⚡ For Maximum Performance:\n
-├─ All Performance options: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Force GPU Rendering: ON\n
-├─ GPU Scheduling: ON\n
-└─ VSync: ON (avoid tearing!)\n\n
-
-🎬 For Smooth Video Playback:\n
-├─ Hardware Codecs: ON\n
-├─ Graphics Acceleration: ON\n
-├─ VSync: ON (ALWAYS!)\n
-├─ Smooth Motion: OPTIONAL\n
-└─ Others: default\n\n
-
-═══════════════════════════════\n
-🐛 TROUBLESHOOTING\n
-═══════════════════════════════\n\n
-
-❓ Videos vibrate/stutter/tear?\n
-└─ VSync: ENABLE IT!\n
-└─ Disable VSync: TURN OFF!\n
-└─ Smooth Motion: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ System lag?\n
-└─ Renderers: TURN OFF!\n
-└─ Force GPU Rendering: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ Apps crashing?\n
-└─ Force Vulkan: TURN OFF!\n
-└─ SkiaVK: TURN OFF!\n
-└─ Use default OpenGL\n\n
-
-═══════════════════════════════\n
-📱 DEVICE INFORMATION\n
-═══════════════════════════════\n\n
-
-Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
-Codename: garnet\n
-SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
-GPU: Adreno 710\n
-Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
-Android: 14 / HyperOS 2.0 / LineageOS 21+\n
-Requirement: Root access (Magisk recommended)\n\n
-
-═══════════════════════════════\n
-🔗 PROPERTY REFERENCE\n
-═══════════════════════════════\n\n
-
-Display:\n
-• vendor.display.use_smooth_motion\n
-• vendor.display.enable_optimize_refresh\n
-• ro.surface_flinger.set_touch_timer_ms\n
-• debug.sf.set_idle_timer_ms\n\n
-
-Performance:\n
-• ro.hwui.use_vulkan\n
-• persist.sys.purgeable_assets\n
-• ro.config.avoid_gfx_accel\n
-• debug.sf.enable_adpf_cpu_hint\n
-• persist.sys.gpu.scheduling\n\n
-
-Renderers:\n
-• debug.hwui.renderer (skiagl/skiavk)\n\n
-
-Advanced:\n
-• persist.sys.ui.hw\n
-• debug.hwui.disable_vsync\n
-• vendor.display.disable_scaler\n
-• debug.stagefright.c2-poolmask\n\n
-
-Frame Pacing:\n
-• debug.sf.disable_client_composition_cache\n
-• debug.sf.enable_gl_backpressure\n\n
-
-═══════════════════════════════\n
-⚠️ DISCLAIMER\n
-═══════════════════════════════\n\n
-
-This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
-    <string name="keybox_manager_title">Box of Keybox\'s</string>
-    <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
-    <string name="security_title">Security &amp;amp; Attestation</string>
-    <string name="keybox_actions_category">🔑 Keybox Actions</string>
-    <string name="keybox_info_category">ℹ️ Information</string>
-    <string name="keybox_status_category">📊 Current Status</string>
-    <string name="keybox_advanced_category">🔬 Advanced Tools</string>
-    <string name="keybox_generate_title">Generate Templates</string>
-    <string name="keybox_generate_summary">Generate PIF &amp;amp; TrickyStore keybox.xml templates</string>
+    <string name="keybox_manager_title">Avainlaatikoiden laatikko</string>
+    <string name="keybox_manager_summary">Luo, etsi ja analysoi Android-todistusavainlaatikoita</string>
+    <string name="security_title">Turvallisuus ja todistus</string>
+    <string name="keybox_actions_category">🔑 Näppäimistön toiminnot</string>
+    <string name="keybox_info_category">ℹ️ Tiedot</string>
+    <string name="keybox_status_category">📊 Nykyinen tila</string>
+    <string name="keybox_advanced_category">🔬 Lisätyökalut</string>
+    <string name="keybox_generate_title">Luo malleja</string>
+    <string name="keybox_generate_summary">Luo PIF- ja TrickyStore keybox.xml -malleja</string>
     <string name="keybox_search_title">Search Keybox</string>
-    <string name="keybox_search_summary">Search for valid keybox from community repositories</string>
-    <string name="keybox_import_title">Import Keybox</string>
-    <string name="keybox_import_summary">Import keybox.xml from storage</string>
-    <string name="keybox_export_title">List Downloads</string>
+    <string name="keybox_search_summary">Etsi kelvollinen avainlaatikko yhteisön arkistoista</string>
+    <string name="keybox_import_title">Tuo Keybox</string>
+    <string name="keybox_import_summary">Tuo keybox.xml tallennustilasta</string>
+    <string name="keybox_export_title">Listaa lataukset</string>
     <string name="keybox_export_summary">Luettele kaikki ladatut näppäinlaatikot tallennustilassa</string>
     <string name="keybox_verify_title">Tarkista lataukset</string>
     <string name="keybox_verify_summary">Tarkista ladattujen näppäinlaatikoiden XML-rakenne</string>
@@ -770,8 +499,8 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
     <string name="clean_system_cache_title">Puhdista järjestelmän välimuisti</string>
     <string name="clean_system_cache_summary">Tyhjennä järjestelmän välimuisti ja pudota välimuistit</string>
     <string name="clean_thumbnails_title">Puhdista pikkukuvat</string>
-    <string name="clean_thumbnails_summary">Poista pikkukuvavälimuisti mediasta</string>
-    <string name="clean_downloads_title">Puhdista vanhat lataukset</string>
+    <string name="clean_thumbnails_summary">Poista pikkukuvien välimuisti mediasta</string>
+    <string name="clean_downloads_title">Clean Old Downloads</string>
     <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
     <string name="clean_temp_files_title">Clean Temp Files</string>
     <string name="clean_temp_files_summary">Remove temporary system files</string>
@@ -861,6 +590,65 @@ Recommendations:\n
     <string name="thermal_navigation">Navigation</string>
     <string name="thermal_streaming">Streaming</string>
     <string name="thermal_video">Video</string>
-    <string name="thermal_enable_title">Enable Per-App Profiles</string>
+    <string name="thermal_enable_title">Ota sovelluskohtaiset profiilit käyttöön</string>
     <string name="thermal_enable_summary">Säädä suorituskykyä automaattisesti etualan sovelluksen perusteella</string>
+    <string name="widget_title">Xiaomi osat</string>
+    <string name="widget_description">Suorittimen, näytön, lämmön ja suorituskyvyn säätimet</string>
+    <string name="widget_state_on">PÄÄLLÄ</string>
+    <string name="widget_state_off">OFF</string>
+    <string name="widget_cpu_governor_label">CPU:n ohjain</string>
+    <string name="widget_gov_prev">Edellinen kuvernööri</string>
+    <string name="widget_gov_next">Seuraava kuvernööri</string>
+    <string name="widget_display_hz">Päivitystaajuus</string>
+    <string name="widget_hz_dec">Pienennä virkistystaajuutta</string>
+    <string name="widget_hz_inc">Lisää virkistystaajuutta</string>
+    <string name="widget_cpu_freq_note">CPU:n maksimitaajuusrajoituksia sovelletaan suoraan Kernel Managerin kautta</string>
+    <string name="widget_hbm">HBM</string>
+    <string name="widget_hbm_on">PÄÄLLÄ</string>
+    <string name="widget_hbm_off">OFF</string>
+    <string name="charge_control_title">Latausohjaus</string>
+    <string name="charge_control_summary">Hallitse, milloin laite lopettaa lataamisen</string>
+    <string name="charge_control_main_switch_title">Ota latauksen ohjaus käyttöön</string>
+    <string name="stop_charging_title">Lopeta lataustaso</string>
+    <string name="stop_charging_summary">Lopeta lataaminen, kun asetettu prosenttiosuus saavutetaan</string>
+    <string name="charge_control_footer_summary">Latausohjaus saattaa häiritä mukautuvaa latausta.</string>
+    <string name="kernel_node_access_error">Ytimen solmu ei ole käytettävissä</string>
+    <string name="stop_charging_set_to">Lataus päättyy %1$d%%.</string>
+    <string name="charge_control_tile_label">Charge Control</string>
+    <string name="charge_control_tile_enabled">Käytössä</string>
+    <string name="charge_control_tile_disabled">Ei käytössä</string>
+    <string name="charge_control_tile_subtitle">Pysähdy %1$d%%</string>
+    <string name="upscale_summary">Aseta skaalaus tietyille sovelluksille</string>
+    <string name="upscale_title">Sovelluskohtainen resoluutio</string>
+    <string name="upscale_default">Oletus</string>
+    <string name="upscale_480p">480p</string>
+    <string name="upscale_540p">540p</string>
+    <string name="upscale_720p">720p</string>
+    <string name="system_resolution_title">Näytön resoluutio</string>
+    <string name="system_resolution_summary">Nykyinen: %1$s</string>
+    <string name="system_resolution_summary_setting">Valitse koko järjestelmän näytön tarkkuus</string>
+    <string name="system_resolution_note">Pienempi resoluutio vähentää GPU-kuormitusta ja voi pidentää akun käyttöikää.
+        Muutokset astuvat voimaan välittömästi. Jos näyttö muuttuu käyttökelvottomaksi, käynnistä se uudelleen palauttaaksesi sen.</string>
+    <string name="resolution_default">Oletus</string>
+    <string name="resolution_480p">480p</string>
+    <string name="resolution_540p">540p</string>
+    <string name="resolution_720p">720p</string>
+    <string name="resolution_custom">Mukautettu</string>
+    <string name="custom_resolution_dialog_title">Mukautettu resoluutio</string>
+    <string name="custom_resolution_section_title">Mukautetut resoluutioasetukset</string>
+    <string name="custom_resolution_width_label">Leveys (px)</string>
+    <string name="custom_resolution_height_label">Korkeus (px)</string>
+    <string name="custom_resolution_density_label">Tiheys (dpi)</string>
+    <string name="custom_resolution_width_hint">Alkuperäinen: %1$d</string>
+    <string name="custom_resolution_height_hint">Alkuperäinen: %1$d</string>
+    <string name="custom_resolution_density_hint">Alkuperäinen: %1$d dpi</string>
+    <string name="custom_resolution_note">Vihje: tiheys ≈ (leveys / native_width) × native_dpi.
+        Vähimmäisleveys: 240 px · Vähimmäiskorkeus: 320 px · Minimitiheys: 80 dpi.</string>
+    <string name="custom_resolution_invalid">Virheelliset arvot – kirjoita positiivisia kokonaislukuja rajojen sisällä.</string>
+    <string name="custom_resolution_reset">Palauta alkuperäiseen</string>
+    <string name="resolution_qs_label">Päätöslauselma</string>
+    <string name="charge_bypass_title">Ohituslataus</string>
+    <string name="charge_bypass_summary">Ota suora lataus käyttöön ohittamalla akku</string>
+    <string name="charge_bypass_warning">Varoitus: Ohituslataus voi nostaa laitteen lämpötilaa tai vaurioittaa akkua. Käytä varoen.</string>
+    <string name="charge_bypass_unavailable">Ohituslatausta ei tueta tässä laitteessa</string>
 </resources>

@@ -569,6 +569,16 @@
             </intent-filter>
         </activity>
 
+        <!-- Bypass Charge -->
+        <activity
+            android:name=".charge.ChargeActivity"
+            android:label="@string/charge_bypass_title"
+            android:icon="@drawable/ic_bypass_charge"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="false"
+            android:parentActivityName=".xiaomiparts.XiaomiPartsActivity">
+        </activity>
+        
         <!-- Charging control -->
         <activity
             android:name=".chargecontrol.ChargeControlActivity"

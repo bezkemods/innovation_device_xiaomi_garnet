@@ -106,7 +106,7 @@
     <string name="capture_logs_title">לכידת יומני</string>
     <string name="game_bar_capture_start_title">התחל ברישום</string>
     <string name="game_bar_capture_start_summary">התחל ללכוד FPS ונתוני ביצועים בזמן אמת</string>
-    <string name="game_bar_capture_stop_title">הפסק רישום</string>
+    <string name="game_bar_capture_stop_title">עצור רישום</string>
     <string name="game_bar_capture_stop_summary">הפסק ללכוד FPS ונתוני ביצועים בזמן אמת</string>
     <string name="game_bar_capture_export_title">ייצוא נתוני יומן GameBar</string>
     <string name="game_bar_capture_export_summary">שמור את נתוני ה-FPS והביצועים שנלכדו כקובץ CSV</string>
@@ -283,7 +283,7 @@
     <string name="about_me_donate2_summary">התקשר אלי לבירה או קפה</string>
     <string name="core_control_title">בקרת ליבה</string>
     <string name="core_control_summary">הפעלה או השבתה ידנית של ליבות CPU בודדות</string>
-    <string name="core_control_description">בקרת מעבד מתקדמת. כיבוי הליבות עשוי לחסוך בסוללה או בעומס תרמי, אך עשוי להשפיע על הביצועים והיציבות.\n\nלפחות שתי ליבות קטנות חייבות להישאר מקוונות כל הזמן.</string>
+    <string name="core_control_description">בקרת CPU מתקדמת. כיבוי הליבות עשוי לחסוך בסוללה או בעומס תרמי, אך עשוי להשפיע על הביצועים והיציבות.\n\nלפחות שתי ליבות קטנות חייבות להישאר מקוונות כל הזמן.</string>
     <string name="keep_little_cores_online">לפחות 2 ליבות קטנות חייבות להישאר מקוונות</string>
     <string name="core_0">ליבה 0 (קטנה)</string>
     <string name="core_1">ליבה 1 (קטנה)</string>
@@ -350,314 +350,43 @@
     <string name="gpu_max_gpuclk_summary">הגברת שעון נוספת (מקסימום 940 מגה-הרץ)</string>
     <string name="gpu_current_freq_title">תדר נוכחי</string>
     <string name="gpu_power_title">הגדרות חשמל</string>
-    <string name="gpu_force_clk_on_title">כפה על השעון</string>
-    <string name="gpu_force_clk_on_summary">השאר את שעון ה-GPU דולק תמיד</string>
-    <string name="gpu_force_bus_on_title">כוח האוטובוס פועל</string>
-    <string name="gpu_force_bus_on_summary">השאר את אוטובוס ה-GPU פועל תמיד</string>
-    <string name="gpu_force_rail_on_title">כפה על רכבת</string>
-    <string name="gpu_force_rail_on_summary">השאר את מסילת החשמל של GPU תמיד</string>
-    <string name="gpu_force_no_nap_title">כפה ללא תנומה</string>
-    <string name="gpu_force_no_nap_summary">השבת תנומה של GPU בין מסגרות</string>
-    <string name="gpu_bus_split_title">פיצול אוטובוס</string>
-    <string name="gpu_bus_split_summary">אפשר פיצול אפיק GPU</string>
+    <string name="gpu_force_clk_on_title">Force Clock On</string>
+    <string name="gpu_force_clk_on_summary">Keep GPU clock always on</string>
+    <string name="gpu_force_bus_on_title">Force Bus On</string>
+    <string name="gpu_force_bus_on_summary">Keep GPU bus always on</string>
+    <string name="gpu_force_rail_on_title">Force Rail On</string>
+    <string name="gpu_force_rail_on_summary">Keep GPU power rail always on</string>
+    <string name="gpu_force_no_nap_title">Force No Nap</string>
+    <string name="gpu_force_no_nap_summary">Disable GPU napping between frames</string>
+    <string name="gpu_bus_split_title">Bus Split</string>
+    <string name="gpu_bus_split_summary">Enable GPU bus splitting</string>
     <string name="gpu_preempt_title">GPU Preemption</string>
-    <string name="gpu_preempt_summary">משחק עם זמן אחזור נמוך (אפשר לחוויית המשחק הטובה ביותר)</string>
-    <string name="gpu_camera_boost_title">שיפור המצלמה</string>
-    <string name="gpu_camera_boost_summary">Powerhint טורבו (ביצועי קידוד מצלמה/וידאו מקסימליים)</string>
-    <string name="gpu_thermal_title">הגדרות תרמיות</string>
-    <string name="gpu_thermal_pwrlevel_title">רמת הספק תרמית</string>
-    <string name="gpu_thermal_pwrlevel_summary">רמת הספק תרמי נוכחי</string>
-    <string name="gpu_temp_title">טמפרטורת GPU</string>
-    <string name="gpu_info_title">מידע על GPU</string>
-    <string name="gpu_model_title">דגם GPU</string>
-    <string name="gpu_busy_percentage_title">טעינת GPU</string>
-    <string name="gpu_reset_count_title">אפס ספירה</string>
-    <string name="gpu_preempt_count_title">ספירת קדימות</string>
-    <string name="gpu_info_category">מידע על GPU</string>
-    <string name="gpu_settings_category">הגדרות GPU</string>
-    <string name="gpu_advanced_category">הגדרות מתקדמות</string>
-    <string name="gpu_info_summary">נהל את קנה המידה של תדר GPU והגדרות צריכת החשמל. שינויים עשויים להשפיע על הביצועים ועל חיי הסוללה.</string>
-    <string name="apply_settings">החל הגדרות</string>
-    <string name="reset_settings">אפס הגדרות</string>
+    <string name="gpu_preempt_summary">Low latency gaming (enable for best gaming experience)</string>
+    <string name="gpu_camera_boost_title">Camera Boost</string>
+    <string name="gpu_camera_boost_summary">Powerhint turbo (max camera/video encode performance)</string>
+    <string name="gpu_thermal_title">Thermal Settings</string>
+    <string name="gpu_thermal_pwrlevel_title">Thermal Power Level</string>
+    <string name="gpu_thermal_pwrlevel_summary">Current thermal power level</string>
+    <string name="gpu_temp_title">GPU Temperature</string>
+    <string name="gpu_info_title">GPU Information</string>
+    <string name="gpu_model_title">GPU Model</string>
+    <string name="gpu_busy_percentage_title">GPU Load</string>
+    <string name="gpu_reset_count_title">Reset Count</string>
+    <string name="gpu_preempt_count_title">Preemption Count</string>
+    <string name="gpu_info_category">GPU Information</string>
+    <string name="gpu_settings_category">GPU Settings</string>
+    <string name="gpu_advanced_category">Advanced Settings</string>
+    <string name="gpu_info_summary">Manage GPU frequency scaling and power settings. Changes may affect performance and battery life.</string>
+    <string name="apply_settings">Apply Settings</string>
+    <string name="reset_settings">Reset Settings</string>
     <string name="gpu_turbo_preset_title">Turbo Preset</string>
-    <string name="gpu_turbo_preset_summary">ביצועים מקסימליים: נעילת 940 מגה-הרץ, מושל ביצועים, כל ההגברות פועלות</string>
-    <string name="gpu_turbo_enabled">🚀 מצב טורבו מופעל!</string>
-    <string name="gpu_settings_applied">ההגדרות הוחלו!</string>
-    <string name="gpu_settings_reset">ההגדרות אופסו לברירות המחדל!</string>
-    <string name="unknown">לא ידוע</string>
-    <string name="thermal_level_summary">רמה %s</string>
-    <string name="camera_boost_triggered">שיפור המצלמה/וידאו הופעל!</string>
-    <string name="video_enhancer_title">משפר וידאו</string>
-    <string name="video_enhancer_summary">אופטימיזציית תצוגה וביצועים עבור Redmi Note 13 Pro 5G</string>
-    <string name="video_enhancer_display_category">📺 תכונות תצוגה</string>
-    <string name="smooth_motion_enable_title">תנועה חלקה</string>
-    <string name="smooth_motion_enable_summary">החלקת תנועה של חומרה עבור סרטונים (ברירת מחדל: כבוי) • נדרש אתחול</string>
-    <string name="optimize_refresh_enable_title">מטב את קצב הרענון</string>
-    <string name="optimize_refresh_enable_summary">קצב רענון דינמי מבוסס על תוכן (ברירת מחדל: כבוי) • נדרש אתחול</string>
-    <string name="peak_refresh_rate_title">קצב רענון שיא של 120Hz</string>
-    <string name="peak_refresh_rate_summary">אפשר 120Hz במגע (200ms) • ערך יצרן • נדרש אתחול</string>
-    <string name="video_enhancer_performance_category">⚡ מיטוב ביצועים</string>
-    <string name="force_vulkan_title">Force Vulkan API</string>
-    <string name="force_vulkan_summary">השתמש ב-Vulkan במקום ב-OpenGL ES (Adreno 710) • נדרש אתחול</string>
-    <string name="purgeable_assets_title">נכסים ניתנים לניקוי</string>
-    <string name="purgeable_assets_summary">Allow system to free unused memory • Reboot required</string>
-    <string name="gfx_accel_title">Graphics Acceleration</string>
-    <string name="gfx_accel_summary">Enable hardware graphics acceleration (recommended: ON) • Reboot required</string>
-    <string name="adpf_cpu_hint_title">ADPF CPU Hints</string>
-    <string name="adpf_cpu_hint_summary">Android Dynamic Performance Framework (recommended: ON) • Reboot required</string>
-    <string name="gpu_scheduling_title">GPU Scheduling</string>
-    <string name="gpu_scheduling_summary">Advanced GPU task scheduling for Adreno 710 • Reboot required</string>
-    <string name="video_enhancer_renderer_category">🎨 Hardware Renderer</string>
-    <string name="skiagl_renderer_title">SkiaGL Renderer</string>
-    <string name="skiagl_renderer_summary">OpenGL ES-based renderer (better compatibility) • Reboot required</string>
-    <string name="skiavk_renderer_title">SkiaVK Renderer</string>
-    <string name="skiavk_renderer_summary">Vulkan-based renderer (better performance on Adreno 710) • Reboot required</string>
-    <string name="video_enhancer_advanced_category">🔧 Advanced Features</string>
-    <string name="hwui_force_gpu_title">Force GPU Rendering</string>
-    <string name="hwui_force_gpu_summary">Force GPU acceleration for 2D drawing • Reboot required</string>
-    <string name="hwui_disable_vsync_title">Disable VSync</string>
-    <string name="hwui_disable_vsync_summary">⚠️ WARNING: May cause screen tearing! For testing only! • Reboot required</string>
-    <string name="disable_scaler_title">Disable Display Scaler</string>
-    <string name="disable_scaler_summary">Disable hardware scaler for better quality • Reboot required</string>
-    <string name="media_codec_hw_title">Hardware Media Codecs</string>
-    <string name="media_codec_hw_summary">Enable hardware video encoding/decoding (recommended: ON) • Reboot required</string>
-    <string name="video_enhancer_info_category">ℹ️ Information</string>
-    <string name="video_enhancer_info_title">About Video Enhancer</string>
-    <string name="video_enhancer_info_summary">Learn more about features and system properties</string>
-    <string name="reset_to_defaults_title">Reset to Defaults</string>
-    <string name="reset_to_defaults_summary">Restore all settings to factory defaults</string>
-    <string name="reset_to_defaults_message">This will reset all Video Enhancer settings to their default values. A reboot is required after reset. Continue?</string>
-    <string name="reset_to_defaults_success">✓ Settings reset to defaults</string>
-    <string name="video_enhancer_feature_applied">Setting applied successfully</string>
-    <string name="video_enhancer_feature_failed">Failed to apply setting - check root access</string>
-    <string name="reboot_required_title">🔄 Reboot Required</string>
-    <string name="reboot_required_message">Changes will take effect after device reboot. Reboot now?</string>
-    <string name="reboot_now">Reboot Now</string>
-    <string name="reboot_later">Later</string>
-    <string name="video_enhancer_info_dialog_title">Video Enhancer Information</string>
-    <string name="video_enhancer_info_dialog_message">📱 Video Enhancer - Redmi Note 13 Pro 5G (Garnet)\n
-🎮 GPU: Qualcomm Adreno 710\n
-📺 Display: 120Hz AMOLED (1220×2712)\n
-💻 CPU: Snapdragon 7s Gen 2 (SM7435)\n\n
-
-═══════════════════════════════\n
-📹 DISPLAY FEATURES\n
-═══════════════════════════════\n\n
-
-🎬 Smooth Motion\n
-└─ Hardware motion smoothing technology\n
-└─ Qualcomm proprietary motion engine\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.use_smooth_motion\n
-└─ ⚠️ Increased battery consumption!\n\n
-
-🔄 Optimize Refresh Rate\n
-└─ Dynamic refresh rate based on content\n
-└─ Better battery efficiency\n
-└─ Factory default: DISABLED\n
-└─ Property: vendor.display.enable_optimize_refresh\n\n
-
-⚡ 120Hz Peak Refresh Rate\n
-└─ Enable full 120Hz capability\n
-└─ Touch detection timer: 200ms (factory)\n
-└─ Idle timer: 1100ms\n
-└─ Property: ro.surface_flinger.set_touch_timer_ms=200\n
-└─ Property: debug.sf.set_idle_timer_ms=1100\n\n
-
-═══════════════════════════════\n
-⚡ PERFORMANCE OPTIMIZATIONS\n
-═══════════════════════════════\n\n
-
-🔺 Force Vulkan API\n
-└─ Use Vulkan instead of OpenGL ES\n
-└─ Better performance on Adreno 710 GPU\n
-└─ For modern games and apps\n
-└─ Property: ro.hwui.use_vulkan=true\n
-└─ ⚠️ Not all apps support it!\n\n
-
-💾 Purgeable Assets\n
-└─ Free unused graphics memory\n
-└─ Improved memory management\n
-└─ Property: persist.sys.purgeable_assets=1\n\n
-
-🚀 Graphics Acceleration\n
-└─ Hardware acceleration for UI rendering\n
-└─ Essential for smooth performance\n
-└─ Recommended: ENABLED\n
-└─ Property: ro.config.avoid_gfx_accel=false\n\n
-
-🧠 ADPF CPU Hints\n
-└─ Android Dynamic Performance Framework\n
-└─ Intelligent CPU frequency hints\n
-└─ Workload-based optimization\n
-└─ Property: debug.sf.enable_adpf_cpu_hint=true\n
-└─ Recommended: ENABLED\n\n
-
-📊 GPU Scheduling\n
-└─ Advanced GPU task scheduling\n
-└─ Better frame pacing\n
-└─ Reduced latency\n
-└─ Property: persist.sys.gpu.scheduling=1\n\n
-
-═══════════════════════════════\n
-🎨 HARDWARE RENDERERS\n
-═══════════════════════════════\n\n
-
-🟢 SkiaGL Renderer\n
-└─ OpenGL ES-based Skia renderer\n
-└─ Better compatibility with older apps\n
-└─ Stable performance\n
-└─ Property: debug.hwui.renderer=skiagl\n\n
-
-🔵 SkiaVK Renderer\n
-└─ Vulkan-based Skia renderer\n
-└─ Better performance on Adreno 710\n
-└─ Lower CPU overhead\n
-└─ Modern rendering path\n
-└─ Property: debug.hwui.renderer=skiavk\n
-└─ ⚠️ Only ONE can be active at a time!\n\n
-
-═══════════════════════════════\n
-🔧 ADVANCED FEATURES\n
-═══════════════════════════════\n\n
-
-💪 Force GPU Rendering\n
-└─ All 2D drawing on GPU\n
-└─ Smoother UI possible\n
-└─ Increased power consumption\n
-└─ Property: persist.sys.ui.hw=1\n\n
-
-⚠️ Disable VSync\n
-└─ Remove vertical sync limitation\n
-└─ Higher FPS possible\n
-└─ ❌ MAY CAUSE SCREEN TEARING!\n
-└─ ❌ NOT RECOMMENDED for normal use!\n
-└─ Property: debug.hwui.disable_vsync=true\n
-└─ 🚫 This causes video vibration/judder!\n\n
-
-🖼️ Disable Display Scaler\n
-└─ Bypass hardware scaler\n
-└─ Native resolution rendering\n
-└─ Better image quality\n
-└─ Property: vendor.display.disable_scaler=1\n\n
-
-🎥 Hardware Media Codecs\n
-└─ Adreno 710 hardware video encode/decode\n
-└─ Essential for smooth video playback\n
-└─ Recommended: ENABLED\n
-└─ Property: debug.stagefright.c2-poolmask=0x1f\n
-└─ 0x1f = all HW codecs enabled\n\n
-
-═══════════════════════════════\n
-⚠️ IMPORTANT NOTES\n
-═══════════════════════════════\n\n
-
-🔄 Most changes require device REBOOT\n
-🎨 Only ONE renderer can be active at a time\n
-🔀 Selecting a renderer automatically disables the other\n
-🔑 Root access (Magisk) is REQUIRED for all features\n
-💾 Settings are automatically restored on boot\n
-📱 Settings are device-specific (Redmi Note 13 Pro 5G)\n\n
-
-═══════════════════════════════\n
-💡 RECOMMENDED SETTINGS\n
-═══════════════════════════════\n\n
-
-🎮 For Gaming:\n
-├─ Force Vulkan: ON\n
-├─ GPU Scheduling: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Hardware Codecs: ON\n
-└─ VSync: ON (NEVER disable!)\n\n
-
-🔋 For Battery Life:\n
-├─ Optimize Refresh: ON\n
-├─ 120Hz Peak: OFF\n
-├─ Graphics Acceleration: ON\n
-├─ ADPF CPU: ON\n
-└─ Others: default\n\n
-
-⚡ For Maximum Performance:\n
-├─ All Performance options: ON\n
-├─ SkiaVK Renderer: ON\n
-├─ Force GPU Rendering: ON\n
-├─ GPU Scheduling: ON\n
-└─ VSync: ON (avoid tearing!)\n\n
-
-🎬 For Smooth Video Playback:\n
-├─ Hardware Codecs: ON\n
-├─ Graphics Acceleration: ON\n
-├─ VSync: ON (ALWAYS!)\n
-├─ Smooth Motion: OPTIONAL\n
-└─ Others: default\n\n
-
-═══════════════════════════════\n
-🐛 TROUBLESHOOTING\n
-═══════════════════════════════\n\n
-
-❓ Videos vibrate/stutter/tear?\n
-└─ VSync: ENABLE IT!\n
-└─ Disable VSync: TURN OFF!\n
-└─ Smooth Motion: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ System lag?\n
-└─ Renderers: TURN OFF!\n
-└─ Force GPU Rendering: TURN OFF!\n
-└─ Reset to defaults\n\n
-
-❓ Apps crashing?\n
-└─ Force Vulkan: TURN OFF!\n
-└─ SkiaVK: TURN OFF!\n
-└─ Use default OpenGL\n\n
-
-═══════════════════════════════\n
-📱 DEVICE INFORMATION\n
-═══════════════════════════════\n\n
-
-Device: Xiaomi Redmi Note 13 Pro 5G (Garnet)\n
-Codename: garnet\n
-SoC: Qualcomm Snapdragon 7s Gen 2 (SM7435)\n
-GPU: Adreno 710\n
-Display: 6.67\&amp;quot; AMOLED, 120Hz, 1220×2712\n
-Android: 14 / HyperOS 2.0 / LineageOS 21+\n
-Requirement: Root access (Magisk recommended)\n\n
-
-═══════════════════════════════\n
-🔗 PROPERTY REFERENCE\n
-═══════════════════════════════\n\n
-
-Display:\n
-• vendor.display.use_smooth_motion\n
-• vendor.display.enable_optimize_refresh\n
-• ro.surface_flinger.set_touch_timer_ms\n
-• debug.sf.set_idle_timer_ms\n\n
-
-Performance:\n
-• ro.hwui.use_vulkan\n
-• persist.sys.purgeable_assets\n
-• ro.config.avoid_gfx_accel\n
-• debug.sf.enable_adpf_cpu_hint\n
-• persist.sys.gpu.scheduling\n\n
-
-Renderers:\n
-• debug.hwui.renderer (skiagl/skiavk)\n\n
-
-Advanced:\n
-• persist.sys.ui.hw\n
-• debug.hwui.disable_vsync\n
-• vendor.display.disable_scaler\n
-• debug.stagefright.c2-poolmask\n\n
-
-Frame Pacing:\n
-• debug.sf.disable_client_composition_cache\n
-• debug.sf.enable_gl_backpressure\n\n
-
-═══════════════════════════════\n
-⚠️ DISCLAIMER\n
-═══════════════════════════════\n\n
-
-This is an advanced configuration tool.\nImproper use may cause instability.\nAlways make backups!\nUse at your own risk!</string>
+    <string name="gpu_turbo_preset_summary">Max performance: 940 MHz lock, performance governor, all boosts ON</string>
+    <string name="gpu_turbo_enabled">🚀 Turbo mode enabled!</string>
+    <string name="gpu_settings_applied">Settings applied!</string>
+    <string name="gpu_settings_reset">Settings reset to defaults!</string>
+    <string name="unknown">Unknown</string>
+    <string name="thermal_level_summary">Level %s</string>
+    <string name="camera_boost_triggered">Camera/video boost triggered!</string>
     <string name="keybox_manager_title">Box of Keybox\'s</string>
     <string name="keybox_manager_summary">Generate, search, analyze Android Attestation Keyboxes</string>
     <string name="security_title">Security &amp;amp; Attestation</string>
@@ -721,7 +450,7 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
     <string name="keybox_extracting">📦 Extracting certificates…</string>
     <string name="keybox_generate_success">✅ Templates generated successfully!</string>
     <string name="keybox_search_success">✅ Valid keybox found and downloaded!</string>
-    <string name="keybox_import_success">✅ Keybox imported successfully!</string>
+    <string name="keybox_import_success">✅ תיבת מקשים יובאה בהצלחה!</string>
     <string name="keybox_export_success">✅ נוצרה רשימת קבצים.</string>
     <string name="keybox_verify_success">✅ האימות הושלם.</string>
     <string name="keybox_analyze_success">✅ ניתוח הושלם.</string>
@@ -770,8 +499,8 @@ This is an advanced configuration tool.\nImproper use may cause instability.\nAl
     <string name="clean_system_cache_title">נקה מטמון מערכת</string>
     <string name="clean_system_cache_summary">נקה מטמון של מערכת ושחרר מטמונים</string>
     <string name="clean_thumbnails_title">תמונות ממוזערות נקיות</string>
-    <string name="clean_thumbnails_summary">הסר מטמון תמונות ממוזערות מהמדיה</string>
-    <string name="clean_downloads_title">נקה הורדות ישנות</string>
+    <string name="clean_thumbnails_summary">הסר את מטמון התמונות הממוזערות מהמדיה</string>
+    <string name="clean_downloads_title">Clean Old Downloads</string>
     <string name="clean_downloads_summary">Remove downloads older than 30 days</string>
     <string name="clean_temp_files_title">Clean Temp Files</string>
     <string name="clean_temp_files_summary">Remove temporary system files</string>
@@ -861,6 +590,65 @@ Recommendations:\n
     <string name="thermal_navigation">Navigation</string>
     <string name="thermal_streaming">Streaming</string>
     <string name="thermal_video">Video</string>
-    <string name="thermal_enable_title">Enable Per-App Profiles</string>
-    <string name="thermal_enable_summary">התאם אוטומטית את הביצועים על סמך יישום החזית</string>
+    <string name="thermal_enable_title">אפשר פרופילים לכל אפליקציה</string>
+    <string name="thermal_enable_summary">התאם אוטומטית את הביצועים בהתבסס על יישום חזית</string>
+    <string name="widget_title">חלקי שיאומי</string>
+    <string name="widget_description">בקרות מעבד, תצוגה, תרמיות וביצועים</string>
+    <string name="widget_state_on">ON</string>
+    <string name="widget_state_off">כבוי</string>
+    <string name="widget_cpu_governor_label">מושל מעבד</string>
+    <string name="widget_gov_prev">המושל הקודם</string>
+    <string name="widget_gov_next">המושל הבא</string>
+    <string name="widget_display_hz">קצב רענון</string>
+    <string name="widget_hz_dec">הקטנת קצב הרענון</string>
+    <string name="widget_hz_inc">הגדל את קצב הרענון</string>
+    <string name="widget_cpu_freq_note">מגבלות התדירות המקסימליות של המעבד מיושמות ישירות דרך מנהל הקרנל</string>
+    <string name="widget_hbm">HBM</string>
+    <string name="widget_hbm_on">ON</string>
+    <string name="widget_hbm_off">כבוי</string>
+    <string name="charge_control_title">בקרת טעינה</string>
+    <string name="charge_control_summary">שליטה מתי המכשיר מפסיק להיטען</string>
+    <string name="charge_control_main_switch_title">אפשר בקרת טעינה</string>
+    <string name="stop_charging_title">הפסקת טעינה</string>
+    <string name="stop_charging_summary">הפסק את הטעינה כשהיא מגיעה לאחוז שנקבע</string>
+    <string name="charge_control_footer_summary">בקרת הטעינה עלולה להפריע לטעינה אדפטיבית.</string>
+    <string name="kernel_node_access_error">צומת ליבה לא נגיש</string>
+    <string name="stop_charging_set_to">הטעינה תפסיק ב-%1$d%%.</string>
+    <string name="charge_control_tile_label">בקרת טעינה</string>
+    <string name="charge_control_tile_enabled">מופעל</string>
+    <string name="charge_control_tile_disabled">מושבת</string>
+    <string name="charge_control_tile_subtitle">עצור ב-%1$d%%</string>
+    <string name="upscale_summary">הגדר שינוי קנה מידה עבור יישומים ספציפיים</string>
+    <string name="upscale_title">רזולוציה לכל אפליקציה</string>
+    <string name="upscale_default">ברירת מחדל</string>
+    <string name="upscale_480p">480p</string>
+    <string name="upscale_540p">540p</string>
+    <string name="upscale_720p">720p</string>
+    <string name="system_resolution_title">רזולוציית תצוגה</string>
+    <string name="system_resolution_summary">נוכחי: %1$s</string>
+    <string name="system_resolution_summary_setting">בחר רזולוציית תצוגה כלל המערכת</string>
+    <string name="system_resolution_note">רזולוציה נמוכה יותר מפחיתה את עומס ה-GPU ועשויה להאריך את חיי הסוללה.
+        השינויים נכנסים לתוקף באופן מיידי. אם המסך הופך לבלתי שמיש, הפעל מחדש כדי לשחזר.</string>
+    <string name="resolution_default">ברירת מחדל</string>
+    <string name="resolution_480p">480p</string>
+    <string name="resolution_540p">540p</string>
+    <string name="resolution_720p">720p</string>
+    <string name="resolution_custom">מותאם אישית</string>
+    <string name="custom_resolution_dialog_title">רזולוציה מותאמת אישית</string>
+    <string name="custom_resolution_section_title">הגדרות רזולוציה מותאמות אישית</string>
+    <string name="custom_resolution_width_label">רוחב (px)</string>
+    <string name="custom_resolution_height_label">גובה (px)</string>
+    <string name="custom_resolution_density_label">צפיפות (dpi)</string>
+    <string name="custom_resolution_width_hint">מקורי: %1$d</string>
+    <string name="custom_resolution_height_hint">מקורי: %1$d</string>
+    <string name="custom_resolution_density_hint">מקורי: %1$d dpi</string>
+    <string name="custom_resolution_note">טיפ: צפיפות ≈ (רוחב / רוחב_מקורי) × native_dpi.
+        רוחב מינימלי: 240 פיקסלים · מינימום גובה: 320 פיקסלים · צפיפות מינימלית: 80 dpi.</string>
+    <string name="custom_resolution_invalid">ערכים לא חוקיים - אנא הזן מספרים שלמים חיוביים בגבולות.</string>
+    <string name="custom_resolution_reset">אפס למקור</string>
+    <string name="resolution_qs_label">רזולוציה</string>
+    <string name="charge_bypass_title">טעינה עוקפת</string>
+    <string name="charge_bypass_summary">אפשר טעינה ישירה, עקיפת סוללה</string>
+    <string name="charge_bypass_warning">אזהרה: טעינה עוקפת עלולה לגרום לעלייה בטמפרטורת המכשיר או לנזק לסוללה. השתמש בזהירות.</string>
+    <string name="charge_bypass_unavailable">טעינה עוקפת אינה נתמכת במכשיר זה</string>
 </resources>
