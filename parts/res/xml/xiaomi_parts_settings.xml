@@ -117,6 +117,13 @@
         android:summary="@string/charge_control_summary"
         android:icon="@drawable/ic_charge_control"
         app:iconSpaceReserved="true" />
+        <!-- Bypass Charge -->
+        <Preference
+            android:key="bypass_charge"
+            android:title="@string/charge_bypass_title"
+            android:summary="@string/charge_bypass_summary"
+            android:icon="@drawable/ic_bypass_charge"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
     <!-- Gaming & Logs -->

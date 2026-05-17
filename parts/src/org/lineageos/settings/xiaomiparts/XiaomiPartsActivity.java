@@ -30,6 +30,7 @@ import org.lineageos.settings.ramoptimizer.RamOptimizerActivity;
 import org.lineageos.settings.refreshrate.RefreshActivity;
 import org.lineageos.settings.chargecontrol.ChargeControlActivity;
 import org.lineageos.settings.resolution.ResolutionActivity;
+import org.lineageos.settings.charge.ChargeActivity;
 
 public class XiaomiPartsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
@@ -52,6 +53,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
     private static final String KEY_THERMAL = "thermal_manager";
     private static final String KEY_CHARGE_CONTROL = "charge_control";
     private static final String KEY_RESOLUTION = "resolution_settings";
+    private static final String KEY_BYPASS_CHARGE = "bypass_charge";
       
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +153,7 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
             setupPreference(KEY_THERMAL);
             setupPreference(KEY_CHARGE_CONTROL);
             setupPreference(KEY_RESOLUTION);
+            setupPreference(KEY_BYPASS_CHARGE);
             
             // Logcat viewer - special handling
             setupLogcatViewer();
@@ -263,6 +266,9 @@ public class XiaomiPartsActivity extends PreferenceActivity implements Preferenc
                 return true;
             } else if (KEY_RESOLUTION.equals(key)) {
                 startActivity(new Intent(this, ResolutionActivity.class));
+                return true;
+            } else if (KEY_BYPASS_CHARGE.equals(key)) {
+                startActivity(new Intent(this, ChargeActivity.class));
                 return true;
             }
         } catch (Exception e) {
