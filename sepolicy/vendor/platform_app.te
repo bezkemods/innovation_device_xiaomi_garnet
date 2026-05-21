@@ -12,14 +12,19 @@ allow platform_app vendor_qdsp_device:chr_file { ioctl open read write };
 allow platform_app vendor_camera_data_file:dir { append map r_dir_perms write };
 allow platform_app vendor_camera_data_file:file { getattr open read };
 
-allow platform_app same_process_hal_file:file { execute getattr open read map };
-
 allow platform_app app_data_file:file execute;
+
+# Leica Camera
+get_prop(platform_app, vendor_display_prop)
+get_prop(platform_app, vendor_camera_sensor_prop)
+allow platform_app vendor_hal_camerapostproc_xiaomi_hwservice:hwservice_manager find;
+binder_call(platform_app, vendor_hal_camerapostproc_xiaomi)
+
+# Torch LED sysfs access (brightness control via Leica Camera)
+allow platform_app vendor_sysfs_torch_leds:dir search;
+allow platform_app vendor_sysfs_torch_leds:file rw_file_perms;
 
 # Properties
 get_prop(platform_app, vendor_camera_sensor_prop)
 get_prop(platform_app, vendor_display_prop)
 get_prop(platform_app, vendor_panel_info_prop)
-get_prop(platform_app, vendor_persist_camera_prop)
-get_prop(platform_app, vendor_audio_prop)
-get_prop(platform_app, vendor_camera_p3enable_prop)

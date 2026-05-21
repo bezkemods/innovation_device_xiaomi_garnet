@@ -10,8 +10,11 @@
 
 #define TORCH_BRIGHTNESS "brightness"
 #define TORCH_MAX_BRIGHTNESS "max_brightness"
-#define TOGGLE_SWITCH "/sys/devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-05/c42d000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/leds/led:switch_2/brightness"
-static std::string kTorchLedPath = "/sys/devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-05/c42d000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/leds/led:torch_0";
+
+static std::string kTorchLedPath =
+    "/sys/devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-05/"
+    "c42d000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/"
+    "leds/led:torch_0";
 
 /**
  * Write value to path and close file.
@@ -39,37 +42,34 @@ bool supportsTorchStrengthControlExt() {
 }
 
 bool supportsSetTorchModeExt() {
-    return false;
+    return true;
 }
 
 int32_t getTorchDefaultStrengthLevelExt() {
-    // Our default value is 75. This corresponds to 15%.
-    // As we have changed the maximum value, 59% now corresponds to 75.
+    // Safe default
     return 59;
 }
 
 int32_t getTorchMaxStrengthLevelExt() {
-    // 255 out of 500 is a sane brightness.
-    // Let's cap it to 255 as max, we can go much higher, but I don't want to test this.
+    // Safe cap
     return 255;
 }
 
 int32_t getTorchStrengthLevelExt() {
-    // We write same value in the both LEDs,
-    // so get from one.
     auto node = kTorchLedPath + "/" + TORCH_BRIGHTNESS;
     return get(node, 0);
 }
 
 void setTorchStrengthLevelExt(int32_t torchStrength, bool enabled) {
-    set(TOGGLE_SWITCH, 0);
     auto node = kTorchLedPath + "/" + TORCH_BRIGHTNESS;
+
+    if (!enabled)
+        torchStrength = 0;
+
     set(node, torchStrength);
-    if (enabled)
-        set(TOGGLE_SWITCH, 255);
 }
 
 void setTorchModeExt(bool enabled) {
     int32_t strength = getTorchDefaultStrengthLevelExt();
-    setTorchStrengthLevelExt(enabled ? strength : 0, enabled);
+    setTorchStrengthLevelExt(strength, enabled);
 }
