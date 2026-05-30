@@ -41,6 +41,13 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 blob_fixups: blob_fixups_user_type = {
+    'system_ext/etc/init/qspa_system.rc': blob_fixup()
+        .regex_replace(r'\$\{ro\.boot\.vendor\.qspa:-default\}', 'default'),
+    'system_ext/lib64/vendor.qti.hardware.qccsyshal@1.2-halimpl.so': blob_fixup()
+        .replace_needed(
+            'libprotobuf-cpp-full.so',
+            'libprotobuf-cpp-full-21.7.so'
+        ),
     (
         'vendor/bin/hw/android.hardware.gnss-aidl-service-qti',
         'vendor/lib64/hw/android.hardware.gnss-aidl-impl-qti.so',
@@ -55,8 +62,29 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed(
             'libgrpc++_unsecure.so',
             'libgrpc++_unsecure_prebuilt.so'
-    'system_ext/framework/mirilhook.jar': blob_fixup()
-        .apktool_patch('blob-patches/mirilhook.patch', '-r'),
+        ),
+    'vendor/bin/qguard': blob_fixup()
+        .add_needed('libbase_shim.so'),
+    (
+        'vendor/bin/hw/vendor.qti.camera.provider@2.7-service_64',
+        'vendor/lib64/camx.device@3.4-ext-impl.so',
+        'vendor/lib64/camx.device@3.5-ext-impl.so',
+        'vendor/lib64/camx.device@3.6-ext-impl.so',
+        'vendor/lib64/camx.provider@2.4-external.so',
+        'vendor/lib64/camx.provider@2.4-impl.so',
+        'vendor/lib64/camx.provider@2.4-legacy.so',
+        'vendor/lib64/camx.provider@2.5-external.so',
+        'vendor/lib64/camx.provider@2.5-legacy.so',
+        'vendor/lib64/camx.provider@2.6-legacy.so',
+        'vendor/lib64/camx.provider@2.7-legacy.so',
+        'vendor/lib64/com.qti.feature2.anchorsync.so',
+        'vendor/lib64/libaudiocloudctrl.so',
+        'vendor/lib64/libdpps.so',
+        'vendor/lib64/libsnapdragoncolor-manager.so'
+    ): blob_fixup()
+        .replace_needed(
+            'libtinyxml2.so',
+            'libtinyxml2-v34.so'
         ),
     (
         'vendor/etc/camera/pureView_parameter.xml',
@@ -65,7 +93,18 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace(r'=(\d+)>', r'="\1">'),
     'vendor/etc/media_codecs_parrot_v0.xml': blob_fixup()
         .regex_replace('.+media_codecs_(google_audio|google_c2|google_telephony|vendor_audio).+\n', '')
-        .regex_replace(r'(?s)(<MediaCodecs.*?>)',r'\1\n    <Include href="media_codecs_dolby_audio.xml" />'),  
+        .regex_replace(r'<MediaCodec name="c2\.dolby[\s\S]*?</MediaCodec>', ''),
+    (
+        'vendor/lib64/libagm.so',
+        'vendor/lib64/libmcs.so',
+        'vendor/lib64/libkaraokepal.so',
+        'vendor/lib64/libar-pal.so',
+        'vendor/lib64/libaudioroute_ext.so'
+    ): blob_fixup()
+        .replace_needed(
+            'libaudioroute.so',
+            'libaudioroute-v34.so'
+        ),
     (
         'vendor/lib64/hw/camera.qcom.so',
         'vendor/lib64/hw/com.qti.chi.override.so',
@@ -73,17 +112,10 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/lib64/libmialgoengine.so'
     ): blob_fixup()
         .add_needed('libprocessgroup_shim.so'),
-    (
-        'vendor/lib64/libagm.so',
-        'vendor/lib64/libar-pal.so',
-        'vendor/lib64/libaudioroute_ext.so',
-        'vendor/lib64/libkaraokepal.so',
-        'vendor/lib64/libmcs.so'
-    ): blob_fixup()
-        .replace_needed('libaudioroute.so', 'libaudioroute-v34.so'),
     'vendor/lib64/libQnnDspV65CalculatorStub.so': blob_fixup()
         .add_needed('liblog.so'),
     (
+        'odm/lib64/libMiPhotoFilter.so',
         'vendor/lib64/libalhLDC.so',
         'vendor/lib64/libalLDC.so',
         'vendor/lib64/libTrueSight.so',
@@ -91,6 +123,7 @@ blob_fixups: blob_fixups_user_type = {
     ): blob_fixup()
         .clear_symbol_version('AHardwareBuffer_allocate')
         .clear_symbol_version('AHardwareBuffer_describe')
+        .clear_symbol_version('AHardwareBuffer_isSupported')
         .clear_symbol_version('AHardwareBuffer_lock')
         .clear_symbol_version('AHardwareBuffer_lockPlanes')
         .clear_symbol_version('AHardwareBuffer_release')
@@ -119,17 +152,6 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('android.hardware.security.rkp-V1-ndk.so'),
     'vendor/lib64/vendor.libdpmframework.so': blob_fixup()
         .add_needed('libhidlbase_shim.so'),
-    (
-        'vendor/lib/c2.dolby.avc.dec.so',
-        'vendor/lib/c2.dolby.avc.sec.dec.so',
-        'vendor/lib/c2.dolby.hevc.dec.so',
-        'vendor/lib/c2.dolby.hevc.sec.dec.so'
-    ): blob_fixup()
-        .add_needed('libstagefright_foundation-v33.so'),
-    'vendor/bin/hw/dolbycodec2': blob_fixup()
-        .add_needed('libstagefright_foundation-v33.so'),
-    'vendor/lib/c2.dolby.client.so': blob_fixup()
-        .add_needed('libstagefright_foundation-v33.so'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(

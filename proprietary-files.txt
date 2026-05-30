@@ -1,4 +1,4 @@
-# All unpinned blobs below are extracted from garnet OS2.0.206.0.VNRMIXM
+# All unpinned blobs below are extracted from garnet OS3.0.5.0.WNRMIXM
 
 # ACDB
 vendor/etc/acdbdata/Mise/Mise_acdb_cal.acdb
@@ -35,7 +35,7 @@ vendor/lib/rfsa/adsp/libCalculator_skel.so
 vendor/lib/rfsa/adsp/libMIAIHDR_skel.so
 vendor/lib/rfsa/adsp/libQnnHtpV69.so
 vendor/lib/rfsa/adsp/libQnnHtpV69Skel.so
-vendor/lib/rfsa/adsp/libQnnSaver.so;MODULE_SUFFIX=_adsp
+vendor/lib/rfsa/adsp/libQnnSaver.so
 vendor/lib/rfsa/adsp/libSnpeDspV65Skel.so
 vendor/lib/rfsa/adsp/libSnpeDspV66Skel.so
 vendor/lib/rfsa/adsp/libSnpeHtpV68Skel.so
@@ -78,7 +78,7 @@ vendor/firmware/fs19xx.fsm
 
 # Audio graph manager
 vendor/bin/hw/vendor.qti.hardware.AGMIPC@1.0-service
-vendor/etc/init/vendor.qti.hardware.AGMIPC@1.0-service.rc
+vendor/etc/init/vendor.qti.hardware.AGMIPC@1.0-service.rc:vendor/etc/init/vendor.qti.hardware.AGMIPC@1.0-service_garnet.rc
 vendor/lib64/libagm.so
 vendor/lib64/libagmmixer.so
 vendor/lib64/libmisight.so
@@ -90,7 +90,6 @@ vendor/etc/audio_diag.cfg
 vendor/etc/models/acd/event.eai
 vendor/etc/models/acd/music.eai
 vendor/etc/models/acd/speech.eai
-vendor/lib64/android.hardware.audio.common@7.0-util.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/hw/audio.primary.parrot.so
 vendor/lib64/hw/gyro_fusion_interface.so
 vendor/lib64/lib_misound_asc.so
@@ -232,32 +231,13 @@ vendor/lib64/vendor.qti.latency@2.1.so
 
 # Camera
 odm/etc/camera/camerabooster.json
+odm/etc/camera/cameradfx_config.json
 odm/etc/camera/camerascene.json
+odm/lib64/com.xiaomi.camdfx.so
+odm/lib64/libMiPhotoFilter.so
 odm/lib64/librfs_warp.so
 vendor/bin/hw/vendor.qti.camera.provider@2.7-service_64
 vendor/bin/hw/vendor.xiaomi.hardware.quickcamera@1.0-service
-vendor/etc/camera/102_SummerDay.png|854075e4570bbf561063a096dae0fe9d2151809d
-vendor/etc/camera/103_Fantasy.png|0eb52c60f767c4a9b26b22f4ee35ec646545a123
-vendor/etc/camera/104_Meet.png|f72dbf0c125237acb41a115dab40233e275fcf92
-vendor/etc/camera/105_WindSing.png|8d07722a63e5619fbd3b293078ae67dfe271a72c
-vendor/etc/camera/106_Lost.png|61a35b9eb3c6286357ba213cfce0b3e1fc112fd6
-vendor/etc/camera/107_Central.png|64c1e291c873ff7715ee9017c3a0d6cae48a9b6a
-vendor/etc/camera/108_NorthernEurope.png|ae5c9c7ad2e37d4e924bac229af1577be8b2595b
-vendor/etc/camera/109_Rome.png|6a46690036b8e6925b51b1b4c2a687870e486b87
-vendor/etc/camera/110_BlackGold.png|41f2757306323470f32c3a07356362e6903b7b02
-vendor/etc/camera/111_GreenOrange.png|7ccb8c48068296275ab440129750cddc47e26f4d
-vendor/etc/camera/112_CyberPunk.png|a8245aafb5cf4a2bf2aa1ed58ad35dc3140607bb
-vendor/etc/camera/113_BlackIce.png|00bb1b9b499aca960475b79414b5a076324c8b46
-vendor/etc/camera/121_Bleach.png|7cae58047cf3bd9854510cd54cd11c6c0e442f75
-vendor/etc/camera/122_Thriller.png|d73f8b11a3f45a0a646eb5d71b6a1d5bf72e90d3
-vendor/etc/camera/123_TealOrange.png|c7acfd64e602235ef26c0051cc125b15a2d6437b
-vendor/etc/camera/124_JapaneseStyle.png|7dfec84eb0a7728e2503a7d260634e0f26011364
-vendor/etc/camera/125_Latin.png|eac04636de0aeac2480a3be9d1f0e04f58ddfd0b
-vendor/etc/camera/126_Fantasy2.png|8b94fd32b66b3e88129618612f2603b9bdc0b3c9
-vendor/etc/camera/127_Creamy.png|71d1a5bc75edad2eb29ef58b1e41a18c55e5f609
-vendor/etc/camera/128_Sepia.png|ac5cf27142b07425c0775e8939ae2d99524ed622
-vendor/etc/camera/129_Vivid.png|5da99b1616af1d61a62c9e296a5b2e51951e1769
-vendor/etc/camera/130_Natural.png|e6b9363ca508adc198681356ad343c1e29bc695a
 vendor/etc/camera/CFR_para_MACRO_V01.bin
 vendor/etc/camera/CFR_para_MACRO_V01_SN.bin
 vendor/etc/camera/CFR_para_UW_V01.bin
@@ -646,7 +626,6 @@ vendor/lib64/camera/components/com.mi.node.superiq.so
 vendor/lib64/camera/components/com.mi.node.test_rearvideo.so
 vendor/lib64/camera/components/com.mi.node.tsskinbeautifier.so
 vendor/lib64/camera/components/com.mi.node.videobokeh.so
-vendor/lib64/camera/components/com.mi.node.videofilter.so|503b5bcdc2c0be330c83b5823f54b2a0489f927e
 vendor/lib64/camera/components/com.qti.camx.chiiqutils.so
 vendor/lib64/camera/components/com.qti.eisv2.so
 vendor/lib64/camera/components/com.qti.eisv3.so
@@ -809,7 +788,6 @@ vendor/lib64/hw/vendor.xiaomi.hardware.quickcamera@1.0-impl.so
 vendor/lib64/libAF.so
 vendor/lib64/libHISCppAlgos.so
 vendor/lib64/libMiMotion.so
-vendor/lib64/libMiVideoFilter.so|ab5942405e6129c10c42b5c599db610791daa5c2|ab5942405e6129c10c42b5c599db610791daa5c2
 vendor/lib64/libPlatformValidatorShared.so
 vendor/lib64/libSNPE.so
 vendor/lib64/libSnpeDspV65Stub.so;FIX_SONAME
@@ -1043,6 +1021,34 @@ vendor/lib64/camera/com.qti.tuned.garnet_sunny_s5khp3_wide_global_i.bin
 vendor/lib64/camera/com.qti.tuned.garnet_sunny_s5khp3_wide_i.bin
 vendor/lib64/hw/com.qti.chi.override.so
 
+# Camera Video Filter LUts
+vendor/etc/camera/102_SummerDay.png|854075e4570bbf561063a096dae0fe9d2151809d
+vendor/etc/camera/103_Fantasy.png|0eb52c60f767c4a9b26b22f4ee35ec646545a123
+vendor/etc/camera/104_Meet.png|f72dbf0c125237acb41a115dab40233e275fcf92
+vendor/etc/camera/105_WindSing.png|8d07722a63e5619fbd3b293078ae67dfe271a72c
+vendor/etc/camera/106_Lost.png|61a35b9eb3c6286357ba213cfce0b3e1fc112fd6
+vendor/etc/camera/107_Central.png|64c1e291c873ff7715ee9017c3a0d6cae48a9b6a
+vendor/etc/camera/108_NorthernEurope.png|ae5c9c7ad2e37d4e924bac229af1577be8b2595b
+vendor/etc/camera/109_Rome.png|6a46690036b8e6925b51b1b4c2a687870e486b87
+vendor/etc/camera/110_BlackGold.png|41f2757306323470f32c3a07356362e6903b7b02
+vendor/etc/camera/111_GreenOrange.png|7ccb8c48068296275ab440129750cddc47e26f4d
+vendor/etc/camera/112_CyberPunk.png|a8245aafb5cf4a2bf2aa1ed58ad35dc3140607bb
+vendor/etc/camera/113_BlackIce.png|00bb1b9b499aca960475b79414b5a076324c8b46
+vendor/etc/camera/121_Bleach.png|7cae58047cf3bd9854510cd54cd11c6c0e442f75
+vendor/etc/camera/122_Thriller.png|d73f8b11a3f45a0a646eb5d71b6a1d5bf72e90d3
+vendor/etc/camera/123_TealOrange.png|c7acfd64e602235ef26c0051cc125b15a2d6437b
+vendor/etc/camera/124_JapaneseStyle.png|7dfec84eb0a7728e2503a7d260634e0f26011364
+vendor/etc/camera/125_Latin.png|eac04636de0aeac2480a3be9d1f0e04f58ddfd0b
+vendor/etc/camera/126_Fantasy2.png|8b94fd32b66b3e88129618612f2603b9bdc0b3c9
+vendor/etc/camera/127_Creamy.png|71d1a5bc75edad2eb29ef58b1e41a18c55e5f609
+vendor/etc/camera/128_Sepia.png|ac5cf27142b07425c0775e8939ae2d99524ed622
+vendor/etc/camera/129_Vivid.png|5da99b1616af1d61a62c9e296a5b2e51951e1769
+vendor/etc/camera/130_Natural.png|e6b9363ca508adc198681356ad343c1e29bc695a
+
+# Camera Video Filter Libraries
+vendor/lib64/libMiVideoFilter.so|7a7c64e8bbb4268414bc491ec3668132d60bfdbc|ab5942405e6129c10c42b5c599db610791daa5c2
+vendor/lib64/camera/components/com.mi.node.videofilter.so|503b5bcdc2c0be330c83b5823f54b2a0489f927e
+
 # Computer vision
 vendor/lib64/libcv_common.so
 vendor/lib64/libcvp2_1.so
@@ -1187,12 +1193,12 @@ vendor/bin/qdcmss|727147cbaf4d74f0eb38c534fda9beebdfec31f6
 vendor/etc/init/qdcmss.rc|53d78d686678c4f923a9ec4ace7d4d3575b13788
 vendor/lib64/libbacklight-calib.so|a5990fa87932196f9e2c38b2ec85786daa6b3a9c
 vendor/lib64/libdigital-dimming.so|66506a386dc80da0994c9d4aeac34edfc1830c5c
-vendor/lib64/libdpps.so|d8e9cc561a3ab706697880975413db23bb41640c
+vendor/lib64/libdpps.so|d8e9cc561a3ab706697880975413db23bb41640c|5d3e5f10ce5adff610e67acd837b19a551412876
 vendor/lib64/libmemutils.so|e122c3ff95b10a6263e698261abafe62cee98010
 vendor/lib64/libqdcm-algo.so|e873dc21878d92d20f6937453c9d3265a0d3a93d
 vendor/lib64/libqdcm-json-mode-parser.so|1c8f1a841a877efbed0a0b3db3d551ff1283f14f
 vendor/lib64/libqdcm-mode-parser.so|341178dfb18e03b6fabff27a080fb96f15188942
-vendor/lib64/libsnapdragoncolor-manager.so|72291478bd56bada0fc3df3617e765b28ef54f66
+vendor/lib64/libsnapdragoncolor-manager.so|72291478bd56bada0fc3df3617e765b28ef54f66|ba9a38c02dae4cc2211895714969c589faaff1f4
 vendor/lib64/libsnapdragoncolor-qdcm.so|9f0bc72290618324e95cd9f4eca6987a6733bd06
 
 # Display SDM - from ingot-user 14 UKQ1.240227.165 release-keys
@@ -1246,6 +1252,10 @@ vendor/etc/init/vendor.qti.esepowermanager@1.1-service.rc
 vendor/lib64/hw/vendor.qti.esepowermanager@1.1-impl.so
 vendor/lib64/vendor.qti.esepowermanager@1.0.so
 vendor/lib64/vendor.qti.esepowermanager@1.1.so
+
+# Euicc - OnePlus 11 (CPH2449_14.0.0.401(EX01)).
+my_bigball/etc/permissions/EuiccGoogle_grant_permissions_list.xml:product/etc/permissions/privapp-permissions-euiccgoogle.xml|58ddaa5bbff62eefd2d5c39900b7b29fd177def1
+my_bigball/priv-app/EuiccGoogle/EuiccGoogle.apk:product/priv-app/EuiccGoogle/EuiccGoogle.apk;PRESIGNED|4fb8d8ab0e1dbda1582361f48395f819367edb0a
 
 # Fingerprint
 odm/lib64/hw/fingerprint.fpc_fod.so:odm/lib64/hw/fingerprint.fpc_fod.default.so;FIX_SONAME
@@ -1482,19 +1492,15 @@ vendor/etc/init/vendor.qti.media.c2@1.0-service.rc
 vendor/etc/init/vendor.qti.media.c2audio@1.0-service.rc
 vendor/etc/seccomp_policy/codec2.vendor.base-arm64.policy
 vendor/etc/seccomp_policy/codec2.vendor.ext-arm64.policy
-vendor/etc/vintf/manifest/c2_manifest_vendor.xml
 vendor/etc/vintf/manifest/c2_manifest_vendor_audio.xml
-vendor/lib64/libAlacSwDec.so
-vendor/lib64/libApeSwDec.so
 vendor/lib64/libEvrcSwCodec.so
-vendor/lib64/libFlacSwDec.so
 vendor/lib64/libQcelp13SwCodec.so
 vendor/lib64/libdsd2pcm.so
 vendor/lib64/libqc2audio_base.so
 vendor/lib64/libqc2audio_basecodec.so
 vendor/lib64/libqc2audio_core.so
 vendor/lib64/libqc2audio_hooks.so
-vendor/lib64/libqc2audio_hwaudiocodec.so;DISABLE_CHECKELF
+vendor/lib64/libqc2audio_hwaudiocodec.so
 vendor/lib64/libqc2audio_platform.so
 vendor/lib64/libqc2audio_swaudiocodec.so
 vendor/lib64/libqc2audio_utils.so
@@ -1514,7 +1520,6 @@ vendor/lib64/libvideotxr.so
 vendor/lib64/qti.video.utils.videobufferlayout.so
 
 # Media Config
-vendor/etc/media_codecs_c2_audio.xml
 vendor/etc/media_codecs_parrot_v0.xml
 vendor/etc/media_codecs_performance_parrot_v0.xml
 vendor/etc/media_parrot_v0/video_system_specs.json
@@ -1672,6 +1677,10 @@ vendor/lib64/libqmi_legacy.so
 vendor/lib64/libqmiextservices.so
 vendor/lib64/libqmiservices.so
 
+# QSPA
+system_ext/etc/init/qspa_system.rc
+system_ext/etc/qspa/qspa_default.rc
+
 # QSPM
 vendor/bin/vendor.qti.qspmhal@1.0-service
 vendor/etc/init/vendor.qti.qspmhal@1.0-service.rc
@@ -1704,13 +1713,11 @@ product/framework/uimgbalibrary.jar
 product/framework/uimgbamanagerlibrary.jar
 product/framework/uimservicelibrary.jar
 system_ext/app/AtFwd2/AtFwd2.apk
-system_ext/app/ImsRcsService/ImsRcsService.apk
 system_ext/app/QtiTelephonyService/QtiTelephonyService.apk
 system_ext/etc/permissions/qcrilhook.xml
 system_ext/etc/permissions/qti_permissions.xml
 system_ext/etc/permissions/telephony_system-ext_privapp-permissions-qti.xml
 system_ext/etc/permissions/vendor.qti.ims.rcsservice.xml
-system_ext/framework/mirilhook.jar
 system_ext/framework/qcrilhook.jar
 system_ext/framework/vendor.qti.ims.connection-V1.0-java.jar
 system_ext/framework/vendor.qti.ims.connectionaidlservice-V1-java.jar
@@ -1726,6 +1733,7 @@ system_ext/framework/vendor.qti.ims.rcsuce-V1.0-java.jar
 system_ext/framework/vendor.qti.ims.rcsuce-V1.1-java.jar
 system_ext/framework/vendor.qti.ims.rcsuce-V1.2-java.jar
 system_ext/framework/vendor.qti.ims.rcsuceaidlservice-V1-java.jar
+system_ext/framework/xiaomi-modem-common.jar
 system_ext/lib64/lib-imsvideocodec.so
 system_ext/lib64/lib-imsvt.so
 system_ext/lib64/lib-imsvtextutils.so
@@ -1734,6 +1742,7 @@ system_ext/lib64/libdiag_system.so
 system_ext/lib64/libimscamera_jni.so;SYMLINK=system_ext/priv-app/ims/lib/arm64/libimscamera_jni.so
 system_ext/lib64/libimsmedia_jni.so;SYMLINK=system_ext/priv-app/ims/lib/arm64/libimsmedia_jni.so
 system_ext/lib64/vendor.qti.ImsRtpService-V1-ndk.so
+system_ext/lib64/vendor.qti.ImsRtpService-V2-ndk.so
 system_ext/lib64/vendor.qti.imsrtpservice@3.0.so
 system_ext/lib64/vendor.qti.imsrtpservice@3.1.so
 system_ext/priv-app/QtiTelephony/QtiTelephony.apk;REQUIRED=QtiTelephonyCompat
@@ -2160,12 +2169,12 @@ vendor/firmware/vpu20_1v.mbn
 vendor/firmware/vpu20_1v.mdt
 
 # Vibrator firmware
-vendor/firmware/0_click_P_RTP.bin
-vendor/firmware/1_doubelClick_P_RTP.bin
-vendor/firmware/2_tick_P_RTP.bin
-vendor/firmware/3_thud_P_RTP.bin
-vendor/firmware/4_pop_P_RTP.bin
-vendor/firmware/5_heavyClick_P_RTP.bin
+vendor/firmware/0_click_P_RTP.bin:vendor/etc/vibrator/effect_0.bin
+vendor/firmware/1_doubelClick_P_RTP.bin:vendor/etc/vibrator/effect_1.bin
+vendor/firmware/2_tick_P_RTP.bin:vendor/etc/vibrator/effect_2.bin
+vendor/firmware/3_thud_P_RTP.bin:vendor/etc/vibrator/effect_3.bin
+vendor/firmware/4_pop_P_RTP.bin:vendor/etc/vibrator/effect_4.bin
+vendor/firmware/5_heavyClick_P_RTP.bin:vendor/etc/vibrator/effect_5.bin
 
 # WiFi
 vendor/bin/cnss-daemon
