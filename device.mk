@@ -120,7 +120,7 @@ PRODUCT_PACKAGES += \
     android.hardware.boot-service.qti.recovery
 
 # Call the MiuiCamera setup
-$(call inherit-product-if-exists, device/xiaomi/miuicamera-garnet/device.mk)
+$(call inherit-product-if-exists, device/xiaomi/garnet-miuicamera/device.mk)
 
 TARGET_BUILD_DEVICE_AS_WEBCAM := true
 
