@@ -18,6 +18,12 @@ hal_client_domain(hal_camera_default, hal_power)
 allow hal_camera_default vendor_sysfs_battery_supply:dir search;
 allow hal_camera_default vendor_sysfs_battery_supply:file r_file_perms;
 
-# Torch LED sysfs access (brightness control)
-allow hal_camera_default vendor_sysfs_torch_leds:dir search;
+# Torch LED sysfs access (brightness control via CameraProviderExtension)
+# The extension opens the full /sys/devices/... path, so only the
+# vendor_sysfs_torch_leds label is involved (dir + led:* subdirs + files).
+allow hal_camera_default vendor_sysfs_torch_leds:dir r_dir_perms;
 allow hal_camera_default vendor_sysfs_torch_leds:file rw_file_perms;
+
+# Thermal flash_state notify on torch on/off
+# (avc: denied { write } ... name="flash_state" tcontext=sysfs_thermal)
+allow hal_camera_default sysfs_thermal:file w_file_perms;
