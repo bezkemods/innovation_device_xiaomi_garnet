@@ -32,6 +32,6 @@ public class GpuManagerActivity extends CollapsingToolbarBaseActivity {
             onBackPressed();
             return true;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 }

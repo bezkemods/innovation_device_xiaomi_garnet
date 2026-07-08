@@ -42,6 +42,16 @@ public class KernelManagerFragment extends PreferenceFragment
     // Battery-optimized default update interval
     private static final int DEFAULT_UPDATE_INTERVAL_MS = 2000; // Increased from 1000 to 2000 ms
 
+    /** Safely parses the persisted update interval; falls back to the default. */
+    private static int parseUpdateInterval(String value) {
+        try {
+            int parsed = Integer.parseInt(value);
+            return parsed >= 1000 ? parsed : DEFAULT_UPDATE_INTERVAL_MS;
+        } catch (NumberFormatException e) {
+            return DEFAULT_UPDATE_INTERVAL_MS;
+        }
+    }
+
     private KernelManagerUtils mKernelUtils;
     private ListPreference mGovernorPreference;
     private ListPreference mEfficiencyMinFreq, mEfficiencyMaxFreq;
@@ -71,7 +81,12 @@ public class KernelManagerFragment extends PreferenceFragment
 
         // Battery optimization: Default to monitoring disabled
         mMonitoringEnabled = mSharedPrefs.getBoolean(KEY_ENABLE_MONITORING, false);
-        mUpdateIntervalMs = mSharedPrefs.getInt(KEY_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL_MS);
+        // FIX: KEY_UPDATE_INTERVAL is bound to a ListPreference, which
+        // persists a *String*. The previous getInt() threw
+        // ClassCastException (crash) once the user changed the interval.
+        mUpdateIntervalMs = parseUpdateInterval(
+                mSharedPrefs.getString(KEY_UPDATE_INTERVAL,
+                        String.valueOf(DEFAULT_UPDATE_INTERVAL_MS)));
 
         initializePreferences();
         initializeCpuMonitoring();
@@ -151,8 +166,11 @@ public class KernelManagerFragment extends PreferenceFragment
         mUpdateIntervalPreference.setEntryValues(new String[]{"1000", "2000", "5000"});
         mUpdateIntervalPreference.setValue(String.valueOf(mUpdateIntervalMs));
         mUpdateIntervalPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-            mUpdateIntervalMs = Integer.parseInt((String) newValue);
-            mSharedPrefs.edit().putInt(KEY_UPDATE_INTERVAL, mUpdateIntervalMs).apply();
+            // FIX: do not putInt() here — returning true makes the
+            // ListPreference persist the String itself on the same key.
+            // Writing an int to the same key caused a String/int type
+            // collision and a ClassCastException on the next launch.
+            mUpdateIntervalMs = parseUpdateInterval((String) newValue);
             
             if (mMonitoringEnabled) {
                 stopCpuMonitoring();

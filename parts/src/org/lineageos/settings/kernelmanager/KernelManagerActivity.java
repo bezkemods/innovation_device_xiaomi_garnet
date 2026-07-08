@@ -32,6 +32,6 @@ public class KernelManagerActivity extends CollapsingToolbarBaseActivity {
             onBackPressed();
             return true;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -153,12 +153,22 @@ public class PerformanceUtils {
 
     /**
      * Apply a performance profile. Always returns true (best-effort sysfs writes).
-     * Now also sets the CPU governor.
      */
     public boolean setPerformanceMode(int mode) {
-        Log.d(TAG, "Setting performance mode: " + getModeLabel(mode));
+        return setPerformanceMode(mode, true);
+    }
 
-        if (mVibrator != null && mVibrator.hasVibrator()) {
+    /**
+     * Apply a performance profile.
+     *
+     * @param userInitiated false when called from boot restore — skips haptic
+     *                      feedback so the phone does not buzz during boot.
+     */
+    public boolean setPerformanceMode(int mode, boolean userInitiated) {
+        Log.d(TAG, "Setting performance mode: " + getModeLabel(mode)
+                + (userInitiated ? "" : " (boot restore)"));
+
+        if (userInitiated && mVibrator != null && mVibrator.hasVibrator()) {
             mVibrator.vibrate(50);
         }
 
@@ -259,10 +269,14 @@ public class PerformanceUtils {
     // =========================================================================
 
     private void applyPerformance() {
-        // CPU
+        // CPU — freq floors via msm_performance; governor stays walt so
+        // PowerHAL powerhint.json hints (INTERACTION, LAUNCH, CAMERA_*,
+        // EXPENSIVE_RENDERING) keep working. The "performance" governor
+        // would bypass WALT and break hint processing (see
+        // KernelManagerUtils.applyPerformanceProfile()).
         writeSafe(CPU_MIN_FREQ_PATH, CPU_MIN_PERFORMANCE);
         writeSafe(CPU_MAX_FREQ_PATH, CPU_MAX_UNLOCKED);
-        setGovernor("performance");
+        setGovernor("walt");
 
         // GPU
         writeSafe(GPU_MIN_FREQ_PATH,   GPU_MIN_PERF);
@@ -301,10 +315,12 @@ public class PerformanceUtils {
     }
 
     private void applyBatterySaver() {
-        // CPU: lower max frequencies + powersave governor
+        // CPU: lower max frequencies; governor stays walt — the "powersave"
+        // governor would pin all cores to min freq (making the caps below
+        // meaningless), cause visible jank, and break PowerHAL hints.
         writeSafe(CPU_MIN_FREQ_PATH, CPU_MIN_DEFAULT);
         writeSafe(CPU_MAX_FREQ_PATH, CPU_MAX_BATTERY);
-        setGovernor("powersave");
+        setGovernor("walt");
 
         // GPU: lower max frequency, faster idle, no force rail/clk
         writeSafe(GPU_MIN_FREQ_PATH,   GPU_MIN_DEFAULT);

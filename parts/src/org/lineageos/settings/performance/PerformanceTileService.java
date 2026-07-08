@@ -16,8 +16,6 @@
 
 package org.lineageos.settings.performance;
 
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -67,15 +65,12 @@ public class PerformanceTileService extends TileService {
         Tile tile = getQsTile();
         if (tile != null && mPerformanceUtils != null) {
             int currentMode = mPerformanceUtils.getCurrentMode();
-            
-            // Set PendingIntent for long press to open XiaomiParts
-            Intent intent = new Intent();
-            intent.setClassName("org.lineageos.settings", "org.lineageos.settings.xiaomiparts.XiaomiPartsActivity");
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 
-                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-            tile.setActivityLaunchForClick(pendingIntent);
-            
+
+            // FIX: do NOT call tile.setActivityLaunchForClick() here.
+            // It replaces the tap action with launching the activity, so
+            // onClick() (mode cycling) never ran. Long-press opening the app
+            // is handled by the QS_TILE_PREFERENCES intent in the manifest.
+
             switch (currentMode) {
                 case PerformanceUtils.MODE_BATTERY_SAVER:
                     tile.setState(Tile.STATE_INACTIVE);

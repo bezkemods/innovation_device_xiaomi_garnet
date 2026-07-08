@@ -195,18 +195,24 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 Log.d(TAG, "No performance profile saved, skipping restore");
                 return;
             }
-            int savedMode = prefs.getInt(KEY_PERFORMANCE_PROFILE, PerformanceUtils.MODE_BALANCED);
+            // FIX: KEY_PERFORMANCE_PROFILE ("performance_profile") stores a
+            // *String* (written by the ListPreference and by PerformanceUtils).
+            // prefs.getInt() on it threw ClassCastException on every boot, so
+            // the profile was never actually restored. PerformanceUtils reads
+            // its own int key ("performance_profile_int") — use that.
             
             // Optimized delay for SM7435
             Thread.sleep(500);
             
             PerformanceUtils performanceUtils = new PerformanceUtils(context);
-            boolean success = performanceUtils.setPerformanceMode(savedMode);
+            int savedMode = performanceUtils.getCurrentMode();
+            // userInitiated=false: no vibration/toast side effects at boot
+            boolean success = performanceUtils.setPerformanceMode(savedMode, false);
             if (success) {
                 Log.d(TAG, "Performance profile restored to: " + performanceUtils.getModeLabel(savedMode));
             } else {
                 // Fallback to balanced
-                performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED);
+                performanceUtils.setPerformanceMode(PerformanceUtils.MODE_BALANCED, false);
                 Log.d(TAG, "Performance profile fallback to balanced mode");
             }
         } catch (InterruptedException e) {
@@ -260,13 +266,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private void restoreKernelSettings(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (prefs == null) {
+                Log.w(TAG, "SharedPreferences is null for kernel settings");
+                return;
+            }
             boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
             if (hasPerformanceProfile) {
                 Log.d(TAG, "Performance profile active, skipping individual kernel settings restore");
-                return;
-            }
-            if (prefs == null) {
-                Log.w(TAG, "SharedPreferences is null for kernel settings");
                 return;
             }
             KernelManagerUtils kernelUtils = new KernelManagerUtils();
@@ -321,13 +327,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     private void restoreGpuSettings(Context context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (prefs == null) {
+                Log.w(TAG, "SharedPreferences is null for GPU settings");
+                return;
+            }
             boolean hasPerformanceProfile = prefs.contains(KEY_PERFORMANCE_PROFILE);
             if (hasPerformanceProfile) {
                 Log.d(TAG, "Performance profile active, skipping individual GPU settings restore");
-                return;
-            }
-            if (prefs == null) {
-                Log.w(TAG, "SharedPreferences is null for GPU settings");
                 return;
             }
             GpuManagerUtils gpuUtils = new GpuManagerUtils();

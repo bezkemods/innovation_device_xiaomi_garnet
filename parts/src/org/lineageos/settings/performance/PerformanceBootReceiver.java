@@ -29,17 +29,20 @@ public class PerformanceBootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent != null && Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             Log.d(TAG, "Boot completed, restoring performance profile");
-            
+
+            // NOTE: BootCompletedReceiver already restores the profile at
+            // ACTION_LOCKED_BOOT_COMPLETED. If both receivers are registered
+            // in the manifest, remove this one to avoid a double apply.
             try {
                 PerformanceUtils performanceUtils = new PerformanceUtils(context);
                 int currentMode = performanceUtils.getCurrentMode();
-                
-                // Restore the saved performance mode
-                boolean success = performanceUtils.setPerformanceMode(currentMode);
-                
-                Log.d(TAG, "Performance profile restored to: " + 
+
+                // Restore silently (no haptic feedback at boot)
+                boolean success = performanceUtils.setPerformanceMode(currentMode, false);
+
+                Log.d(TAG, "Performance profile restored to: " +
                     performanceUtils.getModeLabel(currentMode) + ", success: " + success);
-                
+
             } catch (Exception e) {
                 Log.e(TAG, "Error restoring performance profile on boot", e);
             }
