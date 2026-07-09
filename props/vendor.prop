@@ -151,7 +151,6 @@ persist.sys.fuse.passthrough.enable=true
 vendor.gatekeeper.disable_spu=true
 
 # Graphics
-debug.sf.auto_latch_unsignaled=0
 debug.sf.disable_client_composition_cache=1
 debug.sf.early.app.duration=7666666
 debug.sf.early.sf.duration=6333333
@@ -162,7 +161,7 @@ debug.sf.latch_unsignaled=0
 debug.sf.late.app.duration=7666666
 debug.sf.late.sf.duration=6333333
 debug.sf.predict_hwc_composition_strategy=1
-debug.sf.set_idle_timer_ms=1100
+debug.sf.set_idle_timer_ms=500
 debug.sf.treat_170m_as_sRGB=1
 debug.sf.use_phase_offsets_as_durations=1
 persist.sys.sf.color_mode=0

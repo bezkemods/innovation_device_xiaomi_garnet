@@ -10,6 +10,17 @@ log.tag.CHIUSECASE=ERROR
 # CNE
 persist.vendor.cne.feature=1
 
+# Dalvik / ART — dex2oat parallelism (garnet: cpu0-3 A55, cpu4-7 A78)
+dalvik.vm.boot-dex2oat-threads=8
+dalvik.vm.boot-dex2oat-cpu-set=0,1,2,3,4,5,6,7
+dalvik.vm.dex2oat-threads=8
+dalvik.vm.dex2oat-cpu-set=0,1,2,3,4,5,6,7
+dalvik.vm.image-dex2oat-threads=8
+dalvik.vm.dex2oat-swap=false
+# Background dexopt pinned to the little cores (heat/battery)
+dalvik.vm.background-dex2oat-threads=4
+dalvik.vm.background-dex2oat-cpu-set=0,1,2,3
+
 # Deep Sleep
 pm.sleep_mode=1
 
@@ -22,6 +33,16 @@ debug.graphics.game_default_frame_rate.disabled=true
 # Display
 debug.sf.frame_rate_multiple_threshold=120
 persist.sysui.blur_radius=30
+
+# Media
+media.stagefright.thumbnail.prefer_hw_codecs=true
+
+# SQLite — WAL sync NORMAL: fewer fsyncs; last transaction may be lost
+# on sudden power loss, no corruption risk
+debug.sqlite.wal.syncmode=NORMAL
+
+# StrictMode off (user build; minor overhead reduction)
+persist.sys.strictmode.disable=true
 
 # Log
 persist.log.tag.ACDB-LOADER=S
